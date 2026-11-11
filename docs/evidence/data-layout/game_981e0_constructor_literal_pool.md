@@ -221,3 +221,24 @@ remain required on replay; focused zero alone grants no acceptance.
 
 No compiler, linker implementation, verifier, comparator, Makefile, shared header,
 assembly, or source-unit boundary mechanism is changed.
+
+## func_15070898 literals and the split (nov13)
+
+`func_15070898` fills a third flame descriptor with 32 per-function constants. Its raw HI16/LO16 pairs address the
+consecutive words `0x80099EAC..0x80099F2B`; no other reference function touches them. The checksum-validated US ROM
+holds `4205E4C2 C10D6870 C31FC000 3E99999A C0977CF0 C2DFEA4A 3E8E5604 3F53F7D0 3EA66666 40E33333 41111EB8 3BE1C582
+3C2A10E0 3EBBE76D 3E83126F 3EB33334 3E51EB86 3F46A7F0 3F4F9DB3 3FA7CEDA 3F6F63F5 3F718612 3E9D2F1B 3B03126F
+3ECD4FE0 3F3645A2 3E50E561 3F010625 3E23D70B 3DE76C8C BF049BA6 3EC08313` there (33.473396, -8.837997, -159.75, 0.3,
+-4.734001, -111.957596, 0.278, 0.82800007, 0.325, 7.1, 9.07, 0.00689, 0.01038, 0.367, 0.256, 0.35000002, 0.20500001,
+0.776, 0.81100005, 1.3110001, 0.935119, 0.943452, 0.307, 0.002, 0.40100002, 0.712, 0.20400001, 0.504, 0.16000001,
+0.113000005, -0.518, 0.37600002). IDO emits each distinct value once within the function, in this order, and the
+compiled object's rodata bytes `0x144..0x1C3` equal those 32 words. With these literals the function is `CURRENT (0)`;
+the deferred candidate (identical apart from writing the integer `5` for the float field at `+0C0`) scored 2825.
+
+The words between the pools, `0x80099E98..0x80099EA8`, stay extern reads of matched members (`D_80099E98`,
+`D_80099E9C`, `D_80099EA0`, `D_80099EA4`, `D_80099EA8`), and `0x80099F2C` is an extern of a later member. game_981E0 is
+therefore a split unit. The object's 0x1D0-byte rodata (0x1C4 payload and 12 zero alignment bytes) is split by
+`scripts/split_game_rodata.py` into `.rodata.981e0_0` (the `func_1506DE84` table, 0x38 at `0x80099D54`, sites
+0x3170/0x3178), `.rodata.981e0_38` (the leading and constructor literals, 0x10C at `0x80099D8C`) and
+`.rodata.981e0_144` (0x80 at `0x80099EAC`), each with an exact size assertion. `config/data/us.json` records the three
+owners and `tests/test_data_boundaries.py` checks the constructor range by its new section name.

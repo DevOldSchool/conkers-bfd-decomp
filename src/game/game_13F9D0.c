@@ -9,8 +9,6 @@
  * - func_15112520
  * - func_15112A80
  * - func_15113218
- * - func_15113C88
- * - func_15113E54
  * - func_15114188
  * - func_15114A1C
  * - func_15114D24
@@ -378,152 +376,104 @@ typedef struct Game13F9D0ActiveEntry {
     u8 pad98[8];
 } Game13F9D0ActiveEntry;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113C88 CURRENT (2105) */
 void func_15113C88(void) {
     s32 player;
     s32 blocked;
     s32 index;
-    s32 offset;
     s32 active;
     u8 *callback;
     Game13F9D0ActiveEntry *entry;
 
-    index = 0;
-    offset = 0;
-    if (D_800DBEF0 > 0) {
-        do {
-            blocked = 0;
-            player = 0;
-            entry = (Game13F9D0ActiveEntry *)(offset + D_800DBEF4);
-            if (D_80082FA0 > 0) {
-                do {
-                    if ((func_150859AC((s16)player, 0) != 0) &&
-                        (entry->players[player] == 0)) {
-                        blocked = 1;
-                        break;
-                    }
-                    player++;
-                } while (player < D_80082FA0);
+    for (index = 0; index < D_800DBEF0; index++) {
+        blocked = 0;
+        entry = (Game13F9D0ActiveEntry *)(index * 0xA0 + D_800DBEF4);
+        for (player = 0; player < D_80082FA0; player++) {
+            if ((func_150859AC((s16)player, 0) == 0) || (entry->players[player] != 0)) {
+                continue;
             }
-            if (!(entry->state & 8) && (entry->enabled != 0) &&
-                ((entry->flags & 0x10) != 0x10) && (blocked == 0)) {
-                if ((D_800C3658 == 0) && (D_800C35EA == 1)) {
-                    if (func_15022B08(index, 0) != 0) {
-                        goto check_flags;
-                    }
-                    goto inactive;
-                }
-check_flags:
-                active = 1;
-                if (!(entry->flags & 1)) {
-                    goto inactive;
-                }
-            } else {
-inactive:
-                active = 0;
+            blocked = 1;
+            break;
+        }
+        if ((entry->state & 8) || (entry->enabled == 0) || ((entry->flags & 0x10) == 0x10) ||
+            (blocked != 0) ||
+            ((D_800C3658 == 0) && (D_800C35EA == 1) && (func_15022B08(index, 0) == 0)) ||
+            !(entry->flags & 1)) {
+            active = 0;
+        } else {
+            active = 1;
+        }
+        if (active != 0) {
+            if (entry->callback == 0) {
+                entry->callback = func_1510D970(1, (s32)entry, 0, 1, 0);
             }
-            if (active != 0) {
-                if (entry->callback == 0) {
-                    entry->callback = func_1510D970(1, (s32)entry, 0, 1, 0);
-                }
-            } else {
-                callback = entry->callback;
-                if (callback != 0) {
-                    func_1516972C(callback);
-                    entry->callback = 0;
-                }
+        } else {
+            callback = entry->callback;
+            if (callback != 0) {
+                func_1516972C(callback);
+                entry->callback = 0;
             }
-            index++;
-            offset += 0xA0;
-        } while (index < D_800DBEF0);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15113C88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113C88.s")
 extern s32 D_80087380;
 extern s32 D_800DBF98;
 extern void *D_800D23C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113E54 CURRENT (3071) */
-void func_15113E54(s32 arg0) {
-    s16 var_s3;
-    s16 var_s4;
-    s16 var_s5;
-    s32 temp_s2;
-    s32 var_fp;
-    s32 var_s1;
-    s32 var_s1_2;
-    s32 var_s2;
-    s32 var_s6;
-    s32 var_s7;
-    u16 temp_v0;
-    u16 var_a0;
-    void *temp_s0;
-    void *temp_s0_2;
-    void *var_a1;
+typedef struct Game13F9D0Group {
+    u16 unk0;
+    u16 count;
+    s32 unk4;
+    u16 entries[8];
+} Game13F9D0Group;
 
-    var_s3 = 0;
-    var_s4 = 0;
-    temp_s2 = D_800DBEF0 - D_800DBF98;
-    var_s5 = 0;
-    var_s6 = 0;
-    var_fp = 0;
-    if (temp_s2 > 0) {
-        var_s1 = 0;
-        do {
-            temp_s0 = (void *)(var_s1 + D_800DBEF4);
-            if (((*(u8 *)((u8 *)temp_s0 + 0x6F) & 0x40) == 0x40) && (*(u8 *)((u8 *)temp_s0 + 0x6E) == 0)) {
-                (*(void (**)(void *))((u8 *)temp_s0 + 0x38))(temp_s0);
-            }
-            var_fp += 1;
-            var_s1 += 0xA0;
-        } while (var_fp != temp_s2);
-        var_fp = 0;
+void func_15113E54(s32 arg0) {
+    s16 x;
+    s16 y;
+    s16 z;
+    s32 count;
+    s32 w;
+    s32 i;
+    s32 j;
+    s32 value;
+    u8 *actor;
+
+    x = 0;
+    y = 0;
+    count = D_800DBEF0 - D_800DBF98;
+    z = 0;
+    w = 0;
+    for (i = 0; i < count; i++) {
+        actor = D_800DBEF4 + i * 0xA0;
+        if (((actor[0x6F] & 0x40) == 0x40) && (actor[0x6E] == 0)) {
+            (*(void (**)(u8 *))(actor + 0x38))(actor);
+        }
     }
-    if (D_80087380 > 0) {
-        var_s7 = 0;
-        var_a1 = D_800D23C0;
-        do {
-            if (((s32) *(u16 *)((u8 *)var_a1 + 8) >> 0xC) == 2) {
-                var_a0 = *(u16 *)((u8 *)var_a1 + 2);
-                var_s1_2 = 0;
-                var_s2 = 0;
-                if ((s32) var_a0 > 0) {
-                    do {
-                        temp_v0 = *(u16 *)((u8 *)D_800D23C0 + (var_fp * 0x18) + var_s2 + 8);
-                        if (((s32) temp_v0 >> 0xC) == 2) {
-                            temp_s0_2 = (void *)(((temp_v0 & 0xFFF) * 0xA0) + D_800DBEF4);
-                            if (((*(u8 *)((u8 *)temp_s0_2 + 0x6F) & 0x40) == 0x40) && (*(u8 *)((u8 *)temp_s0_2 + 0x6E) == 0)) {
-                                if (var_s1_2 != 0) {
-                                    *(s16 *)((u8 *)temp_s0_2 + 0x5A) = var_s3;
-                                    *(s16 *)((u8 *)temp_s0_2 + 0x5C) = var_s4;
-                                    *(s16 *)((u8 *)temp_s0_2 + 0x5E) = var_s5;
-                                    *(s32 *)((u8 *)temp_s0_2 + 0x80) = var_s6;
-                                }
-                                (*(void (**)(void *))((u8 *)temp_s0_2 + 0x38))(temp_s0_2);
-                                var_a1 = (u8 *)D_800D23C0 + var_s7;
-                                var_a0 = *(u16 *)((u8 *)var_a1 + 2);
-                            }
-                            if (var_s1_2 == 0) {
-                                var_s3 = *(s16 *)((u8 *)temp_s0_2 + 0x5A);
-                                var_s4 = *(s16 *)((u8 *)temp_s0_2 + 0x5C);
-                                var_s5 = *(s16 *)((u8 *)temp_s0_2 + 0x5E);
-                                var_s6 = *(s32 *)((u8 *)temp_s0_2 + 0x80);
-                            }
+    for (i = 0; i < D_80087380; i++) {
+        if ((((Game13F9D0Group *)D_800D23C0)[i].entries[0] >> 12) == 2) {
+            for (j = 0; j < ((Game13F9D0Group *)D_800D23C0)[i].count; j++) {
+                value = ((Game13F9D0Group *)D_800D23C0)[i].entries[j];
+                if ((value >> 12) == 2) {
+                    actor = D_800DBEF4 + (value & 0xFFF) * 0xA0;
+                    if (((actor[0x6F] & 0x40) == 0x40) && (actor[0x6E] == 0)) {
+                        if (j != 0) {
+                            *(s16 *)(actor + 0x5A) = x;
+                            *(s16 *)(actor + 0x5C) = y;
+                            *(s16 *)(actor + 0x5E) = z;
+                            *(s32 *)(actor + 0x80) = w;
                         }
-                        var_s1_2 += 1;
-                        var_s2 += 2;
-                    } while (var_s1_2 < (s32) var_a0);
+                        (*(void (**)(u8 *))(actor + 0x38))(actor);
+                    }
+                    if (j == 0) {
+                        x = *(s16 *)(actor + 0x5A);
+                        y = *(s16 *)(actor + 0x5C);
+                        z = *(s16 *)(actor + 0x5E);
+                        w = *(s32 *)(actor + 0x80);
+                    }
                 }
             }
-            var_fp += 1;
-            var_s7 += 0x18;
-            var_a1 = (u8 *)var_a1 + 0x18;
-        } while (var_fp < D_80087380);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15113E54 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113E54.s")
 
 typedef struct Game13F9D0Entry {
     u8 pad0[0x4F];

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1512D748
  * - func_1512D980
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -39,17 +38,17 @@ typedef struct Game15ABA0Envelope {
 
 extern u8 D_800895D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512D748 CURRENT (1835) */
 void func_1512D748(void *view, s32 preset_index, s32 mode) {
     Game15ABA0Envelope *envelope;
     u8 *preset;
-    f32 rise_duration;
-    f32 fall_duration;
-    f32 release_duration;
-    f32 peak_level;
-    f32 sustain_level;
+    f32 sustain;
+    f32 rise;
+    f32 fall;
+    f32 release;
+    f32 peak;
     f32 fall_end;
     f32 sustain_end;
+    f32 release_end;
 
     envelope = (Game15ABA0Envelope *)(D_800DC2C0 +
         (*(u8 *)((u8 *)view + 0x23D) * 0x68));
@@ -65,29 +64,28 @@ void func_1512D748(void *view, s32 preset_index, s32 mode) {
         envelope->preset[7] = (f32)(u32)preset[7];
         envelope->preset[8] = (f32)(u32)preset[8];
         envelope->preset[9] = (f32)(u32)preset[9];
-        rise_duration = envelope->preset[4];
-        fall_duration = envelope->preset[5];
-        fall_end = fall_duration + rise_duration;
+        rise = envelope->preset[4];
+        fall = envelope->preset[5];
+        fall_end = fall + rise;
         sustain_end = envelope->preset[6] + fall_end;
-        release_duration = envelope->preset[7];
-        peak_level = envelope->preset[8];
+        release = envelope->preset[7];
+        peak = envelope->preset[8];
+        release_end = release + sustain_end;
+        envelope->threshold[3] = release_end;
         envelope->threshold[1] = fall_end;
         envelope->threshold[2] = sustain_end;
-        envelope->threshold[0] = rise_duration;
+        envelope->threshold[0] = rise;
         envelope->elapsed = 0.0f;
         envelope->amplitude = 0.0f;
-        envelope->threshold[3] = release_duration + sustain_end;
-        envelope->rate[0] = peak_level / rise_duration;
-        sustain_level = envelope->preset[9];
+        envelope->rate[0] = peak / rise;
+        sustain = envelope->preset[9];
+        envelope->rate[1] = (peak - sustain) / fall;
         envelope->rate[2] = 0.0f;
-        envelope->rate[1] = (peak_level - sustain_level) / fall_duration;
+        envelope->rate[3] = sustain / release;
         envelope->state = 0;
         envelope->mode = mode;
-        envelope->rate[3] = sustain_level / release_duration;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512D748 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15ABA0/func_1512D748.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_1512D6F0: unique active declaration in the allowed source */
 f32 func_15047D60(f32);

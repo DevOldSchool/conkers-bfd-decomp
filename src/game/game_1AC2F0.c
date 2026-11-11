@@ -12,7 +12,6 @@
  * - func_15180580
  * - func_151814FC
  * - func_15181EE0
- * - func_15182670
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -452,36 +451,32 @@ void func_15181E18(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181EE0.s")
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182670 CURRENT (3035) */
 void func_15182670(u8 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
                    u8 arg5, u8 arg6, s32 arg7) {
+    void *result;
     struct {
         u8 value0;
         u8 value1;
         u8 value2;
         u8 value3;
         u8 value4;
-        u8 pad;
         s16 quotient;
-        s32 trailing;
     } payload;
-    void *result;
 
-    if (arg4 > 0) {
-        payload.value0 = arg0;
-        payload.quotient = (s16)((s32)arg3 / arg4);
-        payload.value3 = arg3;
-        payload.value1 = arg1;
-        payload.value2 = arg2;
-        payload.value4 = arg5;
-        result = func_15149130(arg4, -1, 0x39, 3, 1, 0, 8, arg6, arg7);
-        if (result != 0) {
-            func_10022EC0((u8 *)result + 0x28, &payload, 8);
-        }
+    if (arg4 <= 0) {
+        return;
+    }
+    payload.value0 = arg0;
+    payload.value1 = arg1;
+    payload.value2 = arg2;
+    payload.value3 = arg3;
+    payload.value4 = arg5;
+    payload.quotient = arg3 / arg4;
+    result = func_15149130(arg4, -1, 0x39, 3, 1, 0, 8, arg6, arg7);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x28, &payload, 8);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15182670 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15182670.s")
 typedef struct Game1AC2F0Object {
     u8 pad0[0xE];
     s16 field_E;

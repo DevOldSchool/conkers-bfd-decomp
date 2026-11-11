@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1514CA80
  * - func_1514D64C
- * - func_1514E920
  * - func_1514EECC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1013,47 +1012,44 @@ s32 func_1514E89C(void *arg0, s32 arg1, s32 arg2) {
     return 1;
 }
 s32 func_1514E89C(void *, s32, s32);
-s32 func_1514E920();
+s32 func_1514E920(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514E920 CURRENT (2340) */
-s32 func_1514E920(void *arg0, s32 arg1, s32 arg2) {
+s32 func_1514E920(s32 arg0, s32 arg1, s32 arg2) {
     s32 flags;
-    void *state;
-    void *object;
+    s32 state;
+    s32 object;
 
-    state = (u8 *)arg0 + 0x110;
+    state = arg0 + 0x110;
     switch (arg1) {
         case 0:
-            flags = *(s32 *)((u8 *)arg0 + 0x10);
+            flags = *(s32 *)(arg0 + 0x10);
             if (flags & 1) {
-                *(s32 *)((u8 *)arg0 + 0x10) = flags & ~1;
-                object = *(void **)((u8 *)state + 0x44);
+                *(s32 *)(arg0 + 0x10) = flags & ~1;
+                object = *(s32 *)(state + 0x44);
                 if (object != 0) {
-                    *(s8 *)((u8 *)object + 0x30) = 0;
+                    *(s8 *)(object + 0x30) = 0;
                 }
             } else {
-                *(s32 *)((u8 *)arg0 + 0x10) = flags | 1;
+                *(s32 *)(arg0 + 0x10) = flags | 1;
+            }
+            break;
+        case 2:
+            *(s32 *)(arg0 + 0x10) &= ~1;
+            object = *(s32 *)(state + 0x44);
+            if (object != 0) {
+                *(s8 *)(object + 0x30) = 0;
             }
             break;
         case 1:
-            *(s32 *)((u8 *)arg0 + 0x10) |= 1;
-            break;
-        case 2:
-            *(s32 *)((u8 *)arg0 + 0x10) &= ~1;
-            object = *(void **)((u8 *)state + 0x44);
-            if (object != 0) {
-                *(s8 *)((u8 *)object + 0x30) = 0;
-            }
+            *(s32 *)(arg0 + 0x10) |= 1;
             break;
         default:
-            return func_1514E89C(arg0, arg1, arg2);
+            return func_1514E89C((void *)arg0, arg1, arg2);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514E920 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514E920.s")
-void func_1514E9DC(void) {
-    func_1514E920();
+void func_1514E9DC(s32 arg0, s32 arg1, s32 arg2) {
+    func_1514E920(arg0, arg1, arg2);
 }
 void func_1514E9FC(void *arg0, s32 arg1, s32 arg2) {
     func_1514E89C(arg0, arg1, arg2);

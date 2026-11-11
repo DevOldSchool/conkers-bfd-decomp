@@ -8,8 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151408A4
  * - func_151412BC
- * - func_15141478
- * - func_151416E8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -185,41 +183,24 @@ void func_1514143C(void *arg0) {
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141478 CURRENT (2350) */
 s32 func_15141478(u8 *arg0) {
     struct Range { f32 base, low, high, target, timer, period, rate; };
     struct Output { u8 pad[0x48]; f32 value; };
-    f32 random;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    struct Output *temp_a0;
-    struct Range *temp_v1;
-    struct Range *temp_v1_2;
+    struct Output *out = (struct Output *)(arg0 + 0x110);
+    struct Range *range = (struct Range *)(arg0 + 0x170);
 
-    *(f32 *)((u8 *)arg0 + 0x180) = (f32) (*(f32 *)((u8 *)arg0 + 0x180) - D_800BE9A4);
-    if (*(f32 *)((u8 *)arg0 + 0x180) < 0.0f) {
-        random = func_150ADA68();
-        temp_v1 = (void *)(arg0 + 0x170);
-        temp_v1->timer = (f32) (random * temp_v1->period);
+    range->timer -= D_800BE9A4;
+    if (range->timer < 0.0f) {
+        range->timer = func_150ADA68() * range->period;
         if (func_150ADA20() & 3) {
-            random = func_150ADA68();
-            temp_fv1 = temp_v1->low;
-            temp_v1->target = (f32) ((random * (temp_v1->base - temp_fv1)) + temp_fv1);
+            range->target = func_150ADA68() * (range->base - range->low) + range->low;
         } else {
-            random = func_150ADA68();
-            temp_fv1_2 = temp_v1->base;
-            temp_v1->target = (f32) ((random * (temp_v1->high - temp_fv1_2)) + temp_fv1_2);
+            range->target = func_150ADA68() * (range->high - range->base) + range->base;
         }
     }
-    temp_a0 = (void *)(arg0 + 0x110);
-    temp_v1_2 = (void *)(arg0 + 0x170);
-    temp_fv0 = temp_a0->value;
-    temp_a0->value = (f32) (temp_fv0 + ((temp_v1_2->target - temp_fv0) * temp_v1_2->rate));
+    out->value = out->value + (range->target - out->value) * range->rate;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15141478 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_15141478.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
@@ -279,17 +260,18 @@ s32 func_151415D4(void *arg0) {
     return 1;
 }
 typedef void (*Game16DC80Callback)(u8 *, u8 *, u8);
-extern Game16DC80Callback D_8008A02C;
+extern Game16DC80Callback D_8008A02C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151416E8 CURRENT (1995) */
 void func_151416E8(u8 *arg0, u8 *arg1, u8 arg2) {
-    if (*(&D_8008A02C + arg0[0x168]) != 0) {
-        (*(&D_8008A02C + arg0[0x168]))(arg0, arg1, arg2);
-    }
-    if ((arg2 == 0x22) || (arg2 == 0x24) || (arg2 == 0x25)) {
-        s8 *state;
+    u8 *selector;
+    s8 *state;
 
-        state = (s8 *)arg0 + 0x110;
+    selector = arg0 + 0x168;
+    if (D_8008A02C[*selector] != 0) {
+        D_8008A02C[*selector](arg0, arg1, arg2);
+    }
+    state = (s8 *)arg0 + 0x110;
+    if ((arg2 == 0x22) || (arg2 == 0x24) || (arg2 == 0x25)) {
         if (*arg1 == (u8)state[0x58]) {
             switch (arg2) {
                 case 0x22:
@@ -305,8 +287,6 @@ void func_151416E8(u8 *arg0, u8 *arg1, u8 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151416E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151416E8.s")
 typedef struct {
     s32 field_0;
     s32 field_4;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dispatch_position_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150FF084
  * - func_150FF474
  * - func_150FF6E0
  *
@@ -134,7 +133,6 @@ void func_150F7470(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32,
                     void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A2114, D_800A2118;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF084 CURRENT (2758) */
 void func_150FF084(u8 *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
     f32 endpoint[3];
@@ -150,7 +148,6 @@ void func_150FF084(u8 *arg0, s32 arg1, s32 arg2) {
     s32 value1;
     s32 lookup;
     u8 valid;
-    s32 enabled;
 
     lookup = func_150FF288(arg0);
     if (lookup != 0) {
@@ -164,25 +161,19 @@ void func_150FF084(u8 *arg0, s32 arg1, s32 arg2) {
         func_150FF2D4(&valid, points, position, hit, normal, direction,
                         (s32)axis0, (s32)axis1, (s32)output0, (s32)output1,
                         (s32)&value0, (s32)&value1, endpoint, (f32 *)arg0, lookup);
-        enabled = 1;
-        if (value1 == 0) {
-            enabled = 0;
-        }
-        func_150F7470(position, direction, value0, value1, enabled, 0,
+        func_150F7470(position, direction, value0, value1, value1 == 0 ? 0 : 1, 0,
                         D_800A2114, D_800A2118, 300.0f, arg0, 1, 1, 1, 0,
                         0x1A, 1, ((u32)func_150ADA20() % 5U) + 0x327, 0,
-                        (u8)arg1, arg2);
+                        *(u8 *)((u8 *)&arg1 + 3), arg2);
         if (valid != 0) {
-            func_151D3F14(position, (u8)arg1, arg2);
+            func_151D3F14(position, *(u8 *)((u8 *)&arg1 + 3), arg2);
             func_151D4408(hit, normal,
-                            *(s32 *)(arg0 + 0x1D4) + (*(u8 *)(lookup + 2) << 6),
-                            arg0, 1.0f, (u8)arg1, arg2);
-            func_150FF474(position, points, (u8)arg1, arg2);
+                            (s32)((Game12C1E0EmissionOwner *)arg0)->resource1D4[*(u8 *)(lookup + 2)],
+                            arg0, 1.0f, *(u8 *)((u8 *)&arg1 + 3), arg2);
+            func_150FF474(position, points, *(u8 *)((u8 *)&arg1 + 3), arg2);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FF084 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF084.s")
 
 s32 func_150FF288(void *arg0) {
     return func_1503195C(arg0, 0x82, 0);

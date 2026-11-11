@@ -15,7 +15,6 @@
  * - func_151EB96C
  * - func_151EC3E8
  * - func_151EC648
- * - func_151ED29C
  * - func_151ED430
  * - func_151ED90C
  * - func_151EDF4C
@@ -813,14 +812,16 @@ extern u8 D_8009DEB4[];
 extern u8 D_8009DEB8[];
 extern u8 D_8009DEBC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED29C CURRENT (1755) */
 void *func_151ED29C(Gfx *arg0, u8 *arg1, s32 *arg2) {
     s32 masks;
     s32 maskt;
     s32 i;
     s32 fmt;
+    s32 size;
 
-    *arg2 = (D_8009DEB0[arg1[0xB]] + *(u16 *)(arg1 + 6) * *(u16 *)(arg1 + 8)) >> D_8009DEB4[arg1[0xB]];
+    size = *(u16 *)(arg1 + 6) * *(u16 *)(arg1 + 8) + D_8009DEB0[arg1[0xB]];
+    size >>= D_8009DEB4[arg1[0xB]];
+    *arg2 = size;
     masks = 1;
     for (i = 2; i < *(u16 *)(arg1 + 6); i *= 2) {
         masks++;
@@ -829,15 +830,20 @@ void *func_151ED29C(Gfx *arg0, u8 *arg1, s32 *arg2) {
     for (i = 2; i < *(u16 *)(arg1 + 8); i *= 2) {
         maskt++;
     }
-    gDPPipeSync(arg0++);
     fmt = arg1[0xA];
+    gDPPipeSync(arg0++);
     gDPSetTile(arg0++, fmt, D_8009DEBC[arg1[0xB]], 0, 0, G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0);
-    gDPSetTile(arg0++, fmt, arg1[0xB], ((D_8009DEB8[arg1[0xB]] * *(u16 *)(arg1 + 6)) + 7) >> 3, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, maskt, G_TX_NOLOD, G_TX_CLAMP, masks, G_TX_NOLOD);
-    gDPSetTileSize(arg0++, G_TX_RENDERTILE, 0, 0, (*(u16 *)(arg1 + 6) - 1) << G_TEXTURE_IMAGE_FRAC, (*(u16 *)(arg1 + 8) - 1) << G_TEXTURE_IMAGE_FRAC);
+    gDPSetTile(arg0++, fmt, arg1[0xB], ((*(u16 *)(arg1 + 6) * D_8009DEB8[arg1[0xB]]) + 7) >> 3, 0, G_TX_RENDERTILE, 0,
+               G_TX_CLAMP, maskt, G_TX_NOLOD, G_TX_CLAMP, masks, G_TX_NOLOD);
+    {
+        Gfx *tileSize = arg0++;
+
+        tileSize->words.w0 = _SHIFTL(G_SETTILESIZE, 24, 8);
+        tileSize->words.w1 = _SHIFTL((*(u16 *)(arg1 + 8) - 1) << G_TEXTURE_IMAGE_FRAC, 0, 12) |
+                             _SHIFTL((*(u16 *)(arg1 + 6) - 1) << G_TEXTURE_IMAGE_FRAC, 12, 12);
+    }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ED29C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED29C.s")
 typedef struct Game215960Sprite {
     s32 resource;
     u8 pad4[2];
@@ -1263,11 +1269,9 @@ Game215960Command *func_151EEBE8(Game215960Command *arg0, s32 arg1) {
 }
 extern s32 D_800E9D00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 CURRENT (2030) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 CURRENT (1300) */
 void func_151EEFF0(void) {
-    volatile s32 zero = 0;
-
-    D_800E9D00 = zero;
+    D_800E9D00 = 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEFF0.s")

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151D9014
- * - func_151D9534
  * - func_151D9B8C
  * - func_151DA08C
  * - func_151DA368
@@ -16,7 +15,6 @@
  * - func_151DBAA8
  * - func_151DBCBC
  * - func_151DC034
- * - func_151DC484
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -257,13 +255,13 @@ void *func_151D9014(f32 *arg0, f32 *arg1, s32 arg2, f32 arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
 
 
-s32 func_151D9534(s32, s32);                        /* extern */
+s32 func_151D9534(u8 *, s32);
 
 s32 func_151D93F4(s32 arg0, s32 arg1) {
     s32 var_v1;
 
     if (func_151D9450((void *)arg0, (void *)arg1) != 0) {
-        if (func_151D9534(arg0, arg1) != 0) {
+        if (func_151D9534((u8 *)arg0, arg1) != 0) {
             var_v1 = 1;
         } else {
             var_v1 = 0;
@@ -313,15 +311,19 @@ f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800AB44C, D_800AB450, D_800AB454, D_800AB458, D_800AB45C, D_800AB460;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9534 CURRENT (2086) */
-s32 func_151D9534(s32 arg0, s32 arg1) {
-    volatile u8 active;
+s32 func_151D9534(u8 *actor, s32 arg1) {
+    typedef struct {
+        u8 pad[0x10];
+        f32 unk10;
+        f32 unk14;
+        u8 unk18;
+    } Sub;
+    u8 active;
     f32 point[3];
-    f32 average;
     f32 damping;
-    u8 *actor;
+    f32 average;
+    Sub *sub;
 
-    actor = (u8 *)arg0;
     active = 1;
     if (*(f32 *)(actor + 0x44) < *(f32 *)(arg1 + 4)) {
         point[0] = *(f32 *)(actor + 0x40);
@@ -332,9 +334,8 @@ s32 func_151D9534(s32 arg0, s32 arg1) {
             point[1] = *(f32 *)(actor + 0x80) + 2.0f;
             if (actor[0xC1] & 2) {
                 damping = D_800AB44C;
-                average = *(f32 *)(actor + 0x3C) * D_800AB450 + point[1];
+                *(f32 *)(actor + 0x44) = point[1] + *(f32 *)(actor + 0x3C) * D_800AB450;
                 *(f32 *)(actor + 0x58) *= damping;
-                *(f32 *)(actor + 0x44) = average;
                 *(f32 *)(actor + 0x5C) *= D_800AB454;
                 *(f32 *)(actor + 0x60) *= damping;
                 if (fabsf(*(f32 *)(actor + 0x5C)) < D_800AB458) {
@@ -346,18 +347,16 @@ s32 func_151D9534(s32 arg0, s32 arg1) {
                 }
             } else {
                 active = 0;
-                average = (*(f32 *)(actor + 0x38) + *(f32 *)(actor + 0x3C)) * 0.5f;
-                arg1 = (s32)(actor + 0xA8);
+                average = (*(f32 *)(actor + 0x3C) + *(f32 *)(actor + 0x38)) * 0.5f;
+                sub = (Sub *)(actor + 0xA8);
                 if (actor[0x9D] == 3) {
-                    func_151D9FC0(*(u8 *)(arg1 + 0x18), *(f32 *)(arg1 + 0x14) * average,
+                    func_151D9FC0(sub->unk18, sub->unk14 * average,
                         actor[0x2B], (s32)(actor + 0x84), point, actor[0xC], actor[1]);
                 } else if (func_150ADA20() & 1) {
-                    arg1 = (s32)(actor + 0xA8);
-                    func_151D9B8C(*(u8 *)(arg1 + 0x18), average * D_800AB45C * *(f32 *)(arg1 + 0x10),
+                    func_151D9B8C(sub->unk18, average * D_800AB45C * sub->unk10,
                         actor[0x2B], (s32)(actor + 0x84), point, 0x64, 0, 1, 0, actor[0xC], actor[1]);
                 } else {
-                    arg1 = (s32)(actor + 0xA8);
-                    func_151DAB58(*(u8 *)(arg1 + 0x18), average * D_800AB460 * *(f32 *)(arg1 + 0x10),
+                    func_151DAB58(sub->unk18, average * D_800AB460 * sub->unk10,
                         actor[0x2B], point, 1, actor[0xC], actor[1]);
                 }
             }
@@ -365,8 +364,6 @@ s32 func_151D9534(s32 arg0, s32 arg1) {
     }
     return active;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D9534 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9534.s")
 typedef struct {
     u32 field_0;
     u32 field_4;
@@ -1739,10 +1736,8 @@ void func_151DC260(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC484 CURRENT (2910) */
-void func_151DC484(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_151DC484(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     Game2062D0Params params;
-    Game2062D0SecondaryParams secondary;
 
     params.vector = *arg0;
     params.field50 = 8;
@@ -1767,31 +1762,33 @@ void func_151DC484(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 ar
     params.field48 = 8.0f;
     params.field4C = 5.0f;
     params.field64 = 1.0f;
-    params.field60 = (u8)arg2;
-    func_15153F18(&params.field24, &params.vector, arg1, (u8)arg3, arg4);
-    secondary.vector = *arg0;
-    secondary.field14 = 0xC;
-    secondary.field16 = 6;
-    secondary.field02 = 0xFF;
-    secondary.field00 = 0;
-    secondary.field04 = -0x40;
-    secondary.field06 = 0x1A;
-    secondary.field20 = 0x23;
-    secondary.field22 = 0xF;
-    secondary.field2C = 0x9B;
-    secondary.field2D = 0x64;
-    secondary.field30 = 59.0f;
-    secondary.field34 = 59.0f;
-    secondary.field38 = 1;
-    secondary.field40 = 1;
-    secondary.field44 = 0.0f;
-    secondary.field18 = 7.0f;
-    secondary.field1C = 3.0f;
-    secondary.field24 = D_800AB4EC;
-    secondary.field28 = D_800AB4F0;
-    secondary.field39 = (u8)arg2;
-    secondary.field3C = D_800AB4F4;
-    func_15150178(&secondary.field00, (f32 *)&secondary.vector, arg1, arg3, arg4);
+    params.field60 = arg2;
+    func_15153F18(&params.field24, &params.vector, arg1, arg3, arg4);
+    {
+        Game2062D0SecondaryParams secondary;
+
+        secondary.vector = *arg0;
+        secondary.field14 = 0xC;
+        secondary.field16 = 6;
+        secondary.field02 = 0xFF;
+        secondary.field00 = 0;
+        secondary.field04 = -0x40;
+        secondary.field06 = 0x1A;
+        secondary.field20 = 0x23;
+        secondary.field22 = 0xF;
+        secondary.field2C = 0x9B;
+        secondary.field2D = 0x64;
+        secondary.field30 = 59.0f;
+        secondary.field34 = 59.0f;
+        secondary.field38 = 1;
+        secondary.field18 = 7.0f;
+        secondary.field1C = 3.0f;
+        secondary.field24 = D_800AB4EC;
+        secondary.field28 = D_800AB4F0;
+        secondary.field39 = arg2;
+        secondary.field40 = 1;
+        secondary.field3C = D_800AB4F4;
+        secondary.field44 = 0.0f;
+        func_15150178(&secondary.field00, (f32 *)&secondary.vector, arg1, arg3, arg4);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DC484 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC484.s")

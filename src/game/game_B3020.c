@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15085BE8
- * - func_15085DF8
  * - func_15086098
  * - func_15086364
  *
@@ -143,62 +142,58 @@ extern s32 D_800D2354;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15085DF8 CURRENT (2373) */
-s32 func_15085DF8(f32 arg0, f32 arg1, f32 arg2, s8 arg3, s8 arg4) {
-    f32 sp70;
-    f32 sp6C;
-    f32 sp68;
-    f32 temp_fs0;
-    f32 temp_ft4;
-    f32 temp_ft4_2;
-    f32 temp_ft5;
-    f32 temp_ft5_2;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 var_fs1;
-    s32 var_s0;
-    s32 var_s3;
-    s32 var_s5;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+typedef struct GameB3020Point {
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 group;
+    u8 pad7[7];
+    u8 room;
+    u8 padF;
+} GameB3020Point;
 
-    var_s3 = 0;
-    var_fs1 = D_8009D9CC;
-    if (arg3 == 0) {
-        var_s3 = 1;
+s32 func_15085DF8(f32 x, f32 y, f32 z, s8 room, s8 group) {
+    GameB3020Point *point;
+    f32 best;
+    f32 dist;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    s32 checkSight;
+    s32 i;
+    s32 found;
+
+    checkSight = 0;
+    best = D_8009D9CC;
+    if (room == 0) {
+        checkSight = 1;
     }
     if (D_8008729C != 0xFF) {
-        temp_v0 = (void *)((D_8008729C * 0x10) + D_800D2350);
-        temp_fv1 = (f32) *(s16 *)((u8 *)temp_v0 + 0) - arg0;
-        temp_ft4 = (f32) *(s16 *)((u8 *)temp_v0 + 2) - arg1;
-        temp_ft5 = (f32) *(s16 *)((u8 *)temp_v0 + 4) - arg2;
-        if ((var_s3 == 0) || ((var_s3 != 0) && (sp70 = temp_fv1, sp6C = temp_ft4, sp68 = temp_ft5, (func_15086D94(arg0, arg1, arg2, temp_fv1, temp_ft5) < 0.0f)))) {
-            var_fs1 = (temp_fv1 * temp_fv1) + (temp_ft4 * temp_ft4) + (temp_ft5 * temp_ft5) + 10.0f;
+        point = (GameB3020Point *)(D_800D2350 + (D_8008729C << 4));
+        dx = point->x - x;
+        dy = point->y - y;
+        dz = point->z - z;
+        if (checkSight == 0 || (checkSight != 0 && func_15086D94(x, y, z, dx, dz) < 0.0f)) {
+            best = dx * dx + dy * dy + dz * dz + 10.0f;
         }
         D_8008729C = 0xFF;
     }
-    var_s5 = 0xFF;
-    var_s0 = 0;
-    if (D_80087290 > 0) {
-        do {
-            temp_v0_2 = (void *)((var_s0 * 0x10) + D_800D2350);
-            if (((arg4 == *(u8 *)((u8 *)temp_v0_2 + 6)) || (arg4 == -1)) && ((arg3 == *(u8 *)((u8 *)temp_v0_2 + 0xE)) || (arg3 == -1))) {
-                temp_fv1_2 = (f32) *(s16 *)((u8 *)temp_v0_2 + 0) - arg0;
-                temp_ft4_2 = (f32) *(s16 *)((u8 *)temp_v0_2 + 2) - arg1;
-                temp_ft5_2 = (f32) *(s16 *)((u8 *)temp_v0_2 + 4) - arg2;
-                temp_fs0 = (temp_fv1_2 * temp_fv1_2) + (temp_ft4_2 * temp_ft4_2) + (temp_ft5_2 * temp_ft5_2);
-                if ((temp_fs0 < var_fs1) && ((var_s3 == 0) || ((var_s3 != 0) && (func_15086D94(arg0, arg1, arg2, temp_fv1_2, temp_ft5_2) < 0.0f)))) {
-                    var_fs1 = temp_fs0;
-                    var_s5 = var_s0;
-                }
+    found = 0xFF;
+    for (i = 0; i < D_80087290; i++) {
+        point = (GameB3020Point *)(D_800D2350 + (i << 4));
+        if ((group == point->group || group == -1) && (room == point->room || room == -1)) {
+            dx = point->x - x;
+            dy = point->y - y;
+            dz = point->z - z;
+            dist = dx * dx + dy * dy + dz * dz;
+            if (dist < best && (checkSight == 0 || (checkSight != 0 && func_15086D94(x, y, z, dx, dz) < 0.0f))) {
+                best = dist;
+                found = i;
             }
-            var_s0 += 1;
-        } while (var_s0 < D_80087290);
+        }
     }
-    D_800D2354 = (s32) sqrtf(var_fs1);
-    return var_s5;
+    D_800D2354 = sqrtf(best);
+    return found;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15085DF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15085DF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15086098.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15086364.s")

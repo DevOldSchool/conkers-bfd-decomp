@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151AA30C
- * - func_151AA48C
  * - func_151AABC4
  * - func_151AADF8
  *
@@ -306,21 +304,14 @@ extern f32 D_800A8F98;
 extern f32 D_800A8F9C;
 extern f32 D_800A8FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA30C CURRENT (2164) */
 void func_151AA30C(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
                    f32 arg4, s32 arg5, void *arg6) {
     f32 position[3];
     f32 velocity[3];
+    void *object;
     s32 reference;
-    u32 random_int;
-    f32 random2;
-    f32 random1;
-    u32 random_int2;
-    void *object = *(void **)((u8 *)arg6 + 0x1C);
-    f32 speed;
-    f32 height;
-    f32 width;
 
+    object = *(void **)((u8 *)arg6 + 0x1C);
     if (*(f32 *)((u8 *)object + 0x118) < arg1) {
         return;
     }
@@ -328,26 +319,17 @@ void func_151AA30C(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
         reference = 0;
     }
     velocity[0] = 0.0f;
-    speed = ((func_150ADA68() * 196.0f) + 199.0f) * D_800A8F98;
+    velocity[1] = -(((func_150ADA68() * 196.0f) + 199.0f) * D_800A8F98 * arg4);
     velocity[2] = 0.0f;
     position[0] = arg0;
     position[1] = arg1;
     position[2] = arg2;
-    velocity[1] = -(speed * arg4);
-    random1 = func_150ADA68();
-    random2 = func_150ADA68();
-    random_int = func_150ADA20();
-    random_int2 = func_150ADA20();
-    height = (random1 * D_800A8F9C) + 454.0f;
-    width = height * D_800A8FA0;
-    func_1515A238(position, velocity, width, 0x3F7901C1,
-                   reference, (random2 * 101.0f) + 101.0f,
-                   (random_int % 31U) + 0x32,
-                   (random_int2 % 101U) + 0x64, 1,
+    func_1515A238(position, velocity, ((func_150ADA68() * D_800A8F9C) + 454.0f) * D_800A8FA0, 0x3F7901C1,
+                   reference, (func_150ADA68() * 101.0f) + 101.0f,
+                   (func_150ADA20() % 31U) + 0x32,
+                   (func_150ADA20() % 101U) + 0x64, 1,
                    *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AA30C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA30C.s")
 typedef struct {
     void *link;
     s8 active;
@@ -356,78 +338,78 @@ typedef struct {
     s32 field0C;
     f32 field10;
     f32 field14;
-    void *saved;
-    u8 id;
-    u8 pad1D[3];
-    void *object;
-    s8 field24;
-    u8 pad25[3];
-    f32 field28;
-    f32 field2C;
-    f32 field30;
-    f32 field34;
-    f32 field38;
-    f32 field3C;
-    s8 field40;
-    u8 pad41;
-    s16 field42;
-    s16 field44;
-    s16 field46;
-    u8 pad48[2];
-    s8 field4A;
-    s8 field4B;
-    s8 field4C;
-    u8 pad4D[3];
-    f32 field50;
-    s8 field54;
-    s8 field55;
 } Game1D6E80SpawnLocals;
+
+typedef struct {
+    u8 id;
+    u8 pad01[3];
+    void *object;
+    s8 field08;
+    u8 pad09[3];
+    f32 field0C;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    s8 field24;
+    u8 pad25;
+    s16 field26;
+    s16 field28;
+    s16 field2A;
+    u8 pad2C[2];
+    s8 field2E;
+    s8 field2F;
+    s8 field30;
+    u8 pad31[3];
+    f32 field34;
+    s8 field38;
+    s8 field39;
+} Game1D6E80SpawnDesc;
+
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15134DAC(void *, s32);
 extern f32 D_800A8FA4;
 extern f32 D_800A8FA8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA48C CURRENT (2190) */
 void *func_151AA48C(u8 *arg0, void *arg1) {
-    Game1D6E80SpawnLocals locals;
+    Game1D6E80SpawnDesc desc;
     void *result;
+    Game1D6E80SpawnLocals link;
 
-    locals.link = arg1;
-    locals.active = 1;
-    locals.object = arg0;
-    locals.field24 = 0xF;
-    locals.field28 = -11.0f;
-    locals.field2C = -2.0f;
-    locals.field34 = -11.0f;
-    locals.field38 = -2.0f;
-    locals.field40 = 0;
-    locals.field42 = 0x3C;
-    locals.field44 = 0x3C;
-    locals.field46 = 0x12C;
-    locals.field4A = 1;
-    locals.field4B = 0;
-    locals.field4C = 1;
-    locals.field54 = 1;
-    locals.field55 = 0;
-    locals.field08 = 0;
-    locals.field0C = 0x11111;
-    locals.id = arg0[0x3B];
-    locals.field30 = 8.0f;
-    locals.field3C = 20.0f;
-    locals.field50 = 0.5f;
-    locals.field10 = D_800A8FA4;
-    locals.field14 = D_800A8FA8;
-    result = func_15134DAC(&locals.id, 0x18);
+    link.link = arg1;
+    link.active = 1;
+    desc.id = arg0[0x3B];
+    desc.object = arg0;
+    desc.field08 = 0xF;
+    desc.field0C = -11.0f;
+    desc.field10 = -2.0f;
+    desc.field18 = -11.0f;
+    desc.field1C = -2.0f;
+    desc.field24 = 0;
+    desc.field26 = 0x3C;
+    desc.field28 = 0x3C;
+    desc.field2A = 0x12C;
+    desc.field2E = 1;
+    desc.field2F = 0;
+    desc.field30 = 1;
+    desc.field38 = 1;
+    desc.field39 = 0;
+    link.field08 = 0;
+    link.field0C = 0x11111;
+    desc.field14 = 8.0f;
+    desc.field20 = 20.0f;
+    desc.field34 = 0.5f;
+    link.field10 = D_800A8FA4;
+    link.field14 = D_800A8FA8;
+    result = func_15134DAC(&desc, 0x18);
     if (result != 0) {
-        locals.saved = result;
-        func_10022EC0((u8 *)result + 0x80, &locals.link, 0x18);
-        result = locals.saved;
+        func_10022EC0((u8 *)result + 0x80, &link, 0x18);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AA48C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA48C.s")
+
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_151EF610(void);
 

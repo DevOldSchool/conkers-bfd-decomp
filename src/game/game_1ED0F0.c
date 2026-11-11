@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BFE84
  * - func_151C0698
- * - func_151C1D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -627,7 +626,7 @@ typedef struct {
 } Game1ED0F0TraceHit;
 
 void func_151C1D5C(void *, Vec3f *, Vec3f *, Game1ED0F0Trace *, f32, s32, s32, s32,
-                   s32, s32, Vec3f *, f32 *, Game1ED0F0TraceHit *, s32);
+                   s8, s32, Vec3f *, f32 *, Game1ED0F0TraceHit *, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern f32 D_800AA9C0;
 
@@ -690,34 +689,28 @@ s32 func_151C196C(Game1ED0F0Trace *arg0, Vec3f *arg1, Vec3f *arg2, Vec3f *arg3, 
 
 void func_15081690(void *, f32, f32, f32, f32, f32, f32,
                    void *, f32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800AA9C4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1D5C CURRENT (2360) */
-void func_151C1D5C(void * volatile arg0, Vec3f *arg1,
-                   Vec3f *arg2, Game1ED0F0Trace *arg3,
-                   f32 arg4, register s32 arg5, register s32 arg6, register s32 arg7,
-                   register s32 arg8, register s32 arg9, Vec3f *arg10,
-                   f32 * volatile arg11, Game1ED0F0TraceHit *arg12, register s32 arg13) {
+void func_151C1D5C(void *arg0, Vec3f *arg1, Vec3f *arg2, Game1ED0F0Trace *arg3,
+                   f32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                   s8 arg8, s32 arg9, Vec3f *arg10,
+                   f32 *arg11, Game1ED0F0TraceHit *arg12, s32 arg13) {
+    f32 epsilon;
     Vec3f position;
-    register f32 epsilon;
     f32 distance;
-    register s32 again;
-    u8 *hit;
+    s32 again;
 
     distance = 0.0f;
     *arg11 = 0.0f;
     position = *arg1;
-    epsilon = D_800AA9C4;
+    epsilon = 0.1f;
     do {
         func_15081690(arg0, position.x, position.y, position.z,
                        arg2->x, arg2->y, arg2->z, arg3, arg4,
-                       arg5, arg6, arg7, (s8)arg8, arg9, arg13);
-        hit = arg3->hit;
+                       arg5, arg6, arg7, arg8, arg9, arg13);
         distance += arg3->distance;
-        if (hit != 0) {
-            again = 0;
+        if (arg3->hit != 0) {
+            u8 *hit = arg3->hit;
             if ((hit[0x4F] & 0x60) == 0x40) {
-                again = 1;
                 position.x = arg3->position.x + arg3->normal.x * epsilon;
                 position.y = arg3->position.y + arg3->normal.y * epsilon;
                 position.z = arg3->position.z + arg3->normal.z * epsilon;
@@ -725,12 +718,14 @@ void func_151C1D5C(void * volatile arg0, Vec3f *arg1,
                 *arg11 = distance;
                 distance += epsilon;
                 arg12->height = arg3->position.y;
-                *(Game1ED0F0Surface *)((u8 *)arg12 + 4) =
-                    *(Game1ED0F0Surface *)((u8 *)arg3 + 0x44);
+                arg12->surface = arg3->surface;
+                arg12->field18 = arg3->field60;
                 arg12->type = 7;
                 arg12->subtype = 3;
                 arg12->hit = hit;
-                arg12->field18 = arg3->field60;
+                again = 1;
+            } else {
+                again = 0;
             }
         } else {
             again = 0;
@@ -739,8 +734,6 @@ void func_151C1D5C(void * volatile arg0, Vec3f *arg1,
     arg3->start = *arg1;
     arg3->distance = distance;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C1D5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1D5C.s")
 typedef struct {
     s8 field_0;
     s8 pad1;

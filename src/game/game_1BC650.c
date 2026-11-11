@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518F5D0
  * - func_1518F8E0
  * - func_1518FC84
  *
@@ -124,7 +123,7 @@ void func_1518F49C(u8 *arg0, s32 arg1, u8 arg2) {
 }
 extern s32 D_8008D630;
 s32 func_1518FDC4(void *, s8 *, u8);
-s32 func_1518F5D0(void *, s32, s16, s8, s32, s32, s32, s32, s32, s32);
+s32 func_1518F5D0(void *, s32, s16, s8, s8, s8, u8, s32, u8, s32);
 
  s32 func_1518F51C(void *arg0, u8 arg1, s16 arg2, s8 arg3,
                   s8 arg4, s8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
@@ -174,22 +173,20 @@ s32 func_1519021C(s32, u8 *, u8, s16, u8, s32);
 void func_151D2AB0(s32);
 void *func_151D2F00(void *, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F5D0 CURRENT (2197) */
 s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
-                   s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+                   s8 arg4, s8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
     Game1BC650Spawn spawn;
-    Game1BC650CreatePacket packet;
     s8 enabled;
+    Game1BC650CreatePacket packet;
     u8 *data;
     void *result;
 
     packet.zero = 0.0f;
     packet.record = *(Game1BC650Record *)arg1;
-    enabled = 1;
     packet.field58 = arg3;
     spawn.owner = arg0;
-    packet.field59 = (s8)arg4;
-    packet.field5A = (u8)arg6;
+    packet.field59 = arg4;
+    packet.field5A = arg6;
     spawn.field4 = *((u8 *)arg0 + 0x3B);
     if (arg2 == -1) {
         spawn.duration = 0x12C;
@@ -198,6 +195,8 @@ s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
     }
     if (arg2 == -1) {
         enabled = 0;
+    } else {
+        enabled = 1;
     }
     spawn.enabled = enabled;
     spawn.field9 = 0;
@@ -205,13 +204,13 @@ s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
     spawn.fieldB = 0;
     spawn.fieldC = 0;
     spawn.fieldD = 1;
-    result = func_151D2F00(&spawn, arg7 + 0x60, (u8)arg8, arg9);
+    result = func_151D2F00(&spawn, arg7 + 0x60, arg8, arg9);
     if (result != 0) {
         data = (u8 *)result + 0x30;
         func_10022EC0(data, &packet, 0x5CU);
-        if ((s8)arg5 != -1) {
+        if (arg5 != -1) {
             *(s32 *)(data + 0x54) = func_1519021C((s32)result, arg0,
-                (s8)arg5 & 0xFF, arg2, (u8)arg8, arg9);
+                arg5, arg2, arg8, arg9);
         } else {
             *(s32 *)(data + 0x54) = 0;
         }
@@ -223,8 +222,6 @@ s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
     }
     return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F5D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F5D0.s")
 extern s32 (*D_8008D67C[])(void *);
 extern void func_1518F8E0(void *arg0);
 

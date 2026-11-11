@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150E76D0
- * - func_150E7C9C
  * - func_150E7FEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -191,7 +190,7 @@ typedef struct Game114B80PointQueue {
     f32 rate, pending;
     s16 count, index;
     u8 padC[4];
-    f32 points[1][2];
+    f32 points[2];
 } Game114B80PointQueue;
 
 typedef struct Game114B80PointEffect {
@@ -206,10 +205,10 @@ typedef struct Game114B80PointEffect {
 
 void func_150E75A0(void *, f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);
 void func_10010F30(s32, s32, s32, s32, s32);
-extern f32 D_800A1350, D_800BE9A4;
+extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E7C9C CURRENT (1845) */
 void func_150E7C9C(Game114B80PointEffect *arg0) {
+    u8 flags;
     f32 fraction;
     f32 point[2];
     s32 flip1;
@@ -219,27 +218,24 @@ void func_150E7C9C(Game114B80PointEffect *arg0) {
     queue = &arg0->queue;
     arg0->queue.pending += arg0->queue.rate * D_800BE9A4;
     while ((queue->pending > 1.0f) && (queue->index != queue->count)) {
-        {
-            point[0] = queue->points[queue->index][0];
-            point[1] = queue->points[queue->index][1];
-            fraction = func_150ADA68();
-            flip2 = (func_150ADA20() & 1) ? 4 : 0;
-            flip1 = (func_150ADA20() & 1) ? 2 : 0;
-            func_150E75A0(point, fraction * 12.0f + 30.0f, 0x12C,
-                          (flip1 | flip2) & 0xFF,
-                          (u8)(u32)(func_150ADA68() * 25.0f + 100.0f),
-                          0xFF, 1, 0xFF, 0, 0, arg0->mode, arg0->group);
-            func_10010F30(0x360, 0x7FFF, (u32)(point[0] * D_800A1350 + 64.0f) & 0xFF, 0, 0);
-            queue->pending -= 1.0f;
-            queue->index++;
-        }
+        point[0] = queue->points[queue->index * 2];
+        point[1] = queue->points[queue->index * 2 + 1];
+        fraction = func_150ADA68();
+        flip2 = (func_150ADA20() & 1) ? 4 : 0;
+        flip1 = (func_150ADA20() & 1) ? 2 : 0;
+        flags = flip1 | flip2;
+        func_150E75A0(point, fraction * 12.0f + 30.0f, 0x12C,
+                      flags,
+                      (u8)(u32)(func_150ADA68() * 25.0f + 100.0f),
+                      0xFF, 1, 0xFF, 0, 0, arg0->mode, arg0->group);
+        func_10010F30(0x360, 0x7FFF, (u32)(point[0] * 0.43150684f + 64.0f) & 0xFF, 0, 0);
+        queue->pending -= 1.0f;
+        queue->index++;
     }
     if (queue->index >= queue->count) {
         arg0->lifetime = -1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E7C9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7C9C.s")
 typedef struct GameE7FECLocals {
     s32 command;
     s16 lifetime;

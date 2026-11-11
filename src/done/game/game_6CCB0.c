@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_6CCB0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1503F800
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -23,43 +18,36 @@ typedef struct {
 void func_1510F800(s32);
 extern Game6CCB0Node *D_800DBE48;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F800 CURRENT (2137) */
 s32 func_1503F800(void *arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4) {
-    s16 center;
-    s16 value;
-    s16 nextOffset;
-    u16 radius;
     Game6CCB0Node *node;
+    s32 offset;
+    s32 value;
 
     func_1510F800(0);
     node = D_800DBE48;
-    while (node != 0) {
-        center = node->x;
-        radius = node->radius;
-        if (((center + radius) >= arg1) && (arg1 >= (center - radius))) {
-            center = node->z;
-            if (((center + radius) >= arg2) &&
-                (arg2 >= (center - radius))) {
-                if (!(node->flags & (1 << arg3))) {
-                    return 1;
-                }
-                value = node->value;
-                if (value != 0) {
-                    return value;
-                }
+    while (node != NULL) {
+        if ((node->x + node->radius) >= arg1 && arg1 >= (node->x - node->radius) &&
+            (node->z + node->radius) >= arg2 && arg2 >= (node->z - node->radius)) {
+            if (!(node->flags & (1 << arg3))) {
+                return 1;
             }
-        }
-        nextOffset = node->nextOffset;
-        if (nextOffset != 0) {
-            node = (Game6CCB0Node *)((u8 *)node + nextOffset);
+            value = node->value;
+            if (value != 0) {
+                offset = value;
+            } else {
+                return 0;
+            }
         } else {
-            node = 0;
+            offset = node->nextOffset;
+        }
+        if (offset != 0) {
+            node = (Game6CCB0Node *)((u8 *)node + offset);
+        } else {
+            node = NULL;
         }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503F800 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6CCB0/func_1503F800.s")
 extern s32 func_1503F800(void *, s16, s16, s32, s32);
 
 void func_1503F904(void *arg0, s32 arg1, s32 arg2) {

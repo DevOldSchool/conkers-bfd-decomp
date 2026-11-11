@@ -9,7 +9,6 @@
  * - func_151D3480
  * - func_151D3E6C
  * - func_151D40D4
- * - func_151D4408
  * - func_151D4794
  * - func_151D5334
  * - func_151D5714
@@ -531,16 +530,6 @@ void func_151D42E8(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
 void func_1503F404(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800AB1D4;
-extern f32 D_800AB1D8;
-extern f32 D_800AB1DC;
-extern f32 D_800AB1E0;
-extern f32 D_800AB1E4;
-extern f32 D_800AB1E8;
-extern f32 D_800AB1EC;
-extern f32 D_800AB1F0;
-extern f32 D_800AB1F4;
-extern f32 D_800AB1F8;
 
 typedef struct Game200930TransformPacket {
     f32 field00;
@@ -580,37 +569,38 @@ typedef struct Game200930TransformPacket {
     s16 field74;
 } Game200930TransformPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D4408 CURRENT (2268) */
 void func_151D4408(void *arg0, void *arg1, s32 arg2, void *arg3,
                    f32 arg4, s32 arg5, s32 arg6) {
-    Game200930TransformPacket packet;
-    f32 first[3];
-    f32 second[3];
     f32 random;
+    Game200930TransformPacket packet;
     f32 speed;
 
+    {
+    f32 first[3];
+    f32 second[3];
     func_1503F404(arg2, (s32)&first[0], (s32)&first[1], (s32)&first[2],
                   (s32)&packet.rotation[0], (s32)&packet.rotation[1],
                   (s32)&packet.rotation[2], (s32)&second[0],
                   (s32)&second[1], (s32)&second[2]);
     packet.rotation[0] += 180.0f;
+    }
     random = func_150ADA68();
     packet.field00 = 1.0f;
     packet.field04 = 1.0f;
-    packet.field0C = D_800AB1D4 * arg4;
+    packet.field0C = 0.042000003f * arg4;
     packet.field08 = packet.field0C;
     packet.scale[0] = 1.0f;
     packet.scale[1] = 1.0f;
     packet.scale[2] = 1.0f;
     packet.position = *(Vec3i *)arg0;
-    speed = ((random * 105.0f) + 199.0f) * D_800AB1D8;
+    speed = ((random * 105.0f) + 199.0f) * 0.001f;
     packet.velocity[0] = *(f32 *)arg1 * speed;
     packet.velocity[1] = *(f32 *)((u8 *)arg1 + 4) * speed;
     packet.velocity[2] = *(f32 *)((u8 *)arg1 + 8) * speed;
-    packet.field40 = ((func_150ADA68() * D_800AB1DC) + D_800AB1E0) * D_800AB1E4;
+    packet.field40 = ((func_150ADA68() * 6378.0f) + -3189.0f) * 0.001f;
     packet.field44 = 0.0f;
-    packet.field48 = ((func_150ADA68() * D_800AB1E8) + D_800AB1EC) * D_800AB1F0;
-    packet.field4C = ((func_150ADA68() * 320.0f) + D_800AB1F4) * D_800AB1F8;
+    packet.field48 = ((func_150ADA68() * 6378.0f) + -3189.0f) * 0.001f;
+    packet.field4C = ((func_150ADA68() * 320.0f) + -707.0f) * 0.001f;
     packet.field50 = 0x29E8;
     packet.field54 = (func_150ADA20() & 7) + 0x1C;
     packet.field56 = 0x25;
@@ -627,13 +617,11 @@ void func_151D4408(void *arg0, void *arg1, s32 arg2, void *arg3,
     packet.field68 = 2;
     packet.field6A = 1;
     packet.owner = arg3;
+    packet.owner_type = *(u8 *)((u8 *)arg3 + 0x3B);
     packet.field72 = 6;
     packet.field74 = 0x2A;
-    packet.owner_type = *(u8 *)((u8 *)arg3 + 0x3B);
-    func_15132A4C(&packet, 3, 0xFF, 0, (u8)arg5, arg6);
+    func_15132A4C(&packet, 3, 0xFF, 0, ((u8 *)&arg5)[3], arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D4408 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4408.s")
 
 void func_151D4668(void *arg0) {
     struct {
@@ -896,7 +884,7 @@ void func_151D4D58(u8 *arg0) {
 void func_1507DE4C(void *);
 void func_15137610(void *, void *, void *, s32, s32, s32);
 s32 func_1505D024(void *, s32, s32, s32);
-void func_15138C80(void *, s32, s32);
+void func_15138C80(void *, u8, s32);
 struct Game1C2050Owner;
 struct Game1EF500EmitterVector;
 void func_151C2050(struct Game1C2050Owner *, struct Game1EF500EmitterVector *, struct Game1EF500EmitterVector *, s32, f32);

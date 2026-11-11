@@ -350,40 +350,34 @@ typedef struct Game133190CurveObject {
 void *func_151061EC(u8 *);
 f32 func_150ADA68(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106610 CURRENT (2042) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106610 */
 void func_15106610(void *arg0) {
-    struct {
-        f32 sp50;
-        f32 sp54;
-        u8 pad[0x10];
-    } local;
-    f32 *control;
-    f32 *currentControl;
+    Game133190CurvePoint *control;
     f32 *output;
-    f32 *currentOutput;
-    s32 count;
+    Game133190CurvePoint *curControl;
+    f32 *curOutput;
+    s32 i;
     u32 random;
-    Game133190CurveObject *obj = arg0;
+    f32 sp54;
+    f32 sp50;
 
-    control = (f32 *)func_151061E0((s32)arg0);
+    control = (Game133190CurvePoint *)func_151061E0((s32)arg0);
     output = func_151061EC((u8 *)arg0);
-    *(Vec3i *)output = obj->first;
-    ((Vec3i *)output)[obj->count + 1] = obj->last;
-    count = 1;
-    currentOutput = output + 3;
-    currentControl = control;
-    if (obj->count + 1 >= 2) {
-        do {
+    *(Vec3i *)output = ((Game133190CurveObject *)arg0)->first;
+    ((Vec3i *)output)[((Game133190CurveObject *)arg0)->count + 1] = ((Game133190CurveObject *)arg0)->last;
+    for (i = 1, curOutput = output + 3, curControl = control; i < ((Game133190CurveObject *)arg0)->count + 1; i++) {
+        {
+            f32 *dst = curOutput;
+            Game133190CurvePoint *src = curControl;
+
             random = func_150ADA20();
-            func_15143874((s16)(random & 0xFF), func_150ADA68() * obj->scale,
-                          &local.sp50, &local.sp54);
-            currentOutput[0] = (currentControl[7] * local.sp50) + (currentControl[10] * local.sp54) + currentControl[1];
-            currentOutput[1] = (currentControl[8] * local.sp50) + (currentControl[11] * local.sp54) + currentControl[2];
-            currentOutput[2] = (currentControl[9] * local.sp50) + (currentControl[12] * local.sp54) + currentControl[3];
-            count++;
-            currentOutput += 3;
-            currentControl += 13;
-        } while (obj->count >= count);
+            func_15143874((s16)(random & 0xFF), func_150ADA68() * ((Game133190CurveObject *)arg0)->scale, &sp50, &sp54);
+            dst[0] = src->pos[0] + ((src->v28[0] * sp54) + (src->v1C[0] * sp50));
+            dst[1] = src->pos[1] + ((src->v28[1] * sp54) + (src->v1C[1] * sp50));
+            dst[2] = src->pos[2] + ((src->v28[2] * sp54) + (src->v1C[2] * sp50));
+        }
+        curOutput += 3;
+        curControl++;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15106610 */

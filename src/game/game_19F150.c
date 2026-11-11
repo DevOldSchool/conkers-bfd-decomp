@@ -9,7 +9,6 @@
  * - func_15171D4C
  * - func_151720C4
  * - func_151725FC
- * - func_15172B20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -189,27 +188,24 @@ void func_15171FC0(Game19F150Object *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19F150/func_151720C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19F150/func_151725FC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15172B20 CURRENT (2037) */
 s32 func_15172B20(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, u8 arg7) {
+    f32 scale;
     f32 sp50;
+    f32 cosv;
     s32 sp48;
     f32 sp44;
     s32 sp40;
     f32 angle;
-    f32 x;
-    f32 z;
-    f32 scale;
 
     angle = (arg4 - 90.0f) * D_800A7154;
     sp50 = func_15047C00(angle);
+    cosv = func_15047D60(angle);
     scale = (f32)arg5;
-    x = arg1 + (scale * func_15047D60(angle));
-    z = arg3 + (scale * sp50);
-    arg1 = x;
-    arg3 = z;
+    arg1 += scale * cosv;
+    arg3 += scale * sp50;
     func_1510E82C((s32)&sp40, 0, (s32)&sp44, 0, (s32)&sp48, 0,
-                  x, arg2, z, arg2, 0, 0);
+                  arg1, arg2, arg3, arg2, 0, 0);
     if (sp40 == 0) {
         return 0;
     }
@@ -218,5 +214,3 @@ s32 func_15172B20(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
     return func_151725FC(arg0, sp40, arg1, sp44, arg3, arg4, arg6, arg7);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15172B20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19F150/func_15172B20.s")

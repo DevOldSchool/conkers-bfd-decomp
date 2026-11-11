@@ -6,10 +6,8 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151596BC
  * - func_15159C08
  * - func_1515A11C
- * - func_1515A78C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -226,50 +224,38 @@ u8 func_15159594(u8 *arg0, s32 arg1) {
 /* Call context: func_151423D8: unique active project prototype */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151596BC CURRENT (2734) */
 u8 func_151596BC(u8 *arg0, s32 arg1) {
-    f32 sp30;
-    u8 sp2B;
-    f32 sp24;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv1;
-    s32 temp_a0;
-    s32 temp_a0_2;
-    register u8 *temp_s0;
+    u8 *motion = arg0 + 0xA8;
+    f32 cosA;
+    f32 cosB;
+    u8 result;
+    f32 scale;
 
-    sp2B = 1;
-    temp_a0 = *(u8 *)((u8 *)arg0 + 0xAC) + (*(s8 *)((u8 *)arg0 + 0xAE) * D_800BE9E4);
-    *(u8 *)((u8 *)arg0 + 0xAC) = temp_a0;
-    *(u8 *)((u8 *)arg0 + 0xAD) = (u8) (*(u8 *)((u8 *)arg0 + 0xAD) + (*(s8 *)((u8 *)arg0 + 0xAF) * D_800BE9E4));
-    sp30 = func_151423D8((temp_a0 - 0x40) & 0xFF);
-    temp_s0 = (void *)(arg0 + 0xA8);
-    temp_fv0 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 5) - 0x40) & 0xFF);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x5C);
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(volatile f32 *)temp_s0 + (*(f32 *)((u8 *)temp_s0 + 8) * sp30));
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(volatile f32 *)temp_s0 + (*(f32 *)((u8 *)temp_s0 + 0xC) * temp_fv0));
-    if (temp_fv1 > 0.0f) {
-        temp_fv0_2 = *(f32 *)((u8 *)temp_s0 + 0x10);
-        if (temp_fv0_2 < temp_fv1) {
-            *(f32 *)((u8 *)arg0 + 0x5C) = temp_fv0_2;
+    result = 1;
+    *(u8 *)(arg0 + 0xAC) += *(s8 *)(arg0 + 0xAE) * D_800BE9E4;
+    *(u8 *)(arg0 + 0xAD) += *(s8 *)(arg0 + 0xAF) * D_800BE9E4;
+    cosA = func_151423D8(*(u8 *)(arg0 + 0xAC) - 0x40);
+    cosB = func_151423D8(*(u8 *)(motion + 5) - 0x40);
+    *(f32 *)(arg0 + 0x38) = *(f32 *)(motion + 8) * cosA + *(f32 *)motion;
+    *(f32 *)(arg0 + 0x3C) = *(f32 *)(motion + 0xC) * cosB + *(f32 *)motion;
+    if (*(f32 *)(arg0 + 0x5C) > 0.0f) {
+        if (*(f32 *)(motion + 0x10) < *(f32 *)(arg0 + 0x5C)) {
+            *(f32 *)(arg0 + 0x5C) = *(f32 *)(motion + 0x10);
         }
-        sp24 = *(f32 *)((u8 *)arg0 + 0x5C) * *(f32 *)((u8 *)temp_s0 + 0x14);
-        temp_a0_2 = *(u8 *)((u8 *)temp_s0 + 0x18) + (*(u8 *)((u8 *)temp_s0 + 0x1A) * D_800BE9E4);
-        *(u8 *)((u8 *)temp_s0 + 0x18) = temp_a0_2;
-        *(u8 *)((u8 *)temp_s0 + 0x19) = (u8) (*(u8 *)((u8 *)temp_s0 + 0x19) + (*(u8 *)((u8 *)temp_s0 + 0x1B) * D_800BE9E4));
-        sp30 = func_151423D8((temp_a0_2 - 0x40) & 0xFF);
-        temp_fv0_3 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 0x19) - 0x40) & 0xFF);
-        *(f32 *)((u8 *)arg0 + 0x4C) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x1C) * sp30 * sp24);
-        *(f32 *)((u8 *)arg0 + 0x54) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x20) * temp_fv0_3 * sp24);
+        scale = *(f32 *)(motion + 0x14) * *(f32 *)(arg0 + 0x5C);
+        *(u8 *)(motion + 0x18) += *(u8 *)(motion + 0x1A) * D_800BE9E4;
+        *(u8 *)(motion + 0x19) += *(u8 *)(motion + 0x1B) * D_800BE9E4;
+        cosA = func_151423D8(*(u8 *)(motion + 0x18) - 0x40);
+        cosB = func_151423D8(*(u8 *)(motion + 0x19) - 0x40);
+        *(f32 *)(arg0 + 0x4C) = *(f32 *)(motion + 0x1C) * cosA * scale;
+        *(f32 *)(arg0 + 0x54) = *(f32 *)(motion + 0x20) * cosB * scale;
     }
-    if ((*(s32 *)((u8 *)arg0 + 0x68) & 0x2000) && (*(f32 *)((u8 *)temp_s0 + 0x24) < (*(f32 *)((u8 *)arg0 + 0x50) + *(f32 *)((u8 *)arg0 + 0x44)))) {
-        sp2B = 0;
+    if ((*(s32 *)(arg0 + 0x68) & 0x2000) &&
+        (*(f32 *)(motion + 0x24) < *(f32 *)(arg0 + 0x44) + *(f32 *)(arg0 + 0x50))) {
+        result = 0;
     }
-    return sp2B;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151596BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_151596BC.s")
 
 typedef struct {
     s32 flags, zero4;
@@ -540,52 +526,38 @@ extern f32 D_800A6408;
 extern f32 D_800A640C;
 extern f32 D_800A6410;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515A78C CURRENT (2930) */
-u8 func_1515A78C(u8 *arg0, s32 volatile arg1) {
-    u8 sp4B;
-    f32 sp44;
-    f32 sp40;
-    f32 sp3C;
-    u8 *sp34;
-    f32 temp_fv0;
-    u8 *temp_t8;
+u8 func_1515A78C(u8 *arg0, s32 arg1) {
+    Game1865D0A238Motion *motion = (Game1865D0A238Motion *)(arg0 + 0xA8);
+    u8 result;
+    f32 position[3];
 
-    sp4B = 1;
+    result = 1;
     func_1515A60C(arg0, arg1);
     if (*(f32 *)(arg0 + 0x5C) < 0.0f) {
         return 1;
     }
-    temp_t8 = arg0 + 0xA8;
-    sp3C = *(f32 *)(arg0 + 0x4C) + *(f32 *)(arg0 + 0x40);
-    sp40 = *(f32 *)((u8 *)arg1 + 4);
-    sp34 = temp_t8;
-    sp44 = *(f32 *)(arg0 + 0x48) + *(f32 *)(arg0 + 0x54);
-    temp_fv0 = *(f32 *)(temp_t8 + 0x20);
-    if (D_800A6408 == temp_fv0) {
-        if (func_1514672C(&sp3C) == 0) {
+    position[0] = *(f32 *)(arg0 + 0x4C) + *(f32 *)(arg0 + 0x40);
+    position[1] = *(f32 *)((u8 *)arg1 + 4);
+    position[2] = *(f32 *)(arg0 + 0x54) + *(f32 *)(arg0 + 0x48);
+    if (D_800A6408 == motion->limit) {
+        if (func_1514672C(position) == 0) {
             return 0;
         }
-        if (func_15046C00(&sp3C, 0, *(s32 *)(arg0 + 0x44), arg0 + 0x80) != 0) {
-            sp4B = 0;
-            sp40 = *(f32 *)(arg0 + 0x80);
+        if (func_15046C00(position, 0, *(f32 *)(arg0 + 0x44), arg0 + 0x80) != 0) {
+            position[1] = *(f32 *)(arg0 + 0x80);
+            result = 0;
         }
-        goto block_9;
+    } else if (motion->limit <= *(f32 *)(arg0 + 0x44)) {
+        position[1] = motion->limit;
+        result = 0;
     }
-    if (temp_fv0 <= *(f32 *)(arg0 + 0x44)) {
-        sp40 = temp_fv0;
-        sp4B = 0;
+    if (result == 0 && func_150ADA68() < D_800A640C && arg0[0x9D] == 3) {
+        func_151DBCBC(func_151D8E20() & 0xFF, motion->size * D_800A6410,
+                      arg0[0x2B], (s32)(arg0 + 0x84), position,
+                      arg0[0xC], arg0[1]);
     }
-block_9:
-    if ((sp4B == 0) && (func_150ADA68() < D_800A640C) &&
-        (arg0[0x9D] == 3)) {
-        func_151DBCBC(func_151D8E20() & 0xFF, *(f32 *)sp34 * D_800A6410,
-                       arg0[0x2B], (s32)(arg0 + 0x84), &sp3C,
-                       arg0[0xC], arg0[1]);
-    }
-    return sp4B;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515A78C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A78C.s")
 typedef struct Game1865D0State {
     u8 pad_0[0x2F4];
     s32 field_2F4;

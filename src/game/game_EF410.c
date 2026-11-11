@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C1F60
- * - func_150C2290
- * - func_150C2558
  * - func_150C29F0
  * - func_150C2C00
  * - func_150C3230
@@ -66,7 +64,7 @@ typedef struct {
 } GameEF410Spawn;
 
 void func_15150178(s16 *, f32 *, s32, u8, s32);
-void func_15151A38(f32 *, s32, s32);
+void func_15151A38(f32 *, u8, s32);
 extern f32 D_800A0230;
 extern f32 D_800A0234;
 extern f32 D_800A0238;
@@ -174,42 +172,47 @@ void func_150C1F60(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
 
 
-void func_15151A38(f32 *, s32, s32);
+void func_15151A38(f32 *, u8, s32);
 extern f32 D_800A0258;
 extern f32 D_800A025C;
 extern f32 D_800A0260;
 extern f32 D_800A0264;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2290 CURRENT (1893) */
 void func_150C2290(u8 arg0) {
     GameC2290Packet packet;
 
     packet.floats[0] = D_800A0258;
     packet.floats[1] = 40.0f;
+    packet.floats[2] = D_800A025C;
+    packet.floats[7] = 100.0f;
+    packet.floats[8] = 57.5f;
+    packet.floats[3] = D_800A0260;
+    packet.floats[4] = 39.0f;
+    packet.shorts[0] = 2;
     packet.shorts[1] = 3;
     packet.shorts[2] = -0x29;
     packet.shorts[4] = -0x16;
     packet.shorts[3] = 0x15;
     packet.shorts[5] = 0x16;
     packet.shorts[6] = 7;
-    packet.shorts[9] = 0x15;
-    packet.bytes50[0] = 0xB;
-    packet.floats[2] = D_800A025C;
-    packet.shorts[0] = 2;
+    packet.shorts[7] = 0;
     packet.shorts[8] = 0x30;
+    packet.shorts[9] = 0x15;
+    packet.floats[5] = D_800A0264;
+    packet.floats[6] = 1.0f;
+    packet.bytes50[0] = 0xB;
+    packet.bytes50[1] = 1;
     packet.bytes50[2] = 0x28;
     packet.words54[0] = 1;
     packet.words54[1] = 4;
-    packet.bytes6C[0] = 0xFF;
-    packet.bytes6C[1] = 0xFF;
-    packet.words70[0] = 3;
-    packet.shorts[7] = 0;
-    packet.bytes50[1] = 1;
     packet.words54[2] = 0;
     packet.words54[3] = 0;
     packet.words54[4] = 0;
     packet.words54[5] = 0;
+    packet.bytes6C[0] = 0xFF;
+    packet.bytes6C[1] = 0xFF;
     packet.bytes6C[2] = 0;
+    packet.words70[0] = 3;
     packet.words70[1] = 0xFF;
     packet.words70[2] = 0;
     packet.words70[3] = 0x220005;
@@ -222,16 +225,8 @@ void func_150C2290(u8 arg0) {
     packet.bytes94[1] = 7;
     packet.shorts98[0] = 0xC;
     packet.shorts98[1] = 0x15;
-    packet.floats[7] = 100.0f;
-    packet.floats[8] = 57.5f;
-    packet.floats[3] = D_800A0260;
-    packet.floats[4] = 39.0f;
-    packet.floats[5] = D_800A0264;
-    packet.floats[6] = 1.0f;
     func_15151A38(packet.floats, arg0, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C2290 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2290.s")
 f32 func_150ADA68(void);
 void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, u8);
 extern f32 D_800A0268;
@@ -296,39 +291,43 @@ s32 func_150C251C(void *arg0) {
 }
 extern f32 D_800A0270;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2558 CURRENT (3119) */
 s32 func_150C2558(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
                    s32 arg10, s32 arg11, s32 arg12, s32 arg13, u8 arg14) {
     GameC2290Packet packet;
-    f32 value;
 
     packet.floats[0] = arg2;
     packet.floats[1] = arg3;
-    value = (arg4 + 15.0f) - func_150ADA68() * 30.0f;
+    packet.floats[2] = (arg4 + 15.0f) - func_150ADA68() * 30.0f;
+    packet.shorts[0] = 1;
+    packet.shorts[1] = 0;
+    packet.shorts[2] = (s32)(packet.floats[2] * D_800A0270) - 0x40;
+    packet.shorts[4] = 0;
     packet.shorts[3] = 9;
+    packet.shorts[5] = 0;
     packet.shorts[6] = 3;
-    packet.shorts[9] = 0x15;
-    packet.bytes50[0] = 0xB;
-    packet.shorts[2] = (s32)(value * D_800A0270) - 0x40;
     packet.shorts[7] = 3;
     packet.shorts[8] = 0x28;
+    packet.shorts[9] = 0x15;
+    packet.floats[7] = 200.0f;
+    packet.floats[8] = 150.0f;
+    packet.floats[3] = 22.0f;
+    packet.floats[4] = 44.0f;
+    packet.floats[5] = 0.0f;
+    packet.floats[6] = 0.0f;
+    packet.bytes50[0] = 0xB;
+    packet.bytes50[1] = 1;
     packet.bytes50[2] = 0x28;
     packet.words54[0] = 1;
     packet.words54[1] = 4;
-    packet.bytes6C[0] = 0xFF;
-    packet.bytes6C[1] = 0xFF;
-    packet.words70[0] = 3;
-    packet.shorts[0] = 1;
-    packet.shorts[1] = 0;
-    packet.shorts[4] = 0;
-    packet.shorts[5] = 0;
-    packet.bytes50[1] = 1;
     packet.words54[2] = 0;
     packet.words54[3] = 0;
     packet.words54[4] = 0;
     packet.words54[5] = 0;
+    packet.bytes6C[0] = 0xFF;
+    packet.bytes6C[1] = 0xFF;
     packet.bytes6C[2] = 0;
+    packet.words70[0] = 3;
     packet.words70[1] = 0xFF;
     packet.words70[2] = 0;
     packet.words70[3] = 0x220005;
@@ -341,18 +340,9 @@ s32 func_150C2558(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     packet.bytes94[1] = 7;
     packet.shorts98[0] = 0xC;
     packet.shorts98[1] = 0x15;
-    packet.floats[2] = value;
-    packet.floats[7] = 200.0f;
-    packet.floats[8] = 150.0f;
-    packet.floats[3] = 22.0f;
-    packet.floats[5] = 0.0f;
-    packet.floats[6] = 0.0f;
-    packet.floats[4] = 44.0f;
     func_15151A38(packet.floats, arg14, 1);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C2558 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2558.s")
 
 
 void func_15150178(s16 *, f32 *, s32, u8, s32);

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1518BD60
  * - func_1518C0B8
- * - func_1518C57C
  * - func_1518C69C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -148,55 +147,42 @@ typedef struct Game1B9210EffectPacket {
     s8 fieldA0;
     s8 fieldA1;
     s8 fieldA2;
-    u8 padA3;
+    u8 fieldA3;
+    u8 fieldA4;
+    u8 padA5[3];
 } Game1B9210EffectPacket;
 
 void func_1516865C(void *, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C57C CURRENT (2414) */
-s32 func_1518C57C(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
-    u8 packet[0xA4];
-    void *sp34;
-    s32 sp2C;
-    s16 temp_t2;
-    s32 temp_ft3;
-    s32 temp_v0;
-
-    arg1 = 0x14;
-    sp34 = *(void **)((u8 *)arg0 + 0x98);
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x94);
-    *(s32 *)(packet + 0x80) = 0;
-    *(s16 *)(packet + 0x8A) = 0x100;
-    temp_ft3 = (s32)arg4;
-    *(s16 *)(packet + 0x8E) = temp_ft3;
-    *(s16 *)(packet + 0x8C) =
-        (s32)*(f32 *)(temp_v0 + (*(s8 *)((u8 *)arg0 + 0x2D) * arg1));
-    sp2C = temp_ft3;
-    *(s16 *)(packet + 0x90) =
-        (s32)*(f32 *)(temp_v0 +
-                      (*(s8 *)((u8 *)arg0 + 0x2D) * arg1) + 8);
-    temp_t2 = (func_150ADA20() % 21U) + 0x23;
-    *(s16 *)(packet + 0x92) = temp_t2;
-    *(s8 *)(packet + 0xA2) = -1;
-    *(s8 *)(packet + 0xA0) = 0x12;
-    *(s16 *)(packet + 0x98) = 0xC;
-    *(s8 *)(packet + 0xA1) = 0;
-    *(s16 *)(packet + 0x94) = temp_t2;
-    *(s16 *)(packet + 0x96) = sp2C;
-    func_1516865C(packet, 0xFF, 0xFF, 0xFF, 0xFF);
-    func_15168800(packet, *(u8 *)((u8 *)arg0 + 0xC),
-                   *(u8 *)((u8 *)arg0 + 1));
-    *(s8 *)((u8 *)sp34 + 0x20) = 4;
-    return 1;
-}
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518C57C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C57C.s")
 typedef struct Game18C69CPosition {
     f32 x;
     f32 y;
     f32 z;
     u8 padC[8];
 } Game18C69CPosition;
+s32 func_1518C57C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
+    Game1B9210EffectPacket packet;
+    u8 *effect;
+    Game18C69CPosition *positions;
+
+    effect = *(u8 **)(arg0 + 0x98);
+    positions = *(Game18C69CPosition **)(arg0 + 0x94);
+    packet.field80 = 0;
+    packet.field8A = 0x100;
+    packet.field8C = (s32)positions[*(s8 *)(arg0 + 0x2D)].x;
+    packet.field8E = (s32)arg4;
+    packet.field90 = (s32)positions[*(s8 *)(arg0 + 0x2D)].z;
+    packet.field92 = packet.field94 = (func_150ADA20() % 21U) + 0x23;
+    packet.fieldA2 = -1;
+    packet.fieldA0 = 0x12;
+    packet.field98 = 0xC;
+    packet.fieldA1 = 0;
+    packet.field96 = (s32)arg4;
+    func_1516865C(&packet, 0xFF, 0xFF, 0xFF, 0xFF);
+    func_15168800(&packet, arg0[0xC], arg0[1]);
+    effect[0x20] = 4;
+    return 1;
+}
 
 u8 func_151D8E20(void);
 f32 func_150ADA68(void);

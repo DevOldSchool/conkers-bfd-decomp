@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_E8090.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150BAFEC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameBABE0Packet {
@@ -144,24 +139,22 @@ f32 func_150ADA68(void);
 extern f32 D_8009FE74;
 extern f32 D_8009FE78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BAFEC CURRENT (2488) */
-s32 func_150BAFEC(s32 volatile arg0, s32 volatile arg1, f32 volatile arg2,
-    f32 volatile arg3, f32 arg4, s32 arg5, s32 arg6, s32 arg7,
-    s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
+s32 func_150BAFEC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                  s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
+    f32 scale;
+    f32 horizontal;
+    void *created;
     GameBAFECPacket packet;
+    f32 speed;
     f32 extra;
-    GameBAFECAngle angle;
-    s32 angle_value;
+    s16 angle;
     f32 cosine;
     f32 sine;
     f32 angle_cosine;
     f32 angle_sine;
-    f32 speed;
-    f32 horizontal;
-    void *created;
 
-    cosine = func_151423D8((arg8 - 0x40) & 0xFF);
-    sine = func_151423D8((u8)arg8);
+    cosine = func_151423D8(arg8 - 0x40);
+    sine = func_151423D8(arg8);
     packet.effect = 0x29;
     packet.kind = 0xE03;
     packet.flags = 0x200005;
@@ -180,27 +173,28 @@ s32 func_150BAFEC(s32 volatile arg0, s32 volatile arg1, f32 volatile arg2,
     packet.mode = 0xFF;
     packet.dimensions[0] = 3;
     packet.dimensions[1] = 3;
-    speed = func_150ADA68() * 165.0f;
+    scale = func_150ADA68() * 165.0f + 800.0f;
+    packet.scale[0] = scale;
+    packet.scale[1] = scale;
     packet.position[0] = arg2;
     packet.position[1] = arg3;
     packet.position[2] = arg4;
-    speed += 800.0f;
-    packet.scale[0] = speed;
-    packet.scale[1] = speed;
-    angle_value = (func_150ADA20() % 11U) - 0xC;
-    angle.value = angle_value;
-    angle_cosine = func_151423D8((angle_value - 0x40) & 0xFF);
-    angle_sine = func_151423D8(*(volatile u8 *)&angle.byte[1]);
-    speed = func_150ADA68() * 11.0f;
+    angle = (func_150ADA20() % 11U) - 0xC;
+    angle_cosine = func_151423D8(angle - 0x40);
+    angle_sine = func_151423D8(angle);
+    speed = func_150ADA68() * 11.0f + 15.0f;
     packet.motion = 0xE05;
-    speed += 15.0f;
     horizontal = speed * angle_sine;
     packet.velocity[0] = horizontal * cosine;
     packet.velocity[1] = -speed * angle_cosine;
-    packet.zero = 0.0f;
     packet.velocity[2] = horizontal * sine;
-    if (func_150ADA20() & 1) packet.motion |= 0x40;
-    if (func_150ADA20() & 1) packet.motion |= 0x80;
+    packet.zero = 0.0f;
+    if (func_150ADA20() & 1) {
+        packet.motion |= 0x40;
+    }
+    if (func_150ADA20() & 1) {
+        packet.motion |= 0x80;
+    }
     packet.dimensions[2] = 2;
     packet.dimensions[3] = -1;
     packet.width = 0x16;
@@ -209,8 +203,8 @@ s32 func_150BAFEC(s32 volatile arg0, s32 volatile arg1, f32 volatile arg2,
     packet.factor = D_8009FE74;
     extra = D_8009FE78;
     created = func_15130374((s32)&packet, 0, 4, arg14, 1);
-    if (created != 0) func_10022EC0((u8 *)created + 0xA8, &extra, 4);
+    if (created != NULL) {
+        func_10022EC0((u8 *)created + 0xA8, &extra, 4);
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BAFEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E8090/func_150BAFEC.s")

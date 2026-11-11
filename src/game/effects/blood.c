@@ -18,11 +18,9 @@
  * - func_15137610
  * - func_151382E0
  * - func_15138424
- * - func_15138C80
  * - func_15138E98
  * - func_15139768
  * - func_15139D74
- * - func_1513A24C
  * - func_1513A594
  * - func_1513A6E0
  * - func_1513ABB8
@@ -1657,37 +1655,35 @@ void func_1504715C(void *, void *);
 void func_151382E0(f32 *, s32, void *, u8, s32);
 void func_15138E98(Blood1380B4State *, f32 *, s32, void *, s32, s32);
 void func_15139768(Blood1380B4State *, f32 *, f32, void *, s32, s32);
-void func_15139D74(Blood1380B4State *, f32 *, void *, s32, s32);
-void func_1513A6E0(Blood1380B4State *, f32 *, void *, s32, s32);
-void func_1513ABB8(Blood1380B4State *, f32 *, s32, void *, s32, s32);
-void func_1513B0F8(Blood1380B4State *, f32 *, void *, s32, s32);
-void func_1513A594(void *, s32, s32, s32, s32);
+void func_15139D74(Blood1380B4State *, f32 *, void *, u8, s32);
+void func_1513A6E0(Blood1380B4State *, f32 *, void *, u8, s32);
+void func_1513ABB8(Blood1380B4State *, f32 *, u8, void *, s32, s32);
+void func_1513B0F8(Blood1380B4State *, f32 *, void *, u8, s32);
+void func_1513A594(void *, s32, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15138C80 CURRENT (3009) */
-void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
+void func_15138C80(Blood1380B4State *arg0, u8 arg1, s32 arg2) {
     s32 kind;
     Vec3f position;
     u8 valid;
     BloodHitRecord hit;
 
-    arg1 = arg1 & 0xFF;
     kind = func_15134070(arg0);
     if (kind != 0x63) {
         valid = func_151380B4(arg0, kind, &position.x);
         func_15138120(arg0, kind, 1);
         if (valid != 0) {
             func_1504715C(&hit, arg0);
-            func_151382E0(&position.x, kind, &hit, arg1 & 0xFF, arg2);
+            func_151382E0(&position.x, kind, &hit, arg1, arg2);
             switch (kind) {
             case 16:
-                func_1513B0F8(arg0, &position.x, &hit, arg1 & 0xFF, arg2);
+                func_1513B0F8(arg0, &position.x, &hit, arg1, arg2);
                 return;
             case 17:
-                func_151036B4(&position.x, arg1 & 0xFF, arg2);
+                func_151036B4(&position.x, arg1, arg2);
                 return;
             case 0:
             case 7:
-                func_1513A6E0(arg0, &position.x, &hit, arg1 & 0xFF, arg2);
+                func_1513A6E0(arg0, &position.x, &hit, arg1, arg2);
                 return;
             case 3:
                 func_15138E98(arg0, &position.x, 1, &hit, arg1, arg2);
@@ -1703,12 +1699,11 @@ void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
                 func_15139768(arg0, &position.x, 1.0f, &hit, arg1, arg2);
                 return;
             case 4:
-                func_1513A594(arg0, (s32)&position.x, (s32)&hit, arg1 & 0xFF, arg2);
+                func_1513A594(arg0, (s32)&position.x, (s32)&hit, arg1, arg2);
                 return;
             case 8:
             case 9:
-                func_1513ABB8(arg0, &position.x, (kind == 9) & 0xFF,
-                             &hit, arg1, arg2);
+                func_1513ABB8(arg0, &position.x, kind == 9, &hit, arg1, arg2);
                 return;
             case 10:
             case 11:
@@ -1720,14 +1715,12 @@ void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
             case 12:
             case 13:
             default:
-                func_15139D74(arg0, &position.x, &hit, arg1 & 0xFF, arg2);
+                func_15139D74(arg0, &position.x, &hit, arg1, arg2);
                 break;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15138C80 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138C80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138E98.s")
 extern f32 D_800A48F8;
 extern f32 D_800A48FC;
@@ -1811,26 +1804,23 @@ extern f32 D_800A4944, D_800A4948, D_800A494C;
 extern u8 D_800BE616;
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A24C CURRENT (2720) */
 void func_1513A24C(Vec3f *arg0, s32 *arg1, f32 *arg2, s32 arg3,
                    f32 arg4, u8 arg5, u8 arg6, u8 *arg7, void *arg8,
                    u8 arg9, s32 arg10) {
     BloodA24CDescriptor descriptor;
     BloodA24CHeader header;
     s32 mode;
-    BloodA24CLookup lookup;
-    u8 index;
-    s32 enabled;
 
     descriptor.count = 0x28;
     descriptor.countRange = 0;
     descriptor.position = *arg0;
-    descriptor.size = 1.0f * arg4;
+    descriptor.size = 1 * arg4;
     descriptor.angle = 0;
     descriptor.angleRange = 0xFF;
     descriptor.lifetime = 0x1E0;
     descriptor.lifetimeRange = 0xF0;
-    descriptor.sizeRange = 0.0f * arg4;
+    descriptor.variant = arg6;
+    descriptor.sizeRange = 0 * arg4;
     header.tag = 4;
     mode = -1;
     descriptor.pitch = -0x40;
@@ -1841,7 +1831,6 @@ void func_1513A24C(Vec3f *arg0, s32 *arg1, f32 *arg2, s32 arg3,
     descriptor.field24 = D_800A4938;
     descriptor.field28 = D_800A493C;
     descriptor.spread = D_800A4940;
-    descriptor.variant = arg6;
     if (arg5 != 1) {
         if (arg5 != 0xD) {
             if (arg5 == 0x13 && D_800BE9F0 == 0x3C) {
@@ -1857,27 +1846,32 @@ void func_1513A24C(Vec3f *arg0, s32 *arg1, f32 *arg2, s32 arg3,
             descriptor.spread = D_800A494C;
         }
     } else {
+        BloodA24CLookup lookup;
+        u8 index;
+
         lookup = D_800A4258;
-        mode = 1;
         index = arg7[0x128];
         if (index >= 4) {
             index = 3;
         }
+        header.value = lookup.values[index];
         header.kind = 6;
         header.mode = 3;
-        header.value = lookup.values[index];
+        mode = 1;
     }
-    if (D_800BE616 != 0) {
-        enabled = 1;
-    } else {
-        enabled = 0;
+    {
+        s32 enabled;
+
+        if (D_800BE616 != 0) {
+            enabled = 1;
+        } else {
+            enabled = 0;
+        }
+        func_1515080C(&descriptor, arg1, arg2, arg3, &header, 0xC,
+                      6, 1, mode, arg8, 5.0f, 1, enabled, arg9, arg10);
     }
-    func_1515080C(&descriptor, arg1, arg2, arg3, &header, 0xC,
-                  6, 1, mode, arg8, 5.0f, 1, enabled, arg9, arg10);
     func_15133E3C(0, 0x45);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513A24C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A24C.s")
 
 typedef struct {
     s32 field_0;

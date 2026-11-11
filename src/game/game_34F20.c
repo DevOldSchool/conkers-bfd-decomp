@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15007B3C
- * - func_15008248
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -94,9 +93,8 @@ extern Game34F20Slot D_800C3CA0[];
 extern Game34F20Slot D_800C3D48[];
 void func_1501D044(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15008248 CURRENT (2180) */
 void func_15008248(s32 arg0) {
-    Game34F20Slot *var_v0;
+    s32 i;
 
     D_800C3638 = 0;
     D_800C3671 = 0;
@@ -104,18 +102,14 @@ void func_15008248(s32 arg0) {
     func_1501D044(0);
     func_1501D044(1);
     D_800C3663 = 0;
-    var_v0 = D_800C3CA0;
-    do {
-        var_v0->field_0 = 0;
-        var_v0->field_C = 0;
-        var_v0 += 1;
-    } while (var_v0 != D_800C3D48);
+    for (i = 0; i < 3; i++) {
+        D_800C3CA0[i].field_0 = 0;
+        D_800C3CA0[i].field_C = 0;
+    }
     D_800C3681 = 0;
     D_800C3682 = 0;
     D_800C3683 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15008248 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_34F20/func_15008248.s")
 
 void func_1501D348(s32, s32, s32, u8, s32);
 extern u8 D_800C35C5;

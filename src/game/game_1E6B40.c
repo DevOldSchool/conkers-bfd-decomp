@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B9690
  * - func_151B9964
- * - func_151B9CB0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -33,7 +32,7 @@ extern void *D_8008CA4C[];
 extern f32 D_800AA580;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9690 CURRENT (6044) */
-void func_151B9690(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
+void func_151B9690(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 arg4, s32 arg5,
     f32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11,
     s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16) {
     Game1E6B40Packet packet;
@@ -47,7 +46,7 @@ void func_151B9690(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     s32 range;
     f32 angle;
 
-    initialHeight = *(s16 *)((u8 *)&arg3 + 2);
+    initialHeight = arg3;
     arg6 += 180.0f;
     angle = (arg6 + (f32)(s32)(func_150ADA20() %
         (u32)*(s16 *)((u8 *)&arg7 + 2) -
@@ -64,12 +63,12 @@ void func_151B9690(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
         (u32)*(s16 *)((u8 *)&arg11 + 2) -
         (u32)(*(s16 *)((u8 *)&arg11 + 2) >> 1));
     radius = (f32)*(s16 *)((u8 *)&arg12 + 2);
-    incrementedHeight = *(s16 *)((u8 *)&arg3 + 2) + 1;
-    *(s16 *)((u8 *)&arg3 + 2) = incrementedHeight;
-    deltaX = (f32)*(s16 *)((u8 *)&arg2 + 2) + radius * sine;
-    deltaZ = (f32)*(s16 *)((u8 *)&arg4 + 2) + radius * cosine;
-    *(s16 *)((u8 *)&arg2 + 2) = (s16)(s32)deltaX;
-    *(s16 *)((u8 *)&arg4 + 2) = (s16)(s32)deltaZ;
+    incrementedHeight = arg3 + 1;
+    arg3 = incrementedHeight;
+    deltaX = (f32)arg2 + radius * sine;
+    deltaZ = (f32)arg4 + radius * cosine;
+    arg2 = (s16)(s32)deltaX;
+    arg4 = (s16)(s32)deltaZ;
     lifetime = *(s16 *)((u8 *)&arg8 + 2) +
         (s32)(func_150ADA20() % (u32)*(s16 *)((u8 *)&arg9 + 2) -
         (u32)(*(s16 *)((u8 *)&arg9 + 2) >> 1));
@@ -95,7 +94,7 @@ void func_151B9690(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     packet.packed = ((u32)*(s16 *)((u8 *)&arg13 + 2) << 16) | (initialHeight & 0xFFFF);
     packet.resource = D_8008CA4C[arg0];
     packet.scale = 0x100;
-    packet.x = *(s16 *)((u8 *)&arg2 + 2);
+    packet.x = arg2;
     packet.mode = arg1;
     packet.flags = 0;
     packet.decay = *(s16 *)((u8 *)&arg14 + 2);
@@ -106,8 +105,8 @@ void func_151B9690(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     packet.scaleZ = *(s16 *)((u8 *)&arg14 + 2);
     packet.contact = 0x190;
     packet.enabled = 0;
-    packet.y = *(s16 *)((u8 *)&arg3 + 2);
-    packet.z = *(s16 *)((u8 *)&arg4 + 2);
+    packet.y = arg3;
+    packet.z = arg4;
     packet.velocityX = (s16)(s32)(magnitude * sine);
     packet.velocityZ = (s16)(s32)(magnitude * cosine);
     packet.phase = func_150ADA20();
@@ -231,7 +230,7 @@ void func_151B9BF0(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 arg4,
         *(s32 *)(temp_v0 + 0x10) = arg13;
     }
 }
-void func_151B9690(s32, s32, s32, s32, s32, s32, f32, s32, s32,
+void func_151B9690(s32, s32, s16, s16, s16, s32, f32, s32, s32,
                    s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;
 
@@ -241,7 +240,6 @@ typedef struct Game1E6B40Controller {
     s16 lifetime;
 } Game1E6B40Controller;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9CB0 CURRENT (1910) */
 void func_151B9CB0(u8 *arg0) {
     s32 remaining;
     s16 x, y, z;
@@ -279,12 +277,11 @@ void func_151B9CB0(u8 *arg0) {
             *(s16 *)(arg0 + 0x26), arg0[0xC], arg0[1]);
         i++;
     } while (i != 4);
-    remaining = *(s16 *)(arg0 + 0x2A) - D_800BE9E4;
+    remaining = controller->lifetime;
+    remaining -= D_800BE9E4;
     if (remaining < 0) {
         func_1516972C(arg0);
         return;
     }
     *(s16 *)(arg0 + 0x2A) = remaining;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B9CB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E6B40/func_151B9CB0.s")

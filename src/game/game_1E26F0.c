@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B5328
- * - func_151B5A9C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -54,50 +53,32 @@ typedef struct {
     u8 secondFlag;
 } Game1E26F0State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5A9C CURRENT (1940) */
 void func_151B5A9C(u8 *arg0, void *arg1, u8 arg2) {
-    s32 temp_a2;
-    s32 temp_a2_2;
-    s32 temp_v1;
-    s32 temp_v1_2;
-    u8 temp_v1_3;
-    void *temp_v0;
-    void *temp_v0_2;
+    Game1E26F0State *state = (Game1E26F0State *)(arg0 + 0x28);
 
     if (arg2 == 0x2D) {
-        temp_v0 = arg0 + 0x28;
-        temp_a2 = *(s32 *)((u8 *) temp_v0 + 0x580);
-        temp_v1 = *(s32 *)arg1;
-        if (temp_v1 == temp_a2) {
-            *(s32 *)((u8 *) temp_v0 + 0x580) = *(s32 *)((u8 *) arg1 + 4);
-            *(u8 *)((u8 *) temp_v0 + 0x584) = *(u8 *)((u8 *) arg1 + 9);
-        } else if (*(s32 *)((u8 *) arg1 + 4) == temp_a2) {
-            *(s32 *)((u8 *) temp_v0 + 0x580) = temp_v1;
-            *(u8 *)((u8 *) temp_v0 + 0x584) = *(u8 *)((u8 *) arg1 + 8);
+        Game1E26F0Pair *pair = arg1;
+
+        if (state->first == pair->first) {
+            state->first = pair->second;
+            state->firstFlag = pair->secondFlag;
+        } else if (state->first == pair->second) {
+            state->first = pair->first;
+            state->firstFlag = pair->firstFlag;
         }
-        temp_a2_2 = *(s32 *)((u8 *) temp_v0 + 0x588);
-        if (*(s32 *)arg1 == temp_a2_2) {
-            *(s32 *)((u8 *) temp_v0 + 0x588) = *(s32 *)((u8 *) arg1 + 4);
-            *(u8 *)((u8 *) temp_v0 + 0x58C) = *(u8 *)((u8 *) arg1 + 9);
-            return;
+        if (state->second == pair->first) {
+            state->second = pair->second;
+            state->secondFlag = pair->secondFlag;
+        } else if (state->second == pair->second) {
+            state->second = pair->first;
+            state->secondFlag = pair->firstFlag;
         }
-        if (*(s32 *)((u8 *) arg1 + 4) == temp_a2_2) {
-            *(s32 *)((u8 *) temp_v0 + 0x588) = *(s32 *)arg1;
-            *(u8 *)((u8 *) temp_v0 + 0x58C) = *(u8 *)((u8 *) arg1 + 8);
-        }
-        return;
-    }
-    temp_v0_2 = arg0 + 0x28;
-    if (arg2 == 0) {
-        temp_v1_2 = *(s32 *)arg1;
-        if ((temp_v1_2 == *(s32 *)((u8 *) temp_v0_2 + 0x580)) ||
-            (temp_v1_2 == *(s32 *)((u8 *) temp_v0_2 + 0x588)) ||
-            (temp_v1_3 = *(u8 *)((u8 *) arg1 + 4),
-             *(u8 *)((u8 *) temp_v0_2 + 0x584) == temp_v1_3) ||
-            (*(u8 *)((u8 *) temp_v0_2 + 0x58C) == temp_v1_3)) {
+    } else if (arg2 == 0) {
+        s32 current = *(s32 *)arg1;
+
+        if (current == state->first || current == state->second ||
+            state->firstFlag == ((u8 *)arg1)[4] || state->secondFlag == ((u8 *)arg1)[4]) {
             func_1516972C(arg0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B5A9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E26F0/func_151B5A9C.s")

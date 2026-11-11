@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15156190
  * - func_151564F8
- * - func_15156B54
  * - func_15156D24
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -277,41 +276,32 @@ typedef struct Game183640Light {
     u8 state;
 } Game183640Light;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15156B54 CURRENT (2047) */
 void func_15156B54(u8 *arg0) {
+    u32 index;
     u32 row;
+    s16 *timers;
     Game183640Light light;
     s32 position[3];
-    Game183640Point *point;
-    Game183640Point *group;
-    u32 index;
-    s16 *timers;
-
     *(s16 *)(arg0 + 0x2C) -= D_800BE9E4;
     if (*(s16 *)(arg0 + 0x2C) < 0) {
         row = func_150ADA20() % 3U;
         index = func_150ADA20() % 10U;
-        group = D_800DCA30[row];
-        point = &group[index];
-        if (point->x != 0.0f && point->y != 0.0f && point->z != 0.0f) {
-            point = &group[index];
-            func_15156D24(point, arg0[0xC]);
+        if (D_800DCA30[row][index].x != 0.0f && D_800DCA30[row][index].y != 0.0f && D_800DCA30[row][index].z != 0.0f) {
+            func_15156D24(&D_800DCA30[row][index], arg0[0xC]);
             light.kind = 3;
             light.mode = -1;
             light.lifetime = func_150ADA20() % 11U + 5;
             light.state = 0;
-            position[0] = point->x;
-            position[1] = point->y;
-            position[2] = point->z;
+            position[0] = D_800DCA30[row][index].x;
+            position[1] = D_800DCA30[row][index].y;
+            position[2] = D_800DCA30[row][index].z;
             func_151602C0((u8 *)&light, position, func_150ADA20() % 156U + 0x64,
                          0xFF, 0xFF, 0xFF, 0xFF, 0, 0, arg0[0xC], arg0[1]);
         }
         timers = (s16 *)(arg0 + 0x28);
-        timers[2] = func_150ADA20() % (u32)(timers[1] + 1) + timers[0];
+        timers[2] = timers[0] + func_150ADA20() % (timers[1] + 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15156B54 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156B54.s")
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 void func_151568F8(Game183640CombinedRecord *, u8);

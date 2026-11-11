@@ -2275,7 +2275,7 @@ s32 func_15144B34(s32);
 void func_15145548(void *, void *, void *, void *, f32 *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C56C CURRENT (2597) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C56C */
 void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
     CharacterFlamethrowerVertex *output;
     void *result;
@@ -2283,23 +2283,18 @@ void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
     Vec3f direction;
     Vec3f endpoint;
     f32 x, y, z;
-    Vec3f cross;
+    f32 crossX, crossY, crossZ;
     Vec3f closest;
     f32 parameter;
     f32 lengthSquared;
     u8 fresh;
-    u8 *slot;
-    void *template;
-    f32 fraction;
 
     func_151D5D60((u8 *)arg0 + 0x100, arg1, 0x40, (void **)&output, &fresh);
     result = output;
     if (output != NULL) {
         if (fresh != 0) {
-            slot = (u8 *)arg0 + arg1 * 4;
-            template = (u8 *)arg0 + 0xC0;
-            func_10022EC0(*(void **)(slot + 0x100), template, 0x40);
-            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, template, 0x40);
+            func_10022EC0(*(void **)((u8 *)arg0 + arg1 * 4 + 0x100), (u8 *)arg0 + 0xC0, 0x40);
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg1 * 4 + 0x100) + 0x40, (u8 *)arg0 + 0xC0, 0x40);
         }
     } else {
         return NULL;
@@ -2308,52 +2303,50 @@ void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
     direction.x = arg0->end.x - arg0->start.x;
     direction.y = arg0->end.y - arg0->start.y;
     direction.z = arg0->end.z - arg0->start.z;
-    fraction = arg0->fraction;
-    x = arg0->start.x + direction.x * fraction;
-    y = arg0->start.y + direction.y * fraction;
-    z = arg0->start.z + direction.z * fraction;
-    direction.x = x - arg0->start.x;
-    direction.y = y - arg0->start.y;
-    endpoint.z = z;
-    endpoint.y = y;
-    endpoint.x = x;
-    direction.z = z - arg0->start.z;
+    endpoint.x = arg0->start.x + direction.x * arg0->fraction;
+    endpoint.y = arg0->start.y + direction.y * arg0->fraction;
+    endpoint.z = arg0->start.z + direction.z * arg0->fraction;
+    direction.x = endpoint.x - arg0->start.x;
+    direction.y = endpoint.y - arg0->start.y;
+    direction.z = endpoint.z - arg0->start.z;
     func_15145548(&arg0->start, &direction, (void *)camera, &closest, &parameter);
     x = closest.x - ((f32 *)camera)[0];
     y = closest.y - ((f32 *)camera)[1];
     z = closest.z - ((f32 *)camera)[2];
-    cross.x = direction.y * z - y * direction.z;
-    cross.y = direction.z * x - z * direction.x;
-    cross.z = direction.x * y - x * direction.y;
-    lengthSquared = cross.x * cross.x + cross.y * cross.y + cross.z * cross.z;
+    crossX = direction.y * z - y * direction.z;
+    crossY = direction.z * x - z * direction.x;
+    crossZ = direction.x * y - x * direction.y;
+    lengthSquared = crossX * crossX + crossY * crossY + crossZ * crossZ;
     if (lengthSquared != 0.0f) {
-        fraction = arg0->width / sqrtf(lengthSquared);
-        x = cross.x * fraction;
-        y = cross.y * fraction;
-        z = cross.z * fraction;
+        f32 scale;
+
+        scale = arg0->width / sqrtf(lengthSquared);
+        crossX *= scale;
+        crossY *= scale;
+        crossZ *= scale;
     } else {
-        z = 0.0f;
-        x = 0.0f;
-        y = 0.0f;
+        crossX = 0.0f;
+        crossY = 0.0f;
+        crossZ = 0.0f;
     }
-    output->x = (s16)(s32)(arg0->start.x + x);
-    output->y = (s16)(s32)(arg0->start.y + y);
-    output->z = (s16)(s32)(arg0->start.z + z);
+    output->x = (s16)(s32)(arg0->start.x + crossX);
+    output->y = (s16)(s32)(arg0->start.y + crossY);
+    output->z = (s16)(s32)(arg0->start.z + crossZ);
     output->flags = 0;
     output++;
-    output->x = (s16)(s32)(arg0->start.x - x);
-    output->y = (s16)(s32)(arg0->start.y - y);
-    output->z = (s16)(s32)(arg0->start.z - z);
+    output->x = (s16)(s32)(arg0->start.x - crossX);
+    output->y = (s16)(s32)(arg0->start.y - crossY);
+    output->z = (s16)(s32)(arg0->start.z - crossZ);
     output->flags = 0;
     output++;
-    output->x = (s16)(s32)(endpoint.x - x);
-    output->y = (s16)(s32)(endpoint.y - y);
-    output->z = (s16)(s32)(endpoint.z - z);
+    output->x = (s16)(s32)(endpoint.x - crossX);
+    output->y = (s16)(s32)(endpoint.y - crossY);
+    output->z = (s16)(s32)(endpoint.z - crossZ);
     output->flags = 0;
     output++;
-    output->x = (s16)(s32)(endpoint.x + x);
-    output->y = (s16)(s32)(endpoint.y + y);
-    output->z = (s16)(s32)(endpoint.z + z);
+    output->x = (s16)(s32)(endpoint.x + crossX);
+    output->y = (s16)(s32)(endpoint.y + crossY);
+    output->z = (s16)(s32)(endpoint.z + crossZ);
     output->flags = 0;
     return result;
 }

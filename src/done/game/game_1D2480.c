@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1D2480.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_composite_emitter_timed_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151A5170
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1D2480Effect {
@@ -109,7 +104,6 @@ extern s32 D_800BE620;
 extern Game1D2480View *D_800BE628;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5170 CURRENT (1845) */
 void func_151A5170(Game1D2480Command *arg0, Game1D2480Effect *arg1, s32 arg2) {
     s32 y;
     s32 pass;
@@ -119,8 +113,6 @@ void func_151A5170(Game1D2480Command *arg0, Game1D2480Effect *arg1, s32 arg2) {
     s32 width;
     s32 height;
     u8 sync;
-    s32 next;
-    f32 end;
 
     { Game1D2480Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
     { Game1D2480Command *command = arg0++; command->w0 = 0xFC119623; command->w1 = 0xFF2FFFFF; }
@@ -134,8 +126,6 @@ void func_151A5170(Game1D2480Command *arg0, Game1D2480Effect *arg1, s32 arg2) {
         if (pass == 0) {
             left = D_800BE628[(u8)arg1->field_1A].left;
             rows = 8;
-            end = D_800BE628[(u8)arg1->field_1A].top + height;
-            y = D_800BE628[(u8)arg1->field_1A].top;
             columns = (width > 256) ? 256 : width;
         } else {
             if (width <= 256) {
@@ -144,33 +134,27 @@ void func_151A5170(Game1D2480Command *arg0, Game1D2480Effect *arg1, s32 arg2) {
             columns = width - 256;
             rows = 0x36;
             left = D_800BE628[(u8)arg1->field_1A].left + 256.0f;
-            end = D_800BE628[(u8)arg1->field_1A].top + height;
-            y = D_800BE628[(u8)arg1->field_1A].top;
         }
-        while (y < end) {
-            next = y + rows;
-            if (end < next) {
-                rows = end - y;
-                next = y + rows;
+        y = D_800BE628[(u8)arg1->field_1A].top;
+        while (y < D_800BE628[(u8)arg1->field_1A].top + height) {
+            if (D_800BE628[(u8)arg1->field_1A].top + height < y + rows) {
+                rows = D_800BE628[(u8)arg1->field_1A].top + height - y;
             }
             { Game1D2480Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
             { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xFD, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(D_800BE620 - 1, 0, 12); command->w1 = D_8002AAE8[D_800BE9C0]; }
             { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xF5, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(((columns * 2) + 7) >> 3, 9, 9) | _SHIFTL(0, 0, 9); command->w1 = _SHIFTL(7, 24, 3) | _SHIFTL(0, 20, 4) | _SHIFTL(2, 18, 2) | _SHIFTL(0, 14, 4) | _SHIFTL(0, 10, 4) | _SHIFTL(2, 8, 2) | _SHIFTL(0, 4, 4) | _SHIFTL(0, 0, 4); }
-            { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xF4, 24, 8) | _SHIFTL(left << 2, 12, 12) | _SHIFTL(y << 2, 0, 12); command->w1 = _SHIFTL(7, 24, 3) | _SHIFTL((left + columns - 1) << 2, 12, 12) | _SHIFTL((next - 1) << 2, 0, 12); }
+            { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xF4, 24, 8) | _SHIFTL(left << 2, 12, 12) | _SHIFTL(y << 2, 0, 12); command->w1 = _SHIFTL(7, 24, 3) | _SHIFTL((left + columns - 1) << 2, 12, 12) | _SHIFTL(((y + rows) - 1) << 2, 0, 12); }
             { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xF5, 24, 8) | _SHIFTL(0, 21, 3) | _SHIFTL(2, 19, 2) | _SHIFTL(((columns * 2) + 7) >> 3, 9, 9) | _SHIFTL(0, 0, 9); command->w1 = _SHIFTL(0, 24, 3) | _SHIFTL(0, 20, 4) | _SHIFTL(2, 18, 2) | _SHIFTL(0, 14, 4) | _SHIFTL(0, 10, 4) | _SHIFTL(2, 8, 2) | _SHIFTL(0, 4, 4) | _SHIFTL(0, 0, 4); }
             { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xF2, 24, 8) | _SHIFTL(0, 12, 12) | _SHIFTL(0, 0, 12); command->w1 = _SHIFTL(0, 24, 3) | _SHIFTL(columns << 2, 12, 12) | _SHIFTL(rows << 2, 0, 12); }
-            { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xE4, 24, 8) | _SHIFTL((left + columns) << 2, 12, 12) | _SHIFTL(next << 2, 0, 12); command->w1 = _SHIFTL(0, 24, 3) | _SHIFTL(left << 2, 12, 12) | _SHIFTL(y << 2, 0, 12); }
+            { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xE4, 24, 8) | _SHIFTL((left + columns) << 2, 12, 12) | _SHIFTL((y + rows) << 2, 0, 12); command->w1 = _SHIFTL(0, 24, 3) | _SHIFTL(left << 2, 12, 12) | _SHIFTL(y << 2, 0, 12); }
             { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = _SHIFTL(0, 16, 16) | _SHIFTL(0, 0, 16); }
             { Game1D2480Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = _SHIFTL(1 << 10, 16, 16) | _SHIFTL(1 << 10, 0, 16); }
-            y = next;
-            end = D_800BE628[(u8)arg1->field_1A].top + height;
+            y += rows;
         }
     }
     { Game1D2480Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
     func_15142FBC(arg0, 0x2C00, 0x0F0A4004, &sync);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A5170 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2480/func_151A5170.s")
 extern void (*D_8008F904[])(void *, s32, u8);
 
 void func_151A55D4(void *arg0, s32 arg1, u8 arg2) {

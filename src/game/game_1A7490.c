@@ -6,10 +6,8 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_quad_actor_effect_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15179FE0
  * - func_1517A1EC
  * - func_1517A3A0
- * - func_1517AA20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -41,24 +39,21 @@ typedef struct Game1A7490Motion {
 
 extern f32 D_800A7220;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15179FE0 CURRENT (2175) */
-void func_15179FE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
-                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+void func_15179FE0(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4,
+                   u16 arg5, u16 arg6, u8 arg7, u8 arg8, u8 arg9, s32 arg10) {
     Game1A7490Motion *effect;
-    u32 range;
-    s32 half;
+    u8 range;
 
     effect = func_15167A68(arg10, 0, 0xB8, 1, 0xFF, 1);
     if (effect != 0) {
         effect->pos90 = arg1;
         effect->pos92 = arg2;
         effect->pos94 = arg3;
-        effect->speedA2 = (s8)arg4;
-        effect->speedA0 = (func_150ADA20() % (u8)arg7) - ((s32)(u8)arg7 >> 1);
-        half = (s32)(u8)arg7 >> 1;
-        range = (u8)arg7;
-        effect->speedA4 = (func_150ADA20() % range) - half;
-        if ((u16)arg6 == 5) {
+        effect->speedA2 = arg4;
+        range = arg7;
+        effect->speedA0 = (func_150ADA20() % range) - (range >> 1);
+        effect->speedA4 = (func_150ADA20() % range) - (range >> 1);
+        if (arg6 == 5) {
             effect->pos90 += effect->speedA0 * 4;
             effect->pos92 -= effect->speedA2 * 4;
             effect->pos94 += effect->speedA4 * 4;
@@ -66,22 +61,19 @@ void func_15179FE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
         effect->pos96 = 0;
         effect->pos98 = 0;
         effect->pos9A = 0;
-        effect->inc9C = (func_150ADA20() % (u8)arg8) - ((s32)(u8)arg8 >> 1);
-        half = (s32)(u8)arg8 >> 1;
-        range = (u8)arg8;
-        effect->inc9D = (func_150ADA20() % range) - half;
-        effect->inc9E = (func_150ADA20() % range) - half;
-        effect->fieldA8 = (f32)(s32)((func_150ADA20() & 0x7FU) + 0x8C) * D_800A7220;
+        range = arg8;
+        effect->inc9C = (func_150ADA20() % range) - (range >> 1);
+        effect->inc9D = (func_150ADA20() % range) - (range >> 1);
+        effect->inc9E = (func_150ADA20() % range) - (range >> 1);
+        effect->fieldA8 = (s32)((func_150ADA20() & 0x7F) + 0x8C) * D_800A7220;
         effect->timerA6 = arg5;
         effect->field9F = arg0;
         effect->stateAC = arg6;
+        effect->divisorAE = arg9;
         effect->phaseB2 = 0;
         effect->fadeB3 = 0xFF;
-        effect->divisorAE = (u8)arg9;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15179FE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_15179FE0.s")
 
 
 extern s32 D_800BE9E4;
@@ -325,37 +317,27 @@ s32 func_1517A9A8(s32 arg0, s32 arg1) {
 }
 void func_1517A644(f32, u8, s16, s16, s16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517AA20 CURRENT (2053) */
 void func_1517AA20(f32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    f32 var_ft0;
-    s32 temp_s0;
-    s32 temp_s2;
-    s32 var_s1;
+    f32 position;
+    s32 offsetX;
+    s32 offsetZ;
+    s32 i;
     s32 divisor;
-    u32 temp_t9;
-    f32 half;
 
     if (!(arg0 < 12.0f)) {
         divisor = (s32)(arg0 * 8.0f);
-        half = arg0 * 0.5f;
-        var_s1 = 0;
-        if (arg4 > 0) {
-            do {
-                temp_s0 = func_150ADA20() & 0x3F;
-                temp_s2 = (func_150ADA20() & 0x3F) - 0x20;
-                temp_t9 = (u32)(func_150ADA20() % (u32)divisor) >> 4;
-                var_ft0 = (f32)temp_t9;
-                temp_s0 -= 0x20;
-                func_1517A644(var_ft0 + half, func_150ADA20() & 1,
-                              (s16)(arg1 + temp_s0), (s16)arg2,
-                              arg3 + temp_s2);
-                var_s1 += 1;
-            } while (var_s1 != arg4);
+        arg0 *= 0.5f;
+        for (i = 0; i < arg4; i++) {
+            offsetX = func_150ADA20() & 0x3F;
+            offsetZ = func_150ADA20() & 0x3F;
+            offsetX -= 0x20;
+            offsetZ -= 0x20;
+            position = (f32)((u32)(func_150ADA20() % (u32)divisor) >> 4) + arg0;
+            func_1517A644(position, func_150ADA20() & 1, arg1 + offsetX, arg2,
+                          arg3 + offsetZ);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517AA20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517AA20.s")
 void func_1510B7B4(s32 arg0, s32 arg1);
 
 void func_1517AB7C(s32 arg0, s32 arg1, s16 arg2) {

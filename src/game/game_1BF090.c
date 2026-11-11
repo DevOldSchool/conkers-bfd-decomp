@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_composite_emitter_timed_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15191BE0
  * - func_1519203C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -36,16 +35,15 @@ typedef struct Game1BF090Payload {
     u8 pad65[3];
 } Game1BF090Payload;
 
-void func_1504715C(void *, void *, s32, void *);
+void func_1504715C(void *, void *);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191BE0 CURRENT (2209) */
 s32 func_15191BE0(u8 *arg0, Vec3i *arg1, u8 arg2,
                   f32 arg3, f32 arg4, s16 arg5, f32 arg6, f32 arg7,
                   s16 arg8, s16 arg9, u8 arg10, u8 arg11, f32 arg12,
                   f32 arg13, f32 arg14, u8 arg15, u8 arg16, s32 arg17) {
-    Game1BF090Payload payload;
     void *effect;
+    Game1BF090Payload payload;
 
     if (arg0 == 0) {
         return 0;
@@ -57,7 +55,7 @@ s32 func_15191BE0(u8 *arg0, Vec3i *arg1, u8 arg2,
     payload.zero = 0.0f;
     payload.start = arg3;
     payload.end = arg4;
-    func_1504715C(payload.scratch, arg0, arg2, arg0);
+    func_1504715C(payload.scratch, arg0);
     payload.scaleX = arg6;
     payload.scaleY = arg7;
     payload.field50 = arg8;
@@ -74,8 +72,6 @@ s32 func_15191BE0(u8 *arg0, Vec3i *arg1, u8 arg2,
     }
     return (s32)effect;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15191BE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15191BE0.s")
 struct Game1BF090Packed;
 f32 func_150ADA68(void);
 void func_15143134(f32 *, f32 *, s32);

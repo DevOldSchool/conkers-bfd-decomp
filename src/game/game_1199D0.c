@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150EC520
- * - func_150EC6B0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -79,23 +78,16 @@ typedef struct GameEC6B0State {
     Vec3i position;
     f32 counter;
 } GameEC6B0State;
-extern f32 D_800A1578, D_800A157C, D_800A1580;
-extern f32 D_800A1584, D_800A1588, D_800A158C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EC6B0 CURRENT (2136) */
 void func_150EC6B0(u8 *arg0) {
-    s32 firstFlip;
-    GameEC6B0Packet packet;
-    GameEC6B0Extension extension;
-    s32 secondFlip;
     GameEC6B0State *state;
-    void *result;
-    f32 baseSpeed;
-    f32 speedRange;
+    GameEC6B0Packet packet;
 
     state = (GameEC6B0State *)(arg0 + 0x28);
-    state->counter += (1352.0f + func_150ADA68() * D_800A1578) * D_800A157C * D_800BE9A4;
+    state->counter += (1352.0f + func_150ADA68() * 1698.0f) * 0.0001f * D_800BE9A4;
     if (state->counter > 1.0f) {
+        GameEC6B0Extension extension;
+        extension.z = 0.97047f;
         packet.field1D = 0x6C;
         packet.field08 = 0x5103;
         packet.field00 = 0x200005;
@@ -122,11 +114,8 @@ void func_150EC6B0(u8 *arg0) {
         packet.field19 = 0x49;
         packet.field1A = 0;
         packet.field1C = 0xFF;
-        extension.z = D_800A1580;
-        packet.field24 = D_800A1584;
+        packet.field24 = 1.021029f;
         packet.position = state->position;
-        baseSpeed = D_800A1588;
-        speedRange = D_800A158C;
         packet.field3C = 0.0f;
         packet.field40 = 0.0f;
         packet.field44 = 0.0f;
@@ -134,26 +123,25 @@ void func_150EC6B0(u8 *arg0) {
         packet.field4C = 0.0f;
         packet.field50 = 0.0f;
         do {
+            void *result;
             extension.field2 = func_150ADA20() % 5U + 4;
             extension.field3 = func_150ADA20() % 5U + 4;
             extension.x = func_150ADA68() * 11.0f;
             extension.y = func_150ADA68() * 11.0f;
-            packet.speed = func_150ADA68() * speedRange + baseSpeed;
+            packet.speed = func_150ADA68() * 0.172f + 0.098000005f;
             packet.flags &= ~0xC0;
-            firstFlip = func_150ADA20() & 1 ? 0x80 : 0;
-            secondFlip = func_150ADA20() & 1 ? 0x40 : 0;
-            packet.flags |= secondFlip | firstFlip;
+            packet.flags |= (func_150ADA20() & 1 ? 0x40 : 0) | (func_150ADA20() & 1 ? 0x80 : 0);
             packet.field1B = func_150ADA20() % 101U + 0x64;
             packet.field0A = func_150ADA20() % 51U + 0x50;
             packet.scaleX = packet.scaleY = func_150ADA68() * 80.0f + 92.0f;
             result = func_15130280(&packet, 0, NULL, 0x10, arg0[0xC], arg0[1]);
-            if (result != NULL) func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            }
             state->counter -= 1.0f;
         } while (state->counter > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EC6B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1199D0/func_150EC6B0.s")
 void *func_10022EC0(void *, const void *, u32);
 
 typedef struct Game1199D0SpawnParams {

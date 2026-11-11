@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150130B4
- * - func_15013DE8
  * - func_15014094
  * - func_15014B60
  *
@@ -324,7 +323,6 @@ extern f32 D_80096670;
 extern f32 D_80096674;
 extern f32 D_80096678;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013DE8 CURRENT (3102) */
 s32 func_15013DE8(u8 *arg0) {
     struct {
         f32 position[3];
@@ -343,13 +341,14 @@ s32 func_15013DE8(u8 *arg0) {
         f32 value70;
         f32 value74;
     } packet;
-    f32 scaledY;
     f32 scaledX;
+    f32 scaledY;
     s32 mode;
 
     arg0[0x16] |= 4;
-    packet.first = 0x6231;
-    packet.second = 0x1A4D;
+    scaledX = (f32)*(s16 *)(arg0 + 6) * D_80096654;
+    scaledY = (f32)*(s16 *)(arg0 + 8) * D_80096658;
+    packet.first = 0x6231; packet.second = 0x1A4D;
     packet.bytes56[0] = 0;
     packet.bytes56[1] = 0;
     packet.bytes56[2] = 0;
@@ -361,27 +360,20 @@ s32 func_15013DE8(u8 *arg0) {
     packet.bytes5C[3] = 0;
     packet.field64 = 0;
     packet.value6C = D_8009665C;
-    scaledX = (f32)*(s16 *)(arg0 + 6) * D_80096654;
     packet.position[0] = (f32)*(s16 *)(arg0 + 0);
-    scaledY = (f32)*(s16 *)(arg0 + 8) * D_80096658;
     packet.position[1] = (f32)*(s16 *)(arg0 + 2);
-    packet.angle = 300;
     packet.position[2] = (f32)*(s16 *)(arg0 + 4);
+    packet.angle = 300;
     packet.zero = 0.0f;
     packet.value70 = D_80096660;
     packet.value74 = D_80096664;
     packet.bytes5C[0] = (func_150ADA20() % 56U) + 200;
-    packet.offsets[0] = D_80096668 * scaledX;
-    packet.offsets[2] = D_8009666C * scaledX;
-    packet.offsets[3] = D_80096674 * scaledY;
-    packet.offsets[1] = D_80096670 * scaledY;
-    packet.offsets[4] = D_80096678 * scaledY;
+    packet.offsets[0] = D_80096668 * scaledX; packet.offsets[2] = D_8009666C * scaledX;
+    packet.offsets[1] = D_80096670 * scaledY; packet.offsets[3] = D_80096674 * scaledY; packet.offsets[4] = D_80096678 * scaledY;
     mode = *(s32 *)(arg0 + 0x18) ? 2 : 1;
     func_15149550(packet.position, 10, 1, mode & 0xFF, 0xFF, 1);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15013DE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013DE8.s")
 void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);
 
 s32 func_15013F9C(s32 arg0) {

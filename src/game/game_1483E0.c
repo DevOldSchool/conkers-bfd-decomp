@@ -14,7 +14,6 @@
  * - func_1511C548
  * - func_1511CB44
  * - func_1511D394
- * - func_1511D7BC
  * - func_1511D9E4
  * - func_1511DF6C
  *
@@ -531,7 +530,6 @@ typedef struct Game1483E0WaveMesh {
 void func_1511A494(void *, void *, void *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511D7BC CURRENT (2638) */
 void func_1511D7BC(Game1483E0WaveMesh *arg0) {
     f32 sine;
     s32 index;
@@ -541,65 +539,42 @@ void func_1511D7BC(Game1483E0WaveMesh *arg0) {
         s32 amplitude_t;
         s32 amplitude_s;
     } parameters;
-    s32 flags;
+    s16 s_delta;
+    s16 t_delta;
     f32 cosine;
     u8 angle;
     Game1483E0WaveState *state;
-    Game1483E0UvPair *cursor;
-    Game1483E0UvPair *output;
-    Game1483E0WaveState *existing;
-    s32 offset;
 
-    existing = arg0->wave;
-    state = existing;
-    if (existing == 0) {
+    state = arg0->wave;
+    if (state == NULL) {
         state = func_10003C40(0xC, 1, 0, 0);
         arg0->wave = state;
         state->field4 = 0;
         state->field8 = 0;
         coords = func_10003C40(arg0->count * 4, 1, 0, 0);
         state->coords = coords;
-        index = 0;
-        offset = 0;
-        cursor = coords;
-        if (arg0->count > 0) {
-            do {
-                index++;
-                cursor++;
-                cursor[-1].s = ((Game1483E0UvVertex *)((u8 *)arg0->source + offset))->s;
-                cursor[-1].t = ((Game1483E0UvVertex *)((u8 *)arg0->source + offset))->t;
-                offset += 0x10;
-            } while (index < arg0->count);
+        for (index = 0; index < arg0->count; index++) {
+            coords[index].s = arg0->source[index].s;
+            coords[index].t = arg0->source[index].t;
         }
     } else {
-        coords = existing->coords;
+        coords = arg0->wave->coords;
     }
-    flags = arg0->flags;
-    parameters.amplitude_s = flags & 0xFFF;
-    parameters.amplitude_t = (flags >> 12) & 0xFFF;
-    parameters.speed = (flags >> 24) & 0xFF;
-    angle = (arg0->phase >> 4) & 0xFF;
-    index = 0;
+    parameters.amplitude_s = arg0->flags & 0xFFF;
+    parameters.amplitude_t = (arg0->flags >> 12) & 0xFFF;
+    parameters.speed = (arg0->flags >> 24) & 0xFF;
+    angle = arg0->phase >> 4;
     cosine = func_15048A40(angle);
     sine = func_150489B0(angle);
     arg0->phase += parameters.speed * D_800BE9E4;
-    if (arg0->count > 0) {
-        output = coords;
-        offset = 0;
-        do {
-            index++;
-            ((Game1483E0UvVertex *)((u8 *)arg0->buffers[D_800BE9C0] + offset))->s =
-                output->s + (s16)(s32)((f32)parameters.amplitude_s * sine);
-            output++;
-            ((Game1483E0UvVertex *)((u8 *)arg0->buffers[D_800BE9C0] + offset))->t =
-                output[-1].t + (s16)(s32)((f32)parameters.amplitude_t * cosine);
-            offset += 0x10;
-        } while (index < arg0->count);
+    s_delta = (f32)parameters.amplitude_s * sine;
+    t_delta = (f32)parameters.amplitude_t * cosine;
+    for (index = 0; index < arg0->count; index++) {
+        arg0->buffers[D_800BE9C0][index].s = coords[index].s + s_delta;
+        arg0->buffers[D_800BE9C0][index].t = coords[index].t + t_delta;
     }
     func_1511A494(arg0, &state->field4, &state->field8);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511D7BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511D7BC.s")
 typedef struct Game1483E0Vertex {
     s16 x, y, z, flag, s, t;
     u8 color[4];

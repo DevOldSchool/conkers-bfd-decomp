@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_FF0E0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D1F6C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern s32 D_800A5480;
@@ -82,43 +77,35 @@ void func_150D1C30(u8 *arg0) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D1F6C CURRENT (1915) */
-void func_150D1F6C(u8 *arg0, u8 *arg1, u8 arg2) {
-    s32 temp_t6;
-    GameFF0E0State *temp_v0;
+typedef struct {
+    Vec3f position;
+    f32 scale;
+} GameFF0E0Placement;
 
-    temp_t6 = arg2;
-    if (temp_t6 == 0x32) {
-        temp_v0 = (GameFF0E0State *)(arg0 + 0x28);
-        temp_v0->field_18 = *(s32 *)arg1;
-        temp_v0->field_1C = *(s32 *)(arg1 + 4);
-        temp_v0->field_20 = *(s32 *)(arg1 + 8);
-        temp_v0->field_3C = *(f32 *)(arg1 + 0xC);
-        return;
-    }
-    if ((temp_t6 == 0x30) || (temp_t6 == 0x31)) {
-        temp_v0 = (GameFF0E0State *)(arg0 + 0x28);
-        if (arg1 == temp_v0->field_40) {
-            if (temp_t6 == 0x30) {
-                temp_v0->field_44 |= 1;
-                return;
+void func_150D1F6C(u8 *arg0, u8 *arg1, u8 arg2) {
+    GameFF0E0State *state = (GameFF0E0State *)(arg0 + 0x28);
+
+    if (arg2 == 0x32) {
+        GameFF0E0Placement *placement = (GameFF0E0Placement *)arg1;
+
+        *(Vec3f *)&state->field_18 = placement->position;
+        state->field_3C = placement->scale;
+    } else if ((arg2 == 0x30) || (arg2 == 0x31)) {
+        if (arg1 == state->field_40) {
+            if (arg2 == 0x30) {
+                state->field_44 |= 1;
+            } else {
+                u8 *flags = &state->field_44;
+
+                *flags &= 0xFFFE;
             }
-            temp_v0->field_44 &= 0xFFFE;
         }
-    } else {
-        if (temp_t6 == 0x4E) {
-            *(s32 *)(arg0 + 0x40) = *(&D_800A5480 + 0);
-            *(s32 *)(arg0 + 0x44) = *(&D_800A5480 + 1);
-            *(s32 *)(arg0 + 0x48) = *(&D_800A5480 + 2);
-            return;
-        }
-        if (temp_t6 == 0x4F) {
-            func_1516972C(arg0);
-        }
+    } else if (arg2 == 0x4E) {
+        *(Vec3f *)(arg0 + 0x40) = *(Vec3f *)&D_800A5480;
+    } else if (arg2 == 0x4F) {
+        func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D1F6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FF0E0/func_150D1F6C.s")
 void func_150D2054(u8 *arg0);
 
 void func_150D2054(u8 *arg0) {

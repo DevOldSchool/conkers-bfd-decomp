@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B2348
  * - func_151B2690
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -214,18 +213,17 @@ extern f32 D_800AA38C;
 extern Vec3f D_800AA338, D_800AA344, D_800AA350, D_800AA35C;
 extern f32 D_800AA380, D_800AA384;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2348 CURRENT (2022) */
 void func_151B2348(void *arg0) {
     Game1DF510Actor *actor;
     Game1DF510Actor *other;
-    struct HoltenRopeEffect *effect;
+    Game1DF510EffectSlots *slots;
     Game1DF510Request request;
     Game1DF510Pair pair;
 
     actor = *(Game1DF510Actor **)((u8 *)arg0 + 0x30);
     other = *(Game1DF510Actor **)((u8 *)arg0 + 0x28);
-    pair.active = 2;
     pair.owner = arg0;
+    pair.active = 2;
     pair.first.actor = actor;
     pair.first.generation = actor->generation;
     pair.first.mode = 5;
@@ -251,11 +249,10 @@ void func_151B2348(void *arg0) {
     request.angle = 80.0f;
     request.field2C = D_800AA380;
     request.field30 = D_800AA384;
-    effect = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
-    arg0 = (u8 *)arg0 + 0x28;
-    ((Game1DF510EffectSlots *)arg0)->effects[2] = effect;
-    if (effect != NULL) {
-        func_10022EC0((u8 *)effect + 0x150, &pair, 0x30U);
+    slots = &((Game1DF510EffectOwner *)arg0)->slots;
+    slots->effects[2] = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    if (slots->effects[2] != NULL) {
+        func_10022EC0((u8 *)slots->effects[2] + 0x150, &pair, 0x30U);
     }
     pair.active = 1;
     pair.first.actor = other;
@@ -274,10 +271,9 @@ void func_151B2348(void *arg0) {
     request.end.z = actor->position.z;
     request.drawIndex = 0;
     request.angle = 170.0f;
-    effect = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
-    ((Game1DF510EffectSlots *)arg0)->effects[1] = effect;
-    if (effect != NULL) {
-        func_10022EC0((u8 *)effect + 0x150, &pair, 0x30U);
+    slots->effects[1] = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    if (slots->effects[1] != NULL) {
+        func_10022EC0((u8 *)slots->effects[1] + 0x150, &pair, 0x30U);
     }
     pair.active = 0;
     pair.first.actor = other;
@@ -295,14 +291,11 @@ void func_151B2348(void *arg0) {
     request.end.y = actor->position.y;
     request.end.z = actor->position.z;
     request.drawIndex = 0;
-    effect = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
-    ((Game1DF510EffectSlots *)arg0)->effects[0] = effect;
-    if (effect != NULL) {
-        func_10022EC0((u8 *)effect + 0x150, &pair, 0x30U);
+    slots->effects[0] = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    if (slots->effects[0] != NULL) {
+        func_10022EC0((u8 *)slots->effects[0] + 0x150, &pair, 0x30U);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B2348 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2348.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2690 CURRENT (4223) */
 void func_151B2690(Game1DF510EffectOwner *arg0) {

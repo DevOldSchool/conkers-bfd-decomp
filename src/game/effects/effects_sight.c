@@ -16,7 +16,6 @@
  * - func_151C9198
  * - func_151C9740
  * - func_151C9BA0
- * - func_151C9DE8
  * - func_151C9F38
  * - func_151CA6A0
  * - func_151CAD28
@@ -806,15 +805,14 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9BA0.s")
 void func_150BDE90(s32, u8, s32);
-s32 func_151C9F38(s32, s32, s32, s8, s32);
+s32 func_151C9F38(s32, u8, u8, s8, u8);
 void func_151CB5FC(s32, u8, u8, s8, u8);
-void func_151CC524(s32, s32, s32, s32, s32, s32);
-s32 func_151CC840(s32, s32, s32, s32, s32, s32);
+void func_151CC524(s32, u8, u8, u8, u8, u8);
+s32 func_151CC840(s32, u8, u8, u8, u8, u8);
 void func_151CCF08(s32, u8, s8, u8);
 extern s32 D_800BE9F0;
 extern s8 D_8008CD00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9DE8 CURRENT (2019) */
 void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
     func_151C9F38(arg0, 4, arg1, arg2, arg3);
     func_151CC524(arg0, 0, 0x32, 0xFF, arg1, arg3);
@@ -826,8 +824,6 @@ void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
         D_8008CD00 = 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C9DE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9DE8.s")
 void func_15160274(void *, u8);
 void func_1515572C();
 extern s8 D_8008CD00;
@@ -1636,8 +1632,8 @@ extern f32 D_800AAECC;
 extern f32 D_800AAED0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC524 CURRENT (5208) */
-void func_151CC524(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
-                   s32 arg4, s32 arg5) {
+void func_151CC524(s32 arg0, u8 arg1, u8 arg2, u8 arg3,
+                   u8 arg4, u8 arg5) {
     SightTwinSpawn spawn;
     SightTwinPayload payload;
     u32 flags;

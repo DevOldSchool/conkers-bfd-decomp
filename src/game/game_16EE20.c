@@ -16,17 +16,14 @@
  * - func_15142600
  * - func_1514306C
  * - func_15143134
- * - func_151438D8
  * - func_15143E94
  * - func_1514401C
  * - func_15144CEC
- * - func_151452C4
  * - func_1514563C
  * - func_15145740
  * - func_15145AD8
  * - func_15145DB4
  * - func_15145EA4
- * - func_15146078
  * - func_151462C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1031,144 +1028,137 @@ extern s32 D_800D3094;
 extern s32 D_800D3098;
 
 void func_15143D18(s32 *, s32 *, s32, s32);
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151438D8 CURRENT (2428) */
-s32 func_151438D8(s32 arg0, s32 arg1, u16 arg2, u8 *arg3) {
-    volatile s32 sp58;
-    volatile s32 sp34;
-    volatile s32 sp30;
-    volatile s32 sp2C;
-    volatile s32 sp28;
-    volatile s32 sp24;
-    volatile s32 sp20;
-    s32 var_a0;
-    s32 var_a1;
-    s32 var_t0;
-    s32 var_v0;
-    u8 *temp_v1;
-    u8 *temp_v1_2;
+typedef struct {
+    /* 0x00 */ s16 pos[3];
+    /* 0x06 */ s16 rot[3];
+    /* 0x0C */ f32 scale;
+    /* 0x10 */ f32 radius;
+    /* 0x14 */ u8 unk14;
+    /* 0x15 */ u8 flags;
+    /* 0x16 */ u8 unk16;
+    /* 0x17 */ u8 unk17;
+    /* 0x18 */ s32 unk18;
+    /* 0x1C */ s32 unk1C;
+    /* 0x20 */ s32 unk20;
+    /* 0x24 */ u8 pad24[0x10];
+} Game16EE20Entry;
 
-    var_t0 = 0;
-    if (arg3 == 0) {
+s32 func_151438D8(s32 arg0, s32 arg1, u16 arg2, Game16EE20Entry *arg3) {
+    s32 i;
+    s32 result;
+    u16 flags;
+    u16 matched;
+
+    result = 0;
+    if (arg3 == NULL) {
         return 0;
     }
-    sp58 = var_t0;
     func_15143D18(&arg0, &arg1, 0, D_800D3094);
-    var_a1 = arg0;
-    var_t0 = sp58;
-    if (var_a1 < arg1) {
-        sp30 = arg2 & 0x80;
-        sp34 = arg2 & 0x40;
-        sp28 = arg2 & 0x200;
-        sp2C = arg2 & 0x100;
-        sp20 = arg2 & 0x1000;
-        sp24 = arg2 & 0x400;
-        do {
-            var_v0 = 0;
-            var_a0 = 0;
-            if (arg2 & 1) {
-                temp_v1 = (void *)(D_800D3098 + (var_a1 * 0x34));
-                if ((*(s16 *)((u8 *)arg3 + 0) == *(s16 *)((u8 *)temp_v1 + 0)) && (*(s16 *)((u8 *)arg3 + 2) == *(s16 *)((u8 *)temp_v1 + 2)) && (*(s16 *)((u8 *)arg3 + 4) == *(s16 *)((u8 *)temp_v1 + 4))) {
-                    var_v0 = 1;
-                    var_a0 = 1;
-                }
-            } else {
-                var_v0 = 1;
+    for (i = arg0; i < arg1; i++) {
+        flags = 0;
+        matched = 0;
+        if (arg2 & 1) {
+            if (arg3->pos[0] == ((Game16EE20Entry *)D_800D3098)[i].pos[0] &&
+                arg3->pos[1] == ((Game16EE20Entry *)D_800D3098)[i].pos[1] &&
+                arg3->pos[2] == ((Game16EE20Entry *)D_800D3098)[i].pos[2]) {
+                flags = 1;
+                matched = 1;
             }
-            if (arg2 & 2) {
-                temp_v1_2 = (void *)(D_800D3098 + (var_a1 * 0x34));
-                if ((*(s16 *)((u8 *)arg3 + 6) == *(s16 *)((u8 *)temp_v1_2 + 6)) && (*(s16 *)((u8 *)arg3 + 8) == *(s16 *)((u8 *)temp_v1_2 + 8)) && (*(s16 *)((u8 *)arg3 + 0xA) == *(s16 *)((u8 *)temp_v1_2 + 0xA))) {
-                    var_v0 = (var_v0 | 2) & 0xFFFF;
-                    var_a0 = (var_a0 | 2) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 2) & 0xFFFF;
+        } else {
+            flags = 1;
+        }
+        if (arg2 & 2) {
+            if (arg3->rot[0] == ((Game16EE20Entry *)D_800D3098)[i].rot[0] &&
+                arg3->rot[1] == ((Game16EE20Entry *)D_800D3098)[i].rot[1] &&
+                arg3->rot[2] == ((Game16EE20Entry *)D_800D3098)[i].rot[2]) {
+                flags |= 2;
+                matched |= 2;
             }
-            if (arg2 & 4) {
-                if (*(f32 *)((u8 *)arg3 + 0xC) == *(f32 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0xC)) {
-                    var_v0 = (var_v0 | 4) & 0xFFFF;
-                    var_a0 = (var_a0 | 4) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 4) & 0xFFFF;
+        } else {
+            flags |= 2;
+        }
+        if (arg2 & 4) {
+            if (arg3->scale == ((Game16EE20Entry *)D_800D3098)[i].scale) {
+                flags |= 4;
+                matched |= 4;
             }
-            if (arg2 & 8) {
-                if (*(f32 *)((u8 *)arg3 + 0x10) == *(f32 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x10)) {
-                    var_v0 = (var_v0 | 8) & 0xFFFF;
-                    var_a0 = (var_a0 | 8) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 8) & 0xFFFF;
+        } else {
+            flags |= 4;
+        }
+        if (arg2 & 8) {
+            if (arg3->radius == ((Game16EE20Entry *)D_800D3098)[i].radius) {
+                flags |= 8;
+                matched |= 8;
             }
-            if (arg2 & 0x10) {
-                if (*(u8 *)((u8 *)arg3 + 0x14) == *(u8 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x14)) {
-                    var_v0 = (var_v0 | 0x10) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x10) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x10) & 0xFFFF;
+        } else {
+            flags |= 8;
+        }
+        if (arg2 & 0x10) {
+            if (arg3->unk14 == ((Game16EE20Entry *)D_800D3098)[i].unk14) {
+                flags |= 0x10;
+                matched |= 0x10;
             }
-            if (arg2 & 0x20) {
-                if (*(u8 *)((u8 *)arg3 + 0x15) == ((s32) *(u8 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x15) >> 2)) {
-                    var_v0 = (var_v0 | 0x20) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x20) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x20) & 0xFFFF;
+        } else {
+            flags |= 0x10;
+        }
+        if (arg2 & 0x20) {
+            if (arg3->flags == ((Game16EE20Entry *)D_800D3098)[i].flags >> 2) {
+                flags |= 0x20;
+                matched |= 0x20;
             }
-            if (sp34 != 0) {
-                if (*(u8 *)((u8 *)arg3 + 0x16) == *(u8 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x16)) {
-                    var_v0 = (var_v0 | 0x40) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x40) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x40) & 0xFFFF;
+        } else {
+            flags |= 0x20;
+        }
+        if (arg2 & 0x40) {
+            if (arg3->unk16 == ((Game16EE20Entry *)D_800D3098)[i].unk16) {
+                flags |= 0x40;
+                matched |= 0x40;
             }
-            if (sp30 != 0) {
-                if (*(u8 *)((u8 *)arg3 + 0x17) == *(u8 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x17)) {
-                    var_v0 = (var_v0 | 0x80) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x80) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x80) & 0xFFFF;
+        } else {
+            flags |= 0x40;
+        }
+        if (arg2 & 0x80) {
+            if (arg3->unk17 == ((Game16EE20Entry *)D_800D3098)[i].unk17) {
+                flags |= 0x80;
+                matched |= 0x80;
             }
-            if (sp2C != 0) {
-                if (*(s32 *)((u8 *)arg3 + 0x18) == *(s32 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x18)) {
-                    var_v0 = (var_v0 | 0x100) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x100) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x100) & 0xFFFF;
+        } else {
+            flags |= 0x80;
+        }
+        if (arg2 & 0x100) {
+            if (arg3->unk18 == ((Game16EE20Entry *)D_800D3098)[i].unk18) {
+                flags |= 0x100;
+                matched |= 0x100;
             }
-            if (sp28 != 0) {
-                if (*(s32 *)((u8 *)arg3 + 0x1C) == *(s32 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x1C)) {
-                    var_v0 = (var_v0 | 0x200) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x200) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x200) & 0xFFFF;
+        } else {
+            flags |= 0x100;
+        }
+        if (arg2 & 0x200) {
+            if (arg3->unk1C == ((Game16EE20Entry *)D_800D3098)[i].unk1C) {
+                flags |= 0x200;
+                matched |= 0x200;
             }
-            if (sp24 != 0) {
-                if (*(s32 *)((u8 *)arg3 + 0x20) == *(s32 *)((u8 *)(D_800D3098 + (var_a1 * 0x34)) + 0x20)) {
-                    var_v0 = (var_v0 | 0x400) & 0xFFFF;
-                    var_a0 = (var_a0 | 0x400) & 0xFFFF;
-                }
-            } else {
-                var_v0 = (var_v0 | 0x400) & 0xFFFF;
+        } else {
+            flags |= 0x200;
+        }
+        if (arg2 & 0x400) {
+            if (arg3->unk20 == ((Game16EE20Entry *)D_800D3098)[i].unk20) {
+                flags |= 0x400;
+                matched |= 0x400;
             }
-            if (sp20 != 0) {
-                if (var_v0 == 0x7FF) {
-                    var_t0 = (var_a1 * 0x34) + D_800D3098;
-                }
-            } else if (var_a0 != 0) {
-                var_t0 = (var_a1 * 0x34) + D_800D3098;
+        } else {
+            flags |= 0x400;
+        }
+        if (arg2 & 0x1000) {
+            if (flags == 0x7FF) {
+                result = D_800D3098 + i * 0x34;
             }
-            var_a1 += 1;
-        } while (var_a1 != arg1);
+        } else if (matched != 0) {
+            result = D_800D3098 + i * 0x34;
+        }
     }
-    return var_t0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151438D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151438D8.s")
 
 void func_15143D18(s32 *arg0, s32 *arg1, s32 arg2, s32 arg3) {
     s32 diff;
@@ -1936,36 +1926,34 @@ s32 func_151451F0(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
 }
 f32 func_15144A74(void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151452C4 CURRENT (2576) */
 s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
                   s32 arg4, s32 arg5, f32 *arg6, f32 *arg7) {
-    Vec3f direction;
-    Vec3f origin;
-    Vec3f delta;
-    f32 perpendicular;
     f32 dx;
     f32 dy;
     f32 dz;
-    f32 radiusSquared;
+    Vec3f direction;
+    Vec3f origin;
+    f32 lenSq;
     f32 projection;
-    f32 discriminant;
     f32 root;
     f32 nearDistance;
     f32 farDistance;
-    s32 result;
+    f32 dot;
 
     dx = ((Vec3f *)arg2)->x - ((Vec3f *)arg0)->x;
     dy = ((Vec3f *)arg2)->y - ((Vec3f *)arg0)->y;
     dz = ((Vec3f *)arg2)->z - ((Vec3f *)arg0)->z;
     direction = *(Vec3f *)arg1;
     origin = *(Vec3f *)arg0;
-    radiusSquared = arg3 * arg3;
     projection = dx * direction.x + dy * direction.y + dz * direction.z;
-    discriminant = dx * dx + dy * dy + dz * dz - projection * projection;
-    perpendicular = discriminant;
-    if (radiusSquared < discriminant) return 0;
-    root = sqrtf(radiusSquared - perpendicular);
-    if (projection < root) root = -root;
+    lenSq = dx * dx + dy * dy + dz * dz;
+    if (arg3 * arg3 < lenSq - projection * projection) {
+        return 0;
+    }
+    root = sqrtf(arg3 * arg3 - (lenSq - projection * projection));
+    if (projection < root) {
+        root = -root;
+    }
     nearDistance = projection - root;
     farDistance = projection + root;
     ((Vec3f *)arg4)->x = nearDistance * direction.x + origin.x;
@@ -1976,16 +1964,19 @@ s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
     ((Vec3f *)arg5)->y = farDistance * direction.y + origin.y;
     ((Vec3f *)arg5)->z = farDistance * direction.z + origin.z;
     *arg7 = farDistance;
-    delta.x = ((Vec3f *)arg4)->x - ((Vec3f *)arg0)->x;
-    delta.y = ((Vec3f *)arg4)->y - ((Vec3f *)arg0)->y;
-    delta.z = ((Vec3f *)arg4)->z - ((Vec3f *)arg0)->z;
-    discriminant = func_15144A74(&delta, arg1);
-    result = 1;
-    if (discriminant < 0.0f) result = 0;
-    return result;
+    {
+        Vec3f delta;
+
+        delta.x = ((Vec3f *)arg4)->x - ((Vec3f *)arg0)->x;
+        delta.y = ((Vec3f *)arg4)->y - ((Vec3f *)arg0)->y;
+        delta.z = ((Vec3f *)arg4)->z - ((Vec3f *)arg0)->z;
+        dot = func_15144A74(&delta, arg1);
+    }
+    if (dot < 0.0f) {
+        return 0;
+    }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151452C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151452C4.s")
 
 s32 func_151454BC(u8 arg0, f32 arg1, void *arg2) {
     f32 temp_fa0;
@@ -2359,37 +2350,35 @@ void func_15145EA4(f32 **arg0, f32 **arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145EA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145EA4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146078 CURRENT (1755) */
 s32 func_15146078(f32 *direction, Vec3f *first,
                    Vec3f *second) {
     u8 zero_count;
     u8 nonzero_axis;
     u8 zero_axis;
-    s32 second_axis;
-    s32 first_axis;
-    f32 first_component;
+    u32 second_axis;
+    u32 first_axis;
+    f32 zero;
     f32 magnitude;
     f32 inverse;
 
-    first_component = direction[0];
-    if (0.0f == first_component && 0.0f == direction[1] && 0.0f == direction[2]) {
+    zero = 0.0f;
+    if (zero == direction[0] && zero == direction[1] && zero == direction[2]) {
         return 0;
     }
     zero_count = 0;
-    if (0.0f == first_component) {
+    if (zero == direction[0]) {
         zero_count++;
         zero_axis = 0;
     } else {
         nonzero_axis = 0;
     }
-    first_axis = 1;
-    if (0.0f == direction[1]) {
+    if (zero == direction[1]) {
         zero_count++;
         zero_axis = 1;
     } else {
         nonzero_axis = 1;
     }
-    if (0.0f == direction[2]) {
+    if (zero == direction[2]) {
         zero_count++;
         zero_axis = 2;
     } else {
@@ -2398,38 +2387,40 @@ s32 func_15146078(f32 *direction, Vec3f *first,
     if (zero_count == 2) {
         switch (nonzero_axis) {
         case 0:
-            first->x = 0.0f;
-            first->z = 0.0f;
-            first->y = 1.0f;
-            second->x = 0.0f;
-            second->y = 0.0f;
-            second->z = 1.0f;
+            first->x = 0.0;
+            first->z = 0.0;
+            first->y = 1.0;
+            second->x = 0.0;
+            second->y = 0.0;
+            second->z = 1.0;
             return 1;
         case 1:
-            first->y = 0.0f;
-            first->z = 0.0f;
-            first->x = 1.0f;
-            second->x = 0.0f;
-            second->y = 0.0f;
-            second->z = 1.0f;
+            first->y = 0.0;
+            first->z = 0.0;
+            first->x = 1.0;
+            second->x = 0.0;
+            second->y = 0.0;
+            second->z = 1.0;
             return 1;
         case 2:
-            first->y = 0.0f;
-            first->z = 0.0f;
-            first->x = 1.0f;
-            second->x = 0.0f;
-            second->z = 0.0f;
-            second->y = 1.0f;
-            return 1;
+            first->y = 0.0;
+            first->z = 0.0;
+            first->x = 1.0;
+            second->x = 0.0;
+            second->z = 0.0;
+            second->y = 1.0;
+            break;
         }
+        return 1;
     } else {
+        first_axis = 1;
         second_axis = 2;
         if (zero_count == 1 && zero_axis == 2) {
             first_axis = 2;
             second_axis = 1;
         }
-        first->x = 1.0f;
-        ((f32 *)first)[first_axis] = 1.0f;
+        first->x = 1.0;
+        ((f32 *)first)[first_axis] = 1.0;
         ((f32 *)first)[second_axis] = -direction[0] - direction[first_axis] / direction[second_axis];
         func_151450B4(first, direction, second);
         func_151450B4(second, direction, first);
@@ -2438,8 +2429,6 @@ s32 func_15146078(f32 *direction, Vec3f *first,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15146078 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15146078.s")
 s32 func_1515D914(s32, s32, s32, s32, s32, s32, s32, s32,
                    s32, void *, s32, s32, s32, s32);
 s32 func_1515E544(s32, s32, s32, s32, void *);

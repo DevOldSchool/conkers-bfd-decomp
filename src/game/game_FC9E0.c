@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CF680
  * - func_150CF800
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -56,69 +55,66 @@ GameFC9E0Command *func_150CF5E8(GameFC9E0Command *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF680 CURRENT (2087) */
 void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
     struct {
-        u8 sp30;
-        u8 gap31[3];
-        f32 sp34, sp38, sp3C, sp40, sp44, sp48, sp4C;
-        u8 sp50;
-        u8 gap51;
-        s16 sp52, sp54, sp56, sp58;
-        u8 sp5A, sp5B, sp5C, sp5D, sp5E, sp5F, sp60, sp61, sp62, sp63;
-        s32 sp64, sp68, sp6C, sp70, sp74, sp78, sp7C;
-        u8 sp80, sp81;
-        u8 gap82[2];
-        s8 sp84;
-        u8 gap85[3];
-        f32 sp88, sp8C, sp90, sp94;
-    } locals;
+        struct {
+            u8 mode;
+            f32 x, y, z;
+        } motion;
+        struct {
+            f32 x, y;
+            f32 scaleX, scaleY;
+            u8 selector;
+            s16 lifetime, flags, field16, field18;
+            u8 color0, color1, color2, color3, color4;
+            u8 color5, color6, color7, color8, color9;
+            s32 field24, field28, field2C, field30, field34, field38, field3C;
+            u8 field40, field41;
+            u8 pad42[2];
+            s8 field44;
+            f32 field48, field4C, field50, field54;
+        } packet;
+    } spawn;
     u8 *result;
 
-    locals.sp54 = 0x31;
-    locals.sp5A = 8;
-    locals.sp50 = 0xC1;
-    locals.sp56 = 1;
-    locals.sp61 = 0xFF;
-    locals.sp52 = arg0;
-    locals.sp44 = 72.0f;
-    locals.sp58 = 0xFF;
-    locals.sp5B = 0xFF;
-    locals.sp63 = 0xFF;
-    locals.sp68 = 0x200004;
-    locals.sp5C = 0xFF;
-    locals.sp5D = 0xFF;
-    locals.sp5E = 0xFF;
-    locals.sp5F = 0xFF;
-    locals.sp60 = 0xFF;
-    locals.sp62 = 0xFF;
-    locals.sp30 = 0;
-    locals.sp34 = 0.0f;
-    locals.sp40 = -300.0f;
-    locals.sp38 = -300.0f;
-    locals.sp3C = 0.0f;
-    locals.sp4C = 7.5f;
-    locals.sp48 = 7.5f;
-    locals.sp64 = 0;
-    locals.sp6C = 0x9F0601;
-    locals.sp80 = 0;
-    locals.sp81 = 0xA;
-    locals.sp70 = 0x17;
-    locals.sp74 = 0x44;
-    locals.sp78 = 0x80;
-    locals.sp7C = 0x20;
-    locals.sp8C = 1.0f;
-    locals.sp88 = 1.0f;
-    locals.sp94 = 0.0f;
-    locals.sp90 = 0.0f;
-    locals.sp84 = D_80082FA0;
-    result = func_1515548C(&locals.sp40, 0xC, 0, 0, 0x10, arg1, arg2);
-    if (result != 0) {
-        func_10022EC0(result + 0x70, &locals.sp30, 0x10);
+    spawn.motion.mode = 0;
+    spawn.motion.x = 0.0f;
+    spawn.motion.y = spawn.packet.x = -300.0f;
+    spawn.motion.z = 0.0f;
+    spawn.packet.y = 72.0f;
+    spawn.packet.scaleX = spawn.packet.scaleY = 7.5f;
+    spawn.packet.selector = 0xC1;
+    spawn.packet.lifetime = arg0;
+    spawn.packet.flags = 0x31;
+    spawn.packet.field16 = 1;
+    spawn.packet.field18 = 0xFF;
+    spawn.packet.color0 = 8;
+    spawn.packet.color1 = 0xFF;
+    spawn.packet.color2 = 0xFF;
+    spawn.packet.color3 = 0xFF;
+    spawn.packet.color4 = 0xFF;
+    spawn.packet.color5 = 0xFF;
+    spawn.packet.color6 = 0xFF;
+    spawn.packet.color7 = 0xFF;
+    spawn.packet.color8 = 0xFF;
+    spawn.packet.color9 = 0xFF;
+    spawn.packet.field24 = 0;
+    spawn.packet.field28 = 0x200004;
+    spawn.packet.field2C = 0x9F0601;
+    spawn.packet.field40 = 0;
+    spawn.packet.field41 = 0xA;
+    spawn.packet.field30 = 0x17;
+    spawn.packet.field34 = 0x44;
+    spawn.packet.field38 = 0x80;
+    spawn.packet.field3C = 0x20;
+    spawn.packet.field44 = D_80082FA0;
+    spawn.packet.field48 = spawn.packet.field4C = 1.0f;
+    spawn.packet.field50 = spawn.packet.field54 = 0.0f;
+    result = func_1515548C(&spawn.packet, 0xC, 0, 0, 0x10, arg1, arg2);
+    if (result != NULL) {
+        func_10022EC0(result + 0x70, &spawn.motion, sizeof(spawn.motion));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CF680 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FC9E0/func_150CF680.s")
 f32 func_15047D60(f32);
 f32 func_150ADA68(void);
 extern s32 (*D_8008FCD0[])(void);

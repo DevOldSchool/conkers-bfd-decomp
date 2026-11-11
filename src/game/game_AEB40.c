@@ -11,7 +11,6 @@
  * - func_150825C0
  * - func_15082A44
  * - func_15083AC8
- * - func_15083E90
  * - func_15084044
  * - func_15084558
  * - func_15084A18
@@ -881,7 +880,6 @@ extern s32 D_800CC2D0;
 extern u8 D_800CC30B;
 extern s32 D_800CC5FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E90 CURRENT (2300) */
 void *func_15083E90(u8 arg0) {
     u8 *actor;
     s32 i;
@@ -889,19 +887,14 @@ void *func_15083E90(u8 arg0) {
     if (arg0 == 0) {
         return 0;
     }
-    if ((D_800CC2D0 != 0) && (arg0 == D_800CC30B)) {
-        return &D_800CC2D0;
-    }
-    actor = (u8 *)&D_800CC5FC;
-    for (i = 1; i < 0x1A; i++, actor += 0x32C) {
+    actor = (u8 *)&D_800CC2D0;
+    for (i = 0; i < 0x1A; i++, actor += 0x32C) {
         if ((*(s32 *)actor != 0) && (arg0 == actor[0x3B])) {
             return actor;
         }
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15083E90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083E90.s")
 /* Call context: func_15083E90: unique active project prototype */
 void *func_15083E90(u8 arg0);
 
