@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_complete_11ef40.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1511EF40
  * - func_1511F4D0
  * - func_1511F788
  *
@@ -32,22 +31,18 @@ extern f32 D_800A3378;
 extern u8 D_800CC2D0[];
 extern s32 D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511EF40 CURRENT (1430) */
 void func_1511EF40(u8 *arg0) {
-    typedef struct { f32 x, y, z; } Vector;
     u8 *player;
     f32 x, y, z, angle;
     Game11EF40Motion *motion;
     u8 *actor;
     f32 dx;
 
-    player = *(u8 **)(arg0 + 0x7C);
-    motion = (Game11EF40Motion *)player;
-    if (player == NULL) {
-        player = (u8 *)func_10003C40(0x24, 1, 0, 0);
-        *(u8 **)(arg0 + 0x7C) = player;
-        motion = (Game11EF40Motion *)player;
-        func_100226F0(player, 0x24);
+    if (*(Game11EF40Motion **)(arg0 + 0x7C) == NULL) {
+        motion = *(Game11EF40Motion **)(arg0 + 0x7C) = (Game11EF40Motion *)func_10003C40(0x24, 1, 0, 0);
+        func_100226F0(motion, 0x24);
+    } else {
+        motion = *(Game11EF40Motion **)(arg0 + 0x7C);
     }
     if (motion->timer > 0) {
         motion->timer -= D_800BE9E4;
@@ -59,7 +54,7 @@ void func_1511EF40(u8 *arg0) {
     if (*(s32 *)(arg0 + 0x80) == 1) {
         player = D_800CC2D0 + *(s32 *)(arg0 + 0x84) * 0x32C;
         *(s16 *)(arg0 + 0x10) = (s32)*(f32 *)(player + 0x14);
-        *(s16 *)(arg0 + 0x12) = (s32)*(f32 *)(player + 0x18) + 100;
+        *(s16 *)(arg0 + 0x12) = (s16)*(f32 *)(player + 0x18) + 100;
         *(s16 *)(arg0 + 0x14) = (s32)*(f32 *)(player + 0x1C);
         func_15086CBC(func_15086D48(0x28), &x, &y, &z);
         motion->dx = (x - *(f32 *)(player + 0x14)) * 0.5f;
@@ -68,9 +63,9 @@ void func_1511EF40(u8 *arg0) {
         angle = motion->dz;
         motion->x = *(f32 *)(player + 0x14) + dx;
         motion->y = *(f32 *)(player + 0x18) + 100.0f;
-        motion->angle = -90.0f;
-        motion->radius = sqrtf(dx * dx + angle * angle);
         motion->z = *(f32 *)(player + 0x1C) + angle;
+        motion->radius = sqrtf(dx * dx + angle * angle);
+        motion->angle = -90.0f;
         *(s32 *)(arg0 + 0x80) = 2;
         return;
     }
@@ -83,7 +78,7 @@ void func_1511EF40(u8 *arg0) {
             *(f32 *)(actor + 0x2BC) = *(s16 *)(arg0 + 0x10);
             *(f32 *)(actor + 0x2C0) = *(s16 *)(arg0 + 0x12);
             *(f32 *)(actor + 0x2C4) = *(s16 *)(arg0 + 0x14);
-            *(Vector *)(actor + 0x2A4) = *(Vector *)(actor + 0x2BC);
+            *(Vec3f *)(actor + 0x2A4) = *(Vec3f *)(actor + 0x2BC);
             *(f32 *)(actor + 0x2F8) = 0.0f;
             *(f32 *)(actor + 0x300) = 0.0f;
             *(f32 *)(actor + 0x2FC) = 300.0f;
@@ -103,8 +98,6 @@ void func_1511EF40(u8 *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511EF40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511EF40.s")
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1511490C();

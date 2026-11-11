@@ -2148,28 +2148,24 @@ s32 func_15127520(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, u1
 }
 void func_100111C8(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151277B0 CURRENT (1522) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151277B0 CURRENT (280) */
 s32 func_151277B0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
                    s32 arg4, s32 arg5, u16 *arg6) {
-    union { f32 value; u32 bits; } product;
     u32 previous;
+    u8 *owner;
+    u32 timer;
     u32 current;
     s32 changed;
-    u16 sound;
-    u16 otherSound;
-    u32 packed;
-    u32 timer;
+    f32 product;
     u8 *state;
-    u8 *owner;
 
     owner = *(u8 **)(arg0 + 0x18);
-    packed = *(u32 *)(arg0 + 0x1C);
-    state = *(u8 **)(owner + 0x3D4);
     changed = 0;
-    previous = packed & 0xFFFFFF;
-    timer = packed >> 24;
-    product.value = *(f32 *)(state + 0x174) * *(f32 *)(state + 0x178);
-    current = product.bits & 0xFFFFFF;
+    previous = *(u32 *)(arg0 + 0x1C) & 0xFFFFFF;
+    timer = *(u32 *)(arg0 + 0x1C) >> 24;
+    state = *(u8 **)(owner + 0x3D4);
+    product = *(f32 *)(state + 0x178) * *(f32 *)(state + 0x174);
+    current = *(u32 *)&product & 0xFFFFFF;
     if (*arg6 == 0x622) {
         *arg6 = 0;
     }
@@ -2179,7 +2175,7 @@ s32 func_151277B0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
     if ((*(u8 **)(owner + 0x3D4))[0x197] == 2) {
         if (previous != current) {
             if (timer < 10U) {
-                if ((u32)(previous - current) >= 101U) {
+                if ((previous - current) > 100) {
                     timer += D_800BE9E4;
                 }
             } else {
@@ -2191,18 +2187,16 @@ s32 func_151277B0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
         *(u32 *)(arg0 + 0x1C) = (timer << 24) | current;
         if (changed != 0) {
             if (*arg6 != 0x61C) {
-                sound = *(u16 *)(arg0 + 0x24);
-                if (sound != 0) {
-                    func_100111C8(sound);
+                if (*(u16 *)(arg0 + 0x24) != 0) {
+                    func_100111C8(*(u16 *)(arg0 + 0x24));
                 }
                 *(u16 *)(arg0 + 0x24) = 0;
                 *(s32 *)(arg0 + 0x10) &= ~0x80;
                 *arg6 = 0x61C;
             }
         } else if (*arg6 == 0x61C) {
-            otherSound = *(u16 *)(arg0 + 0x24);
-            if (otherSound != 0) {
-                func_100111C8(otherSound);
+            if (*(u16 *)(arg0 + 0x24) != 0) {
+                func_100111C8(*(u16 *)(arg0 + 0x24));
             }
             *(u16 *)(arg0 + 0x24) = 0;
             *arg6 = 0x61D;

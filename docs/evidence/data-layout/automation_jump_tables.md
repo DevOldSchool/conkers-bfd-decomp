@@ -185,3 +185,29 @@ were restored transactionally to deferred candidates with canonical
 0x800A8294 between the second and third game_1C1150 tables. The
 `func_15194794` table keeps 0x800A82BC, but its object offset moves from 0x28
 to 0x48. See [literal sub-pools](game_rodata_literal_sub_pools.md).
+
+## func_15083384 table in game_AEB40
+
+`func_15083384` is a `switch (arg1)` over cases 9..38. Its raw dispatch is
+`sltiu $at,$t7,0x1E` at `15083394`, then `lui`/`lw` of `jtbl_8009CD54_game` at
+`150833A4`/`150833AC` (unit text offsets 0x1D14/0x1D1C). The bound is 30 and
+the table is 30 words at 0x8009CD54..0x8009CDCB, directly after the 276-byte
+`func_150829D8` table at 0x8009CC40. The checksum-validated ROM words are:
+
+`150833D0 1508353C 1508353C 1508353C 150833E0 150833EC 150833F8 1508353C 15083468 15083468 15083468 15083468 15083468 15083468 15083468 15083468 15083468 15083468 15083468 15083468 15083410 15083410 15083410 15083410 1508353C 1508353C 1508353C 1508353C 150833B8 150833B8`
+
+The compiled object `.rodata` grows from 0x120 to 0x190 bytes: the unchanged
+0x114-byte table, the new 0x78-byte table at object offset 0x114, and 4 zero
+alignment bytes. Every relocated word of both tables differs from its ROM word
+by exactly 0x15081690, the unit text base (`[0x81690, c, game/game_AEB40]`).
+The mapping in `config/game/us-rodata.ld` keeps base 0x8009CC40; its section
+assertion is now 0x190 and the payload size 0x18C. The ROM word at 0x8009CDCC
+is zero and the next data starts at 0x8009CDD0, outside the mapping.
+
+An earlier attempt reached `CURRENT (0)` only with an unreferenced label before
+`break;` in cases 29..32, and its table growth was reverted with it. The
+accepted source declares the `group` local inside each case block
+(`case 29: ... case 32: { s32 group = arg1 - 29; ... } break;`). The build is
+`-O2 -g3`, so the end of a block that declares a local emits a block-end label,
+which keeps the last `sw` out of the following `b` delay slot. No label,
+unused local or other no-op construct remains.

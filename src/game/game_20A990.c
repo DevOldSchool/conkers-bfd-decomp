@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151DD4E0
  * - func_151DD8C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -20,57 +19,55 @@ s32 func_151DD710(u8 *, u16 *);
 void func_151DD65C(u8, const u8 *);
 extern u8 D_80042A50;
 extern u8 D_800E0A30[];
-extern u8 D_800E0A34[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD4E0 CURRENT (1240) */
 s32 func_151DD4E0(u8 *arg0, u8 arg1, u8 *arg2) {
     typedef struct { u8 bytes[12]; } Packet12;
-    volatile s32 result;
-    volatile u8 unused[8];
+    typedef struct { u16 type; u8 status; u8 err; } Status;
+    s32 ret;
+    u8 *ptr;
+    u16 type;
     Packet12 packet;
-    u8 response[4];
-    s32 status;
+    Status sdata;
 
+    ptr = D_800E0A30;
     func_10025750();
-    status = func_151DD710(arg0, (u16 *)response);
-    if (status == 0) {
-        switch (*(u16 *)response & 0xC000) {
+    ret = func_151DD710(arg0, (u16 *)&sdata);
+    if (ret == 0) {
+        type = sdata.type & 0xC000;
+        switch (type) {
         case 0x8000:
             if (arg1 >= 0x40) {
-                status = -1;
+                ret = -1;
             }
             break;
         case 0xC000:
-            if ((s32)arg1 >= 0x100) {
-                status = -1;
+            if (arg1 >= 0x100) {
+                ret = -1;
             }
             break;
         default:
-            status = 8;
-            break;
+            ret = 8;
         }
     }
-    if (status != 0) {
-        result = status;
+    if (ret != 0) {
         func_10025794();
-    } else {
-        while (response[2] & 0x80) {
-            func_151DD710(arg0, (u16 *)response);
-        }
-        func_151DD65C(arg1, arg2);
-        func_100257C0(1, D_800E0A30);
-        func_10023440(arg0, 0, 1);
-        func_100257C0(0, D_800E0A30);
-        D_80042A50 = 5;
-        func_10023440(arg0, 0, 1);
-        packet = *(Packet12 *)D_800E0A34;
-        result = (packet.bytes[1] & 0xC0) >> 4;
-        func_10025794();
+        return ret;
     }
-    return result;
+    while (sdata.status & 0x80) {
+        func_151DD710(arg0, (u16 *)&sdata);
+    }
+    func_151DD65C(arg1, arg2);
+    func_100257C0(1, D_800E0A30);
+    func_10023440(arg0, 0, 1);
+    func_100257C0(0, D_800E0A30);
+    D_80042A50 = 5;
+    func_10023440(arg0, 0, 1);
+    ptr += 4;
+    packet = *(Packet12 *)ptr;
+    ret = (packet.bytes[1] & 0xC0) >> 4;
+    func_10025794();
+    return ret;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DD4E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20A990/func_151DD4E0.s")
 extern u8 D_800E0A30[];
 extern u8 D_800E0A31[];
 

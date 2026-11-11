@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509D180
- * - func_1509D8FC
  * - func_1509DBBC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -111,13 +110,14 @@ void func_1516944C(s32, s8 *, u8);
 void func_150DEC28(u8, s32);
 extern u8 D_800A0960[][16];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D8FC CURRENT (648) */
-void func_1509D8FC(s32 arg0, s32 arg1, GameCA630Input *arg2) {
-    struct {
-        GameCA630ColorRequest request;
-        s8 second[4], first[4];
-    } work;
-    s32 index, selected, action;
+s32 func_1509D8FC(s32 arg0, s32 arg1, GameCA630Input *arg2) {
+    s32 index;
+    s8 first[4];
+    s8 second[4];
+    GameCA630ColorRequest request;
+    s32 kind;
+    u8 selected;
+    u8 action;
 
     switch (arg0) {
     case 0x34:
@@ -136,7 +136,7 @@ void func_1509D8FC(s32 arg0, s32 arg1, GameCA630Input *arg2) {
             func_151403A8(0, 0x54);
             return;
         }
-        break;
+        return;
     case 0x2D:
         func_151645C4((arg1 == 6) & 0xFF);
         return;
@@ -151,65 +151,69 @@ void func_1509D8FC(s32 arg0, s32 arg1, GameCA630Input *arg2) {
             func_1515F170(5, 1);
             return;
         }
-        break;
+        return;
     case 0x1F:
         if (arg1 == 5) {
-            work.first[0] = arg2->value;
-            func_151403A8(work.first, 0x36);
+            first[0] = arg2->value;
+            func_151403A8(first, 0x36);
         }
         /* fallthrough */
     case 0x1E:
         if (arg1 == 2) {
-            work.second[0] = arg2->value;
-            func_151494E0((s32)work.second, 0x34);
+            second[0] = arg2->value;
+            func_151494E0(second, 0x34);
             return;
         }
-        break;
+        return;
     case 0x1D:
         if (arg1 == 5) {
-            work.request.amount = (f32)arg2->amount;
-            work.request.index = arg2->value;
-            work.request.red = arg2->red;
-            work.request.green = arg2->green;
-            work.request.blue = arg2->blue;
-            func_1516944C(0x35, (s8 *)&work.request, 0x33);
+            request.amount = (f32)arg2->amount;
+            request.index = arg2->value;
+            request.red = arg2->red;
+            request.green = arg2->green;
+            request.blue = arg2->blue;
+            func_1516944C(0x35, (s8 *)&request, 0x33);
             return;
         }
-        break;
+        return;
     case 0x1C:
         if (arg1 == 5) {
             index = arg2->value;
-            if (index < 0 || index >= 3) return;
-            func_151494E0((s32)D_800A0960[index], 0x32);
+            if (index < 0 || index >= 3) return 1;
+            func_151494E0(D_800A0960[index], 0x32);
             return;
         }
-        break;
+        return;
     case 0xB:
     case 0xC:
     case 0xD:
     case 0xE:
-        index = arg0 & 0x3F;
-        if (index == 0xB) selected = 1;
-        else if (index == 0xC) selected = 2;
-        else if (index == 0xD) selected = 3;
-        else {
+        kind = arg0 & 0x3F;
+        if (kind == 0xB) {
+            selected = 1;
+        } else if (kind == 0xC) {
+            selected = 2;
+        } else if (kind == 0xD) {
+            selected = 3;
+        } else if (kind == 0xE) {
+            selected = 4;
+        } else {
             selected = 0;
-            if (index == 0xE) selected = 4;
         }
-        if (arg1 == 2) action = 0x17;
-        else {
+        if (arg1 == 2) {
             action = 0x17;
-            if (arg1 == 3) action = 0x18;
+        } else if (arg1 == 3) {
+            action = 0x18;
+        } else {
+            action = 0x17;
         }
         func_151616D0(selected, action, 0);
         return;
     case 0x11:
         func_150DEC28(*((u8 *)&arg2->value + 3), (arg1 == 3) & 0xFF);
-        break;
+        return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509D8FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CA630/func_1509D8FC.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DBBC CURRENT (3648) */
 s32 func_1509DBBC(s32 arg0, s32 arg1, s32 arg2) {

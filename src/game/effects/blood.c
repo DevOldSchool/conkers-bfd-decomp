@@ -18,10 +18,8 @@
  * - func_15137610
  * - func_151382E0
  * - func_15138424
- * - func_151389A8
  * - func_15138C80
  * - func_15138E98
- * - func_15139578
  * - func_15139768
  * - func_15139D74
  * - func_1513A24C
@@ -1582,28 +1580,23 @@ void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A486C;
 extern f32 D_800A4870;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151389A8 CURRENT (1477) */
 s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
                   s32 arg3, f32 arg4, s32 arg5) {
     Vec3f position;
+    f32 bounce;
     u32 random;
     f32 randomScale;
     s32 mode;
-    f32 horizontal;
-    f32 vertical;
-    f32 bounce;
 
     bounce = arg0->bounce;
-    horizontal = arg0->velocity.x * bounce;
-    arg0->velocity.y *= -bounce;
     arg0->position.y = arg0->height + arg4;
-    vertical = fabsf(arg0->velocity.y);
-    arg0->velocity.x = horizontal;
+    arg0->velocity.x *= bounce;
+    arg0->velocity.y *= -bounce;
     arg0->velocity.z *= bounce;
     arg0->rotation.x *= bounce;
     arg0->rotation.y *= bounce;
     arg0->rotation.z *= bounce;
-    if (vertical < 4.0f) {
+    if (fabsf(arg0->velocity.y) < 4.0f) {
         arg0->velocity.x = 0.0f;
         arg0->flags &= ~0x69;
         arg0->velocity.y = 0.0f;
@@ -1614,10 +1607,10 @@ s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
         arg0->acceleration = 0.0f;
     }
     if (arg0->mode != 2.0f) {
-        position.y = arg4;
         position.x = arg0->position.x;
+        position.y = arg4;
         position.z = arg0->position.z;
-        if (arg0->mode != 0.0f) {
+        if (arg0->mode) {
             mode = 1;
         } else {
             mode = 0;
@@ -1634,8 +1627,6 @@ s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151389A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151389A8.s")
 s32 func_15134070(void *);
 void func_15138120(Blood1380B4State *, s32, u8);
 void func_151382E0(f32 *, s32, void *, u8, s32);
@@ -1741,28 +1732,23 @@ void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
 extern f32 D_800A48F8;
 extern f32 D_800A48FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15139578 CURRENT (1477) */
 s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
                    s32 arg3, f32 arg4, s32 arg5) {
     Vec3f position;
+    f32 bounce;
     u32 random;
     f32 randomScale;
     s32 mode;
-    f32 horizontal;
-    f32 vertical;
-    f32 bounce;
 
     bounce = arg0->bounce;
-    horizontal = arg0->velocity.x * bounce;
-    arg0->velocity.y *= -bounce;
     arg0->position.y = arg0->height + arg4;
-    vertical = fabsf(arg0->velocity.y);
-    arg0->velocity.x = horizontal;
+    arg0->velocity.x *= bounce;
+    arg0->velocity.y *= -bounce;
     arg0->velocity.z *= bounce;
     arg0->rotation.x *= bounce;
     arg0->rotation.y *= bounce;
     arg0->rotation.z *= bounce;
-    if (vertical < 4.0f) {
+    if (fabsf(arg0->velocity.y) < 4.0f) {
         arg0->velocity.x = 0.0f;
         arg0->flags &= ~0x69;
         arg0->velocity.y = 0.0f;
@@ -1773,10 +1759,14 @@ s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
         arg0->acceleration = 0.0f;
     }
     if (arg0->mode != 2.0f) {
-        position.y = arg4;
         position.x = arg0->position.x;
+        position.y = arg4;
         position.z = arg0->position.z;
-        if (arg0->mode != 0.0f) mode = 1; else mode = 0;
+        if (arg0->mode) {
+            mode = 1;
+        } else {
+            mode = 0;
+        }
         randomScale = func_150ADA68();
         random = func_150ADA20();
         func_151D9B8C((u8)mode,
@@ -1787,8 +1777,6 @@ s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15139578 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139578.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139768.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139D74.s")

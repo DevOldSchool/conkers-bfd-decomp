@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B0A60
- * - func_150B0D20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -85,24 +84,23 @@ void func_15143794(s16, s16, f32, void *);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
                   f32, f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_8009F860[], D_8009F868[];
-extern f32 D_8009F874, D_8009F878, D_8009F87C, D_8009F880, D_8009F884;
-extern f32 D_8009F888, D_8009F88C, D_8009F890, D_8009F894;
 extern f32 D_800A5480[3], D_800BE9A4;
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0D20 CURRENT (774) */
 void func_150B0D20(u8 *arg0) {
     f32 randomSize;
     u8 *owner;
     f32 randomAlpha;
-    f32 randomRange, velocityScale, scale;
+    GameDDF10B0C58Packet *state;
+    u8 *player;
+    s32 big;
     f32 forward[2], side[2];
     u8 *motion;
     f32 position[3], velocity[3];
     s16 angle;
-    u32 choice, other;
-    GameDDF10B0C58Packet *state;
-    u8 *player;
+    u8 idx;
+    u32 choice;
+    u32 other;
 
     owner = *(u8 **)(arg0 + 0x28);
     state = (GameDDF10B0C58Packet *)(arg0 + 0x28);
@@ -110,53 +108,51 @@ void func_150B0D20(u8 *arg0) {
         *(s16 *)(arg0 + 0xE) = -1;
         return;
     }
-    player = D_800CC2D0 + owner[0x124] * 0x32C;
-    choice = 0;
+    idx = owner[0x124];
+    player = D_800CC2D0 + idx * 0x32C;
+    big = 0;
     if ((*(u8 **)(player + 0x31C))[0x4F] == 2) {
-        randomSize = *(f32 *)(owner + 0x3C);
-        randomAlpha = *(f32 *)(player + 0x44) * D_8009F874;
-        if (randomSize < randomAlpha) {
-            randomSize = randomAlpha;
+        f32 size;
+        f32 min;
+
+        size = *(f32 *)(owner + 0x3C);
+        min = *(f32 *)(player + 0x44) * 1.35f;
+        if (size < min) {
+            size = min;
         }
-        if (randomSize > 26.0f) {
-            choice = 1;
+        if (size > 26.0f) {
+            big = 1;
         }
     }
-    if (choice != 0) {
-        state->value += (D_8009F860[choice] + func_150ADA68() * D_8009F868[choice]) * D_800BE9A4;
+    if (big != 0) {
+        state->value += (D_8009F860[big] + func_150ADA68() * D_8009F868[big]) * D_800BE9A4;
         if (state->value > 1.0f) {
             if (func_1515C0F8((struct Game1890A0State *)owner, &motion) == 0) {
                 motion = (u8 *)D_800A5480;
             }
-            func_1514373C(*(f32 *)(owner + 0x40) * D_8009F878, 1.0f,
+            func_1514373C(*(f32 *)(owner + 0x40) * 0.017453292f, 1.0f,
                           &forward[0], &forward[1]);
-            randomRange = D_8009F87C;
-            scale = D_8009F880;
-            side[1] = -forward[0];
-            velocityScale = D_8009F884;
             side[0] = forward[1];
+            side[1] = -forward[0];
             do {
                 func_150B0A60(owner, player, forward, side, position, &angle);
                 choice = func_150ADA20();
-                randomAlpha = func_150ADA68() * randomRange;
                 func_15143794(angle, (s16)(choice % 26U - 41),
-                              randomSize = (randomSize = D_8009F888) + randomAlpha, velocity);
-                velocity[0] -= *(f32 *)(motion + 0) * velocityScale;
-                velocity[2] -= *(f32 *)(motion + 8) * velocityScale;
+                              func_150ADA68() * 3.77f + 4.06f, velocity);
+                velocity[0] -= *(f32 *)(motion + 0) * 0.9250001f;
+                velocity[2] -= *(f32 *)(motion + 8) * 0.9250001f;
                 randomSize = func_150ADA68();
                 other = func_150ADA20();
                 choice = func_150ADA20();
                 randomAlpha = func_150ADA68();
                 func_151D9014(position, velocity, 5,
-                              randomSize * D_8009F88C + D_8009F890,
+                              randomSize * 0.178f + -0.44200003f,
                               other % 21U + 20, choice % 101U + 155,
                               randomAlpha * 50.0f + 80.0f,
-                              func_150ADA68() < D_8009F894,
-                              scale, scale, 1, 0, 1, 0, arg0[0xC], arg0[1]);
+                              func_150ADA68() < 0.044000003f,
+                              1.4f, 1.4f, 1, 0, 1, 0, arg0[0xC], arg0[1]);
                 state->value -= 1.0f;
             } while (state->value > 1.0f);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B0D20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DDF10/func_150B0D20.s")

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1502FE10
- * - func_1502FFD8
  * - func_15030468
  * - func_15030AF4
  * - func_15031070
@@ -88,57 +87,47 @@ void func_10023A10(void *, void *, s32);
 s32 func_1502FE10(u8, void *, void *, void **, void *, s32, s32);
 s32 func_1503F62C(u8, s8, void *, void *, void **, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FFD8 CURRENT (1473) */
 s32 func_1502FFD8(u8 *arg0, u8 *arg1) {
     void *sp3C;
-    s32 sp34;
+    s32 kind;
     s32 size;
-    s8 mode;
-    void *temp_v0;
-    void *temp_v0_2;
 
     if (*(s32 *)(arg0 + 0x24) == 0) {
-    mode = *(s8 *)(arg0 + 0x17);
-    if (mode == -1) {
-        if (func_1502FE10(arg0[1], arg0 + 0x24, arg0 + 0x14,
-                          &sp3C, arg0 + 0x30, 0, 0) != 0) {
-            return 1;
+        if (*(s8 *)(arg0 + 0x17) == -1) {
+            if (func_1502FE10(arg0[1], arg0 + 0x24, arg0 + 0x14,
+                              &sp3C, arg0 + 0x30, 0, 0) != 0) {
+                return 1;
+            }
+        } else {
+            if (func_1503F62C(arg0[1], *(s8 *)(arg0 + 0x17), arg0 + 0x24, arg0 + 0x14,
+                              &sp3C, arg0 + 0x30, arg0 + 0x48) != 0) {
+                return 1;
+            }
         }
-    } else {
-        if (func_1503F62C(arg0[1], mode, arg0 + 0x24, arg0 + 0x14,
-                          &sp3C, arg0 + 0x30, arg0 + 0x48) != 0) {
-            return 1;
+        kind = arg1[0x66] & 0xC;
+        size = (s32)(*(u32 *)(arg0 + 0x24) - (u32)sp3C);
+        if (!(arg0[4] & 0x10) && kind == 8 && *(s32 *)(arg0 + 0x30) != 0) {
+            *(void **)(arg0 + 0x28) = func_10003C40(size, 1, 2, 2);
+            if (*(void **)(arg0 + 0x28) == 0) {
+                return 1;
+            }
+            *(void **)(arg0 + 0x2C) = func_10003C40(size, 1, 2, 2);
+            if (*(void **)(arg0 + 0x2C) == 0) {
+                func_10004074((s32)*(void **)(arg0 + 0x28));
+                *(void **)(arg0 + 0x28) = 0;
+                return 1;
+            }
+            func_10023A10(sp3C, *(void **)(arg0 + 0x28), size);
+            func_10023A10(sp3C, *(void **)(arg0 + 0x2C), size);
+            arg0[8] = 1;
+        } else {
+            *(void **)(arg0 + 0x28) = sp3C;
+            *(void **)(arg0 + 0x2C) = sp3C;
         }
-    }
-    size = (s32)(*(u32 *)(arg0 + 0x24) - (u32)sp3C);
-    if (!(arg0[4] & 0x10) && ((arg1[0x66] & 0xC) == 8) &&
-        *(s32 *)(arg0 + 0x30) != 0) {
-        sp34 = size;
-        temp_v0 = func_10003C40(size, 1, 2, 2);
-        *(void **)(arg0 + 0x28) = temp_v0;
-        if (temp_v0 == 0) {
-            return 1;
-        }
-        temp_v0_2 = func_10003C40(sp34, 1, 2, 2);
-        *(void **)(arg0 + 0x2C) = temp_v0_2;
-        if (temp_v0_2 == 0) {
-            func_10004074((s32)*(void **)(arg0 + 0x28));
-            *(void **)(arg0 + 0x28) = 0;
-            return 1;
-        }
-        func_10023A10(sp3C, *(void **)(arg0 + 0x28), sp34);
-        func_10023A10(sp3C, *(void **)(arg0 + 0x2C), sp34);
-        arg0[8] = 1;
-    } else {
-        *(void **)(arg0 + 0x28) = sp3C;
-        *(void **)(arg0 + 0x2C) = sp3C;
-    }
-    arg0[9] = 1;
+        arg0[9] = 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502FFD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_1502FFD8.s")
 void func_15031C14(void *);
 void func_100043B4(s32, s32);
 void func_1518CA04(s32);

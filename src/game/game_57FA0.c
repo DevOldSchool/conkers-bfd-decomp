@@ -464,43 +464,39 @@ s32 func_1502B8E0(s32 arg0, s32 arg1, s32 arg2, ...) {
     }
     return result;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B9B4 CURRENT (1443) */
-s32 func_1502B9B4(volatile s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 sp54;
-    s32 sp40;
-    s32 sp38;
-    register u8 *var_s0;
-    s32 *var_s0_2;
-    s32 temp_a0;
-    s32 var_v1;
-    register u8 *var_s1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B9B4 CURRENT (200) */
+s32 func_1502B9B4(s32 arg0, ...) {
+    u8 *output;
+    va_list cursor;
+    s32 result;
+    s32 argument;
+    s32 state;
+    u64 buffer[3];
+    s32 *data;
 
-    var_v1 = 1;
-    var_s1 = D_AB1950;
-    var_s0 = (u8 *)&arg1;
-    if (arg0 != 0) {
-        do {
-            var_s0 = (u8 *)(((s32)(var_s0 + 3) & ~3) + 4);
-            if (var_v1 != 0) {
-                var_s1 += func_1502AC88(var_s1, *(s32 *)(var_s0 - 4), &sp54);
-            }
-            temp_a0 = arg0 - 1;
-            arg0 = temp_a0;
-            var_v1 = sp54 & 0x0FFFFFFF;
-        } while (temp_a0 != 0);
+    result = 1;
+    output = D_AB1950;
+    va_start(cursor, arg0);
+    for (; arg0 != 0; arg0--) {
+        argument = va_arg(cursor, s32);
+        if (result != 0) {
+            output += func_1502AC88(output, argument, &state);
+        }
+        result = state & 0x0FFFFFFF;
     }
-    if (var_v1 != 0) {
-        var_v1 = ((sp54 & 0x0FFFFFFF) + 1) & ~1;
-        if ((sp54 & 0x70000000) == 0x10000000) {
-            var_s0_2 = &sp38;
-            if ((s32)var_s0_2 & 8) {
-                var_s0_2 = &sp40;
+    va_end(cursor);
+    if (result != 0) {
+        result = ((state & 0x0FFFFFFF) + 1) & ~1;
+        if ((state & 0x70000000) == 0x10000000) {
+            data = (s32 *)&buffer[0];
+            if ((s32)data & 8) {
+                data = (s32 *)&buffer[1];
             }
-            func_10004514((s32)var_s1, (s32)var_s0_2, 0x10, 1);
-            var_v1 = *var_s0_2;
+            func_10004514((s32)output, (s32)data, 0x10, 1);
+            result = *data;
         }
     }
-    return var_v1;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502B9B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B9B4.s")

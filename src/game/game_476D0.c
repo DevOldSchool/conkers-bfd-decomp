@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501B0A0
  * - func_1501B22C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -349,48 +348,29 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 f32 func_150484A0(f32, f32);
 void func_1510B128(s32, f32, f32, f32, f32);
-extern f32 D_800968F4;
-extern f32 D_800968F8;
-extern f32 D_800968FC;
 extern s32 D_800BE638[];
 extern s32 D_800BE650[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501B0A0 CURRENT (1506) */
 void func_1501B0A0(s32 arg0, s32 arg1) {
-    f32 sp4C;
-    f32 sp48;
-    f32 sp44;
-    f32 sp38;
-    f32 sp34;
-    f32 sp2C;
-    s32 sp28;
-    s32 sp24;
-    f32 temp_fa0;
-    s32 temp_t4;
-    s32 temp_t6;
-    u8 *temp_v0;
+    f32 angleX;
+    f32 angleY;
+    f32 tanX;
+    f32 tanY;
+    f32 distX;
+    f32 distY;
+    f32 x;
+    f32 y;
 
-    temp_t6 = arg0 * 0x180;
-    temp_v0 = (u8 *)D_800BE628 + temp_t6;
-    sp28 = temp_t6;
-    temp_fa0 = *(f32 *)(temp_v0 + 0x6C) * D_800968F4;
-    sp4C = temp_fa0;
-    sp48 = *(f32 *)(temp_v0 + 0x70) * D_800968F4;
-    sp2C = func_15047D60(temp_fa0);
-    sp44 = sp2C / func_15047C00(temp_fa0);
-    sp2C = func_15047D60(sp48);
-    sp38 = (f32)D_800BE650[arg1] / (2.0f * (sp2C / func_15047C00(sp48)));
-    temp_t4 = arg1 * 0x180;
-    sp34 = (func_150484A0(*(f32 *)((u8 *)D_800BE628 + sp28 + 0xC),
-                            (f32)D_800BE638[arg1] / (2.0f * sp44)) * D_800968F8) -
-           *(f32 *)((u8 *)D_800BE628 + temp_t4 + 0x6C);
-    sp24 = temp_t4;
-    func_1510B128(arg0, sp34,
-                   (func_150484A0(*(f32 *)((u8 *)D_800BE628 + temp_t6 + 0x10), sp38) * D_800968FC) -
-                   *(f32 *)((u8 *)D_800BE628 + sp24 + 0x70), 1.0f, 0.0f);
+    angleX = D_800BE628[arg0].scale_x * 0.008726646f;
+    angleY = D_800BE628[arg0].scale_y * 0.008726646f;
+    tanX = func_15047D60(angleX) / func_15047C00(angleX);
+    tanY = func_15047D60(angleY) / func_15047C00(angleY);
+    distX = (f32)D_800BE638[arg1] / (2.0f * tanX);
+    distY = (f32)D_800BE650[arg1] / (2.0f * tanY);
+    x = func_150484A0(D_800BE628[arg0].field0C, distX) * 114.59155f - D_800BE628[arg1].scale_x;
+    y = func_150484A0(D_800BE628[arg0].field10, distY) * 114.59155f - D_800BE628[arg1].scale_y;
+    func_1510B128(arg0, x, y, 1.0f, 0.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501B0A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501B0A0.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 extern f32 D_80096900;

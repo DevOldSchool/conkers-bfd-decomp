@@ -10,7 +10,6 @@
  * - func_15081E78
  * - func_150825C0
  * - func_15082A44
- * - func_15083384
  * - func_15083AC8
  * - func_15083E90
  * - func_15084044
@@ -482,10 +481,8 @@ typedef struct GameAEB40CommandState {
 } GameAEB40CommandState;
 s32 func_15083568(s32, s32, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083384 CURRENT (165) */
 void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
     s32 command = -1;
-    s32 group;
 
     switch (arg1) {
     case 37:
@@ -510,8 +507,9 @@ void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
     case 29:
     case 30:
     case 31:
-    case 32:
-        group = arg1 - 29;
+    case 32: {
+        s32 group = arg1 - 29;
+
         arg0->flags = 0x1E;
         if (group < 2) {
             arg0->flags &= ~0x14;
@@ -521,6 +519,7 @@ void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
         if (group >> 1) {
             arg0->flags &= ~2;
         }
+    }
         break;
     case 17:
     case 18:
@@ -533,8 +532,9 @@ void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
     case 25:
     case 26:
     case 27:
-    case 28:
-        group = (arg1 - 17) >> 2;
+    case 28: {
+        s32 group = (arg1 - 17) >> 2;
+
         arg0->flags = 0x3E;
         switch (group) {
         case 0: arg0->flags &= ~4; break;
@@ -546,14 +546,13 @@ void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
         case 2: arg0->flags &= ~0x20; break;
         case 3: arg0->flags &= ~0x22; break;
         }
+    }
         break;
     }
     if (command != -1) {
         func_15083568((s32)arg0, command, 0.0f, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15083384 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083384.s")
 typedef struct {
     u8 *entries;
     u8 count;

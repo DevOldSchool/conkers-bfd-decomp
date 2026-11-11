@@ -11,12 +11,17 @@
  * - func_151B3CF0
  * - func_151B3FDC
  * - func_151B42A4
- * - func_151B48DC
  * - func_151B4A14
- * - func_151B4B78
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct HoltenRopePoint {
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 padC[0xC];
+} HoltenRopePoint;
 
 typedef struct HoltenRopeEffect {
     u8 pad0[0x10];
@@ -31,7 +36,8 @@ typedef struct HoltenRopeEffect {
     s8 updateCallback;
     u8 pad35[3];
     f32 radius;
-    u8 pad3C[0xFC];
+    u8 pad3C[0xC];
+    HoltenRopePoint points[10];
     f32 doubledRadiusSquared;
     s32 scaledRadius;
     u8 resetState[1];
@@ -471,58 +477,28 @@ s32 func_151B47D8(HoltenRopeEffect *arg0, HoltenRopePair *arg1, f32 *arg2, u8 ar
                        : secondary->transform + (arg1->secondaryOffset << 6));
     return 1;
 }
-extern f32 D_800AA3C4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B48DC CURRENT (1405) */
-s32 func_151B48DC(u8 *arg0) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fa1_2;
-    f32 temp_fa1_3;
-    f32 temp_fa1_4;
-    f32 temp_fv0;
-    s32 var_v0;
-    u8 *var_v1;
+s32 func_151B48DC(HoltenRopeEffect *arg0) {
+    f32 start;
+    f32 end;
+    f32 step;
+    f32 x;
+    s32 i;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x14);
-    *(f32 *)((u8 *)arg0 + 0x48) = temp_fv0;
-    *(f32 *)((u8 *)arg0 + 0x4C) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x50) = 0.0f;
-    var_v0 = 2;
-    temp_fa0 = -(temp_fv0 - *(f32 *)((u8 *)arg0 + 0x20)) * D_800AA3C4;
-    var_v1 = (void *)(arg0 + 0x30);
-    *(f32 *)((u8 *)arg0 + 0x68) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x64) = 0.0f;
-    temp_fa1 = temp_fv0 + temp_fa0;
-    *(f32 *)((u8 *)arg0 + 0x60) = temp_fa1;
-    {
-        f32 var_fa1 = temp_fa1 + temp_fa0;
-    do {
-        *(f32 *)((u8 *)var_v1 + 0x48) = var_fa1;
-        *(f32 *)((u8 *)var_v1 + 0x4C) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x50) = 0.0f;
-        temp_fa1_2 = var_fa1 + temp_fa0;
-        var_v0 += 4;
-        *(f32 *)((u8 *)var_v1 + 0x64) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x68) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x60) = temp_fa1_2;
-        temp_fa1_3 = temp_fa1_2 + temp_fa0;
-        *(f32 *)((u8 *)var_v1 + 0x7C) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x80) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x94) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x78) = temp_fa1_3;
-        temp_fa1_4 = temp_fa1_3 + temp_fa0;
-        *(f32 *)((u8 *)var_v1 + 0x98) = 0.0f;
-        var_v1 += 0x60;
-        *(f32 *)((u8 *)var_v1 + 0x30) = temp_fa1_4;
-        var_fa1 = temp_fa1_4 + temp_fa0;
-    } while (var_v0 != 0xA);
-    *(u8 *)((u8 *)arg0 + 0x10) = (u8) (*(u8 *)((u8 *)arg0 + 0x10) & 0xFFFD);
-    return 1;
+    start = *(f32 *)arg0->primaryState;
+    end = *(f32 *)arg0->secondaryState;
+    step = -(start - end) * 0.1f;
+    x = start;
+    for (i = 0; i < 10; i++, x += step) {
+        HoltenRopePoint *point = &arg0->points[i];
+
+        point->x = x;
+        point->y = 0.0f;
+        point->z = 0.0f;
     }
+    arg0->flags &= ~2;
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B48DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B48DC.s")
 s32 func_151B498C(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5, s32 *arg6, s32 *arg7, s32 *arg8, s32 *arg9, s32 *arg10, s32 *arg11, s8 *arg12, s8 *arg13) {
     *arg1 = 0x220005;
     *arg2 = 0x40600;
@@ -579,51 +555,22 @@ u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B4A14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4A14.s")
-extern f32 D_800AA3C8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4B78 CURRENT (1395) */
-s32 func_151B4B78(u8 *arg0) {
-    f32 step;
-    f32 value;
-    s32 var_v0;
-    u8 *var_v1;
+s32 func_151B4B78(HoltenRopeEffect *arg0) {
+    f32 x;
+    s32 i;
 
-    step = D_800AA3C8;
-    *(f32 *)((u8 *)arg0 + 0x48) = -1000.0f;
-    value = -1000.0f + step;
-    var_v0 = 2;
-    var_v1 = (void *)(arg0 + 0x30);
-    *(f32 *)((u8 *)arg0 + 0x60) = value;
-    value += step;
-    *(f32 *)((u8 *)arg0 + 0x4C) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x50) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x64) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x68) = 0.0f;
-    do {
-        *(f32 *)((u8 *)var_v1 + 0x48) = value;
-        *(f32 *)((u8 *)var_v1 + 0x4C) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x50) = 0.0f;
-        value += step;
-        var_v0 += 4;
-        *(f32 *)((u8 *)var_v1 + 0x64) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x68) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x60) = value;
-        value += step;
-        *(f32 *)((u8 *)var_v1 + 0x7C) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x80) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x94) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x78) = value;
-        value += step;
-        *(f32 *)((u8 *)var_v1 + 0x98) = 0.0f;
-        var_v1 += 0x60;
-        *(f32 *)((u8 *)var_v1 + 0x30) = value;
-        value += step;
-    } while (var_v0 != 0xA);
-    *(u8 *)((u8 *)arg0 + 0x10) = (u8) (*(u8 *)((u8 *)arg0 + 0x10) & 0xFFFD);
+    x = -1000.0f;
+    for (i = 0; i < 10; i++, x += 222.22223f) {
+        HoltenRopePoint *point = &arg0->points[i];
+
+        point->x = x;
+        point->y = 0.0f;
+        point->z = 0.0f;
+    }
+    arg0->flags &= ~2;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B4B78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4B78.s")
 typedef struct {
     u8 pad_0[0x44];
     u8 field_44;

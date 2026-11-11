@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1503CF20
- * - func_1503D368
  * - func_1503D510
  * - func_1503D5F0
  * - func_1503DD1C
@@ -21,36 +20,26 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503CF20.s")
 void func_1503D438(s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D368 CURRENT (1525) */
 void func_1503D368(s8 *arg0, s32 arg1) {
-    register s8 *base;
-    s32 index;
+    s32 i;
     s8 *entry;
-    s8 opcode;
 
-    base = arg0;
-    if (base != 0) {
-        index = 0;
-        entry = base;
-        if (*base != -0x21) {
-            opcode = *base;
-            do {
-                if (opcode != -0x24) {
-                    if (opcode == 1) {
-                        func_1503D438((s32 *)(entry + 4), arg1);
-                    }
-                } else if (*(u8 *)(entry + 3) == 0xE) {
-                    func_1503D438((s32 *)(entry + 4), arg1);
+    if (arg0 != NULL) {
+        for (i = 0; arg0[i << 3] != -0x21; i++) {
+            entry = &arg0[i << 3];
+            switch (entry[0]) {
+            case 1:
+                func_1503D438((s32 *)&entry[4], arg1);
+                break;
+            case -0x24:
+                if ((u8)entry[3] == 0xE) {
+                    func_1503D438((s32 *)&entry[4], arg1);
                 }
-                index++;
-                entry = base + (index * 8);
-                opcode = *entry;
-            } while (opcode != -0x21);
+                break;
+            }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D368 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D368.s")
 /* Semantic role: asset_relocate_untagged_offset (shared with display lists).
  * Only nonzero values with (value & 0x0F000000) == 0 receive the base address.
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.

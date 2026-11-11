@@ -12,8 +12,6 @@
  * - func_150379DC
  * - func_150380C0
  * - func_15038620
- * - func_15039A78
- * - func_15039ED0
  * - func_1503A08C
  * - func_1503A678
  * - func_1503A830
@@ -428,97 +426,37 @@ Game64120Entry *func_15039A54(s32 arg0, s32 arg1) {
 }
 extern void * D_800CC5E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039A78 CURRENT (1237) */
 void func_15039A78(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 arg4, f32 arg5, s32 arg6) {
-    Game64120Entry *temp_v0;
-    register f32 margin;
-    register f32 upperY;
-    register f32 valueX;
-    register f32 lowerY;
-    register f32 upperX;
-    register f32 valueY;
-    register f32 bound;
+    f32 *b;
+    void *obj;
 
-    void *temp_v1;
-
-    temp_v1 = *(void **)((u8 *)&D_800CC5E8 + arg6 * 0x32C);
-    temp_v0 = func_15039A54(arg6, 0);
-    if ((temp_v1 != 0) && (*(s32 *)((u8 *)temp_v1 + 0x2C) != 0x100)) {
-        margin = *(f32 *)((u8 *)temp_v0 + 0x10);
-        valueX = *arg0;
-        if (((*(f32 *)((u8 *)temp_v0 + 0) + margin) < valueX) || (valueX < (*(f32 *)((u8 *)temp_v0 + 4) - margin))) {
+    obj = *(void **)((u8 *)&D_800CC5E8 + arg6 * 0x32C);
+    b = (f32 *)func_15039A54(arg6, 0);
+    if ((obj != NULL) && (*(s32 *)((u8 *)obj + 0x2C) != 0x100)) {
+        if (((b[0] + b[4]) < *arg0) || (*arg0 < (b[1] - b[4]))) {
             *arg0 = arg4;
             *arg1 = arg5;
-            if (arg2 != 0) {
+            if (arg2 != NULL) {
                 *arg2 = *arg0;
                 *arg3 = *arg1;
             }
         } else {
-            if (arg2 != 0) {
-                *arg2 = valueX;
+            if (arg2 != NULL) {
+                *arg2 = *arg0;
                 *arg3 = *arg1;
             }
-            if (*arg0 < *(f32 *)((u8 *)temp_v0 + 4)) {
-                *arg0 = *(f32 *)((u8 *)temp_v0 + 4);
-            } else {
-                upperX = *(f32 *)((u8 *)temp_v0 + 0);
-                if (upperX < *arg0) {
-                    bound = upperX;
-                } else {
-                    bound = *arg0;
-                }
-                *arg0 = bound;
-            }
-            upperY = *(f32 *)((u8 *)temp_v0 + 8);
-            margin = *(f32 *)((u8 *)temp_v0 + 0x14);
-            valueY = *arg1;
-            if (((upperY + margin) < valueY) || (lowerY = *(f32 *)((u8 *)temp_v0 + 0xC), (valueY < (lowerY - margin)))) {
+            *arg0 = (*arg0 < b[1]) ? b[1] : ((b[0] < *arg0) ? b[0] : *arg0);
+            if (((b[2] + b[5]) < *arg1) || (*arg1 < (b[3] - b[5]))) {
                 *arg1 = arg5;
-                return;
-            }
-            if (valueY < lowerY) {
-                *arg1 = lowerY;
-                return;
-            }
-            if (upperY < valueY) {
-                bound = upperY;
             } else {
-                bound = valueY;
+                *arg1 = (*arg1 < b[3]) ? b[3] : ((b[2] < *arg1) ? b[2] : *arg1);
             }
-            goto block_34;
         }
     } else {
-        valueX = *arg0;
-        upperX = *(f32 *)((u8 *)temp_v0 + 4);
-        if (valueX < upperX) {
-            *arg0 = upperX;
-        } else {
-            upperX = *(f32 *)((u8 *)temp_v0 + 0);
-            if (upperX < valueX) {
-                bound = upperX;
-            } else {
-                bound = valueX;
-            }
-            *arg0 = bound;
-        }
-        valueY = *arg1;
-        lowerY = *(f32 *)((u8 *)temp_v0 + 0xC);
-        if (valueY < lowerY) {
-            *arg1 = lowerY;
-            return;
-        }
-        upperY = *(f32 *)((u8 *)temp_v0 + 8);
-        if (upperY < valueY) {
-            bound = upperY;
-        } else {
-            bound = valueY;
-        }
-block_34:
-        *arg1 = bound;
+        *arg0 = (*arg0 < b[1]) ? b[1] : ((b[0] < *arg0) ? b[0] : *arg0);
+        *arg1 = (*arg1 < b[3]) ? b[3] : ((b[2] < *arg1) ? b[2] : *arg1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15039A78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039A78.s")
 typedef struct Game64120ControllerView {
     s32 kind;
     u8 type;
@@ -588,63 +526,35 @@ void func_15039CC8(Game64120ControllerView *object) {
 }
 void func_15039A78(f32 *, f32 *, f32 *, f32 *, f32, f32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039ED0 CURRENT (1758) */
-void func_15039ED0(s32 arg0, f32 *arg1, register f32 *arg2, f32 *arg3,
+void func_15039ED0(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3,
                    f32 *arg4, f32 arg5, f32 arg6, s32 arg7) {
-    Game64120Entry *entry;
-    f32 marginX;
-    f32 marginY;
-    f32 valueX;
-    f32 valueY;
-    f32 bound;
+    f32 *b;
 
     if (arg0 == 0) {
         func_15039A78(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         return;
     }
-    entry = func_15039A54(arg7, arg0);
-    marginX = *(f32 *)(entry->data + 0x10);
-    valueX = *arg1;
-    if ((*(f32 *)(entry->data + 0) + marginX < valueX) ||
-        (valueX < *(f32 *)(entry->data + 4) - marginX)) {
+    b = (f32 *)func_15039A54(arg7, arg0);
+    if (((b[0] + b[4]) < *arg1) || (*arg1 < (b[1] - b[4]))) {
         *arg1 = arg5;
         *arg2 = arg6;
-        if (arg3 != 0) {
+        if (arg3 != NULL) {
             *arg3 = *arg1;
             *arg4 = *arg2;
         }
     } else {
-        if (arg3 != 0) {
-            *arg3 = valueX;
+        if (arg3 != NULL) {
+            *arg3 = *arg1;
             *arg4 = *arg2;
         }
-        if (*arg1 < *(f32 *)(entry->data + 4)) {
-            bound = *(f32 *)(entry->data + 4);
-        } else if (*(f32 *)(entry->data + 0) < *arg1) {
-            bound = *(f32 *)(entry->data + 0);
-        } else {
-            bound = *arg1;
-        }
-        *arg1 = bound;
-        marginY = *(f32 *)(entry->data + 0x14);
-        valueY = *arg2;
-        if ((*(f32 *)(entry->data + 8) + marginY < valueY) ||
-            (valueY < *(f32 *)(entry->data + 0xC) - marginY)) {
+        *arg1 = (*arg1 < b[1]) ? b[1] : ((b[0] < *arg1) ? b[0] : *arg1);
+        if (((b[2] + b[5]) < *arg2) || (*arg2 < (b[3] - b[5]))) {
             *arg2 = arg6;
-            return;
-        }
-        if (valueY < *(f32 *)(entry->data + 0xC)) {
-            bound = *(f32 *)(entry->data + 0xC);
-        } else if (*(f32 *)(entry->data + 8) < valueY) {
-            bound = *(f32 *)(entry->data + 8);
         } else {
-            bound = valueY;
+            *arg2 = (*arg2 < b[3]) ? b[3] : ((b[2] < *arg2) ? b[2] : *arg2);
         }
-        *arg2 = bound;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15039ED0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039ED0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A08C.s")
 extern u8 D_800C3E78;
 
