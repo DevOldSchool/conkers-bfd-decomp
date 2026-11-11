@@ -17,7 +17,6 @@
  * - func_151C9740
  * - func_151C9BA0
  * - func_151C9DE8
- * - func_151C9ED4
  * - func_151C9F38
  * - func_151CA6A0
  * - func_151CAD28
@@ -833,19 +832,16 @@ void func_15160274(void *, u8);
 void func_1515572C();
 extern s8 D_8008CD00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 CURRENT (1434) */
 void func_151C9ED4(void *arg0) {
     void *sp24;
 
     sp24 = arg0;
-    func_15160274(&sp24, 0x21);
-    func_1515572C(&sp24, 0x21);
-    func_151A561C(&sp24, 0x21);
-    func_151494E0(&sp24, 0x21);
+    func_15160274((void *)(s32)&sp24, 0x21);
+    func_1515572C((void *)(s32)&sp24, 0x21);
+    func_151A561C((void *)(s32)&sp24, 0x21);
+    func_151494E0((void *)(s32)&sp24, 0x21);
     D_8008CD00 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9ED4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
 extern void (*D_8008FC10[])(void *, void **, u8);

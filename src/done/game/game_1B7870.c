@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1B7870.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1518A5F4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -133,37 +128,39 @@ extern f32 D_800BE9A4;
 extern f32 D_800BE9A8;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A5F4 CURRENT (1505) */
 s32 func_1518A5F4(Game1B7870Object *arg0) {
-    f32 changeX;
-    Vec3f previous;
-    f32 changeY;
-    f32 changeZ;
-    register Game1B7870Payload *payload;
-    s32 count;
+    Game1B7870Payload *payload = &arg0->payload;
 
     func_15158AFC(arg0);
-    payload = (Game1B7870Payload *)((u32)arg0 + 0x100);
-    previous = payload->second;
-    payload->second.y += payload->field28 * D_800BE9A4;
-    for (count = D_800BE9E4; count != 0; count--) {
-        payload->second.x *= payload->field2C;
-        payload->second.y *= payload->field2C;
-        payload->second.z *= payload->field2C;
+    {
+        Vec3f previous;
+        s32 count;
+
+        previous = payload->second;
+        payload->second.y += payload->field28 * D_800BE9A4;
+        for (count = D_800BE9E4; count != 0; count--) {
+            payload->second.x *= payload->field2C;
+            payload->second.y *= payload->field2C;
+            payload->second.z *= payload->field2C;
+        }
+        {
+            f32 changeX;
+            f32 changeY;
+            f32 changeZ;
+
+            changeX = (payload->second.x - previous.x) * D_800BE9A8;
+            changeY = (payload->second.y - previous.y) * D_800BE9A8;
+            changeZ = (payload->second.z - previous.z) * D_800BE9A8;
+            arg0->position.x += (previous.x + 0.5f * changeX * D_800BE9A4) * D_800BE9A4;
+            arg0->position.y += (previous.y + 0.5f * changeY * D_800BE9A4) * D_800BE9A4;
+            arg0->position.z += (previous.z + 0.5f * changeZ * D_800BE9A4) * D_800BE9A4;
+        }
     }
-    changeX = (payload->second.x - previous.x) * D_800BE9A8;
-    changeY = (payload->second.y - previous.y) * D_800BE9A8;
-    changeZ = (payload->second.z - previous.z) * D_800BE9A8;
-    arg0->position.x += (previous.x + 0.5f * changeX * D_800BE9A4) * D_800BE9A4;
-    arg0->position.y += (previous.y + 0.5f * changeY * D_800BE9A4) * D_800BE9A4;
-    arg0->position.z += (previous.z + 0.5f * changeZ * D_800BE9A4) * D_800BE9A4;
     payload->first.x += payload->third.x * D_800BE9A4;
     payload->first.y += payload->third.y * D_800BE9A4;
     payload->first.z += payload->third.z * D_800BE9A4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518A5F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B7870/func_1518A5F4.s")
 void func_150A7790(void *, s32);
 void func_150A8050(f32 *, f32, f32, f32);
 

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1502BEE4
  * - func_1502C408
- * - func_1502C6E8
  * - func_1502C974
  * - func_1502D824
  * - func_1502DB84
@@ -509,18 +508,18 @@ void func_150837D4(s32, u8, s32, void *);
  * These conditions do not establish unconditional distance bands.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C6E8 CURRENT (1493) */
 void func_1502C6E8(s32 arg0, s16 arg1, s32 arg2) {
     Game58F80LodView *view;
-    s32 selected;
-    s32 maximum;
-    f32 ranges[4];
     f32 delta;
     f32 distance;
+    s32 selected;
+    s32 maximum;
     s32 model;
+    f32 ranges[4];
+    u8 modelId;
     Game58F80LodActor *actor;
 
-    actor = (Game58F80LodActor *)(&D_800CC2D0 + arg0 * 0x32C);
+    actor = (Game58F80LodActor *)((u32)&D_800CC2D0 + arg0 * 0x32C);
     view = D_800DBFF0 + arg1;
     if (actor->locked == 0 && actor->kind != 7) {
         ranges[0] = 500.0f;
@@ -544,11 +543,10 @@ void func_1502C6E8(s32 arg0, s16 arg1, s32 arg2) {
                 selected = 1;
             } else if (distance < ranges[2] * ranges[2]) {
                 selected = 2;
+            } else if (distance < ranges[3] * ranges[3]) {
+                selected = 3;
             } else {
                 selected = 4;
-                if (distance < ranges[3] * ranges[3]) {
-                    selected = 3;
-                }
             }
             if (selected >= 2 && actor->scale < 3.0f) {
                 selected--;
@@ -570,14 +568,13 @@ void func_1502C6E8(s32 arg0, s16 arg1, s32 arg2) {
                 }
             }
             if (selected != -1 && selected != actor->lod) {
-                func_150837D4(arg0, actor->models[selected], 0, actor);
+                modelId = actor->models[selected];
+                func_150837D4(arg0, modelId, 0, actor);
                 actor->lod = selected;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502C6E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C6E8.s")
 
 typedef struct Game58F80RenderChild {
     u8 pad0[0x2C];

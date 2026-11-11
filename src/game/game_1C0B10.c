@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15193660
- * - func_151938FC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -189,16 +188,26 @@ extern f32 D_800A8200;
 extern f32 D_800A8204;
 extern f32 D_800A8208;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151938FC CURRENT (1409) */
-void func_151938FC(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, u8 *arg5) {
+typedef struct Game1938FCEmitter {
+    u8 pad00;
+    u8 field01;
+    u8 pad02[0xA];
+    u8 field0C;
+    u8 pad0D[0xF];
+    struct Game1890A0State *owner;
+    u8 pad20[0x54];
+    f32 scale;
+} Game1938FCEmitter;
+
+void func_151938FC(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, Game1938FCEmitter *arg5) {
     Game1938FCDescriptor descriptor;
     Game1938FCMotion motion;
     u8 *velocity;
     Vec3f delta;
     f32 random;
 
-    if (func_1515C0F8(*(struct Game1890A0State **)(arg5 + 0x1C), &velocity) != 0) {
-        if (*(u8 *)(*(u8 **)(arg5 + 0x1C) + 0xAD) == 0) {
+    if (func_1515C0F8(arg5->owner, &velocity) != 0) {
+        if (*(u8 *)((u8 *)arg5->owner + 0xAD) == 0) {
             delta.x = *(f32 *)(velocity + 0);
             delta.y = *(f32 *)(velocity + 4);
             delta.z = *(f32 *)(velocity + 8);
@@ -229,19 +238,16 @@ void func_151938FC(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, u8 *a
                 descriptor.colors[5] = 0xFF;
                 descriptor.colors[6] = 0xFF;
                 descriptor.colors[7] = 0xFF;
-                descriptor.owner = *(struct Game1890A0State **)(arg5 + 0x1C);
-                descriptor.generation = *(u8 *)(*(u8 **)(arg5 + 0x1C) + 0x3B);
+                descriptor.owner = arg5->owner;
+                descriptor.generation = *(u8 *)((u8 *)arg5->owner + 0x3B);
                 descriptor.field41 = 1;
                 descriptor.position = *arg0;
-                delta.x = (arg1->x - arg0->x) * *(f32 *)(arg5 + 0x74);
-                motion.velocity.x = delta.x;
-                delta.y = (arg1->y - arg0->y) * *(f32 *)(arg5 + 0x74);
-                motion.velocity.y = delta.y;
-                delta.z = (arg1->z - arg0->z) * *(f32 *)(arg5 + 0x74);
-                motion.velocity.z = delta.z;
-                descriptor.position.x += delta.x * arg4;
-                descriptor.position.y += delta.y * arg4;
-                descriptor.position.z += delta.z * arg4;
+                motion.velocity.x = (arg1->x - arg0->x) * arg5->scale;
+                motion.velocity.y = (arg1->y - arg0->y) * arg5->scale;
+                motion.velocity.z = (arg1->z - arg0->z) * arg5->scale;
+                descriptor.position.x += motion.velocity.x * arg4;
+                descriptor.position.y += motion.velocity.y * arg4;
+                descriptor.position.z += motion.velocity.z * arg4;
                 motion.rotationX = func_150ADA68() * 360.0f;
                 motion.rotationY = func_150ADA68() * 360.0f;
                 motion.rotationZ = func_150ADA68() * 360.0f;
@@ -258,10 +264,8 @@ void func_151938FC(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, u8 *a
                 motion.field28 = random * D_800A81FC;
                 motion.field2C = D_800A8200;
                 func_15157898((s32)&descriptor, (s32)&motion, 0, func_150ADA68() * D_800A8204 * D_800A8208,
-                    0, 0, 0, arg5[0xC], arg5[1]);
+                    0, 0, 0, arg5->field0C, arg5->field01);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151938FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C0B10/func_151938FC.s")

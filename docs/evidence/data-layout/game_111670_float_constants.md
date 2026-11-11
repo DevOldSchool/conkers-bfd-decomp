@@ -20,3 +20,24 @@ therefore starts at 0x800A112C: the object `.rodata` is 0x40 bytes, 0x34 of
 payload (these five words followed by the eight words above) and 12 zero
 alignment bytes. The word at 0x800A1128 stays the extern of the matched
 `func_150E4928`.
+
+## Leading literal (func_150E42F8)
+
+`func_150E42F8` compares each sampled height with `-10000.0f`. The reference
+loads the word once before the loop into callee-saved `$f20` (`lui`/`lwc1` at
+text offsets 0x194/0x1A8 of the unit). The preserved candidate read
+`extern f32 D_800A1060` and scored CURRENT 80; a `limit` local initialised from
+the extern scores 280. With `limit = -10000.0f` as a literal the function is
+`CURRENT (0)` with the reference's ten named local homes. The
+checksum-validated archive holds `C61C4000` at 0x800A1060.
+
+That word lies 0xCC bytes below the 0x800A112C pool. The words between
+(0x800A1064..0x800A112B) are zero padding, a byte table and constants read by
+other members through externs, including the matched `func_150E4928` word at
+0x800A1128, and they are not part of either mapping. The object `.rodata` is
+still 0x40 bytes: `C61C4000`, the 0x34-byte pool above, and 8 zero alignment
+bytes. `scripts/split_game_rodata.py` splits it into `.rodata.111670_0`
+(0x4 at 0x800A1060) and `.rodata.111670_4` (0x34 at 0x800A112C); see
+[literal sub-pools](game_rodata_literal_sub_pools.md). The former 0x34
+payload-size symbol is replaced by two exact section assertions. The
+`extern f32 D_800A1060` declaration is removed from the source.

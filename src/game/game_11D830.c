@@ -10,7 +10,6 @@
  * - func_150F0BEC
  * - func_150F16DC
  * - func_150F1A00
- * - func_150F1B48
  * - func_150F1D10
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -759,12 +758,11 @@ extern u8 D_800CC354[];
 extern f32 D_800A18F4;
 extern f32 D_800A18F8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1B48 CURRENT (1520) */
-void *func_150F1B48(void *arg0, s32 arg1) {
+GameCommand *func_150F1B48(GameCommand *arg0, s32 arg1) {
     s32 matched;
     s32 increment;
     s32 value;
-    s16 *out = (s16 *)arg0;
+    s32 i;
 
     if (*(u16 *)(D_800CC354 + arg1 * 0x32C) == 0x21) {
         matched = 1;
@@ -787,22 +785,13 @@ void *func_150F1B48(void *arg0, s32 arg1) {
             *(s16 *)(D_800CC298 + 0x12) = 0x1555;
         }
     }
-    out[0] = 0xB2;
-    out[2] = 0xB8;
-    out[1] = *(s16 *)(D_800CC298 + 0x12);
-    out[4] = 0xB2 + 2 * 6;
-    out[3] = *(s16 *)(D_800CC298 + 0x12);
-    out[6] = 0xB8 + 2 * 6;
-    out[5] = *(s16 *)(D_800CC298 + 0x12);
-    out[8] = 0xBE + 2 * 6;
-    out[7] = *(s16 *)(D_800CC298 + 0x12);
-    out[10] = 0xC4 + 2 * 6;
-    out[9] = *(s16 *)(D_800CC298 + 0x12);
-    out[11] = *(s16 *)(D_800CC298 + 0x12);
-    return &out[12];
+    for (i = 0; i < 6; i++) {
+        arg0->opcode = i * 6 + 0xB2;
+        arg0->value = *(s16 *)(D_800CC298 + 0x12);
+        arg0++;
+    }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F1B48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1B48.s")
 void func_150F1CB0(void *arg0) {
     if (*(u16 *)((u8 *)arg0 + 0x84) == 0x14) {
         *(u8 *)((u8 *)arg0 + 0x68) = 0x1B;

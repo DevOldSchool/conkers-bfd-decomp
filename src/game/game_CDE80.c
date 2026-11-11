@@ -10,7 +10,6 @@
  * - func_150A0D8C
  * - func_150A11C4
  * - func_150A1DA0
- * - func_150A23E4
  * - func_150A24C0
  * - func_150A25D4
  * - func_150A2864
@@ -276,34 +275,32 @@ void func_150A104C(u8 *arg0, u8 **arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A11C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A1DA0.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A23E4 CURRENT (165) */
 void func_150A23E4(void *arg0) {
-    s32 var_t0;
-    s32 var_v1;
-    u32 temp_v0;
-    u8 temp_t1;
+    GameCDE80Zone *zone = arg0;
 
-    if (*(s32 *)((u8 *)arg0 + 0x20) == 0) {
-        var_v1 = 0;
-        var_t0 = 8;
-        if (!(*(u8 *)((u8 *)arg0 + 0x15) & 3)) {
-            var_v1 = 0x8000;
+    if (zone->state == 0) {
+        s32 flags;
+        s32 farFlags;
+        u32 packed;
+        u8 mode;
+
+        farFlags = 0;
+        flags = 8;
+        if (!(zone->flags & 3)) {
+            farFlags = 0x8000;
         }
-        temp_t1 = *(u8 *)((u8 *)arg0 + 0x17);
-        if (((s32)temp_t1 >> 7) != 0) {
-            var_t0 = 0x108;
+        mode = zone->mode;
+        if ((mode >> 7) != 0) {
+            flags = 0x108;
         }
-        temp_v0 = *(u32 *)((u8 *)arg0 + 0x1C);
-        func_1000FA64(temp_v0 >> 0x10, *(s16 *)((u8 *)arg0 + 0), *(s16 *)((u8 *)arg0 + 2),
-                      *(s16 *)((u8 *)arg0 + 4), (temp_t1 & 0x7F) * 0x147,
-                      *(s32 *)((u8 *)arg0 + 0x18) | var_v1, (u16)temp_v0, 0, 0, 0, var_t0, 0);
-        *(s32 *)((u8 *)arg0 + 0x20) = 1;
+        packed = zone->packed;
+        func_1000FA64(packed >> 16, zone->x, zone->y, zone->z, (mode & 0x7F) * 0x147,
+                      zone->value | farFlags, (u16)packed, 0, 0, 0, flags, 0);
+        zone->state = 1;
     } else {
-        *(s32 *)((u8 *)arg0 + 0x20) = 1;
+        zone->state = 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A23E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A23E4.s")
 s32 func_15183290(s16, s32, s16, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A24C0 CURRENT (540) */

@@ -12,7 +12,6 @@
  * - func_150883B0
  * - func_1508855C
  * - func_150888A8
- * - func_15088A08
  * - func_15088F30
  * - func_1508907C
  * - func_150891E8
@@ -860,7 +859,6 @@ extern s8 D_800D2390, D_800E0BE7;
 extern s16 D_800E0C10[];
 extern s32 D_800E0C18[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088A08 CURRENT (1460) */
 s32 func_15088A08(void *arg0, f32 arg1) {
     GameB4080ProgressEntry *entry = arg0;
     f32 phase;
@@ -884,33 +882,33 @@ s32 func_15088A08(void *arg0, f32 arg1) {
         entry->followingNode = entry->nextNode;
         entry->nextNode = entry->node;
         entry->node = entry->previousNode;
-        entry->previousNode = func_150888A8(entry->nextNode & 0xFF, entry->node & 0xFF, entry->group);
+        entry->previousNode = func_150888A8(entry->nextNode, entry->node, entry->group);
         changed = -1;
     } else if (phase >= 1.0f) {
         entry->phase = phase - 1.0f;
         entry->previousNode = entry->node;
         entry->node = entry->nextNode;
         entry->nextNode = entry->followingNode;
-        entry->followingNode = func_150888A8(entry->node & 0xFF, entry->nextNode & 0xFF, entry->group);
+        entry->followingNode = func_150888A8(entry->node, entry->nextNode, entry->group);
         changed = 1;
         if (D_800D23A8 == 0) {
-            kind = D_800D2350[entry->node * 0x10 + 0xF];
+            kind = ((u8 (*)[0x10])D_800D2350)[entry->node][0xF];
             if (kind == 5) {
                 D_800D2390 = 1;
-                kind = D_800D2350[entry->node * 0x10 + 0xF];
+                kind = ((u8 (*)[0x10])D_800D2350)[entry->node][0xF];
             }
             if (kind == 6) {
                 D_800D2390 = 2;
             }
         } else {
-            alternateKind = D_800D2350[entry->node * 0x10 + 0xF];
+            alternateKind = ((u8 (*)[0x10])D_800D2350)[entry->node][0xF];
             if (alternateKind == 7) {
                 D_800D2390 = 1;
-                alternateKind = D_800D2350[entry->node * 0x10 + 0xF];
+                alternateKind = ((u8 (*)[0x10])D_800D2350)[entry->node][0xF];
             }
             if (alternateKind == 8) {
                 D_800D2390 = 2;
-                alternateKind = D_800D2350[entry->node * 0x10 + 0xF];
+                alternateKind = ((u8 (*)[0x10])D_800D2350)[entry->node][0xF];
             }
             if (alternateKind == 9) {
                 D_800D2390 = 3;
@@ -931,7 +929,8 @@ s32 func_15088A08(void *arg0, f32 arg1) {
             if ((actor < D_8008FD90) && (entry->computer == 0)) {
                 elapsed = entry->elapsed;
                 if (elapsed > 0) {
-                    if (laps >= entry->bestLap) {
+                    currentLap = entry->bestLap;
+                    if (laps >= currentLap) {
                         best = &D_800E0C10[actor];
                         duration = elapsed - entry->previousTime;
                         if (duration >= 0x7D01) {
@@ -943,7 +942,8 @@ s32 func_15088A08(void *arg0, f32 arg1) {
                         }
                         entry->lastTime = duration;
                     }
-                    if (laps == entry->bestLap) {
+                    currentLap = entry->bestLap;
+                    if (laps == currentLap) {
                         total = entry->elapsed;
                         if (total >= 0x57E41) {
                             total = 0x57E40;
@@ -962,8 +962,6 @@ s32 func_15088A08(void *arg0, f32 arg1) {
     }
     return changed;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15088A08 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088A08.s")
 
 s32 func_15088A08(void *, f32);
 void func_15088F30(f32 *, f32 *, f32 *, f32 *);
@@ -1028,56 +1026,43 @@ void func_15088D58(GameB4080SearchActor *arg0) {
         arg0->rotation76 = rotation;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088F30 CURRENT (1423) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088F30 CURRENT (908) */
 void func_15088F30(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 x_delta;
     f32 z_delta;
-    f32 *var_t2;
-    f32 *var_t3;
-    f32 *var_t4;
-    u8 *var_v1;
-    s32 var_t1;
-    s32 var_v0;
-    s32 temp_a1;
-    u8 *temp_a2;
-    u8 *var_t0;
+    u8 *cursor;
+    s32 j;
+    s32 i;
+    s32 link;
+    u8 *node;
+    u8 *target;
+    s32 none;
 
-    var_v0 = 0;
-    var_v1 = (u8 *)arg0;
-    var_t2 = arg1;
-    var_t3 = arg2;
-    var_t4 = arg3;
-    do {
-        temp_a1 = *(u8 *)((u8 *)var_v1 + 0x2B);
-        var_v1 += 1;
-        if (temp_a1 != 0xFF) {
-            var_t1 = 0;
-            temp_a2 = (u8 *)((temp_a1 * 0x10) + (s32)D_800D2350);
-            var_t0 = temp_a2;
-            do {
-                temp_a1 = *(u8 *)((u8 *)(temp_a2 + var_t1) + 9);
-                if ((temp_a1 != 0xFF) && (*(u8 *)((u8 *)((s32)D_800D2350 + (temp_a1 * 0x10)) + 0xE) == 4)) {
-                    var_t0 = (u8 *)((temp_a1 * 0x10) + (s32)D_800D2350);
-                    var_t1 = 5;
+    none = 0xFF;
+    for (i = 0, cursor = (u8 *)arg0; i != 4; i++) {
+        link = cursor[0x2B];
+        cursor++;
+        if (none != link) {
+            node = (u8 *)((link * 0x10) + (s32)D_800D2350);
+            target = node;
+            for (j = 0; j < 5; j++) {
+                link = (node + j)[9];
+                if ((none != link) && (*(u8 *)((s32)D_800D2350 + link * 0x10 + 0xE) == 4)) {
+                    target = (u8 *)((link * 0x10) + (s32)D_800D2350);
+                    j = 5;
                 }
-                var_t1 += 1;
-            } while (var_t1 < 5);
-            temp_a1 = *(s16 *)((u8 *)temp_a2 + 0);
-            x_delta = (f32) (*(s16 *)((u8 *)var_t0 + 0) - temp_a1);
-            z_delta = (f32) (*(s16 *)((u8 *)var_t0 + 4) - *(s16 *)((u8 *)temp_a2 + 4));
-            *var_t2 = (x_delta * *arg0) + (f32) temp_a1;
-            *var_t3 = (f32) *(s16 *)((u8 *)temp_a2 + 2);
-            *var_t4 = (z_delta * *arg0) + (f32) *(s16 *)((u8 *)temp_a2 + 4);
+            }
+            x_delta = (f32) (*(s16 *)target - *(s16 *)node);
+            z_delta = (f32) (*(s16 *)(target + 4) - *(s16 *)(node + 4));
+            arg1[i] = (x_delta * *arg0) + (f32) *(s16 *)node;
+            arg2[i] = (f32) *(s16 *)(node + 2);
+            arg3[i] = (z_delta * *arg0) + (f32) *(s16 *)(node + 4);
         } else {
-            *var_t2 = (f32) (var_v0 << 6);
-            *var_t3 = 0.0f;
-            *var_t4 = 0.0f;
+            arg1[i] = (f32) (i << 6);
+            arg2[i] = 0.0f;
+            arg3[i] = 0.0f;
         }
-        var_v0 += 1;
-        var_t2++;
-        var_t3++;
-        var_t4++;
-    } while (var_v0 != 4);
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15088F30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088F30.s")

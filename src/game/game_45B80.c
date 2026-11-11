@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1501878C
  * - func_15018F80
- * - func_15019130
  * - func_150195A0
  * - func_150198FC
  * - func_15019F20
@@ -223,14 +222,10 @@ extern u8 D_800CC2B0;
 extern s32 D_80082FA0;
 typedef struct { s32 value, counter; } Game45B80Counter;
 extern Game45B80Counter D_80043B40[];
-extern u8 D_80044B20[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15019130 CURRENT (1415) */
 s32 func_15019130(void) {
     s32 index;
     u8 byteIndex;
-    Game45B80Counter *counter;
-    s32 first, second, third, fourth;
 
     func_1510D864();
     func_1509BA04(0);
@@ -261,20 +256,12 @@ s32 func_15019130(void) {
     func_15122AE0();
     func_1504ADD0();
     func_1510F800(0);
-    index = 0;
-    if (D_80082FA0 >= 0) {
-        do {
-            func_1510FC34(index);
-            index++;
-        } while (D_80082FA0 >= index);
+    for (index = 0; D_80082FA0 >= index; index++) {
+        func_1510FC34(index);
     }
     func_1510B690();
-    byteIndex = 0;
-    if (D_80082FA0 >= 0) {
-        do {
-            func_15094EA0(byteIndex);
-            byteIndex++;
-        } while (D_80082FA0 >= byteIndex);
+    for (byteIndex = 0; D_80082FA0 >= byteIndex; byteIndex++) {
+        func_15094EA0(byteIndex);
     }
     func_15112A80(0);
     func_151749F8(D_800BE9F0, 0);
@@ -309,22 +296,11 @@ s32 func_15019130(void) {
     func_1517F7B4();
     func_15036148();
     func_1515D6C8();
-    counter = D_80043B40;
-    do {
-        second = counter[1].counter;
-        third = counter[2].counter;
-        fourth = counter[3].counter;
-        first = counter[0].counter;
-        counter += 4;
-        counter[-1].counter = (s32)((u32)fourth + 1);
-        counter[-2].counter = (s32)((u32)third + 1);
-        counter[-3].counter = (s32)((u32)second + 1);
-        counter[-4].counter = (s32)((u32)first + 1);
-    } while ((u32)counter != (u32)D_80044B20);
+    for (index = 0; index < 508; index++) {
+        D_80043B40[index].counter++;
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15019130 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_45B80/func_15019130.s")
 void func_15167010(void);
 void func_1517ABB0(void);
 void func_1508F0A4(void);

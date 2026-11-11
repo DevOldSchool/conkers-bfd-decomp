@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1511FC60
  * - func_15120158
- * - func_15121490
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -44,49 +43,44 @@ f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 extern f32 D_800A3408, D_800A340C, D_800A3410, D_800A3414, D_800A3418;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15121490 CURRENT (1407) */
 void func_15121490(Game14D110Actor *arg0, u16 *arg1) {
+    Game14D110Aim *aim;
+    s32 kind;
     Vec3f destination;
     Vec3f origin;
+    f32 angle;
     Vec3f direction;
     f32 intermediate;
-    f32 angle;
-    f32 value;
-    Game14D110Aim *aim;
-    u8 kind;
 
     arg0->aim->active = 0;
-    if ((*arg1 & 0x10) &&
-        ((aim = arg0->aim, kind = aim->kind, kind == 9) ||
-         kind == 0x38 || kind == 0x39 || kind == 0x37 ||
-         kind == 0x3B || kind == 0x15 || kind == 0x26 || kind == 0x3A)) {
-        destination.x = arg0->position.x;
-        angle = (arg0->angle - 90.0f) * D_800A3408;
-        destination.y = arg0->position.y + (f32)aim->height * 0.75f;
-        destination.z = arg0->position.z;
-        origin = destination;
-        value = func_15047D60(angle) * 100.0f;
-        destination.y = origin.y;
-        destination.x = value + origin.x;
-        destination.z = func_15047C00(angle) * 100.0f + origin.z;
-        origin.y += arg0->position.y - arg0->groundY;
-        aim->origin = origin;
-        aim->destination = destination;
-        aim->active = 1;
-        direction.x = 1.0f;
-        intermediate = func_15047C00(aim->yaw * D_800A340C) * direction.x;
-        value = func_15047D60(aim->yaw * D_800A3410) * direction.x;
-        direction.x = intermediate;
-        direction.y = value;
-        intermediate = func_15047C00(aim->pitch * D_800A3414) * direction.x;
-        value = func_15047D60(aim->pitch * D_800A3418) * direction.x;
-        direction.x = intermediate;
-        direction.z = value;
-        aim->direction = direction;
+    if (*arg1 & 0x10) {
+        kind = arg0->aim->kind;
+        if (kind == 9 || kind == 0x38 || kind == 0x39 || kind == 0x37 ||
+            kind == 0x3B || kind == 0x15 || kind == 0x26 || kind == 0x3A) {
+            aim = arg0->aim;
+            angle = (arg0->angle - 90.0f) * D_800A3408;
+            destination.x = arg0->position.x;
+            destination.y = arg0->position.y + (f32)aim->height * 0.75f;
+            destination.z = arg0->position.z;
+            origin = destination;
+            destination.x = func_15047D60(angle) * 100.0f + origin.x;
+            destination.y = origin.y;
+            destination.z = func_15047C00(angle) * 100.0f + origin.z;
+            origin.y += arg0->position.y - arg0->groundY;
+            aim->origin = origin;
+            aim->destination = destination;
+            aim->active = 1;
+            direction.x = 1.0f;
+            intermediate = func_15047C00(aim->yaw * D_800A340C) * direction.x;
+            direction.y = func_15047D60(aim->yaw * D_800A3410) * direction.x;
+            direction.x = intermediate;
+            intermediate = func_15047C00(aim->pitch * D_800A3414) * direction.x;
+            direction.z = func_15047D60(aim->pitch * D_800A3418) * direction.x;
+            direction.x = intermediate;
+            aim->direction = direction;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15121490 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14D110/func_15121490.s")
 extern s32 D_800BE9F0;
 
 void func_151216F8(void *arg0) {

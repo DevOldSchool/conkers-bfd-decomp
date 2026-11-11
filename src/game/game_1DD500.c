@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B0050
  * - func_151B03B8
- * - func_151B09BC
  * - func_151B0B88
  * - func_151B118C
  * - func_151B14AC
@@ -173,44 +172,33 @@ typedef struct Game1DD500Marker {
     u8 id;
 } Game1DD500Marker;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B09BC CURRENT (1476) */
 void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
-    void *saved;
+    void *result;
     Game1DD500Packet packet;
-    Game1DD500Marker marker;
     s32 classification;
-    u8 kind;
     u8 timed;
     s16 lifetime;
-    s32 index;
-    void *result;
+    Game1DD500Marker marker;
 
-    if (arg0 == 0) {
-        return 0;
+    if (arg0 == NULL) {
+        return NULL;
     }
-    classification = 4;
-    if (arg1 != 0) {
-        if ((arg1[4] == 0x53) || (arg1[4] == 0xA5)) {
-            classification = 4;
-        } else {
-            classification = func_15134070(arg1);
-        }
-    }
+    classification = arg1 != NULL ?
+        ((arg1[4] == 0x53 || arg1[4] == 0xA5) ? 4 : func_15134070(arg1)) : 4;
     if (classification == 0x63) {
-        return 0;
+        return NULL;
     }
-    kind = D_800A3FE6[classification * 0x10];
-    if (kind == 2) {
-        return 0;
+    if (D_800A3FE6[classification * 0x10] == 2) {
+        return NULL;
     }
-    if (kind == 1) {
+    if (D_800A3FE6[classification * 0x10] == 1) {
         packet.kind = 1;
     } else {
         packet.kind = 0;
     }
     marker.owner = arg0;
     marker.id = arg0->id;
-    func_151494E0((s32)&marker, 0x13);
+    func_151494E0(&marker, 0x13);
     timed = 0;
     if (arg2 == -1) {
         lifetime = 0x12C;
@@ -222,21 +210,21 @@ void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4
     packet.id = arg0->id;
     packet.count = 0;
     packet.time = 0.0f;
-    for (index = 0; index < 11; index++) {
-        packet.nodes[index].object = 0;
-        packet.nodes[index].state = 0;
-        packet.nodes[index].value = 0;
+    {
+        s32 index;
+
+        for (index = 0; index < 11; index++) {
+            packet.nodes[index].object = 0;
+            packet.nodes[index].state = 0;
+            packet.nodes[index].value = 0;
+        }
     }
     result = func_151491F4(lifetime, -1, 0x13, timed, 0xF, 0x98, arg3, arg4);
-    if (result != 0) {
-        saved = result;
+    if (result != NULL) {
         func_10022EC0((u8 *)result + 0x28, &packet, 0x98);
-        result = saved;
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B09BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B09BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0B88.s")
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);

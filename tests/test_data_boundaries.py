@@ -68,9 +68,9 @@ class DataBoundaryTests(unittest.TestCase):
     def test_real_constructor_payload_excludes_neighbor(self):
         mappings = data.external_mappings((ROOT / 'config/game/us-rodata.ld').read_text(), 'game.ld')
         pool = next(s for s in mappings if s['output'] == '.game_rodata_981e0')
-        self.assertEqual((pool['start'], pool['end']), (0x80099DAC, 0x80099E98))
-        self.assertEqual(pool['emitted_size'], 240)
-        self.assertEqual(pool['compiler_padding_bytes'], 4)
+        self.assertEqual((pool['start'], pool['end']), (0x80099D54, 0x80099E98))
+        self.assertEqual(pool['emitted_size'], 336)
+        self.assertEqual(pool['compiler_padding_bytes'], 12)
 
     def test_allocated_debugger_ranges_follow_canonical_profile(self):
         mapped = data.debugger_source_mappings(ROOT)

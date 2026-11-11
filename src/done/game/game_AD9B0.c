@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_AD9B0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_periodic_actor_resource_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15080828
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_15080738(s32);
@@ -163,14 +158,11 @@ extern u8 D_800BEAAB, D_800D2E40, D_800D2E68;
 extern GameAD9B0TextDescriptor D_800D1958;
 extern f32 D_800D1988, D_800D198C, D_800D1990;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15080828 CURRENT (740) */
 void func_15080828(s32 arg0) {
     void *text;
     s32 prepend;
     s32 firstLength;
     s32 secondLength;
-    u32 codeBytes;
-    s32 total;
 
     if (arg0 == 0) {
         if (!(D_800D2E68 & 0x10)) {
@@ -188,25 +180,30 @@ void func_15080828(s32 arg0) {
         D_800D1998 = ((GameAD9B0TextResource *)D_800D1944)->codes;
         D_800D1995 = ((GameAD9B0TextResource *)D_800D1944)->codeBytes >> 1;
         if (prepend != 0) {
+            s32 length;
+            s32 total;
+            u32 codeBytes;
+
             D_800D1948 = func_1502B6BC(0, 0, 0, 3, 0x1A, D_800BEAAB, 0x43);
             if (D_800D1944 == 0) {
                 return;
             }
             firstLength = func_10022EEC(((GameAD9B0TextResource *)D_800D1948)->text) + 1;
             secondLength = func_10022EEC(((GameAD9B0TextResource *)D_800D1944)->text) + 1;
-            D_800D194C = (s32)func_10003C40(firstLength + secondLength + 1, 1, 0, 0);
+            length = firstLength + secondLength + 1;
+            D_800D194C = (s32)func_10003C40(length, 1, 0, 0);
             func_10023A10(((GameAD9B0TextResource *)D_800D1948)->text,
                          (void *)D_800D194C, firstLength);
             ((u8 *)D_800D194C)[firstLength - 1] = 0xBD;
             func_10023A10(((GameAD9B0TextResource *)D_800D1944)->text,
                          (u8 *)D_800D194C + firstLength, secondLength);
-            codeBytes = ((GameAD9B0TextResource *)D_800D1948)->codeBytes;
-            total = (codeBytes >> 1) + D_800D1995;
+            codeBytes = ((GameAD9B0TextResource *)D_800D1948)->codeBytes >> 1;
+            total = D_800D1995 + codeBytes;
             D_800D1998 = func_10003C40(total * 2, 1, 0, 0);
             func_10023A10(((GameAD9B0TextResource *)D_800D1948)->codes,
-                         D_800D1998, (codeBytes >> 1) * 2);
+                         D_800D1998, codeBytes * 2);
             func_10023A10(((GameAD9B0TextResource *)D_800D1944)->codes,
-                         D_800D1998 + (codeBytes >> 1), D_800D1995 * 2);
+                         D_800D1998 + codeBytes, D_800D1995 * 2);
             D_800D1995 = total;
         } else {
             D_800D1948 = NULL;
@@ -244,8 +241,6 @@ void func_15080828(s32 arg0) {
         *((u8 *)D_800D1950 + 0x14) = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15080828 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080828.s")
 
 void func_10004074(s32);
 void func_151F2D6C(s32, s32);

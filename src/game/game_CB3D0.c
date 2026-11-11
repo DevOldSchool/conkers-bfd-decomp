@@ -68,19 +68,17 @@ extern s8 D_800E0BD0;
 extern s8 D_800E0BE0[];
 extern u16 D_8008FDBC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E3DC CURRENT (265) */
-s32 func_1509E3DC(volatile s32 arg0, u32 arg1, GameCB3D0Query *arg2) {
-    s32 dx;
-    s32 dz;
-    GameCB3D0Position *actor;
-
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E3DC CURRENT (200) */
+s32 func_1509E3DC(s32 arg0, u32 arg1, GameCB3D0Query *arg2) {
     switch (arg1) {
     case 0:
         return (s32)func_150CF040(arg2->first, arg2->second);
-    case 1:
-        dx = arg2->first - arg2->third;
-        dz = arg2->second - arg2->fourth;
-        return (s32)sqrtf((f32)(s32)((u32)dx * (u32)dx + (u32)dz * (u32)dz));
+    case 1: {
+        s32 dx = arg2->first - arg2->third;
+        s32 dz = arg2->second - arg2->fourth;
+
+        return (s32)sqrtf((f32)(dx * dx + dz * dz));
+    }
     case 2:
         return func_1508CA88();
     case 3:
@@ -116,20 +114,25 @@ s32 func_1509E3DC(volatile s32 arg0, u32 arg1, GameCB3D0Query *arg2) {
     case 20:
     case 21:
         return (s32)(D_800D2FD8[arg2->first] * 65536.0f);
-    case 18:
-        actor = func_15083E90(*(u8 *)((u8 *)arg2 + 0xB));
+    case 18: {
+        GameCB3D0Position *actor = func_15083E90(arg2->first);
+
         if (actor != 0) {
-            dx = (s32)actor->x;
-            dz = (s32)actor->z;
+            s32 dx = (s32)actor->x;
+            s32 dz = (s32)actor->z;
+
             return ((u32)dx << 16) | (dz & 0xFFFF);
         }
         return 0;
-    case 19:
-        actor = func_15083E90(*(u8 *)((u8 *)arg2 + 0xB));
+    }
+    case 19: {
+        GameCB3D0Position *actor = func_15083E90(arg2->first);
+
         if (actor != 0) {
             return (s16)(s32)actor->y;
         }
         return 0;
+    }
     default:
         return 0;
     }

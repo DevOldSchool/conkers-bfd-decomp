@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_E35C0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150B6110
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameE35C0Owner {
@@ -44,33 +39,30 @@ typedef struct GameE35C0Descriptor {
 f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
 s32 func_15106F98(void *, void *, s32, void *, f32, u8, u8, s32);
-extern f32 D_8009FCBC, D_8009FCC0, D_8009FCC4, D_8009FCC8, D_800BE9A4;
+extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6110 CURRENT (1456) */
 void func_150B6110(GameE35C0Object *arg0) {
-    GameE35C0Descriptor descriptor;
-    Vec3f first;
-    Vec3f second;
     GameE35C0Owner *owner;
     GameE35C0Payload *effect;
-    u8 angle;
-    u32 random;
     u8 oldState;
-    u8 newState;
-    f32 spread;
 
     owner = arg0->effect.owner;
     oldState = arg0->effect.state;
-    newState = owner->state;
-    arg0->effect.state = newState;
+    arg0->effect.state = owner->state;
     if (owner->state == 1) {
-        if (oldState != newState) {
+        if (arg0->effect.state != oldState) {
             func_151494E0(0, 0x4A);
         }
     } else {
         effect = &arg0->effect;
-        effect->accumulator += (D_8009FCBC + func_150ADA68() * D_8009FCC0) * D_800BE9A4;
+        effect->accumulator += (0.15f + func_150ADA68() * 0.155f) * D_800BE9A4;
         if (effect->accumulator > 1.0f) {
+            GameE35C0Descriptor descriptor;
+            Vec3f first;
+            Vec3f second;
+            u32 random;
+            u8 angle;
+
             descriptor.field14 = 40;
             descriptor.field00 = 35.0f;
             descriptor.field04 = 35.0f;
@@ -87,8 +79,7 @@ void func_150B6110(GameE35C0Object *arg0) {
             descriptor.field2C = 0x80;
             descriptor.field08 = 76.0f;
             descriptor.field0C = 103.0f;
-            descriptor.field10 = D_8009FCC4;
-            spread = D_8009FCC8;
+            descriptor.field10 = 281.0f;
             first.y = (f32)(owner->y + owner->height);
             second.y = (f32)(owner->y + owner->height);
             do {
@@ -101,11 +92,9 @@ void func_150B6110(GameE35C0Object *arg0) {
                 func_1514373C((f32)(u32)angle, (f32)owner->radius, &second.x, &second.z);
                 second.x += (f32)owner->x;
                 second.z += (f32)owner->z;
-                func_15106F98(&first, &second, 4, &descriptor, spread, 1, arg0->flags0C, arg0->flags01);
+                func_15106F98(&first, &second, 4, &descriptor, 0.43500003f, 1, arg0->flags0C, arg0->flags01);
                 effect->accumulator -= 1.0f;
             } while (effect->accumulator > 1.0f);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B6110 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E35C0/func_150B6110.s")

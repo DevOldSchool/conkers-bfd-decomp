@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15184150
  * - func_15184368
- * - func_15184DF0
  * - func_15185F24
  * - func_1518652C
  * - func_15186794
@@ -116,22 +115,17 @@ extern f32 D_800A7378;
 extern f32 D_800D3688;
 extern f32 D_800D368C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15184DF0 CURRENT (1458) */
 s32 func_15184DF0(s32 arg0, s32 arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
-    Game184DF0Actor *actor;
-    Game184DF0Camera *camera;
+    f32 x;
+    f32 y;
+    f32 z;
     s32 distance;
-    s32 dx;
-    s32 dy;
-    s32 dz;
     f32 scale;
 
-    actor = &D_800CC2D0[arg0];
-    camera = &D_800DBFF0[arg1];
-    dx = (s32)(actor->x - camera->x);
-    dy = (s32)(actor->y - camera->y);
-    dz = (s32)(actor->z - camera->z);
-    distance = func_150AD9A0(dx, dy, dz);
+    x = D_800CC2D0[arg0].x;
+    y = D_800CC2D0[arg0].y;
+    z = D_800CC2D0[arg0].z;
+    distance = func_150AD9A0((s32)(x - D_800DBFF0[arg1].x), (s32)(y - D_800DBFF0[arg1].y), (s32)(z - D_800DBFF0[arg1].z));
     if (distance >= 0x7D1) {
         D_800D3688 = 0.0f;
         D_800D368C = D_800D3688;
@@ -149,8 +143,6 @@ s32 func_15184DF0(s32 arg0, s32 arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
     }
     return distance;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15184DF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184DF0.s")
 typedef struct Game1B1600Command {
     u32 w0;
     u32 w1;

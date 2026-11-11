@@ -6,15 +6,12 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_dispatcher_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1506AD30
  * - func_1506B3B8
  * - func_1506BF5C
  * - func_1506C460
  * - func_1506CE6C
  * - func_1506D2E8
  * - func_1506D584
- * - func_1506DE84
- * - func_1506E0EC
  * - func_1506E46C
  * - func_15070300
  * - func_15070898
@@ -66,15 +63,9 @@ extern u8 D_800C35EA, D_800C365E;
 extern s32 D_800D1580, D_800D1880;
 extern f32 D_800D1874, D_800D1878;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506AD30 CURRENT (1499) */
 f32 func_1506AD30(Game6AD30Actor *arg0, f32 arg1, u8 arg2) {
-    Game6AD30Event *event;
     s32 token;
-    s32 currentToken;
-    Game6AD30State *state;
-    u8 *allowed;
     u8 id;
-    u8 entry;
 
     if (arg0->kind == 4) {
         return 0.0f;
@@ -84,52 +75,37 @@ f32 func_1506AD30(Game6AD30Actor *arg0, f32 arg1, u8 arg2) {
         arg0->index = 0;
     }
     D_800D1880 = 1;
-    if (arg0->events != 0) {
-        event = &arg0->events[arg0->index];
-        while (event->time <= arg1 && D_800D1880 != 0) {
-            if (event->time < 900.0f) {
-                D_800D1580 = event->parameter;
-                D_800D1874 = *(f32 *)&D_800D1580;
-                state = arg0->state;
-                currentToken = state->token;
-                token = currentToken;
-                if (D_800C35EA == 0 || D_800C365E != 0) {
-                    id = arg0->events[arg0->index].id;
-                    if (arg2 != 0) {
-                        allowed = D_80099A30;
-                        while (arg2 != 0) {
-                            entry = *allowed;
-                            if (entry == 0) {
-                                id = 0;
-                            }
-                            if (id == entry) {
-                                break;
-                            }
-                            allowed++;
+    while (arg0->events != 0 && arg0->events[arg0->index].time <= arg1 && D_800D1880 != 0) {
+        if (arg0->events[arg0->index].time < 900.0f) {
+            D_800D1580 = arg0->events[arg0->index].parameter;
+            D_800D1874 = *(f32 *)&D_800D1580;
+            token = arg0->state->token;
+            if (D_800C35EA == 0 || D_800C365E != 0) {
+                id = arg0->events[arg0->index].id;
+                if (arg2) {
+                    s32 i;
+                    for (i = 0; arg2; i++) {
+                        if (D_80099A30[i] == 0) {
+                            id = 0;
+                        }
+                        if (id == D_80099A30[i]) {
+                            break;
                         }
                     }
-                    if (id != 0) {
-                        D_800863FC[id]();
-                        state = arg0->state;
-                        currentToken = state->token;
-                    }
                 }
-                if (token != currentToken) {
-                    arg1 = state->time;
-                } else {
-                    arg0->index++;
+                if (id != 0) {
+                    D_800863FC[id]();
                 }
             }
-            if (arg0->events == 0) {
-                break;
+            if (token != arg0->state->token) {
+                arg1 = arg0->state->time;
+            } else {
+                arg0->index++;
             }
-            event = &arg0->events[arg0->index];
         }
     }
     return D_800D1878;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506AD30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506AD30.s")
 
 /* Call context: func_1505E650: unique active project prototype */
 void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
@@ -1055,9 +1031,7 @@ void func_150AFDB0(void);
 void func_150AFE64(s32);
 void func_1506E0EC(void);
 void func_1506E2CC(void);
-extern f32 D_80099D8C, D_80099D90, D_80099D94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506DE84 CURRENT (275) */
 void func_1506DE84(void) {
     switch (D_800D1580) {
     case 0:
@@ -1065,7 +1039,7 @@ void func_1506DE84(void) {
             func_151875E0(*(f32 *)(D_800D154C + 0x14),
                           *(f32 *)(D_800D154C + 0x18),
                           *(f32 *)(D_800D154C + 0x1C),
-                          30, 30, 7, D_80099D8C, D_80099D8C);
+                          30, 30, 7, 0.1f, 0.1f);
         }
         return;
     case 1:
@@ -1073,7 +1047,7 @@ void func_1506DE84(void) {
             func_151875E0(*(f32 *)(D_800D154C + 0x14),
                           *(f32 *)(D_800D154C + 0x18),
                           *(f32 *)(D_800D154C + 0x1C),
-                          10, 20, 7, D_80099D90, D_80099D94);
+                          10, 20, 7, 0.03f, 0.02f);
             D_800D1580 = 0x106;
             func_1506BA4C(0x12C, 0x708);
         }
@@ -1116,73 +1090,52 @@ void func_1506DE84(void) {
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506DE84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506DE84.s")
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151700D8(f32 *, f32, f32, s32, f32, s32, s32, s32, s32, s32);
 void func_151875E0(f32, f32, f32, s32, s32, s32, f32, f32);
-extern f32 D_80099D98;
-extern f32 D_80099D9C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506E0EC CURRENT (1570) */
 void func_1506E0EC(void) {
     f32 x;
     f32 y;
     f32 z;
-    f32 effect_scale;
-    f32 effect_rate;
     f32 height;
-    f32 boundary;
+    f32 width;
+    f32 depth;
+    s32 i;
     f32 vertices[4][3];
-    f32 *vertex;
-    f32 *second;
-    f32 *third;
-    f32 *end;
-    f32 transformed_x;
-    f32 transformed_z;
+    f32 pos_x;
+    f32 pos_z;
 
-    second = vertices[1];
-    third = vertices[2];
-    end = vertices[4];
-    vertex = vertices[0];
     if (*(void **)(D_800D154C + 0x1D4) != 0) {
-        boundary = 270.0f;
-        effect_rate = D_80099D98;
-        x = boundary;
-        z = boundary;
+        width = 270.0f;
+        depth = width;
+        x = width;
+        z = depth;
         height = *(f32 *)(D_800D154C + 0x180);
-        effect_scale = D_80099D9C;
-        do {
+        for (i = 0; i < 4; i++) {
             y = 0.0f;
             func_150A7960(*(void **)(D_800D154C + 0x1D4), x, 0.0f, z, &x, &y, &z);
-            transformed_z = z;
-            transformed_x = x;
-            vertex[1] = height;
-            vertex[2] = transformed_z;
-            vertex[0] = transformed_x;
-            func_151875E0(transformed_x, y, transformed_z, 0x1E, 0x14, 7, effect_scale, effect_rate);
-            if (vertex == vertices[0]) {
-                z = boundary;
-                x = -boundary;
-            } else if (vertex == second) {
-                x = -boundary;
-                z = -boundary;
-            } else if (vertex == third) {
-                x = boundary;
-                z = -boundary;
+            vertices[i][0] = x;
+            vertices[i][1] = height;
+            vertices[i][2] = z;
+            func_151875E0(x, y, z, 0x1E, 0x14, 7, 0.13f, 0.1f);
+            if (i == 0) {
+                z = depth;
+                x = -width;
+            } else if (i == 1) {
+                x = -width;
+                z = -depth;
+            } else if (i == 2) {
+                x = width;
+                z = -depth;
             }
-            vertex += 3;
-        } while (vertex != end);
-        transformed_x = *(f32 *)(D_800D154C + 0x14);
-        transformed_z = *(f32 *)(D_800D154C + 0x1C);
-        boundary = *(f32 *)(D_800D154C + 0x14C);
-        func_151700D8(vertices[0], transformed_x, transformed_z, 4,
-                      boundary, 0, 4, 4, 0xFF, 0);
+        }
+        pos_x = *(f32 *)(D_800D154C + 0x14);
+        pos_z = *(f32 *)(D_800D154C + 0x1C);
+        func_151700D8(vertices[0], pos_x, pos_z, 4, *(f32 *)(D_800D154C + 0x14C), 0, 4, 4, 0xFF, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506E0EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506E0EC.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151700D8(f32 *, f32, f32, s32, f32, s32, s32, s32, s32, s32);
 
@@ -1415,7 +1368,6 @@ void func_1506EA58(void) {
 }
 u32 func_1505E7CC(s32, void *);
 void func_1505E874(u8, void *);
-extern f32 D_80099DA0;
 
 void func_1506EA98(void) {
     u8 index;
@@ -1445,15 +1397,13 @@ void func_1506EA98(void) {
         *(u8 *)(actor + 0x105) = 0;
         *(u8 *)(actor + 0x106) = func_1505E7CC(0xC, actor);
         *(u16 *)(actor + 0x84) = 0xFFFF;
-        *(f32 *)(actor + 0x1CC) = D_80099DA0;
+        *(f32 *)(actor + 0x1CC) = 1000000.0f;
         func_1505E874(index, actor);
         *(s32 *)(actor + 0x25C) |= 0x40;
     }
     player = D_800D154C;
     player[0x13C] = 0;
 }
-
-extern f32 D_80099DA4;
 
 void func_1506EBC0(void) {
     u8 index;
@@ -1468,17 +1418,16 @@ void func_1506EBC0(void) {
         *(f32 *)((u8 *)&D_800CC2D0 + index * 0x32C + 0x3C) = 0.0f;
         *(f32 *)((u8 *)&D_800CC2D0 + index * 0x32C + 0x20) = 0.0f;
         *(f32 *)((u8 *)&D_800CC2D0 + index * 0x32C + 0x24) = 6.0f;
-        *(f32 *)((u8 *)&D_800CC2D0 + index * 0x32C + 0x1CC) = (f32) D_80099DA4;
+        *(f32 *)((u8 *)&D_800CC2D0 + index * 0x32C + 0x1CC) = 1000000.0f;
     }
     D_800D154C[0x13C] = 0U;
 }
-extern f32 D_80099DA8;
 extern f32 D_800CC2E8;
 extern f32 D_800D1878;
 extern s32 D_800D1880;
 
 void func_1506EC50(void) {
-    if ((D_80099DA8 < *(f32 *)((u8 *)D_800D154C + 0x28)) && (!(D_800D1580 & 0x8000) || (D_800CC2E8 < *(f32 *)((u8 *)D_800D154C + 0x18)))) {
+    if ((0.2f < *(f32 *)((u8 *)D_800D154C + 0x28)) && (!(D_800D1580 & 0x8000) || (D_800CC2E8 < *(f32 *)((u8 *)D_800D154C + 0x18)))) {
         D_800D1878 = (f32) (D_800D1580 & 0xFF);
         D_800D1880 = 0;
         *(u8 *)((u8 *)D_800D154C + 0x138) = (u8) (*(u8 *)((u8 *)D_800D154C + 0x138) - 1);
@@ -2064,7 +2013,7 @@ void func_15070014(s32 arg0) {
     func_150CA150(D_800D154C);
 }
 void func_151B01B8(void *, void *);
-extern void func_151B09BC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void *func_151B09BC(void *, u8 *, s16, u8, s32);
 
 void func_1507003C(s32 arg0) {
     func_151B01B8(D_800D154C, 0);

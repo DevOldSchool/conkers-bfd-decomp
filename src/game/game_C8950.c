@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509B5AC
  * - func_1509BE40
  * - func_1509BFB0
  *
@@ -35,7 +34,7 @@ extern GameC8950List D_800D2F48;
 void func_15096970(void);
 void func_1509C120(void);
 void func_1509C3A0(void);
-void func_1509B5AC(u16, s32);
+GameC8950Node *func_1509B5AC(s32, s32);
 s32 func_1509CBD4(u16);
 extern s32 D_8003C8E0;
 extern u8 D_800D2F3C;
@@ -69,51 +68,37 @@ void *func_1509B570(s32 arg0) {
     }
     return NULL;
 }
-void func_1509B8FC(s16);
+GameC8950Node *func_1509B8FC(s16);
 void func_1509B810(GameC8950Node *);
 void func_150ADAF0(u16 *, s32);
 void func_100226F0(void *, u16);
 extern void *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B5AC CURRENT (1430) */
-GameC8950Node *func_1509B5AC(u16 arg0, s32 arg1) {
-    s32 sp20;
-    GameC8950Node *temp_s0;
-    GameC8950Node *temp_v0;
-    s32 temp_v0_2;
-    u16 temp_v1;
+GameC8950Node *func_1509B5AC(s32 arg0, s32 arg1) {
+    GameC8950Node *node;
 
-    sp20 = (s16)arg0;
-    temp_v0 = func_1509B704((s16)arg0);
-    temp_s0 = temp_v0;
-    if ((arg1 == 0) && (((u8 *)D_800D2E4C)[((s32)arg0) >> 3] & (1 << (arg0 & 7)))) {
-        return 0;
+    node = func_1509B704((s16)arg0);
+    if ((arg1 == 0) && (*((arg0 >> 3) + (u8 *)D_800D2E4C) & (1 << (arg0 & 7)))) {
+        return NULL;
     }
-    if (temp_v0 == 0) {
-        func_1509B8FC((s16)sp20);
-        /* The active callee is void; re-find the node it just created. */
-        temp_s0 = func_1509B704((s16)arg0);
-        func_1509B810(temp_s0);
-        temp_v0_2 = temp_s0->key & 0xFFFF03FF;
-        if (!(((u8 *)D_800D2E4C)[temp_v0_2 >> 3] & (1 << (temp_v0_2 & 7)))) {
+    if (node == NULL) {
+        node = func_1509B8FC((s16)arg0);
+        func_1509B810(node);
+        if (!(*(((s32)(node->key & 0xFFFF03FF) >> 3) + (u8 *)D_800D2E4C) & (1 << ((node->key & 0xFFFF03FF) & 7)))) {
             D_8003C8E0 = 0x06000000;
-            func_150ADAF0(&temp_s0->key, 0);
+            func_150ADAF0(&node->key, 0);
             D_8003C8E0 = 0;
         }
-        if ((arg1 == 0) || (temp_s0->key & 0x400)) {
-            temp_s0->key |= 0x4000;
+        if ((arg1 == 0) || (node->key & 0x400)) {
+            node->key |= 0x4000;
         }
     } else if (arg1 != 0) {
-        temp_v1 = temp_v0->key;
-        if ((temp_v1 & 0x1000) && !(temp_v1 & 0x800)) {
-            func_100226F0((u8 *)temp_s0 + *(u16 *)((u8 *)temp_s0 + 0xA),
-                            *(u16 *)((u8 *)temp_s0 + 6));
+        if ((node->key & 0x1000) && !(node->key & 0x800)) {
+            func_100226F0((u8 *)node + node->data_offset, *(u16 *)((u8 *)node + 6));
         }
     }
-    return temp_s0;
+    return node;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509B5AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B5AC.s")
 GameC8950Node *func_1509B704(s16 arg0) {
     s32 index;
     s32 mask;
@@ -209,14 +194,14 @@ GameC8950Data *func_1502B5C8(void *, s32, s32, s16);
 void *func_1509B950(void *);
 extern s32 D_800BE9F0;
 
-void func_1509B8FC(s16 arg0) {
+GameC8950Node *func_1509B8FC(s16 arg0) {
     GameC8950Data *temp_v0;
     s32 sp18;
 
     temp_v0 = func_1502B5C8(&sp18, 2, 0x14, arg0);
     temp_v0->field_0 |= arg0;
     temp_v0->field_2 = D_800BE9F0;
-    func_1509B950(temp_v0);
+    return func_1509B950(temp_v0);
 }
 void *func_10003C40(s32, s32, s32, s32);
 void func_10023A10(void *, void *, s32);

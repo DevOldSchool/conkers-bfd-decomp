@@ -10,7 +10,6 @@
  * - func_151AA48C
  * - func_151AABC4
  * - func_151AADF8
- * - func_151AB2C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -931,43 +930,35 @@ typedef struct Game1D6E80SpawnPacket {
     s8 field_39;
 } Game1D6E80SpawnPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB2C4 CURRENT (1475) */
 s32 func_151AB2C4(s32 arg0, void *arg1) {
     Game1D6E80SpawnPacket packet;
-    u32 sp18;
-    u32 temp_v0;
-    u32 var_v1;
+    void *result;
 
+    packet.field_00 = arg1;
     packet.field_06 = 0;
     packet.field_04 = 1;
-    packet.field_00 = arg1;
+    packet.field_08 = *(f32 *)(arg0 + 0x118);
     packet.field_0C = 0;
     packet.field_10 = 0;
-    packet.field_08 = *(f32 *)(arg0 + 0x118);
+    packet.field_14 = *(u8 *)(arg0 + 0x3B);
+    packet.field_18 = arg0;
     packet.field_1C = 1;
     packet.field_20 = 0.0f;
     packet.field_24 = 0.0f;
     packet.field_28 = 0.0f;
+    packet.field_2C = 25.0f;
+    packet.field_30 = D_800A8FF0;
     packet.field_34 = 0x12C;
     packet.field_36 = 0xA;
     packet.field_37 = 3;
     packet.field_38 = 0;
     packet.field_39 = 1;
-    packet.field_18 = arg0;
-    packet.field_14 = *(u8 *)(arg0 + 0x3B);
-    packet.field_2C = 25.0f;
-    packet.field_30 = D_800A8FF0;
-    temp_v0 = func_1513418C(&packet.field_0C, 0xC, 0xFFU, 0);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        sp18 = temp_v0;
-        func_10022EC0((u8 *)temp_v0 + 0x58, &packet, 0xC);
-        var_v1 = sp18;
+    result = func_1513418C(&packet.field_0C, 0xC, 0xFFU, 0);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x58, &packet, 0xC);
     }
-    return (s32)var_v1;
+    return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB2C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB2C4.s")
 typedef struct Game1D6E80Burst {
     s32 flags, zero4;
     s16 texture, lifetime;

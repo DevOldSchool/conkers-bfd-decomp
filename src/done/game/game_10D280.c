@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_10D280.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_subranges.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DFDD0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -28,14 +23,13 @@ typedef struct {
 
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFDD0 CURRENT (1395) */
 s32 func_150DFDD0(Game10D280Object *arg0, Game10D280State *arg1) {
     f32 timer;
     f32 intensity;
     s32 index;
     s32 tile;
-    volatile s8 *commands;
-    u32 *command;
+    s8 *commands;
+    u32 word;
 
     if (arg1->active != 0) {
         arg0->state = 2;
@@ -54,25 +48,18 @@ s32 func_150DFDD0(Game10D280Object *arg0, Game10D280State *arg1) {
     commands = *arg0->commands;
     if (commands != 0) {
         index = 0;
-        if (*commands != -0xE) {
-            do {
-                index++;
-            } while (*(commands + (index * 8)) != -0xE);
+        while (commands[index << 3] != -0xE) {
+            index++;
         }
-        command = (u32 *) ((s8 *) commands + (index * 8));
-        tile = 2 - ((s32) ((*command >> 12) & 0xFFF) / 3);
-        if (tile < 0) {
-            do {
-                tile += 0x40;
-            } while (tile < 0);
+        word = *(u32 *) ((s32) commands + (index << 3));
+        tile = 2 - ((s32) ((word >> 12) & 0xFFF) / 3);
+        while (tile < 0) {
+            tile += 0x40;
         }
-        *command = (((s32) ((500.0f * intensity) + 2.0f) & 0xFFF) << 12) |
-                   0xF2000000 | (tile & 0xFFF);
+        *(u32 *) ((s32) commands + (index << 3)) = (((s32) ((500.0f * intensity) + 2.0f) & 0xFFF) << 12) | 0xF2000000 | (tile & 0xFFF);
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DFDD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10D280/func_150DFDD0.s")
 typedef struct Game10D280Parent {
     s32 active;
     u8 pad4[0x10];

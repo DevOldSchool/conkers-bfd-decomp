@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_code_selected_segments.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B9F00
  * - func_151BA084
  * - func_151BA518
  * - func_151BB0E0
@@ -37,16 +36,23 @@ extern u8 D_800AA760;
 extern u8 D_800AA76C;
 extern f32 D_800AA82C;
 
-typedef struct Game1E73B0Request {
+extern s8 D_8008FD90;
+extern s8 D_800E0BCE[];
+extern u8 D_800CC2D0[];
+void *func_1513B5E0(s8 *, u8, s32, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
+
+typedef struct Game1E73B0Head {
     void *source;
     u8 code;
-    u8 pad05[3];
+} Game1E73B0Head;
+typedef struct Game1E73B0Body {
     s8 kind;
     s8 negative;
     s8 count;
-    u8 pad0B;
+    u8 pad03;
     s16 duration;
-    u8 pad0E[2];
+    u8 pad06[2];
     s32 one;
     s32 mask;
     s32 flags;
@@ -56,31 +62,27 @@ typedef struct Game1E73B0Request {
     s32 value20;
     u8 zero1;
     u8 zero2;
-    u8 pad2E[0xA];
+    u8 pad26[0xA];
     s32 value9;
     s32 value1AD;
     s8 extra;
     u8 variant;
-    u8 pad42[2];
-    u8 pad44[4];
-} Game1E73B0Request;
-
-extern s8 D_8008FD90;
-extern s8 D_800E0BCE[];
-extern u8 D_800CC2D0[];
-extern void *func_1513B5E0(s8 *, s32, s32, s32, s32);
-void *func_10022EC0(void *, const void *, u32);
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9F00 CURRENT (1427) */
+    u8 pad3A[2];
+} Game1E73B0Body;
+typedef struct Game1E73B0Result {
+    u8 pad00[0x50];
+    s32 offset;
+} Game1E73B0Result;
 void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {
-    Game1E73B0Request request;
-    s32 actor_index;
-    void *result;
+    Game1E73B0Result *result;
+    Game1E73B0Body request;
+    Game1E73B0Head head;
 
     if (arg0 == 0) {
         return 0;
     }
-    request.source = arg0;
+    head.source = arg0;
+    head.code = *(u8 *)((u8 *)arg0 + 0x3B);
     request.kind = 2;
     request.negative = -1;
     request.count = 3;
@@ -88,16 +90,18 @@ void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {
     request.value9 = 9;
     request.value1AD = 0x1AD;
     request.variant = 0xFF;
-    request.code = *(u8 *)((u8 *)arg0 + 0x3B);
-    actor_index = ((u8 *)arg0 - D_800CC2D0) / 0x32C;
-    if (actor_index < 2 && D_800E0BCE[actor_index] != 0) {
-        if (D_8008FD90 == 2) {
-            request.variant = 0xFD;
-        } else if (D_8008FD90 == 4) {
-            if (actor_index == 0) {
-                request.variant = 0xFB;
-            } else {
-                request.variant = 0xF7;
+    {
+        s32 actor_index = ((u8 *)arg0 - D_800CC2D0) / 0x32C;
+
+        if (actor_index < 2 && D_800E0BCE[actor_index] != 0) {
+            if (D_8008FD90 == 2) {
+                request.variant = 0xFD;
+            } else if (D_8008FD90 == 4) {
+                if (actor_index == 0) {
+                    request.variant = 0xFB;
+                } else {
+                    request.variant = 0xF7;
+                }
             }
         }
     }
@@ -113,13 +117,11 @@ void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {
     request.extra = 2;
     result = func_1513B5E0(&request.kind, 1, 8, arg1, arg2);
     if (result != 0) {
-        func_10022EC0((u8 *)result + *(s32 *)((u8 *)result + 0x50) + 0xF8,
-                      &request.source, 8);
+        func_10022EC0((u8 *)result + result->offset + 0xF8,
+                      &head, 8);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B9F00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151B9F00.s")
 void func_150A7790(void *, s32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151EFEB8(void *, s32);

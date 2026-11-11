@@ -47,6 +47,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | --- | --- | --- | --- | --- | --- |
 | game_83300 | 0x0 | 0xC | 0x800994DC | pool (func_1505A770) | `3DCCCCCD 3D4CCCCD 3D4CCCCD` |
 | game_83300 | 0xC | 0x8 | 0x8009962C | pool (func_1505F188) | `C61C4000 40533333` (-10000.0, 3.3) |
+| game_83300 | 0x14 | 0x4 | 0x80099694 | pool (func_150623F4) | `469C4000` (20000.0) |
 | blood | 0x0 | 0x204 | 0x800A4350 | table, sites 0x1C / 0x24 | `d321edfc…19b509` |
 | blood | 0x204 | 0x5C | 0x800A4554 | table, sites 0x3C / 0x44 | `5147d2f6…6188c3` |
 | blood | 0x260 | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
@@ -68,6 +69,9 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_173D40 | 0x20 | 0x18 | 0x800A573C | pool (func_15147318, func_15147478, func_151475D8) | `3BFC0FC1 3F360B61` ×3 |
 | game_131F30 | 0x0 | 0xC | 0x800A23B4 | pool (func_151050B0) | `3D23D70B 3D8F5C29 3EA66667` (0.040000003, 0.07, 0.32500002) |
 | game_131F30 | 0xC | 0x18 | 0x800A23EC | pool (func_151058B4) | `3AAA64C3 3AF9096B 40ECCCCC 4122147B 3FBE3540 C043126F` |
+| game_111670 | 0x0 | 0x4 | 0x800A1060 | pool (func_150E42F8) | `C61C4000` (-10000.0) |
+| game_111670 | 0x4 | 0x34 | 0x800A112C | pool (func_150E4E04, func_150E5558) | unchanged, 13 words ([record](game_111670_float_constants.md)) |
+| game_16EE20 | 0x2A4 | 0x4 | 0x800A56A0 | pool (func_1514470C) | `40C90FDB` (6.2831855) |
 | game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
 | game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
 | game_B4080 | 0x28 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
@@ -98,6 +102,15 @@ keep their runtime addresses.
   0x20 bytes: 0x14 of payload and 12 zero alignment bytes, which the splitter
   checks. The former 0xC payload-size symbol is gone; the first pool section
   is now exactly 0xC.
+  `func_150623F4` adds a third pool: it compares squared distances with
+  `20000.0f` inside a loop, and the reference loads the word once into
+  callee-saved `$fs1` (`lui`/`lwc1` at `1506262C`/`15062644`). With
+  `extern f32 D_80099694` IDO keeps the address in an s-register and reloads
+  the value every iteration; as a literal the function is `CURRENT (0)`. The
+  ROM word at 0x80099694 is `469C4000`. The literal follows the two earlier
+  pools at object offset 0x14, so the object `.rodata` stays 0x20 bytes: 0x18
+  of payload and 8 zero alignment bytes. The words between
+  (0x80099634..0x80099693) keep their extern symbols.
 - **blood:** `func_1513A48C` loads 0.07, -1.004, 0.254 and 23.446 from text
   offsets 0x6420..0x64A0. `func_1513A5E0` loads 0.0201, -0.43, 0.272 and
   20.187 from 0x657C..0x65EC, after its `scale` (4.0f, a `lui` immediate) and
@@ -113,6 +126,15 @@ keep their runtime addresses.
   The object `.rodata` is 0x60 bytes: 0x5C of payload and 4 zero alignment
   bytes.
 
+- **game_16EE20:** `func_1514470C` case 1 multiplies two random values by
+  `6.2831855f`. The reference loads the word once (HI16/LO16 at unit text
+  offsets 0x3068/0x306C) and uses it for both products. With
+  `extern f32 D_800A56A0` the function scores CURRENT 80 (the constant and
+  `radiusX` swap `$f2`/`$f16`); as a literal it is `CURRENT (0)`. The literal
+  follows the five reviewed tables in the object, at offset 0x2A4, and the
+  object `.rodata` stays 0x2B0 bytes: 0x2A8 of payload and 8 zero alignment
+  bytes. The neighbouring words 0x800A5694..0x800A569F and 0x800A56A4 are read
+  by other members through externs and are not part of this range.
 - **game_64120:** `func_1503B708` fills six vectors with `-99999.0f`
   (one load, text offset of the pair inside the function at +0xC/+0x10). The
   [existing constant record](game_64120_float_constant.md) covers the first

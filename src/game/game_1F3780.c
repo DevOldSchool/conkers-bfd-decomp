@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151C62D0
  * - func_151C6A28
- * - func_151C6D70
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -138,28 +137,22 @@ void func_151C6A28(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C6A28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1F3780/func_151C6A28.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C6D70 CURRENT (496) */
 void func_151C6D70(s32 arg0, u8 arg1, s32 arg2, s16 arg3, u8 arg4,
                    s32 arg5) {
-    struct {
-        u32 sp44;
-        u32 sp48;
-        u32 pad4C;
-        f32 sp50[2];
-    } locals;
-    s32 temp_v0;
+    f32 values[2];
+    f32 angle;
+    u32 random1;
+    u32 random0;
 
-    locals.sp50[1] = (func_150ADA68() * D_800AAC10) + D_800AAC14;
-    locals.sp50[0] = (func_150ADA68() * D_800AAC18) + D_800AAC1C;
-    locals.sp44 = func_150ADA20();
-    locals.sp48 = func_150ADA20();
-    temp_v0 = arg1 * 0xC;
-    func_15102B38(arg0, ((u32)D_800AAB00[arg1] >> 6) & 0xFF,
-                  (s32)((u8 *)D_800AAB08 + temp_v0),
-                  (s32)(D_800AAB20 + temp_v0), locals.sp50,
-                  (locals.sp44 & 3) + 6,
-                  0xFF, (func_150ADA68() * 270.0f) + D_800AAC20,
+    values[1] = (func_150ADA68() * D_800AAC10) + D_800AAC14;
+    values[0] = (func_150ADA68() * D_800AAC18) + D_800AAC1C;
+    random0 = func_150ADA20();
+    /* Range form shared with the other func_15102B38 callers; here lo == hi == 0xFF. */
+    random1 = func_150ADA20();
+    angle = func_150ADA68();
+    func_15102B38(arg0, (u32)D_800AAB00[arg1] >> 6,
+                  (s32)((u8 *)D_800AAB08 + arg1 * 0xC), (s32)(D_800AAB20 + arg1 * 0xC), values,
+                  (random0 % 4U) + 6,
+                  (random1 % 1U) + 0xFF, (angle * 270.0f) + D_800AAC20,
                   arg2, 0xFF, 0, arg3, arg4, arg5);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C6D70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F3780/func_151C6D70.s")

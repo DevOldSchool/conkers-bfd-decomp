@@ -95,6 +95,89 @@ guard. No historical whole-file rodata boundary, unobserved array capacity, or
 absence of every possible computed alias is inferred. The separate constructor
 at `func_15070898` is not included in this recovery.
 
+## Dispatch table and leading literals from 0x80099D54
+
+The mapping now starts at `0x80099D54`: payload `0x144` bytes,
+`[0x80099D54,0x80099E98)`, in a `0x150`-byte section whose 12 tail bytes are
+zero object alignment. The constructor geometry above (`0xEC` payload at
+`0x80099DAC`, section `0xF0`) is the earlier state and remains valid for the
+unchanged 236 constructor bytes, which now sit at object offsets `0x58..0x143`.
+
+Two members matched in this change, `func_1506DE84` and `func_1506E0EC`, own
+the new leading bytes together with three already accepted members:
+
+| Object offset | Address | ROM words | Owner (text offset in unit) |
+| --- | --- | --- | --- |
+| `0x0` | `0x80099D54` | 14 case targets, below | `func_1506DE84` (0x3154) jump table |
+| `0x38` | `0x80099D8C` | `3DCCCCCD` (`0.1f`) | `func_1506DE84` case 0 |
+| `0x3C` | `0x80099D90` | `3CF5C28F` (`0.03f`) | `func_1506DE84` case 1 |
+| `0x40` | `0x80099D94` | `3CA3D70A` (`0.02f`) | `func_1506DE84` case 1 |
+| `0x44` | `0x80099D98` | `3DCCCCCD` (`0.1f`) | `func_1506E0EC` (0x33BC) |
+| `0x48` | `0x80099D9C` | `3E051EB8` (`0.13f`) | `func_1506E0EC` |
+| `0x4C` | `0x80099DA0` | `49742400` (`1000000.0f`) | `func_1506EA98` (0x3D68) |
+| `0x50` | `0x80099DA4` | `49742400` (`1000000.0f`) | `func_1506EBC0` (0x3E90) |
+| `0x54` | `0x80099DA8` | `3E4CCCCD` (`0.2f`) | `func_1506EC50` (0x3F20) |
+
+### func_1506DE84 table
+
+The raw dispatch is `sltiu $at,$t6,0xE` at `1506DE94`, then
+`lui`/`addu`/`lw` of `jtbl_80099D54_game` at `1506DEA0..1506DEA8` and `jr $t6`.
+The bound is 14 and the table is 14 words. The ROM words at `0x80099D54` are
+`1506DEB4 1506DF0C 1506DF84 1506DFA4 1506DFC4 1506DFE4 1506E010 1506E03C
+1506E068 1506E078 1506E088 1506E098 1506E0A8 1506E0D4`. Each lies inside the
+`func_1506DE84` span `[0x1506DE84,0x1506E0EC)`. The compiled object carries 14
+`R_MIPS_32` relocations against `.text` at rodata offsets `0x0..0x34`, with
+addends `0x3184 0x31DC 0x3254 0x3274 0x3294 0x32B4 0x32E0 0x330C 0x3338 0x3348
+0x3358 0x3368 0x3378 0x33A4`. Adding the unit text base `0x1506AD30` to each
+addend gives exactly the ROM word at the same index.
+
+The function is a fourteen-case `switch (D_800D1580)`. Its preserved candidate
+read the three floats through `extern f32 D_80099D8C/D90/D94` and scored
+CURRENT 275; with the literals `0.1f, 0.1f` and `0.03f, 0.02f` it is
+`CURRENT (0)`. Case 0 passes `0.1f` twice and the reference loads the word once
+into `$fv0` and stores it to both argument slots, which is one pooled literal.
+
+### func_1506E0EC literals
+
+`func_1506E0EC` passes `0.13f` and `0.1f` as the last two arguments of
+`func_151875E0` inside a four-iteration loop. The reference loads both words
+once, before the loop, into callee-saved `$fs3`/`$fs2` (`lui`/`lwc1` at
+`1506E158..1506E174`). With `extern f32` objects IDO reloads them after every
+call (CURRENT 3735, frame `0xD0`), because a call may modify an external; only
+constants are hoisted. The literal form reaches `CURRENT (0)` with frame `0xE0`,
+and IDO emits `0.1f` before `0.13f`, matching the ROM order.
+
+### Accepted members converted to literals
+
+`func_1506EA98`, `func_1506EBC0` and `func_1506EC50` were already accepted with
+`extern f32 D_80099DA0/DA4/DA8`. Their words lie between the new leading
+literals and the constructor pool, so they now use `1000000.0f`, `1000000.0f`
+and `0.2f`. Each still probes at `CURRENT (0)`; a `lui`/`lwc1` pair is the same
+for a literal and an external. The two adjacent `1000000.0f` words are separate
+per-function literals, which is why the value appears twice. The eight externs
+`D_80099D8C` through `D_80099DA8` are no longer declared in `game_981E0.c`, and
+no other source refers to them.
+
+### Complete object
+
+The object emits one `.rodata` input section of `0x150` bytes. Bytes
+`0x38..0x143` equal ROM `[0x80099D8C,0x80099E98)`, SHA-256
+`af3d8e1ec3e5c64eb32048141bf43395a04cad16dc6850f5621bed5360ab78d7`. Bytes `0x0..0x37` are the relocated table above, and bytes
+`0x144..0x14F` are zero. The object has 136 `.text` relocations against
+`.rodata`: 68 HI16/LO16 pairs, the 59 constructor pairs, one table pair and
+eight literal pairs.
+
+The 12 informational tail bytes cover `0x80099E98..0x80099EA3`, which hold the
+neighbouring constants `4424C000`, `C42A4000` and `43AC8000` listed under
+"Padding and neighboring ownership". Those words stay external and are still
+supplied by the game-data archive, as the single tail word was before.
+
+The words below `0x80099D54` (`...3C23D70A C61C4000 C61C4000`) are float data
+read by other members through externs and are not part of this mapping.
+`config/data/us.json` and `tests/test_data_boundaries.py` record the new start,
+the 336-byte emitted size and 12 padding bytes. See the pull request that adds
+this section for the tested commit and the `verify-batch` result.
+
 ## Historical F54C-only recovery
 
 The earlier accepted F54C-only mapping at `0x80099E24` verified payload `0x74`
