@@ -378,6 +378,16 @@
         }
       },
       {
+        "address": "0x80095B40",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_360A0.c",
+            "src/done/game/game_360A0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800961D0",
         "section": ".rodata",
         "owner": {
@@ -667,7 +677,27 @@
       },
       {
         "address": "0x80099D54",
-        "section": ".rodata",
+        "section": ".rodata.981e0_0",
+        "owner": {
+          "sources": [
+            "src/game/game_981E0.c",
+            "src/done/game/game_981E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80099D8C",
+        "section": ".rodata.981e0_38",
+        "owner": {
+          "sources": [
+            "src/game/game_981E0.c",
+            "src/done/game/game_981E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80099EAC",
+        "section": ".rodata.981e0_144",
         "owner": {
           "sources": [
             "src/game/game_981E0.c",
@@ -816,8 +846,18 @@
         }
       },
       {
+        "address": "0x8009F7B8",
+        "section": ".rodata.dc6b0_0",
+        "owner": {
+          "sources": [
+            "src/game/game_DC6B0.c",
+            "src/done/game/game_DC6B0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8009F7D8",
-        "section": ".rodata",
+        "section": ".rodata.dc6b0_18",
         "owner": {
           "sources": [
             "src/game/game_DC6B0.c",
@@ -882,6 +922,16 @@
           "sources": [
             "src/game/game_E8C10.c",
             "src/done/game/game_E8C10.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A01F0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_EEB70.c",
+            "src/done/game/game_EEB70.c"
           ]
         }
       },
@@ -966,6 +1016,16 @@
         }
       },
       {
+        "address": "0x800A0880",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_FD1D0.c",
+            "src/done/game/game_FD1D0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A0990",
         "section": ".rodata",
         "owner": {
@@ -1016,8 +1076,28 @@
         }
       },
       {
-        "address": "0x800A1374",
+        "address": "0x800A1304",
         "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_113D60.c",
+            "src/done/game/game_113D60.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A1350",
+        "section": ".rodata.114b80_0",
+        "owner": {
+          "sources": [
+            "src/game/game_114B80.c",
+            "src/done/game/game_114B80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A1374",
+        "section": ".rodata.114b80_4",
         "owner": {
           "sources": [
             "src/game/game_114B80.c",
@@ -1062,6 +1142,16 @@
           "sources": [
             "src/game/game_1188E0.c",
             "src/done/game/game_1188E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A1578",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1199D0.c",
+            "src/done/game/game_1199D0.c"
           ]
         }
       },
@@ -1216,6 +1306,16 @@
         }
       },
       {
+        "address": "0x800A2498",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_135D00.c",
+            "src/done/game/game_135D00.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A3218",
         "section": ".rodata",
         "owner": {
@@ -1232,6 +1332,16 @@
           "sources": [
             "src/game/camera/camera_camera.c",
             "src/done/game/camera/camera_camera.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3614",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_156160.c",
+            "src/done/game/game_156160.c"
           ]
         }
       },
@@ -1276,8 +1386,18 @@
         }
       },
       {
-        "address": "0x800A4950",
+        "address": "0x800A4874",
         "section": ".rodata.blood_260",
+        "owner": {
+          "sources": [
+            "src/game/effects/blood.c",
+            "src/done/game/effects/blood.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A4950",
+        "section": ".rodata.blood_2b0",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1482,6 +1602,26 @@
           "sources": [
             "src/game/game_19E040.c",
             "src/done/game/game_19E040.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A7174",
+        "section": ".rodata.1a20a0_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1A20A0.c",
+            "src/done/game/game_1A20A0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A71AC",
+        "section": ".rodata.1a20a0_4",
+        "owner": {
+          "sources": [
+            "src/game/game_1A20A0.c",
+            "src/done/game/game_1A20A0.c"
           ]
         }
       },
@@ -1826,6 +1966,16 @@
         }
       },
       {
+        "address": "0x800AA9C4",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1ED0F0.c",
+            "src/done/game/game_1ED0F0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800AAA7C",
         "section": ".rodata",
         "owner": {
@@ -1867,7 +2017,7 @@
       },
       {
         "address": "0x800AAFC0",
-        "section": ".rodata",
+        "section": ".rodata.1fa770_0",
         "owner": {
           "sources": [
             "src/game/game_1FA770.c",
@@ -1876,8 +2026,28 @@
         }
       },
       {
+        "address": "0x800AAFE4",
+        "section": ".rodata.1fa770_8",
+        "owner": {
+          "sources": [
+            "src/game/game_1FA770.c",
+            "src/done/game/game_1FA770.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AB1D4",
+        "section": ".rodata.200930_0",
+        "owner": {
+          "sources": [
+            "src/game/game_200930.c",
+            "src/done/game/game_200930.c"
+          ]
+        }
+      },
+      {
         "address": "0x800AB21C",
-        "section": ".rodata",
+        "section": ".rodata.200930_28",
         "owner": {
           "sources": [
             "src/game/game_200930.c",

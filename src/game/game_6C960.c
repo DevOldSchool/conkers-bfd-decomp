@@ -69,7 +69,7 @@ void func_1503F5B8(Game6C960Actor *arg0, s32 arg1, s32 arg2, f32 arg3,
                   arg4, 0.0f, 0.0f, arg5);
 }
 void func_100226F0(void *, s32);
-s32 func_1502FE10(u8, void *, void *, void **, void *, s32, s32);
+s32 func_1502FE10(s32, void *, void *, void **, void *, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F62C CURRENT (1095) */
 s32 func_1503F62C(u8 arg0, s32 arg1, void *arg2, void *arg3,

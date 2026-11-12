@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15108850
  * - func_15108E10
- * - func_15109120
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -380,67 +379,59 @@ f32 sqrtf(f32);
 f32 fabsf(f32);
 #pragma intrinsic(sqrtf)
 #pragma intrinsic(fabsf)
-extern f32 D_800A2498;
-extern f32 D_800A249C;
-extern f32 D_800A24A0;
-extern f32 D_800A24A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109120 CURRENT (2838) */
-s32 func_15109120(u8 *arg0, register s32 arg1) {
+s32 func_15109120(u8 *arg0, s16 arg1) {
     f32 matrix[16];
     f32 horizontalX, horizontalZ;
-    f32 inverse, cameraX, cameraZ;
-    f32 horizontalScale, verticalScale;
+    f32 cameraX;
     s32 index;
     u8 *state;
     f32 *camera;
     Game109120Vertex *vertex;
-    f32 transformedY;
-    f32 textureS, textureT;
+    f32 x;
+    f32 y;
+    f32 z;
     Vec3f output;
 
-    arg1 = (s16)arg1;
-    state = arg0 + *(s32 *)(arg0 + 0x50) + 0xF8;
-    func_150A8050(matrix, *(f32 *)state, 0.0f, *(f32 *)(state + 4));
+    state = arg0;
+    state += *(s32 *)(arg0 + 0x50);
+    state += 0xF8;
+    func_150A8050(matrix, *(f32 *)(state + 0), 0.0f, *(f32 *)(state + 4));
     matrix[13] = *(f32 *)(state + 0x10);
-    matrix[0] *= D_800A2498;
-    matrix[1] *= D_800A2498;
-    matrix[2] *= D_800A2498;
-    matrix[4] *= D_800A2498;
-    matrix[5] *= D_800A2498;
-    matrix[6] *= D_800A2498;
-    matrix[8] *= D_800A2498;
-    matrix[9] *= D_800A2498;
-    matrix[10] *= D_800A2498;
-    func_150A7790(matrix, (s32)(arg0 + (D_800BE9C0 << 6) + 0x78));
+    matrix[0] *= 0.157f;
+    matrix[1] *= 0.157f;
+    matrix[2] *= 0.157f;
+    matrix[4] *= 0.157f;
+    matrix[5] *= 0.157f;
+    matrix[6] *= 0.157f;
+    matrix[8] *= 0.157f;
+    matrix[9] *= 0.157f;
+    matrix[10] *= 0.157f;
+    func_150A7790(matrix, (u32)arg0 + (D_800BE9C0 << 6) + 0x78);
     camera = (f32 *)func_15144B34(arg1);
     cameraX = camera[0];
-    index = 0;
-    if (D_800A249C < fabsf(cameraX) || D_800A249C < fabsf(camera[1])) {
-        cameraZ = camera[2];
-        inverse = 1.0f / sqrtf(cameraX * cameraX + cameraZ * cameraZ);
+    if (0.0001f < fabsf(cameraX) || 0.0001f < fabsf(camera[1])) {
+        f32 cameraZ = camera[2];
+        f32 inverse = 1.0f / sqrtf(cameraX * cameraX + cameraZ * cameraZ);
+
         horizontalX = cameraZ * inverse;
         horizontalZ = -cameraX * inverse;
     } else {
         horizontalX = 1.0f;
         horizontalZ = 0.0f;
     }
-    horizontalScale = D_800A24A0;
-    inverse = 81.0f;
-    verticalScale = D_800A24A4;
-    do {
-        vertex = *(Game109120Vertex **)(arg0 + D_800BE9C0 * 0x10 + arg1 * 4 + 0x58) + index;
-        func_150A7960(matrix, vertex->x, vertex->y, vertex->z, &output.x, &output.y, &output.z);
-        index++;
-        transformedY = output.y;
-        cameraX = output.x;
-        cameraZ = output.z;
-        textureT = transformedY * verticalScale + inverse;
-        textureS = (cameraX * horizontalX + cameraZ * horizontalZ) * horizontalScale + 26.0f;
-        vertex->s = (s32)(textureS * 32.0f);
-        vertex->t = (s32)(textureT * 32.0f);
-    } while (index != 0x10);
+    for (index = 0; index != 16; index++) {
+        f32 textureS, textureT;
+
+        vertex = *(Game109120Vertex **)(arg0 + 0x58 + D_800BE9C0 * 0x10 + arg1 * 4) + index;
+        x = vertex->x;
+        y = vertex->y;
+        z = vertex->z;
+        func_150A7960(matrix, x, y, z, &output.x, &output.y, &output.z);
+        textureT = output.y * 0.358f + 81.0f;
+        textureS = (output.x * horizontalX + output.z * horizontalZ) * 0.21300001f + 26.0f;
+        vertex->s = textureS * 32.0f;
+        vertex->t = textureT * 32.0f;
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15109120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109120.s")

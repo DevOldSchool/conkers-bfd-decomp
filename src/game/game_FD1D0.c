@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D01A0
- * - func_150D032C
  * - func_150D0534
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -78,7 +77,9 @@ typedef struct GameFD1D0TextCursor {
     u8 *cursor;
     u8 width;
     u8 page;
-    u8 pad16[0xE];
+    u8 pad16[2];
+    u8 *buffers[2];
+    void *state;
     s8 handler;
     u8 mode;
     u8 pad26[2];
@@ -286,51 +287,39 @@ void func_150D02B4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(object->field_48, &packet, sizeof(packet));
     }
 }
-extern u8 D_800A0880[];
-extern f32 D_800A0888;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D032C CURRENT (1898) */
-s32 func_150D032C(u8 *arg0) {
-    u8 text[0x48];
-    u8 initial[8];
-    u8 *state;
-    u8 *view;
-    f32 value;
+s32 func_150D032C(GameFD1D0State *arg0) {
+    GameFD1D0TextCursor *view;
+    GameFD1D0ValuePacket *state;
+    u8 text[0x50];
+    u8 prompt[] = "C:> ";
 
-    *(u32 *)initial = *(u32 *)D_800A0880;
-    initial[4] = D_800A0880[4];
-    view = arg0 + 0x28;
-    state = *(u8 **)(arg0 + 0x48);
-    if (arg0[0x30] & 1) {
-        *(s16 *)(state + 4) = 0;
-        *(f32 *)state = 0.0f;
+    view = &arg0->text;
+    state = view->state;
+    if (view->flags & 1) {
+        state->field_4 = 0;
+        state->value = 0.0f;
     }
-    value = (f32)view[0x14];
-    if (*(f32 *)state < value) {
-        *(f32 *)state += D_800A0888 * D_800BE9A4;
-        if (*(f32 *)state > 1.0f) {
-            do {
-                *(s16 *)(state + 4) = *(s16 *)(state + 4) + 1;
-                if (view[0x14] < *(s16 *)(state + 4)) {
-                    *(s16 *)(state + 4) = view[0x14];
-                }
-                *(f32 *)state -= 1.0f;
-            } while (*(f32 *)state > 1.0f);
+    if (state->value < view->width) {
+        state->value += 0.437f * D_800BE9A4;
+        while (state->value > 1.0f) {
+            state->field_4++;
+            if (view->width < state->field_4) {
+                state->field_4 = view->width;
+            }
+            state->value -= 1.0f;
         }
     }
-    func_10022EC0(text, initial, 4);
-    func_10022EC0(text + 4, *(void **)(view + (view[0x15] * 4) + 0x18),
-                  *(s16 *)(state + 4));
-    text[4 + *(s16 *)(state + 4)] = 0x20;
-    text[5 + *(s16 *)(state + 4)] = 0xBB;
-    text[6 + *(s16 *)(state + 4)] = 0;
+    func_10022EC0(text, prompt, 4);
+    func_10022EC0(text + 4, view->buffers[view->page], state->field_4);
+    text[4 + state->field_4] = 0x20;
+    text[5 + state->field_4] = 0xBB;
+    text[6 + state->field_4] = 0;
     func_1504332C(0, 0xFF, 0, 0x96);
     func_15042D94(0xF, 0xBE, 0x80, (s32)text);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D032C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D032C.s")
 void func_150D04C4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
     GameFD1D0SmallByteSlot slot;
     GameFD1D0Object *object;

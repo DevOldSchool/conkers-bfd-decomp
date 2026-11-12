@@ -10,7 +10,6 @@
  * - func_151179BC
  * - func_15117F3C
  * - func_151193F4
- * - func_151194D4
  * - func_151196D4
  * - func_15119938
  *
@@ -625,74 +624,53 @@ void func_151193F4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151193F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151193F4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151194D4 CURRENT (1958) */
-void func_151194D4(void *arg0, void *arg1, s32 arg2, u32 arg3) {
-    s8 *sp4C;
-    volatile u32 sp44;
-    s32 temp_v0;
-    s32 temp_v1_2;
-    s32 var_v0_2;
-    s8 *var_t0;
-    s8 var_v0;
-    u32 temp_v1;
-    register u32 var_s0;
-    register u32 var_s1;
-    u32 var_s5;
-    void *temp_a1;
+void func_151194D4(void *arg0, void *arg1, s32 arg2, s32 arg3) {
+    s8 *cmd;
+    u32 word;
+    u32 base;
+    s32 found;
+    u32 i;
+    u32 bits;
+    s16 *v;
+    s32 z, x;
 
-    var_t0 = *(s8 **)((u8 *)arg0 + 0x1C);
-    var_v0 = *var_t0;
-    var_s5 = sp44;
-    if (var_v0 != -0x21) {
-        do {
-            switch (var_v0) {                       /* irregular */
-            case 1:
-                var_s5 = (u32) (*(u32 *)((u8 *)var_t0 + 4) & 0xFFFFFF) >> 4;
-                break;
-            case 5:
-                sp4C = var_t0;
-                temp_v1 = *(u32 *)((u8 *)var_t0 + 4);
-                var_v0_2 = 0;
-                var_s1 = 0;
-                var_s0 = temp_v1;
-                do {
-                    temp_a1 = *(u8 **)((u8 *)arg0 + 0x28) + ((((u32) (var_s0 & 0xFF) / 10U) + var_s5) * 0x10);
-                    var_s1 += 1;
-                    if ((*(s16 *)((u8 *)temp_a1 + 0) == *(s16 *)((u8 *)arg1 + 0)) && (*(s16 *)((u8 *)temp_a1 + 2) == *(s16 *)((u8 *)arg1 + 2)) && (*(s16 *)((u8 *)temp_a1 + 4) == *(s16 *)((u8 *)arg1 + 4))) {
-                        var_v0_2 = 1;
-                        *(u16 *)((u8 *)temp_a1 + 6) = arg3;
-                    } else {
-                        var_s0 = var_s0 >> 8;
-                    }
-                } while (var_s1 < 3U);
-                var_s0 = temp_v1;
-                if (var_v0_2 != 0) {
-                    var_s1 = 0;
-                    do {
-                        temp_a1 = *(u8 **)((u8 *)arg0 + 0x28) + ((((u32) (var_s0 & 0xFF) / 10U) + var_s5) * 0x10);
-                        if (*(u16 *)((u8 *)temp_a1 + 6) == 0) {
-                            temp_v1_2 = *(s16 *)((u8 *)temp_a1 + 4);
-                            temp_v0 = *(s16 *)((u8 *)temp_a1 + 0);
-                            if (arg2 < ((temp_v1_2 * temp_v1_2) + (temp_v0 * temp_v0))) {
-                                *(u16 *)((u8 *)temp_a1 + 6) = arg3;
-                                func_151194D4(arg0, temp_a1, arg2, arg3);
-                            }
-                        }
-                        var_s1 += 1;
-                        var_s0 = var_s0 >> 8;
-                    } while (var_s1 != 3);
+    cmd = *(s8 **)((u8 *)arg0 + 0x1C);
+    while (cmd[0] != -0x21) {
+        switch (cmd[0]) {
+        case 1:
+            base = (*(u32 *)(cmd + 4) & 0xFFFFFF) >> 4;
+            break;
+        case 5:
+            word = *(u32 *)(cmd + 4);
+            found = 0;
+            for (bits = word, i = 0; i < 3; i++) {
+                v = (s16 *)(*(u8 **)((u8 *)arg0 + 0x28) + ((bits & 0xFF) / 10 + base) * 0x10);
+                if (v[0] == ((s16 *)arg1)[0] && v[1] == ((s16 *)arg1)[1] && v[2] == ((s16 *)arg1)[2]) {
+                    found = 1;
+                    ((u16 *)v)[3] = arg3;
+                } else {
+                    bits >>= 8;
                 }
-                var_t0 = sp4C;
-                break;
             }
-            var_v0 = *(s8 *)((u8 *)var_t0 + 8);
-            var_t0 += 8;
-        } while (var_v0 != -0x21);
-        sp44 = var_s5;
+            if (found) {
+                for (bits = word, i = 0; i != 3; i++) {
+                    v = (s16 *)(*(u8 **)((u8 *)arg0 + 0x28) + ((bits & 0xFF) / 10 + base) * 0x10);
+                    if (((u16 *)v)[3] == 0) {
+                        x = v[0];
+                        z = v[2];
+                        if (arg2 < z * z + x * x) {
+                            ((u16 *)v)[3] = arg3;
+                            func_151194D4(arg0, v, arg2, arg3);
+                        }
+                    }
+                    bits >>= 8;
+                }
+            }
+            break;
+        }
+        cmd += 8;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151194D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151194D4.s")
 typedef struct {
     s16 x, y, z;
     u16 group;

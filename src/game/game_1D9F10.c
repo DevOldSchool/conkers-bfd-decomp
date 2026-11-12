@@ -10,7 +10,6 @@
  * - func_151ACBD4
  * - func_151AD174
  * - func_151AD92C
- * - func_151AE2BC
  * - func_151AE3A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -369,53 +368,51 @@ typedef struct {
     u8 count;
 } Game1D9F10Curve;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE2BC CURRENT (2778) */
-void func_151AE2BC(s32 arg0, void *arg1, s32 arg2, f32 arg3) {
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 var_fv0;
-    s32 temp_a2;
+void func_151AE2BC(void *arg0, void *arg1, f32 x, f32 y, f32 z) {
+    Game1D9F10Curve *curve = arg1;
+    s32 count;
+    s32 last;
     s32 upper;
-    s32 var_v1;
-    u8 temp_v0;
-    u8 *temp_a0;
-    u8 *var_a0;
+    s32 i;
 
-    temp_v0 = *(u8 *)((u8 *)arg1 + 0x42);
-    var_v1 = 0;
-    temp_a2 = temp_v0 - 1;
-    upper = temp_v0 - 2;
-    if (temp_a2 > 0) {
-        var_a0 = *(u8 **)((u8 *)arg1 + 0x38);
-loop_2:
-        if (!(arg3 <= *(f32 *)(var_a0 + 4))) {
-            var_v1 += 1;
-            var_a0 += 0x18;
-            if (var_v1 != temp_a2) {
-                goto loop_2;
+    count = curve->count;
+    i = 0;
+    last = count - 1;
+    upper = count - 2;
+    if (last > 0) {
+        Game1D9F10CurvePoint *point = curve->points;
+
+        for (;;) {
+            if (y <= point->field_4) {
+                break;
+            }
+            i++;
+            point++;
+            if (i == last) {
+                break;
             }
         }
     }
-    if (var_v1 >= upper) {
+    if (i >= upper) {
         *(f32 *)arg0 = 1.0f;
         return;
     }
-    if (var_v1 == 0) {
+    if (i == 0) {
         *(f32 *)arg0 = 0.0f;
         return;
     }
-    temp_a0 = *(u8 **)((u8 *)arg1 + 0x38) + (var_v1 * 0x18);
-    temp_fv1 = *(f32 *)(temp_a0 - 0x14);
-    temp_fv0 = *(f32 *)(temp_a0 + 4) - temp_fv1;
-    if (temp_fv0 != 0.0f) {
-        var_fv0 = (arg3 - temp_fv1) / temp_fv0;
-    } else {
-        var_fv0 = 0.0f;
+    {
+        Game1D9F10CurvePoint *point = &curve->points[i];
+        f32 span = point->field_4 - point[-1].field_4;
+
+        if (span != 0.0f) {
+            span = (y - point[-1].field_4) / span;
+        } else {
+            span = 0.0f;
+        }
+        *(f32 *)arg0 = (f32)(i - 1) / (f32)(count - 3) + span / (f32)last;
     }
-    *(f32 *)arg0 = ((f32)(var_v1 - 1) / (f32)(temp_v0 - 3)) + (var_fv0 / (f32)temp_a2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AE2BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE2BC.s")
 s32 func_15143E08(u16 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE3A8 CURRENT (5407) */

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_114740.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_helper_pairs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150E75A0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game114740Pair { s32 words[2]; } Game114740Pair;
@@ -107,44 +102,66 @@ typedef struct {
     u8 pad6E[0x1A];
 } Game114740Local;
 
-extern u8 D_80088A64;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E75A0 CURRENT (1893) */
+typedef struct Game114740Position {
+    f32 x, y;
+} Game114740Position;
+
+typedef struct Game114740Rectangle {
+    Game114740Position position;
+    f32 width, height;
+    s8 kind, pad11;
+    s16 lifetime;
+    u16 flags;
+    s16 field16, field18;
+    u8 field1A, field1B, field1C, field1D, field1E;
+    u8 field1F, field20, field21, field22, field23;
+    s32 field24, field28, field2C, field30;
+    s32 field34, field38, field3C;
+    u8 field40, field41, pad42[2], field44, pad45[3];
+    f32 scaleX, scaleY, offsetX, offsetY;
+} Game114740Rectangle;
+
+typedef struct Game114740Kinds {
+    u8 value[1];
+} Game114740Kinds;
+extern Game114740Kinds D_80088A64;
+
 void func_150E75A0(void *arg0, f32 arg1, s16 arg2, u8 arg3, u8 arg4,
                    u8 arg5, s16 arg6, s16 arg7, s32 arg8, s32 arg9,
                    u8 arg10, s32 arg11) {
-    typedef struct { s32 words[2]; } Copy2;
-    Game114740Local local;
+    Game114740Position *position;
+    Game114740Rectangle rectangle;
+    Game114740Kinds kinds;
 
-    local.sp28 = D_80088A64;
-    *(Copy2 *)local.source = *(Copy2 *)arg0;
-    local.sp3C = local.sp28;
-    local.sp40 = arg3 | 0x40;
-    local.sp3E = arg2;
-    local.sp4C = 0xFF;
-    local.sp4D = 0xFF;
-    local.sp44 = arg7;
-    local.sp46 = 4;
-    local.sp47 = 0xFF;
-    local.sp48 = 0xE6;
-    local.sp49 = 0xBE;
-    local.sp4B = 0xFF;
-    local.sp42 = arg6;
-    local.sp4A = arg4;
-    local.sp34 = arg1;
-    local.sp38 = arg1;
-    local.sp4E = 0xFF;
-    local.sp50 = 1;
-    local.sp54 = 0;
-    local.sp58 = 0;
-    local.sp6C = 0;
-    local.sp6D = 0xA;
-    local.sp5C = 7;
-    local.sp60 = 0x3C;
-    local.sp64 = 0x80;
-    local.sp68 = 0x20;
-    local.sp4F = arg5;
-    func_1515548C(&local.source, 0, arg8, arg9, 0, arg10, arg11);
+    kinds = D_80088A64;
+    position = arg0;
+    rectangle.position = *position;
+    rectangle.width = arg1;
+    rectangle.height = arg1;
+    rectangle.kind = kinds.value[0];
+    rectangle.lifetime = arg2;
+    rectangle.flags = arg3 | 0x40;
+    rectangle.field16 = arg6;
+    rectangle.field18 = arg7;
+    rectangle.field1A = 4;
+    rectangle.field1B = 0xFF;
+    rectangle.field1C = 0xE6;
+    rectangle.field1D = 0xBE;
+    rectangle.field1E = arg4;
+    rectangle.field1F = 0xFF;
+    rectangle.field20 = 0xFF;
+    rectangle.field21 = 0xFF;
+    rectangle.field22 = 0xFF;
+    rectangle.field23 = arg5;
+    rectangle.field24 = 1;
+    rectangle.field28 = 0;
+    rectangle.field2C = 0;
+    rectangle.field40 = 0;
+    rectangle.field41 = 0xA;
+    rectangle.field30 = 7;
+    rectangle.field34 = 0x3C;
+    rectangle.field38 = 0x80;
+    rectangle.field3C = 0x20;
+    func_1515548C(&rectangle, 0, arg8, arg9, 0, arg10, arg11);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E75A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114740/func_150E75A0.s")

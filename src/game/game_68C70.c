@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_actor_classification_emitter.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1503B840
  * - func_1503B9BC
  * - func_1503CB98
  *
@@ -48,69 +47,27 @@ typedef struct Game68C70Status {
     u8 field_2FB;
 } Game68C70Status;
 
-extern u16 D_8009877C;
-extern u16 D_8009877E;
-extern u8 D_80098780;
-extern u16 D_80098830;
-extern u16 D_80098836;
+extern u16 D_8009877C[90];
+extern u16 D_80098830[3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503B840 CURRENT (1785) */
 void func_1503B840(Game68C70Status *arg0) {
-    u8 *var_a1_2;
-    u16 *var_a1;
-    u16 temp_t5;
-    u16 temp_t7;
-    u16 temp_v1;
+    s32 i;
 
-    var_a1 = &D_80098830;
     if (arg0->field_0 == 1) {
-        temp_v1 = arg0->field_84;
-loop_2:
-        temp_t7 = *var_a1;
-        var_a1++;
-        if (temp_v1 == temp_t7) {
-            arg0->field_2FB |= 2;
-            return;
+        for (i = 0; i < 3; i++) {
+            if (arg0->field_84 == D_80098830[i]) {
+                arg0->field_2FB |= 2;
+                return;
+            }
         }
-        if (var_a1 >= &D_80098836) {
-            if (temp_v1 == D_8009877C) {
+        for (i = 0; i < 90; i++) {
+            if (arg0->field_84 == D_8009877C[i]) {
                 arg0->field_2FB |= 1;
                 return;
             }
-            var_a1_2 = &D_80098780;
-            if (temp_v1 == D_8009877E) {
-                arg0->field_2FB |= 1;
-                return;
-            }
-loop_10:
-            if (temp_v1 == *(u16 *)(var_a1_2 + 0)) {
-                arg0->field_2FB |= 1;
-                return;
-            }
-            if (temp_v1 == *(u16 *)(var_a1_2 + 2)) {
-                arg0->field_2FB |= 1;
-                return;
-            }
-            if (temp_v1 == *(u16 *)(var_a1_2 + 4)) {
-                arg0->field_2FB |= 1;
-                return;
-            }
-            temp_t5 = *(u16 *)(var_a1_2 + 6);
-            var_a1_2 += 8;
-            if (temp_v1 == temp_t5) {
-                arg0->field_2FB |= 1;
-                return;
-            }
-            if (var_a1_2 != (u8 *)&D_80098830) {
-                goto loop_10;
-            }
-        } else {
-            goto loop_2;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503B840 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_68C70/func_1503B840.s")
 extern u8 D_800CC5CB;
 
 s32 func_1503B95C(s32 arg0, void *arg1) {

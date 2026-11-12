@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15095B08
  * - func_15095D34
  * - func_1509629C
  *
@@ -287,59 +286,50 @@ extern f32 D_800D2C80;
 extern f32 D_800D2C84;
 extern f32 D_800D2C88;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15095B08 CURRENT (2690) */
-void func_15095B08(void *arg0, register f32 arg1, register f32 arg2, register f32 arg3, s32 arg4, s32 *arg5) {
-    f32 temp_fa1;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s16 temp_v0;
-    s16 temp_v1;
-    u32 temp_t3;
-    u32 temp_t4;
-    void *temp_v1_2;
-    void *var_v0;
+void func_15095B08(void *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
+    f32 scaleX;
+    f32 scaleY;
+    f32 inv;
+    f32 w;
+    f32 h;
+    u8 *vp;
+    GameC2350Output *tex;
 
     *arg5 = 0;
-    temp_v0 = *(s16 *)((u8 *)arg0 + 6);
-    if (temp_v0 != 0) {
-        temp_v1 = *(s16 *)((u8 *)arg0 + 8);
-        if (temp_v1 != 0) {
-            temp_fv0 = (f32) temp_v0 * D_800380A0;
-            temp_fv1 = (f32) temp_v1 * D_800380A4;
-            if (arg4 != 0) {
-                var_v0 = (u8 *)D_800BE628 + (D_80082FA4 * 0x180);
-                temp_fv0 = temp_fv0 * *(f32 *)((u8 *)var_v0 + 0x1C);
-                temp_fv1 = temp_fv1 * *(f32 *)((u8 *)var_v0 + 0x20);
-            } else {
-                var_v0 = (u8 *)D_800BE628 + (D_80082FA4 * 0x180);
-                temp_fv0 = temp_fv0 * *(f32 *)((u8 *)var_v0 + 0x14);
-                temp_fv1 = temp_fv1 * *(f32 *)((u8 *)var_v0 + 0x18);
-            }
-            temp_v1_2 = *(void **)((u8 *)arg0 + 0x10);
-            temp_t3 = *(u16 *)((u8 *)temp_v1_2 + 4);
-            temp_fa1 = 1.0f / arg3;
-            temp_t4 = *(u16 *)((u8 *)temp_v1_2 + 6);
-            temp_ft4 = temp_fv0 * ((f32)temp_t3) * temp_fa1;
-            temp_ft5 = ((f32)temp_t4) * temp_fv1 * temp_fa1;
-            arg1 = arg1 - (temp_ft4 * 0.5f);
-            arg2 = arg2 - (temp_ft5 * 0.5f);
-            if ((*(f32 *)((u8 *)var_v0 + 0x2C) <= (arg1 + temp_ft4)) && (arg1 < *(f32 *)((u8 *)var_v0 + 0x30)) && (*(f32 *)((u8 *)var_v0 + 0x24) <= (arg2 + temp_ft5)) && (arg2 < *(f32 *)((u8 *)var_v0 + 0x28))) {
-                *arg5 = 1;
-            }
-            D_800D2C70 = temp_fv0;
-            D_800D2C74 = temp_fv1;
-            D_800D2C78 = arg1;
-            D_800D2C7C = arg2;
-            D_800D2C80 = arg3;
-            D_800D2C84 = temp_ft4;
-            D_800D2C88 = temp_ft5;
-        }
+    if (*(s16 *)((u8 *)arg0 + 6) != 0 && *(s16 *)((u8 *)arg0 + 8) != 0) {
+        scaleX = *(s16 *)((u8 *)arg0 + 6);
+        scaleY = *(s16 *)((u8 *)arg0 + 8);
+    } else {
+        return;
     }
+    scaleX *= D_800380A0;
+    scaleY *= D_800380A4;
+    if (arg4 != 0) {
+        vp = (u8 *)D_800BE628 + (D_80082FA4 * 0x180);
+        scaleX *= *(f32 *)(vp + 0x1C);
+        scaleY *= *(f32 *)(vp + 0x20);
+    } else {
+        vp = (u8 *)D_800BE628 + (D_80082FA4 * 0x180);
+        scaleX *= *(f32 *)(vp + 0x14);
+        scaleY *= *(f32 *)(vp + 0x18);
+    }
+    tex = *(GameC2350Output **)((u8 *)arg0 + 0x10);
+    inv = 1.0f / arg3;
+    w = (u32)tex->field_4 * scaleX * inv;
+    h = (u32)tex->field_6 * scaleY * inv;
+    arg1 -= w * 0.5f;
+    arg2 -= h * 0.5f;
+    if (*(f32 *)(vp + 0x2C) <= arg1 + w && arg1 < *(f32 *)(vp + 0x30) && *(f32 *)(vp + 0x24) <= arg2 + h && arg2 < *(f32 *)(vp + 0x28)) {
+        *arg5 = 1;
+    }
+    D_800D2C70 = scaleX;
+    D_800D2C74 = scaleY;
+    D_800D2C78 = arg1;
+    D_800D2C7C = arg2;
+    D_800D2C80 = arg3;
+    D_800D2C84 = w;
+    D_800D2C88 = h;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15095B08 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095B08.s")
 void func_15095D0C(s32 arg0, void *arg1) {
     func_15095D34(arg0, arg1, 0, 0, 0);
 }

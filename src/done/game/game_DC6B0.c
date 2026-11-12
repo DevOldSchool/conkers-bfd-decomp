@@ -4,13 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_DC6B0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150AF328
- * - func_150AFDB0
- * - func_150B0348
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_1505D024(void *, s32, s32, s32);
@@ -80,83 +73,72 @@ typedef struct GameAF328Extension {
     f32 x, y, scale;
 } GameAF328Extension;
 f32 func_150ADA68(void);
-extern f32 D_8009F7B8, D_8009F7BC, D_8009F7C0;
-extern f32 D_8009F7C4, D_8009F7C8, D_8009F7CC;
 extern f32 D_800BE9A4;
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF328 CURRENT (2136) */
 void func_150AF328(u8 *arg0) {
-    f32 baseSpeed;
-    struct {
-        GameAF328Extension extension;
-        GameAF328Packet packet;
-    } emission;
-    f32 speedRange;
-    s32 firstFlip;
     GameAF328State *state;
-    u8 *result;
+    GameAF328Packet packet;
 
     state = (GameAF328State *)(arg0 + 0x28);
-    state->counter += (1352.0f + func_150ADA68() * D_8009F7B8) * D_8009F7BC * D_800BE9A4;
+    state->counter += (1352.0f + func_150ADA68() * 1698.0f) * 0.0001f * D_800BE9A4;
     if (state->counter > 1.0f) {
-        emission.packet.kind = 0x6C;
-        emission.packet.field8 = 0x5103;
-        emission.packet.flags = 0x200005;
-        emission.packet.field1E = 0x46;
-        emission.packet.field20 = 3;
-        emission.packet.spriteFlags = 0x80DE07;
-        emission.packet.field60 = 8;
-        emission.packet.field61 = 6;
-        emission.packet.field62 = 0x16;
-        emission.extension.field0 = 0;
-        emission.extension.field1 = 0;
-        emission.packet.field4 = 0;
-        emission.packet.fieldC = 0;
-        emission.packet.field10 = 0;
-        emission.packet.field63 = -1;
-        emission.packet.field64 = -1;
-        emission.packet.field65 = 0;
-        emission.packet.field22 = 0x46;
-        emission.packet.field14 = 0xC7;
-        emission.packet.field15 = 0x78;
-        emission.packet.field16 = 8;
-        emission.packet.field17 = 0xFF;
-        emission.packet.field18 = 0x30;
-        emission.packet.field19 = 0xE;
-        emission.packet.field1A = 0;
-        emission.packet.field1C = 0xFF;
-        emission.extension.scale = D_8009F7C0;
-        emission.packet.field24 = D_8009F7C4;
-        emission.packet.position = state->position;
-        baseSpeed = D_8009F7C8;
-        speedRange = D_8009F7CC;
-        emission.packet.field3C = 0.0f;
-        emission.packet.field40 = 0.0f;
-        emission.packet.field44 = 0.0f;
-        emission.packet.field48 = 0.0f;
-        emission.packet.field4C = 0.0f;
-        emission.packet.field50 = 0.0f;
+        GameAF328Extension extension;
+        extension.scale = 0.97047f;
+        packet.kind = 0x6C;
+        packet.field8 = 0x5103;
+        packet.flags = 0x200005;
+        packet.field1E = 0x46;
+        packet.field20 = 3;
+        packet.spriteFlags = 0x80DE07;
+        packet.field60 = 8;
+        packet.field61 = 6;
+        extension.field0 = 0;
+        extension.field1 = 0;
+        packet.field4 = 0;
+        packet.fieldC = 0;
+        packet.field10 = 0;
+        packet.field62 = 0x16;
+        packet.field63 = -1;
+        packet.field64 = -1;
+        packet.field65 = 0;
+        packet.field22 = 0x46;
+        packet.field14 = 0xC7;
+        packet.field15 = 0x78;
+        packet.field16 = 8;
+        packet.field17 = 0xFF;
+        packet.field18 = 0x30;
+        packet.field19 = 0xE;
+        packet.field1A = 0;
+        packet.field1C = 0xFF;
+        packet.field24 = 1.021029f;
+        packet.position = state->position;
+        packet.field3C = 0.0f;
+        packet.field40 = 0.0f;
+        packet.field44 = 0.0f;
+        packet.field48 = 0.0f;
+        packet.field4C = 0.0f;
+        packet.field50 = 0.0f;
         do {
-            emission.extension.field2 = func_150ADA20() % 5U + 4;
-            emission.extension.field3 = func_150ADA20() % 5U + 4;
-            emission.extension.x = func_150ADA68() * 11.0f;
-            emission.extension.y = func_150ADA68() * 11.0f;
-            emission.packet.speed = func_150ADA68() * speedRange + baseSpeed;
-            emission.packet.spriteFlags &= ~0xC0;
-            firstFlip = func_150ADA20() & 1 ? 0x80 : 0;
-            emission.packet.spriteFlags |= (func_150ADA20() & 1 ? 0x40 : 0) | firstFlip;
-            emission.packet.field1B = func_150ADA20() % 101U + 0x64;
-            emission.packet.fieldA = func_150ADA20() % 51U + 0x50;
-            emission.packet.scaleX = emission.packet.scaleY = func_150ADA68() * 71.0f + 80.0f;
-            result = func_15130280(&emission.packet, 0, NULL, 0x10, arg0[0xC], arg0[1]);
-            if (result != NULL) func_10022EC0(result + 0xA8, &emission.extension, 0x10);
+            void *result;
+            extension.field2 = func_150ADA20() % 5U + 4;
+            extension.field3 = func_150ADA20() % 5U + 4;
+            extension.x = func_150ADA68() * 11.0f;
+            extension.y = func_150ADA68() * 11.0f;
+            packet.speed = func_150ADA68() * 0.172f + 0.098000005f;
+            packet.spriteFlags &= ~0xC0;
+            packet.spriteFlags |= (func_150ADA20() & 1 ? 0x40 : 0) | (func_150ADA20() & 1 ? 0x80 : 0);
+            packet.field1B = func_150ADA20() % 101U + 0x64;
+            packet.fieldA = func_150ADA20() % 51U + 0x50;
+            packet.scaleX = packet.scaleY = func_150ADA68() * 71.0f + 80.0f;
+            result = func_15130280(&packet, 0, NULL, 0x10, arg0[0xC], arg0[1]);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            }
             state->counter -= 1.0f;
         } while (state->counter > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AF328 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF328.s")
 
 /* Call context: func_15131828: unique active project prototype */
 /* Call context: func_15131958: unique active project prototype */
@@ -353,32 +335,20 @@ extern void *D_800DCE94;
 extern s8 D_800DD190;
 extern s32 D_800DD198;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFDB0 CURRENT (3002) */
 void func_150AFDB0(void) {
-    s32 temp_t7;
-    void **var_v0;
-    void *var_a0;
-    u8 *var_s0;
+    u8 *node;
 
-    var_a0 = D_800DCE94;
-    temp_t7 = D_800DD190 + 1;
-    D_800DD190 = temp_t7;
-    if (var_a0 != 0) {
-        var_v0 = (void **)((u8 *)&D_800DD198 + ((s8)temp_t7 * 4));
-        var_s0 = &D_800C3E78;
-        do {
-            *var_v0 = *(void **)((u8 *)var_a0 + 8);
-            if (*var_s0 == *(u8 *)((u8 *)var_a0 + 0x3F)) {
-                func_1516972C(var_a0);
-                var_v0 = (void **)((u8 *)&D_800DD198 + (D_800DD190 * 4));
-            }
-            var_a0 = *var_v0;
-        } while (var_a0 != 0);
+    node = D_800DCE94;
+    D_800DD190++;
+    while (node != 0) {
+        ((u8 **)&D_800DD198)[D_800DD190] = *(u8 **)(node + 8);
+        if (D_800C3E78 == node[0x3F]) {
+            func_1516972C(node);
+        }
+        node = ((u8 **)&D_800DD198)[D_800DD190];
     }
-    D_800DD190 -= 1;
+    D_800DD190--;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AFDB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AFDB0.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, f32, f32);
 void func_150E2DB4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, u8);
@@ -579,15 +549,18 @@ extern f32 D_8009F7DC, D_8009F7E0, D_8009F7E4, D_8009F7E8;
 extern f32 D_8009F7EC, D_8009F7F0, D_8009F7F4, D_8009F7F8;
 extern f32 D_8009F7FC, D_8009F800;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0348 CURRENT (1851) */
 void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
     Vec3f position;
     GameDC6B0Burst burst;
     GameDC6B0Emission emission;
 
-    position.x = ((Vec3f *) ((u8 *) arg0 + 0x14))->x;
-    position.y = ((Vec3f *) ((u8 *) arg0 + 0x14))->y + 30.0f;
-    position.z = ((Vec3f *) ((u8 *) arg0 + 0x14))->z;
+    {
+        Vec3f *src = (Vec3f *) ((u8 *) arg0 + 0x14);
+
+        position.x = src->x;
+        position.y = src->y + 30.0f;
+        position.z = src->z;
+    }
     burst.count = 10;
     burst.countRange = 7;
     burst.kind = 0x6C;
@@ -597,11 +570,11 @@ void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
     burst.timerRange = 15;
     burst.field1F = 0xFF;
     burst.field1C = 0x7F;
-    burst.field1E = 6;
     burst.fieldC = 0;
     burst.field14 = 0;
     burst.field18 = 0;
     burst.field1D = 0x4B;
+    burst.field1E = 6;
     burst.field20 = 0x80;
     burst.field21 = 0x53;
     burst.field22 = 0;
@@ -649,8 +622,6 @@ void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
     emission.radius = D_8009F800;
     func_15152190(&emission, D_8009F790, D_8009F7A4, 5, 65.0f, 0, *((u8 *) &arg1 + 3), arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B0348 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0348.s")
 
 /* Call context: func_151149AC: unique active project prototype */
 

@@ -1,4 +1,4 @@
-# US game_114B80 float constant
+# US game_114B80 float constants
 
 `func_150E8470` scales its spawn packet speed with the same float the raw code
 loads from `D_800A1374` into `$f28`. The checksum-validated US game-data archive
@@ -9,22 +9,29 @@ contains big-endian `3A83126F` at that address, exactly `0.001f`. ROM SHA1 is
 The literal is required for the register allocation, not only for the bytes.
 With an extern `f32` load, IDO promotes the global and disrupts the surrounding
 constant schedule into `$f28`/`$f30`/`$f26`/`$f24`/`$f20`. As a written
-`0.001f` literal it matches the raw HI16/LO16 pair once the unit `.rodata` is
-placed at `0x800A1374`.
+`0.001f` literal it matches the raw HI16/LO16 pair.
 
-The generated `build/us/src/game/game_114B80.o` snapshot SHA-256 is
-`4146bc798d3965bf233be9182a646b910dec9276c1d30df27739f5f9bbed476f`.
-Its rodata is `3a83126f000000000000000000000000`: one four-byte constant
-followed by 12 zero alignment bytes, with no data relocations.
+`func_150E7C9C` scales a queued point's x coordinate into a sound pan value. Its
+raw HI16/LO16 pair in `asm/nonmatchings/game_114B80/func_150E7C9C.s`
+(`150E7E9C`/`150E7EA0`) addresses `0x800A1350`, and no other reference function
+touches that word. The archive holds `3EDCEE77` there, exactly `0.43150684f`.
+With `extern f32 D_800A1350` the body scores CURRENT 1845; written as the literal
+(and with the queue's `points` as a flat `f32[2]` indexed by `index * 2`) the
+function is `CURRENT (0)`.
 
-`verify-batch` runs `scripts/verify_game_rodata.py` against the
-checksum-validated `rom_game_data()` with section size `0x10`, target address
-`0x800A1374` and payload size 4. Only the four payload bytes are owned; adjacent
-ROM values are not padding. The INFO mapping retains linked bytes for
-verification without appending to the code-only payload. A size assertion
-detects unexpected constant-pool growth.
+The generated `game_114B80.o` has rodata `3edcee773a83126f0000000000000000`: the
+two constants in function order (0.43150684 at offset 0, 0.001 at offset 4) and
+8 zero alignment bytes, with no data relocations. The two words are not adjacent
+in ROM: `0x800A1354..0x800A1370` hold other members' constants
+(`442EC000 43FF8000 3F483128 BF6E147C 3F3AE148 3DCCCCCC 3DB404EA 3F82DE98`),
+still read through externs by `func_150E81A8` and `func_150E8470`. The unit is
+therefore a split unit: `scripts/split_game_rodata.py` splits it into
+`.rodata.114b80_0` (0x4 at `0x800A1350`) and `.rodata.114b80_4` (0x4 at
+`0x800A1374`), as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
+Each INFO section has an exact 0x4 size assertion and `config/data/us.json`
+records both owners. The linked bytes are compared with the checksum-validated
+ROM by `scripts/verify_game_rodata.py`.
 
-The full registered instruction comparison reached CURRENT (0), with focused
-layout, progress and whitespace checks passed, and `verify-batch func_150E8470`
-is the linked integration gate. No reference assembly, compiler flag or
-verifier changes are involved.
+Both functions reached full registered CURRENT (0) with focused layout, progress
+and whitespace checks passed. No reference assembly, compiler flag or verifier
+changes are involved.

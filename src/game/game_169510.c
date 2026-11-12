@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_dispatcher_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1513C060
  * - func_1513CBF0
  * - func_1513D6FC
  * - func_1513DB00
@@ -14,7 +13,6 @@
  * - func_1513E2AC
  * - func_1513E6E8
  * - func_1513E83C
- * - func_1513EE14
  * - func_1513F114
  * - func_1513F728
  * - func_1513FAB4
@@ -33,11 +31,12 @@ extern s32 (*D_80089CA8[])(u8 *);
 extern u8 D_80090B64[];
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513C060 CURRENT (2813) */
 void func_1513C060(u8 *arg0) {
+    s32 boundary;
     s8 expired;
-    s32 flags, lifetime, product, speed, boundary, value;
+    s32 lifetime, speed;
     u8 callback;
+    s32 size;
 
     if (!(*(s32 *)(arg0 + 0x10) & 1)) return;
     expired = 0;
@@ -49,59 +48,51 @@ void func_1513C060(u8 *arg0) {
     if (callback != 0) {
         if (D_80089C70[callback](arg0) == 0) expired = 1;
     }
-    flags = *(s32 *)(arg0 + 0x18);
-    if ((flags & 0x8000) && expired == 0) {
+    if ((*(s32 *)(arg0 + 0x18) & 0x8000) && expired == 0) {
         lifetime = *(s16 *)(arg0 + 0x1C);
         if (lifetime < *(s16 *)(arg0 + 0x3A)) {
-            product = lifetime * *(s16 *)(arg0 + 0x3C);
-            if (product < arg0[0x28]) {
-                arg0[0x28] = product;
-                flags = *(s32 *)(arg0 + 0x18);
+            if (lifetime * *(s16 *)(arg0 + 0x3C) < arg0[0x28]) {
+                arg0[0x28] = lifetime * *(s16 *)(arg0 + 0x3C);
             }
         }
     }
-    if ((flags & 0x10000) && expired == 0) {
+    if ((*(s32 *)(arg0 + 0x18) & 0x10000) && expired == 0) {
         lifetime = *(s16 *)(arg0 + 0x1C);
         if (lifetime < *(s16 *)(arg0 + 0x3A)) {
-            product = lifetime * *(s16 *)(arg0 + 0x3C);
-            if (product < arg0[0x28]) arg0[0x2D] = product;
+            if (lifetime * *(s16 *)(arg0 + 0x3C) < arg0[0x28]) arg0[0x2D] = lifetime * *(s16 *)(arg0 + 0x3C);
         }
     }
     if (expired == 0) {
         speed = *(s32 *)(arg0 + 0x24);
         if (speed != 0) {
-            boundary = (D_80090B64[arg0[0x1E] * 12] << 16) - 1;
-            value = (s32)((u32)*(s32 *)(arg0 + 0x20) + (u32)speed * (u32)D_800BE9E4);
-            *(s32 *)(arg0 + 0x20) = value;
-            if (boundary < value) {
-                flags = *(s32 *)(arg0 + 0x18);
-                if (flags & 2) expired = 1;
-                else if (flags & 0x40) {
+            size = D_80090B64[arg0[0x1E] * 12];
+            boundary = (size << 16) - 1;
+            *(s32 *)(arg0 + 0x20) += speed * D_800BE9E4;
+            if (boundary < *(s32 *)(arg0 + 0x20)) {
+                if (*(s32 *)(arg0 + 0x18) & 2) expired = 1;
+                else if (*(s32 *)(arg0 + 0x18) & 0x40) {
                     *(s32 *)(arg0 + 0x24) = 0;
                     *(s32 *)(arg0 + 0x20) = boundary;
-                } else if (flags & 4) {
-                    *(s32 *)(arg0 + 0x20) = boundary - value % boundary;
-                    *(s32 *)(arg0 + 0x24) = (s32)(0U - (u32)speed);
+                } else if (*(s32 *)(arg0 + 0x18) & 4) {
+                    *(s32 *)(arg0 + 0x20) = boundary - *(s32 *)(arg0 + 0x20) % boundary;
+                    *(s32 *)(arg0 + 0x24) = -speed;
                 } else {
                     do {
-                        value = (s32)((u32)value - (u32)boundary);
-                        *(s32 *)(arg0 + 0x20) = value;
-                    } while (boundary < value);
+                        *(s32 *)(arg0 + 0x20) -= boundary;
+                    } while (boundary < *(s32 *)(arg0 + 0x20));
                 }
-            } else if (value < 0) {
-                flags = *(s32 *)(arg0 + 0x18);
-                if (flags & 8) expired = 1;
-                else if (flags & 0x80) {
+            } else if (*(s32 *)(arg0 + 0x20) < 0) {
+                if (*(s32 *)(arg0 + 0x18) & 8) expired = 1;
+                else if (*(s32 *)(arg0 + 0x18) & 0x80) {
                     *(s32 *)(arg0 + 0x24) = 0;
                     *(s32 *)(arg0 + 0x20) = 0;
-                } else if (flags & 4) {
-                    *(s32 *)(arg0 + 0x20) = (s32)(0U - (u32)value) % boundary;
-                    *(s32 *)(arg0 + 0x24) = (s32)(0U - (u32)speed);
+                } else if (*(s32 *)(arg0 + 0x18) & 4) {
+                    *(s32 *)(arg0 + 0x20) = -*(s32 *)(arg0 + 0x20) % boundary;
+                    *(s32 *)(arg0 + 0x24) = -speed;
                 } else {
                     do {
-                        value = (s32)((u32)value + (u32)boundary);
-                        *(s32 *)(arg0 + 0x20) = value;
-                    } while (value < 0);
+                        *(s32 *)(arg0 + 0x20) += boundary;
+                    } while (*(s32 *)(arg0 + 0x20) < 0);
                 }
             }
         }
@@ -113,8 +104,6 @@ void func_1513C060(u8 *arg0) {
         } else func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513C060 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513C060.s")
 
 void *func_10022EC0(void *, const void *, u32);
 void func_1513FFF4(void *, u8, u8);
@@ -1035,74 +1024,61 @@ void func_1513EDB4(void *arg0, s16 arg1) {
 void *func_1513EDE4(void *arg0, s16 arg1) {
     return func_1513EAD8(arg0, 1, arg1);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EE14 CURRENT (2650) */
-void *func_1513EE14(void *arg0, s32 arg1) {
-    u8 *vertices;
+void *func_1513EE14(Game169510ScaledOwner *owner, s16 arg1) {
+    Game169510ScaledVertex *vertices;
     void *result;
     f32 matrix[4][4];
     f32 corners[4][2];
     f32 points[4][3];
     u8 fresh;
-    Game169510ScaledOwner *owner = arg0;
 
-    func_151D5D60((u8 *)arg0 + 0x100, *(s16 *)((u8 *)&arg1 + 2), 0x40, (void **)&vertices, &fresh);
+    func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     result = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
-            register u8 *base = (u8 *)arg0 + *(s16 *)((u8 *)&arg1 + 2) * 4;
-            register u8 *templateData = (u8 *)arg0 + 0xC0;
-            func_10022EC0(*(u8 **)(base + 0x100), templateData, 0x40);
-            func_10022EC0(*(u8 **)(base + 0x100) + 0x40, templateData, 0x40);
+            func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
+            func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
         }
     } else {
         return 0;
     }
-    {
-        func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
-        matrix[3][0] = owner->x;
-        matrix[3][1] = owner->y;
-        matrix[3][2] = owner->z;
-        corners[0][0] = owner->width;
-        corners[0][1] = owner->height;
-        corners[1][0] = -owner->width;
-        corners[1][1] = owner->height;
-        corners[2][0] = -owner->width;
-        corners[2][1] = -owner->height;
-        corners[3][0] = owner->width;
-        corners[3][1] = -owner->height;
-        func_150A7960(matrix, corners[0][0], corners[0][1], 0.0f, &points[0][0], &points[0][1], &points[0][2]);
-        func_150A7960(matrix, corners[1][0], corners[1][1], 0.0f, &points[1][0], &points[1][1], &points[1][2]);
-        func_150A7960(matrix, corners[2][0], corners[2][1], 0.0f, &points[2][0], &points[2][1], &points[2][2]);
-        func_150A7960(matrix, corners[3][0], corners[3][1], 0.0f, &points[3][0], &points[3][1], &points[3][2]);
-        *(s16 *)(vertices + 0) = (s32)points[0][0];
-        *(s16 *)(vertices + 2) = (s32)points[0][1];
-        *(s16 *)(vertices + 4) = (s32)points[0][2];
-        *(s16 *)(vertices + 6) = 0;
-        {
-            register u8 *second = vertices + 0x10;
-            register u8 *third = second + 0x10;
-            register u8 *fourth = third + 0x10;
-            vertices = second;
-            *(s16 *)(second + 0) = (s32)points[1][0];
-            *(s16 *)(second + 2) = (s32)points[1][1];
-            *(s16 *)(second + 6) = 0;
-            *(s16 *)(second + 4) = (s32)points[1][2];
-            vertices = third;
-            *(s16 *)(third + 0) = (s32)points[2][0];
-            *(s16 *)(third + 2) = (s32)points[2][1];
-            *(s16 *)(third + 6) = 0;
-            *(s16 *)(third + 4) = (s32)points[2][2];
-            vertices = fourth;
-            *(s16 *)(fourth + 0) = (s32)points[3][0];
-            *(s16 *)(fourth + 2) = (s32)points[3][1];
-            *(s16 *)(fourth + 6) = 0;
-            *(s16 *)(fourth + 4) = (s32)points[3][2];
-        }
-        return result;
-    }
+    func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
+    matrix[3][0] = owner->x;
+    matrix[3][1] = owner->y;
+    matrix[3][2] = owner->z;
+    corners[0][0] = owner->width;
+    corners[0][1] = owner->height;
+    corners[1][0] = -owner->width;
+    corners[1][1] = owner->height;
+    corners[2][0] = -owner->width;
+    corners[2][1] = -owner->height;
+    corners[3][0] = owner->width;
+    corners[3][1] = -owner->height;
+    func_150A7960(matrix, corners[0][0], corners[0][1], 0.0f, &points[0][0], &points[0][1], &points[0][2]);
+    func_150A7960(matrix, corners[1][0], corners[1][1], 0.0f, &points[1][0], &points[1][1], &points[1][2]);
+    func_150A7960(matrix, corners[2][0], corners[2][1], 0.0f, &points[2][0], &points[2][1], &points[2][2]);
+    func_150A7960(matrix, corners[3][0], corners[3][1], 0.0f, &points[3][0], &points[3][1], &points[3][2]);
+    vertices->x = (s32)points[0][0];
+    vertices->y = (s32)points[0][1];
+    vertices->z = (s32)points[0][2];
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = (s32)points[1][0];
+    vertices->y = (s32)points[1][1];
+    vertices->z = (s32)points[1][2];
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = (s32)points[2][0];
+    vertices->y = (s32)points[2][1];
+    vertices->z = (s32)points[2][2];
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = (s32)points[3][0];
+    vertices->y = (s32)points[3][1];
+    vertices->z = (s32)points[3][2];
+    vertices->flag = 0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513EE14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EE14.s")
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 f32 sqrtf(f32);

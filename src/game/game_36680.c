@@ -9,8 +9,6 @@
  * - func_15009334
  * - func_1500AF08
  * - func_1500B1F4
- * - func_1500B3B0
- * - func_1500B714
  * - func_1500B8F4
  * - func_1500BAB8
  * - func_1500BC7C
@@ -892,96 +890,60 @@ extern u8 D_80082D80[];
 extern u16 D_800BE430;
 extern f32 D_800CC210, D_800CC214, D_800CC218, D_800CC21C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 CURRENT (3082) */
-u32 func_1500B3B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
-    Game36680Triangle triangle;
+u32 func_1500B3B0(s16 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
     f32 centerX;
     f32 centerY;
     f32 centerZ;
-    Vec3f *point;
-    s16 **input;
-    f32 **table;
-    f32 *pattern;
-    s32 offset;
     u32 index;
     f32 x;
     f32 y;
     f32 z;
+    Game36680Triangle triangle;
 
-    arg0 = (s16)arg0;
     centerX = 0.0f;
     centerY = 0.0f;
     centerZ = 0.0f;
-    point = triangle.points;
-    input = arg5;
-    do {
-        point->x = (f32)(*input)[0];
-        point->y = (f32)(*input)[1];
-        point->z = (f32)(*input)[2];
-        centerX += point->x / 3.0f;
-        centerY += point->y / 3.0f;
-        centerZ += point->z / 3.0f;
-        point++;
-        input++;
-    } while (point < triangle.points + 3);
+    for (index = 0; index < 3; index++) {
+        triangle.points[index].x = arg5[index][0];
+        triangle.points[index].y = arg5[index][1];
+        triangle.points[index].z = arg5[index][2];
+        centerX += triangle.points[index].x / 3.0f;
+        centerY += triangle.points[index].y / 3.0f;
+        centerZ += triangle.points[index].z / 3.0f;
+    }
     func_15049350(triangle);
-    table = (f32 **)(D_80082D80 + arg0 * 4);
-    pattern = *table;
-    offset = 4;
-    index = 1;
-    if (pattern[0] * (f32)2 >= 1.0f) {
-        do {
-            x = *(f32 *)((u8 *)pattern + offset) + centerX;
-            offset += 4;
-            z = *(f32 *)((u8 *)pattern + offset) + centerZ;
-            offset += 4;
-            index += 2;
-            if (D_800CC214 != 0.0f) {
-                y = (D_800CC21C - D_800CC210 * x - D_800CC218 * z) / D_800CC214;
-            } else {
-                y = centerY;
-            }
-            arg4 = func_1500AF08(arg4, arg2, arg3, (s16)(s32)x, (s32)y, (s32)z,
-                                0x80, ((u8 *)&arg1)[3], (s32)D_800BE430 >> arg2);
-            pattern = *table;
-        } while ((f32)index <= pattern[0] * (f32)2);
+    for (index = 1; index <= ((f32 **)D_80082D80)[arg0][0] * 2;) {
+        x = ((f32 **)D_80082D80)[arg0][index++] + centerX;
+        z = ((f32 **)D_80082D80)[arg0][index++] + centerZ;
+        if (D_800CC214 != 0.0f) {
+            y = (D_800CC21C - D_800CC210 * x - D_800CC218 * z) / D_800CC214;
+        } else {
+            y = centerY;
+        }
+        arg4 = func_1500AF08(arg4, arg2, arg3, (s16)(s32)x, (s32)y, (s32)z,
+                            0x80, ((u8 *)&arg1)[3], (s32)D_800BE430 >> arg2);
     }
     D_800BE430 ^= 1 << arg2;
     return arg4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500B3B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B3B0.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B714 CURRENT (2143) */
-u32 func_1500B714(s32 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+u32 func_1500B714(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
     u16 volume;
-    u32 count;
     s32 x;
     s32 y;
     s32 z;
-    s32 divisor;
-    s16 *third;
-    s16 *first;
-    s16 *second;
 
-    divisor = 3;
-    count = (s16)arg0;
-    third = arg5[2];
-    first = arg5[0];
-    second = arg5[1];
-    volume = count;
-    x = (third[0] + second[0] + first[0]) / divisor;
-    y = (third[1] + second[1] + first[1]) / divisor;
-    z = (third[2] + second[2] + first[2]) / divisor;
+    volume = arg0;
+    x = (arg5[0][0] + arg5[1][0] + arg5[2][0]) / 3;
+    y = (arg5[0][1] + arg5[1][1] + arg5[2][1]) / 3;
+    z = (arg5[0][2] + arg5[1][2] + arg5[2][2]) / 3;
     arg4 = func_1500AF08(arg4, arg2, arg3, (s16)x, (s16)y, (s16)z, 0x80, arg1, arg4);
-    if ((f32)(u32)(count & 0xFFFF) > 62.5f) {
+    if ((f32)(u16)arg0 > 62.5f) {
         volume = 62;
     }
-    func_1000FA64(0x4D, (s16)x, (s16)y, (s16)z, 0x8000, volume, (s32)volume >> 3, 0, 0, 0, 0, 0);
+    func_1000FA64(0x4D, (s16)x, (s16)y, (s16)z, 0x8000, volume, volume >> 3, 0, 0, 0, 0, 0);
     return arg4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500B714 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B714.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 CURRENT (4848) */
 void func_1500B8F4(s32 count, s32 alpha, s32 resource, s32 type, u32 volatile first_record, s16 **points) {
     f32 (*weights)[2];

@@ -50,7 +50,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_83300 | 0x14 | 0x4 | 0x80099694 | pool (func_150623F4) | `469C4000` (20000.0) |
 | blood | 0x0 | 0x204 | 0x800A4350 | table, sites 0x1C / 0x24 | `d321edfc…19b509` |
 | blood | 0x204 | 0x5C | 0x800A4554 | table, sites 0x3C / 0x44 | `5147d2f6…6188c3` |
-| blood | 0x260 | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
+| blood | 0x260 | 0x50 | 0x800A4874 | table, sites 0x4CB0 / 0x4CB8 | 20 targets ([func_15138C80](game_blood_jump_tables.md)) |
+| blood | 0x2B0 | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
 | game_1C1150 | 0x3C | 0xC | 0x800A8294 | pool (func_15194408) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3) |
 | game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
@@ -58,6 +59,19 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1C1150 | 0x244 | 0x5C | 0x800A86A8 | table, sites 0x13BC / 0x13C4 | 0x17 targets |
 | game_64120 | 0x0 | 0x4 | 0x80098648 | pool (func_15038468) | `42652EE0` (57.295776) |
 | game_64120 | 0x4 | 0x4 | 0x800986EC | pool (func_1503B708) | `C7C34F80` (-99999.0) |
+| game_114B80 | 0x0 | 0x4 | 0x800A1350 | pool (func_150E7C9C) | `3EDCEE77` (0.43150684) |
+| game_114B80 | 0x4 | 0x4 | 0x800A1374 | pool (func_150E8470) | `3A83126F` (0.001, [record](game_114b80_float_constant.md)) |
+| game_200930 | 0x0 | 0x28 | 0x800AB1D4 | pool (func_151D4408) | 10 words ([record](game_200930_float_constants.md)) |
+| game_200930 | 0x28 | 0x24 | 0x800AB21C | pool (func_151D5514, func_151D57F8) | unchanged, 9 words ([record](game_200930_float_constants.md)) |
+| game_DC6B0 | 0x0 | 0x18 | 0x8009F7B8 | pool (func_150AF328) | `44D44000 38D1B717 3F7870B9 3F82B114 3DC8B43A 3E3020C5` |
+| game_DC6B0 | 0x18 | 0x4 | 0x8009F7D8 | pool (func_150B0094) | `3F333333` (0.7) |
+| game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
+| game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
+| game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |
+| game_1FA770 | 0x8 | 0xC | 0x800AAFE4 | pool (func_151CDB94) | `3E49BA5F 3DCCCCCD 40A26FC1` (0.197, 0.1, 5.076142) |
+| game_981E0 | 0x0 | 0x38 | 0x80099D54 | table, sites 0x3170 / 0x3178 | 14 targets ([record](game_981e0_constructor_literal_pool.md)) |
+| game_981E0 | 0x38 | 0x10C | 0x80099D8C | pool (func_1506DE84 .. func_1506F54C) | unchanged ([record](game_981e0_constructor_literal_pool.md)) |
+| game_981E0 | 0x144 | 0x80 | 0x80099EAC | pool (func_15070898) | 32 words ([record](game_981e0_constructor_literal_pool.md)) |
 | game_49D30 | 0x0 | 0x4 | 0x800969C0 | pool (func_1501D044) | `4479C000` (999.0) |
 | game_49D30 | 0x4 | 0x4 | 0x800969D0 | pool (func_1501F72C) | `3C23D70A` (0.01) |
 | game_1F2730 | 0x0 | 0xC | 0x800AAACC | pool (func_151C577C) | `3DCCCCCD 3E25E354 3E45A1CB` (0.1, 0.162, 0.193) |

@@ -14,8 +14,6 @@
  * - func_150A25D4
  * - func_150A2864
  * - func_150A29C8
- * - func_150A2AEC
- * - func_150A2CA4
  * - func_150A2E4C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -510,7 +508,7 @@ void func_150A2940(s32 arg0, s32 arg1, s32 arg2) {
         *(s32 *)((u8 *)(D_800D3098 + temp_v0) + 0x1C) = 0;
     }
 }
-u64 func_10026800(s32, s32, s32, s32);
+u64 func_10026800(u64, u64);
 extern u16 D_800D2340;
 extern u8 D_800D30F4[];
 extern u8 D_800CC2D0;
@@ -537,97 +535,60 @@ s32 func_150A29C8(u32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A29C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A29C8.s")
-u64 func_10026800(s32, s32, s32, s32);
+u64 func_10026800(u64, u64);
 
 typedef struct GameA2AECRow {
     s32 words[6];
 } GameA2AECRow;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2AEC CURRENT (2690) */
 u32 func_150A2AEC(u32 arg0, s32 arg1, s32 *arg2) {
-    s32 *entry;
-    s32 current;
     u32 index;
     s32 count;
-    u8 *row;
 
     if (arg0 < 0x10U && (D_800D2340 & (1 << arg0))) {
-        count = 0;
-        if (arg1 > 0) {
-            entry = arg2;
-            do {
-                current = *entry;
-                index = current & 0xFFF;
-                if (index < D_800D3094) {
-                    row = (u8 *)&((GameA2AECRow *)D_800D30F0)[arg0]
-                          + (index >> 6) * 8;
-                    if ((u32)func_10026800(*(s32 *)row, *(s32 *)(row + 4),
-                                             0, index & 0x3F) & 1) {
-                        return index;
-                    }
-                }
-                count++;
-                entry++;
-            } while (count != arg1);
-        }
-    } else {
-        count = 0;
-        entry = arg2;
-        if (arg1 > 0) {
-            do {
-                current = *entry;
-                index = current & 0xFFF;
-                if (index < D_800D3094 &&
-                    func_150A1DA0((GameCDE80Actor *)((u8 *)&D_800CC2D0 + arg0 * 0x32C),
-                                   D_800D3098 + index * 0x34, 1) == 0) {
+        for (count = 0; count < arg1; count++) {
+            index = arg2[count] & 0xFFF;
+            if (index < D_800D3094) {
+                if (func_10026800(((u64 (*)[3])D_800D30F0)[arg0][index >> 6], index & 0x3F) & 1) {
                     return index;
                 }
-                count++;
-                entry++;
-            } while (count != arg1);
+            }
+        }
+    } else {
+        for (count = 0; count < arg1; count++) {
+            index = arg2[count] & 0xFFF;
+            if (index < D_800D3094 &&
+                func_150A1DA0((GameCDE80Actor *)((u8 *)&D_800CC2D0 + arg0 * 0x32C),
+                               index * 0x34 + D_800D3098, 1) == 0) {
+                return index;
+            }
         }
     }
     return -1U;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A2AEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2AEC.s")
-u64 func_10026800(s32, s32, s32, s32);
+
+u64 func_10026800(u64, u64);
 extern u8 D_800D2138[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2CA4 CURRENT (1849) */
 s32 func_150A2CA4(s32 arg0) {
-    s32 temp_t2;
-    register s32 limit;
-    s32 var_s0;
-    u32 temp_t6;
-    u8 *temp_t6_2;
-    register u8 *temp_s2;
-    register u8 *temp_s3;
+    s32 i;
+    u32 index;
 
     arg0 &= 0xFFF;
-    temp_t6 = arg0;
-    var_s0 = 0;
-    if (D_800D3094 < temp_t6) {
+    index = arg0;
+
+    if (D_800D3094 < index) {
         return -1;
     }
-    temp_s2 = D_800D2138;
-    temp_s3 = D_800D30F0;
-    limit = 0x10;
-    do {
-        if (*(u16 *)(temp_s2 + 0x208) & (1 << var_s0)) {
-            temp_t2 = ((var_s0 * 4) - var_s0) << 3;
-            temp_t6_2 = temp_s3 + temp_t2 + ((temp_t6 >> 6) * 8);
-            if ((u32)func_10026800(*(s32 *)temp_t6_2, *(s32 *)(temp_t6_2 + 4),
-                                  0, temp_t6 & 0x3F) & 1) {
-                return var_s0;
+    for (i = 0; i != 16; i++) {
+        if (*(u16 *)(D_800D2138 + 0x208) & (1 << i)) {
+            if (func_10026800(((u64 (*)[3])D_800D30F0)[i][index >> 6], index & 0x3F) & 1) {
+                return i;
             }
         }
-        var_s0 += 1;
-    } while (var_s0 != limit);
+    }
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A2CA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2CA4.s")
 typedef struct GameCDE80ActorSnapshot {
     u8 pad0[0x14];
     f32 x;

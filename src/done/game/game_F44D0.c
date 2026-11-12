@@ -4,18 +4,12 @@
 /*
  * Reviewed source unit: src/game/game_F44D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_selected_particle_resource_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C7020
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_15134DAC(void *, s32);
 extern f32 D_800A0490;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7020 CURRENT (2180) */
-void func_150C7020(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+void func_150C7020(u8 *arg0, s16 arg1, s32 arg2, s32 arg3) {
     struct {
         u8 kind;
         u8 pad01[3];
@@ -45,6 +39,7 @@ void func_150C7020(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 
     if (arg0 != 0) {
         func_1516962C(0x29, arg0, 0x12);
+        effect.kind = arg0[0x3B];
         effect.mode = 0xD;
         effect.enabled = 0;
         effect.flag0 = -1;
@@ -53,16 +48,15 @@ void func_150C7020(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
         effect.mode2 = 2;
         effect.flag3 = -1;
         effect.owner = arg0;
-        effect.kind = arg0[0x3B];
+        effect.y0 = 0.0f;
+        effect.y1 = 0.0f;
         effect.z0 = 34.0f;
         effect.z1 = 34.0f;
         effect.x0 = 2.0f;
         effect.x1 = -15.0f;
-        effect.y0 = 0.0f;
-        effect.y1 = 0.0f;
         effect.scale = D_800A0490;
-        if ((s16)arg1 != 0) {
-            effect.duration = (s16)arg1;
+        if (arg1 != 0) {
+            effect.duration = arg1;
             effect.enabled = 2;
         } else {
             effect.duration = 0x12C;
@@ -82,8 +76,6 @@ void func_150C7020(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_15134DAC(&effect, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C7020 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F44D0/func_150C7020.s")
 f32 func_150ADA68(void);
 void func_151DB5D0(s32, void *, f32 *, f32, f32, f32, f32, s32, s32, s32,
                    s32, s32, s32, s32);

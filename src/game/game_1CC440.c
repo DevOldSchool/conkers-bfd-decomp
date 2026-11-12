@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_attachment_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1519EF90
  * - func_1519F1C8
  * - func_1519F7F0
  * - func_1519FE6C
@@ -59,57 +58,49 @@ f32 sqrtf(f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519EF90 CURRENT (2107) */
 s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
-    u8 *sp38;
-    f32 sp28;
-    u8 sp1F;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 var_ft4;
-    f32 var_ft5;
-    u8 *temp_v0;
-    f32 var_fv0;
-    u16 *temp_a3;
+    f32 *state;
+    f32 *data;
+    f32 dx;
+    f32 dz;
+    f32 dirX;
+    f32 dirZ;
+    f32 dist;
 
-    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0));
-    sp38 = (void *)(temp_v0 + 0x58);
-    temp_a3 = (void *)(*(u16 **)((u8 *)temp_v0 + 0x18));
-    if (*(s32 *)((u8 *)temp_a3 + 0x1D4) == 0) {
+    data = (f32 *)(*(u8 **)arg0 + 0x58);
+    state = *(f32 **)(*(u8 **)arg0 + 0x18);
+    if (*(s32 *)((u8 *)state + 0x1D4) == 0) {
         return 0;
     }
-    var_ft4 = *(f32 *)((u8 *)temp_a3 + 0x14);
-    temp_fa0 = var_ft4 - *(f32 *)((u8 *)arg0 + 0x20);
-    temp_fa1 = *(f32 *)((u8 *)temp_a3 + 0x1C) - *(f32 *)((u8 *)arg0 + 0x24);
-    if ((D_800A8CE0 < fabsf(temp_fa0)) || (D_800A8CE0 < fabsf(temp_fa1))) {
-        temp_fv1 = 1.0f / sqrtf((temp_fa0 * temp_fa0) + (temp_fa1 * temp_fa1));
-        var_ft5 = temp_fa1 * temp_fv1;
-        sp28 = temp_fa0 * temp_fv1;
+    dx = state[5] - *(f32 *)(arg0 + 0x20);
+    dz = state[7] - *(f32 *)(arg0 + 0x24);
+    if ((D_800A8CE0 < fabsf(dx)) || (D_800A8CE0 < fabsf(dz))) {
+        f32 inv;
+
+        inv = 1.0f / sqrtf((dx * dx) + (dz * dz));
+        dirX = dz * inv;
+        dirZ = dx * inv;
     } else {
-        sp1F = func_15143E08(temp_a3);
-        var_ft5 = func_151423D8(sp1F & 0xFF);
-        sp28 = func_151423D8(sp1F - 0x40);
-        var_ft4 = *(f32 *)((u8 *)temp_a3 + 0x14);
+        u8 angle;
+
+        angle = func_15143E08((u16 *)state);
+        dirX = func_151423D8(angle);
+        dirZ = func_151423D8(angle - 0x40);
     }
     if (arg1 == 6) {
-        var_fv0 = *(f32 *)((u8 *)sp38 + 0x10);
+        dist = data[4];
     } else {
-        var_fv0 = -*(f32 *)((u8 *)sp38 + 0x10);
+        dist = -data[4];
     }
-    *(f32 *)((u8 *)arg2 + 0) = (f32) (var_ft4 + (var_fv0 * var_ft5));
-    *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)temp_a3 + 0x1C) - (var_fv0 * sp28));
-    temp_fv1_2 = *(f32 *)((u8 *)temp_a3 + 0x118);
-    if (temp_fv1_2 < D_800A8CE4) {
-        *(f32 *)((u8 *)arg2 + 4) = (f32) *(f32 *)((u8 *)temp_a3 + 0x18);
-        return 1;
+    *(f32 *)(arg2 + 0) = state[5] + (dist * dirX);
+    *(f32 *)(arg2 + 8) = state[7] - (dist * dirZ);
+    if (state[0x46] < D_800A8CE4) {
+        *(f32 *)(arg2 + 4) = state[6];
+    } else {
+        *(f32 *)(arg2 + 4) = state[0x46];
     }
-    *(f32 *)((u8 *)arg2 + 4) = temp_fv1_2;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519EF90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519EF90.s")
 void func_1519F108(Game1CC440State *arg0) {
     Game1CC440Node **link;
     Game1CC440NodeData *data;

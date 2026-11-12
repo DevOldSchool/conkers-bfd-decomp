@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15189FF0
  * - func_1518A094
- * - func_1518A214
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -91,21 +90,17 @@ extern f32 D_800A73C0;
 extern f32 D_800A73C4;
 extern f32 D_800A73C8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A214 CURRENT (1985) */
 s32 func_1518A214(void *arg0, s8 *arg1) {
     s32 mode;
+    u8 *scale = (u8 *)arg0 + 0x110;
     f32 value;
-    void *temp_v0_2;
-    void *temp_v0_3;
-    void *temp_v0_4;
 
     mode = *(u8 *)(*(u8 **)((u8 *)arg0 + 0x188) + 0x68) - 0xF;
     switch (mode) {
     default:
         value = D_800A73C0;
-        temp_v0_2 = (u8 *)arg0 + 0x110;
-        *(f32 *)((u8 *)temp_v0_2 + 0x18) = value;
-        *(f32 *)((u8 *)temp_v0_2 + 0x1C) = value;
+        *(f32 *)(scale + 0x18) = value;
+        *(f32 *)(scale + 0x1C) = value;
         *(u8 *)((u8 *)arg0 + 0x2A) = 0;
         *(u8 *)((u8 *)arg0 + 0x29) = 0;
         *(u8 *)((u8 *)arg0 + 0x28) = 0xFF;
@@ -117,9 +112,8 @@ s32 func_1518A214(void *arg0, s8 *arg1) {
         break;
     case 1:
         value = D_800A73C4;
-        temp_v0_3 = (u8 *)arg0 + 0x110;
-        *(f32 *)((u8 *)temp_v0_3 + 0x18) = value;
-        *(f32 *)((u8 *)temp_v0_3 + 0x1C) = value;
+        *(f32 *)(scale + 0x18) = value;
+        *(f32 *)(scale + 0x1C) = value;
         *(u8 *)((u8 *)arg0 + 0x28) = 0x80;
         *(u8 *)((u8 *)arg0 + 0x29) = 0;
         *(u8 *)((u8 *)arg0 + 0x2A) = 0;
@@ -127,9 +121,8 @@ s32 func_1518A214(void *arg0, s8 *arg1) {
         break;
     case 2:
         value = D_800A73C8;
-        temp_v0_4 = (u8 *)arg0 + 0x110;
-        *(f32 *)((u8 *)temp_v0_4 + 0x18) = value;
-        *(f32 *)((u8 *)temp_v0_4 + 0x1C) = value;
+        *(f32 *)(scale + 0x18) = value;
+        *(f32 *)(scale + 0x1C) = value;
         *(u8 *)((u8 *)arg0 + 0x28) = 0xFF;
         *(u8 *)((u8 *)arg0 + 0x29) = 0;
         *(u8 *)((u8 *)arg0 + 0x2A) = 0;
@@ -138,8 +131,6 @@ s32 func_1518A214(void *arg0, s8 *arg1) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518A214 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A214.s")
 s32 func_1518A2E8(void *arg0, s8 *arg1) {
     s32 var_v0;
     u8 temp_t0;

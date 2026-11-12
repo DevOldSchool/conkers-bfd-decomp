@@ -140,7 +140,7 @@ spawn:
     func_15153F18(&locals.packet.field00, &locals.packet.position,
                    (s32)locals.scratch, 0xFF, 1);
 }
-extern void func_150C7020(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern void func_150C7020(s32 arg0, s16 arg1, s32 arg2, s32 arg3);
 
 void func_15194588(s32 arg0, s32 arg1, s32 arg2) {
     func_150C7020(arg0, 0x1F4, 0xFF, 1);

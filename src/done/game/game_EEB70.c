@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_EEB70.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_subranges.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C16C0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -29,18 +24,16 @@ typedef struct {
 } GameEEB70Descriptor;
 
 f32 func_150ADA68(void);
-extern f32 D_800A01F0, D_800A01F4, D_800A01F8, D_800A01FC, D_800A0200;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C16C0 CURRENT (3154) */
 s32 func_150C16C0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
-                  s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
+                  s32 arg10, s32 arg11, s32 arg12, s32 arg13, u8 arg14) {
+    s32 count;
     GameEEB70Position position;
     GameEEB70Motion motion;
     GameEEB70Descriptor descriptor;
-    f32 speed, angleSin, angleCos, directionSin, directionCos, speedRange, horizontal;
+    f32 speed, angleSin, angleCos, directionSin, directionCos;
     s16 angle;
-    s32 count;
 
     descriptor.one = 1;
     descriptor.flags = 0x160600;
@@ -60,31 +53,27 @@ s32 func_150C16C0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     motion.color[3] = 0xFF;
     position.x = arg2;
     position.y = arg3;
-    speedRange = D_800A01F0;
     position.z = arg4;
     do {
         angle = (func_150ADA20() % 13U) - 63;
-        angleSin = func_151423D8(angle & 0xFF);
-        angleCos = func_151423D8((angle - 64) & 0xFF);
-        directionSin = func_151423D8(arg8 & 0xFF);
-        directionCos = func_151423D8((arg8 - 64) & 0xFF);
-        speed = func_150ADA68() * speedRange + 25.5f;
+        angleSin = func_151423D8(angle);
+        angleCos = func_151423D8(angle - 64);
+        directionSin = func_151423D8(arg8);
+        directionCos = func_151423D8(arg8 - 64);
+        speed = func_150ADA68() * 17.4f + 25.5f;
         position.count = func_150ADA20() % 9U + 5;
         position.life = (func_150ADA20() & 0x3F) + 90;
-        motion.first = func_150ADA68() * D_800A01F4 + D_800A01F8;
-        motion.second = func_150ADA68() * D_800A01FC + D_800A0200;
-        horizontal = speed * angleSin;
-        motion.x = horizontal * directionCos;
+        motion.first = func_150ADA68() * 20.2f + 24.7f;
+        motion.second = func_150ADA68() * 0.2f + 0.4f;
+        motion.x = speed * angleSin * directionCos;
         motion.y = -speed * angleCos;
-        motion.z = horizontal * directionSin;
+        motion.z = speed * angleSin * directionSin;
         func_15147DA0(&position, &motion, 0, 1, 5, 0, 0, 0, 0, 0, 0,
-                      &descriptor, 0, (u8)arg14, 0);
+                      &descriptor, 0, arg14, 0);
         count--;
     } while (count != 0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C16C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EEB70/func_150C16C0.s")
 s32 func_150C1978(void *arg0) {
     s32 var_v1;
     void *temp_v0;

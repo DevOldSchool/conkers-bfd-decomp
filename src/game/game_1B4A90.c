@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_clipping_resource_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151875E0
- * - func_15187978
  * - func_15187A98
  * - func_15187D6C
  *
@@ -33,12 +31,10 @@ typedef struct Game1B4A90Owner {
 
 void *func_10003C40(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151875E0 CURRENT (1980) */
 void func_151875E0(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
                    s32 arg4, s32 arg5, f32 arg6, f32 arg7) {
     Game1B4A90Owner *owner;
-    s32 offset;
-    s32 angle;
+    s32 i;
 
     owner = func_15167A68(6, 0, 0xB0, 1, 0xFF, 1);
     if (owner != NULL) {
@@ -54,98 +50,64 @@ void func_151875E0(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
         owner->duration = arg4;
         owner->scaleYZ = arg6;
         owner->scaleX = arg7;
-        arg0 = 0.0f;
-        offset = 0;
-        angle = 0;
-        do {
-            if (angle < 360) {
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationX = 7U - (func_150ADA20() & 15U);
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationY = arg0;
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationZ = (func_150ADA20() & 63U) + (angle - 30);
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->mode = 0;
-            } else if (angle < 720) {
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationX = arg0;
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationY = (func_150ADA20() & 63U) + (angle - 570);
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationZ = 7U - (func_150ADA20() & 15U);
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->mode = 0;
+        for (i = 0; i < 12; i++) {
+            if (i < 4) {
+                owner->children[i].rotationX = 7U - (func_150ADA20() & 15U);
+                owner->children[i].rotationY = 0.0f;
+                owner->children[i].rotationZ = (func_150ADA20() & 63U) + (i * 90 - 30);
+                owner->children[i].mode = 0;
+            } else if (i < 8) {
+                owner->children[i].rotationX = 0.0f;
+                owner->children[i].rotationY = (func_150ADA20() & 63U) + (i * 90 - 570);
+                owner->children[i].rotationZ = 7U - (func_150ADA20() & 15U);
+                owner->children[i].mode = 0;
             } else {
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationX = (func_150ADA20() & 63U) + (angle - 30);
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationY = 97U - (func_150ADA20() & 15U);
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->rotationZ = arg0;
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->mode = 1;
+                owner->children[i].rotationX = (func_150ADA20() & 63U) + (i * 90 - 30);
+                owner->children[i].rotationY = 97U - (func_150ADA20() & 15U);
+                owner->children[i].rotationZ = 0.0f;
+                owner->children[i].mode = 1;
             }
             if (arg3 >= 4) {
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->speed = func_150ADA20() % (u32)(arg3 >> 2) + arg3;
+                owner->children[i].speed = func_150ADA20() % (u32)(arg3 >> 2) + arg3;
             } else {
-                ((Game1B4A90Child *)((u8 *)owner->children + offset))->speed = (f32)arg3;
+                owner->children[i].speed = (f32)arg3;
             }
-            ((Game1B4A90Child *)((u8 *)owner->children + offset))->translation = func_150ADA20() & 15U;
-            ((Game1B4A90Child *)((u8 *)owner->children + offset))->elapsed = 0;
-            ((Game1B4A90Child *)((u8 *)owner->children + offset))->duration = arg4 - (func_150ADA20() & arg5);
-            angle += 90;
-            offset += 0xA0;
-        } while (angle != 1080);
+            owner->children[i].translation = func_150ADA20() & 15U;
+            owner->children[i].elapsed = 0;
+            owner->children[i].duration = arg4 - (func_150ADA20() & arg5);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151875E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B4A90/func_151875E0.s")
 
 void func_10004074(s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15187978 CURRENT (1907) */
-void func_15187978(s32 arg0) {
-    f32 temp_fv0;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v1;
-    s16 var_a0;
-    s16 var_v1;
-    s32 var_a2;
-    s32 var_a1;
-    s32 temp_v0_3;
-    s32 var_v0;
+void func_15187978(Game1B4A90Owner *owner) {
+    s32 i;
 
-    var_a2 = arg0;
-    temp_v0 = *(s16 *)(var_a2 + 0xA8);
-    if (temp_v0 < 0) {
-        func_10004074(*(s32 *)(var_a2 + 0xA4));
-        func_1516972C((u8 *)var_a2);
+    if (owner->timer < 0) {
+        func_10004074((s32)owner->children);
+        func_1516972C(owner);
         return;
     }
-    *(s16 *)(var_a2 + 0xA8) = temp_v0 + D_800BE9E4;
-    temp_v0_2 = *(s16 *)(var_a2 + 0xA8);
-    if (*(s16 *)(var_a2 + 0xAA) < temp_v0_2) {
-        *(s16 *)(var_a2 + 0xA8) = -0xA;
+    owner->timer += D_800BE9E4;
+    if (owner->duration < owner->timer) {
+        owner->timer = -10;
         return;
     }
-    var_a1 = 0;
-    if (temp_v0_2 >= 0) {
-        do {
-            temp_v0_3 = *(s32 *)(var_a2 + 0xA4) + var_a1;
-            temp_v1 = *(s16 *)(temp_v0_3 + 0x94);
-            if (temp_v1 < *(s16 *)(temp_v0_3 + 0x96)) {
-                *(s16 *)(temp_v0_3 + 0x94) = temp_v1 + D_800BE9E4;
-                var_v0 = *(s32 *)(var_a2 + 0xA4) + var_a1;
-                var_a0 = *(s16 *)(var_v0 + 0x96);
-                var_v1 = *(s16 *)(var_v0 + 0x94);
-                if (var_a0 < var_v1) {
-                    *(s16 *)(var_v0 + 0x94) = var_a0;
-                    var_v0 = *(s32 *)(var_a2 + 0xA4) + var_a1;
-                    var_v1 = *(s16 *)(var_v0 + 0x94);
-                    var_a0 = *(s16 *)(var_v0 + 0x96);
+    if (owner->timer >= 0) {
+        for (i = 0; i < 12; i++) {
+            if (owner->children[i].elapsed < owner->children[i].duration) {
+                owner->children[i].elapsed += D_800BE9E4;
+                if (owner->children[i].duration < owner->children[i].elapsed) {
+                    owner->children[i].elapsed = owner->children[i].duration;
                 }
-                temp_fv0 = *(f32 *)(var_v0 + 0x8C);
-                *(f32 *)(var_v0 + 0x90) +=
-                    temp_fv0 - (((temp_fv0 / 3.0f) * (f32)var_v1) /
-                                (f32)var_a0);
+                owner->children[i].translation += owner->children[i].speed -
+                    owner->children[i].speed / 3.0f * owner->children[i].elapsed / owner->children[i].duration;
             }
-            var_a1 += 0xA0;
-        } while (var_a1 != 0x780);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15187978 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B4A90/func_15187978.s")
 typedef struct Game1B4A90Command { u32 opcode, value; } Game1B4A90Command;
 void func_150A7790(void *, s32);
 void func_150A7A48(void *, void *, void *);

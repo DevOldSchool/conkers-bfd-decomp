@@ -11,7 +11,6 @@
  * - func_151A7D6C
  * - func_151A8340
  * - func_151A8624
- * - func_151A87F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -348,39 +347,29 @@ void func_15143134(f32 *, f32 *, s32);
 s32 func_15145C90(s32);
 s32 func_15146078(void *, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A87F8 CURRENT (2941) */
 s32 func_151A87F8(Game1D4E00Beam *arg0) {
     Game1D4E00OwnerData *data;
     Game1D4E00Owner *owner;
-    Vec3f delta;
-    s32 hit;
-    f32 x;
-    f32 z;
-    f32 y;
-    Vec3f scratch;
-    f32 length;
-    u8 *transform;
-    f32 dx;
-    f32 dy;
 
     data = arg0->owner_data;
     owner = data->owner;
     if (owner->active == 0 || owner->generation != data->generation || owner->type == 0xFF) {
         return 0;
     }
-    transform = owner->transform;
-    if (transform != 0) {
-        func_15143134(&data->position.x, &arg0->position.x, (s32)(transform + (data->style << 6)));
+    if (owner->transform != 0) {
+        Vec3f delta;
+
+        func_15143134(&data->position.x, &arg0->position.x, (s32)owner->transform + (data->style << 6));
         if (!(data->flag25 & 1)) {
-            x = arg0->position.x;
-            z = arg0->position.z;
-            y = arg0->position.y;
-            if (func_150AC9C0(x, y, z,
-                              dx = x - (owner->position.x + data->offset.x),
-                              dy = y - (owner->position.y + data->offset.y),
-                              z - (owner->position.z + data->offset.z),
-                              0, 0, &arg0->endpoint.x, &arg0->endpoint.y, &arg0->endpoint.z,
-                              0, &hit, 0, 0.0f) != 0) {
+            s32 hit;
+            f32 dx;
+            f32 dy;
+            f32 dz;
+
+            dx = arg0->position.x - (owner->position.x + data->offset.x);
+            dy = arg0->position.y - (owner->position.y + data->offset.y);
+            dz = arg0->position.z - (owner->position.z + data->offset.z);
+            if (func_150AC9C0(arg0->position.x, arg0->position.y, arg0->position.z, dx, dy, dz, 0, 0, &arg0->endpoint.x, &arg0->endpoint.y, &arg0->endpoint.z, 0, &hit, 0, 0.0f) != 0) {
                 if (func_15145C90(hit) != 0) {
                     data->flag25 |= 1;
                 } else {
@@ -395,25 +384,21 @@ s32 func_151A87F8(Game1D4E00Beam *arg0) {
         delta.x = arg0->endpoint.x - arg0->position.x;
         delta.y = arg0->endpoint.y - arg0->position.y;
         delta.z = arg0->endpoint.z - arg0->position.z;
-        length = func_15143E64(&delta);
-        arg0->length = length;
-        if (length != 0.0f) {
+        arg0->length = func_15143E64(&delta);
+        if (arg0->length != 0.0f) {
+            Vec3f scratch;
+
             arg0->inverse_length = 1.0f / arg0->length;
             func_15146078(&delta, &scratch, &arg0->perpendicular);
             arg0->flags |= 2;
-            goto done;
         } else {
             arg0->flags &= ~2;
-            goto done;
         }
     } else {
         arg0->flags &= ~2;
     }
-done:
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A87F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A87F8.s")
 typedef void (*Game1D4E00Callback)(void *, s32, u8);
 
 extern Game1D4E00Callback D_8008F964[];

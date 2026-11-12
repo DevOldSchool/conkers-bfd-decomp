@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150DECC0
- * - func_150DF334
  * - func_150DF4B8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -15,47 +14,36 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10C170/func_150DECC0.s")
 
-extern s32 func_1504697C(Vec3f *, s32, f32, f32 *);
+extern s32 func_1504697C(Vec3f *, u16, f32, Game71820Hit *);
 extern void func_150E83AC(Vec3f *, s16, u8, s32);
 extern void func_151A9834(Vec3f *, f32, f32, f32 *, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF334 CURRENT (2624) */
 void func_150DF334(void *arg0) {
-    f32 hit;
-    volatile u8 flag;
+    Vec3f *position;
+    Game71820Hit hit;
+    u8 flag;
     Vec3f alternate;
     Vec3f start;
     Vec3f result;
-    Vec3f *position;
 
     flag = 0;
-    start.x = *(f32 *)((u8 *)arg0 + 0x28);
-    start.y = *(f32 *)((u8 *)arg0 + 0x2C) + 500.0f;
-    start.z = *(f32 *)((u8 *)arg0 + 0x30);
+    position = (Vec3f *)((u8 *)arg0 + 0x28);
+    start.x = position->x;
+    start.y = position->y + 500.0f;
+    start.z = position->z;
     if (func_1504697C(&start, 0, start.y - 1000.0f, &hit) != 0) {
-        alternate.x = *(f32 *)((u8 *)arg0 + 0x28);
-        alternate.y = hit;
+        alternate.x = position->x;
+        alternate.y = hit.height;
+        alternate.z = position->z;
         flag = 1;
-        alternate.z = *(f32 *)((u8 *)arg0 + 0x30);
     }
-    position = (Vec3f *)((u8 *)arg0 + 0x28);
-    if (flag != 0) {
-        position = &alternate;
-    }
-    func_150E83AC(position, (s16)((func_150ADA20() % 62U) + 0x78),
-                   *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
-    position = (Vec3f *)((u8 *)arg0 + 0x28);
-    if (flag != 0) {
-        position = &alternate;
-    }
-    result = *position;
+    func_150E83AC(flag ? &alternate : position, (s16)((func_150ADA20() % 62U) + 0x78),
+                  *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
+    result = *(flag ? &alternate : position);
     result.y += 500.0f;
-    func_151A9834(&result, result.y - 1000.0f, 250.0f, &hit,
-                   (func_150ADA20() % 3U) + 3, 1, 0,
-                   *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
+    func_151A9834(&result, result.y - 1000.0f, 250.0f, &hit.height, (func_150ADA20() % 3U) + 3, 1, 0,
+                  *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DF334 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10C170/func_150DF334.s")
 typedef struct Game10C170Particle {
     Vec3f position;
     f32 field0C;

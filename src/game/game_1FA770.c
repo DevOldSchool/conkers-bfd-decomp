@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151CD4C0
  * - func_151CD7BC
- * - func_151CDB94
  * - func_151CDE20
  * - func_151CE51C
  * - func_151CE634
@@ -365,69 +364,55 @@ s32 func_151CD7BC(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CD7BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD7BC.s")
-extern f32 D_800AAFE4;
-extern f32 D_800AAFE8;
-extern f32 D_800AAFEC;
 
 f32 fabsf(f32);
 #pragma intrinsic (fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CDB94 CURRENT (2460) */
 s32 func_151CDB94(void *arg0) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_ft4;
-    f32 temp_fs1;
-    f32 temp_ft5;
-    u8 *temp_v0;
-    s32 var_v1;
-    s8 temp_a2;
-    s32 var_v1_2;
-    u8 *temp_a1;
-    u8 *temp_a2_2;
+    u8 *base;
+    s32 prev;
+    s32 i;
+    u8 *first;
+    u8 *entry;
+    f32 span;
+    f32 inv;
+    f32 diff;
+    f32 scale;
+    f32 ratio;
 
-    temp_v0 = *(u8 **)((u8 *)arg0 + 0x94);
+    base = *(u8 **)((u8 *)arg0 + 0x94);
     if (*(s8 *)((u8 *)arg0 + 0x2C) <= 0) {
-
-    } else {
-        var_v1 = *(s8 *)((u8 *)arg0 + 0x2E) - 1;
-        if (var_v1 < 0) {
-            var_v1 = *(u8 *)((u8 *)arg0 + 0x25) - 1;
-        }
-        temp_a2 = *(s8 *)((u8 *)arg0 + 0x2D);
-        temp_a1 = (temp_a2 * 0x1C) + temp_v0;
-        temp_fv0 = fabsf(*(f32 *)((u8 *)((var_v1 * 0x1C) + temp_v0) + 4) - *(f32 *)((u8 *)temp_a1 + 4));
-        if (temp_fv0 == 0.0f) {
-
-        } else {
-            temp_fa1 = 1.0f / temp_fv0;
-            temp_fs1 = D_800AAFE8;
-            temp_ft5 = D_800AAFEC;
-            temp_fv1 = temp_fa1 * 10.0f;
-            temp_ft4 = temp_fv0 * D_800AAFE4;
-            var_v1_2 = temp_a2;
-            do {
-                temp_a2_2 = (var_v1_2 * 0x1C) + temp_v0;
-                *(s16 *)((u8 *)temp_a2_2 + 0x14) = 0xFF;
-                temp_fa0 = *(f32 *)((u8 *)temp_a2_2 + 4) - *(f32 *)((u8 *)temp_a1 + 4);
-                if (temp_fa0 < temp_ft4) {
-                    *(s16 *)((u8 *)temp_a2_2 + 0x14) = (s16) ((u32) (temp_fa0 * (temp_fa1 * temp_ft5) * 255.0f) & 0xFF);
-                } else if ((temp_fv0 - (temp_fv0 * temp_fs1)) < temp_fa0) {
-                    *(s16 *)((u8 *)temp_a2_2 + 0x14) = (s16) ((u32) ((temp_fv0 - temp_fa0) * temp_fv1 * 255.0f) & 0xFF);
-                }
-                var_v1_2 += 1;
-                if (var_v1_2 >= (s32) *(u8 *)((u8 *)arg0 + 0x25)) {
-                    var_v1_2 = 0;
-                }
-            } while (var_v1_2 != *(s8 *)((u8 *)arg0 + 0x2E));
-        }
+        return 1;
     }
+    prev = *(s8 *)((u8 *)arg0 + 0x2E) - 1;
+    if (prev < 0) {
+        prev = *(u8 *)((u8 *)arg0 + 0x25) - 1;
+    }
+    first = *(s8 *)((u8 *)arg0 + 0x2D) * 0x1C + base;
+    span = fabsf(*(f32 *)(prev * 0x1C + base + 4) - *(f32 *)(first + 4));
+    if (span == 0.0f) {
+        return 1;
+    }
+    inv = 1.0f / span;
+    scale = inv * 10.0f;
+    i = *(s8 *)((u8 *)arg0 + 0x2D);
+    do {
+        entry = i * 0x1C + base;
+        diff = *(f32 *)(entry + 4) - *(f32 *)(first + 4);
+        *(s16 *)(entry + 0x14) = 0xFF;
+        if (diff < span * 0.19700001f) {
+            ratio = inv * 5.076142f;
+            *(s16 *)(entry + 0x14) = (u32)(diff * ratio * 255.0f) & 0xFF;
+        } else if (span - span * 0.1f < diff) {
+            *(s16 *)(entry + 0x14) = (u32)((span - diff) * scale * 255.0f) & 0xFF;
+        }
+        i++;
+        if (i >= *(u8 *)((u8 *)arg0 + 0x25)) {
+            i = 0;
+        }
+    } while (i != *(s8 *)((u8 *)arg0 + 0x2E));
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CDB94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CDB94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CDE20.s")
 struct Game1FA770Object {
     u8 pad0[0x1E];

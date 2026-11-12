@@ -6,60 +6,55 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_helper_pairs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A5F70
  * - func_151A6068
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151A6068(void *, s32, s32, s32, s32, s32);
+void func_151A6068(void *, s32, u8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5F70 CURRENT (2422) */
-void func_151A5F70(void *arg0, void *arg1, u8 arg2) {
-    void *sp2C;
-    s32 temp_a1;
-    s32 var_a0;
-    s32 var_v0;
-    u8 *var_v1;
-    u8 temp_v1;
-    void *temp_a0;
-    void *temp_v0;
+typedef struct Game1D3420Message {
+    s32 count;
+    u8 *ids;
+    s32 value;
+} Game1D3420Message;
+
+typedef struct Game1D3420Target {
+    u8 *object;
+    u8 id;
+    u8 pad05[3];
+    s32 argument;
+    u8 flags;
+    u8 pad0D[3];
+    s32 value;
+} Game1D3420Target;
+
+void func_151A5F70(u8 *arg0, void *arg1, u8 arg2) {
+    Game1D3420Message *msg = arg1;
+    s32 i;
+    s32 found;
+    Game1D3420Target *target;
 
     if (arg2 == 0x35) {
-        temp_a1 = *(s32 *)arg1;
-        var_v0 = 0;
-        var_a0 = 0;
-        if (temp_a1 > 0) {
-            var_v1 = *(u8 **)((u8 *)arg1 + 4);
-loop_3:
-            if (*(u8 *)((u8 *)arg0 + 0x2C) == *var_v1) {
-                var_a0 = 1;
+        target = (Game1D3420Target *)(arg0 + 0x28);
+        i = 0;
+        found = 0;
+        while (i < msg->count && found == 0) {
+            if (target->id == msg->ids[i]) {
+                found = 1;
             } else {
-                var_v0 += 1;
-                var_v1 += 1;
-            }
-            if ((var_v0 < temp_a1) && (var_a0 == 0)) {
-                goto loop_3;
+                i++;
             }
         }
-        if (var_a0 != 0) {
-            temp_v0 = (u8 *)arg0 + 0x28;
-            temp_a0 = *(void **)temp_v0;
-            if (*(u8 *)((u8 *)temp_a0 + 0x14) == 1) {
-                temp_v1 = *(u8 *)((u8 *)temp_v0 + 0xC);
-                sp2C = temp_v0;
-                func_151A6068(temp_a0, *(s32 *)((u8 *)temp_v0 + 8),
-                              temp_v1 & 1, temp_v1 & 2,
-                              *(u8 *)((u8 *)arg0 + 0xC),
-                              *(u8 *)((u8 *)arg0 + 1));
-                *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x28) + 0x14) = 0;
-                *(s32 *)((u8 *)temp_v0 + 0x10) = *(s32 *)((u8 *)arg1 + 8);
+        if (found != 0) {
+            if (target->object[0x14] == 1) {
+                func_151A6068(target->object, target->argument, target->flags & 1, target->flags & 2, arg0[0xC], arg0[1]);
+                target->object[0x14] = 0;
+                target->value = msg->value;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A5F70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D3420/func_151A5F70.s")
 typedef struct Game1D3420Spawn {
     u8 kind, subtype;
     s16 flags, life;

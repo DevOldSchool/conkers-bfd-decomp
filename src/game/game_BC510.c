@@ -567,8 +567,11 @@ extern u8 D_11AD;
 extern s32 D_800D2450;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150938BC CURRENT (2020) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150938BC */
 GameBC510Command *func_150938BC(GameBC510Command *dl) {
+    s32 x = 0x78;
+    s32 y = 0x81;
+    s32 z = -0x12F;
     s32 digit;
     s32 value;
     s32 address;
@@ -588,8 +591,8 @@ GameBC510Command *func_150938BC(GameBC510Command *dl) {
         }
         digit--;
     } while (digit != 0);
-    func_150A7D00((volatile s64 *)((u8 *)D_800D244C + (D_800BE9C0 << 6)), (f32)0x78, (f32)0x81, (f32)-0x12F);
-    { GameBC510Command *packet = dl++; packet->w0 = 0xDA380003; packet->w1 = (u32)((u8 *)D_800D244C + (D_800BE9C0 << 6)); }
+    func_150A7D00((volatile s64 *)((D_800BE9C0 << 6) + (u8 *)D_800D244C), x, y, z);
+    { GameBC510Command *packet = dl++; packet->w0 = 0xDA380003; packet->w1 = (u32)((D_800BE9C0 << 6) + (u8 *)D_800D244C); }
     { GameBC510Command *packet = dl++; packet->w0 = 0xDE000000; packet->w1 = D_800D2448; }
     return dl;
 }

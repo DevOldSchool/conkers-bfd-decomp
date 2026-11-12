@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_actor_classification_emitter.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E6B84
  * - func_150E6FAC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -117,26 +116,34 @@ f32 func_15047D60(f32);
 f32 func_150ADA68();
 f32 func_15144528(f32, f32, f32);
 void *func_150E5FD0(void *, void *, f32, f32, f32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A1304, D_800A1308, D_800BE9A4;
+extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6B84 CURRENT (1907) */
 void func_150E6B84(Game113D60Effect *arg0) {
     Game113D60Emission *emission;
-    volatile f32 time;
-    f32 timeStep, phaseStepX, phaseStepY;
-    f32 speedX, speedY;
+    f32 inverse;
+    f32 time;
+    f32 timeStep;
+    f32 phaseStepX;
+    f32 phaseStepY;
+    f32 speedX;
+    f32 speedY;
+    f32 factor;
+    f32 period;
     Vec3f direction;
-    f32 phaseX, phaseY, sineX, sineY;
-    f32 randomX, randomY, inverse, period;
-    register f32 factor;
+    f32 phaseX;
+    f32 phaseY;
+    f32 sineX;
+    f32 sineY;
+    f32 randomX;
+    f32 randomY;
     u32 randomDuration;
     s32 randomColor;
 
     emission = &arg0->emission;
     arg0->emission.remaining += arg0->emission.rate * D_800BE9A4;
-    if (*(volatile f32 *)&arg0->emission.remaining > 1.0f) {
+    if (arg0->emission.remaining > 1.0f) {
         inverse = 1.0f / emission->remaining;
-        factor = D_800A1304;
+        factor = 0.1f;
         time = emission->time + D_800BE9A4;
         timeStep = time * inverse;
         speedX = emission->speedX * D_800BE9A4;
@@ -164,15 +171,13 @@ void func_150E6B84(Game113D60Effect *arg0) {
             phaseY += phaseStepY;
             time -= timeStep;
             emission->remaining -= 1.0f;
-        } while (*(volatile f32 *)&emission->remaining > 1.0f);
-        period = D_800A1308;
+        } while (emission->remaining > 1.0f);
+        period = 6.2831855f;
         emission->phaseX = func_15144528(phaseX, period, 0.0f);
         emission->phaseY = func_15144528(phaseY, period, 0.0f);
         emission->time = time;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E6B84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6B84.s")
 f32 func_150ADA68();                                /* extern */
 typedef struct Game113D60Segment {
     Vec3f start;

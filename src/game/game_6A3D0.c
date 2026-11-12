@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1503CF20
  * - func_1503D510
- * - func_1503D5F0
  * - func_1503DD1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -148,44 +147,19 @@ block_9:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503D510 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D510.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D5F0 CURRENT (2240) */
 s32 func_1503D5F0(s32 arg0) {
-    s32 group_index;
-    s32 entry_index;
-    u8 *group;
-    u8 *count;
-    u8 *entry;
-    u8 group_size;
+    s32 i;
+    s32 j;
 
-    count = D_80098888;
-    group_index = 0;
-loop_groups:
-    group_size = *count;
-    entry_index = 0;
-    if ((s32) group_size > 0) {
-        group = D_80084410[group_index];
-        entry = group;
-loop_entries:
-        entry_index++;
-        if (arg0 == *entry) {
-            return *group;
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < D_80098888[i]; j++) {
+            if (arg0 == D_80084410[i][j]) {
+                return *D_80084410[i];
+            }
         }
-        entry++;
-        if (entry_index >= (s32) group_size) {
-            goto next_group;
-        }
-        goto loop_entries;
     }
-next_group:
-    group_index++;
-    count++;
-    if (group_index == 5) {
-        return arg0;
-    }
-    goto loop_groups;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D5F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D5F0.s")
 typedef struct Game6A3D0Resource {
     u8 *field0;
     u8 *field4;

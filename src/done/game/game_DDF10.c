@@ -4,52 +4,41 @@
 /*
  * Reviewed source unit: src/game/game_DDF10.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_audio_owner_emitters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150B0A60
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 f32 func_150ADA68();                                /* extern */
 extern f32 D_8009F870;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0A60 CURRENT (1840) */
 void func_150B0A60(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, s16 *arg5) {
-    f32 sp1C;
-    f32 temp_fa0;
-    f32 var_fv0;
-    f32 x;
+    f32 roll;
+    f32 spread;
 
     *arg5 = (s16) (s32) ((*(f32 *)((u8 *)arg0 + 0x40) * D_8009F870) - 128.0f);
-    sp1C = func_150ADA68() * 248.0f;
-    temp_fa0 = func_150ADA68() + -0.5f;
-    if (sp1C < 122.0f) {
-        x = (f32) ((*(f32 *)((u8 *)arg3 + 0) * temp_fa0 * 122.0f) + (*(f32 *)((u8 *)arg2 + 0) * -31.5f));
+    roll = func_150ADA68() * 248.0f;
+    spread = func_150ADA68() + -0.5f;
+    if (roll < 122.0f) {
+        *(f32 *)((u8 *)arg4 + 0) = (*(f32 *)((u8 *)arg2 + 0) * -31.5f) + (*(f32 *)((u8 *)arg3 + 0) * spread * 122.0f);
         *(f32 *)((u8 *)arg4 + 4) = 0.0f;
-        *(f32 *)((u8 *)arg4 + 0) = x;
-        *(f32 *)((u8 *)arg4 + 8) = (f32) ((*(f32 *)((u8 *)arg3 + 4) * temp_fa0 * 122.0f) + (*(f32 *)((u8 *)arg2 + 4) * -31.5f));
+        *(f32 *)((u8 *)arg4 + 8) = (*(f32 *)((u8 *)arg2 + 4) * -31.5f) + (*(f32 *)((u8 *)arg3 + 4) * spread * 122.0f);
     } else {
-        f32 magnitude = 61.0f;
-        var_fv0 = magnitude;
-        sp1C -= 122.0f;
-        if (sp1C < 63.0f) {
-            var_fv0 = -magnitude;
+        f32 side;
+
+        roll -= 122.0f;
+        side = 61.0f;
+        if (roll < 63.0f) {
+            side = -side;
             *arg5 += 0x40;
         } else {
             *arg5 -= 0x40;
         }
-        x = (f32) ((*(f32 *)((u8 *)arg3 + 0) * var_fv0) + (*(f32 *)((u8 *)arg2 + 0) * 63.0f * temp_fa0));
+        *(f32 *)((u8 *)arg4 + 0) = (*(f32 *)((u8 *)arg2 + 0) * 63.0f * spread) + (*(f32 *)((u8 *)arg3 + 0) * side);
         *(f32 *)((u8 *)arg4 + 4) = 0.0f;
-        *(f32 *)((u8 *)arg4 + 0) = x;
-        *(f32 *)((u8 *)arg4 + 8) = (f32) ((*(f32 *)((u8 *)arg3 + 4) * var_fv0) + (*(f32 *)((u8 *)arg2 + 4) * 63.0f * temp_fa0));
+        *(f32 *)((u8 *)arg4 + 8) = (*(f32 *)((u8 *)arg2 + 4) * 63.0f * spread) + (*(f32 *)((u8 *)arg3 + 4) * side);
     }
-    *(f32 *)((u8 *)arg4 + 0) = (f32) (*(f32 *)((u8 *)arg4 + 0) + *(f32 *)((u8 *)arg0 + 0x14));
-    *(f32 *)((u8 *)arg4 + 4) = (f32) (*(f32 *)((u8 *)arg4 + 4) + *(f32 *)((u8 *)arg1 + 0x118));
-    *(f32 *)((u8 *)arg4 + 8) = (f32) (*(f32 *)((u8 *)arg4 + 8) + *(f32 *)((u8 *)arg0 + 0x1C));
+    *(f32 *)((u8 *)arg4 + 0) += *(f32 *)((u8 *)arg0 + 0x14);
+    *(f32 *)((u8 *)arg4 + 4) += *(f32 *)((u8 *)arg1 + 0x118);
+    *(f32 *)((u8 *)arg4 + 8) += *(f32 *)((u8 *)arg0 + 0x1C);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B0A60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DDF10/func_150B0A60.s")
 extern void func_150B0C58(void *arg0, u8 arg1, s32 arg2);
 
 void func_150B0C34(void *arg0) {

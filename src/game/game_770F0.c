@@ -5,8 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15049CB8
- * - func_15049EDC
  * - func_1504A140
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -31,58 +29,44 @@ f32 func_10026530(f32);
 extern Game770F0IndexCycle D_80085FF0;
 extern f32 D_80099090;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049CB8 CURRENT (3005) */
-void func_15049CB8(f32 matrix[4][4], f32 *arg1) {
-    f32 *result;
-    f32 trace;
+void func_15049CB8(f32 matrix[4][4], f32 *result) {
     f32 root;
-    f32 scale;
-    f32 diagonal;
     s32 i;
     s32 j;
     s32 k;
-    f32 *rowI;
-    f32 *rowJ;
-    f32 *rowK;
 
-    result = arg1;
-    trace = matrix[2][2] + (matrix[0][0] + matrix[1][1]) + 1.0f;
-    if (D_80099090 < trace) {
-        root = func_10026530(trace);
+    root = matrix[0][0] + matrix[1][1] + matrix[2][2] + 1.0f;
+    if (D_80099090 < root) {
+        f32 scale;
+
+        root = func_10026530(root);
         scale = 0.5f / root;
         result[0] = root * 0.5f;
         result[1] = (matrix[1][2] - matrix[2][1]) * scale;
         result[2] = (matrix[2][0] - matrix[0][2]) * scale;
         result[3] = (matrix[0][1] - matrix[1][0]) * scale;
     } else {
-    Game770F0IndexCycle cycle;
+        Game770F0IndexCycle cycle;
+        f32 scale;
 
-    cycle = D_80085FF0;
-    i = 0;
-    if (matrix[0][0] < matrix[1][1]) {
-        i = 1;
-    }
-    rowI = matrix[i];
-    diagonal = rowI[i];
-    if (diagonal < matrix[2][2]) {
-        rowI = matrix[2];
-        diagonal = rowI[2];
-        i = 2;
-    }
-    j = cycle.indices[i];
-    k = cycle.indices[j];
-    rowJ = matrix[j];
-    rowK = matrix[k];
-    root = func_10026530((diagonal - rowJ[j] - rowK[k]) + 1.0f);
-    scale = 0.5f / root;
-    result[i + 1] = root * 0.5f;
-    result[0] = (rowJ[k] - rowK[j]) * scale;
-    result[j + 1] = (rowJ[i] + rowI[j]) * scale;
-    result[k + 1] = (rowK[i] + rowI[k]) * scale;
+        cycle = D_80085FF0;
+        i = 0;
+        if (matrix[0][0] < matrix[1][1]) {
+            i = 1;
+        }
+        if (matrix[i][i] < matrix[2][2]) {
+            i = 2;
+        }
+        j = cycle.indices[i];
+        k = cycle.indices[j];
+        root = func_10026530((matrix[i][i] - matrix[j][j] - matrix[k][k]) + 1.0f);
+        scale = 0.5f / root;
+        result[i + 1] = root * 0.5f;
+        result[0] = (matrix[j][k] - matrix[k][j]) * scale;
+        result[j + 1] = (matrix[i][j] + matrix[j][i]) * scale;
+        result[k + 1] = (matrix[i][k] + matrix[k][i]) * scale;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15049CB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_770F0/func_15049CB8.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_15048360: unique active project prototype */
 f32 func_15047D60(f32);
@@ -90,56 +74,43 @@ f32 func_15048360(f32);
 extern f32 D_80099094;
 extern f32 D_80099098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049EDC CURRENT (2044) */
-void func_15049EDC(void *arg0, void *arg1, f32 arg2, void *arg3) {
-    f32 sp24;
-    f32 sp20;
-    f32 sp1C;
-    f32 sp18;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_ft4;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
+void func_15049EDC(f32 *q0, f32 *q1, f32 t, f32 *out) {
+    f32 dot;
+    f32 inv;
 
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0);
-    temp_ft4 = *(f32 *)((u8 *)arg1 + 0);
-    temp_fa0 = (temp_fv1 * temp_ft4) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4));
-    temp_fa0 = temp_fa0 + (*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8));
-    temp_fa0 = (*(f32 *)((u8 *)arg1 + 0xC) * *(f32 *)((u8 *)arg0 + 0xC)) + temp_fa0;
-    if (temp_fa0 < D_80099094) {
-        temp_fv0 = 1.0f - arg2;
-        *(f32 *)((u8 *)arg3 + 0) = (f32) ((temp_fv0 * temp_fv1) - (temp_ft4 * arg2));
-        *(f32 *)((u8 *)arg3 + 4) = (f32) ((temp_fv0 * *(f32 *)((u8 *)arg0 + 4)) - (*(f32 *)((u8 *)arg1 + 4) * arg2));
-        *(f32 *)((u8 *)arg3 + 8) = (f32) ((temp_fv0 * *(f32 *)((u8 *)arg0 + 8)) - (*(f32 *)((u8 *)arg1 + 8) * arg2));
-        *(f32 *)((u8 *)arg3 + 0xC) = (f32) ((temp_fv0 * *(f32 *)((u8 *)arg0 + 0xC)) - (*(f32 *)((u8 *)arg1 + 0xC) * arg2));
-        return;
+    dot = q0[0] * q1[0] + q0[1] * q1[1] + q0[2] * q1[2] + q0[3] * q1[3];
+    if (dot < D_80099094) {
+        inv = 1.0f - t;
+        out[0] = inv * q0[0] - q1[0] * t;
+        out[1] = inv * q0[1] - q1[1] * t;
+        out[2] = inv * q0[2] - q1[2] * t;
+        out[3] = inv * q0[3] - q1[3] * t;
+    } else if (dot <= D_80099098) {
+        f32 angleA;
+        f32 angleB;
+        f32 sinTheta;
+        f32 scale0;
+        f32 theta;
+        f32 scale1;
+
+        theta = func_15048360(dot);
+        angleA = (1.0f - t) * theta;
+        angleB = t * theta;
+        sinTheta = func_15047D60(theta);
+        scale0 = func_15047D60(angleA) / sinTheta;
+        scale1 = func_15047D60(angleB) / sinTheta;
+        out[0] = scale0 * q0[0] + q1[0] * scale1;
+        out[1] = scale0 * q0[1] + q1[1] * scale1;
+        out[2] = scale0 * q0[2] + q1[2] * scale1;
+        out[3] = scale0 * q0[3] + q1[3] * scale1;
+    } else {
+        inv = 1.0f - t;
+        out[0] = inv * q0[0] + q1[0] * t;
+        out[1] = inv * q0[1] + q1[1] * t;
+        out[2] = inv * q0[2] + q1[2] * t;
+        out[3] = inv * q0[3] + q1[3] * t;
     }
-    if (temp_fa0 <= D_80099098) {
-        temp_fv0_2 = func_15048360(temp_fa0);
-        sp24 = (1.0f - arg2) * temp_fv0_2;
-        sp20 = arg2 * temp_fv0_2;
-        sp1C = func_15047D60(temp_fv0_2);
-        temp_fa1 = func_15047D60(sp24) / sp1C;
-        sp18 = temp_fa1;
-        temp_fv1_2 = func_15047D60(sp20) / sp1C;
-        *(f32 *)((u8 *)arg3 + 0) = (f32) ((*(f32 *)((u8 *)arg1 + 0) * temp_fv1_2) + (temp_fa1 * *(f32 *)((u8 *)arg0 + 0)));
-        *(f32 *)((u8 *)arg3 + 4) = (f32) ((*(f32 *)((u8 *)arg1 + 4) * temp_fv1_2) + (temp_fa1 * *(f32 *)((u8 *)arg0 + 4)));
-        *(f32 *)((u8 *)arg3 + 8) = (f32) ((*(f32 *)((u8 *)arg1 + 8) * temp_fv1_2) + (temp_fa1 * *(f32 *)((u8 *)arg0 + 8)));
-        *(f32 *)((u8 *)arg3 + 0xC) = (f32) ((*(f32 *)((u8 *)arg1 + 0xC) * temp_fv1_2) + (temp_fa1 * *(f32 *)((u8 *)arg0 + 0xC)));
-        return;
-    }
-    temp_fv0_3 = 1.0f - arg2;
-    *(f32 *)((u8 *)arg3 + 0) = (f32) ((temp_ft4 * arg2) + (temp_fv0_3 * temp_fv1));
-    *(f32 *)((u8 *)arg3 + 4) = (f32) ((*(f32 *)((u8 *)arg1 + 4) * arg2) + (temp_fv0_3 * *(f32 *)((u8 *)arg0 + 4)));
-    *(f32 *)((u8 *)arg3 + 8) = (f32) ((*(f32 *)((u8 *)arg1 + 8) * arg2) + (temp_fv0_3 * *(f32 *)((u8 *)arg0 + 8)));
-    *(f32 *)((u8 *)arg3 + 0xC) = (f32) ((*(f32 *)((u8 *)arg1 + 0xC) * arg2) + (temp_fv0_3 * *(f32 *)((u8 *)arg0 + 0xC)));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15049EDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_770F0/func_15049EDC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1504A140 CURRENT (4804) */
 void func_1504A140(void *arg0, void *arg1) {
     f32 sp44;

@@ -9,7 +9,6 @@
  * - func_150B6C90
  * - func_150B6E3C
  * - func_150B7220
- * - func_150B77A8
  * - func_150B791C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -500,17 +499,15 @@ void func_150B76BC(s32 arg0, s32 arg1) {
 extern u8 D_800918F4;
 extern u8 D_80091900;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B77A8 CURRENT (2002) */
 void func_150B77A8(void) {
     GameE4070Descriptor descriptor;
-    s32 *slots = &D_800D9898;
-    s32 current;
 
-    current = slots[1];
-    if (current != 0) {
-        func_1516972C(current);
-        slots[1] = 0;
+    if ((&D_800D9898)[1] != 0) {
+        func_1516972C((&D_800D9898)[1]);
+        (&D_800D9898)[1] = 0;
     }
+    descriptor.scale_x = 60.0f;
+    descriptor.scale_y = 170.0f;
     descriptor.field2C = 0x40;
     descriptor.field2E = 0x40;
     descriptor.field30 = 4;
@@ -532,13 +529,10 @@ void func_150B77A8(void) {
     descriptor.field39 = 3;
     descriptor.field28 = 0x1000;
     descriptor.field2A = 0x1000;
-    descriptor.scale_x = 60.0f;
-    descriptor.scale_y = 170.0f;
-    current = slots[4];
-    if (current != 0) {
-        func_1516972C(current);
+    if ((&D_800D9898)[4] != 0) {
+        func_1516972C((&D_800D9898)[4]);
     }
-    slots[4] = func_15169968(&descriptor);
+    (&D_800D9898)[4] = func_15169968(&descriptor);
     descriptor.field24 = 0;
     descriptor.field26 = 0;
     descriptor.field2C = 0x58;
@@ -546,17 +540,14 @@ void func_150B77A8(void) {
     descriptor.field30 = 0;
     descriptor.field36 = 7;
     descriptor.field37 = 0x11;
-    descriptor.field38 = 1;
     descriptor.resource = &D_800918E8;
-    current = slots[8];
-    if (current != 0) {
-        func_1516972C(current);
+    descriptor.field38 = 1;
+    if ((&D_800D9898)[8] != 0) {
+        func_1516972C((&D_800D9898)[8]);
     }
-    slots[8] = func_15169968(&descriptor);
+    (&D_800D9898)[8] = func_15169968(&descriptor);
     D_800D9890 = 3;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B77A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B77A8.s")
 extern u8 D_8009190C;
 
 typedef struct {

@@ -6,10 +6,8 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_lifecycle_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1516D400
  * - func_1516D738
  * - func_1516DB90
- * - func_1516EED4
  * - func_1516F548
  * - func_1516FE1C
  * - func_151700D8
@@ -60,44 +58,20 @@ extern u8 D_800DD2A1;
 extern u8 D_800DD2A2;
 extern u8 D_800DD2A3;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D400 CURRENT (2640) */
 void func_1516D400(void) {
-    s32 var_v0;
-    s32 var_v0_2;
-    s32 var_v0_3;
-    s32 var_v0_4;
+    s32 i;
+    s32 v;
 
-    if ((s32) D_800DD2A0[0] < 0xFF) {
-        var_v0 = D_800DD2A0[0] + D_800BE9A0;
-        if (var_v0 >= 0x100) {
-            var_v0 = 0xFF;
+    for (i = 0; i < 4; i++) {
+        if (D_800DD2A0[i] < 0xFF) {
+            v = D_800DD2A0[i] + D_800BE9A0;
+            if (v >= 0x100) {
+                v = 0xFF;
+            }
+            D_800DD2A0[i] = v;
         }
-        D_800DD2A0[0] = (u8) var_v0;
-    }
-    if ((s32) D_800DD2A1 < 0xFF) {
-        var_v0_2 = D_800DD2A1 + D_800BE9A0;
-        if (var_v0_2 >= 0x100) {
-            var_v0_2 = 0xFF;
-        }
-        D_800DD2A1 = (u8) var_v0_2;
-    }
-    if ((s32) D_800DD2A2 < 0xFF) {
-        var_v0_3 = D_800DD2A2 + D_800BE9A0;
-        if (var_v0_3 >= 0x100) {
-            var_v0_3 = 0xFF;
-        }
-        D_800DD2A2 = (u8) var_v0_3;
-    }
-    if ((s32) D_800DD2A3 < 0xFF) {
-        var_v0_4 = D_800DD2A3 + D_800BE9A0;
-        if (var_v0_4 >= 0x100) {
-            var_v0_4 = 0xFF;
-        }
-        D_800DD2A3 = (u8) var_v0_4;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516D400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516D400.s")
 
 void *func_150448D0(s32, void *, s32, s32, s32, s32, s32, s32, s32);
 
@@ -483,13 +457,9 @@ void func_1516ED68(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
         0, 0, arg0, 0xC, 0, 0, 0x81, 2, 0, 1,
         0, 0, 0, 5, 0, arg2, arg3);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516EED4 CURRENT (2997) */
 void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
-    u8 *timer;
-
-    timer = (u8 *)((u32)D_800DD2A0 + (u32)arg0);
-    if (arg0 < 4 && *timer >= arg1) {
-        *timer = 0;
+    if (arg0 < 4 && D_800DD2A0[arg0] >= arg1) {
+        D_800DD2A0[arg0] = 0;
         func_1516D99C(0, 0, 0, 4, 0, 0xFF, 0xFF, 0xFF,
             0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0x200, 0x200, 0, 0, 0x1E,
@@ -497,8 +467,6 @@ void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
             0, 0, 0, 0xC, 0, arg2, arg3);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516EED4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516EED4.s")
 typedef struct Game19A8B0Table {
     u8 value[11];
 } Game19A8B0Table;

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1511F4D0
- * - func_1511F788
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -253,37 +252,37 @@ void func_1511F768(s32 *arg0, s32 arg1) {
 f32 func_15047C00(f32);
 extern u8 D_800BE9B4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F788 CURRENT (2065) */
 void func_1511F788(void *arg0) {
-    s32 temp_lo;
-    s32 temp_v0;
-    s32 temp_t9;
-    s16 sp1E;
+    s32 state;
+    f32 bob;
+    s32 limit;
+    f32 angle;
+    s16 base;
 
-    sp1E = (s16) (s32) ((f32) *(s16 *)((u8 *)arg0 + 0x12) + *(f32 *)((u8 *)arg0 + 0x18));
-    temp_lo = (s32) (*(s32 *)((u8 *)arg0 + 0x3C) * 0x3C) / 60;
+    base = (s16)(s32)(*(f32 *)((u8 *)arg0 + 0x18) + (f32)*(s16 *)((u8 *)arg0 + 0x12));
+    limit = *(s32 *)((u8 *)arg0 + 0x3C);
+    limit = limit * 60 / 60;
     if (D_800BE9B4 != 0) {
-        *(s32 *)((u8 *)arg0 + 0x7C) = (s32) (func_150ADA20() & 0xFFFF);
+        *(s32 *)((u8 *)arg0 + 0x7C) = func_150ADA20() & 0xFFFF;
     }
-    *(f32 *)((u8 *)arg0 + 0x18) = (f32) (func_15047C00((f32) *(s32 *)((u8 *)arg0 + 0x7C) * 0.005493164f) * 25.0f);
-    *(s32 *)((u8 *)arg0 + 0x7C) = (s32) (*(s32 *)((u8 *)arg0 + 0x7C) + (D_800BE9E4 * 0xA));
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x80);
-    if (temp_v0 == 1) {
-        temp_t9 = *(s32 *)((u8 *)arg0 + 0x84) + D_800BE9E4;
-        *(s32 *)((u8 *)arg0 + 0x84) = temp_t9;
-        if (temp_lo < temp_t9) {
+    angle = (f32)*(s32 *)((u8 *)arg0 + 0x7C) * 0.005493164f;
+    bob = func_15047C00(angle) * 25.0f;
+    *(f32 *)((u8 *)arg0 + 0x18) = bob;
+    *(s32 *)((u8 *)arg0 + 0x7C) += D_800BE9E4 * 10;
+    state = *(s32 *)((u8 *)arg0 + 0x80);
+    if (state == 1) {
+        *(s32 *)((u8 *)arg0 + 0x84) += D_800BE9E4;
+        if (limit < *(s32 *)((u8 *)arg0 + 0x84)) {
             *(s32 *)((u8 *)arg0 + 0x80) = 2;
         }
-    } else if (temp_v0 == 2) {
-        *(s16 *)((u8 *)arg0 + 0x12) = (s16) (*(s16 *)((u8 *)arg0 + 0x12) - D_800BE9E4);
-        if (*(s16 *)((u8 *)arg0 + 0x12) < -0x2710) {
-            *(s8 *)((u8 *)arg0 + 0x6E) = 1;
+    } else if (state == 2) {
+        *(s16 *)((u8 *)arg0 + 0x12) -= D_800BE9E4;
+        if (*(s16 *)((u8 *)arg0 + 0x12) < -10000) {
+            *(u8 *)((u8 *)arg0 + 0x6E) = 1;
         }
     }
-    *(s16 *)((u8 *)arg0 + 0x5C) = (s16) (s32) (((f32) *(s16 *)((u8 *)arg0 + 0x12) + *(f32 *)((u8 *)arg0 + 0x18)) - (f32) sp1E);
+    *(s16 *)((u8 *)arg0 + 0x5C) = (s32)((*(f32 *)((u8 *)arg0 + 0x18) + (f32)*(s16 *)((u8 *)arg0 + 0x12)) - (f32)base);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511F788 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F788.s")
 /* Call context: func_151149AC: unique active project prototype */
 
 void func_1511F92C(void *arg0) {

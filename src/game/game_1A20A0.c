@@ -6,11 +6,9 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_debris_family.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15174BF0
  * - func_15175958
  * - func_1517685C
  * - func_15176DF0
- * - func_1517725C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -39,72 +37,69 @@ typedef struct Game174BF0Actor {
 } Game174BF0Actor;
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
-extern f32 D_800A7174;
 extern s32 D_800DBE3C, D_800DBE5C;
 extern u8 *D_800DBFF0;
 extern u8 D_800A7170[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15174BF0 CURRENT (2285) */
-void func_15174BF0(volatile s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7, volatile s32 arg8) {
+void func_15174BF0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7, s32 arg8) {
     f32 height;
-    f32 jitterScale;
     s32 baseAngle;
     s32 pitch;
     s32 x, z;
-    s32 angleValue;
     s32 angle;
+    s32 modelIndex;
     s32 index;
+    s32 range;
     u32 flags;
     f32 delta[3];
-    u8 *position;
-    s32 surface;
     Game174BF0Actor *actor;
+    s32 surface;
 
-    position = D_800DBFF0 + arg5 * 0x9A0;
     height = (f32)arg3;
-    delta[0] = (f32)arg2 - *(f32 *)(position + 0x2f8);
-    delta[1] = height - *(f32 *)(position + 0x2fc);
-    delta[2] = (f32)arg4 - *(f32 *)(position + 0x300);
+    delta[0] = (f32)arg2 - *(f32 *)(D_800DBFF0 + 0x2f8 + arg5 * 0x9A0);
+    delta[1] = height - *(f32 *)(D_800DBFF0 + 0x2fc + arg5 * 0x9A0);
+    delta[2] = (f32)arg4 - *(f32 *)(D_800DBFF0 + 0x300 + arg5 * 0x9A0);
     baseAngle = (s32)func_15048FC8(delta);
     index = 0;
     if (arg0 > 0) {
-        jitterScale = D_800A7174;
         do {
             actor = func_15167A68(0xA, 0, 0xF8, 1, 0xFF, 1);
             if (actor == NULL) return;
-            arg5 = arg8 & 1;
             x = (s32)(func_150ADA20() & 0x7F) + arg2 - 0x3F;
             z = (s32)(func_150ADA20() & 0x7F) + arg4 - 0x3F;
+            actor->group = arg1;
             actor->flags = 3;
             actor->y = height;
             actor->x = (f32)x;
-            actor->group = arg1;
             actor->z = (f32)z;
             actor->timer = func_150ADA20() % 15U + 0xA;
             actor->enabled = 1;
-            angleValue = (s32)(func_150ADA20() & 0x1F) + baseAngle - 0xF;
-            angle = angleValue;
-            if (angleValue < 0) angle = angleValue + 0x168;
-            else if (angleValue >= 0x168) angle = angleValue - 0x168;
+            angle = (s32)(func_150ADA20() & 0x1F) + baseAngle - 0xF;
+            if (angle < 0) angle += 0x168;
+            else if (angle >= 0x168) angle -= 0x168;
             pitch = (s32)(func_150ADA20() & 0x1F) - 0xF;
             actor->roll = 0.0f;
             actor->velocity = -1.0f;
             actor->pitch = (f32)pitch;
             actor->yaw = (f32)angle;
-            pitch = (s32)(func_150ADA20() & 0xFF) - 0x80;
+            actor->yawStep = (f32)((s32)(func_150ADA20() & 0xFF) - 0x80) * 0.01f;
             actor->fieldBC = 0.0f;
-            actor->yawStep = (f32)pitch * jitterScale;
             actor->scale = (f32)(s32)(func_150ADA20() & 0xFFFF) * 0.000030517578125f * arg7 + arg6;
-            angleValue = func_150ADA20() & 1;
-            actor->modelIndex = angleValue;
-            actor->model = D_800DDE88[angleValue].model;
+            modelIndex = func_150ADA20() & 1;
+            actor->model = D_800DDE88[modelIndex].model;
+            actor->modelIndex = modelIndex;
             if (index == 0) actor->sound = func_10010E78(0, 0xA2, 0x7D00, 0, 0, 0, x, arg3, z, 0x3E8, 0xFA0);
             else actor->sound = 0;
             actor->surfaceFlags = 0;
-            if (arg5) {
+            if (arg8 & 1) {
                 actor->flags |= 0x80;
                 actor->baseHeight = (f32)func_1510F8D8(x, arg3, z, &surface);
-                flags = surface != 0 ? *(u32 *)(D_800DBE5C + ((surface - D_800DBE3C) / 12) * 4) : 0;
+                if (surface != 0) {
+                    range = (surface - D_800DBE3C) / 12;
+                    flags = ((u32 *)D_800DBE5C)[range];
+                } else {
+                    flags = 0;
+                }
                 actor->surfaceFlags = flags;
                 actor->brightness = D_800A7170[(flags >> 5) & 3];
             } else actor->brightness = 0;
@@ -114,8 +109,6 @@ void func_15174BF0(volatile s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s3
         } while (index != arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15174BF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15174BF0.s")
 typedef struct Game174FA4Surface {
     s32 height;
     u8 pad04[0xC];
@@ -629,29 +622,25 @@ typedef struct Game17725CState {
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
 extern Game17725CState D_8008D0B0[];
-extern f32 D_800A71AC;
-extern f32 D_800A71B0;
-extern f32 D_800A71B4;
-extern f32 D_800A71B8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517725C CURRENT (1884) */
 void func_1517725C(u8 arg0) {
-    Game17725CState *state;
-    u8 *model;
+    s16 x;
+    s16 y;
     f32 trig;
-    f32 amount;
-    s32 x;
-    s32 y;
-    s32 index;
+    Game17725CState *state;
+    f32 radians;
+    u8 *model;
+    f32 cs;
 
-    index = arg0;
-    state = &D_8008D0B0[index];
-    model = D_800DDE88[index].model;
-    state->scale = func_150AD78C(state->angle * D_800A71AC) * state->magnitude;
-    amount = state->scale * D_800A71B0;
-    trig = func_150AD78C(amount);
-    x = (s32)(state->firstRadius * func_150AD780(amount));
-    y = (s32)(state->firstRadius * trig);
+    state = &D_8008D0B0[arg0];
+    model = D_800DDE88[arg0].model;
+    radians = state->angle * 0.017453292f;
+    state->scale = func_150AD78C(radians) * state->magnitude;
+    radians = state->scale * 0.017453292f;
+    trig = func_150AD78C(radians);
+    cs = func_150AD780(radians);
+    x = state->firstRadius * cs;
+    y = state->firstRadius * trig;
     *(s16 *)(model + 0xA0) = -x;
     *(s16 *)(model + 0xB0) = -x;
     *(s16 *)(model + 0x110) = x;
@@ -660,11 +649,13 @@ void func_1517725C(u8 arg0) {
     *(s16 *)(model + 0x122) = y;
     *(s16 *)(model + 0xA2) = y;
     *(s16 *)(model + 0xB2) = y;
-    state->scale = func_150AD78C((state->angle - 30.0f) * D_800A71B4) * state->magnitude;
-    amount = state->scale * D_800A71B8;
-    trig = func_150AD78C(amount);
-    x = (s32)(state->secondRadius * func_150AD780(amount));
-    y = (s32)(state->secondRadius * trig);
+    radians = (state->angle - 30.0f) * 0.017453292f;
+    state->scale = func_150AD78C(radians) * state->magnitude;
+    radians = state->scale * 0.017453292f;
+    trig = func_150AD78C(radians);
+    cs = func_150AD780(radians);
+    x = state->secondRadius * cs;
+    y = state->secondRadius * trig;
     *(s16 *)(model + 0xE0) = -x;
     *(s16 *)(model + 0x130) = x;
     *(s16 *)(model + 0xE2) = y;
@@ -674,5 +665,3 @@ void func_1517725C(u8 arg0) {
         state->angle -= 360.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517725C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_1517725C.s")
