@@ -558,7 +558,7 @@ segments:
       - [0x13C060, c, game/game_169510]
       - [0x1407D0, c, game/game_16DC80]
       - [0x141970, c, game/game_16EE20]
-      - [0x146890, c, game/game_173D40]
+      - [0x146890, c, done/game/game_173D40]
       - [0x147740, c, done/game/game_174BF0]
       - [0x147DA0, c, game/game_175250]
       - [0x149130, c, done/game/game_1765E0]

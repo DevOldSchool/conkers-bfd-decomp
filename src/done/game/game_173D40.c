@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_173D40.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dispatch_position_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15146970
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_15046C80(f32 *, u16, f32, void *);
@@ -39,26 +34,21 @@ s32 func_15146890(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
 s32 func_151420F8();
 s32 func_150A2AEC(s32, s32, s32 *, s32);
 extern s32 D_800BE9F0;
-extern s32 D_800A56D0[5];
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146970 CURRENT (180) */
 s32 func_15146970(u32 arg0, void *arg1) {
-    typedef struct { s32 words[5]; } Copy20;
-    Copy20 sp1C;
-
     switch (arg0) {
-    case 0:
+    case 8:
         return 0x10;
-    case 1:
+    case 7:
         return 0xF;
-    case 2:
-        return 5;
-    case 3:
-        return 2;
-    case 4:
-        return 0;
     case 5:
+        return 5;
+    case 2:
+        return 2;
+    case 0:
+        return 0;
+    case 1:
         if (D_800BE9F0 == 4) {
             if (func_151420F8(arg1) != 0) {
                 return 6;
@@ -66,23 +56,23 @@ s32 func_15146970(u32 arg0, void *arg1) {
             return 3;
         }
         return 1;
-    case 6:
+    case 4:
         return 4;
-    case 7:
+    case 3:
         return 3;
-    case 8:
-        sp1C = *(Copy20 *)D_800A56D0;
-        if (func_150A2AEC(((u8 *)arg1 - (u8 *)&D_800CC2D0) / 0x32C,
-                          5, sp1C.words, (s32)arg1) == -1) {
+    case 6: {
+        const s32 ids[5] = { 0x401D, 0x401E, 0x401F, 0x4020, 0x4021 };
+
+        if (func_150A2AEC(((u8 *)arg1 - (u8 *)&D_800CC2D0) / 0x32C, 5, (s32 *)ids,
+                          (s32)arg1) == -1) {
             return -1;
         }
+    }
         return 6;
     default:
         return -1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15146970 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146970.s")
 typedef struct Game173D40RawVec3 {
     s32 values[3];
 } Game173D40RawVec3;

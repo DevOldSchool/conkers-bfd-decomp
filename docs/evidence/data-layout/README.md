@@ -91,6 +91,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_10E510 emitter constants](game_10e510_float_constants.md)
 - [US game_109220 switch table and constants](game_109220_rodata.md)
 - [US game_EC420 func_150BF21C constants](game_ec420_float_constants.md)
+- [US game_173D40 func_15146970 ids and switch table](game_173d40_switch_table.md)
 - [US switch table for game_12F400](game_12f400_jump_table.md)
 - [US switch table for game_15BD90](game_15bd90_jump_table.md)
 - [US switch table for game_1BFCB0](game_1bfcb0_jump_table.md)
