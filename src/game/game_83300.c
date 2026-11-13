@@ -7,23 +7,19 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15055E50
- * - func_15056150
  * - func_150562FC
  * - func_15056B08
  * - func_15058898
  * - func_15058F24
  * - func_150599C8
  * - func_15059C84
- * - func_1505A250
  * - func_1505A3A8
  * - func_1505A9AC
  * - func_1505B9C4
  * - func_1505C1E4
  * - func_1505C7D8
- * - func_1505D024
  * - func_1505D1C4
  * - func_1505D408
- * - func_1505D6F0
  * - func_1505DADC
  * - func_1505DDA8
  * - func_1505E650
@@ -46,47 +42,38 @@ extern s32 D_800D2104;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15056150 CURRENT (4849) */
 void func_15056150(void *arg0) {
-    volatile f32 sp1C;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    register f32 temp_fs0;
-    register f32 temp_fs1;
-    f32 temp_ft3;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 temp_v0;
-    void *temp_v1;
+    u8 *point;
+    f32 cx;
+    f32 cy;
+    f32 cz;
+    f32 maxDist;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 dist;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x2E8);
-    if (temp_v0 != 0) {
-        temp_v1 = ((void **)&D_800D2104)[*(u8 *)((u8 *)arg0 + 0x13F)];
-        temp_fv1 = (f32)*(s16 *)((u8 *)temp_v1 + 8);
-        temp_ft4 = (f32)temp_v0 * 8.0f;
-        temp_fa0 = (f32)*(s16 *)((u8 *)temp_v1 + 0xC);
-        temp_fa1 = (f32)*(s16 *)((u8 *)temp_v1 + 0xA);
-        temp_ft5 = *(f32 *)((u8 *)arg0 + 0x14) - temp_fv1;
-        temp_fs0 = *(f32 *)((u8 *)arg0 + 0x1C) - temp_fa0;
-        temp_fs1 = *(f32 *)((u8 *)arg0 + 0x18) - temp_fa1;
-        temp_fv0 = sqrtf((temp_ft5 * temp_ft5) + (temp_fs0 * temp_fs0) +
-                          (temp_fs1 * temp_fs1) + D_80099440);
-        temp_ft3 = 1.0f / temp_fv0;
-        sp1C = temp_ft3;
-        if (temp_ft4 < temp_fv0) {
-            *(f32 *)((u8 *)arg0 + 0x14) =
-                (temp_ft5 * temp_ft3 * temp_ft4) + temp_fv1;
-            *(f32 *)((u8 *)arg0 + 0x1C) =
-                (temp_fs0 * temp_ft3 * temp_ft4) + temp_fa0;
-            *(f32 *)((u8 *)arg0 + 0x18) =
-                (temp_fs1 * temp_ft3 * temp_ft4) + temp_fa1;
+    if (*(s32 *)((u8 *)arg0 + 0x2E8) != 0) {
+        point = ((u8 **)D_800D2104)[*(u8 *)((u8 *)arg0 + 0x13F)];
+        cx = *(s16 *)(point + 8);
+        cz = *(s16 *)(point + 0xC);
+        cy = *(s16 *)(point + 0xA);
+        maxDist = *(s32 *)((u8 *)arg0 + 0x2E8);
+        maxDist *= 8.0f;
+        dx = *(f32 *)((u8 *)arg0 + 0x14) - cx;
+        dz = *(f32 *)((u8 *)arg0 + 0x1C) - cz;
+        dy = *(f32 *)((u8 *)arg0 + 0x18) - cy;
+        dist = sqrtf(dx * dx + dz * dz + dy * dy + D_80099440);
+        dx *= 1.0f / dist;
+        dz *= 1.0f / dist;
+        dy *= 1.0f / dist;
+        if (maxDist < dist) {
+            *(f32 *)((u8 *)arg0 + 0x14) = dx * maxDist + cx;
+            *(f32 *)((u8 *)arg0 + 0x1C) = dz * maxDist + cz;
+            *(f32 *)((u8 *)arg0 + 0x18) = dy * maxDist + cy;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15056150 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15056150.s")
 extern f32 D_80099444;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
@@ -901,52 +888,44 @@ void func_1505A184(u16 arg0, register f32 arg1, f32 arg2, f32 *arg3,
 }
 extern f32 D_800D1550;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A250 CURRENT (3520) */
-void func_1505A250(f32 arg0, register f32 arg1, volatile f32 arg2, f32 *arg3, f32 *arg4) {
-    struct { f32 stepX; f32 length; f32 stepY; f32 factor; } motion;
-    f32 temp_ft4;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_ft5;
+void func_1505A250(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
+    f32 dx;
+    f32 dy;
+    f32 length;
+    f32 stepX;
+    f32 stepY;
 
-    temp_ft4 = *(volatile f32 *)arg3;
-    temp_fv1 = arg0 - temp_ft4;
-    temp_ft5 = arg1 - *(volatile f32 *)arg4;
-    if ((temp_fv1 != 0.0f) || (temp_ft5 != 0.0f)) {
-        motion.factor = arg2 * D_800D1550;
-        temp_fv0 = sqrtf((temp_fv1 * temp_fv1) + (temp_ft5 * temp_ft5));
-        arg2 = motion.factor;
-        motion.length = temp_fv0;
-        motion.stepX = fabsf((temp_fv1 / temp_fv0) * motion.factor);
-        motion.stepY = fabsf((temp_ft5 / motion.length) * motion.factor);
-        if (temp_fv1 >= 0.0f) {
-            *(volatile f32 *)arg3 = temp_ft4 + motion.stepX;
-            if (arg0 < *(volatile f32 *)arg3) {
-                goto block_6;
+    dx = arg0 - *arg3;
+    dy = arg1 - *arg4;
+    if ((dx != 0.0f) || (dy != 0.0f)) {
+        length = sqrtf((dx * dx) + (dy * dy));
+        arg2 *= D_800D1550;
+        stepX = fabsf((dx / length) * arg2);
+        stepY = fabsf((dy / length) * arg2);
+        if (dx >= 0.0f) {
+            *arg3 += stepX;
+            if (arg0 < *arg3) {
+                *arg3 = arg0;
             }
         } else {
-            *(volatile f32 *)arg3 = temp_ft4 - motion.stepX;
-            if (*(volatile f32 *)arg3 < arg0) {
-block_6:
-                *(volatile f32 *)arg3 = arg0;
+            *arg3 -= stepX;
+            if (*arg3 < arg0) {
+                *arg3 = arg0;
             }
         }
-        if (temp_ft5 >= 0.0f) {
-            *(volatile f32 *)arg4 += motion.stepY;
-            if (arg1 < *(volatile f32 *)arg4) {
-                goto block_11;
+        if (dy >= 0.0f) {
+            *arg4 += stepY;
+            if (arg1 < *arg4) {
+                *arg4 = arg1;
             }
         } else {
-            *(volatile f32 *)arg4 -= motion.stepY;
-            if (*(volatile f32 *)arg4 < arg1) {
-block_11:
-                *(volatile f32 *)arg4 = arg1;
+            *arg4 -= stepY;
+            if (*arg4 < arg1) {
+                *arg4 = arg1;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A250 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A250.s")
 extern f32 D_800994C0;
 extern f32 D_800994C4;
 extern f32 D_800994C8;
@@ -1241,15 +1220,12 @@ extern u16 D_800D1296;
 extern s8 D_800D1340;
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D024 CURRENT (5761) */
-s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    void *record;
+s32 func_1505D024(void *arg0, s32 arg1, u16 arg2, s32 arg3) {
     s32 index;
-    s32 mask;
     s32 result;
-    u16 value;
+    s32 mask;
+    void *record;
 
-    value = arg2 & 0xFFFF;
     record = &D_8009A9F8;
     if (D_800C35EA == 1) {
         return 0;
@@ -1274,25 +1250,21 @@ s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     } else {
         D_800D1340 = arg3 + 1;
     }
-    D_800D1292 = value;
-    D_800D1296 = value;
+    D_800D1292 = arg2;
+    D_800D1296 = arg2;
     if (arg1 & 0x10000) {
         record = func_1505C1A4(D_800D154C);
     }
-    index = ((s32)arg0 - (s32)&D_800CC2D0) / 812;
+    index = ((u8 *)arg0 - D_800CC2D0) / 812;
     mask = 1 << index;
+    result = mask;
     if (arg1 & 0x80000) {
-        result = func_1505C1E4(&D_800D121C, arg0, record,
-                               arg1 & 0xFF, index + 1, 0, 7);
+        result = func_1505C1E4(&D_800D121C, arg0, record, arg1 & 0xFF, index + 1, 0, 7);
     } else {
-        func_1505B9C4(&D_800D121C, arg0, record, record,
-                       arg1 & 0xFF, index + 1, 7);
-        result = mask;
+        func_1505B9C4(&D_800D121C, arg0, record, record, arg1 & 0xFF, index + 1, 7);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505D024 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D024.s")
 void func_1505F188(u32);
 void func_1505C7D8(s32 *, s32);
 extern u8 D_800C3E78;
@@ -1496,20 +1468,18 @@ void func_1505D408(void *, void *, f32, f32, f32, f32, f32, s32);
 void func_1505D5D0(void *, void *, f32, f32, f32, f32, f32, s32,
                    f32, f32, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D6F0 CURRENT (60) */
 void func_1505D6F0(u8 *arg0, s32 arg1) {
     f32 dx, dz;
     f32 radius;
     f32 scale;
     f32 x, y, z;
     f32 distance;
+    f32 otherRadius;
     f32 combinedRadius;
     f32 dy;
     Game83300ContactActor *other;
-    s32 otherState;
     s32 flags;
     s32 otherFlags;
-    s32 ownRadius;
     s32 index;
     s32 count;
     u8 *initialDetail;
@@ -1521,69 +1491,69 @@ void func_1505D6F0(u8 *arg0, s32 arg1) {
     D_800CC26C = 0;
     D_800CC26D = 0;
     count = 25;
-    if ((self->state != 1 ||
-         ((initialDetail = *(u8 **)(D_800CC5EC + arg1 * 0x32C), initialDetail[0x4E] == 0) && initialDetail[0x27] == 0)) &&
-        self->cooldown < 100) {
-        ownRadius = self->radius;
-        if (ownRadius != 0 && self->owner == 0) {
-            flags = self->flags;
-            if (!(flags & 0x01000000) && !(flags & 0x4000)) {
-                radius = (f32)ownRadius;
-                scale = self->scale;
-                x = self->x;
-                y = self->y + self->height;
-                z = self->z;
-                if (flags & 0x02000000) count = 1;
-                index = 0;
-                if (count > 0) {
-                    other = (Game83300ContactActor *)&D_800CC2D0;
-                    do {
-                        otherState = other->state;
-                        if (otherState != 0) {
-                            ownRadius = other->radius;
-                            if (ownRadius >= 2 &&
-                                ((otherFlags = other->flags, !(otherFlags & 0x02000000)) || self->mode != 0xFF) &&
-                                !(otherFlags & 0x01000000) && index != arg1 &&
-                                arg1 + 1 != other->owner && other->cooldown < 100 && other->enabled != 0) {
-                                distance = (f32)ownRadius;
-                                ownRadius = otherState;
-                                dx = x - other->x;
-                                dz = z - other->z;
-                                dy = y - (other->y + other->height);
-                                dy *= (scale + other->scale) * 0.5f;
-                                if (D_800BE616 != 0 && dx * dx + dy * dy + dz * dz < D_80099530 &&
-                                    self->state == 1 && other->state == 1 && self->team != other->team) {
-                                    detail = self->detail;
-                                    if (detail[0x78] == 0) {
-                                        if (other->detail[0x78] != 0) detail[0x4A] = 0x14;
-                                    }
-                                }
-                                combinedRadius = radius + distance;
-                                distance = dx * dx + dy * dy + dz * dz;
-                                if (distance < combinedRadius * combinedRadius) {
-                                    func_1505D408(self, other, dx, dy, dz, distance, combinedRadius, index);
-                                }
-                                if (other->kind == 0x34) {
-                                    if (other->subtype == 2) {
-                                        func_1505D5D0(self, other, x, y, z, scale, radius, index,
-                                                       120.0f, 250.0f, 120.0f, -130.0f, 0.0f);
-                                    } else {
-                                        func_1505D5D0(self, other, x, y, z, scale, radius, index,
-                                                       130.0f, 140.0f, 250.0f, -50.0f, 0.0f);
-                                    }
-                                }
-                            }
-                        }
-                        index++;
-                        other++;
-                    } while (index != count);
+    if (self->state == 1) {
+        initialDetail = *(u8 **)(D_800CC5EC + arg1 * 0x32C);
+        if (initialDetail[0x4E] != 0 || initialDetail[0x27] != 0) {
+            return;
+        }
+    }
+    if (self->cooldown >= 100 || self->radius == 0 || self->owner != 0) {
+        return;
+    }
+    flags = self->flags;
+    if ((flags & 0x01000000) || (flags & 0x4000)) {
+        return;
+    }
+    radius = (f32)self->radius;
+    scale = self->scale;
+    x = self->x;
+    y = self->y + self->height;
+    z = self->z;
+    if (flags & 0x02000000) {
+        count = 1;
+    }
+    index = 0;
+    if (count <= 0) {
+        return;
+    }
+    other = (Game83300ContactActor *)&D_800CC2D0;
+    do {
+        if (other->state != 0 && other->radius >= 2) {
+            otherFlags = other->flags;
+            if ((!(otherFlags & 0x02000000) || self->mode != 0xFF) && !(otherFlags & 0x01000000) &&
+                index != arg1 && arg1 + 1 != other->owner && other->cooldown < 100 && other->enabled != 0) {
+                otherRadius = (f32)other->radius;
+                combinedRadius = radius + otherRadius;
+                dx = x - other->x;
+                dz = z - other->z;
+                dy = y - (other->y + other->height);
+                dy *= (scale + other->scale) * 0.5f;
+                if (D_800BE616 != 0 && dx * dx + dy * dy + dz * dz < D_80099530 &&
+                    self->state == 1 && other->state == 1 && self->team != other->team) {
+                    detail = self->detail;
+                    if (detail[0x78] == 0 && other->detail[0x78] != 0) {
+                        detail[0x4A] = 0x14;
+                    }
+                }
+                distance = dx * dx + dy * dy + dz * dz;
+                if (distance < combinedRadius * combinedRadius) {
+                    func_1505D408(self, other, dx, dy, dz, distance, combinedRadius, index);
+                }
+                if (other->kind == 0x34) {
+                    if (other->subtype == 2) {
+                        func_1505D5D0(self, other, x, y, z, scale, radius, index,
+                                       120.0f, 250.0f, 120.0f, -130.0f, 0.0f);
+                    } else {
+                        func_1505D5D0(self, other, x, y, z, scale, radius, index,
+                                       130.0f, 140.0f, 250.0f, -50.0f, 0.0f);
+                    }
                 }
             }
         }
-    }
+        index++;
+        other++;
+    } while (index != count);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505D6F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D6F0.s")
 
 typedef struct {
     s32 state;

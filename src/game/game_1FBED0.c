@@ -4,16 +4,10 @@
 /*
  * Reviewed source unit: src/game/game_1FBED0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151CEA20
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CEA20 CURRENT (285) */
 s32 func_151CEA20(void *arg0) {
     typedef struct {
         u8 pad0[0x38];
@@ -26,19 +20,19 @@ s32 func_151CEA20(void *arg0) {
         f32 fade;
     } Motion;
     Motion *motion = arg0;
-    f32 previous;
 
-    previous = motion->velocity;
-    motion->velocity += motion->acceleration * D_800BE9A4;
-    motion->position += (previous + 0.5f * motion->acceleration * D_800BE9A4) * D_800BE9A4;
+    {
+        f32 previous = motion->velocity;
+
+        motion->velocity += motion->acceleration * D_800BE9A4;
+        motion->position += (previous + 0.5f * motion->acceleration * D_800BE9A4) * D_800BE9A4;
+    }
     motion->fade += motion->fadeRate * D_800BE9A4;
     if (motion->fade > 1.0f) {
         motion->fade = 1.0f;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CEA20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FBED0/func_151CEA20.s")
 typedef struct Game1FBED0Link {
     void *owner;
     u8 type;

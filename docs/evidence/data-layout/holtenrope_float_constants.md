@@ -30,3 +30,15 @@ owner. The ROM word at `0x800AA3CC` is zero. The payload ends at
 own the word mapped at `0x800AA3D0`. The words below `0x800AA3C4` are read by
 other members through externs and are not part of the mapping. No reference
 assembly, compiler flag or verifier change is involved.
+
+## func_151B3CF0 sub-pool (nov14)
+
+`func_151B3CF0` lays out the ten rope points along a sagging arc. Its raw HI16/LO16 pairs
+address 0x800AA3A0..0x800AA3AB, which the checksum-validated archive holds as `38D1B717
+40490FDB 3EB2B8C3`: exactly `0.0001f`, `3.1415927f` and `0.34906587f` (pi/9). With extern
+symbols the deferred body scored CURRENT 7999; as literals it is `CURRENT (0)`. The
+object's `.rodata` is now these three words then the existing `3DCCCCCD 435E38E4` pool;
+the words 0x800AA3AC..0x800AA3C3 stay extern reads of other deferred members, so
+`scripts/split_game_rodata.py` splits holtenrope into `.rodata.holtenrope_0` (0xC at
+0x800AA3A0) and `.rodata.holtenrope_c` (0x8 at 0x800AA3C4), each with an exact linker
+size assertion, as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).

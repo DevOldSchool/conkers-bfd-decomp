@@ -4,17 +4,21 @@
 /*
  * Reviewed source unit: src/game/game_1BBFC0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1518EF54
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1BBFC0Vertex {
     s16 x, y, z, flag;
     u8 other[8];
 } Game1BBFC0Vertex;
+
+typedef struct Game1BBFC0Motion {
+    u8 unknown0[0x30];
+    Vec3f velocity;
+    f32 gravity;
+    f32 drag;
+    u8 unknown44[8];
+    f32 blend;
+} Game1BBFC0Motion;
 
 typedef struct Game1BBFC0Beam {
     u8 unknown0[0x2C];
@@ -25,6 +29,8 @@ typedef struct Game1BBFC0Beam {
     u8 unknown4C[0x74];
     u8 vertexTemplate[0x40];
     u8 *buffers[1];
+    u8 unknown104[0xC];
+    Game1BBFC0Motion motion;
 } Game1BBFC0Beam;
 
 typedef struct Game1BBFC0Camera {
@@ -133,39 +139,30 @@ void *func_1518EB10(Game1BBFC0Beam *arg0, s16 arg1) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518EF54 CURRENT (20) */
-s32 func_1518EF54(u8 *arg0) {
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_ft4;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    u8 *temp_v1;
+s32 func_1518EF54(Game1BBFC0Beam *arg0) {
+    Game1BBFC0Motion *motion = &arg0->motion;
+    f32 dx;
+    f32 dy;
+    f32 dz;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x150);
-    temp_v1 = (void *)(arg0 + 0x110);
-    *(f32 *)((u8 *)arg0 + 0x140) = (f32) (*(f32 *)((u8 *)arg0 + 0x140) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x144) = (f32) ((*(f32 *)((u8 *)arg0 + 0x14C) * D_800BE9A4) + *(f32 *)((u8 *)arg0 + 0x144));
-    *(f32 *)((u8 *)arg0 + 0x148) = (f32) (*(f32 *)((u8 *)arg0 + 0x148) * temp_fv0);
-    temp_fv1 = D_800BE9A4;
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x140) * temp_fv1;
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x144) * temp_fv1;
-    temp_ft4 = *(f32 *)((u8 *)arg0 + 0x148) * temp_fv1;
-    *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)arg0 + 0x34) + temp_fa0);
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + temp_fa1);
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + temp_ft4);
-    *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)arg0 + 0x40) + temp_fa0);
-    *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)arg0 + 0x44) + temp_fa1);
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) (*(f32 *)((u8 *)arg0 + 0x48) + temp_ft4);
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x38);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x3C);
-    *(f32 *)(arg0 + 0x40) = (*(f32 *)(arg0 + 0x40) - *(f32 *)(arg0 + 0x34)) * *(f32 *)(arg0 + 0x15C) + *(f32 *)(arg0 + 0x34);
-    *(f32 *)(arg0 + 0x44) = temp_fv0 + *(f32 *)(temp_v1 + 0x4C) * (*(f32 *)(arg0 + 0x44) - temp_fv0);
-    *(f32 *)(arg0 + 0x48) = temp_fv1 + *(f32 *)(temp_v1 + 0x4C) * (*(f32 *)(arg0 + 0x48) - temp_fv1);
+    motion->velocity.x *= motion->drag;
+    motion->velocity.y += motion->gravity * D_800BE9A4;
+    motion->velocity.z *= motion->drag;
+    dx = motion->velocity.x * D_800BE9A4;
+    dy = motion->velocity.y * D_800BE9A4;
+    dz = motion->velocity.z * D_800BE9A4;
+    arg0->start.x += dx;
+    arg0->start.y += dy;
+    arg0->start.z += dz;
+    arg0->end.x += dx;
+    arg0->end.y += dy;
+    arg0->end.z += dz;
+    arg0->end.x = arg0->start.x + (arg0->end.x - arg0->start.x) * motion->blend;
+    arg0->end.y = arg0->start.y + (arg0->end.y - arg0->start.y) * motion->blend;
+    arg0->end.z = arg0->start.z + (arg0->end.z - arg0->start.z) * motion->blend;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518EF54 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518EF54.s")
+
 extern f32 D_800BE9A4;
 
 s32 func_1518F058(void *arg0) {

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1BF090.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_composite_emitter_timed_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1519203C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1BF090Payload {
@@ -176,7 +171,6 @@ void *func_15130374(s32, u8, s32, u8, s32);
 extern s32 (*D_8008FCD0[])(void);
 extern f32 D_800A80F4, D_800A80F8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519203C CURRENT (210) */
 void *func_1519203C(Vec3i *position, Vec3i *direction,
                     f32 speed, s32 lifetime, s32 mode, s32 group,
                     f32 scale, s32 unused, f32 height, Game1BF090Packed *body,
@@ -229,8 +223,8 @@ void *func_1519203C(Vec3i *position, Vec3i *direction,
     spawn.channel3 = -1;
     spawn.channel4 = -1;
     spawn.channel5 = 3;
-    fragment.random[0] = func_150ADA20();
-    fragment.random[1] = func_150ADA20();
+    fragment.random[0] = func_150ADA20() & 0xFF;
+    fragment.random[1] = func_150ADA20() & 0xFF;
     spawn.kind = D_8008FCD0[((u8 *)&kind)[3]]();
     spawn.scaleY = scale;
     spawn.scaleX = scale;
@@ -248,8 +242,6 @@ void *func_1519203C(Vec3i *position, Vec3i *direction,
     }
     return effect;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519203C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_1519203C.s")
 typedef struct {
     u8 pad_0[0x38];
     s32 field_38;

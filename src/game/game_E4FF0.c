@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B7B40
- * - func_150B82D0
- * - func_150B85C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -18,26 +16,15 @@ f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 struct Game1B7870Vector;
 void *func_1518A3C0(struct Game1B7870Vector *, struct Game1B7870Vector *, f32, struct Game1B7870Vector *, struct Game1B7870Vector *, f32, f32, u8, s16, u8, s32, u8, s32);
-extern f32 D_8009FD68;
-extern f32 D_8009FD6C;
-extern f32 D_8009FD70;
-extern f32 D_8009FD74;
-extern f32 D_8009FD78;
-extern f32 D_8009FD7C;
-extern f32 D_8009FD80;
-extern f32 D_8009FD84;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B82D0 CURRENT (5069) */
 void func_150B82D0(f32 *arg0, s32 arg1, f32 *arg2, f32 *arg3) {
+    s16 yaw;
+    s16 pitch;
     f32 position[3];
     f32 rotation[3];
     f32 velocity[3];
     f32 acceleration[3];
-    s16 yaw;
-    s16 pitch;
     s32 count;
-    f32 randomSize;
-    f32 randomScale;
 
     count = (func_150ADA20() % 26U) + 0x23;
     if (count > 0) {
@@ -53,25 +40,21 @@ void func_150B82D0(f32 *arg0, s32 arg1, f32 *arg2, f32 *arg3) {
             rotation[1] = func_150ADA68() * 360.0f;
             rotation[2] = func_150ADA68() * 360.0f;
             func_15143794(yaw, pitch,
-                           (func_150ADA68() * D_8009FD74 + D_8009FD78) * 0.00999999978f,
+                           (func_150ADA68() * 1221.0f + 1806.0f) * 0.00999999978f,
                            velocity);
             acceleration[0] = (func_150ADA68() * 3140.0f + -1570.0f) * 0.00999999978f;
             acceleration[1] = 0.0f;
             acceleration[2] = (func_150ADA68() * 3140.0f + -1570.0f) * 0.00999999978f;
-            randomSize = (func_150ADA68() * 104.0f + 78.0f) * D_8009FD7C;
-            randomScale = func_150ADA68() * D_8009FD80;
             func_1518A3C0(position, rotation,
-                           randomSize,
+                           (func_150ADA68() * 104.0f + 78.0f) * 0.001f,
                            velocity, acceleration,
-                           (randomScale + -1064.0f) * D_8009FD7C,
-                           D_8009FD84, 1, (func_150ADA20() % 51U) + 0x4B,
+                           (func_150ADA68() * 633.0f + -1064.0f) * 0.001f,
+                           0.94253397f, 1, (func_150ADA20() % 51U) + 0x4B,
                            0, 0, 0xFF, 1);
             count--;
         } while (count != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B82D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B82D0.s")
 
 typedef struct GameE4FF0Descriptor {
     s32 flags;
@@ -108,7 +91,6 @@ typedef struct GameE4FF0Descriptor {
 void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_8009FD88;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B85C0 CURRENT (285) */
 void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     GameE4FF0Descriptor descriptor;
     s32 second;
@@ -143,12 +125,8 @@ void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     descriptor.acceleration.z = 0.0f;
     descriptor.field54 = 0.0f;
     first = (func_150ADA20() & 1) ? 0x40 : 0;
-    if (func_150ADA20() & 1) {
-        second = 0x80;
-    } else {
-        second = 0;
-    }
-    descriptor.field58 = second | 0xE01 | first | 0xC000;
+    second = (func_150ADA20() & 1) ? 0x80 : 0;
+    descriptor.field58 = second | 0xE01 | first | 0x8000 | 0x4000;
     descriptor.field62 = -1;
     descriptor.field63 = -1;
     descriptor.field1E = 0x19;
@@ -159,8 +137,6 @@ void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     descriptor.field24 = D_8009FD88;
     func_15130374((s32)&descriptor, 1, 0, (u8)arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B85C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B85C0.s")
 f32 func_150ADA68(void);
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_8009FD8C;

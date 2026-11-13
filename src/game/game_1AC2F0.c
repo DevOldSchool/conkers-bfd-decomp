@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1517F488
  * - func_1517F564
  * - func_1517FB9C
  * - func_15180580
@@ -147,38 +146,32 @@ void func_1517F448(s32 arg0) {
         D_800DDDB0[arg0] += D_800BE9E4;
     }
 }
-extern s8 D_800DDD90;
-extern s8 D_800DDD9C;
-extern u16 D_800DDE10;
+extern Game1AC2F0Color D_800DDD90[];
+extern s8 D_800DDD9C[];
+extern u16 D_800DDE10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F488 CURRENT (215) */
 void func_1517F488(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
-    s8 *temp_v0;
-    s32 temp_t9;
+    Game1AC2F0Color *color = &D_800DDD90[arg5];
 
-    temp_v0 = &(&D_800DDD90)[arg5 * 3];
-    temp_t9 = arg5;
-    temp_v0[0] = arg0;
-    temp_v0[1] = arg1;
-    temp_v0[2] = arg2;
-    (&D_800DDD9C)[temp_t9] = arg3;
-    (&D_800DDE10)[temp_t9] = arg4;
+    color->red = arg0;
+    color->green = arg1;
+    color->blue = arg2;
+    D_800DDD9C[arg5] = arg3;
+    D_800DDE10[arg5] = arg4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F488 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F488.s")
 s32 func_1517F4D8(s32 arg0, s32 arg1) {
     s32 temp_a1;
     u8 *temp_v0;
-    u8 *entry = (u8 *)&D_800DDD9C + arg1;
+    u8 *entry = (u8 *)D_800DDD9C + arg1;
 
-    if (*(u16 *)((u8 *)&D_800DDE10 + (arg1 * 2)) == 0) {
+    if (*(u16 *)((u8 *)D_800DDE10 + (arg1 * 2)) == 0) {
         return arg0;
     }
     temp_a1 = *entry;
     if (temp_a1 == 0) {
         return arg0;
     }
-    temp_v0 = (u8 *)&D_800DDD90 + (arg1 * 3);
+    temp_v0 = (u8 *)D_800DDD90 + (arg1 * 3);
     return func_1517F08C(arg0, (s32)temp_a1, temp_v0[0], temp_v0[1], temp_v0[2], arg1);
 }
 extern s8 D_800DDD88;
@@ -236,16 +229,15 @@ void func_1517F720(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 extern s32 D_80082FA0;
 extern s32 D_800BE9E4;
-extern u16 D_800DDE10;
 
 void func_1517F75C(void) {
     s32 i;
 
     for (i = 0; i <= D_80082FA0; i++) {
-        if (D_800BE9E4 < (&D_800DDE10)[i]) {
-            (&D_800DDE10)[i] -= D_800BE9E4;
+        if (D_800BE9E4 < D_800DDE10[i]) {
+            D_800DDE10[i] -= D_800BE9E4;
         } else {
-            (&D_800DDE10)[i] = 0;
+            D_800DDE10[i] = 0;
         }
     }
 }

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1B8B60.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1518B6B0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -74,23 +69,20 @@ void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_1518CA80();
 f32 func_150ADA68(void);
-extern f32 D_800A7400, D_800A7404, D_800A7408, D_800A740C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518B6B0 CURRENT (5061) */
 void func_1518B6B0(f32 arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
     ParticleSpawn particle;
+    s32 count;
     RingSpawn ring;
-    f32 temp_fa0;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_fs3;
-    f32 temp_fs4;
-    f32 temp_fs5;
-    f32 temp_fv1;
-    u8 temp_s0;
-    u8 temp_s1;
-    s32 var_s2;
+    f32 scale;
+    f32 speed;
+    f32 sinYaw;
+    f32 cosYaw;
+    f32 sinPitch;
+    f32 cosPitch;
+    f32 spread;
+    u8 yaw;
+    u8 pitch;
 
     particle.field56 = 4;
     particle.field1C = 1.0f;
@@ -113,40 +105,39 @@ void func_1518B6B0(f32 arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
     particle.field70 = 0;
     particle.field72 = 0x4000;
     particle.field74 = 0;
-    particle.field4 = D_800A7400;
+    particle.field4 = 0.4f;
     particle.field48 = 0.0f;
-    particle.field4C = D_800A7404;
-    var_s2 = (func_150ADA20() & 7) + 3;
-    if (var_s2 > 0) {
+    particle.field4C = -1.3f;
+    count = (func_150ADA20() & 7) + 3;
+    if (count > 0) {
         do {
-            temp_fs2 = (func_150ADA68() * D_800A7408) + D_800A740C;
-            temp_s0 = func_150ADA20() & 0xFF;
-            temp_s1 = (-0x10 - (func_150ADA20() & 0x1F)) & 0xFF;
-            temp_fs3 = (func_150ADA68() * 10.0f) + 5.0f;
-            temp_fs0 = func_151423D8((temp_s0 - 0x40) & 0xFF);
-            temp_fs1 = func_151423D8(temp_s0 & 0xFF);
-            temp_fs4 = func_151423D8((temp_s1 - 0x40) & 0xFF);
-            temp_fs5 = func_151423D8(temp_s1 & 0xFF);
-            temp_fv1 = func_150ADA68() * 20.0f;
+            scale = (func_150ADA68() * 0.7f) + 0.3f;
+            yaw = func_150ADA20() & 0xFF;
+            pitch = -0x10 - (func_150ADA20() & 0x1F);
+            speed = (func_150ADA68() * 10.0f) + 5.0f;
+            sinYaw = func_151423D8(yaw - 0x40);
+            cosYaw = func_151423D8(yaw);
+            sinPitch = func_151423D8(pitch - 0x40);
+            cosPitch = func_151423D8(pitch);
+            spread = func_150ADA68() * 20.0f;
+            particle.field28 = (spread * sinYaw) + arg0;
             particle.field2C = arg1;
-            temp_fa0 = temp_fs3 * temp_fs5;
-            particle.field28 = (temp_fv1 * temp_fs0) + arg0;
-            particle.field30 = (temp_fv1 * temp_fs1) + arg2;
-            particle.field34 = temp_fa0 * temp_fs0;
-            particle.field38 = -temp_fs3 * temp_fs4;
-            particle.field3C = temp_fa0 * temp_fs1;
+            particle.field30 = (spread * cosYaw) + arg2;
+            particle.field34 = speed * cosPitch * sinYaw;
+            particle.field38 = -speed * sinPitch;
+            particle.field3C = speed * cosPitch * cosYaw;
             particle.field54 = (func_150ADA20() & 0x1F) + 0x14;
-            particle.field0 = temp_fs2;
-            particle.field8 = temp_fs2;
-            particle.fieldC = temp_fs2;
+            particle.field0 = scale;
+            particle.field8 = scale;
+            particle.fieldC = scale;
             particle.field10 = func_150ADA68() * 360.0f;
             particle.field14 = func_150ADA68() * 360.0f;
             particle.field18 = func_150ADA68() * 360.0f;
             particle.field40 = 25.0f - (func_150ADA68() * 50.0f);
             particle.field44 = 25.0f - (func_150ADA68() * 50.0f);
             func_15132A4C(&particle, 3, 0xFF, 0, arg3, arg4);
-            var_s2 -= 1;
-        } while (var_s2 != 0);
+            count -= 1;
+        } while (count != 0);
     }
     ring.field16 = 0x1F4;
     ring.field18 = 0x1F4;
@@ -168,5 +159,3 @@ void func_1518B6B0(f32 arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
     ring.callback_flags = 0;
     func_1518CA80(&ring, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518B6B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B8B60/func_1518B6B0.s")

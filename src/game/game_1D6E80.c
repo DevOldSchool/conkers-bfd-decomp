@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151AABC4
- * - func_151AADF8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -744,74 +743,75 @@ typedef struct Game1D6E80GlowState {
 
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
-extern f32 D_800A8FE0;
-extern f32 D_800A8FE4;
-extern f32 D_800A8FE8;
 extern u8 D_800AB414[][3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AADF8 CURRENT (5277) */
 void func_151AADF8(void *arg0) {
     u8 *object;
-    void *particle;
-    u8 *rgb;
-    Vec3f position;
-    Game1D6E80GlowDescriptor descriptor;
-    Game1D6E80GlowState state;
-    f32 scale;
-    u8 color;
+    u8 *sub;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
-    if (*(void **)((u8 *)arg0 + 0x70) != NULL) {
-        ((Game1D6E80GlowState *)(*(u8 **)((u8 *)arg0 + 0x70) + 0xB0))->request = 1;
-        return;
-    }
-    position.x = *(f32 *)(object + 0x14);
-    if (D_800A8FE0 < *(f32 *)(object + 0x118)) {
-        position.y = *(f32 *)(object + 0x118) + 100.0f;
+    sub = (u8 *)arg0 + 0x58;
+    if (*(void **)(sub + 0x18) != NULL) {
+        Game1D6E80GlowState *glow = (Game1D6E80GlowState *)(*(u8 **)(sub + 0x18) + 0xB0);
+
+        glow->request = 1;
     } else {
-        position.y = *(f32 *)(object + 0x18) + 150.0f;
-    }
-    position.z = *(f32 *)(object + 0x1C);
-    if (func_15045800(&position, 0, position.y - 300.0f, (u8 *)arg0 + 0x34) != 0) {
-        color = func_151D8E20();
-        position.y = *(f32 *)((u8 *)arg0 + 0x34);
-        scale = func_150ADA68() * 30.0f + 50.0f;
-        state.owner = arg0;
-        state.request = 1;
-        state.base = D_800A8FE4;
-        state.range = 32768.0f;
-        state.current = 0.0f;
-        state.timer = 0;
-        state.basePeriod = 10;
-        state.periodRange = 10;
-        state.interpolation = D_800A8FE8;
-        descriptor.field0 = 0x60300;
-        descriptor.field4 = 0x12C;
-        descriptor.field6 = 0x38;
-        descriptor.field8 = 0;
-        descriptor.fieldC = (s32)(state.base + state.range * 0.5f);
-        descriptor.field10 = 0x96;
-        descriptor.field11 = 0xFF;
-        descriptor.field18 = 0x440001;
-        rgb = D_800AB414[color];
-        descriptor.field12 = rgb[0];
-        descriptor.field13 = rgb[1];
-        descriptor.field14 = rgb[2];
-        descriptor.field15 = 0xFF;
-        descriptor.field16 = 0;
-        descriptor.field17 = 6;
-        particle = func_1513C73C((s32)&descriptor, 7, 1, (s32)((u8 *)arg0 + 0x38),
-                                 position.x, position.y, position.z, scale, scale,
-                                 func_150ADA20(), (func_150ADA20() & 1) + ((func_150ADA20() & 1) * 2),
-                                 0x20, 0xFF, 1);
-        *(void **)((u8 *)arg0 + 0x70) = particle;
-        if (particle != NULL) {
-            func_10022EC0((u8 *)particle + 0xB0, &state, 0x20);
+        Vec3f position;
+        Game1D6E80GlowDescriptor descriptor;
+        Game1D6E80GlowState state;
+        f32 scale;
+        u8 color;
+        u32 thirdRandom;
+        u32 secondRandom;
+        u32 firstRandom;
+
+        position.x = *(f32 *)(object + 0x14);
+        if (-9500.0f < *(f32 *)(object + 0x118)) {
+            position.y = *(f32 *)(object + 0x118) + 100.0f;
+        } else {
+            position.y = *(f32 *)(object + 0x18) + 150.0f;
+        }
+        position.z = *(f32 *)(object + 0x1C);
+        if (func_15045800(&position, 0, position.y - 300.0f, (u8 *)arg0 + 0x34) != 0) {
+            color = func_151D8E20();
+            position.y = *(f32 *)((u8 *)arg0 + 0x34);
+            scale = func_150ADA68() * 30.0f + 50.0f;
+            state.owner = arg0;
+            state.request = 1;
+            state.base = 26214.4f;
+            state.range = 32768.0f;
+            state.current = 0.0f;
+            state.timer = 0;
+            state.basePeriod = 10;
+            state.periodRange = 10;
+            state.interpolation = 0.231f;
+            descriptor.fieldC = (s32)(state.base + state.range * 0.5f);
+            descriptor.field6 = 0x38;
+            descriptor.field0 = 0x60300;
+            descriptor.field4 = 0x12C;
+            descriptor.field8 = 0;
+            descriptor.field10 = 0x96;
+            descriptor.field11 = 0xFF;
+            descriptor.field12 = D_800AB414[color][0];
+            descriptor.field13 = D_800AB414[color][1];
+            descriptor.field14 = D_800AB414[color][2];
+            descriptor.field15 = 0xFF;
+            descriptor.field18 = 0x440001;
+            descriptor.field16 = 0;
+            descriptor.field17 = 6;
+            firstRandom = func_150ADA20();
+            secondRandom = func_150ADA20();
+            thirdRandom = func_150ADA20();
+            *(void **)(sub + 0x18) = func_1513C73C((s32)&descriptor, 7, 1, (s32)((u8 *)arg0 + 0x38),
+                                     position.x, position.y, position.z, scale, scale,
+                                     (u8)(firstRandom & 0xFF), (u8)(((thirdRandom & 1) * 2) + (secondRandom & 1)),
+                                     0x20, 0xFF, 1);
+            if (*(void **)(sub + 0x18) != NULL) {
+                func_10022EC0(*(u8 **)(sub + 0x18) + 0xB0, &state, 0x20);
+            }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AADF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AADF8.s")
 f32 func_150ADA68();                                /* extern */
 
 typedef struct {

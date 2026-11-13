@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_code_selected_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151155C0
  * - func_1511575C
  * - func_15115F68
  * - func_15116058
@@ -13,96 +12,73 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151155C0 CURRENT (12790) */
 void func_151155C0(void *arg0) {
-    s16 temp_t2;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s32 temp_a1;
-    s32 temp_lo;
-    s32 temp_t9;
-    s32 temp_v1;
-    s32 var_a3;
-    s32 var_t0;
-    s32 var_t4;
-    s32 var_v1;
-    u8 divisor;
-    s16 target;
+    s32 divisor;
+    s32 count;
+    s32 target;
+    s32 enabled;
+    s32 crossed;
+    s32 start;
+    s32 step;
+    s16 next;
 
-    temp_v1 = *(s32 *)((u8 *)arg0 + 0x3C);
-    temp_t2 = *(s16 *)((u8 *)arg0 + 0x12);
-    divisor = temp_v1 >> 0x10;
-    temp_a1 = temp_v1 >> 0x18;
-    target = temp_v1;
-    divisor = (u8)divisor;
-    temp_a1 = (u8)temp_a1 + 1;
-    target = (s16)target;
-    var_a3 = 0;
-    var_t0 = 0;
+    divisor = (u8)(*(s32 *)((u8 *)arg0 + 0x3C) >> 16);
+    count = (u8)(*(s32 *)((u8 *)arg0 + 0x3C) >> 24) + 1;
+    target = (s16)*(s32 *)((u8 *)arg0 + 0x3C);
+    enabled = 0;
+    crossed = 0;
+    start = *(s16 *)((u8 *)arg0 + 0x12);
     if ((*(u8 *)((u8 *)arg0 + 0x4F) & 4) == 4) {
-        var_a3 = 1;
+        enabled = 1;
     }
-    var_v1 = *(s32 *)((u8 *)arg0 + 0x7C);
-    if (var_v1 == 0) {
-        *(s32 *)((u8 *)arg0 + 0x7C) = (s32) temp_t2;
-        var_v1 = (s32) temp_t2;
+    if (*(s32 *)((u8 *)arg0 + 0x7C) == 0) {
+        *(s32 *)((u8 *)arg0 + 0x7C) = *(s16 *)((u8 *)arg0 + 0x12);
     }
-    temp_lo = (s32) (target - var_v1) / divisor;
-    var_t4 = *(s32 *)((u8 *)arg0 + 0x80);
-    if (var_t4 == 0) {
-        temp_v0 = temp_t2 - temp_lo;
-        if (var_v1 == temp_t2) {
-            if (var_a3 != 0) {
-                *(s32 *)((u8 *)arg0 + 0x80) = temp_a1;
-                var_t4 = temp_a1;
+    step = (target - *(s32 *)((u8 *)arg0 + 0x7C)) / divisor;
+    if (*(s32 *)((u8 *)arg0 + 0x80) == 0) {
+        if (*(s32 *)((u8 *)arg0 + 0x7C) == *(s16 *)((u8 *)arg0 + 0x12)) {
+            if (enabled) {
+                *(s32 *)((u8 *)arg0 + 0x80) = count;
             }
         } else {
-            if (var_v1 < target) {
-                if (var_v1 < temp_v0) {
-                    goto block_12;
+            next = *(s16 *)((u8 *)arg0 + 0x12) - step;
+            if (*(s32 *)((u8 *)arg0 + 0x7C) < target) {
+                if (*(s32 *)((u8 *)arg0 + 0x7C) < next) {
+                    crossed = 1;
                 }
-            } else if (temp_v0 < var_v1) {
-block_12:
-                var_t0 = 1;
+            } else if (next < *(s32 *)((u8 *)arg0 + 0x7C)) {
+                crossed = 1;
             }
-            var_t4 = -temp_a1;
-            if (var_t0 != 0) {
-                *(s16 *)((u8 *)arg0 + 0x12) = temp_v0;
-                var_t4 = *(s32 *)((u8 *)arg0 + 0x80);
+            if (crossed) {
+                *(s16 *)((u8 *)arg0 + 0x12) = next;
             } else {
-                *(s16 *)((u8 *)arg0 + 0x12) = (s16) var_v1;
-                *(s32 *)((u8 *)arg0 + 0x80) = var_t4;
+                *(s16 *)((u8 *)arg0 + 0x12) = *(s32 *)((u8 *)arg0 + 0x7C);
+                *(s32 *)((u8 *)arg0 + 0x80) = -count;
             }
         }
     }
-    if (var_t4 > 0) {
-        temp_t9 = var_t4 - 1;
-        temp_v0_2 = *(s16 *)((u8 *)arg0 + 0x12) + temp_lo;
+    if (*(s32 *)((u8 *)arg0 + 0x80) > 0) {
+        next = *(s16 *)((u8 *)arg0 + 0x12) + step;
         if (*(s32 *)((u8 *)arg0 + 0x7C) < target) {
-            if (temp_v0_2 < target) {
-                goto block_21;
+            if (next < target) {
+                crossed = 1;
             }
-        } else if (target < temp_v0_2) {
-block_21:
-            var_t0 = 1;
+        } else if (target < next) {
+            crossed = 1;
         }
-        var_t4 = temp_t9;
-        if (var_t0 != 0) {
-            *(s16 *)((u8 *)arg0 + 0x12) = temp_v0_2;
-            *(s32 *)((u8 *)arg0 + 0x80) = temp_a1;
-            var_t4 = temp_a1;
+        if (crossed) {
+            *(s16 *)((u8 *)arg0 + 0x12) = next;
+            *(s32 *)((u8 *)arg0 + 0x80) = count;
         } else {
             *(s16 *)((u8 *)arg0 + 0x12) = target;
-            *(s32 *)((u8 *)arg0 + 0x80) = temp_t9;
+            *(s32 *)((u8 *)arg0 + 0x80) = *(s32 *)((u8 *)arg0 + 0x80) - 1;
         }
     }
-    if (var_t4 < 0) {
-        *(s32 *)((u8 *)arg0 + 0x80) = (s32) (var_t4 + 1);
+    if (*(s32 *)((u8 *)arg0 + 0x80) < 0) {
+        *(s32 *)((u8 *)arg0 + 0x80) = *(s32 *)((u8 *)arg0 + 0x80) + 1;
     }
-    *(s16 *)((u8 *)arg0 + 0x5C) = (s16) (*(s16 *)((u8 *)arg0 + 0x12) - temp_t2);
+    *(s16 *)((u8 *)arg0 + 0x5C) = *(s16 *)((u8 *)arg0 + 0x12) - start;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151155C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_142A70/func_151155C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142A70/func_1511575C.s")
 f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */

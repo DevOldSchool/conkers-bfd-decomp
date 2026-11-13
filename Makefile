@@ -188,7 +188,7 @@ GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0G.a
 GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
 GAME_LIB_SYMBOLS := config/game/us-sdk.ld
 GAME_RODATA_SCRIPT := config/game/us-rodata.ld
-GAME_SPLIT_RODATA_OBJS := game_B4080.o game_11D830.o game_1E73B0.o game_209B50.o game_16EE20.o game_1C1150.o game_83300.o game_64120.o game_49D30.o game_1F2730.o game_90840.o game_173D40.o game_131F30.o game_177B50.o game_58F80.o game_111670.o game_114B80.o game_200930.o game_DC6B0.o game_1A20A0.o game_1FA770.o game_981E0.o blood.o
+GAME_SPLIT_RODATA_OBJS := game_B4080.o game_11D830.o game_1E73B0.o game_209B50.o game_16EE20.o game_1C1150.o game_83300.o game_64120.o game_49D30.o game_1F2730.o game_90840.o game_173D40.o game_131F30.o game_177B50.o game_58F80.o game_111670.o game_114B80.o game_200930.o game_DC6B0.o game_1A20A0.o game_1FA770.o game_6B320.o game_179F30.o holtenrope.o game_2062D0.o game_1D6E80.o game_F3BA0.o game_F3270.o game_981E0.o blood.o
 GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/G/libultra_rom/src/,\
 	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
 	gu/mtxutil.o \

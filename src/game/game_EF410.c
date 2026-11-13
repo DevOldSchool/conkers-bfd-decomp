@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C1F60
- * - func_150C29F0
  * - func_150C2C00
  * - func_150C3230
  *
@@ -492,24 +491,22 @@ extern f32 D_800A02B4;
 extern f32 D_800A02B8;
 extern f32 D_800A02BC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C29F0 CURRENT (3947) */
 void func_150C29F0(GameEF410Emitter *arg0) {
+    f32 *position;
     GameEF410Particle packet;
     f32 firstScale;
+    f32 secondScale;
     u8 angle;
     f32 waveX;
     f32 waveZ;
     f32 radius;
-    f32 *position;
-    f32 secondScale;
 
-    angle = func_150ADA20();
+    angle = func_150ADA20() & 0xFF;
     waveX = func_151423D8(angle - 0x40);
     waveZ = func_151423D8(angle);
-    radius = func_150ADA68() * arg0->field28[2];
     position = arg0->field28;
-    packet.field22 = 0x1A4D;
-    packet.field20 = 0x6231;
+    radius = position[2] * func_150ADA68();
+    packet.field20 = 0x6231; packet.field22 = 0x1A4D;
     packet.color26[0] = 0;
     packet.color26[1] = 0;
     packet.color26[2] = 0;
@@ -522,13 +519,13 @@ void func_150C29F0(GameEF410Emitter *arg0) {
     packet.field2F = 1;
     packet.field24 = (func_150ADA20() % 201U) + 100;
     packet.field34 = 0xF;
-    packet.field40 = D_800A02A0;
     packet.field38 = 0.0f;
+    packet.field40 = D_800A02A0;
     packet.field44 = D_800A02A4;
     packet.position[0] = position[0] + radius * waveX;
     packet.position[1] = position[3];
-    packet.field3C = D_800A02A8;
     packet.position[2] = position[1] + radius * waveZ;
+    packet.field3C = D_800A02A8;
     firstScale = func_150ADA68() * 0.5f + 1.0f;
     secondScale = func_150ADA68() * 0.5f + 1.0f;
     packet.field0C = D_800A02AC * firstScale;
@@ -539,8 +536,6 @@ void func_150C29F0(GameEF410Emitter *arg0) {
     func_15149550(packet.position, 0xA, 1, 0, arg0->fieldC, arg0->field1);
     arg0->timerE = (func_150ADA20() % 51U) + 25;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C29F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C29F0.s")
 extern f32 D_800BE9A4;
 f32 func_150484A0(f32, f32);
 s32 func_15144B34(s32);

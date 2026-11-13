@@ -24,3 +24,17 @@ are `0x15195070` and `0x151951D0`.
 `0x800A84C0` and `0x800A86A8` with base symbols and extent assertions;
 `config/data/us.json` records the owners. No reference assembly, compiler flag
 or verifier change is involved.
+
+## func_15194810 and func_15194BF0 tables (nov14)
+
+Matching `func_15194810` (five-case type switch) and `func_15194BF0` (a 0x58..0xB4 case
+switch plus a 0..0x16 switch) makes the compiler emit their tables into the object's
+`.rodata` in source order, between the `func_15194794` table and the `func_15194FF4` tables.
+The object rodata is now 0x490 bytes; `scripts/split_game_rodata.py` adds
+`.rodata.1c1150_5c` (0x14 at 0x800A82D0, sites 0xBAC/0xBB4), `.rodata.1c1150_70` (0x174 at
+0x800A82F0, sites 0xF84/0xF8C) and `.rodata.1c1150_1e4` (0x5C at 0x800A8464, sites
+0xFC0/0xFC8), and the two `func_15194FF4` tables move to object offsets 0x240 and 0x428
+(`.rodata.1c1150_240`, `.rodata.1c1150_428`) with unchanged runtime addresses and sites. The
+words 0x800A82E4..0x800A82EF between the first two new tables stay extern float reads of
+`func_15194810`. Every table word is a relocated `.text` pointer that the linked-payload
+verification compares against the checksum-validated US ROM.

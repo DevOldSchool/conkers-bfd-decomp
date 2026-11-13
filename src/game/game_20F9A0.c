@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_extended_code_selected_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151E24F0
  * - func_151E2834
  * - func_151E3344
  * - func_151E43DC
@@ -22,7 +21,7 @@
  */
 
 extern void *D_8008FDD4;
-extern s8 D_8008FE44;
+extern s8 D_8008FE44[];
 extern u8 D_8008FE48[];
 extern s8 D_800AB694[];
 extern u8 D_800BE740;
@@ -31,18 +30,15 @@ extern s8 D_800E0BEE;
 extern s8 D_800E0C00[];
 extern s8 D_80087270;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E24F0 CURRENT (7205) */
 s32 func_151E24F0(s32 *arg0) {
-    s8 count;
-    s32 index;
-    s32 limit;
-    s32 oldIndex;
+    s32 count;
+    s32 i;
+    s32 old;
+    s32 slot;
     s8 used[4];
     s8 allowed[4];
     u8 mask;
-    s32 available;
-    s8 *cursor;
-    s32 slot;
+    s16 available;
 
     if (arg0 == NULL) {
         D_800E0BCE[0] = 0;
@@ -52,68 +48,48 @@ s32 func_151E24F0(s32 *arg0) {
         mask = 0;
         count = 0;
         if (D_800E0BEE != 0) {
-            cursor = used;
-            do {
-                *cursor++ = 0;
-            } while ((u32)cursor < (u32)(used + 4));
-            cursor = &D_8008FE44;
-            do {
-                index = *cursor++;
-                if (index >= 0) {
+            for (i = 0; i < 4; i++) {
+                used[i] = 0;
+            }
+            for (i = 0; i < 4; i++) {
+                if (D_8008FE44[i] >= 0) {
                     count++;
-                    used[index] = 1;
-                    mask |= 1 << index;
+                    used[D_8008FE44[i]] = 1;
+                    mask |= 1 << D_8008FE44[i];
                 }
-            } while ((u32)cursor < (u32)D_8008FE48);
+            }
             available = D_800BE740;
             mask = available & ~mask;
             if (count < 3 && mask != 0) {
-                index = 0;
-                cursor = allowed;
-                do {
-                    *cursor = 1;
-                    if (count == 1 && !(available & (1 << index))) {
-                        *cursor = 0;
+                for (i = 0; i < 4; i++) {
+                    allowed[i] = 1;
+                    if (count == 1 && !(available & (1 << i))) {
+                        allowed[i] = 0;
                     }
-                    index++;
-                    cursor++;
-                } while (index < 4);
+                }
                 slot = 0;
                 if (arg0 == NULL) {
-                    limit = count * 2;
-                    for (index = 16; index >= count * 2; index--) {
-                        (&D_8008FE44)[index] = (&D_8008FE44)[index - count];
-                        D_800E0C00[index] = D_800E0C00[index - count];
+                    for (slot = 16; slot >= count * 2; slot--) {
+                        D_8008FE44[slot] = D_8008FE44[slot - count];
+                        D_800E0C00[slot] = D_800E0C00[slot - count];
                     }
                     slot = count;
-                    index = 0;
-                    if (slot < limit) {
-                        cursor = used;
-                        do {
-                            if (*cursor == 0 && allowed[index] != 0) {
-                                oldIndex = slot - count;
-                                (&D_8008FE44)[slot] = index;
-                                D_800E0C00[slot] = D_800E0C00[oldIndex];
-                                D_800E0BCE[oldIndex] = slot;
-                                (&D_80087270)[slot] = 10;
-                                slot++;
-                            }
-                            index++;
-                            cursor++;
-                        } while (index < 4 && slot < limit);
+                    for (i = 0; i < 4 && slot < count * 2; i++) {
+                        if (used[i] == 0 && allowed[i] != 0) {
+                            old = slot - count;
+                            D_8008FE44[slot] = i;
+                            D_800E0C00[slot] = D_800E0C00[old];
+                            D_800E0BCE[old] = slot;
+                            (&D_80087270)[slot] = 10;
+                            slot++;
+                        }
                     }
                 } else {
-                    index = 0;
-                    if (count > 0) {
-                        cursor = used;
-                        do {
-                            if (*cursor == 0 && allowed[index] != 0) {
-                                arg0[slot] = index;
-                                slot++;
-                            }
-                            index++;
-                            cursor++;
-                        } while (index < 4 && slot < count);
+                    for (i = 0; i < 4 && slot < count; i++) {
+                        if (used[i] == 0 && allowed[i] != 0) {
+                            arg0[slot] = i;
+                            slot++;
+                        }
                     }
                 }
                 return count;
@@ -122,8 +98,7 @@ s32 func_151E24F0(s32 *arg0) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E24F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E24F0.s")
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E2834.s")
 void func_15017790(void);

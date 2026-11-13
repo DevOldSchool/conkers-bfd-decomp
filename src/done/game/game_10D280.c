@@ -88,7 +88,7 @@ typedef struct Game10D280Light {
 } Game10D280Light;
 
 f32 func_150ADA68(void);
-void func_15107700(void *, s16, s16, s16, s32, f32, f32, s32, s32, u8 *, s32, s32);
+void func_15107700(void *, s16, s16, s16, s32, f32, f32, s16, s16, u8 *, u8, s32);
 void func_15107B78(void *, s16, s16, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800BE9E4;

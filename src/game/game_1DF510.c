@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1DF510.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151B2690
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1DF510EffectSlots {
@@ -297,74 +292,63 @@ void func_151B2348(void *arg0) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2690 CURRENT (4223) */
-void func_151B2690(Game1DF510EffectOwner *arg0) {
-    struct {
-        Game1DF510Line line;
-        Game1DF510Pair pair;
-        Game1DF510Request request;
-    } packets;
+void func_151B2690(void *arg0) {
     Game1DF510Actor *actor;
-    register u8 *cursor;
-    u8 *effect;
-    s32 lineEffect;
+    Game1DF510EffectSlots *slots;
+    Game1DF510Request request;
+    Game1DF510Pair pair;
+    Game1DF510Line line;
 
-    cursor = (u8 *) arg0;
-    actor = *(Game1DF510Actor **) (cursor + 0x28);
-    packets.pair.owner = (Game1DF510EffectOwner *) cursor;
-    packets.pair.active = 1;
-    packets.pair.first.actor = actor;
-    packets.pair.first.generation = actor->generation;
-    packets.pair.first.mode = 5;
-    packets.pair.first.offset = D_800AA320;
-    packets.pair.second.actor = actor;
-    packets.pair.second.generation = actor->generation;
-    packets.pair.second.mode = 2;
-    packets.pair.second.offset = D_800AA368;
-    packets.request.state = 0;
-    packets.request.flags = 0;
-    packets.request.timer = 100;
-    packets.request.start.x = actor->position.x;
-    packets.request.radius = 5.0f;
-    packets.request.start.y = actor->position.y;
-    packets.request.angle = 180.0f;
-    packets.request.start.z = actor->position.z;
-    packets.request.field2C = D_800AA388;
-    packets.request.end.x = actor->position.x;
-    packets.request.field30 = D_800AA38C;
-    packets.request.end.y = actor->position.y;
-    packets.request.end.z = actor->position.z;
-    packets.request.firstIndex = 1;
-    packets.request.secondIndex = 1;
-    packets.request.drawIndex = 1;
-    packets.request.callback = 3;
-    effect = func_151B30B0(&packets.request, 0.0015f, 0x30, 0xFF, 0);
-    cursor += 0x28;
-    ((Game1DF510EffectSlots *) cursor)->effects[1] = effect;
-    if (effect != 0) {
-        func_10022EC0((s32) (effect + 0x150), &packets.pair, 0x30);
+    actor = *(Game1DF510Actor **)((u8 *)arg0 + 0x28);
+    pair.owner = arg0;
+    pair.active = 1;
+    pair.first.actor = actor;
+    pair.first.generation = actor->generation;
+    pair.first.mode = 5;
+    pair.first.offset = D_800AA320;
+    pair.second.actor = actor;
+    pair.second.generation = actor->generation;
+    pair.second.mode = 2;
+    pair.second.offset = D_800AA368;
+    request.state = 0;
+    request.flags = 0;
+    request.timer = 100;
+    request.start.x = actor->position.x;
+    request.start.y = actor->position.y;
+    request.start.z = actor->position.z;
+    request.end.x = actor->position.x;
+    request.end.y = actor->position.y;
+    request.end.z = actor->position.z;
+    request.firstIndex = 1;
+    request.secondIndex = 1;
+    request.drawIndex = 1;
+    request.callback = 3;
+    request.radius = 5.0f;
+    request.angle = 180.0f;
+    request.field2C = D_800AA388;
+    request.field30 = D_800AA38C;
+    slots = &((Game1DF510EffectOwner *)arg0)->slots;
+    slots->effects[1] = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    if (slots->effects[1] != NULL) {
+        func_10022EC0((u8 *)slots->effects[1] + 0x150, &pair, 0x30U);
     }
-    packets.pair.active = 0;
-    packets.pair.first.offset = D_800AA32C;
-    packets.pair.second.offset = D_800AA374;
-    packets.request.drawIndex = 1;
-    effect = func_151B30B0(&packets.request, 0.0015f, 0x30, 0xFF, 0);
-    ((Game1DF510EffectSlots *) cursor)->effects[0] = effect;
-    if (effect != 0) {
-        func_10022EC0((s32) (effect + 0x150), &packets.pair, 0x30);
+    pair.active = 0;
+    pair.first.offset = D_800AA32C;
+    pair.second.offset = D_800AA374;
+    request.drawIndex = 1;
+    slots->effects[0] = func_151B30B0(&request, 0.0015f, 0x30, 0xFF, 0);
+    if (slots->effects[0] != NULL) {
+        func_10022EC0((u8 *)slots->effects[0] + 0x150, &pair, 0x30U);
     }
-    packets.line.anchor.actor = actor;
-    packets.line.anchor.generation = actor->generation;
-    packets.line.anchor.mode = 2;
-    packets.line.anchor.offset = D_800AA368;
-    packets.line.end = D_800AA374;
-    packets.line.radius = 5.0f;
-    packets.line.owner = arg0;
-    lineEffect = func_15149130(0x12C, -1, -1, 0, 0, 0x13, 0x28, 0xFF, 1);
-    ((Game1DF510EffectSlots *) cursor)->field_1C = (void *) lineEffect;
-    if (lineEffect != 0) {
-        func_10022EC0(lineEffect + 0x28, &packets.line, 0x28);
+    line.anchor.actor = actor;
+    line.anchor.generation = actor->generation;
+    line.anchor.mode = 2;
+    line.anchor.offset = D_800AA368;
+    line.end = D_800AA374;
+    line.radius = 5.0f;
+    line.owner = arg0;
+    slots->field_1C = func_15149130(0x12C, -1, -1, 0, 0, 0x13, 0x28, 0xFF, 1);
+    if (slots->field_1C != NULL) {
+        func_10022EC0((u8 *)slots->field_1C + 0x28, &line, 0x28U);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B2690 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2690.s")

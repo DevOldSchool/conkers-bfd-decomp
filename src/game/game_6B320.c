@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_lifecycle_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1503E5F8
  * - func_1503EA54
  * - func_1503EB78
  *
@@ -246,17 +245,13 @@ f32 func_150AD780(f32);
 void func_150AD8B0(f32 *, f32 *, f32 *);
 f32 func_150AD900(f32 *, f32 *);
 f32 func_150AD930(f32 *);
-extern f32 D_80098918;
-extern f32 D_8009891C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503E5F8 CURRENT (3575) */
 void func_1503E5F8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
                    s32 arg4, s32 arg5, s32 arg6, s32 arg7,
                    s32 arg8, s32 arg9) {
-    f32 matrix[16];
+    f32 matrix[4][4];
+    s32 i;
     f32 cross[3];
-    f32 *row;
-    f32 *negative_row;
     f32 epsilon;
     f32 length;
     f32 angle_x;
@@ -264,55 +259,49 @@ void func_1503E5F8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
     f32 angle_z;
     f32 scale;
 
-    func_10023A10(arg0, &matrix, 0x40);
-    *(f32 *)arg1 = matrix[12];
-    *(f32 *)arg2 = matrix[13];
-    *(f32 *)arg3 = matrix[14];
-    epsilon = D_80098918;
-    row = (matrix + 0);
-    do {
-        length = func_150AD930(row);
+    func_10023A10(arg0, matrix, 0x40);
+    *(f32 *)arg1 = matrix[3][0];
+    *(f32 *)arg2 = matrix[3][1];
+    *(f32 *)arg3 = matrix[3][2];
+    epsilon = 0.0001f;
+    for (i = 0; i < 3; i++) {
+        length = func_150AD930(matrix[i]);
         if (length == 0.0f) {
             length = epsilon;
         }
-        if (row == (matrix + 0)) {
+        if (i == 0) {
             *(f32 *)arg7 = length;
-        } else if (row == (matrix + 4)) {
+        } else if (i == 1) {
             *(f32 *)arg8 = length;
         } else {
             *(f32 *)arg9 = length;
         }
-        func_15049148(row, 1.0f / length, row);
-        row += 4;
-    } while ((u32)row < (u32)(matrix + 12));
-    func_150AD8B0((matrix + 4), (matrix + 8), cross);
-    if (func_150AD900((matrix + 0), cross) < 0.0f) {
-        negative_row = (matrix + 0);
+        func_15049148(matrix[i], 1.0f / length, matrix[i]);
+    }
+    func_150AD8B0(matrix[1], matrix[2], cross);
+    if (func_150AD900(matrix[0], cross) < 0.0f) {
         *(f32 *)arg7 = -*(f32 *)arg7;
         *(f32 *)arg8 = -*(f32 *)arg8;
         *(f32 *)arg9 = -*(f32 *)arg9;
-        do {
-            negative_row[0] = -negative_row[0];
-            negative_row[1] = -negative_row[1];
-            negative_row[2] = -negative_row[2];
-            negative_row += 4;
-        } while (negative_row != (matrix + 12));
+        for (i = 0; i < 3; i++) {
+            matrix[i][0] = -matrix[i][0];
+            matrix[i][1] = -matrix[i][1];
+            matrix[i][2] = -matrix[i][2];
+        }
     }
-    angle_y = func_150487E0(-matrix[2]);
+    angle_y = func_150487E0(-matrix[0][2]);
     if (func_150AD780(angle_y) != 0.0f) {
-        angle_x = func_150484A0(matrix[6], matrix[10]);
-        angle_z = func_150484A0(matrix[1], matrix[0]);
+        angle_x = func_150484A0(matrix[1][2], matrix[2][2]);
+        angle_z = func_150484A0(matrix[0][1], matrix[0][0]);
     } else {
-        angle_x = func_150484A0(matrix[4], matrix[5]);
+        angle_x = func_150484A0(matrix[1][0], matrix[1][1]);
         angle_z = 0.0f;
     }
-    scale = D_8009891C;
+    scale = 57.295776f;
     *(f32 *)arg4 = angle_x * scale;
     *(f32 *)arg5 = angle_y * scale;
     *(f32 *)arg6 = angle_z * scale;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503E5F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E5F8.s")
 /* Call context: func_15043EC8: matched US definition in src/done/game/game_71240.c */
 /* Call context: func_150A7A48: unique active project prototype */
 void func_15043EC8(void *, f32, f32, f32, f32, f32, f32);

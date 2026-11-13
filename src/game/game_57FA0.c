@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1502AC88
  * - func_1502B350
- * - func_1502B4A8
  * - func_1502B9B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -250,61 +249,23 @@ typedef struct {
     u32 flags;
 } Game57FA0Reloc;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B4A8 CURRENT (3440) */
 s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
-    u32 temp_flags;
-    s32 var_v0;
-    Game57FA0Reloc *entry;
-    Game57FA0Reloc *end;
+    s32 i;
 
     if (arg1 == 0) {
-        entry = &arg0[arg1];
-        entry++;
-        arg1++;
-        if (!(entry[-1].flags & 0x80000000)) {
-            do {
-                temp_flags = entry->flags;
-                arg1++;
-                entry++;
-            } while (!(temp_flags & 0x80000000));
+        while (!(arg0[arg1++].flags & 0x80000000)) {
         }
     }
-    var_v0 = 0;
-    if (arg1 > 0) {
-        if (arg1 & 1) {
-            arg0[0].flags &= 0x0FFFFFFF;
-            if ((arg0[0].offset == -1) || (arg0[0].flags == 0)) {
-                arg0[0].offset = 0;
-            } else {
-                arg0[0].offset = (s32)((u32)arg0[0].offset + (u32)arg0);
-            }
-            var_v0 = 1;
-            if (arg1 == 1) {
-                return arg1;
-            }
+    for (i = 0; i < arg1; i++) {
+        arg0[i].flags &= 0x0FFFFFFF;
+        if ((arg0[i].offset == -1) || (arg0[i].flags == 0)) {
+            arg0[i].offset = 0;
+        } else {
+            arg0[i].offset += (u32)arg0;
         }
-        entry = &arg0[var_v0];
-        end = &arg0[arg1];
-        do {
-            entry[0].flags &= 0x0FFFFFFF;
-            if ((entry[0].offset == -1) || (entry[0].flags == 0)) {
-                entry[0].offset = 0;
-            } else {
-                entry[0].offset = (s32)((u32)entry[0].offset + (u32)arg0);
-            }
-            entry[1].flags &= 0x0FFFFFFF;
-            if ((entry[1].offset == -1) || (entry[1].flags == 0)) {
-                entry[1].offset = 0;
-            } else {
-                entry[1].offset = (s32)((u32)entry[1].offset + (u32)arg0);
-            }
-            entry += 2;
-        } while (entry != end);
     }
     return arg1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502B4A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B4A8.s")
 s32 func_1502B350(u8 *, s32, s32 *);
 
 s32 func_1502B5C8(s32 *arg0, s32 arg1, ...) {

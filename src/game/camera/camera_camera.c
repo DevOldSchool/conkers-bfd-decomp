@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15122C5C
- * - func_1512317C
  * - func_15123568
  * - func_15123A54
  * - func_15124C38
@@ -237,24 +236,20 @@ void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 void func_1511FC60(void *);
 s32 func_15125490(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512317C CURRENT (3910) */
 void func_1512317C(u8 *arg0) {
     u8 *target;
     u8 *other;
     u16 *status;
-    s32 flags;
     s32 first_flag;
     s32 second_flag;
     s32 special;
     s32 blocked;
-    s16 state;
 
     target = *(u8 **)(arg0 + 0x3D0);
-    flags = *(s32 *)(arg0 + 0x5F0);
-    first_flag = flags & 0x100;
-    second_flag = flags & 0x200;
-    special = target[0x104] != 0 && (flags = arg0[0x23E], flags != 9) && flags != 0x38 && flags != 0x39 &&
-        flags != 0x3B && flags != 0x37 && flags != 0x15 && flags != 0x26 && flags != 0x3A;
+    first_flag = *(s32 *)(arg0 + 0x5F0) & 0x100;
+    second_flag = *(s32 *)(arg0 + 0x5F0) & 0x200;
+    special = target[0x104] != 0 && arg0[0x23E] != 9 && arg0[0x23E] != 0x38 && arg0[0x23E] != 0x39 &&
+        arg0[0x23E] != 0x3B && arg0[0x23E] != 0x37 && arg0[0x23E] != 0x15 && arg0[0x23E] != 0x26 && arg0[0x23E] != 0x3A;
     blocked = (*(s32 *)(arg0 + 0x2C) & 0x80) != 0 ||
         (*(s32 *)(arg0 + 0x84) & 0x1000000) != 0 ||
         (*(f32 *)(target + 0x28) != 0.0f && target[0xAD] == 0 &&
@@ -262,10 +257,9 @@ void func_1512317C(u8 *arg0) {
          first_flag == 0 && second_flag == 0 && arg0[0x23E] != 3) ||
         (target[0x65] != 0 && first_flag == 0 && second_flag == 0) ||
         special != 0 || func_15125490(arg0) != 0 ||
-        (target = *(u8 **)(arg0 + 0x3D0), target[0x1CA] == 0) ||
-        (other = *(u8 **)(arg0 + 0x3D4),
-         ((other[0x4E] & 0xF) == 1 && *(f32 *)(target + 0x3C) > 15.0f) ||
-         other[0x1AC] != 0);
+        (target = *(u8 **)(arg0 + 0x3D0))[0x1CA] == 0 ||
+        (((other = *(u8 **)(arg0 + 0x3D4))[0x4E] & 0xF) == 1 && *(f32 *)(target + 0x3C) > 15.0f) ||
+        other[0x1AC] != 0;
     if ((**(u16 **)(arg0 + 0x36C) & 0x10) && blocked == 0) {
         if ((*(u16 *)(arg0 + 0x36A) & 0x10) &&
             func_15123934(arg0, 0x100, 4, *(s32 *)(arg0 + 0x134), 1) != 0) {
@@ -279,8 +273,8 @@ void func_1512317C(u8 *arg0) {
             status = *(u16 **)(arg0 + 0x36C);
             *(s16 *)(arg0 + 0x5F8) = 1;
             *(s16 *)(arg0 + 0x5FC) = 2;
-            *(u16 *)(arg0 + 0x36A) &= 0xFFEF;
-            *status &= 0xFFEF;
+            *(u16 *)(arg0 + 0x36A) &= ~0x10;
+            *status &= ~0x10;
         }
         if (*(s32 *)(arg0 + 0x2C) == 0x100 || *(s16 *)(arg0 + 0x73C) != 0) {
             status = *(u16 **)(arg0 + 0x36C);
@@ -288,8 +282,7 @@ void func_1512317C(u8 *arg0) {
             *status &= ~0x10;
         }
         (*(u8 **)(arg0 + 0x3D4))[0x198] = *(s16 *)(arg0 + 0x73C);
-        state = *(s16 *)(arg0 + 0x73C);
-        if (state != 0 || state == 3) {
+        if (*(s16 *)(arg0 + 0x73C) != 0 || *(s16 *)(arg0 + 0x73C) == 3) {
             func_150495B0((f32 *)(arg0 + 0x74C), 0.0f, (f32 *)(arg0 + 0x79C),
                 4.0f, 9.0f, *(f32 *)(arg0 + 0x7B4));
             func_150495B0((f32 *)(arg0 + 0x754), 0.0f, (f32 *)(arg0 + 0x7A0),
@@ -300,8 +293,6 @@ void func_1512317C(u8 *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512317C */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_1512317C.s")
 void func_15123508(void *arg0) {
     if (*(s32 *)((u8 *)arg0 + 0x84) & 2) {
         if ((*(u16 *)((u8 *)arg0 + 0x36A) & 2) && (*(s32 *)((u8 *)arg0 + 0x698) == 0)) {

@@ -5,8 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151169B4
- * - func_15116BAC
  * - func_15116EA4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -48,22 +46,16 @@ void func_15116BAC(u8 *);
 extern s16 D_80089264[][6];
 extern s16 D_80089268[][6];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151169B4 CURRENT (5325) */
 void func_151169B4(void *arg0) {
-    s32 packed;
-    s32 index;
-    s32 rate;
     s32 step;
-    s32 offset;
+    s32 index;
+    s32 i;
     s16 *current;
     s16 *previous;
     s32 *target;
-    s32 desired;
-    s32 value;
     s16 sound;
 
-    packed = *(s32 *)((u8 *)arg0 + 0x3C);
-    index = packed >> 10;
+    index = *(s32 *)((u8 *)arg0 + 0x3C) >> 10;
     if (*(s32 *)((u8 *)arg0 + 0x7C) != *(s16 *)((u8 *)arg0 + 0x10) ||
         *(s32 *)((u8 *)arg0 + 0x80) != *(s16 *)((u8 *)arg0 + 0x12) ||
         *(s32 *)((u8 *)arg0 + 0x84) != *(s16 *)((u8 *)arg0 + 0x14)) {
@@ -71,49 +63,37 @@ void func_151169B4(void *arg0) {
             func_15116BAC(arg0);
             return;
         }
-        rate = packed & 0xFFFF03FF;
+        step = *(s32 *)((u8 *)arg0 + 0x3C) & 0xFFFF03FF;
         if (index != 0 && *(u16 *)((u8 *)arg0 + 0x74) == 0) {
             sound = D_80089260[index].sound;
             if (sound != 0) {
                 func_15114D24((s32)arg0, sound, 0x5DC0, 0x7D0, 0xFA0, 0);
             }
         }
-        offset = 0;
         current = (s16 *)((u8 *)arg0 + 0x10);
         target = (s32 *)((u8 *)arg0 + 0x7C);
         previous = (s16 *)((u8 *)arg0 + 0x5A);
-        step = (rate * D_800BE9E4) >> 1;
-        do {
-            offset += 4;
-            *previous = *current;
-            desired = *target;
-            value = *current;
-            if (value != desired) {
-                if (desired < value) {
-                    *current = value - step;
-                    desired = *target;
-                    if (*current < desired) {
-                        *current = desired;
+        step = (step * D_800BE9E4) >> 1;
+        for (i = 0; i < 3; i++) {
+            previous[i] = current[i];
+            if (current[i] != target[i]) {
+                if (target[i] < current[i]) {
+                    current[i] -= step;
+                    if (current[i] < target[i]) {
+                        current[i] = target[i];
                     }
                 } else {
-                    *current = value + step;
-                    desired = *target;
-                    if (desired < *current) {
-                        *current = desired;
+                    current[i] += step;
+                    if (target[i] < current[i]) {
+                        current[i] = target[i];
                     }
                 }
             }
-            *previous = *current - *previous;
-            current++;
-            target++;
-            previous++;
-        } while (offset != 0xC);
+            previous[i] = current[i] - previous[i];
+        }
         return;
     }
-    *(s16 *)((u8 *)arg0 + 0x5E) = 0;
-    value = *(s16 *)((u8 *)arg0 + 0x5E);
-    *(s16 *)((u8 *)arg0 + 0x5C) = value;
-    *(s16 *)((u8 *)arg0 + 0x5A) = value;
+    *(s16 *)((u8 *)arg0 + 0x5A) = *(s16 *)((u8 *)arg0 + 0x5C) = *(s16 *)((u8 *)arg0 + 0x5E) = 0;
     if (*(u16 *)((u8 *)arg0 + 0x74) != 0) {
         if (index != 0) {
             sound = D_80089264[index][0];
@@ -124,87 +104,60 @@ void func_151169B4(void *arg0) {
         *(u16 *)((u8 *)arg0 + 0x74) = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151169B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_151169B4.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116BAC CURRENT (5909) */
 void func_15116BAC(u8 *arg0) {
-    s32 packed;
-    s32 soundIndex;
     s32 rate;
-    s32 maximum;
-    s32 played;
     s32 step;
-    s32 offset;
+    s32 soundIndex;
     s16 *current;
-    s16 *previous;
     s32 *target;
-    s32 desired;
+    s16 *delta;
+    s32 i;
+    s32 played;
     s32 distance;
-    s16 value;
-    s16 soundId;
-    Game143DE0Sound *sound;
+    s32 maximum;
 
-    packed = *(s32 *)(arg0 + 0x3C);
-    soundIndex = packed >> 10;
+    soundIndex = *(s32 *)(arg0 + 0x3C) >> 10;
     played = 0;
     maximum = 0;
-    rate = packed & 0xFFFF03FF;
-    if (soundIndex != 0 && *(u16 *)(arg0 + 0x74) == 0) {
-        soundId = D_80089260[soundIndex].sound;
-        if (soundId != 0) {
-            func_15114D24((s32)arg0, soundId, 0x5DC0, 0x7D0, 0xFA0, 0);
-            played = 1;
-        }
+    rate = *(s32 *)(arg0 + 0x3C) & 0xFFFF03FF;
+    if (soundIndex != 0 && *(u16 *)(arg0 + 0x74) == 0 && D_80089260[soundIndex].sound != 0) {
+        func_15114D24((s32)arg0, D_80089260[soundIndex].sound, 0x5DC0, 0x7D0, 0xFA0, 0);
+        played = 1;
     }
-    offset = 0;
     current = (s16 *)(arg0 + 0x10);
     target = (s32 *)(arg0 + 0x7C);
-    previous = (s16 *)(arg0 + 0x5A);
+    delta = (s16 *)(arg0 + 0x5A);
     step = (rate * D_800BE9E4) >> 1;
-    do {
-        offset += 4;
-        *previous = *current;
-        desired = *target;
-        value = *current;
-        if (value != desired) {
-            if (desired < value) {
-                *current = value - step;
-                desired = *target;
-                distance = *current - desired;
+    for (i = 0; i < 3; i++) {
+        delta[i] = current[i];
+        if (current[i] != target[i]) {
+            if (target[i] < current[i]) {
+                current[i] -= step;
+                distance = current[i] - target[i];
                 if (distance < 0) {
-                    *current = desired;
+                    current[i] = target[i];
                 }
             } else {
-                *current = value + step;
-                desired = *target;
-                distance = desired - *current;
+                current[i] += step;
+                distance = target[i] - current[i];
                 if (distance < 0) {
-                    *current = desired;
+                    current[i] = target[i];
                 }
             }
             if (maximum < distance) {
                 maximum = distance;
             }
         }
-        *previous = *current - *previous;
-        current++;
-        target++;
-        previous++;
-    } while (offset != 0xC);
-    if (soundIndex != 0) {
-        sound = &D_80089260[soundIndex];
-        soundId = sound->endSound;
-        if (soundId != 0) {
-            maximum -= (sound->threshold * rate) >> 1;
-            if (maximum <= 0 && (-step < maximum || played != 0)) {
-                func_15114D24((s32)arg0, soundId, 0x5DC0, 0x7D0, 0xFA0, 0);
-            }
+        delta[i] = current[i] - delta[i];
+    }
+    if (soundIndex != 0 && D_80089260[soundIndex].endSound != 0) {
+        maximum -= (D_80089260[soundIndex].threshold * rate) >> 1;
+        if (maximum <= 0 && (-step < maximum || played != 0)) {
+            func_15114D24((s32)arg0, D_80089260[soundIndex].endSound, 0x5DC0, 0x7D0, 0xFA0, 0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15116BAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116BAC.s")
 extern s32 D_800BE9E4;
 
 void func_15116D7C(f32 *arg0) {

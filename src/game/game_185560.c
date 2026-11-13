@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_attachment_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151582C8
  * - func_15158684
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -143,7 +142,6 @@ void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, 
 void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
 s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151582C8 CURRENT (285) */
 Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor *arg1, s32 arg2) {
     s32 callback;
     Game185560RenderColor first;
@@ -169,8 +167,8 @@ Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor 
     arg0 = func_15142C10(arg0, second.red, second.green, second.blue, second.alpha, &sync);
     arg0 = func_15142CF0(arg0, 0, 0, first.red, first.green, first.blue, first.alpha, &sync);
     arg0 = func_1513F4E4(arg0, arg1->combine, &sync);
-    arg0 = func_15142FBC(arg0, arg1->state | 0x80000 | 0x2C00 | arg1->flags2C | arg1->flags30,
-                        D_800A4AC8[arg1->presetIndex].second | D_800A4AC8[arg1->presetIndex].first, &sync);
+    arg0 = func_15142FBC(arg0, arg1->state | 0x80000 | 0x2000 | 0xC00 | arg1->flags2C | arg1->flags30,
+                        D_800A4AC8[arg1->presetIndex].first | D_800A4AC8[arg1->presetIndex].second, &sync);
     flags = arg1->flags;
     if (flags & 2) {
         if (flags & 4) {
@@ -185,8 +183,6 @@ Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor 
     { Game185560Command *command = arg0++; command->opcode = 0xDE000000; command->data = D_8008AFB8[arg1->listIndex]; }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151582C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_151582C8.s")
 
 typedef struct Game185560TransformArgs {
     u8 pad0[0x48];

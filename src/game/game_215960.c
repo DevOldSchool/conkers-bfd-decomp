@@ -15,7 +15,6 @@
  * - func_151EB96C
  * - func_151EC3E8
  * - func_151EC648
- * - func_151ED430
  * - func_151ED90C
  * - func_151EDF4C
  * - func_151EE184
@@ -856,7 +855,6 @@ typedef struct Game215960Sprite {
 extern u8 D_8009DEBC[];
 void *func_151ED29C(Gfx *, u8 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED430 CURRENT (5390) */
 Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, s32 arg7) {
     s32 column;
     s32 row;
@@ -885,8 +883,9 @@ Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, 
     height = (u32)((Game215960Sprite *)arg1)->height * arg6 * D_8008FE20;
     dtdy = 1024.0f / (arg6 * D_8008FE20);
     dsdx = 1024.0f / (scale * D_8008FE1C);
-    arg2 = (s32)(arg2 * D_8008FE1C) - ((width * arg4) >> 1);
+    arg2 = arg2 * D_8008FE1C;
     arg3 = arg3 * D_8008FE20;
+    arg2 -= (width * arg4) >> 1;
     top = arg3 - ((height * arg5) >> 1);
     for (column = 0; column < arg4; column++) {
         arg3 = top;
@@ -901,7 +900,6 @@ Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, 
                 { Game215960Command *command = arg0++; command->w0 = (_SHIFTL(0xE4, 24, 8) | _SHIFTL(MAX((s16)(((arg2 + width) << 2)), 0), 12, 12) | _SHIFTL(MAX((s16)(((arg3 + height) << 2)), 0), 0, 12)); command->w1 = (_SHIFTL((0), 24, 3) | _SHIFTL(MAX((s16)((arg2 << 2)), 0), 12, 12) | _SHIFTL(MAX((s16)((arg3 << 2)), 0), 0, 12)); { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xE1, 24, 8); command->w1 = (u32)((_SHIFTL(((0) - (((s16)((arg2 << 2)) < 0) ? (((s16)(dsdx) < 0) ? (MAX((((s16)((arg2 << 2)) * (s16)(dsdx)) >> 7), 0)) : (MIN((((s16)((arg2 << 2)) * (s16)(dsdx)) >> 7), 0))) : 0)), 16, 16) | _SHIFTL(((0) - ((((arg3 << 2)) < 0) ? (((s16)(dtdy) < 0) ? (MAX((((s16)((arg3 << 2)) * (s16)(dtdy)) >> 7), 0)) : (MIN((((s16)((arg3 << 2)) * (s16)(dtdy)) >> 7), 0))) : 0)), 0, 16))); } { Game215960Command *command = arg0++; command->w0 = _SHIFTL(0xF1, 24, 8); command->w1 = (u32)((_SHIFTL((dsdx), 16, 16) | _SHIFTL((dtdy), 0, 16))); } }
             }
             arg3 += height;
-            continued = 0;
             if (remaining > 0x1000) {
                 continued = 1;
                 if (address != 0) {
@@ -909,6 +907,7 @@ Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, 
                 }
                 remaining -= (blockSize << ((Game215960Sprite *)arg1)->size) >> 1;
             } else {
+                continued = 0;
                 resource++;
             }
         }
@@ -917,8 +916,6 @@ Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, 
     gDPPipeSync(arg0++);
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ED430 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED430.s")
 typedef struct {
     u8 pad0[0x3E0];
     f32 *matrix0;

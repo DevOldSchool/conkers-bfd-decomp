@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150DECC0
- * - func_150DF4B8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -73,82 +72,54 @@ typedef struct Game10C170Particle {
 
 f32 func_150ADA68(void);
 void *func_15149550(f32 *, u8, u8, u8, u8, s32);
-extern f32 D_800A0F28;
-extern f32 D_800A0F2C;
-extern f32 D_800A0F30;
-extern f32 D_800A0F34;
-extern f32 D_800A0F38;
-extern f32 D_800A0F3C;
-extern f32 D_800A0F40;
-extern f32 D_800A0F44;
-extern f32 D_800A0F48;
-extern f32 D_800A0F4C;
-extern f32 D_800A0F50;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF4B8 CURRENT (7325) */
-void func_150DF4B8(Vec3f *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void func_150DF4B8(Vec3f *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     Game10C170Particle particle;
     f32 firstScale;
     f32 secondScale;
-    f32 firstBase;
-    f32 secondBase;
-    u8 channel;
     s32 count;
 
-    channel = arg3 & 0xFF;
     particle.position = *arg0;
     firstScale = func_150ADA68() * 0.5f + 1.0f;
-    secondScale = func_150ADA68();
-    firstBase = D_800A0F28;
-    secondBase = D_800A0F2C;
-    particle.field0C = firstBase * firstScale;
-    particle.field14 = secondBase * firstScale;
-    secondScale = secondScale * 0.5f + 1.0f;
-    particle.field20 = 0x6231;
-    particle.field22 = 0x1A4D;
-    particle.field10 = D_800A0F30 * secondScale;
-    particle.field18 = D_800A0F34 * secondScale;
-    particle.field1C = D_800A0F38 * secondScale;
-    arg1 = 151;
-    particle.field24 = func_150ADA20() % (u32)arg1 + 0x96;
+    secondScale = func_150ADA68() * 0.5f + 1.0f;
+    particle.field0C = 22.6f * firstScale;
+    particle.field14 = 13.786f * firstScale;
+    particle.field10 = 57.969f * secondScale;
+    particle.field18 = 42.714f * secondScale;
+    particle.field1C = 118.763f * secondScale;
+    particle.field20 = 0x6231; particle.field22 = 0x1A4D;
+    particle.field24 = func_150ADA20() % 151 + 150;
     particle.field26 = 0;
     particle.field27 = 0;
     particle.field28 = 0;
     particle.field29 = 0xFF;
     particle.field2A = 1;
-    arg2 = 156;
-    particle.field2C = func_150ADA20() % (u32)arg2 + 0x64;
+    particle.field2C = func_150ADA20() % 156 + 100;
     particle.field2D = 0xFF;
     particle.field2E = 0;
     particle.field2F = 1;
     particle.field30 = 0;
     particle.field34 = 0xF;
-    particle.field3C = D_800A0F3C;
-    particle.field40 = D_800A0F40;
     particle.field38 = 0.0f;
-    particle.field44 = D_800A0F44;
-    func_15149550(&particle.position.x, 0xA, 0, 0, channel, arg4);
-    count = func_150ADA20() % 3U + 1;
-    if (count > 0) {
-        do {
-            func_15143874((s16)(func_150ADA20() & 0xFF), 30.0f, &particle.position.x, &particle.position.z);
-            particle.position.x += arg0->x;
-            particle.position.z += arg0->z;
-            firstScale = func_150ADA68() * 0.5f + 0.75f;
-            secondScale = func_150ADA68();
-            particle.field0C = firstBase * firstScale;
-            particle.field14 = secondBase * firstScale;
-            secondScale = secondScale * 0.5f + 0.75f;
-            particle.field10 = D_800A0F48 * secondScale;
-            particle.field18 = D_800A0F4C * secondScale;
-            particle.field1C = D_800A0F50 * secondScale;
-            particle.field24 = func_150ADA20() % (u32)arg1 + 0x96;
-            particle.field2C = func_150ADA20() % (u32)arg2 + 0x64;
-            particle.field2F = 0;
-            func_15149550(&particle.position.x, 0xA, 0, 0, channel, arg4);
-            count--;
-        } while (count != 0);
+    particle.field3C = 10000.0f;
+    particle.field40 = 0.045f;
+    particle.field44 = 0.7f;
+    func_15149550(&particle.position.x, 10, 0, 0, arg3, arg4);
+    count = func_150ADA20() % 3 + 1;
+    for (; count > 0; count--) {
+        func_15143874(func_150ADA20() & 0xFF, 30.0f, &particle.position.x, &particle.position.z);
+        particle.position.x += arg0->x;
+        particle.position.z += arg0->z;
+        firstScale = func_150ADA68() * 0.5f + 0.75f;
+        secondScale = func_150ADA68() * 0.5f + 0.75f;
+        particle.field0C = 22.6f * firstScale;
+        particle.field14 = 13.786f * firstScale;
+        particle.field10 = 57.969f * secondScale;
+        particle.field18 = 42.714f * secondScale;
+        particle.field1C = 118.763f * secondScale;
+        particle.field24 = func_150ADA20() % 151 + 150;
+        particle.field2C = func_150ADA20() % 156 + 100;
+        particle.field2F = 0;
+        func_15149550(&particle.position.x, 10, 0, 0, arg3, arg4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DF4B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10C170/func_150DF4B8.s")

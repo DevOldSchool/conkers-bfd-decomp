@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151BFE84
  * - func_151C0698
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -88,9 +87,8 @@ void func_151C0644(s32, u8, s32);
 void func_151C0360(s32, s32, u8, s32);
 void func_1514FBFC(void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFE84 CURRENT (6715) */
 void func_151BFE84(void *arg0, void *arg1, void *arg2,
-                   s32 arg3, s32 arg4, s32 arg5) {
+                   s32 arg3, u8 arg4, s32 arg5) {
     typedef struct { f32 x, y, z; } Vec3;
     typedef struct { s16 values[9]; } Triangle;
     typedef struct {
@@ -113,45 +111,47 @@ void func_151BFE84(void *arg0, void *arg1, void *arg2,
         f32 scale;
         Config config;
     } Lower;
-    Vec3 first;
-    Vec3 second;
-    Vec3 third;
-    Upper upper;
-    Lower lower;
 
-    func_151C0418(arg1, (u8)arg4, arg5);
-    func_151C04F8((s32)arg1, (u8)arg4, arg5);
-    func_151C05A4((s32)arg1, (u8)arg4, arg5);
-    func_151C05F0((s32)arg1, (u8)arg4, arg5);
-    if (arg0 != 0 && (u8)arg3 != 0 &&
-        func_15144E80(arg0, &first, &second, &third) != 0 &&
-        third.y < 0.0f) {
-        func_151C0644((s32)arg1, (u8)arg4, arg5);
+    func_151C0418(arg1, arg4, arg5);
+    func_151C04F8((s32)arg1, arg4, arg5);
+    func_151C05A4((s32)arg1, arg4, arg5);
+    func_151C05F0((s32)arg1, arg4, arg5);
+    if (arg0 != 0 && (u8)arg3 != 0) {
+        Vec3 first;
+        Vec3 second;
+        Vec3 third;
+
+        if (func_15144E80(arg0, &first, &second, &third) != 0 && third.y < 0.0f) {
+            func_151C0644((s32)arg1, arg4, arg5);
+        }
     }
     if (arg0 != 0 && (u8)arg3 != 0) {
-        func_151C0360((s32)arg0, (s32)arg1, (u8)arg4, arg5);
+        func_151C0360((s32)arg0, (s32)arg1, arg4, arg5);
     }
-    if ((u8)arg3 != 0) {
+    if (((u8 *)&arg3)[3] != 0) {
         if (arg0 != 0) {
+            Upper upper;
+
             upper.velocity.x = -((f32 *)arg2)[0];
             upper.velocity.y = -((f32 *)arg2)[1];
             upper.velocity.z = -((f32 *)arg2)[2];
             upper.triangle = *(Triangle *)arg0;
             upper.config.position = *(Vec3 *)arg1;
             func_151BFC40(&upper.config, &upper.scale);
-            func_1514FBFC(&upper, (u8)arg4, arg5);
-            return;
+            func_1514FBFC(&upper, arg4, arg5);
+        } else {
+            Lower lower;
+
+            lower.velocity.x = -((f32 *)arg2)[0];
+            lower.velocity.y = -((f32 *)arg2)[1];
+            lower.velocity.z = -((f32 *)arg2)[2];
+            func_151BFC40(&lower.config, &lower.scale);
+            lower.config.position = *(Vec3 *)arg1;
+            func_1514FB98(&lower, arg4, arg5);
         }
-        lower.velocity.x = -((f32 *)arg2)[0];
-        lower.velocity.y = -((f32 *)arg2)[1];
-        lower.velocity.z = -((f32 *)arg2)[2];
-        func_151BFC40(&lower.config, &lower.scale);
-        lower.config.position = *(Vec3 *)arg1;
-        func_1514FB98(&lower, (u8)arg4, arg5);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BFE84 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFE84.s")
+
 
 typedef struct {
     s16 angleBase, angleRange, pitchBase, pitchRange;
@@ -390,7 +390,7 @@ void func_15055A2C(s32, f32, f32, f32, s32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
 void func_151C1654(void *, s32, s32, u8, s32);
 void func_151BFDA0(void *, f32 *, s32, u8, s32);
-void func_151BFE84(void *, void *, void *, s32, s32, s32);
+void func_151BFE84(void *, void *, void *, s32, u8, s32);
 void func_151ABE40(void *, void *, s32, u8, s32);
 extern f32 D_800BE9A4;
 extern s32 (*D_800E0930)(void *, f32 *, f32 *);

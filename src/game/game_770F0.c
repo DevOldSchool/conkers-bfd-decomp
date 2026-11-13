@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_770F0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1504A140
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15049C40(void *arg0, void *arg1) {
@@ -111,62 +106,45 @@ void func_15049EDC(f32 *q0, f32 *q1, f32 t, f32 *out) {
         out[3] = inv * q0[3] + q1[3] * t;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504A140 CURRENT (4804) */
-void func_1504A140(void *arg0, void *arg1) {
-    f32 sp44;
-    f32 sp34;
-    f32 sp30;
-    f32 sp2C;
-    f32 sp28;
-    f32 sp24;
-    f32 sp20;
-    f32 sp1C;
-    f32 sp18;
-    f32 sp14;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fs0;
-    f32 temp_ft0;
-    f32 temp_ft1;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_ft3;
+void func_1504A140(f32 *q, f32 m[4][4]) {
+    f32 s;
+    f32 ys;
+    f32 zs;
+    f32 ws;
+    f32 xy;
+    f32 xz;
+    f32 xw;
+    f32 yy;
+    f32 yz;
+    f32 yw;
+    f32 zz;
+    f32 zw;
+    f32 ww;
 
-    temp_fs0 = *(f32 *)((u8 *)arg0 + 0);
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 4);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 8);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0xC);
-    temp_ft1 = 2.0f / ((temp_fa0 * temp_fa0) + ((temp_fs0 * temp_fs0) + (temp_fv0 * temp_fv0) + (temp_fv1 * temp_fv1)));
-    temp_ft5 = temp_fv0 * temp_ft1;
-    sp44 = temp_ft1;
-    temp_ft4 = temp_fv1 * temp_ft1;
-    temp_fa1 = temp_fa0 * temp_ft1;
-    sp34 = temp_fs0 * temp_ft5;
-    sp30 = temp_fs0 * temp_ft4;
-    sp2C = temp_fs0 * temp_fa1;
-    temp_ft3 = temp_fv0 * temp_fa1;
-    sp28 = temp_fv0 * temp_ft5;
-    sp24 = temp_fv0 * temp_ft4;
-    sp20 = temp_ft3;
-    temp_ft0 = temp_fa0 * temp_fa1;
-    sp1C = temp_fv1 * temp_ft4;
-    sp18 = temp_fv1 * temp_fa1;
-    sp14 = temp_ft0;
-    *(f32 *)((u8 *)arg1 + 0) = (f32) (1.0f - (sp1C + sp14));
-    *(f32 *)((u8 *)arg1 + 4) = (f32) (sp24 + sp2C);
-    *(f32 *)((u8 *)arg1 + 8) = (f32) (temp_ft3 - sp30);
-    *(f32 *)((u8 *)arg1 + 0x10) = (f32) (sp24 - sp2C);
-    *(f32 *)((u8 *)arg1 + 0x18) = (f32) (sp18 + sp34);
-    *(f32 *)((u8 *)arg1 + 0x14) = (f32) (1.0f - (sp28 + temp_ft0));
-    *(f32 *)((u8 *)arg1 + 0x24) = (f32) (sp18 - sp34);
-    *(f32 *)((u8 *)arg1 + 0x20) = (f32) (sp20 + sp30);
-    *(f32 *)((u8 *)arg1 + 0xC) = 0.0f;
-    *(f32 *)((u8 *)arg1 + 0x1C) = 0.0f;
-    *(f32 *)((u8 *)arg1 + 0x2C) = 0.0f;
-    *(f32 *)((u8 *)arg1 + 0x3C) = 1.0f;
-    *(f32 *)((u8 *)arg1 + 0x28) = (f32) (1.0f - (sp28 + sp1C));
+    s = 2.0f / (q[0] * q[0] + q[1] * q[1] + q[2] * q[2] + q[3] * q[3]);
+    ys = q[1] * s;
+    zs = q[2] * s;
+    ws = q[3] * s;
+    xy = q[0] * ys;
+    xz = q[0] * zs;
+    xw = q[0] * ws;
+    yy = q[1] * ys;
+    yz = q[1] * zs;
+    yw = q[1] * ws;
+    zz = q[2] * zs;
+    zw = q[2] * ws;
+    ww = q[3] * ws;
+    m[0][0] = 1.0f - (zz + ww);
+    m[0][1] = yz + xw;
+    m[0][2] = yw - xz;
+    m[1][0] = yz - xw;
+    m[1][1] = 1.0f - (yy + ww);
+    m[1][2] = zw + xy;
+    m[2][0] = yw + xz;
+    m[2][1] = zw - xy;
+    m[2][2] = 1.0f - (yy + zz);
+    m[0][3] = 0.0f;
+    m[1][3] = 0.0f;
+    m[2][3] = 0.0f;
+    m[3][3] = 1.0f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504A140 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_770F0/func_1504A140.s")

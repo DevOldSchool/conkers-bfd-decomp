@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_F21D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C4E9C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameF21D0Mover {
@@ -79,7 +74,13 @@ void func_1510D874(s32, s32, s32, s32, s32);
 extern u8 D_1C0[], D_2C1[];
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4E9C CURRENT (300) */
+typedef struct GameF21D0Vertex {
+    s16 ob[3];
+    u16 flag;
+    s16 tc[2];
+    u8 cn[4];
+} GameF21D0Vertex;
+
 void func_150C4E9C(u8 *arg0) {
     u8 *resource;
     s32 limit;
@@ -87,10 +88,7 @@ void func_150C4E9C(u8 *arg0) {
     s32 adjustment;
     GameF21D0ScrollState *state;
     s32 mode;
-    s32 initialPhase;
     s32 index;
-    s32 offset;
-    u8 *vertex;
     s32 result;
 
     mode = arg0[0x73] & 3;
@@ -99,7 +97,7 @@ void func_150C4E9C(u8 *arg0) {
         state = func_10003C40(0x10, 1, 0, 0);
         *(GameF21D0ScrollState **)(arg0 + 0x7C) = state;
         func_1511A410(*(s8 **)(arg0 + 0x1C), (s32 *)state);
-        state->initialPhase = *(s16 *)(*(u8 **)(arg0 + 0x28) + 0xA);
+        state->initialPhase = (*(GameF21D0Vertex **)(arg0 + 0x28))->tc[1];
         state->speed = 0;
         state->remainder = 0;
     } else {
@@ -120,47 +118,36 @@ void func_150C4E9C(u8 *arg0) {
             state->speed = 300.0f;
         }
     } else if (mode == 1) {
+        s32 phase;
+        s32 initialPhase;
+
         if (state->speed > 100.0f) {
             state->speed = state->speed - 25.0f * (f32)D_800BE9E4;
         } else {
             state->speed = 100.0f;
-            mode = *(s16 *)(((u8 **)(arg0 + 0x20))[D_800BE9C0] + 0xA) % 1024;
-            while (mode < 0) {
-                mode += 1024;
+            phase = ((GameF21D0Vertex *)((u8 **)(arg0 + 0x20))[D_800BE9C0])->tc[1] % 1024;
+            while (phase < 0) {
+                phase += 1024;
             }
             initialPhase = state->initialPhase % 1024;
             while (initialPhase < 0) {
                 initialPhase += 1024;
             }
-            if (mode >= initialPhase && (f32)mode - state->speed <= (f32)initialPhase) {
-                state->speed = (f32)(mode - initialPhase);
+            if (phase >= initialPhase && (f32)phase - state->speed <= (f32)initialPhase) {
+                state->speed = (f32)(phase - initialPhase);
                 arg0[0x73] &= 0xFFFC;
                 arg0[0x73] |= 3;
             }
         }
     }
     if (state->speed != 0.0f) {
-        offset = 0;
-        index = 0;
-        if (*(u16 *)(arg0 + 0x16) > 0) {
-            do {
-                index++;
-                vertex = ((u8 **)(arg0 + 0x20))[D_800BE9C0] + offset;
-                offset += 0x10;
-                *(s16 *)(vertex + 0xA) = (s32)((f32)*(s16 *)(vertex + 0xA) - state->speed);
-            } while (index < *(u16 *)(arg0 + 0x16));
+        for (index = 0; index < *(u16 *)(arg0 + 0x16); index++) {
+            ((GameF21D0Vertex *)((u8 **)(arg0 + 0x20))[D_800BE9C0])[index].tc[1] = (f32)((GameF21D0Vertex *)((u8 **)(arg0 + 0x20))[D_800BE9C0])[index].tc[1] - state->speed;
         }
     }
-    if (*(s16 *)(((u8 **)(arg0 + 0x20))[D_800BE9C0] + 0xA) < -0x2800) {
-        offset = 0;
-        index = 0;
-        if (*(u16 *)(arg0 + 0x16) > 0) {
-            do {
-                index++;
-                vertex = ((u8 **)(arg0 + 0x20))[D_800BE9C0] + offset;
-                offset += 0x10;
-                *(s16 *)(vertex + 0xA) += 0x2800;
-            } while (index < *(u16 *)(arg0 + 0x16));
+    if (((GameF21D0Vertex *)((u8 **)(arg0 + 0x20))[D_800BE9C0])->tc[1] < -0x2800) {
+        for (index = 0; index < *(u16 *)(arg0 + 0x16); index++) {
+            ((GameF21D0Vertex *)((u8 **)(arg0 + 0x20))[D_800BE9C0])[index].tc[1] += 0x2800;
         }
     }
     adjustment = 0;
@@ -170,8 +157,6 @@ void func_150C4E9C(u8 *arg0) {
     }
     func_1510D874((s32)arg0, result, adjustment, 4, 5);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C4E9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F21D0/func_150C4E9C.s")
 
 extern void *D_800D98D0;
 extern void *D_800D98E0;

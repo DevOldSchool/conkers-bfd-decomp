@@ -19,6 +19,11 @@ the checksum-validated US ROM's game-data region. The original data archive
 provides the tables at runtime; this mapping does not change the matched C
 instructions, raw assembly, or source-unit boundaries.
 
+`game_179F30.o` later gained a literal pool for `func_1514D64C` ahead of the
+table, so its `.rodata` is now 0x40 bytes and is split into a 0x10 pool and the
+unchanged 0x28 table at `0x800A5E20`; see the
+[game_179F30 record](game_179f30_float_constants.md).
+
 The three table payloads are respectively `0x1C`, `0x18`, and `0x28` bytes;
 the remaining bytes in each object section are zero alignment padding. The
 ROM verification checks only those payloads. The `game_CD860` address is

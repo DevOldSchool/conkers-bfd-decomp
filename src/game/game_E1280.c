@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150B4294
  * - func_150B4710
- * - func_150B5088
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -248,25 +247,22 @@ typedef struct GameE1280TrailPreset {
     s16 capacityRange;
 } GameE1280TrailPreset;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5088 CURRENT (3487) */
 void func_150B5088(void *arg0) {
     GameE1280TrailStyle style;
+    u8 *state;
     GameE1280TrailHeader header;
     GameE1280TrailParameters parameters;
+    f32 x;
+    f32 y;
     f32 z;
     f32 speed;
     f32 cosine1;
     f32 sine1;
     f32 cosine2;
-    f32 x;
-    f32 y;
-    register f32 radius;
-    register f32 horizontal;
-    register f32 gravity;
-    register s32 angle1;
-    register s32 angle2;
+    f32 sine2;
+    u8 angle1;
+    u8 angle2;
     GameE1280TrailPreset *preset;
-    u8 *state;
 
     state = *(u8 **)((u8 *)arg0 + 0x98);
     preset = (GameE1280TrailPreset *)(D_8009FBF0 + state[0x38] * 0x24);
@@ -281,31 +277,26 @@ void func_150B5088(void *arg0) {
     style.alphaMode = 9;
     header.flags = 1;
     parameters.texture = 6;
-    parameters.flags = 8;
     parameters.color = state[0x24];
+    parameters.flags = 8;
     parameters.alpha = (s8)*(s16 *)(state + 0x26);
     header.position = *(Vec3f *)((u8 *)arg0 + 0x10);
     do {
         speed = func_150ADA68() * preset->speedRange + preset->speed;
-        angle1 = func_150ADA20();
-        angle1 &= 0xFF;
-        angle2 = func_150ADA20();
-        angle2 &= 0xFF;
-        cosine1 = func_151423D8((angle1 - 0x40) & 0xFF);
-        sine1 = func_151423D8(angle1 & 0xFF);
-        cosine2 = func_151423D8((angle2 - 0x40) & 0xFF);
-        horizontal = func_151423D8(angle2 & 0xFF);
-        radius = preset->radius;
-        horizontal = radius * horizontal;
-        x = *(f32 *)(state + 0) + horizontal * cosine1;
-        y = *(f32 *)(state + 4) - radius * cosine2;
-        z = *(f32 *)(state + 8) + horizontal * sine1;
+        angle1 = func_150ADA20() % 256;
+        angle2 = func_150ADA20() % 256;
+        cosine1 = func_151423D8(angle1 - 0x40);
+        sine1 = func_151423D8(angle1);
+        cosine2 = func_151423D8(angle2 - 0x40);
+        sine2 = func_151423D8(angle2);
+        x = *(f32 *)(state + 0) + preset->radius * sine2 * cosine1;
+        y = *(f32 *)(state + 4) - preset->radius * cosine2;
+        z = *(f32 *)(state + 8) + preset->radius * sine2 * sine1;
         header.capacity = func_150ADA20() % (u32)(preset->capacityRange + 1) + preset->capacity;
         header.life = func_150ADA20() % (u32)(preset->lifeRange + 1) + preset->life;
         parameters.width = func_150ADA68() * preset->widthRange + preset->width;
-        gravity = func_150ADA68() * preset->gravityRange + preset->gravity;
+        parameters.gravity = func_150ADA68() * preset->gravityRange + preset->gravity;
         parameters.velocity.x = speed * x;
-        parameters.gravity = gravity;
         parameters.velocity.y = speed * y;
         parameters.velocity.z = speed * z;
         func_15147DA0(&header, &parameters, 0, 1, 7, 0, 0, 0, 0, 0, 0,
@@ -313,8 +304,6 @@ void func_150B5088(void *arg0) {
         *(f32 *)(state + 0x54) -= 1.0f;
     } while (*(f32 *)(state + 0x54) > 1.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B5088 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B5088.s")
 void func_150B538C(void *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 5) {
         func_150B5060(arg0);

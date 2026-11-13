@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15159C08
- * - func_1515A11C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -372,33 +371,29 @@ f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515A11C CURRENT (10) */
 s32 func_1515A11C(u8 *arg0, s32 arg1) {
-    f32 temp_fv0;
-    f32 sp20;
-    f32 temp_fv0_2;
-    register u8 *temp_s0;
+    u8 *motion = arg0 + 0xA8;
+    f32 cosA;
+    f32 cosB;
 
-    *(u8 *)(arg0 + 0xAC) += *(s8 *)(arg0 + 0xAE) * D_800BE9E4;
-    temp_s0 = (void *)(arg0 + 0xA8);
-    *(u8 *)(arg0 + 0xAD) += *(s8 *)(arg0 + 0xAF) * D_800BE9E4;
-    sp20 = func_151423D8(*(u8 *)(arg0 + 0xAC) - 0x40);
-    temp_fv0 = func_151423D8(*(u8 *)((u8 *)temp_s0 + 5) - 0x40);
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) ((*(f32 *)((u8 *)temp_s0 + 8) * sp20) + *(f32 *)temp_s0);
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) ((*(f32 *)((u8 *)temp_s0 + 0xC) * temp_fv0) + *(f32 *)temp_s0);
-    *(f32 *)(temp_s0 + 0x1C) += D_800BE9A4 * *(f32 *)(temp_s0 + 0x20);
-    temp_fv0_2 = func_15144B68(*(f32 *)((u8 *)temp_s0 + 0x1C));
-    *(f32 *)((u8 *)temp_s0 + 0x1C) = temp_fv0_2;
+    *(u8 *)(motion + 4) += *(s8 *)(motion + 6) * D_800BE9E4;
+    *(u8 *)(motion + 5) += *(s8 *)(motion + 7) * D_800BE9E4;
+    cosA = func_151423D8(*(u8 *)(motion + 4) - 0x40);
+    cosB = func_151423D8(*(u8 *)(motion + 5) - 0x40);
+    *(f32 *)(arg0 + 0x38) = *(f32 *)(motion + 8) * cosA + *(f32 *)motion;
+    *(f32 *)(arg0 + 0x3C) = *(f32 *)(motion + 0xC) * cosB + *(f32 *)motion;
     {
-        f32 temp_fv0_3 = func_15047D60(temp_fv0_2);
-    *(f32 *)((u8 *)arg0 + 0x4C) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x10) * temp_fv0_3);
-    *(f32 *)((u8 *)arg0 + 0x50) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x14) * temp_fv0_3);
-    *(f32 *)((u8 *)arg0 + 0x54) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x18) * temp_fv0_3);
-    return 1;
+        f32 angle;
+
+        *(f32 *)(motion + 0x1C) += *(f32 *)(motion + 0x20) * D_800BE9A4;
+        *(f32 *)(motion + 0x1C) = func_15144B68(*(f32 *)(motion + 0x1C));
+        angle = func_15047D60(*(f32 *)(motion + 0x1C));
+        *(f32 *)(arg0 + 0x4C) = *(f32 *)(motion + 0x10) * angle;
+        *(f32 *)(arg0 + 0x50) = *(f32 *)(motion + 0x14) * angle;
+        *(f32 *)(arg0 + 0x54) = *(f32 *)(motion + 0x18) * angle;
     }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515A11C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A11C.s")
 typedef struct {
     f32 size;
     u8 phase0, phase1, step0, step1;

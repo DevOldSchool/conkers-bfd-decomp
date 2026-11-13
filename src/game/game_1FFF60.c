@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1FFF60.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151D3130
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_1502B5C8(u32 *, s32, s32, u16);
@@ -243,10 +238,8 @@ void func_151D2F90(u8 *arg0) {
 extern void (*D_8008FC48[])(void *, void *);
 extern void (*D_8008FC5C[])(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (10) */
 void func_151D3130(u8 *arg0) {
     u8 *node;
-    u8 *next;
     void (*fn)(s32);
 
     fn = D_8008FC5C[arg0[0x1D]];
@@ -255,10 +248,9 @@ void func_151D3130(u8 *arg0) {
     }
     node = *(u8 **)(arg0 + 0x24);
     while (node != 0) {
-        s8 idx = *(s8 *)(node + 0x2A);
-        next = *(u8 **)(node + 0x40);
-        if (idx != -1) {
-            D_8008FC48[idx](node, node + 0x34);
+        u8 *next = *(u8 **)(node + 0x40);
+        if (*(s8 *)(node + 0x2A) != -1) {
+            D_8008FC48[*(s8 *)(node + 0x2A)](node, node + 0x34);
         }
         *(s32 *)(node + 0x2C) = 0;
         func_1516972C(node);
@@ -266,8 +258,6 @@ void func_151D3130(u8 *arg0) {
     }
     func_1514EDF0(arg0, *(void **)(arg0 + 0x10));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D3130 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3130.s")
 void func_151D3130(u8 *arg0);
 
 void func_151D31F4(void *arg0) {

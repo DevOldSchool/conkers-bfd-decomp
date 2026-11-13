@@ -15,7 +15,6 @@
  * - func_15135DD0
  * - func_15136404
  * - func_15136F50
- * - func_15137610
  * - func_151382E0
  * - func_15138424
  * - func_15138E98
@@ -1102,75 +1101,74 @@ void func_15136F50(Vec3f *, Vec3f *, Vec3f *, u8, u8, s32);
 void func_151C329C(void *, u8, s32);
 void func_151C577C(Vec3f *, Vec3f *, Vec3f *, u8, u8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15137610 CURRENT (260) */
 void func_15137610(BloodImpactActor *arg0, Vec3f *arg1, Vec3f *arg2,
                    Vec3f *arg3, u8 arg4, s32 arg5) {
     s32 mode;
 
-    mode = 0;
     if (arg0 != 0) {
-        if (arg0->transforms != 0 && (arg0->flags74 & 0xF) != 0xF &&
-            (s32)arg0->count > 0) {
-            mode = arg0->kind;
-            switch (mode) {
-                case 5:
-                case 0xAD:
-                case 0xAE:
-                case 0xAF:
-                    mode = 3;
-                    break;
-                case 0x5B:
-                case 0x70:
-                case 0xA6:
-                case 0xB2:
-                case 0xB4:
-                    func_151036B4(arg1, arg4, arg5);
+        if (arg0->transforms == 0 || (arg0->flags74 & 0xF) == 0xF ||
+            (s32)arg0->count <= 0) {
+            return;
+        }
+        mode = arg0->kind;
+        switch (mode) {
+            case 5:
+            case 0xAD:
+            case 0xAE:
+            case 0xAF:
+                mode = 3;
+                break;
+            case 0x5B:
+            case 0x70:
+            case 0xA6:
+            case 0xB2:
+            case 0xB4:
+                func_151036B4(arg1, arg4, arg5);
+                mode = 2;
+                break;
+            case 0x28:
+            case 0x77:
+            case 0x8A:
+            case 0x8C:
+                if ((func_150ADA20() & 1) == 0) {
                     mode = 2;
                     break;
-                case 0x28:
-                case 0x77:
-                case 0x8A:
-                case 0x8C:
-                    if ((func_150ADA20() & 1) == 0) {
-                        mode = 2;
-                        break;
-                    }
-                    return;
-                case 0x42:
-                    if ((func_150ADA20() & 3) == 0) {
-                        mode = 2;
-                        break;
-                    }
-                    return;
-                case 0x5A:
-                case 0x5F:
-                case 0x74:
-                case 0x75:
-                case 0x7A:
-                case 0x8D:
-                case 0xB1:
-                    mode = arg0->state125;
-                    if (mode == 0xFF) {
-                        if ((func_150ADA20() & 0x1F) == 0) {
-                            mode = 1;
-                            break;
-                        }
-                    } else if (mode == 0 && arg0->state104 == 0) {
+                }
+                return;
+            case 0x42:
+                if ((func_150ADA20() & 3) == 0) {
+                    mode = 2;
+                    break;
+                }
+                return;
+            case 0x5A:
+            case 0x5F:
+            case 0x74:
+            case 0x75:
+            case 0x7A:
+            case 0x8D:
+            case 0xB1:
+                mode = arg0->state125;
+                if (mode == 0xFF) {
+                    if ((func_150ADA20() & 0x1F) == 0) {
                         mode = 1;
                         break;
                     }
-                    return;
-                default:
-                    if (arg0->state125 == 0 && arg0->state104 == 0) {
-                        mode = 0;
-                    } else {
-                        return;
-                    }
+                } else if (mode == 0 && arg0->state104 == 0) {
+                    mode = 1;
                     break;
-            }
-        } else {
-            return;
+                }
+                return;
+            default:
+                if (arg0->state125 == 0 && arg0->state104 == 0) {
+                    mode = 0;
+                } else {
+                    return;
+                }
+                break;
         }
+    } else {
+        mode = 0;
     }
     switch (mode) {
         case 1:
@@ -1188,8 +1186,6 @@ void func_15137610(BloodImpactActor *arg0, Vec3f *arg1, Vec3f *arg2,
             return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15137610 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
 typedef struct Blood3783CHit {
     f32 height;
     u8 geometry[0x18];

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1513B5E0
- * - func_1513BBFC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -150,7 +149,7 @@ Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState 
 void func_150A7B80(void *);
 extern u8 D_800BE9C0;
 
-s32 func_1513B968(s32 arg0, s32 arg1) {
+s32 func_1513B968(s32 arg0, s16 arg1) {
     func_150A7B80(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x78);
     return 1;
 }
@@ -271,63 +270,50 @@ s32 func_15144B34(s32);
 f32 sqrtf(f32);
 __pragma(1, sqrtf);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513BBFC CURRENT (10188) */
 s32 func_1513BBFC(Game168A90Allocated *owner, s16 arg1) {
-    register Game168A90Vector5 *state;
-    register Vec3f *position, *point;
-    register Game168A90Range *range;
-    register Game168A90Vertex *vertex;
-    register s32 current;
-    register f32 width, height, wrapX, wrapY, x, y;
-    register f32 dx, dz, inverse, basisX, basisZ;
-    register f32 vx, vy, vz, deltaX, deltaY, deltaZ, outU, outV;
+    Game168A90Vector5 *state;
+    Vec3f *position;
+    f32 width, height, wrapX, wrapY;
+    s32 i, j;
 
-    func_1513B968((s32)owner, (s16)arg1);
+    func_1513B968((s32)owner, arg1);
     state = (Game168A90Vector5 *)((u8 *)owner + owner->size + 0xF8);
     width = func_15047D60(state->field_0C) * D_800A4A74 + D_800A4A78;
     height = func_15047D60(state->field_10) * D_800A4A7C + D_800A4A80;
     position = (Vec3f *)func_15144B34(arg1);
-    x = state->field_00;
-    y = state->field_04;
-    wrapX = x - (f32)(s32)(x * 0.0009765625f) * 1024.0f;
-    wrapY = y - (f32)(s32)(y * 0.0009765625f) * 1024.0f;
-    point = D_800A49C0;
-    range = D_800A4A2C;
-    do {
-        dx = point->x - position->x;
-        dz = point->z - position->z;
+    wrapX = state->field_00 - (f32)(s32)(state->field_00 * 0.0009765625f) * 1024.0f;
+    wrapY = state->field_04 - (f32)(s32)(state->field_04 * 0.0009765625f) * 1024.0f;
+    for (i = 0; i < 9; i++) {
+        f32 dx, dz, basisX, basisZ;
+
+        dx = D_800A49C0[i].x - position->x;
+        dz = D_800A49C0[i].z - position->z;
         if (dx != 0.0f || dz != 0.0f) {
-            inverse = 1.0f / sqrtf(dx * dx + dz * dz);
+            f32 inverse = 1.0f / sqrtf(dx * dx + dz * dz);
             basisX = dz * inverse;
             basisZ = -dx * inverse;
         } else {
             basisX = 1.0f;
             basisZ = 0.0f;
         }
-        current = range->first;
-        if (current < range->first + range->count) {
-            do {
-                vertex = *(Game168A90Vertex **)((u8 *)owner + D_800BE9C0 * 16 + arg1 * 4 + 0x58) + current;
-                vx = (f32)vertex->x;
-                vz = (f32)vertex->z;
-                vy = (f32)vertex->y;
-                deltaX = vx - point->x;
-                deltaZ = vz - point->z;
-                deltaY = vy - point->y;
-                outU = (deltaX * basisX + deltaZ * basisZ) * width - wrapX;
-                outV = deltaY * height - wrapY;
-                vertex->u = (s32)outU;
-                vertex->v = (s32)outV;
-                current++;
-            } while (current < range->first + range->count);
+        for (j = D_800A4A2C[i].first; j < D_800A4A2C[i].first + D_800A4A2C[i].count; j++) {
+            Game168A90Vertex *vertex;
+            f32 vx, vy, vz, deltaX, deltaY, deltaZ;
+
+            vertex = *(Game168A90Vertex **)((u8 *)owner + D_800BE9C0 * 16 + arg1 * 4 + 0x58) + j;
+            vx = vertex->x;
+            vy = vertex->y;
+            vz = vertex->z;
+            deltaX = vx - D_800A49C0[i].x;
+            deltaY = vy - D_800A49C0[i].y;
+            deltaZ = vz - D_800A49C0[i].z;
+            vertex->u = (deltaX * basisX + deltaZ * basisZ) * width - wrapX;
+            vertex->v = deltaY * height - wrapY;
         }
-        range++;
-        point++;
-    } while (range != (Game168A90Range *)&D_800A4A74);
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513BBFC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513BBFC.s")
+
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */

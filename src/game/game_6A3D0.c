@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1503CF20
- * - func_1503D510
- * - func_1503DD1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -63,7 +61,7 @@ void func_1503D45C(s32 *arg0, s32 arg1) {
         } while (var_v0 != 0);
     }
 }
-extern s16 D_800C5A90[];
+extern u16 D_800C5A90[];
 
 /* Semantic role: animation_routes_relocate_event_offsets.
  * Eight-byte routes end at descriptor 999; optional event offsets at +4 are
@@ -88,64 +86,23 @@ extern u8 *D_80084410[];
 extern u8 D_80098888[];
 extern s32 D_800D1588[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D510 CURRENT (4355) */
 void func_1503D510(s32 arg0) {
-    s16 *temp_t3;
-    s32 var_v0;
-    s32 var_v0_2;
-    s32 var_v1;
-    s32 *temp_a1;
-    u16 *temp_t0;
-    u8 *temp_a3;
-    u8 *var_a1;
-    u8 *var_t0;
-    u8 *var_v1_2;
-    u8 temp_a0;
+    s32 i;
+    s32 j;
+    s32 k;
 
-    var_a1 = D_80098888;
-    var_v0 = 0;
-loop_1:
-    temp_a0 = *var_a1;
-    var_v1 = 0;
-    if ((s32)temp_a0 > 0) {
-        temp_a3 = D_80084410[var_v0];
-        var_t0 = temp_a3;
-loop_3:
-        var_v1 += 1;
-        if (arg0 == *var_t0) {
-            var_v0_2 = 0;
-            if ((s32)temp_a0 > 0) {
-                var_v1_2 = temp_a3;
-                temp_a1 = &D_800D1588[arg0];
-                temp_t0 = (u16 *)&D_800C5A90[arg0];
-#pragma loop unroll 0
-                do {
-                    var_v0_2 += 1;
-                    D_800D1588[*var_v1_2] = *temp_a1;
-                    temp_t3 = &D_800C5A90[*var_v1_2];
-                    var_v1_2 += 1;
-                    *temp_t3 = *temp_t0;
-                } while (var_v0_2 < (s32)temp_a0);
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < D_80098888[i]; j++) {
+            if (arg0 == D_80084410[i][j]) {
+                for (k = 0; k < D_80098888[i]; k++) {
+                    D_800D1588[D_80084410[i][k]] = D_800D1588[arg0];
+                    D_800C5A90[D_80084410[i][k]] = D_800C5A90[arg0];
+                }
+                return;
             }
-        } else {
-            var_t0 += 1;
-            if (var_v1 >= (s32)temp_a0) {
-                goto block_9;
-            }
-            goto loop_3;
         }
-    } else {
-block_9:
-        var_v0 += 1;
-        var_a1 += 1;
-        if (var_v0 == 5) {
-            return;
-        }
-        goto loop_1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503D510 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D510.s")
 
 s32 func_1503D5F0(s32 arg0) {
     s32 i;
@@ -403,26 +360,18 @@ s32 func_1503DC3C(s32 arg0) {
     return flags;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DD1C CURRENT (35) */
 void func_1503DD1C(s32 arg0) {
     Game6A3D0Entry *entry;
-    u16 *countp;
-    s32 count;
     s32 key;
     s32 i;
 
-    countp = &D_800C5628[arg0];
-    count = *countp;
-    for (i = 0; i < count; i++) {
+    for (i = 0; i < D_800C5628[arg0]; i++) {
         entry = &((Game6A3D0Entry *)D_800C5338[arg0])[i];
         if (entry->value != (s32)0x80000000) {
-            key = entry->key;
-            if (entry->value != key) {
-                func_1510D7AC((entry->key));
-                count = *countp;
+            if (entry->key != entry->value) {
+                key = entry->key;
+                func_1510D7AC(key);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503DD1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503DD1C.s")

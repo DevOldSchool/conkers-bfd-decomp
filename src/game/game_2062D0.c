@@ -9,12 +9,9 @@
  * - func_151D9014
  * - func_151D9B8C
  * - func_151DA08C
- * - func_151DA368
  * - func_151DA6F8
  * - func_151DB5D0
  * - func_151DBAA8
- * - func_151DBCBC
- * - func_151DC034
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -639,8 +636,6 @@ void func_151D9FC0(u8 arg0, f32 arg1, u8 arg2, s32 arg3, f32 *arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA08C.s")
 void *func_151DB5D0(s32, f32 *, f32 *, f32, f32, f32, f32,
                     s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800AB480, D_800AB484, D_800AB488;
-extern f32 D_800AB48C, D_800AB490, D_800AB494;
 extern f32 D_800BE9A4;
 
 typedef struct Game1DA368Motion {
@@ -662,52 +657,54 @@ typedef struct Game1DA368Owner {
     Game1DA368Motion motion;
 } Game1DA368Owner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA368 CURRENT (4404) */
 s32 func_151DA368(Game1DA368Owner *arg0) {
     Game1DA368Motion *motion;
-    u8 phase;
-    Vec3f position;
-    Vec3f velocity;
-    s16 angle;
-    f32 radius;
-    f32 cosine;
-    f32 average;
-    f32 radiusLimit;
-    f32 size;
 
-    phase = (arg0->motion.angle0 += arg0->motion.speed0 * D_800BE9E4);
-    arg0->motion.angle1 += arg0->motion.speed1 * D_800BE9E4;
     motion = &arg0->motion;
-    arg0->sizeX = func_151423D8(phase - 0x40) * motion->amplitude0 + motion->center;
+    motion->angle0 += motion->speed0 * D_800BE9E4;
+    motion->angle1 += motion->speed1 * D_800BE9E4;
+    arg0->sizeX = func_151423D8(motion->angle0 - 0x40) * motion->amplitude0 + motion->center;
     arg0->sizeY = func_151423D8(motion->angle1 - 0x40) * motion->amplitude1 + motion->center;
-    *(volatile f32 *)&motion->phase += (D_800AB480 + func_150ADA68() * D_800AB484) * D_800BE9A4;
-    average = (arg0->sizeX + arg0->sizeY) * 0.5f;
-    if (*(volatile f32 *)&motion->phase > 1.0f) {
-        radiusLimit = average * 500.0f;
-        size = average * D_800AB488;
-        do {
-            angle = func_150ADA20() & 0xFF;
-            radius = func_150ADA68() * radiusLimit;
-            cosine = func_151423D8(angle - 0x40);
-            position.x = arg0->position.x + func_151423D8(angle) * radius;
-            position.y = arg0->position.y + -3.5f;
-            position.z = arg0->position.z + cosine * radius;
-            velocity.x = 0.0f;
-            velocity.y = 0.0f;
-            velocity.z = 0.0f;
-            angle = (func_150ADA20() % 51U) + 0x96;
-            radius = func_150ADA68();
-            func_151DB5D0(motion->kind, &position.x, &velocity.x, size,
-                          ((radius * 154.0f) + D_800AB48C) * D_800AB490,
-                          1.0f, ((func_150ADA68() * 25.0f) + -50.0f) * D_800AB494,
-                          angle, 0x9B, angle, 0xFF / angle, 1, arg0->priority, arg0->owner);
-            *(volatile f32 *)&motion->phase -= 1.0f;
-        } while (*(volatile f32 *)&motion->phase > 1.0f);
+    {
+        f32 average;
+        Vec3f position;
+        Vec3f velocity;
+        s16 angle;
+        s16 lifetime;
+        f32 radius;
+        f32 speed;
+
+        motion->phase += (0.15f + func_150ADA68() * 0.1f) * D_800BE9A4;
+        average = (arg0->sizeX + arg0->sizeY) * 0.5f;
+        if (motion->phase > 1.0f) {
+            do {
+                {
+                    f32 cosine;
+                    f32 sine;
+
+                    angle = func_150ADA20() & 0xFF;
+                    radius = func_150ADA68() * (average * 500.0f);
+                    cosine = func_151423D8(angle - 0x40);
+                    sine = func_151423D8(angle);
+                    position.x = arg0->position.x + sine * radius;
+                    position.y = arg0->position.y + -3.5f;
+                    position.z = arg0->position.z + cosine * radius;
+                }
+                velocity.x = 0.0f;
+                velocity.y = 0.0f;
+                velocity.z = 0.0f;
+                lifetime = (func_150ADA20() % 51U) + 0x96;
+                speed = func_150ADA68();
+                func_151DB5D0(motion->kind, &position.x, &velocity.x, average * 471.0f,
+                              ((speed * 154.0f) + 10106.0f) * 0.0001f,
+                              1.0f, ((func_150ADA68() * 25.0f) + -50.0f) * 0.001f,
+                              lifetime, 0x9B, lifetime, 0xFF / lifetime, 1, arg0->priority, arg0->owner);
+                motion->phase -= 1.0f;
+            } while (motion->phase > 1.0f);
+        }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DA368 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA368.s")
 
 s32 func_151DA6A8(u8 *arg0) {
     s32 var_v1;
@@ -1454,23 +1451,19 @@ typedef struct Game1DBCBCPacket {
 
 void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (3624) */
 void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s32 arg6) {
     Game1DBCBCPacket packet;
-    s32 random1;
-    s32 random2;
-    Game1DBE80Color *color;
 
-    arg0 &= 0xFF;
-    arg2 = (s16)arg2;
-    color = &D_800AB414[arg0];
-    packet.fieldC = 0x8000;
     packet.type = 0x38;
+    packet.fieldC = 0x8000;
     packet.flags = 0x67B02;
     packet.duration = 0x12C;
     packet.field8 = 0;
     packet.selector = arg2;
     packet.alpha = 0xFF;
+    packet.red = D_800AB414[arg0].r;
+    packet.green = D_800AB414[arg0].g;
+    packet.blue = D_800AB414[arg0].b;
     packet.flag15 = 0xFF;
     packet.field18 = 0x440001;
     packet.mode = 0;
@@ -1480,23 +1473,16 @@ void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s3
     packet.field24 = 0xFF;
     packet.field20 = 0xFF;
     packet.field1C = 0;
-    packet.red = color->r;
-    packet.green = color->g;
-    packet.blue = color->b;
     if (arg3 != 0) {
-        random1 = func_150ADA20();
-        random2 = func_150ADA20();
         func_1513C73C((s32)&packet, 0, 0, arg3,
                        arg4[0], arg4[1], arg4[2], arg1, arg1,
-                       random1 & 0xFF, ((func_150ADA20() & 1) * 2) + (random2 & 1),
-                       0, (u8)arg5, arg6);
+                       func_150ADA20() & 0xFF, (func_150ADA20() & 1) + ((func_150ADA20() & 1) * 2),
+                       0, arg5, arg6);
         return;
     }
     func_1513C5B0((s32)&packet, 0, 0, 0, arg4[0], arg4[1], arg4[2],
-                   arg1, arg1, 0, 0, 0, (u8)arg5, arg6);
+                   arg1, arg1, 0, 0, 0, arg5, arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DBCBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBCBC.s")
 
 
 typedef struct Game1DBE80Packet {
@@ -1575,13 +1561,12 @@ void func_151DBE80(u8 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
 extern u8 D_800AB320[];
 extern u8 D_800AB330[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC034 CURRENT (125) */
 void func_151DC034(Game2062D0Vector3 *arg0, f32 arg1, u8 arg2,
                    s16 arg3, u8 arg4, u8 arg5, s32 arg6) {
     Game1DC034Packet packet;
     s32 random2;
     s32 flags;
-    register s32 random1;
+    s32 random1;
 
     packet.field1D = D_800AB320[arg4];
     packet.field08 = 0x4403;
@@ -1610,17 +1595,9 @@ void func_151DC034(Game2062D0Vector3 *arg0, f32 arg1, u8 arg2,
     packet.field54 = 0.0f;
     packet.field24 = 1.0f;
     random1 = (func_150ADA20() & 1) ? 0x80 : 0;
-    if (func_150ADA20() & 1) {
-        random2 = 0x40;
-    } else {
-        random2 = 0;
-    }
-    if (D_800AB330[arg4] != 0) {
-        flags = 0x800000;
-    } else {
-        flags = 0;
-    }
-    packet.flags = flags | 1 | random2 | random1 | 0xC200 | 0x10000;
+    random2 = (func_150ADA20() & 1) ? 0x40 : 0;
+    flags = (D_800AB330[arg4] != 0) ? 0x800000 : 0;
+    packet.flags = flags | 1 | random2 | random1 | 0x8000 | 0x4000 | 0x200 | 0x10000;
     packet.field60 = 6;
     packet.field61 = 8;
     packet.field62 = -1;
@@ -1633,8 +1610,6 @@ void func_151DC034(Game2062D0Vector3 *arg0, f32 arg1, u8 arg2,
     packet.field6C = 1000.0f;
     func_15130280(&packet, 1, 0, 0, arg5, arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DC034 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC034.s")
 
 /* The second descriptor has the same 0x48-byte layout used by
  * GameEF410Spawn; position-relative fields are consumed by func_15150178. */

@@ -15,16 +15,11 @@
  * - func_15141A7C
  * - func_15142600
  * - func_1514306C
- * - func_15143134
  * - func_15143E94
- * - func_1514401C
  * - func_15144CEC
- * - func_1514563C
  * - func_15145740
  * - func_15145AD8
  * - func_15145DB4
- * - func_15145EA4
- * - func_151462C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -842,10 +837,7 @@ extern f32 D_800DCA08;
 extern f32 D_800DCA0C;
 extern f32 D_800DCA10;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15143134 CURRENT (215) */
 void func_15143134(f32 *arg0, f32 *arg1, s32 arg2) {
-    u8 transform[0x40];
-
     D_800DCA00 = 1;
     if (arg0 != 0 && (arg0[0] != 0.0f || arg0[1] != 0.0f || arg0[2] != 0.0f)) {
         D_800DCA00 = 2;
@@ -853,6 +845,8 @@ void func_15143134(f32 *arg0, f32 *arg1, s32 arg2) {
         D_800DCA0C = arg0[1];
         D_800DCA10 = arg0[2];
         if (D_800C3E90 != 0) {
+            u8 transform[0x40];
+
             D_800DCA00 = 3;
             D_800DCA04 = arg2;
             func_151EFEB8(transform, arg2);
@@ -873,8 +867,6 @@ void func_15143134(f32 *arg0, f32 *arg1, s32 arg2) {
     }
     D_800DCA00 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15143134 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143134.s")
 typedef struct Game16EE20Emitter {
     s16 x;
     s16 y;
@@ -1307,54 +1299,43 @@ u8 func_15143E94(s32 arg0, s32 arg1) {
 extern u8 D_80090B64[];
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514401C CURRENT (320) */
 s32 func_1514401C(u8 arg0, s32 *arg1, s32 *arg2, u8 arg3) {
     s32 boundary;
-    s32 value;
-    s32 overflow_value;
-    s32 underflow_value;
-    s32 current;
     s32 result = 0;
+    u8 w;
 
-    boundary = (D_80090B64[arg0 * 0xC] << 16) - 1;
-    value = *arg2 + (D_800BE9E4 * *arg1);
-    *arg2 = value;
-    current = value;
-    if (boundary < value) {
+    w = D_80090B64[arg0 * 0xC];
+    boundary = (w << 16) - 1;
+    *arg2 += *arg1 * D_800BE9E4;
+    if (boundary < *arg2) {
         if (arg3 & 1) {
             result = 1;
         } else if (arg3 & 2) {
             *arg1 = 0;
             *arg2 = boundary;
         } else if (arg3 & 4) {
-            *arg2 = boundary - (current % boundary);
+            *arg2 = boundary - (*arg2 % boundary);
             *arg1 = -*arg1;
         } else {
             do {
-                overflow_value = current - boundary;
-                *arg2 = overflow_value;
-                current = overflow_value;
-            } while (boundary < overflow_value);
+                *arg2 -= boundary;
+            } while (boundary < *arg2);
         }
-    } else if (current < 0 && !(arg3 & 8)) {
+    } else if (*arg2 < 0 && !(arg3 & 8)) {
         if (arg3 & 0x10) {
             *arg1 = 0;
             *arg2 = 0;
         } else if (arg3 & 4) {
-            *arg2 = -current % boundary;
+            *arg2 = -*arg2 % boundary;
             *arg1 = -*arg1;
         } else {
             do {
-                underflow_value = current + boundary;
-                *arg2 = underflow_value;
-                current = underflow_value;
-            } while (underflow_value < 0);
+                *arg2 += boundary;
+            } while (*arg2 < 0);
         }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514401C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514401C.s")
 void func_151441A4(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
     s16 temp_v0;
     s16 temp_v0_2;
@@ -1993,7 +1974,7 @@ s32 func_151454BC(u8 arg0, f32 arg1, void *arg2) {
     }
     return 1;
 }
-s32 func_1514563C(f32 *, f32 *, f32 *, f32 *, f32 *);
+s32 func_1514563C(Vec3f *, Vec3f *, Vec3f *, Vec3f *, f32 *);
 
 void func_15145548(void *arg0, void *arg1, void *arg2, void *arg3, f32 *arg4) {
     typedef struct { f32 values[3]; } Copy3;
@@ -2016,8 +1997,7 @@ void func_15145548(void *arg0, void *arg1, void *arg2, void *arg3, f32 *arg4) {
         *(Copy3 *)arg3 = *(Copy3 *)arg0;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514563C CURRENT (20) */
-s32 func_1514563C(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
+s32 func_1514563C(Vec3f *arg0, Vec3f *arg1, Vec3f *arg2, Vec3f *arg3, f32 *arg4) {
     f32 len;
     f32 d0;
     f32 d2;
@@ -2026,20 +2006,19 @@ s32 func_1514563C(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
     if (arg4 == 0) {
         arg4 = &dflt;
     }
-    len = (arg1[2] * arg1[2]) + ((arg1[1] * arg1[1]) + (arg1[0] * arg1[0]));
+    len = arg1->x * arg1->x + arg1->y * arg1->y + arg1->z * arg1->z;
     if (len == 0.0f) {
         return 0;
     }
-    d0 = (arg1[2] * arg0[2]) + ((arg1[1] * arg0[1]) + (arg1[0] * arg0[0]));
-    d2 = (arg1[2] * arg2[2]) + ((arg1[1] * arg2[1]) + (arg1[0] * arg2[0]));
+    d0 = arg1->x * arg0->x + arg1->y * arg0->y + arg1->z * arg0->z;
+    d2 = arg1->x * arg2->x + arg1->y * arg2->y + arg1->z * arg2->z;
     *arg4 = (d2 - d0) / len;
-    arg3[0] = arg0[0] + (arg1[0] * *arg4);
-    arg3[1] = arg0[1] + (arg1[1] * *arg4);
-    arg3[2] = arg0[2] + (arg1[2] * *arg4);
+    arg3->x = arg0->x + arg1->x * *arg4;
+    arg3->y = arg0->y + arg1->y * *arg4;
+    arg3->z = arg0->z + arg1->z * *arg4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514563C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514563C.s")
+
 typedef struct {
     u8 pad0[0x12];
     s16 rotation;
@@ -2300,56 +2279,51 @@ void func_15145DB4(u8 *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145DB4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145DB4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145EA4 CURRENT (353) */
 void func_15145EA4(f32 **arg0, f32 **arg1, s32 arg2, s32 arg3) {
-    f32 x;
-    f32 transform[4][4];
-    f32 **outputs;
-    f32 *output;
-    register s32 count;
-    f32 **inputs;
     f32 *input;
+    f32 transform[4][4];
+    f32 *output;
+    f32 **outputs;
 
-    count = arg3;
     if (D_800C3E90 != 0) {
         func_151EFEB8(transform, arg2);
-        inputs = arg0;
-        if (count > 0) {
+        if (arg3 > 0) {
+            f32 **inputs = arg0;
+
             outputs = arg1;
             do {
                 input = *inputs;
-                if (input != 0 && ((0.0f != (x = input[0])) || input[1] != 0.0f || input[2] != 0.0f)) {
+                if (input != NULL && (input[0] != 0.0f || input[1] != 0.0f || input[2] != 0.0f)) {
                     output = *outputs;
-                    func_150A7960(transform, x, input[1], input[2], output, output + 1, output + 2);
+                    func_150A7960(transform, input[0], input[1], input[2], output, output + 1, output + 2);
                 } else {
                     func_15142314(arg2, 0, *outputs);
                 }
-                count--;
+                arg3--;
                 inputs++;
                 outputs++;
-            } while (count > 0);
+            } while (arg3 > 0);
         }
     } else {
-        inputs = arg0;
-        if (count > 0) {
+        if (arg3 > 0) {
+            f32 **inputs = arg0;
+
             outputs = arg1;
             do {
                 input = *inputs;
-                if (input != 0 && ((0.0f != (x = input[0])) || input[1] != 0.0f || input[2] != 0.0f)) {
+                if (input != NULL && (input[0] != 0.0f || input[1] != 0.0f || input[2] != 0.0f)) {
                     output = *outputs;
-                    func_150A7960((void *)arg2, x, input[1], input[2], output, output + 1, output + 2);
+                    func_150A7960((void *)arg2, input[0], input[1], input[2], output, output + 1, output + 2);
                 } else {
                     func_15142314(arg2, 0, *outputs);
                 }
-                count--;
+                arg3--;
                 inputs++;
                 outputs++;
-            } while (count > 0);
+            } while (arg3 > 0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15145EA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145EA4.s")
 s32 func_15146078(f32 *direction, Vec3f *first,
                    Vec3f *second) {
     u8 zero_count;
@@ -2438,69 +2412,49 @@ extern s32 D_800D9E10[];
 extern u8 D_800D9E20;
 extern u8 D_800D9E21;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151462C8 CURRENT (3510) */
-s32 func_151462C8(s32 arg0, u8 *arg1, s32 arg2, u8 *arg3,
-                   s32 arg4, s32 arg5, f32 *arg6, s32 arg7, s32 arg8) {
+s32 func_151462C8(s32 arg0, u8 *arg1, u8 arg2, u8 *arg3,
+                   u8 arg4, s16 arg5, f32 *arg6, u8 arg7, s32 arg8) {
     s32 model;
     s32 data;
-    s32 mode;
     s32 index;
-    s32 flags;
-    s32 type;
-    s32 result;
-    s32 extra;
 
-    mode = arg2 & 0xFF;
-    index = (s16)arg5 * 4;
+    index = arg5 * 4;
     model = *(s32 *)(arg1 + index + 8);
     if (model != 0) {
         data = *(s32 *)(arg1 + 0x18);
         if (data != 0) {
-            type = mode;
-            if (mode == 1) {
-                if (arg3 != 0) {
-                    if (*(s32 *)arg3 == 0 || (u8)arg4 != arg3[0x3B] ||
+            if (arg2 == 1) {
+                if (arg3 != NULL) {
+                    if (*(s32 *)arg3 == 0 || arg4 != arg3[0x3B] ||
                         arg3[4] == 0xFF || arg3[0x302] == 0) {
-                        type = 2;
+                        arg2 = 2;
                     }
                 } else {
-                    type = 0;
+                    arg2 = 0;
                 }
             }
-            switch (type) {
+            switch (arg2) {
                 case 1:
-                    result = func_1515E544(arg0, *(s32 *)(arg3 + index + 0x304),
+                    arg0 = func_1515E544(arg0, *(s32 *)(arg3 + index + 0x304),
                         arg3[0x301], arg3[0x302], *(void **)(arg3 + 0x314));
                     break;
                 case 2:
-                    result = func_1515E544(arg0, *(s32 *)((u8 *)D_800D9E10 + index),
+                    arg0 = func_1515E544(arg0, *(s32 *)((u8 *)D_800D9E10 + index),
                         D_800D9E20, D_800D9E21,
-                        D_800D9BD0 + ((s16)arg5 * 0x10) + (D_800BE9C0 * 8));
+                        D_800D9BD0 + (arg5 * 0x10) + (D_800BE9C0 * 8));
                     break;
                 default:
                 case 0:
-                    flags = 0;
-                    if ((u8)arg7 & 1) {
-                        flags = 2;
-                    }
-                    if ((u8)arg7 & 2) {
-                        extra = 0x10;
-                    } else {
-                        extra = 0;
-                    }
-                    result = func_1515D914(arg0, (s16)arg5, (s32)arg6[0],
+                    arg0 = func_1515D914(arg0, arg5, (s32)arg6[0],
                         (s32)arg6[1], (s32)arg6[2], arg8, model,
                         *(s32 *)arg1, data, arg1 + 4, *(s32 *)(arg1 + 0x1C),
-                        0, extra | 8 | flags, 0);
+                        0, 8 | ((arg7 & 1) ? 2 : 0) | ((arg7 & 2) ? 0x10 : 0), 0);
                     break;
             }
-            arg0 = result;
         }
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151462C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151462C8.s")
 
 u8 func_151464B8(s16 *arg0) {
     s32 i = 0;

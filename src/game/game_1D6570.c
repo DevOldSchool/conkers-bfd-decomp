@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1D6570.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151A9390
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -197,38 +192,25 @@ typedef struct Game1D6570LightHeader {
 s32 func_1516284C(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern Game1D6570Preset D_8008F9AC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9390 CURRENT (5219) */
-void func_151A9390(s32 arg0, u8 arg1, void *arg2, f32 *arg3,
-                   f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8) {
+void func_151A9390(u8 arg0, u8 arg1, void *arg2, f32 *arg3,
+                   f32 arg4, f32 arg5, s16 arg6, u8 arg7, s32 arg8) {
     Game1D6570Descriptor descriptor;
+    s32 result;
+    s32 flag0;
     Game1D6570LightHeader light;
     s32 position[3];
-    Game1D6570Preset *preset;
-    Game1D6570Emitter *emitter;
-    s32 result;
-    s32 flags;
-    s32 flag0;
     s32 flag1;
-    s32 flag2;
-    s32 duration;
+    Game1D6570Emitter *emitter;
 
-    flags = arg0 & 0xFF;
     if (arg1 < 9) {
-        flag0 = (flags & 1) ? 4 : 0;
+        flag0 = (arg0 & 1) ? 4 : 0;
         flag1 = arg2 != 0 ? 2 : 0;
-        flag2 = 0;
-        if (flags & 2) {
-            flag2 = 8;
-        }
-        preset = &D_8008F9AC[arg1];
-        descriptor.field_0 = flag2 | 1 | flag1 | flag0;
+        descriptor.field_0 = ((arg0 & 2) ? 8 : 0) | 1 | flag1 | flag0;
         descriptor.field_4 = (s32)arg2;
-        descriptor.field_8 = preset->first;
-        descriptor.field_C = preset->second;
+        descriptor.field_8 = D_8008F9AC[arg1].first;
+        descriptor.field_C = D_8008F9AC[arg1].second;
         if (arg3 != 0) {
-            Vec3f *source;
-            source = (void *)arg3;
-            *(Vec3f *)&descriptor.field_10 = *source;
+            *(Vec3f *)&descriptor.field_10 = *(Vec3f *)arg3;
         } else {
             descriptor.field_10 = 0.0f;
             descriptor.field_14 = 0.0f;
@@ -239,39 +221,36 @@ void func_151A9390(s32 arg0, u8 arg1, void *arg2, f32 *arg3,
         descriptor.field_26 = 1;
         descriptor.field_1C = arg4;
         descriptor.field_20 = arg5;
-        result = func_151A8B20(&descriptor, ((s16 *)&arg6)[1], 0x2C, ((u8 *)&arg7)[3], arg8);
+        result = func_151A8B20(&descriptor, arg6, 0x2C, arg7, arg8);
         if (result != 0) {
             emitter = &((Game1D6570Actor *)result)->emitter;
-            func_10022EC0(emitter, preset->data, 0x2C);
-            if (flags & 8) {
+            func_10022EC0(emitter, D_8008F9AC[arg1].data, 0x2C);
+            if (arg0 & 8) {
                 emitter->flags28 |= 1;
             }
-            if (flags & 0x10) {
+            if (arg0 & 0x10) {
                 emitter->flags28 |= 2;
             }
         }
-        if (flags & 4) {
-            duration = ((s16 *)&arg6)[1];
-            light.flags = (duration == -1 ? 0 : 1) | 2;
+        if (arg0 & 4) {
+            light.flags = (arg6 == -1 ? 0 : 1) | 2;
             light.kind = 2;
-            light.duration = duration == -1 ? 300 : duration;
-            light.channel = preset->fieldB;
+            light.duration = arg6 == -1 ? 300 : arg6;
+            light.channel = D_8008F9AC[arg1].fieldB;
             if (arg3 != 0) {
-                position[0] = (s32)arg3[0];
-                position[1] = (s32)arg3[1];
-                position[2] = (s32)arg3[2];
+                position[0] = arg3[0];
+                position[1] = arg3[1];
+                position[2] = arg3[2];
             } else {
                 position[0] = ((s16 *)arg2)[0];
                 position[1] = ((s16 *)arg2)[1];
                 position[2] = ((s16 *)arg2)[2];
             }
-            func_1516284C(&light.flags, position, preset->field8, preset->field9,
-                preset->fieldA, 255, 0, 0, preset->fieldC, 255, 1);
+            func_1516284C(&light.flags, position, D_8008F9AC[arg1].field8, D_8008F9AC[arg1].field9,
+                D_8008F9AC[arg1].fieldA, 255, 0, 0, D_8008F9AC[arg1].fieldC, 255, 1);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A9390 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9390.s")
 typedef struct Game1D6570Payload {
     f32 field0;
     s16 field4;

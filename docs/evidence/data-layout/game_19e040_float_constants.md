@@ -28,3 +28,33 @@ registered CURRENT (0) with focused layout, progress and whitespace checks;
 the clean verify-batch result is recorded with the commit that adds this
 mapping. No reference assembly, compiler flag or verifier changes are
 involved.
+
+## func_15170F4C pool (nov14)
+
+`func_15170F4C` spawns six debris particles from the `D_800A6ED8` table. Its raw HI16/LO16
+pairs in `asm/nonmatchings/game_19E040/func_15170F4C.s` address the six words
+0x800A6F98..0x800A6FAF, which the checksum-validated US game-data archive (ROM SHA1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`, base 0x80082B20) holds as
+`3E99999A BF333333 BE4CCCCD 3DCCCCCD 3E6B851F 3DB851EC`: exactly `0.3f`, `-0.7f`,
+`-0.2f`, `0.1f`, `0.23f` and `0.09f`. No other reference function touches them. With
+`extern f32` symbols the deferred body scored CURRENT 6028; as literals it is
+`CURRENT (0)`.
+
+The generated object's `.rodata` now starts with these 0x18 bytes, immediately followed
+by the existing 0x10-byte pool, so the owned range simply begins earlier:
+`config/game/us-rodata.ld` maps game_19E040 at 0x800A6F98 with a 0x30 extent assertion
+and a 0x28 payload, and `config/data/us.json` records the owner at the new start. The section later grew again for `func_15170B90` (below).
+
+## func_15170B90 table and literals (nov14)
+
+`func_15170B90` picks a debris kind from a six-entry byte table and scales its velocity.
+Its raw HI16/LO16 pairs address 0x800A6F80 (the table) and 0x800A6F88..0x800A6F97, which
+the checksum-validated archive holds as `07020308 090A0000 3E99999A BF333333 BE4CCCCD
+3DA3D70A`: the bytes `7, 2, 3, 8, 9, 10` plus two zero alignment bytes, then `0.3f`,
+`-0.7f`, `-0.2f` and `0.08f`. Written as a block-scoped `const u8 kinds[6]` initialiser
+and those literals (with the 5th parameter narrowed to `u8`, as its `lbu` home read
+shows) the deferred body (CURRENT 9193) reaches `CURRENT (0)`.
+
+The generated object's `.rodata` is now 0x40 bytes, byte-identical to ROM
+0x800A6F80..0x800A6FBF, so the INFO mapping starts at 0x800A6F80 with a 0x40 extent and
+a 0x40 payload; `config/data/us.json` records the owner at the new start.
