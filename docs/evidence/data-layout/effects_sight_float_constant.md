@@ -34,3 +34,11 @@ and `.rodata.effects_sight_cc` (0x4 at 0x800AAEBC), each with an exact linker si
 assertion and a base symbol, replacing the former single 0x10 placement and its payload
 symbol; `config/data/us.json` names both sections. The constant keeps its runtime
 address, and the linked-payload verification compares both ranges with the ROM.
+
+`func_151C899C` (also round-23) loads `491.0f`, `0.0605f`, `0.0523f`, `0.698f`,
+`-0.44500002f` and `0.441f` from 0x800AAC58..0x800AAC6F (ROM `43F58000 3D77CED9
+3D563886 3F32B021 BEE3D70B 3EE1CAC1`); no other reference function reads them. It
+precedes `func_151C9BA0` in text, so its pool leads the object `.rodata` (now 0xF0
+bytes: 0x18 pool, 0xCC table, 0x4 constant and 4 zero alignment bytes) as
+`.rodata.effects_sight_0` at 0x800AAC58; the table and constant keep their runtime
+addresses as `.rodata.effects_sight_18` and `.rodata.effects_sight_e4`.

@@ -1365,7 +1365,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15138E98",
           "vram": "0x15138E98"
         }
@@ -47531,8 +47536,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1568,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15183290",
           "vram": "0x15183290"
         }
@@ -52736,8 +52746,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1060,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15151D6C",
           "vram": "0x15151D6C"
         }
@@ -61731,8 +61746,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1616,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15166268",
           "vram": "0x15166268"
         }
@@ -64491,8 +64511,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 2048,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517AD00",
           "vram": "0x1517AD00"
         }
@@ -65411,8 +65436,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1060,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E114C",
           "vram": "0x150E114C"
         }
@@ -70157,8 +70187,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F2D14",
           "vram": "0x150F2D14"
         }
@@ -72016,16 +72051,16 @@
       "symbol": "func_151C4820"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "review: reuses total/limit for unrelated constants; dedicated locals score 20",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 608,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CF120",
           "vram": "0x151CF120"
         }
@@ -74019,8 +74054,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1672,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15119938",
           "vram": "0x15119938"
         }
@@ -79478,8 +79518,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1124,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510A40C",
           "vram": "0x1510A40C"
         }
@@ -89385,8 +89430,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1516CC58",
           "vram": "0x1516CC58"
         }

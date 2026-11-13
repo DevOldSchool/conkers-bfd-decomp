@@ -12,7 +12,6 @@
  * - func_15150400
  * - func_1515080C
  * - func_15150D1C
- * - func_15151D6C
  * - func_15152190
  * - func_15152520
  *
@@ -803,7 +802,6 @@ void func_15151A38(Game151A38Config *arg0, u8 arg1, s32 arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151D6C.s")
 typedef struct Game154884Descriptor {
     f32 field00, field04, field08, field0C;
     Vec3f angles;
@@ -823,6 +821,101 @@ typedef struct Game154884Descriptor {
     s16 field72, field74;
     u8 unknown76[6];
 } Game154884Descriptor;
+
+typedef struct Game151D6CConfig {
+    s32 countBase, countRange;
+    Vec3f position;
+    Vec3f normal;
+    u8 triangle[0x14];
+    f32 spread;
+    f32 speedBase, speedRange, durationBase, durationRange;
+    s16 lifeBase, lifeRange;
+    f32 sizeBase, sizeRange, jitter;
+} Game151D6CConfig;
+
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+
+void func_15151D6C(Game151D6CConfig *arg0, s32 *arg1, f32 *arg2, u32 arg3, u8 arg4, s32 arg5) {
+    s32 count;
+    Game154884Descriptor packet;
+    Vec3f basis1;
+    f32 magnitude1, inverse1;
+    Vec3f basis2;
+    f32 magnitude2, inverse2;
+    Vec3f basis3;
+    f32 magnitude3, inverse3;
+    f32 second;
+    f32 first;
+    f32 speed;
+    u32 random;
+
+    if (func_15144E80(arg0->triangle, &basis1, &basis2, &basis3) == 0) {
+        return;
+    }
+    func_15145128(&basis1.x, &basis1.x, &magnitude1, &inverse1);
+    func_15145128(&basis2.x, &basis2.x, &magnitude2, &inverse2);
+    func_15145128(&basis3.x, &basis3.x, &magnitude3, &inverse3);
+    if (func_15144A74(&basis3, &arg0->normal) < 0.0f) {
+        basis3.x = -basis3.x;
+        basis3.y = -basis3.y;
+        basis3.z = -basis3.z;
+    }
+    basis3.x *= 1000.0f;
+    basis3.y *= 1000.0f;
+    basis3.z *= 1000.0f;
+    packet.field00 = 1.0f;
+    packet.field04 = 1.0f;
+    packet.scale.x = 1.0f;
+    packet.scale.y = 1.0f;
+    packet.scale.z = 1.0f;
+    packet.position = arg0->position;
+    packet.field44 = 0.0f;
+    packet.field50 = 0x29E8;
+    count = func_150ADA20() % (u32)(arg0->countRange + 1) + arg0->countBase;
+    packet.field58 = 0;
+    packet.field5C = 0;
+    packet.field60 = 0xFF;
+    packet.field61 = 8;
+    packet.field62 = 0;
+    packet.field63 = 0;
+    packet.field64 = 0;
+    packet.field65 = 0;
+    packet.field66 = 0;
+    packet.field67 = 0;
+    packet.field68 = 2;
+    packet.field6A = 0;
+    packet.field6C = 0;
+    packet.field70 = 0;
+    packet.field72 = 12;
+    packet.field74 = 21;
+    if (count != 0) {
+        do {
+            speed = func_150ADA68() * arg0->speedRange + arg0->speedBase;
+            random = func_150ADA20();
+            func_15143874((s16)(random & 0xFF), func_150ADA68() * arg0->spread, &first, &second);
+            packet.velocity.x = (basis1.x * first + basis2.x * second + basis3.x) * speed;
+            packet.velocity.y = (basis1.y * first + basis2.y * second + basis3.y) * speed;
+            packet.velocity.z = (basis1.z * first + basis2.z * second + basis3.z) * speed;
+            packet.angles.x = func_150ADA68() * 360.0f;
+            packet.angles.y = func_150ADA68() * 360.0f;
+            packet.angles.z = func_150ADA68() * 360.0f;
+            {
+                u32 index;
+
+                index = func_150ADA20() % arg3;
+                packet.field56 = arg1[index];
+                packet.field0C = (arg0->sizeBase + func_150ADA68() * arg0->sizeRange) * arg2[index];
+                packet.field08 = packet.field0C;
+            }
+            packet.field40 = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+            packet.field48 = func_150ADA68() * (2.0f * arg0->jitter) - arg0->jitter;
+            packet.field4C = func_150ADA68() * arg0->durationRange + arg0->durationBase;
+            packet.field54 = func_150ADA20() % (u32)(arg0->lifeRange + 1) + arg0->lifeBase;
+            func_15132A4C(&packet, 3, 0xFF, 0, arg4, arg5);
+            count--;
+        } while (count != 0);
+    }
+}
 
 typedef struct Game152190Config {
     s32 countBase, countRange;

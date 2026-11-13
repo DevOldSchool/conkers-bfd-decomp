@@ -11,7 +11,6 @@
  * - func_15117F3C
  * - func_151193F4
  * - func_151196D4
- * - func_15119938
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -678,13 +677,20 @@ typedef struct {
 } Game144C70Vertex;
 
 typedef struct {
-    u8 pad0[0x16];
+    u8 pad0[4];
+    f32 unk4;
+    u8 pad8[8];
+    s16 x, y, z;
     u16 count;
-    u8 pad18[0x10];
+    u8 pad18[8];
+    Game144C70Vertex *outputs[2];
     Game144C70Vertex *vertices;
-    u8 pad2C[0x28];
+    f32 scaleX, scaleY, scaleZ;
+    u8 pad38[0x1C];
     u16 kind;
-    u8 pad56[0x2E];
+    u8 pad56[0x26];
+    s32 timer;
+    f32 phase;
     s32 active;
 } Game144C70VertexState;
 
@@ -789,4 +795,123 @@ sum_vertices:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151196D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151196D4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15119938.s")
+s32 func_151EF610(void);
+struct127 *func_1505EFD0(s32);
+extern f32 D_800A3160;
+extern f32 D_800A3164;
+extern f32 D_800A3168;
+extern f32 D_800A316C;
+extern f32 D_800BE9A4;
+extern u8 D_800BE9C0;
+
+void func_15119938(Game144C70VertexState *arg0) {
+    f32 dist;
+    Game144C70Vertex *vertex;
+    Game144C70Vertex *out;
+    s32 offset;
+    s32 i;
+    f32 *pair;
+    struct127 *player;
+    f32 posX;
+    f32 posY;
+    f32 posZ;
+    f32 scaleX;
+    f32 scaleY;
+    f32 scaleZ;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 sine;
+    f32 rot[4][2];
+    f32 rotCos;
+    f32 rotSin;
+    f32 cosine;
+    f32 angle;
+
+    vertex = arg0->vertices;
+    out = arg0->outputs[D_800BE9C0];
+    posX = arg0->x;
+    posY = arg0->y;
+    posZ = arg0->z;
+    scaleX = arg0->scaleX;
+    scaleY = arg0->scaleY;
+    scaleZ = arg0->scaleZ;
+    offset = arg0->unk4 * D_800A3160;
+    if (arg0->active == 0) {
+        func_151196D4(arg0);
+    }
+    if (arg0->timer >= 0x400) {
+        arg0->phase += ((f32)(arg0->timer - 0x400) - arg0->phase) * D_800A3164 * D_800BE9A4;
+        if (arg0->timer != 0x420) {
+            arg0->timer--;
+            if (arg0->timer == 0x400) {
+                arg0->timer = 0;
+                arg0->phase = 0.0f;
+            }
+        }
+    } else {
+        arg0->phase += (0.01953125f + 0.00390625f * (func_151EF610() % 6)) * D_800BE9A4;
+        arg0->timer -= func_151EF610() % 3;
+        if (arg0->timer < 0x14) {
+            arg0->timer = 0xEC;
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        if (arg0->timer >= 0x400) {
+            rot[i][0] = func_15048A40(arg0->phase);
+            rot[i][1] = func_150489B0(arg0->phase);
+        } else {
+            angle = arg0->phase * D_800A3168 - D_800A316C * i;
+            if (angle <= 0.0f) {
+                angle = 5.0f;
+            } else {
+                sine = func_15048A40(arg0->timer >> 1);
+                angle = func_15047D60(angle) * (2.0f * sine) + 5.0f;
+            }
+            rot[i][0] = func_15048A40(angle);
+            rot[i][1] = func_150489B0(angle);
+        }
+    }
+    if (arg0->timer != 0x420) {
+        player = func_1505EFD0(0);
+        if (player != NULL) {
+            x = player->x_position - arg0->x;
+            y = player->y_position - arg0->y;
+            z = player->z_position - arg0->z;
+            dist = x * x + y * y + z * z;
+            if (dist < 3072.0f) {
+                if (player->unk31C->unk57 == 1) {
+                    arg0->timer = 0x420;
+                } else {
+                    arg0->timer = 0x41F;
+                }
+            }
+        }
+    }
+    for (i = 0; i < arg0->count; i++) {
+        if (vertex->group != 0) {
+            sine = func_15048A40(vertex->group + offset);
+            cosine = func_150489B0(vertex->group + offset);
+            pair = rot[vertex->group >> 8];
+            rotCos = pair[0];
+            rotSin = pair[1];
+            z = vertex->y * rotCos + vertex->z * rotSin;
+            y = vertex->y * rotSin - vertex->z * rotCos;
+            if (y < 1.0f) {
+                z -= y;
+                y = 1.0f;
+            }
+            x = vertex->x * cosine + z * sine;
+            z = z * cosine - vertex->x * sine;
+        } else {
+            x = vertex->x;
+            y = vertex->y;
+            z = vertex->z;
+        }
+        out->x = x * scaleX + posX;
+        out->y = y * scaleY + posY;
+        out->z = z * scaleZ + posZ;
+        out++;
+        vertex++;
+    }
+}

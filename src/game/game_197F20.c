@@ -9,7 +9,6 @@
  * - func_1516AA70
  * - func_1516B6BC
  * - func_1516C934
- * - func_1516CC58
  * - func_1516D0CC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -163,7 +162,114 @@ void *func_1516C934(u8 *arg0, Game197F20Text *arg1, u8 arg2, u8 arg3, u8 arg4, u
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516C934 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516C934.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516CC58.s")
+typedef struct Game197F20CameraConfig {
+    s32 flags;
+    u8 pad4[5];
+    u8 index9;
+    u8 padA[2];
+    f32 posC;
+    f32 pos10;
+    f32 pos14;
+    f32 *x;
+    f32 *y;
+    f32 *zoom;
+} Game197F20CameraConfig;
+
+typedef struct Game197F20Camera {
+    u8 pad0[0x10];
+    Game197F20CameraConfig *config;
+    u8 pad14[0xB];
+    u8 initialised;
+    u8 pad20[0x18];
+    f32 width;
+    f32 height;
+    f32 outX;
+    f32 outY;
+    u8 pad48[8];
+    f32 screenX;
+    f32 screenY;
+    f32 angle;
+    f32 x;
+    f32 y;
+    f32 baseX;
+    f32 baseY;
+    f32 yaw;
+} Game197F20Camera;
+
+typedef struct Game197F20Heading {
+    f32 value;
+    u8 pad4[0x328];
+} Game197F20Heading;
+
+extern void *D_800BE628;
+extern struct108 *D_800DBFF0;
+extern Game197F20Heading D_800CC310[];
+extern u16 D_8009055C[];
+extern u16 D_8009057C[];
+void func_1501A764(s32, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_1516D0CC(void *, f32 *, f32 *, f32 *);
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+
+void func_1516CC58(Game197F20Camera *arg0) {
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 value;
+    s32 offsetX;
+    s32 offsetY;
+    Game197F20CameraConfig *config = arg0->config;
+    f32 scale;
+
+    if (config->flags & 0x8000) {
+        scale = *config->x * 0.01f;
+        arg0->x = *(f32 *)((u8 *)D_800BE628 + 4) * scale;
+        scale = *config->y * 0.01f;
+        scale = 1.0f - scale;
+        arg0->y = *(f32 *)((u8 *)D_800BE628 + 8) * scale;
+        value = *config->zoom * 0.01f;
+        value = (value < 0.0f) ? 0.0f : ((value > 1.0f) ? 1.0f : value);
+        value = 70.0f * value + 55.0f;
+        value *= 0.017453292f;
+        arg0->angle = value;
+        if (config->flags & 0x10000) {
+            func_1516D0CC(arg0, &arg0->x, &arg0->y, &arg0->angle);
+        }
+    } else {
+        func_1501A764(0, config->posC, config->pos10, config->pos14, &x, &y, &z);
+        if (arg0->initialised == 0) {
+            arg0->baseX = x;
+            arg0->baseY = y;
+            arg0->yaw = D_800CC310[arg0->config->index9].value - D_800DBFF0->unk37C - 180.0f;
+            arg0->initialised = 1;
+        }
+        value = arg0->yaw;
+        arg0->x = arg0->baseX;
+        arg0->y = arg0->baseY;
+        if (value < 0.0f) {
+            value += 360.0f;
+        }
+        if (value > 180.0f) {
+            value -= 360.0f;
+        }
+        if (value > 90.0f) {
+            value = 180.0f - value;
+        } else if (value < -90.0) {
+            value = -180.0f - value;
+        }
+        value = value / -180.0f + 0.5f;
+        value = 70.0f * value + 55.0f;
+        value *= 0.017453292f;
+        arg0->angle = value;
+        func_1516D0CC(arg0, &arg0->x, &arg0->y, &arg0->angle);
+    }
+    arg0->outX = arg0->x;
+    arg0->outY = arg0->y;
+    offsetX = D_8009057C[3] * (arg0->width / D_8009055C[3]) * 0.25f;
+    offsetY = D_8009057C[4] * (arg0->height / D_8009055C[4]) * 0.5f;
+    arg0->screenX = (s32)(func_15047C00(arg0->angle + 3.1415927f) * (arg0->width * 0.5f) * 1.15f + arg0->x - offsetX);
+    arg0->screenY = func_15047D60(arg0->angle + 3.1415927f) * (arg0->height * 0.5f) * 1.04f + arg0->y - offsetY;
+}
 f32 func_15047C00(f32);                             /* extern */
 extern u16 D_80090562;
 extern u16 D_80090582;

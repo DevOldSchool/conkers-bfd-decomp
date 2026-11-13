@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151094FC
  * - func_15109FB8
- * - func_1510A40C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -560,4 +559,100 @@ void *func_1510A344(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     }
     return value;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_1510A40C.s")
+extern Vec3f D_800A2604, D_800A2610, D_800A261C, D_800A2628;
+
+void func_1510A40C(u8 *arg0) {
+    Game1368C0Locals *state;
+    u8 *source;
+    Vec3f origins[2];
+    Vec3f directions[2];
+    s32 transform;
+    Game1368C0EmitterSpawn spawn;
+    f32 extra;
+    u8 index;
+    f32 speed;
+    void *created;
+    Game1368C0EmitterSpawn *packet;
+
+    state = (Game1368C0Locals *)(arg0 + 0x28);
+    source = state->source;
+    if (*(s32 *)source == 0 || state->type != source[0x3B]) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    state->zero += (state->value_1 + func_150ADA68() * state->value_2) * D_800BE9A4;
+    if (state->zero > 1.0f && *(s32 *)(source + 0x1D4) != 0) {
+        transform = *(s32 *)(source + 0x1D4) + 0x240;
+        func_15143134(&D_800A2604.x, &origins[0].x, transform);
+        func_15143134(&D_800A2610.x, &origins[1].x, transform);
+        func_15143134(&D_800A261C.x, &directions[0].x, transform);
+        func_15143134(&D_800A2628.x, &directions[1].x, transform);
+        directions[0].x -= origins[0].x;
+        directions[0].y -= origins[0].y;
+        directions[0].z -= origins[0].z;
+        directions[1].x -= origins[1].x;
+        directions[1].y -= origins[1].y;
+        directions[1].z -= origins[1].z;
+        spawn.field1D = 0x29;
+        spawn.field8 = 0xE03;
+        spawn.field0 = 0x200005;
+        spawn.field1E = 0x19;
+        spawn.field20 = 0xA;
+        spawn.field58 = 0xCE05;
+        spawn.fields60[0] = 3;
+        spawn.fields60[1] = 3;
+        spawn.fields60[2] = 0x10;
+        spawn.fields60[3] = -1;
+        spawn.fields60[4] = -1;
+        spawn.field4 = 0;
+        spawn.fieldC = 0;
+        spawn.field10 = 0;
+        spawn.fields60[5] = 0;
+        spawn.field22 = 0x19;
+        spawn.colors14[0] = 0xDD;
+        spawn.colors14[1] = 0xD3;
+        spawn.colors14[2] = 0xCD;
+        spawn.colors14[3] = 0xFF;
+        spawn.colors14[4] = 0x57;
+        spawn.colors14[5] = 0x55;
+        spawn.colors14[6] = 0x5A;
+        spawn.colors14[7] = 0xFF;
+        spawn.colors14[8] = 0xFF;
+        extra = 0.910801f;
+        spawn.field24 = 1.043206f;
+        spawn.field3C = 0.0f;
+        spawn.field40 = 0.0f;
+        spawn.field44 = 0.0f;
+        spawn.field54 = 0.0f;
+        packet = &spawn;
+        do {
+            if (func_150ADA20() & 1) {
+                spawn.field58 |= 0x40;
+            } else {
+                spawn.field58 &= ~0x40;
+            }
+            if (func_150ADA20() & 1) {
+                spawn.field58 |= 0x80;
+            } else {
+                spawn.field58 &= ~0x80;
+            }
+            index = func_150ADA20() & 1;
+            speed = (func_150ADA68() * 203.0f + 96.0f) * 0.001f;
+            spawn.fieldA = (func_150ADA20() & 0xF) + 0x14;
+            spawn.field28 = spawn.field2C = func_150ADA68() * 60.0f + 60.0f;
+            spawn.position30 = origins[index];
+            spawn.field48 = directions[index].x * speed;
+            spawn.field4C = directions[index].y * speed;
+            spawn.field50 = directions[index].z * speed;
+            created = func_15130374((s32)packet, 1, 4, arg0[0xC], arg0[1]);
+            if (created != NULL) {
+                func_10022EC0((u8 *)created + 0xA8, &extra, 4);
+            }
+            state->zero -= 1.0f;
+        } while (state->zero > 1.0f);
+    } else {
+        while (state->zero > 1.0f) {
+            state->zero -= 1.0f;
+        }
+    }
+}
