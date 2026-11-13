@@ -52,7 +52,9 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | blood | 0x204 | 0x5C | 0x800A4554 | table, sites 0x3C / 0x44 | `5147d2f6…6188c3` |
 | blood | 0x260 | 0x1CC | 0x800A4650 | table, sites 0x3604 / 0x360C | func_15137610 switch (nov14) |
 | blood | 0x42C | 0x50 | 0x800A4874 | table, sites 0x4CB0 / 0x4CB8 | 20 targets ([func_15138C80](game_blood_jump_tables.md)) |
-| blood | 0x47C | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
+| blood | 0x47C | 0x18 | 0x800A4920 | pool (func_15139D74) | `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` (round-23) |
+| blood | 0x494 | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
+| blood | 0x4B4 | 0x18 | 0x800A4970 | pool (func_1513A6E0) | `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` (round-23) |
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
 | game_1C1150 | 0x3C | 0xC | 0x800A8294 | pool (func_15194408) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3) |
 | game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
@@ -81,8 +83,9 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_F3BA0 | 0x4 | 0x8 | 0x800A047C | pool (func_150C6D90) | `46CCCCCD 3E6C8B44` (26214.4, 0.231) |
 | game_1D6E80 | 0x0 | 0xC | 0x800A8FE0 | pool (func_151AADF8) | `C6147000 46CCCCCD 3E6C8B44` (-9500, 26214.4, 0.231) |
 | game_1D6E80 | 0xC | 0x4 | 0x800A8FF4 | pool (func_151AB3A4) | `3E4CCCCD` (0.2, [record](game_burst_velocity_literals.md)) |
-| game_2062D0 | 0x0 | 0x18 | 0x800AB480 | pool (func_151DA368) | `3E19999A 3DCCCCCD 43EB8000 461DE800 38D1B717 3A83126F` |
-| game_2062D0 | 0x18 | 0x4 | 0x800AB49C | pool | `3F8CCCCD` (1.1, [record](game_2062d0_float_constant.md)) |
+| game_2062D0 | 0x0 | 0x10 | 0x800AB470 | pool (func_151DA08C) | `3E4CCCCD 3DCCCCCD 3E4CCCCD 3DCCCCCD` (0.2, 0.1 ×2; round-23) |
+| game_2062D0 | 0x10 | 0x18 | 0x800AB480 | pool (func_151DA368) | `3E19999A 3DCCCCCD 43EB8000 461DE800 38D1B717 3A83126F` |
+| game_2062D0 | 0x28 | 0x4 | 0x800AB49C | pool | `3F8CCCCD` (1.1, [record](game_2062d0_float_constant.md)) |
 | holtenrope | 0x0 | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
 | holtenrope | 0xC | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
 | game_179F30 | 0x0 | 0x10 | 0x800A5DF4 | pool (func_1514D64C) | `358637BD 3F4CCCCD 3F19999A 358637BD` ([record](game_179f30_float_constants.md)) |
@@ -118,6 +121,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_177B50 | 0x0 | 0x1C | 0x800A57B0 | pool (func_1514AB5C) | `3D3851EC 3F333333 41B4CCCD 415C9375 4267E042 422ADB23 42ED86A8` |
 | game_177B50 | 0x1C | 0x2C | 0x800A5808 | pool (func_1514B034) | `38D1B717 45AD2E28 3A83126F 4496A000 41B4CCCD 415C9375 447B8000 4267E042 422ADB23 42ED86A8 43F88000` |
 | game_177B50 | 0x48 | 0x28 | 0x800A5860 | pool (func_1514B8E4) | `4678FC00 45D26800 468FC800 4170B96F 40BBC3D6 4141C87A 3ECAD752 3DD58454 3F050D7E 3EB026C8` |
+| effects_sight | 0x0 | 0xCC | 0x800AADBC | table, sites 0x2A84 / 0x2A8C | func_151C9BA0 cases 9..0x3B ([record](effects_sight_float_constant.md); round-23) |
+| effects_sight | 0xCC | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
 | game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
 | game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
 
@@ -151,6 +156,21 @@ keep their runtime addresses.
   `repeated` (0.0201f) locals were replaced with literals. The two pools are
   adjacent in ROM and in the object, so they form one 0x20 range. The object
   `.rodata` is exactly 0x280 bytes.
+  Round-23: the blood-burst emitters `func_15139D74` and `func_1513A6E0` each
+  load `0.64900005f`, `-0.708f`, `0.208f`, `6.12f`, `-15.373001f` and
+  `30.746002f` (first-use order, one word each); the checksum-validated ROM
+  holds `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` at both
+  0x800A4920..0x800A4937 and 0x800A4970..0x800A4987, and no other reference
+  function reads them. The words 0x800A4938..0x800A494F stay extern reads of
+  the matched `func_1513A24C`, so the pools are three ranges in text order:
+  `.rodata.blood_47c` (0x18 at 0x800A4920), the existing spray pool renamed
+  `.rodata.blood_494` (0x20, runtime address 0x800A4950 unchanged) and
+  `.rodata.blood_4b4` (0x18 at 0x800A4970). The object `.rodata` is 0x4D0
+  bytes: 0x4CC of payload and 4 zero alignment bytes. `Blood1380B4State`
+  gains named `field_3B`, `field_14C` and `field_150` members in its padding
+  (size and other offsets unchanged), and `func_1513A5E0` takes its second
+  argument as `u8` (definition and prototype), which both emitters pass and
+  which keeps that function at `CURRENT (0)`.
 - **game_1C1150:** `func_15194408` adds a five-case switch. The raw dispatch
   loads `jtbl_800A8280_game` at 0x1519442C/0x15194434 (text offsets
   0x78C/0x794). All five entries are 0x15194440, the shared spawn block. Its

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1501878C
- * - func_150195A0
  * - func_150198FC
  * - func_15019F20
  *
@@ -88,14 +87,13 @@ void func_1517D7B0(s32 *, s32);
 extern u8 D_800BE616;
 extern s32 D_800BE9F0;
 
-void func_15018E88(s32 arg0, s16 arg1) {
+s32 func_15018E88(s32 arg0, s16 arg1) {
     if (D_800BE616 == 0) {
         func_1517D7B0(&arg0, 1);
     }
     arg0 = func_151674F8(arg0, 0, arg1, 0);
     arg0 = func_151674F8(arg0, 0, arg1, 1);
-    func_15174AA4(arg0, D_800BE9F0, arg1);
-    return;
+    return (s32)func_15174AA4(arg0, D_800BE9F0, arg1);
 }
 
 s32 func_15018F08(s32 arg0, s16 arg1) {
@@ -336,10 +334,50 @@ s32 func_15019464(Game45B80Command *arg0, s16 arg1) {
     }
     return func_1510B9D0(func_1515D6D0((s32)arg0, arg1), arg1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_45B80/func_150195A0.s")
+s32 func_1510B7B4(Game45B80Command *, s32);
+Game45B80Command *func_151135C4(Game45B80Command *, s32, s16);
+Game45B80Command *func_151D6778(Game45B80Command *);
+void *func_15186794(s32, s32);
+s32 func_1502BAD0(void *, s32, s16);
+Game45B80Command *func_15035FE8(s32, s32);
+Game45B80Command *func_15188D00(Game45B80Command *, s32, s16);
+extern u8 D_80089470;
+extern u8 D_800BE575;
+
+s32 func_150195A0(Game45B80Command *arg0, s16 arg1) {
+    u8 *sp2C = D_800DBFF0 + (arg1 * 0x9A0);
+
+    if (D_800BEAC0 != 0) {
+        return (s32)arg0;
+    }
+    if (D_80084480 != 0) {
+        return (s32)arg0;
+    }
+    if ((func_1517EFAC(arg1) != 0) || (D_800D18A0 & (1 << arg1))) {
+        return (s32)arg0;
+    }
+    if (D_80082FA0 > 0) {
+        arg0 = (Game45B80Command *)func_1515D6D0(func_1510B7B4(arg0, arg1), arg1);
+        func_1510B958(arg1);
+        { Game45B80Command *command = arg0++; command->w0 = 0xDC080008; command->w1 = (u32)D_800BE628 + (arg1 * 0x180) + (D_800BE9C0 * 0x10) + 0x40; }
+        arg0 = func_1501A490(arg0, arg1, 0, 0, 0, 0);
+    }
+    arg0 = func_151135C4(arg0, 1, arg1);
+    if (D_800BE575 == 2) {
+        arg0 = func_151D6778(arg0);
+    }
+    arg0 = func_15035FE8(func_1502BAD0(func_1501A490(func_15186794(func_151674F8(func_151674F8((s32)arg0, 6, arg1, 0), 6, arg1, 1), arg1), arg1, 0, 0, 0, 0), 1, arg1), arg1);
+    { Game45B80Command *command = arg0++; command->w0 = 0xDA380003; command->w1 = (u32)&D_80089470; }
+    if (*(s32 *)(sp2C + 0x5F0) & 1) {
+        arg0 = (Game45B80Command *)func_15018F08((s32)func_151135C4((Game45B80Command *)func_15018E88((s32)arg0, arg1), 0, arg1), arg1);
+    } else {
+        arg0 = (Game45B80Command *)func_15018E88((s32)func_151135C4((Game45B80Command *)func_15018F08((s32)arg0, arg1), 0, arg1), arg1);
+    }
+    return func_151674F8(func_151674F8(func_1502BAD0(func_15188D00(func_15188D00(arg0, 0, arg1), 1, arg1), 2, arg1), 2, arg1, 0), 2, arg1, 1);
+}
+
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 
-Game45B80Command *func_151D6778(Game45B80Command *);
 Game45B80Command *func_151D5E90(Game45B80Command *, s32, s32, s32);
 void func_151D61B0(s32);
 Game45B80Command *func_1501A680(Game45B80Command *);
@@ -353,7 +391,6 @@ extern s32 D_8002AAE8[];
 extern s32 D_80082FA0;
 extern s32 D_80082FA4;
 extern s8 D_80082F90;
-extern u8 D_800BE575;
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern s32 D_800BE9C4;
@@ -412,8 +449,6 @@ void func_15019BB8(Game45B80Command *arg0, s32 arg1) {
     arg0 = (Game45B80Command *)func_151674F8((s32)arg0, 4, arg1, 0);
     func_151674F8((s32)arg0, 4, arg1, 1);
 }
-s32 func_1502BAD0(void *, s32, s16);
-extern u8 D_80089470;
 extern u8 *D_800DC2A0[];
 
 typedef struct Game45B80Record {

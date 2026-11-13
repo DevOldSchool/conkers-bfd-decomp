@@ -11,10 +11,8 @@
  * - func_151C756C
  * - func_151C7E98
  * - func_151C87E0
- * - func_151C899C
  * - func_151C8FCC
  * - func_151C9198
- * - func_151C9BA0
  * - func_151C9F38
  * - func_151CA6A0
  * - func_151CAD28
@@ -334,7 +332,122 @@ s32 func_151C87E0(s32 arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C87E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C87E0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C899C.s")
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+f32 func_150ADA68(void);
+void func_15164F0C(u8, u8, void *, u8, s32);
+void func_151D8868(s8 *, s32, s32, s32);
+s32 func_1505D024(void *, s32, u16, s32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1514FBFC(void *, u8, s32);
+extern s32 D_800AAC30[];
+extern u8 D_1000EC24[];
+
+typedef struct SightBurstTriangle {
+    s16 values[9];
+} SightBurstTriangle;
+
+void func_151C899C(void *arg0, void *arg1) {
+    typedef struct {
+        s32 field00, field04;
+        Vec3f position;
+        f32 field14, field18, field1C, field20, field24, field28;
+        s32 field2C, field30;
+        f32 field34, field38, field3C, field40;
+        s16 fields44[6];
+        s8 field50;
+    } Config;
+    u8 *state = (u8 *)arg1 + 0x110;
+    struct {
+        Vec3f velocity;
+        SightBurstTriangle triangle;
+        f32 scale;
+        Config config;
+    } burst;
+    s32 position[3];
+    struct {
+        u8 kind;
+        s8 field1;
+        s16 field2;
+        s8 field4;
+    } light;
+    struct {
+        s8 field0;
+        s16 field2;
+        s8 field4;
+        s8 field5;
+        s8 field6;
+    } event;
+
+    burst.scale = 491.0f;
+    burst.config.field14 = 0.0605f;
+    burst.config.field18 = 0.0523f;
+    burst.config.field1C = 30.0f;
+    burst.config.field20 = 83.0f;
+    burst.config.field00 = 5;
+    burst.config.field04 = 3;
+    burst.config.field2C = 5;
+    burst.config.field30 = 4;
+    burst.config.fields44[0] = 0x12;
+    burst.config.fields44[1] = 9;
+    burst.config.fields44[2] = 0x64;
+    burst.config.fields44[3] = 0x64;
+    burst.config.fields44[4] = 0xC;
+    burst.config.fields44[5] = 0xF;
+    burst.config.field50 = 0;
+    burst.config.field24 = 211.0f;
+    burst.config.field28 = 150.0f;
+    burst.config.field34 = 21.0f;
+    burst.config.field38 = 0.698f;
+    burst.config.field3C = -0.44500002f;
+    burst.config.field40 = 0.441f;
+    burst.config.position = *(Vec3f *)((u8 *)arg1 + 0x34);
+    burst.velocity = *(Vec3f *)((u8 *)arg1 + 0x4C);
+    burst.triangle = *(SightBurstTriangle *)(state + 0x5A);
+    func_1514FBFC(&burst, *((u8 *)arg1 + 0xC), *((u8 *)arg1 + 1));
+    burst.config.position = *(Vec3f *)((u8 *)arg1 + 0x40);
+    burst.velocity.x = -*(f32 *)((u8 *)arg1 + 0x4C);
+    burst.velocity.y = -*(f32 *)((u8 *)arg1 + 0x50);
+    burst.velocity.z = -*(f32 *)((u8 *)arg1 + 0x54);
+    burst.triangle = *(SightBurstTriangle *)(state + 0x6C);
+    func_1514FBFC(&burst, *((u8 *)arg1 + 0xC), *((u8 *)arg1 + 1));
+    position[0] = *(f32 *)((u8 *)arg1 + 0x34);
+    position[1] = *(f32 *)((u8 *)arg1 + 0x38);
+    position[2] = *(f32 *)((u8 *)arg1 + 0x3C);
+    light.kind = 3;
+    light.field1 = -1;
+    light.field2 = (func_150ADA20() % 9) + 0x11;
+    light.field4 = 0;
+    func_151602C0((u8 *)&light, position, (func_150ADA20() % 9) + 5, 0xFF, 0x59, 0, 0xFF, 0, 0,
+                  *((u8 *)arg1 + 0xC), *((u8 *)arg1 + 1));
+    position[0] = *(f32 *)((u8 *)arg1 + 0x40);
+    position[1] = *(f32 *)((u8 *)arg1 + 0x44);
+    position[2] = *(f32 *)((u8 *)arg1 + 0x48);
+    func_151602C0((u8 *)&light, position, (func_150ADA20() % 9) + 5, 0xFF, 0x59, 0, 0xFF, 0, 0,
+                  *((u8 *)arg1 + 0xC), *((u8 *)arg1 + 1));
+    func_150E7FEC((func_150ADA68() * 101.0f) + 55.0f, ((func_150ADA20() % 66) + 0xBE) & 0xFF,
+                  (s32)(state + 0x5A), (s32)((u8 *)arg1 + 0x34), -1, 1, 1, 0, 0, 0, *((u8 *)arg1 + 0xC), 0);
+    func_150E7FEC((func_150ADA68() * 101.0f) + 55.0f, ((func_150ADA20() % 66) + 0xBE) & 0xFF,
+                  (s32)(state + 0x6C), (s32)((u8 *)arg1 + 0x40), -1, 1, 1, 0, 0, 0, *((u8 *)arg1 + 0xC), 0);
+    if (arg0 != NULL) {
+        func_15164F0C(2, *(u8 *)(*(u8 **)((u8 *)arg0 + 0x318) + 0x23D), NULL, *((u8 *)arg1 + 0xC),
+                      *((u8 *)arg1 + 1));
+        event.field0 = 1;
+        event.field2 = 0x28;
+        event.field5 = 1;
+        event.field4 = 8;
+        event.field6 = -1;
+        func_151D8868(&event.field0, 0, 0xFF, 0);
+    }
+    if (arg0 != NULL) {
+        func_1505D024(arg0, D_800AAC30[state[0x94]], 0, -1);
+    }
+    func_10010F88(0x2F5, 0x7FFF, (s16)(func_150ADA20() % 500), 0, 0, *(f32 *)((u8 *)arg1 + 0x34),
+                  *(f32 *)((u8 *)arg1 + 0x38), *(f32 *)((u8 *)arg1 + 0x3C), 0x7D0, 0x898);
+    func_1000FA64(0x2F6, *(f32 *)((u8 *)arg1 + 0x40), *(f32 *)((u8 *)arg1 + 0x44), *(f32 *)((u8 *)arg1 + 0x48),
+                  0x7FFF, 0x898, 0x7D0, D_1000EC24, 5, 0, 0, func_150ADA20() % 500);
+    func_1516972C(arg1);
+}
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AAC70;
 extern f32 D_800AAC74;
@@ -791,14 +904,80 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
     }
     return var_v0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9BA0.s")
-void func_150BDE90(s32, u8, s32);
+struct SightSpawnOwner;
+void func_151CA6A0(u8 *, s32);
+void func_151CAD28(u8 *, s32);
+void func_151CCE94(struct SightSpawnOwner *);
+void func_151CCD1C(void *, u8, u8, u8);
+void func_151C9DE8(s32, u8, s8, u8, s32);
+void func_151CAB78(u8 *, u8);
+extern u8 D_800CBFA8[];
+extern s32 D_80082FA0;
+extern s32 D_800BE9F0;
 s32 func_151C9F38(s32, u8, u8, s8, u8);
 void func_151CB5FC(s32, u8, u8, s8, u8);
 void func_151CC524(s32, u8, u8, u8, u8, u8);
 s32 func_151CC840(s32, u8, u8, u8, u8, u8);
+void func_151C9ED4(void *);
+
+void func_151C9BA0(u8 *arg0, s32 arg1) {
+    s32 index;
+    s32 kind;
+
+    func_151C9ED4(arg0);
+    index = (*(u8 **)(arg0 + 0x3D0))[0x65];
+    if (index != 0) {
+        kind = D_800CBFA8[index * 0x32C];
+        if (kind == 0x23 || kind == 0x8A) {
+            arg1 = 0x1B;
+        }
+    }
+    switch (arg1) {
+    case 0x23:
+        func_151C9F38((s32)arg0, 1, 1, -1, 0xFF);
+        func_151CA6A0(arg0, 0);
+        break;
+    case 0x1F:
+    case 0x29:
+        func_151C9F38((s32)arg0, 2, 1, -1, 0xFF);
+        func_151CAD28(arg0, 0);
+        break;
+    case 0xC:
+    case 0x16:
+        func_151CAD28(arg0, 0);
+        func_151CCE94((struct SightSpawnOwner *)arg0);
+        break;
+    case 0x1B:
+        if (D_800BE9F0 == 0x27) {
+            func_151C9DE8((s32)arg0, 1, -1, 0xFF, 1);
+            break;
+        }
+        if (D_80082FA0 == 0) {
+            func_151CC524((s32)arg0, 0xFF, 0, 0, 1, 0xFF);
+            func_151CC840((s32)arg0, 0xFF, 0, 0, 1, 0xFF);
+        } else {
+            func_151CCD1C(arg0, 0xFF, 0, 0);
+        }
+        func_151C9F38((s32)arg0, 3, 1, -1, 0xFF);
+        func_151CB5FC((s32)arg0, 1, 1, -1, 0xFF);
+        break;
+    case 0x24:
+        func_151C9F38((s32)arg0, 0, 1, -1, 0xFF);
+        func_151CA6A0(arg0, 0);
+        break;
+    case 0x12:
+    case 0x18:
+    case 0x38:
+    case 0x3B:
+        break;
+    case 9:
+    default:
+        func_151CAB78(arg0, 0);
+        break;
+    }
+}
+void func_150BDE90(s32, u8, s32);
 void func_151CCF08(s32, u8, s8, u8);
-extern s32 D_800BE9F0;
 extern s8 D_8008CD00;
 
 void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
@@ -853,7 +1032,6 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
         callback(arg0, arg1, arg2);
     }
 }
-extern s32 D_80082FA0;
 void *func_10022EC0(void *, const void *, u32);
 
 void func_151CAB78(u8 *arg0, u8 arg1) {

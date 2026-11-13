@@ -168,11 +168,11 @@ SECTIONS
     {
         *characterflamethrower.o(.rodata)
     }
-    /* ROM-verified constant: docs/evidence/data-layout/effects_sight_float_constant.md. */
-    .game_rodata_effects_sight 0x800AAEBC (INFO) : SUBALIGN(4)
-    {
-        *effects_sight.o(.rodata)
-    }
+    /* func_151C9BA0 switch and interpolation constant:
+     * docs/evidence/data-layout/effects_sight_float_constant.md. */
+    .game_rodata_effects_sight_0 0x800AAC58 (INFO) : SUBALIGN(4) { *effects_sight.o(.rodata.effects_sight_0) }
+    .game_rodata_effects_sight_18 0x800AADBC (INFO) : SUBALIGN(4) { *effects_sight.o(.rodata.effects_sight_18) }
+    .game_rodata_effects_sight_e4 0x800AAEBC (INFO) : SUBALIGN(4) { *effects_sight.o(.rodata.effects_sight_e4) }
     /* ROM-verified constants: docs/evidence/data-layout/game_e7970_float_constants.md. */
     .game_rodata_e7970 0x8009FE30 (INFO) : SUBALIGN(4)
     {
@@ -198,9 +198,15 @@ SECTIONS
     {
         *game_1DD500.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_71820_float_constants.md. */
+    .game_rodata_71820 0x80098D60 (INFO) : SUBALIGN(4)
+    {
+        *game_71820.o(.rodata)
+    }
     /* ROM-verified constant: docs/evidence/data-layout/game_2062d0_float_constant.md. */
-    .game_rodata_2062d0_0 0x800AB480 (INFO) : SUBALIGN(4) { *game_2062D0.o(.rodata.2062d0_0) }
-    .game_rodata_2062d0_18 0x800AB49C (INFO) : SUBALIGN(4) { *game_2062D0.o(.rodata.2062d0_18) }
+    .game_rodata_2062d0_0 0x800AB470 (INFO) : SUBALIGN(4) { *game_2062D0.o(.rodata.2062d0_0) }
+    .game_rodata_2062d0_10 0x800AB480 (INFO) : SUBALIGN(4) { *game_2062D0.o(.rodata.2062d0_10) }
+    .game_rodata_2062d0_28 0x800AB49C (INFO) : SUBALIGN(4) { *game_2062D0.o(.rodata.2062d0_28) }
     /* ROM-verified constants: docs/evidence/data-layout/game_360a0_float_constants.md. */
     .game_rodata_360a0 0x80095B40 (INFO) : SUBALIGN(4)
     {
@@ -550,15 +556,19 @@ SECTIONS
      * spray literals: docs/evidence/data-layout/game_rodata_literal_sub_pools.md. */
     .game_rodata_blood_0 0x800A4350 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_0) }
     .game_rodata_blood_204 0x800A4554 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_204) }
-    .game_rodata_blood_260 0x800A4650 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_260) }
-    .game_rodata_blood_42c 0x800A4874 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_42c) }
-    .game_rodata_blood_47c 0x800A4950 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_47c) }
+    .game_rodata_blood_260 0x800A45B8 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_260) }
+    .game_rodata_blood_2b4 0x800A4650 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_2b4) }
+    .game_rodata_blood_480 0x800A4874 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_480) }
+    .game_rodata_blood_4d0 0x800A4900 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_4d0) }
+    .game_rodata_blood_508 0x800A4950 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_508) }
     /* Six ROM-proven targets: docs/evidence/data-layout/game_c98f0_jump_table.md. */
     .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
     /* Sixteen ROM-proven entries: docs/evidence/data-layout/game_3ba70_jump_table.md. */
     .game_rodata_3ba70 0x800961D0 (INFO) : SUBALIGN(4) { *game_3BA70.o(.rodata) }
     /* Ten ROM-proven entries: docs/evidence/data-layout/game_20bda0_jump_table.md. */
     .game_rodata_20bda0 0x800AB9BC (INFO) : SUBALIGN(4) { *game_20BDA0.o(.rodata) }
+    /* Thirty-five ROM-proven entries: docs/evidence/data-layout/game_138b40_jump_table.md. */
+    .game_rodata_138b40 0x800A2C2C (INFO) : SUBALIGN(4) { *game_138B40.o(.rodata) }
 }
 __game_rodata_b4080_0_base = ADDR(.game_rodata_b4080_0);
 __game_rodata_b4080_8_base = ADDR(.game_rodata_b4080_8) - 0x8;
@@ -616,7 +626,8 @@ __game_rodata_6b320_0_base = ADDR(.game_rodata_6b320_0);
 __game_rodata_holtenrope_0_base = ADDR(.game_rodata_holtenrope_0);
 __game_rodata_holtenrope_c_base = ADDR(.game_rodata_holtenrope_c) - 0xC;
 __game_rodata_2062d0_0_base = ADDR(.game_rodata_2062d0_0);
-__game_rodata_2062d0_18_base = ADDR(.game_rodata_2062d0_18) - 0x18;
+__game_rodata_2062d0_10_base = ADDR(.game_rodata_2062d0_10) - 0x10;
+__game_rodata_2062d0_28_base = ADDR(.game_rodata_2062d0_28) - 0x28;
 __game_rodata_1d6e80_0_base = ADDR(.game_rodata_1d6e80_0);
 __game_rodata_1d6e80_c_base = ADDR(.game_rodata_1d6e80_c) - 0xC;
 __game_rodata_f3ba0_0_base = ADDR(.game_rodata_f3ba0_0);
@@ -637,8 +648,13 @@ __game_rodata_173d40_20_base = ADDR(.game_rodata_173d40_20) - 0x20;
 __game_rodata_blood_0_base = ADDR(.game_rodata_blood_0);
 __game_rodata_blood_204_base = ADDR(.game_rodata_blood_204) - 0x204;
 __game_rodata_blood_260_base = ADDR(.game_rodata_blood_260) - 0x260;
-__game_rodata_blood_42c_base = ADDR(.game_rodata_blood_42c) - 0x42C;
-__game_rodata_blood_47c_base = ADDR(.game_rodata_blood_47c) - 0x47C;
+__game_rodata_blood_2b4_base = ADDR(.game_rodata_blood_2b4) - 0x2B4;
+__game_rodata_blood_480_base = ADDR(.game_rodata_blood_480) - 0x480;
+__game_rodata_blood_4d0_base = ADDR(.game_rodata_blood_4d0) - 0x4D0;
+__game_rodata_blood_508_base = ADDR(.game_rodata_blood_508) - 0x508;
+__game_rodata_effects_sight_0_base = ADDR(.game_rodata_effects_sight_0);
+__game_rodata_effects_sight_18_base = ADDR(.game_rodata_effects_sight_18) - 0x18;
+__game_rodata_effects_sight_e4_base = ADDR(.game_rodata_effects_sight_e4) - 0xE4;
 __game_rodata_177b50_0_base = ADDR(.game_rodata_177b50_0);
 __game_rodata_177b50_1c_base = ADDR(.game_rodata_177b50_1c) - 0x1C;
 __game_rodata_177b50_48_base = ADDR(.game_rodata_177b50_48) - 0x48;
@@ -769,6 +785,9 @@ __game_rodata_3ba70_payload_size = 0x40;
 ASSERT(SIZEOF(.game_rodata_20bda0) == 0x30, "game_20BDA0 table extent changed")
 __game_rodata_20bda0_payload_size = 0x28;
 
+ASSERT(SIZEOF(.game_rodata_138b40) == 0x90, "game_138B40 table extent changed")
+__game_rodata_138b40_payload_size = 0x8C;
+
 ASSERT(SIZEOF(.game_rodata_90840_0) == 0xB8, "game_90840 table extent changed")
 ASSERT(SIZEOF(.game_rodata_90840_b8) == 0x98,
        "game_90840 func_15064B94 literal extent changed")
@@ -812,8 +831,11 @@ ASSERT(SIZEOF(.game_rodata_12c1e0) == 0x10, "game_12C1E0 ray literal extent chan
 __game_rodata_12c1e0_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1dd500) == 0x10, "game_1DD500 quad literal extent changed")
 __game_rodata_1dd500_payload_size = 0x4;
-ASSERT(SIZEOF(.game_rodata_2062d0_0) == 0x18, "game_2062D0 func_151DA368 literal extent changed")
-ASSERT(SIZEOF(.game_rodata_2062d0_18) == 0x4, "game_2062D0 effect literal extent changed")
+ASSERT(SIZEOF(.game_rodata_71820) == 0x10, "game_71820 look-at literal extent changed")
+__game_rodata_71820_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_2062d0_0) == 0x10, "game_2062D0 func_151DA08C literal extent changed")
+ASSERT(SIZEOF(.game_rodata_2062d0_10) == 0x18, "game_2062D0 func_151DA368 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_2062d0_28) == 0x4, "game_2062D0 effect literal extent changed")
 ASSERT(SIZEOF(.game_rodata_360a0) == 0x20, "game_360A0 descriptor literal extent changed")
 __game_rodata_360a0_payload_size = 0x18;
 ASSERT(SIZEOF(.game_rodata_113d60) == 0x10, "game_113D60 emitter literal extent changed")
@@ -849,9 +871,9 @@ ASSERT(SIZEOF(.game_rodata_holtenrope_c) == 0x8, "holtenrope point literal exten
 ASSERT(SIZEOF(.game_rodata_characterflamethrower) == 0x10,
        "characterflamethrower preset literal extent changed")
 __game_rodata_characterflamethrower_payload_size = 0x8;
-ASSERT(SIZEOF(.game_rodata_effects_sight) == 0x10,
-       "effects_sight interpolation constant extent changed")
-__game_rodata_effects_sight_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_effects_sight_0) == 0x18, "effects_sight func_151C899C literal extent changed")
+ASSERT(SIZEOF(.game_rodata_effects_sight_18) == 0xCC, "effects_sight func_151C9BA0 table extent changed")
+ASSERT(SIZEOF(.game_rodata_effects_sight_e4) == 0x4, "effects_sight interpolation constant extent changed")
 ASSERT(SIZEOF(.game_rodata_e7970) == 0x30, "game_E7970 particle literal extent changed")
 __game_rodata_e7970_payload_size = 0x2C;
 ASSERT(SIZEOF(.game_rodata_1cc440) == 0x10, "game_1CC440 constant pool extent changed")
@@ -986,9 +1008,11 @@ __game_rodata_169510_payload_size = 0x34;
 
 ASSERT(SIZEOF(.game_rodata_blood_0) == 0x204, "effects/blood first table extent changed")
 ASSERT(SIZEOF(.game_rodata_blood_204) == 0x5C, "effects/blood second table extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_260) == 0x1CC, "effects/blood func_15137610 table extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_42c) == 0x50, "effects/blood func_15138C80 table extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_47c) == 0x20, "effects/blood spray literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_260) == 0x54, "effects/blood func_151356D4/func_15135DD0 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_2b4) == 0x1CC, "effects/blood func_15137610 table extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_480) == 0x50, "effects/blood func_15138C80 table extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_4d0) == 0x38, "effects/blood func_15139768/func_15139D74 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_508) == 0x68, "effects/blood spray and burst literal extent changed")
 
 ASSERT(SIZEOF(.game_rodata_camera_camera) == 0x10,
        "camera_camera angle literal extent changed")

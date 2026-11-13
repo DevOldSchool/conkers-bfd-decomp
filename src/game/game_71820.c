@@ -10,7 +10,6 @@
  * - func_15044B78
  * - func_15045880
  * - func_15045AE4
- * - func_15047390
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1390,10 +1389,74 @@ void func_150472C0(void *arg0, void *arg1) {
     *(u8 *)((u8 *)arg0 + 0x1D) = (*(u8 *)((u8 *)arg1 + 0x59) == 1) ? 1 : 0;
     *(s32 *)((u8 *)arg0 + 0x20) = *(s32 *)((u8 *)arg1 + 0x5C);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15047390.s")
 typedef struct {
     f32 elements[16];
 } Game71820Matrix;
+
+void func_150A7BC0(Game71820Matrix *);
+f32 func_10026530(f32);
+
+void func_15047390(Game71820Matrix *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 side_x;
+    f32 side_y;
+    f32 side_z;
+    f32 len;
+    f32 mag;
+
+    func_150A7BC0(arg0);
+    x = arg4 - arg1;
+    y = arg5 - arg2;
+    z = arg6 - arg3;
+    mag = func_10026530((x * x) + (y * y) + (z * z));
+    if (mag == 0.0f) {
+        mag = 0.001f;
+    }
+    len = -1.0f / mag;
+    x *= len;
+    y *= len;
+    z *= len;
+    side_x = (arg8 * z) - (arg9 * y);
+    side_y = (arg9 * x) - (arg7 * z);
+    side_z = (arg7 * y) - (arg8 * x);
+    mag = func_10026530((side_x * side_x) + (side_y * side_y) + (side_z * side_z));
+    if (mag == 0.0f) {
+        mag = 0.001f;
+    }
+    len = 1.0f / mag;
+    side_x *= len;
+    side_y *= len;
+    side_z *= len;
+    arg7 = (y * side_z) - (z * side_y);
+    arg8 = (z * side_x) - (x * side_z);
+    arg9 = (x * side_y) - (y * side_x);
+    mag = func_10026530((arg7 * arg7) + (arg8 * arg8) + (arg9 * arg9));
+    if (mag == 0.0f) {
+        mag = 0.001f;
+    }
+    len = 1.0f / mag;
+    arg7 *= len;
+    arg8 *= len;
+    arg9 *= len;
+    arg0->elements[0] = side_x;
+    arg0->elements[4] = side_y;
+    arg0->elements[8] = side_z;
+    arg0->elements[12] = -((arg1 * side_x) + (arg2 * side_y) + (arg3 * side_z));
+    arg0->elements[1] = arg7;
+    arg0->elements[5] = arg8;
+    arg0->elements[9] = arg9;
+    arg0->elements[13] = -((arg1 * arg7) + (arg2 * arg8) + (arg3 * arg9));
+    arg0->elements[2] = x;
+    arg0->elements[6] = y;
+    arg0->elements[10] = z;
+    arg0->elements[14] = -((arg1 * x) + (arg2 * y) + (arg3 * z));
+    arg0->elements[3] = 0.0f;
+    arg0->elements[7] = 0.0f;
+    arg0->elements[11] = 0.0f;
+    arg0->elements[15] = 1.0f;
+}
 
 void func_15047390(Game71820Matrix *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_150A7790(void *, s32);

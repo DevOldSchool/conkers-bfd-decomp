@@ -525,7 +525,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151342BC",
           "vram": "0x151342BC"
         }
@@ -942,7 +947,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151356D4",
           "vram": "0x151356D4"
         }
@@ -972,7 +982,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15135DD0",
           "vram": "0x15135DD0"
         }
@@ -1379,7 +1394,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15139768",
           "vram": "0x15139768"
         }
@@ -1391,7 +1411,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15139D74",
           "vram": "0x15139D74"
         }
@@ -1472,7 +1497,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1513A6E0",
           "vram": "0x1513A6E0"
         }
@@ -1484,7 +1514,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1513ABB8",
           "vram": "0x1513ABB8"
         }
@@ -1513,7 +1548,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1513B0F8",
           "vram": "0x1513B0F8"
         }
@@ -2879,7 +2919,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_150B3188",
           "vram": "0x150B3188"
         }
@@ -4978,16 +5023,16 @@
       "symbol": "func_15008840"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "Best candidate remains CURRENT (325): volatile global declarations changed addressing and worsened substantially; explicit byte locals and mixed-width constant locals were optimized back to the same single reused 0xFF register.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150089D0",
           "vram": "0x150089D0"
         }
@@ -8788,8 +8833,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1584,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C899C",
           "vram": "0x151C899C"
         }
@@ -8980,15 +9030,16 @@
       "symbol": "func_151C9B64"
     },
     {
-      "blocked": {
-        "reason": "Source-valid starter blocked: raw151C9BF8 indexes D_800CBFA8 by an owner byte times0x32C after only a nonzero guard. Bounded source/include, reviewed evidence and prior-ledger search found no complete array base/extent or index invariant. Do not declare a scalar alias as an array or force integer-address walking. Related151CA6A0/151CAD28 call contracts also need review before source translation. Retain original assembly; no candidate or match credit.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 584,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_151C9BA0",
           "vram": "0x151C9BA0"
         }
@@ -29701,15 +29752,16 @@
       "symbol": "func_15019464"
     },
     {
-      "blocked": {
-        "reason": "Raw 15019664 forwards v0 from func_1510B7B4, while its emitted project prototype is void(s32,s32). Raw 15019808 and 15019864 consume v0 from func_15018E88, whose existing matched C definition in game_45B80.c returns void and calls void func_15174AA4. Requires a separate raw callee/caller return-contract audit and matched-definition repair outside the selected pragma; no candidate attempted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 860,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_150195A0",
           "vram": "0x150195A0"
         }
@@ -33616,15 +33668,16 @@
       "symbol": "func_151D9FC0"
     },
     {
-      "blocked": {
-        "reason": "Native 151DA334 consumes V0 from 1513D668 and copies 1C bytes to returned pointer+128; active shared helper definition and same-source prototype are void. Full raw D668 forwards D594 pointer-or-zero unchanged, D594 explicitly returns that value. Requires separately authorized shared helper return-contract repair; target remains untouched.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 732,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_151DA08C",
           "vram": "0x151DA08C"
         }
@@ -42296,15 +42349,16 @@
       "symbol": "func_150472C0"
     },
     {
-      "blocked": {
-        "reason": "Raw A7BC0 uses only its matrix pointer and initializes all 64 bytes; project one-pointer declarations conflict with the allowed source two-word declaration, which its saved 47700 candidate also uses. Starter fabricates a second argument from arg1 float bits. Preserve the saved candidate; local shared declaration reconciliation is needed before implementing this fresh caller. No comparisons or source edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 760,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_15047390",
           "vram": "0x15047390"
         }
@@ -62776,15 +62830,16 @@
       "symbol": "func_151D6778"
     },
     {
-      "blocked": {
-        "reason": "Raw func_15152F70 uses only two incoming arguments, while allowed source declares three for an existing matched caller. Target call prepares only a0/a1 after15196438. Correcting shared helper arity requires reconciliation and caller revalidation before exact C.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 640,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_150DB9E0",
           "vram": "0x150DB9E0"
         }
@@ -65488,15 +65543,16 @@
       "symbol": "func_150528C8"
     },
     {
-      "blocked": {
-        "reason": "Typed initial definition requires correcting existing matched150535F4 caller which currently calls with no C arguments. Raw A0 is object pointer. Exact two-line caller patch prepared in deferred-broad-manual-20260930; waiting for explicit out-of-body approval.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 452,
-          "state": "blocked",
+          "state": "matched",
           "symbol": "func_15053430",
           "vram": "0x15053430"
         }
@@ -79899,8 +79955,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1424,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510B9D0",
           "vram": "0x1510B9D0"
         }
