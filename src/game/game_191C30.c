@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15164F0C
  * - func_15165628
- * - func_151658DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -256,63 +255,55 @@ void *func_15165628(Game191C30Motion *arg0, s32 arg1, s32 arg2, s32 arg3, s32 ar
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165628.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151658DC CURRENT (4020) */
-s32 func_151658DC(u8 *arg0) {
-    typedef struct { f32 x, y, z; } Point;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 var_v1;
-    u8 *temp_v0;
-    u8 *temp_v0_2;
+typedef struct {
+    u8 pad00[0x10];
+    Game191C30Header header;
+    u8 pad48[0x20];
+    Game191C30Payload payload;
+} Game191C30Object;
 
-    var_v1 = 1;
-    temp_v0 = (void *)(arg0 + 0x68);
-    *(f32 *)((u8 *)arg0 + 0x104) = (f32) (*(f32 *)((u8 *)arg0 + 0x104) + D_800BE9A4);
-    if (*(f32 *)((u8 *)arg0 + 0x104) < *(f32 *)((u8 *)arg0 + 0xF8)) {
-        temp_v0_2 = (void *)(arg0 + 0x68);
-        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x68) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 4) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x20) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 8) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0xC) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x10) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x14) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x18) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x1C) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x20) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x24) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x28) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x2C) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+s32 func_151658DC(Game191C30Object *arg0) {
+    s32 result = 1;
+    Game191C30Payload *p = &arg0->payload;
+
+    p->elapsed += D_800BE9A4;
+    if (p->elapsed < p->firstDuration) {
+        arg0->header.vectors[0].x = p->firstVelocity[0].x * p->elapsed;
+        arg0->header.vectors[0].y = p->firstVelocity[0].y * p->elapsed;
+        arg0->header.vectors[0].z = p->firstVelocity[0].z * p->elapsed;
+        arg0->header.vectors[1].x = p->firstVelocity[1].x * p->elapsed;
+        arg0->header.vectors[1].y = p->firstVelocity[1].y * p->elapsed;
+        arg0->header.vectors[1].z = p->firstVelocity[1].z * p->elapsed;
+        arg0->header.vectors[2].x = p->firstVelocity[2].x * p->elapsed;
+        arg0->header.vectors[2].y = p->firstVelocity[2].y * p->elapsed;
+        arg0->header.vectors[2].z = p->firstVelocity[2].z * p->elapsed;
+        arg0->header.vectors[3].x = p->firstVelocity[3].x * p->elapsed;
+        arg0->header.vectors[3].y = p->firstVelocity[3].y * p->elapsed;
+        arg0->header.vectors[3].z = p->firstVelocity[3].z * p->elapsed;
+    } else if (p->elapsed < p->firstDuration + p->holdDuration) {
+        arg0->header.vectors[0] = p->points[0];
+        arg0->header.vectors[1] = p->points[1];
+        arg0->header.vectors[2] = p->points[2];
+        arg0->header.vectors[3] = p->points[3];
+    } else if (p->elapsed < p->firstDuration + p->holdDuration + p->secondDuration) {
+        f32 t = p->elapsed - (p->firstDuration + p->holdDuration);
+        arg0->header.vectors[0].x = p->points[0].x - p->secondVelocity[1].x * t;
+        arg0->header.vectors[0].y = p->points[0].y - p->secondVelocity[1].y * t;
+        arg0->header.vectors[0].z = p->points[0].z - p->secondVelocity[1].z * t;
+        arg0->header.vectors[1].x = p->points[1].x - p->secondVelocity[0].x * t;
+        arg0->header.vectors[1].y = p->points[1].y - p->secondVelocity[0].y * t;
+        arg0->header.vectors[1].z = p->points[1].z - p->secondVelocity[0].z * t;
+        arg0->header.vectors[2].x = p->points[2].x - p->secondVelocity[3].x * t;
+        arg0->header.vectors[2].y = p->points[2].y - p->secondVelocity[3].y * t;
+        arg0->header.vectors[2].z = p->points[2].z - p->secondVelocity[3].z * t;
+        arg0->header.vectors[3].x = p->points[3].x - p->secondVelocity[2].x * t;
+        arg0->header.vectors[3].y = p->points[3].y - p->secondVelocity[2].y * t;
+        arg0->header.vectors[3].z = p->points[3].z - p->secondVelocity[2].z * t;
     } else {
-        temp_fv1 = *(f32 *)((u8 *)temp_v0 + 0x9C);
-        temp_fa0 = *(f32 *)((u8 *)temp_v0 + 0x90) + *(f32 *)((u8 *)temp_v0 + 0x94);
-        if (temp_fv1 < temp_fa0) {
-            *(Point *)(arg0 + 0x18) = *(Point *)(temp_v0 + 0x60);
-            *(Point *)(arg0 + 0x24) = *(Point *)(temp_v0 + 0x6C);
-            *(Point *)(arg0 + 0x30) = *(Point *)(temp_v0 + 0x78);
-            *(Point *)(arg0 + 0x3C) = *(Point *)(temp_v0 + 0x84);
-        } else if (temp_fv1 < (temp_fa0 + *(f32 *)((u8 *)temp_v0 + 0x98))) {
-            temp_fv0 = temp_fv1 - temp_fa0;
-            *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x60) - (*(f32 *)((u8 *)temp_v0 + 0x3C) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x64) - (*(f32 *)((u8 *)temp_v0 + 0x40) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x20) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x68) - (*(f32 *)((u8 *)temp_v0 + 0x44) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x6C) - (*(f32 *)((u8 *)temp_v0 + 0x30) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x70) - (*(f32 *)((u8 *)temp_v0 + 0x34) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x74) - (*(f32 *)((u8 *)temp_v0 + 0x38) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x78) - (*(f32 *)((u8 *)temp_v0 + 0x54) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x7C) - (*(f32 *)((u8 *)temp_v0 + 0x58) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x80) - (*(f32 *)((u8 *)temp_v0 + 0x5C) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x84) - (*(f32 *)((u8 *)temp_v0 + 0x48) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x88) - (*(f32 *)((u8 *)temp_v0 + 0x4C) * temp_fv0));
-            *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x8C) - (*(f32 *)((u8 *)temp_v0 + 0x50) * temp_fv0));
-        } else {
-            var_v1 = 0;
-        }
+        result = 0;
     }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151658DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_151658DC.s")
 f32 func_15165BB0(void *, void *, f32, f32, f32);
 
 void func_15165B80(u8 *arg0) {

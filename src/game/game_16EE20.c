@@ -24,7 +24,6 @@
  * - func_15145AD8
  * - func_15145DB4
  * - func_15145EA4
- * - func_151462C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2438,69 +2437,49 @@ extern s32 D_800D9E10[];
 extern u8 D_800D9E20;
 extern u8 D_800D9E21;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151462C8 CURRENT (3510) */
-s32 func_151462C8(s32 arg0, u8 *arg1, s32 arg2, u8 *arg3,
-                   s32 arg4, s32 arg5, f32 *arg6, s32 arg7, s32 arg8) {
+s32 func_151462C8(s32 arg0, u8 *arg1, u8 arg2, u8 *arg3,
+                   u8 arg4, s16 arg5, f32 *arg6, u8 arg7, s32 arg8) {
     s32 model;
     s32 data;
-    s32 mode;
     s32 index;
-    s32 flags;
-    s32 type;
-    s32 result;
-    s32 extra;
 
-    mode = arg2 & 0xFF;
-    index = (s16)arg5 * 4;
+    index = arg5 * 4;
     model = *(s32 *)(arg1 + index + 8);
     if (model != 0) {
         data = *(s32 *)(arg1 + 0x18);
         if (data != 0) {
-            type = mode;
-            if (mode == 1) {
-                if (arg3 != 0) {
-                    if (*(s32 *)arg3 == 0 || (u8)arg4 != arg3[0x3B] ||
+            if (arg2 == 1) {
+                if (arg3 != NULL) {
+                    if (*(s32 *)arg3 == 0 || arg4 != arg3[0x3B] ||
                         arg3[4] == 0xFF || arg3[0x302] == 0) {
-                        type = 2;
+                        arg2 = 2;
                     }
                 } else {
-                    type = 0;
+                    arg2 = 0;
                 }
             }
-            switch (type) {
+            switch (arg2) {
                 case 1:
-                    result = func_1515E544(arg0, *(s32 *)(arg3 + index + 0x304),
+                    arg0 = func_1515E544(arg0, *(s32 *)(arg3 + index + 0x304),
                         arg3[0x301], arg3[0x302], *(void **)(arg3 + 0x314));
                     break;
                 case 2:
-                    result = func_1515E544(arg0, *(s32 *)((u8 *)D_800D9E10 + index),
+                    arg0 = func_1515E544(arg0, *(s32 *)((u8 *)D_800D9E10 + index),
                         D_800D9E20, D_800D9E21,
-                        D_800D9BD0 + ((s16)arg5 * 0x10) + (D_800BE9C0 * 8));
+                        D_800D9BD0 + (arg5 * 0x10) + (D_800BE9C0 * 8));
                     break;
                 default:
                 case 0:
-                    flags = 0;
-                    if ((u8)arg7 & 1) {
-                        flags = 2;
-                    }
-                    if ((u8)arg7 & 2) {
-                        extra = 0x10;
-                    } else {
-                        extra = 0;
-                    }
-                    result = func_1515D914(arg0, (s16)arg5, (s32)arg6[0],
+                    arg0 = func_1515D914(arg0, arg5, (s32)arg6[0],
                         (s32)arg6[1], (s32)arg6[2], arg8, model,
                         *(s32 *)arg1, data, arg1 + 4, *(s32 *)(arg1 + 0x1C),
-                        0, extra | 8 | flags, 0);
+                        0, 8 | ((arg7 & 1) ? 2 : 0) | ((arg7 & 2) ? 0x10 : 0), 0);
                     break;
             }
-            arg0 = result;
         }
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151462C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151462C8.s")
 
 u8 func_151464B8(s16 *arg0) {
     s32 i = 0;

@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15035808
  * - func_15035D6C
- * - func_15035FE8
  * - func_15036148
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -267,46 +266,30 @@ typedef struct Game623D0Entry {
 
 void *func_1502CCFC(void *, u8, void *, s32, s32, s32 *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15035FE8 CURRENT (4183) */
-void *func_15035FE8(void *arg0, void *arg1) {
+void *func_15035FE8(Game35D6CCommand *gfx, void *arg1) {
     Game623D0Entry *entry;
     s32 colors[4];
-    s32 red, green, blue, opacity;
+    s32 i;
 
-    if ((u8)D_800C3F00 == 0) return arg0;
-    {
-        { register Game35D6CCommand *command = arg0; arg0 = (u8 *)arg0 + 8;
-          command->word0 = 0xD9FFFFFF;
-          command->word1 = 0x200004; }
-        { register Game35D6CCommand *command = arg0; arg0 = (u8 *)arg0 + 8;
-          command->word0 = 0xD9EEFFFF;
-          command->word1 = 0; }
-        { register Game35D6CCommand *command = arg0; arg0 = (u8 *)arg0 + 8;
-          command->word0 = 0xE2001E01;
-          command->word1 = 0; }
-        entry = (Game623D0Entry *)D_800C3F08;
-        if ((s32)(u8)D_800C3F00 > 0) {
-            do {
-                if (entry->fieldB == 0) {
-                    red = entry->field5;
-                    green = entry->field6;
-                    blue = entry->field7;
-                    opacity = entry->field4;
-                    colors[3] = 0xFF;
-                    colors[0] = red;
-                    colors[1] = green;
-                    colors[2] = blue;
-                    arg0 = func_1502CCFC(arg0, entry->field8, arg1,
-                                        entry->word, opacity, colors, 0, 1);
-                }
-                entry++;
-            } while (entry < (Game623D0Entry *)(D_800C3F08 + ((((s32)(u8)D_800C3F00 << 2) - (s32)(u8)D_800C3F00) << 2)));
-        }
+    if ((u8)D_800C3F00 == 0) {
+        return gfx;
     }
-    return arg0;
+    { Game35D6CCommand *g = gfx++; g->word0 = 0xD9FFFFFF; g->word1 = 0x200004; }
+    { Game35D6CCommand *g = gfx++; g->word0 = 0xD9EEFFFF; g->word1 = 0; }
+    { Game35D6CCommand *g = gfx++; g->word0 = 0xE2001E01; g->word1 = 0; }
+    for (i = 0; i < (u8)D_800C3F00; i++) {
+        entry = &((Game623D0Entry *)D_800C3F08)[i];
+        if (entry->fieldB != 0) {
+            continue;
+        }
+        colors[0] = entry->field5;
+        colors[1] = entry->field6;
+        colors[2] = entry->field7;
+        colors[3] = 0xFF;
+        gfx = func_1502CCFC(gfx, entry->field8, arg1, entry->word, entry->field4, colors, 0, 1);
+    }
+    return gfx;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15035FE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035FE8.s")
 typedef struct Game623D0Actor {
     s32 active;
     u8 pad4;

@@ -15,7 +15,6 @@
  * - func_1502E4C4
  * - func_1502EC34
  * - func_1502F01C
- * - func_1502F264
  * - func_1502F3C8
  * - func_1502F9FC
  * - func_1502FBE8
@@ -1308,64 +1307,85 @@ void *func_1502F01C(Game58F80TileCommand *arg0, s32 arg1) {
 
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F264 CURRENT (4130) */
-void func_1502F264(s32 arg0) {
-    u8 *actor = (u8 *)((u32)&D_800CC2D0 + (u32)arg0 * 0x32CU);
-    u8 *parent;
-    u8 *transform;
-    u32 src;
-    u32 dst;
-    u8 index;
-    s32 count;
+typedef struct Game58F80LinkActor {
+    s32 active;
+    u8 pad4[3];
+    u8 field7;
+    u8 field8;
+    u8 field9;
+    u8 fieldA;
+    u8 fieldB[4];
+    u8 fieldF;
+    u8 pad10[4];
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    u8 pad24[0x18];
+    f32 field3C;
+    f32 field40;
+    u8 pad44[0x18];
+    s32 field5C;
+    u8 pad60[5];
+    u8 owner65;
+    u8 pad66[0x10];
+    u16 field76;
+    u16 field78;
+    u16 field7A;
+    u8 pad7C[0x85];
+    u8 flags101;
+    u8 pad102[0x7E];
+    f32 field180;
+    u8 pad184[0x50];
+    f32 (*transforms)[4][4];
+    u8 pad1D8[0x154];
+} Game58F80LinkActor;
 
-    index = actor[0x65];
-    if (index != 0) {
-        parent = (u8 *)((u32)&D_800CC2D0 + index * 0x32CU - 0x32CU);
-        if ((actor[0x101] & 2) != 2) {
-            transform = *(u8 **)(parent + 0x1D4);
-            if (transform == 0) {
-                *(f32 *)(actor + 0x14) = *(f32 *)(parent + 0x14);
-                *(f32 *)(actor + 0x18) = *(f32 *)(parent + 0x18);
-                *(f32 *)(actor + 0x1C) = *(f32 *)(parent + 0x1C);
+void func_1502F264(s32 arg0) {
+    Game58F80LinkActor *actor = (Game58F80LinkActor *)((u32)&D_800CC2D0 + arg0 * 0x32C);
+    Game58F80LinkActor *parent;
+    f32 (*transform)[4][4];
+    u8 *src;
+    u8 *dst;
+    s32 i;
+
+    if (actor->owner65 != 0) {
+        parent = &((Game58F80LinkActor *)&D_800CC2D0)[actor->owner65 - 1];
+        if ((actor->flags101 & 2) != 2) {
+            transform = parent->transforms;
+            if (transform == NULL) {
+                actor->field14 = parent->field14;
+                actor->field18 = parent->field18;
+                actor->field1C = parent->field1C;
             } else {
-                transform = (u8 *)((u32)transform + (*(u32 *)(actor + 0x5C) << 6));
-                *(f32 *)(actor + 0x14) = *(f32 *)(transform + 0x30);
-                *(f32 *)(actor + 0x18) = *(f32 *)(transform + 0x34);
-                *(f32 *)(actor + 0x1C) = *(f32 *)(transform + 0x38);
+                transform += actor->field5C;
+                actor->field14 = (*transform)[3][0];
+                actor->field18 = (*transform)[3][1];
+                actor->field1C = (*transform)[3][2];
             }
-            *(f32 *)(actor + 0x180) = *(f32 *)(parent + 0x180);
-            *(f32 *)(actor + 0x20) = -4.0f;
-            if (!(actor[0x101] & 0x20)) {
-                *(u16 *)(actor + 0x76) = *(u16 *)(parent + 0x76);
-                *(f32 *)(actor + 0x3C) = *(f32 *)(parent + 0x3C);
-                *(f32 *)(actor + 0x40) = *(f32 *)(parent + 0x40);
-                *(u16 *)(actor + 0x76) = *(u16 *)(parent + 0x76);
-                *(u16 *)(actor + 0x7A) = *(u16 *)(parent + 0x7A);
-                *(u16 *)(actor + 0x78) = *(u16 *)(parent + 0x78);
+            actor->field180 = parent->field180;
+            actor->field20 = -4.0f;
+            if (!(actor->flags101 & 0x20)) {
+                actor->field76 = parent->field76;
+                actor->field3C = parent->field3C;
+                actor->field40 = parent->field40;
+                actor->field76 = parent->field76;
+                actor->field7A = parent->field7A;
+                actor->field78 = parent->field78;
             }
-            if (!(actor[0x101] & 0x40)) {
-                actor[7] = parent[7];
-                count = 0;
-                src = (u32)parent;
-                actor[8] = parent[8];
-                dst = (u32)actor;
-                actor[9] = parent[9];
-                actor[0xA] = parent[0xA];
-                actor[0xF] = parent[0xF];
-                if (D_80082FA0 >= 0) {
-                    do {
-                        *(u8 *)(dst + 0xBU) = *(u8 *)(src + 0xBU);
-                        count = (s32)((u32)count + 1U);
-                        src++;
-                        dst++;
-                    } while (count <= D_80082FA0);
+            if (!(actor->flags101 & 0x40)) {
+                actor->field7 = parent->field7;
+                actor->field8 = parent->field8;
+                actor->field9 = parent->field9;
+                actor->fieldA = parent->fieldA;
+                actor->fieldF = parent->fieldF;
+                for (i = 0, src = (u8 *)parent, dst = (u8 *)actor; i <= D_80082FA0; i++, src++, dst++) {
+                    dst[0xB] = src[0xB];
                 }
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502F264 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F264.s")
 
 void func_1502F490(Game58F80Actor *, f32 *, f32 *, f32 *, s32);
 extern u8 D_800CC2D0;

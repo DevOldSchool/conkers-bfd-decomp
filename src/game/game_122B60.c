@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F56B0
  * - func_150F5A54
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -40,11 +39,9 @@ extern f32 D_800A1B44;
 extern f32 D_800A1B48;
 extern f32 D_800A1B4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F56B0 CURRENT (4765) */
 s32 func_150F56B0(Game122B60TextureAttachment *attachment,
                   Game122B60ActorPrefix *actor) {
     Game122B60AnimationPrefix *animation;
-    f32 phase;
     f32 weight;
     s32 frame;
 
@@ -54,44 +51,49 @@ s32 func_150F56B0(Game122B60TextureAttachment *attachment,
     }
     frame = 6;
     if (actor->state84 == 0xAE) {
-        phase = animation->phase08;
-        if ((36.0f <= phase) && (phase <= 51.0f)) {
-            weight = (phase - 36.0f) * 0.0625f;
+        if ((36.0f <= animation->phase08) && (animation->phase08 <= 51.0f)) {
+            weight = animation->phase08 - 36.0f;
+            weight *= 0.0625f;
             weight = 1.0f - weight;
-            frame = (s32)(6.0f * weight);
-        } else if ((51.0f < phase) && (phase <= 54.0f)) {
+            frame = (s32)(6 * weight);
+        } else if ((51.0f < animation->phase08) && (animation->phase08 <= 54.0f)) {
             frame = 0;
-        } else if ((54.0f < phase) && (phase <= 60.0f)) {
-            weight = (phase - 54.0f) * D_800A1B3C;
-            frame = (s32)(6.0f * weight);
-        } else if ((60.0f < phase) && (phase <= 65.0f)) {
-            weight = (phase - 60.0f) * D_800A1B40;
-            frame = (s32)(2.0f * weight) + 7;
-        } else if ((65.0f < phase) && (phase <= 67.0f)) {
-            weight = (phase - 65.0f) * D_800A1B44;
+        } else if ((54.0f < animation->phase08) && (animation->phase08 <= 60.0f)) {
+            weight = animation->phase08 - 54.0f;
+            weight *= D_800A1B3C;
+            frame = (s32)(6 * weight);
+        } else if ((60.0f < animation->phase08) && (animation->phase08 <= 65.0f)) {
+            weight = animation->phase08 - 60.0f;
+            weight *= D_800A1B40;
+            frame = (s32)(2 * weight) + 7;
+        } else if ((65.0f < animation->phase08) && (animation->phase08 <= 67.0f)) {
+            weight = animation->phase08 - 65.0f;
+            weight *= D_800A1B44;
             weight = 1.0f - weight;
-            frame = (s32)(2.0f * weight) + 7;
-        } else if ((67.0f < phase) && (phase <= 70.0f)) {
-            weight = (phase - 67.0f) * 0.25f;
+            frame = (s32)(2 * weight) + 7;
+        } else if ((67.0f < animation->phase08) && (animation->phase08 <= 70.0f)) {
+            weight = animation->phase08 - 67.0f;
+            weight *= 0.25f;
             weight = 1.0f - weight;
-            frame = (s32)(2.0f * weight) + 4;
-        } else if ((70.0f < phase) && (phase <= 74.0f)) {
-            weight = (phase - 70.0f) * D_800A1B48;
-            frame = (s32)(2.0f * weight) + 4;
-        } else if ((74.0f < phase) && (phase <= 119.0f)) {
-            weight = (phase - 74.0f) * D_800A1B4C;
-            frame = (s32)(2.0f * weight) + 7;
-        } else if ((119.0f < phase) && (phase <= 150.0f)) {
-            weight = (phase - 119.0f) * 0.03125f;
+            frame = (s32)(2 * weight) + 4;
+        } else if ((70.0f < animation->phase08) && (animation->phase08 <= 74.0f)) {
+            weight = animation->phase08 - 70.0f;
+            weight *= D_800A1B48;
+            frame = (s32)(2 * weight) + 4;
+        } else if ((74.0f < animation->phase08) && (animation->phase08 <= 119.0f)) {
+            weight = animation->phase08 - 74.0f;
+            weight *= D_800A1B4C;
+            frame = (s32)(2 * weight) + 7;
+        } else if ((119.0f < animation->phase08) && (animation->phase08 <= 150.0f)) {
+            weight = animation->phase08 - 119.0f;
+            weight *= 0.03125f;
             weight = 1.0f - weight;
-            frame = (s32)(2.0f * weight) + 7;
+            frame = (s32)(2 * weight) + 7;
         }
     }
     attachment->texture18 = D_80090274[frame];
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F56B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F56B0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F5A54 CURRENT (3690) */
 s32 func_150F5A54(u8 *arg0, u8 *arg1) {
     u8 *actor;

@@ -74,8 +74,8 @@ void *func_15130374(s32 arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
 
 void *func_15130374(s32, u8, s32, u8, s32);
 
-void *func_151303BC(s32 arg0, u8 arg1, s32 arg2) {
-    return func_15130374(arg0, arg1, arg2, 0xFF, 0);
+void *func_151303BC(void *arg0, u8 arg1, s32 arg2) {
+    return func_15130374((s32)arg0, arg1, arg2, 0xFF, 0);
 }
 typedef struct Game15D730Particle {
     u8 pad0[0x1A];

@@ -69,6 +69,14 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |
 | game_1FA770 | 0x8 | 0xC | 0x800AAFE4 | pool (func_151CDB94) | `3E49BA5F 3DCCCCCD 40A26FC1` (0.197, 0.1, 5.076142) |
+| game_6B320 | 0x0 | 0x8 | 0x80098918 | pool (func_1503E5F8) | `38D1B717 42652EE0` (0.0001, 57.295776, [record](game_6b320_float_constants.md)) |
+| game_6B320 | 0x8 | 0x8 | 0x80098928 | pool (func_1503ECA0) | `3ECCCCCD 3F4CCCCD` (0.4, 0.8) |
+| game_F3270 | 0x0 | 0x4 | 0x800A041C | pool (func_150C60D8) | `3E4CCCCD` (0.2, [record](game_burst_velocity_literals.md)) |
+| game_F3270 | 0x4 | 0x8 | 0x800A043C | pool (func_150C6460) | `46CCCCCD 3E6C8B44` (26214.4, 0.231) |
+| game_F3BA0 | 0x0 | 0x4 | 0x800A045C | pool (func_150C6A08) | `3E4CCCCD` (0.2) |
+| game_F3BA0 | 0x4 | 0x8 | 0x800A047C | pool (func_150C6D90) | `46CCCCCD 3E6C8B44` (26214.4, 0.231) |
+| game_179F30 | 0x0 | 0x10 | 0x800A5DF4 | pool (func_1514D64C) | `358637BD 3F4CCCCD 3F19999A 358637BD` ([record](game_179f30_float_constants.md)) |
+| game_179F30 | 0x10 | 0x28 | 0x800A5E20 | table, sites 0x1FB4 / 0x1FBC | unchanged (func_1514EA1C, [record](manual_batch_jump_tables.md)) |
 | game_981E0 | 0x0 | 0x38 | 0x80099D54 | table, sites 0x3170 / 0x3178 | 14 targets ([record](game_981e0_constructor_literal_pool.md)) |
 | game_981E0 | 0x38 | 0x10C | 0x80099D8C | pool (func_1506DE84 .. func_1506F54C) | unchanged ([record](game_981e0_constructor_literal_pool.md)) |
 | game_981E0 | 0x144 | 0x80 | 0x80099EAC | pool (func_15070898) | 32 words ([record](game_981e0_constructor_literal_pool.md)) |
@@ -97,7 +105,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_209B50 | 0x0 | 0x18 | 0x800AB500 | pool (func_151DC97C `const` tables) | `EFE0CD9E 9CA09E9C A0000000 3030309A 69D2D583 91000000` |
 | game_209B50 | 0x18 | 0xC | 0x800AB538 | pool (func_151DC97C) | `43C98000 3E439582 3E1A9FBF` (403.0, 0.19100001, 0.15100001) |
 | game_177B50 | 0x0 | 0x1C | 0x800A57B0 | pool (func_1514AB5C) | `3D3851EC 3F333333 41B4CCCD 415C9375 4267E042 422ADB23 42ED86A8` |
-| game_177B50 | 0x1C | 0x28 | 0x800A5860 | pool (func_1514B8E4) | `4678FC00 45D26800 468FC800 4170B96F 40BBC3D6 4141C87A 3ECAD752 3DD58454 3F050D7E 3EB026C8` |
+| game_177B50 | 0x1C | 0x2C | 0x800A5808 | pool (func_1514B034) | `38D1B717 45AD2E28 3A83126F 4496A000 41B4CCCD 415C9375 447B8000 4267E042 422ADB23 42ED86A8 43F88000` |
+| game_177B50 | 0x48 | 0x28 | 0x800A5860 | pool (func_1514B8E4) | `4678FC00 45D26800 468FC800 4170B96F 40BBC3D6 4141C87A 3ECAD752 3DD58454 3F050D7E 3EB026C8` |
 | game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
 | game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
 

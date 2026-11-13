@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15170B90
- * - func_15170F4C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -135,35 +134,30 @@ s32 func_1518C900(s32);
 f32 func_150ADA68(void);
 f32 fabsf(f32);
 extern Game70F4CEntry D_800A6ED8[];
-extern f32 D_800A6F98, D_800A6F9C, D_800A6FA0;
-extern f32 D_800A6FA4, D_800A6FA8, D_800A6FAC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15170F4C CURRENT (6028) */
-void func_15170F4C(u8 *arg0, s32 arg1, s32 arg2) {
+void func_15170F4C(u8 *arg0, u8 arg1, s32 arg2) {
+    f32 rate;
     Game70F4CPacket packet;
-    volatile f32 originX;
-    volatile f32 originY;
-    volatile f32 originZ;
+    s32 count;
+    f32 originX;
+    f32 originY;
+    f32 originZ;
     Game70F4CEntry *entry;
     s32 index;
     s32 texture;
-    f32 rate;
-    f32 height;
-    f32 speed;
 
     packet.flags[8] = 2;
     packet.flags[9] = 1;
     packet.flags[7] = 6;
     packet.flags[5] = 0;
+    count = 6;
     entry = D_800A6ED8;
-    originX = *(s16 *)(arg0 + 0x10);
     index = 0;
+    originX = *(s16 *)(arg0 + 0x10);
     originY = *(s16 *)(arg0 + 0x12);
-    rate = D_800A6FA4;
-    height = D_800A6FA8;
+    originZ = *(s16 *)(arg0 + 0x14);
     packet.rotation[0] = 0.0f;
     packet.rotation[1] = 0.0f;
-    originZ = *(s16 *)(arg0 + 0x14);
     packet.rotation[2] = 0.0f;
     packet.scale[0] = 2.0f;
     packet.scale[1] = 2.0f;
@@ -174,19 +168,19 @@ void func_15170F4C(u8 *arg0, s32 arg1, s32 arg2) {
     packet.flags[2] = 0;
     packet.flags[3] = 0;
     packet.flags[4] = 0;
-    speed = D_800A6FAC;
-    packet.color[0] = D_800A6F98;
-    packet.color[1] = D_800A6F9C;
-    packet.color[2] = D_800A6FA0;
+    packet.color[0] = 0.3f;
+    packet.color[1] = -0.7f;
+    packet.color[2] = -0.2f;
+    rate = 0.1f;
     do {
         texture = func_1518C900(entry->kind);
         packet.flags[6] = entry->kind;
         packet.position[0] = entry->position[0] + originX;
         packet.position[1] = entry->position[1] + originY;
         packet.position[2] = entry->position[2] + originZ;
-        packet.velocity[0] = entry->position[0] * speed;
-        packet.velocity[1] = fabsf(entry->position[1]) * height;
-        packet.velocity[2] = entry->position[2] * speed;
+        packet.velocity[0] = entry->position[0] * 0.09f;
+        packet.velocity[1] = fabsf(entry->position[1]) * 0.23f;
+        packet.velocity[2] = entry->position[2] * 0.09f;
         packet.rotation[0] = entry->rotation[0];
         packet.rotation[1] = entry->rotation[1];
         packet.rotation[2] = entry->rotation[2];
@@ -194,14 +188,12 @@ void func_15170F4C(u8 *arg0, s32 arg1, s32 arg2) {
         packet.random[1] = func_150ADA68() * 4.0f - 2.0f;
         packet.random[2] = func_150ADA68() * 10.0f - 5.0f;
         packet.texture = texture;
-        func_15168BE4(&packet, (u8)arg1, arg2);
+        func_15168BE4((struct Game1944C0State *)&packet, arg1, arg2);
         index++;
         entry++;
-    } while (index < 6);
+    } while (index < count);
     arg0[0x6E] = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15170F4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19E040/func_15170F4C.s")
 
 
 void func_150C3D5C(void);

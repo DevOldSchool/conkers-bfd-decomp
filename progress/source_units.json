@@ -6174,7 +6174,7 @@
         "us": {
           "end": "0x4A2B0",
           "start": "0x49C40",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_770F0.c"
@@ -7214,7 +7214,7 @@
         "us": {
           "end": "0x1B2950",
           "start": "0x1B2060",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1DF510.c"
@@ -8158,7 +8158,7 @@
         "us": {
           "end": "0x1ABE00",
           "start": "0x1AB930",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1D8DE0.c"
@@ -9251,7 +9251,7 @@
         "us": {
           "end": "0x167010",
           "start": "0x1669A0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_193E50.c"
@@ -12155,7 +12155,7 @@
         "us": {
           "end": "0x6AAE0",
           "start": "0x6A5F0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_97AA0.c"
@@ -12961,7 +12961,7 @@
         "us": {
           "end": "0x1CEA20",
           "start": "0x1CE6D0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1FBB80.c"
@@ -14103,7 +14103,7 @@
         "us": {
           "end": "0x159120",
           "start": "0x158D00",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1861B0.c"
@@ -15288,7 +15288,7 @@
         "us": {
           "end": "0x1A99D0",
           "start": "0x1A90C0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1D6570.c"
@@ -16592,7 +16592,7 @@
         "us": {
           "end": "0xE0870",
           "start": "0xE0300",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_10D7B0.c"
@@ -17939,7 +17939,7 @@
         "us": {
           "end": "0x102D50",
           "start": "0x102920",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_12FDD0.c"
@@ -18255,7 +18255,7 @@
         "us": {
           "end": "0x18BA90",
           "start": "0x18B6B0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1B8B60.c"
@@ -18696,7 +18696,7 @@
         "us": {
           "end": "0x36570",
           "start": "0x36310",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_637C0.c"

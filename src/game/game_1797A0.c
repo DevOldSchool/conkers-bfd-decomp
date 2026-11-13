@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_particle_emitter_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514C678
  * - func_1514C858
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -83,47 +82,42 @@ void func_1514C470(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514C678 CURRENT (4012) */
 void func_1514C678(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
-                   s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8,
-                   f32 arg9, s32 arg10, s32 arg11) {
+                   s16 arg4, s16 arg5, s16 arg6, u8 arg7, s32 arg8,
+                   f32 arg9, s32 arg10, u8 arg11) {
     f32 sine;
-    f32 endValue;
-    s16 index;
+    f32 cosine;
+    f32 x;
+    f32 y;
+    f32 z;
     s16 range;
     s16 low;
     Game1797A0Callback callback;
-    s32 randomAngle;
-    s32 angle;
+    u8 angle;
+    s16 index;
 
-    if ((s16)arg5 < (s16)arg4) {
-        range = ((s16)arg4 - (s16)arg5) + 1;
-        low = (s16)arg5;
+    if (arg5 < arg4) {
+        range = arg4 - arg5 + 1;
+        low = arg5;
     } else {
-        range = ((s16)arg5 - (s16)arg4) + 1;
-        low = (s16)arg4;
+        range = arg5 - arg4 + 1;
+        low = arg4;
     }
-    index = 0;
-    if ((s16)arg6 > 0) {
-        do {
-            randomAngle = (func_150ADA20() % (u32)range) + low;
-            angle = randomAngle & 0xFF;
-            sine = func_151423D8((randomAngle - 0x40) & 0xFF);
-            endValue = arg3 * func_151423D8(angle & 0xFF) + arg2;
-            callback = D_8008AA00[(u8)arg7];
-            if (callback != 0) {
-                if (callback(2, index, arg3 * sine + arg0, arg1,
-                             endValue, arg0, arg1, arg2, angle, (s16)arg4,
-                             arg3, arg8, arg9, arg10, (u8)arg11) == 0) {
-                    return;
-                }
-            }
-            index++;
-        } while (index < (s16)arg6);
+    for (index = 0; index < arg6; index++) {
+        y = arg1;
+        angle = func_150ADA20() % range + low;
+        sine = func_151423D8(angle - 0x40);
+        cosine = func_151423D8(angle);
+        x = arg3 * sine + arg0;
+        z = arg3 * cosine + arg2;
+        callback = D_8008AA00[arg7];
+        if (callback != 0 &&
+            callback(2, index, x, y, z, arg0, arg1, arg2, angle, arg4, arg3,
+                     arg8, arg9, arg10, arg11) == 0) {
+            return;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514C678 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1797A0/func_1514C678.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514C858 CURRENT (4809) */
 void func_1514C858(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                    s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8,

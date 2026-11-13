@@ -28,3 +28,20 @@ registered CURRENT (0) with focused layout, progress and whitespace checks;
 the clean verify-batch result is recorded with the commit that adds this
 mapping. No reference assembly, compiler flag or verifier changes are
 involved.
+
+## func_15170F4C pool (nov14)
+
+`func_15170F4C` spawns six debris particles from the `D_800A6ED8` table. Its raw HI16/LO16
+pairs in `asm/nonmatchings/game_19E040/func_15170F4C.s` address the six words
+0x800A6F98..0x800A6FAF, which the checksum-validated US game-data archive (ROM SHA1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`, base 0x80082B20) holds as
+`3E99999A BF333333 BE4CCCCD 3DCCCCCD 3E6B851F 3DB851EC`: exactly `0.3f`, `-0.7f`,
+`-0.2f`, `0.1f`, `0.23f` and `0.09f`. No other reference function touches them. With
+`extern f32` symbols the deferred body scored CURRENT 6028; as literals it is
+`CURRENT (0)`.
+
+The generated object's `.rodata` now starts with these 0x18 bytes, immediately followed
+by the existing 0x10-byte pool, so the owned range simply begins earlier:
+`config/game/us-rodata.ld` maps game_19E040 at 0x800A6F98 with a 0x30 extent assertion
+and a 0x28 payload, and `config/data/us.json` records the owner at the new start. The
+words 0x800A6F88..0x800A6F97 stay extern reads of the deferred `func_15170B90`.

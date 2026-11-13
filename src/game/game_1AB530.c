@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_indexed_controller_view_worklist.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1517E28C
  * - func_1517EAAC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -110,70 +109,63 @@ extern void *D_800B0DF0;
 extern u8 D_800DCDD0;
 extern s8 D_800DD2D0, D_800DDD60;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517E28C CURRENT (4232) */
 s32 func_1517E28C(s32 arg0, s32 arg1) {
     s32 depth;
+    s32 skip;
     s32 distance;
+    s8 *flag;
+    f32 *position;
     Game1AB530BytePair first;
     Game1AB530BytePair second;
     Game1AB530BytePair third;
-    s32 skip;
-    s32 display;
-    s8 *flag;
-    u8 index;
-    f32 *position;
     Game1AB530Node *node;
 
-    display = arg0;
     first = D_8008D004;
     second = D_8008D008;
     third = D_8008D00C;
-    node = D_800DDD64;
     D_800DDD60 = 0;
-    if (node != 0) {
-        do {
-            if (*((u8 *)node + 0x30) != 0) {
-                skip = 0;
-                if (*((u8 *)node + 0x2E) & 1) {
-                    if (D_800DCDD0 == 0) {
-                        skip = 1;
-                    } else {
-                        position = D_8008CFFC[*((u8 *)D_800B0DF0 + 0x10)];
-                        depth = 0xFF;
-                        if (func_1517EAAC(position[0], position[1], position[2], &node->field_C, &node->field_10) != 1) {
-                            skip = 1;
-                        }
-                        if (node->field_2A != 0xFFFC) {
-                            depth = -1;
-                        }
-                    }
+    for (node = D_800DDD64; node != 0; node = node->next) {
+        if (*((u8 *)node + 0x30) != 0) {
+            skip = 0;
+            if (*((u8 *)node + 0x2E) & 1) {
+                if (D_800DCDD0 == 0) {
+                    skip = 1;
                 } else {
-                    if (func_1517EC1C(node, &distance) != 1) {
+                    position = D_8008CFFC[*((u8 *)D_800B0DF0 + 0x10)];
+                    if (func_1517EAAC(position[0], position[1], position[2], &node->field_C, &node->field_10) != 1) {
                         skip = 1;
                     }
-                    depth = -1;
-                    if ((*(u16 *)((u8 *)node + 0x2C) - distance) < 0x1E) {
-                        depth = 0x100;
+                    if (node->field_2A != 0xFFFC) {
+                        depth = -1;
+                    } else {
+                        depth = 0xFF;
                     }
                 }
-                flag = 0;
-                if (*((u8 *)node + 0x2E) & 2) {
-                    flag = &D_800DD2D0;
+            } else {
+                if (func_1517EC1C(node, &distance) != 1) {
+                    skip = 1;
                 }
-                if (skip == 0) {
-                    index = *((u8 *)node + 0x2F);
-                    display = func_1517E4A8(display, node, first.bytes[index], second.bytes[index], third.bytes[index], depth, flag);
-                } else if (flag != 0) {
-                    *flag = 0;
+                if ((*(u16 *)((u8 *)node + 0x2C) - distance) < 0x1E) {
+                    depth = 0x100;
+                } else {
+                    depth = -1;
                 }
             }
-            node = node->next;
-        } while (node != 0);
+            if (*((u8 *)node + 0x2E) & 2) {
+                flag = &D_800DD2D0;
+            } else {
+                flag = 0;
+            }
+            if (skip == 0) {
+                arg0 = func_1517E4A8(arg0, node, first.bytes[*((u8 *)node + 0x2F)], second.bytes[*((u8 *)node + 0x2F)],
+                                     third.bytes[*((u8 *)node + 0x2F)], depth, flag);
+            } else if (flag != 0) {
+                *flag = 0;
+            }
+        }
     }
-    return display;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517E28C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E28C.s")
 
 typedef struct Game1AB530Glow {
     u8 pad0[0xC];

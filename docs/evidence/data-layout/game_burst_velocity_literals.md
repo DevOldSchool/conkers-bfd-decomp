@@ -39,3 +39,20 @@ changes are needed.
 Each function passed its independent full-span `CURRENT (0)`, source-unit
 layout, progress and whitespace gates. Integrated image and external-data
 acceptance are supplied by the clean `verify-batch` gate recorded with the batch.
+
+## Particle-state literals (nov14)
+
+`func_150C6460` (`game_F3270.o`) and its twin `func_150C6D90` (`game_F3BA0.o`) seed a
+particle state with `base = 26214.4f` and `interpolation = 0.231f`. Their raw HI16/LO16
+pairs address 0x800A043C/0x800A0440 and 0x800A047C/0x800A0480 respectively; the
+checksum-validated archive holds `46CCCCCD 3E6C8B44` at both, exactly those literals.
+With `extern f32` symbols the deferred bodies scored CURRENT 5102 and 5100; as literals
+both are `CURRENT (0)`.
+
+Each object's `.rodata` is now `3e4ccccd 46cccccd 3e6c8b44` plus four zero bytes. The
+words between the two pools (0x800A042C..0x800A0438 and 0x800A046C..0x800A0478) stay
+extern reads of the deferred burst constructors, so both units are split by
+`scripts/split_game_rodata.py` into `.rodata.<unit>_0` (0x4 at 0x800A041C / 0x800A045C)
+and `.rodata.<unit>_4` (0x8 at 0x800A043C / 0x800A047C), each with an exact linker
+size assertion, as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
+`config/data/us.json` records both owners per unit.

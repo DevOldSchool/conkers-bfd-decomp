@@ -9,7 +9,6 @@
  * - func_151A7950
  * - func_151A7A90
  * - func_151A7D6C
- * - func_151A8340
  * - func_151A8624
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -53,7 +52,7 @@ typedef struct {
 } Game1D4E00Curve;
 
 f32 func_150ADA68(void);
-void func_151A8340(Game1D4E00Curve *, s16, s16, f32, s32);
+void func_151A8340(Game1D4E00Curve *, s16, s16, f32, s16);
 void func_151450B4(void *, void *, void *);
 extern s32 (*D_8008F940[])(Game1D4E00Curve *);
 extern s32 (*D_8008F948[])(Game1D4E00Curve *);
@@ -130,54 +129,39 @@ void func_151A7A90(Game1D4E00Curve *arg0) {
 
 f32 func_150ADA68(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8340 CURRENT (5170) */
-void func_151A8340(Game1D4E00Curve *arg0, s16 arg1, s16 arg2, f32 arg3, s32 arg4) {
-    f32 random;
-    f32 width;
-    f32 bias;
-    f32 dx;
-    f32 dy;
-    f32 dz;
-    s16 firstIndex;
-    s16 lastIndex;
+void func_151A8340(Game1D4E00Curve *arg0, s16 first, s16 last, f32 amp, s16 depth) {
     s16 middle;
-    s16 nextDepth;
-    s32 span;
-    f32 *first;
-    f32 *last;
 
-    firstIndex = arg1;
-    lastIndex = arg2;
-    span = lastIndex - firstIndex;
-    if (span >= 2) {
-loop:
-        if (((s16 *)&arg4)[1] > 0) {
-        middle = firstIndex + (span >> 1);
-        first = arg0->points[firstIndex];
-        last = arg0->points[lastIndex];
-        dx = last[0] - first[0];
-        dy = last[1] - first[1];
-        dz = last[2] - first[2];
-        random = func_150ADA68();
-        width = arg3 + arg3;
-        bias = -arg3;
-        arg0->points[middle][0] = (first[0] + dx * 0.5f) + (random * width + bias);
-        arg0->points[middle][1] = (first[1] + dy * 0.5f) + (func_150ADA68() * width + bias);
-        arg0->points[middle][2] = first[2] + dz * 0.5f;
-        nextDepth = ((s16 *)&arg4)[1] - 1;
-        func_151A8340(arg0, firstIndex, middle, arg3, nextDepth);
-        lastIndex = lastIndex;
-        span = lastIndex - middle;
-        firstIndex = middle;
-        ((s16 *)&arg4)[1] = nextDepth;
-        if (span >= 2) {
-            goto loop;
-        }
-        }
+    if (last - first < 2) {
+        return;
     }
+    if (depth <= 0) {
+        return;
+    }
+    {
+        f32 dx;
+        f32 dy;
+        f32 dz;
+        f32 *a;
+
+        {
+            f32 *b;
+
+            a = &arg0->points[first][0];
+            middle = first + ((last - first) >> 1);
+            b = arg0->points[last];
+            dx = b[0] - arg0->points[first][0];
+            dy = b[1] - arg0->points[first][1];
+            dz = b[2] - arg0->points[first][2];
+        }
+        arg0->points[middle][0] = (a[0] + dx * 0.5f) + (func_150ADA68() * (amp + amp) + -amp);
+        arg0->points[middle][1] = (a[1] + dy * 0.5f) + (func_150ADA68() * (amp + amp) + -amp);
+        arg0->points[middle][2] = a[2] + dz * 0.5f;
+    }
+    func_151A8340(arg0, first, middle, amp, depth - 1);
+    func_151A8340(arg0, middle, last, amp, depth - 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A8340 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8340.s")
+
 void func_151A8560(s32 arg0) {
     func_151D5E30(arg0 + 0x6C, arg0);
 }

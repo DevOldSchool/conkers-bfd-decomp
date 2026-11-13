@@ -13,7 +13,6 @@
  * - func_151DA6F8
  * - func_151DB5D0
  * - func_151DBAA8
- * - func_151DBCBC
  * - func_151DC034
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1454,23 +1453,19 @@ typedef struct Game1DBCBCPacket {
 
 void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (3624) */
 void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s32 arg6) {
     Game1DBCBCPacket packet;
-    s32 random1;
-    s32 random2;
-    Game1DBE80Color *color;
 
-    arg0 &= 0xFF;
-    arg2 = (s16)arg2;
-    color = &D_800AB414[arg0];
-    packet.fieldC = 0x8000;
     packet.type = 0x38;
+    packet.fieldC = 0x8000;
     packet.flags = 0x67B02;
     packet.duration = 0x12C;
     packet.field8 = 0;
     packet.selector = arg2;
     packet.alpha = 0xFF;
+    packet.red = D_800AB414[arg0].r;
+    packet.green = D_800AB414[arg0].g;
+    packet.blue = D_800AB414[arg0].b;
     packet.flag15 = 0xFF;
     packet.field18 = 0x440001;
     packet.mode = 0;
@@ -1480,23 +1475,16 @@ void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s3
     packet.field24 = 0xFF;
     packet.field20 = 0xFF;
     packet.field1C = 0;
-    packet.red = color->r;
-    packet.green = color->g;
-    packet.blue = color->b;
     if (arg3 != 0) {
-        random1 = func_150ADA20();
-        random2 = func_150ADA20();
         func_1513C73C((s32)&packet, 0, 0, arg3,
                        arg4[0], arg4[1], arg4[2], arg1, arg1,
-                       random1 & 0xFF, ((func_150ADA20() & 1) * 2) + (random2 & 1),
+                       func_150ADA20() & 0xFF, (func_150ADA20() & 1) + ((func_150ADA20() & 1) * 2),
                        0, (u8)arg5, arg6);
         return;
     }
     func_1513C5B0((s32)&packet, 0, 0, 0, arg4[0], arg4[1], arg4[2],
                    arg1, arg1, 0, 0, 0, (u8)arg5, arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DBCBC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBCBC.s")
 
 
 typedef struct Game1DBE80Packet {

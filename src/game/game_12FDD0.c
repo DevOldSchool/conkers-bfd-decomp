@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15102920
- * - func_15102B38
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -155,24 +154,22 @@ typedef struct Game12FDD0Effect {
     u8 pad48[4];
     u8 field4C;
     u8 pad4D[3];
+    s32 field50;
+    s16 field54;
+    s16 field56;
 } Game12FDD0Effect;
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-void func_15103254(s32, s32, s32, s32, s32, s32, s32);
+void func_15103254(s32, s32, f32, s32, s32, s32, s32);
 extern u8 D_800A4AA0;
 extern s32 D_800A5480[3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15102B38 CURRENT (3721) */
 void *func_15102B38(Game12FDD0Object *arg0, u8 arg1, Game12FDD0Copy3 *arg2,
-    Game12FDD0Copy3 *arg3, Game12FDD0Copy2 *arg4, s32 arg5, s32 arg6,
-    f32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12,
+    Game12FDD0Copy3 *arg3, Game12FDD0Copy2 *arg4, s16 arg5, u8 arg6,
+    f32 arg7, s32 arg8, u8 arg9, s32 arg10, s16 arg11, u8 arg12,
     s32 arg13) {
     void *result;
-    union {
-        f32 value;
-        s32 bits;
-    } arg7_word;
     Game12FDD0Effect effect;
     Game12FDD0Extra extra;
 
@@ -184,41 +181,37 @@ void *func_15102B38(Game12FDD0Object *arg0, u8 arg1, Game12FDD0Copy3 *arg2,
     extra.field24 = *(Game12FDD0Copy3 *)D_800A5480;
     extra.count = arg1;
     extra.object = arg0;
-    extra.fieldC = (s16)arg11;
+    extra.fieldC = arg11;
+    extra.object_kind = arg0->kind;
     extra.scaled_count = arg1 << 6;
     effect.kind = 0x5F;
     effect.mode = 5;
     effect.flags = 0x2203;
+    effect.lifetime = arg5;
     effect.field8 = 0;
     effect.fieldC = 0;
     effect.color[0] = 0xFF;
     effect.color[1] = 0xFF;
     effect.color[2] = 0xFF;
     effect.color[3] = 0xFF;
-    extra.object_kind = arg0->kind;
-    effect.lifetime = (s16)arg5;
     effect.size = *arg4;
     effect.field1C = *arg2;
     effect.field28 = *arg3;
     effect.field40 = 0x40CC0009;
-    effect.field45 = 0xFF;
-    effect.field46 = 0;
-    effect.field47 = 7;
     effect.field34 = 0.0f;
     effect.field38 = 0.0f;
     effect.field3C = 0.0f;
-    effect.field44 = (u8)arg6;
-    effect.field4C = (u8)arg9;
+    effect.field44 = arg6;
+    effect.field45 = 0xFF;
+    effect.field46 = 0;
+    effect.field47 = 7;
+    effect.field4C = arg9;
     result = func_1513D2F0((s32)&effect, (s32)&D_800A4AA0, 0x29, 0, 0,
         0x16, ((func_150ADA20() & 1) ? 2 : 0) + 1, 0, 0,
-        arg10 + 0x30, (u8)arg12, arg13);
+        arg10 + 0x30, arg12, arg13);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x110, &extra, 0x30);
     }
-    arg7_word.value = arg7;
-    func_15103254((s16)arg5, (u8)arg6, arg7_word.bits,
-        arg8, (u8)arg9, (u8)arg12, arg13);
+    func_15103254(arg5, arg6, arg7, arg8, arg9, arg12, arg13);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15102B38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12FDD0/func_15102B38.s")

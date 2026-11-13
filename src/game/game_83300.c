@@ -7,20 +7,17 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15055E50
- * - func_15056150
  * - func_150562FC
  * - func_15056B08
  * - func_15058898
  * - func_15058F24
  * - func_150599C8
  * - func_15059C84
- * - func_1505A250
  * - func_1505A3A8
  * - func_1505A9AC
  * - func_1505B9C4
  * - func_1505C1E4
  * - func_1505C7D8
- * - func_1505D024
  * - func_1505D1C4
  * - func_1505D408
  * - func_1505D6F0
@@ -46,47 +43,38 @@ extern s32 D_800D2104;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15056150 CURRENT (4849) */
 void func_15056150(void *arg0) {
-    volatile f32 sp1C;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    register f32 temp_fs0;
-    register f32 temp_fs1;
-    f32 temp_ft3;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 temp_v0;
-    void *temp_v1;
+    u8 *point;
+    f32 cx;
+    f32 cy;
+    f32 cz;
+    f32 maxDist;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 dist;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x2E8);
-    if (temp_v0 != 0) {
-        temp_v1 = ((void **)&D_800D2104)[*(u8 *)((u8 *)arg0 + 0x13F)];
-        temp_fv1 = (f32)*(s16 *)((u8 *)temp_v1 + 8);
-        temp_ft4 = (f32)temp_v0 * 8.0f;
-        temp_fa0 = (f32)*(s16 *)((u8 *)temp_v1 + 0xC);
-        temp_fa1 = (f32)*(s16 *)((u8 *)temp_v1 + 0xA);
-        temp_ft5 = *(f32 *)((u8 *)arg0 + 0x14) - temp_fv1;
-        temp_fs0 = *(f32 *)((u8 *)arg0 + 0x1C) - temp_fa0;
-        temp_fs1 = *(f32 *)((u8 *)arg0 + 0x18) - temp_fa1;
-        temp_fv0 = sqrtf((temp_ft5 * temp_ft5) + (temp_fs0 * temp_fs0) +
-                          (temp_fs1 * temp_fs1) + D_80099440);
-        temp_ft3 = 1.0f / temp_fv0;
-        sp1C = temp_ft3;
-        if (temp_ft4 < temp_fv0) {
-            *(f32 *)((u8 *)arg0 + 0x14) =
-                (temp_ft5 * temp_ft3 * temp_ft4) + temp_fv1;
-            *(f32 *)((u8 *)arg0 + 0x1C) =
-                (temp_fs0 * temp_ft3 * temp_ft4) + temp_fa0;
-            *(f32 *)((u8 *)arg0 + 0x18) =
-                (temp_fs1 * temp_ft3 * temp_ft4) + temp_fa1;
+    if (*(s32 *)((u8 *)arg0 + 0x2E8) != 0) {
+        point = ((u8 **)D_800D2104)[*(u8 *)((u8 *)arg0 + 0x13F)];
+        cx = *(s16 *)(point + 8);
+        cz = *(s16 *)(point + 0xC);
+        cy = *(s16 *)(point + 0xA);
+        maxDist = *(s32 *)((u8 *)arg0 + 0x2E8);
+        maxDist *= 8.0f;
+        dx = *(f32 *)((u8 *)arg0 + 0x14) - cx;
+        dz = *(f32 *)((u8 *)arg0 + 0x1C) - cz;
+        dy = *(f32 *)((u8 *)arg0 + 0x18) - cy;
+        dist = sqrtf(dx * dx + dz * dz + dy * dy + D_80099440);
+        dx *= 1.0f / dist;
+        dz *= 1.0f / dist;
+        dy *= 1.0f / dist;
+        if (maxDist < dist) {
+            *(f32 *)((u8 *)arg0 + 0x14) = dx * maxDist + cx;
+            *(f32 *)((u8 *)arg0 + 0x1C) = dz * maxDist + cz;
+            *(f32 *)((u8 *)arg0 + 0x18) = dy * maxDist + cy;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15056150 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15056150.s")
 extern f32 D_80099444;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
@@ -901,52 +889,44 @@ void func_1505A184(u16 arg0, register f32 arg1, f32 arg2, f32 *arg3,
 }
 extern f32 D_800D1550;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A250 CURRENT (3520) */
-void func_1505A250(f32 arg0, register f32 arg1, volatile f32 arg2, f32 *arg3, f32 *arg4) {
-    struct { f32 stepX; f32 length; f32 stepY; f32 factor; } motion;
-    f32 temp_ft4;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_ft5;
+void func_1505A250(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
+    f32 dx;
+    f32 dy;
+    f32 length;
+    f32 stepX;
+    f32 stepY;
 
-    temp_ft4 = *(volatile f32 *)arg3;
-    temp_fv1 = arg0 - temp_ft4;
-    temp_ft5 = arg1 - *(volatile f32 *)arg4;
-    if ((temp_fv1 != 0.0f) || (temp_ft5 != 0.0f)) {
-        motion.factor = arg2 * D_800D1550;
-        temp_fv0 = sqrtf((temp_fv1 * temp_fv1) + (temp_ft5 * temp_ft5));
-        arg2 = motion.factor;
-        motion.length = temp_fv0;
-        motion.stepX = fabsf((temp_fv1 / temp_fv0) * motion.factor);
-        motion.stepY = fabsf((temp_ft5 / motion.length) * motion.factor);
-        if (temp_fv1 >= 0.0f) {
-            *(volatile f32 *)arg3 = temp_ft4 + motion.stepX;
-            if (arg0 < *(volatile f32 *)arg3) {
-                goto block_6;
+    dx = arg0 - *arg3;
+    dy = arg1 - *arg4;
+    if ((dx != 0.0f) || (dy != 0.0f)) {
+        length = sqrtf((dx * dx) + (dy * dy));
+        arg2 *= D_800D1550;
+        stepX = fabsf((dx / length) * arg2);
+        stepY = fabsf((dy / length) * arg2);
+        if (dx >= 0.0f) {
+            *arg3 += stepX;
+            if (arg0 < *arg3) {
+                *arg3 = arg0;
             }
         } else {
-            *(volatile f32 *)arg3 = temp_ft4 - motion.stepX;
-            if (*(volatile f32 *)arg3 < arg0) {
-block_6:
-                *(volatile f32 *)arg3 = arg0;
+            *arg3 -= stepX;
+            if (*arg3 < arg0) {
+                *arg3 = arg0;
             }
         }
-        if (temp_ft5 >= 0.0f) {
-            *(volatile f32 *)arg4 += motion.stepY;
-            if (arg1 < *(volatile f32 *)arg4) {
-                goto block_11;
+        if (dy >= 0.0f) {
+            *arg4 += stepY;
+            if (arg1 < *arg4) {
+                *arg4 = arg1;
             }
         } else {
-            *(volatile f32 *)arg4 -= motion.stepY;
-            if (*(volatile f32 *)arg4 < arg1) {
-block_11:
-                *(volatile f32 *)arg4 = arg1;
+            *arg4 -= stepY;
+            if (*arg4 < arg1) {
+                *arg4 = arg1;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A250 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A250.s")
 extern f32 D_800994C0;
 extern f32 D_800994C4;
 extern f32 D_800994C8;
@@ -1241,15 +1221,12 @@ extern u16 D_800D1296;
 extern s8 D_800D1340;
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D024 CURRENT (5761) */
-s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    void *record;
+s32 func_1505D024(void *arg0, s32 arg1, u16 arg2, s32 arg3) {
     s32 index;
-    s32 mask;
     s32 result;
-    u16 value;
+    s32 mask;
+    void *record;
 
-    value = arg2 & 0xFFFF;
     record = &D_8009A9F8;
     if (D_800C35EA == 1) {
         return 0;
@@ -1274,25 +1251,21 @@ s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     } else {
         D_800D1340 = arg3 + 1;
     }
-    D_800D1292 = value;
-    D_800D1296 = value;
+    D_800D1292 = arg2;
+    D_800D1296 = arg2;
     if (arg1 & 0x10000) {
         record = func_1505C1A4(D_800D154C);
     }
-    index = ((s32)arg0 - (s32)&D_800CC2D0) / 812;
+    index = ((u8 *)arg0 - D_800CC2D0) / 812;
     mask = 1 << index;
+    result = mask;
     if (arg1 & 0x80000) {
-        result = func_1505C1E4(&D_800D121C, arg0, record,
-                               arg1 & 0xFF, index + 1, 0, 7);
+        result = func_1505C1E4(&D_800D121C, arg0, record, arg1 & 0xFF, index + 1, 0, 7);
     } else {
-        func_1505B9C4(&D_800D121C, arg0, record, record,
-                       arg1 & 0xFF, index + 1, 7);
-        result = mask;
+        func_1505B9C4(&D_800D121C, arg0, record, record, arg1 & 0xFF, index + 1, 7);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505D024 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D024.s")
 void func_1505F188(u32);
 void func_1505C7D8(s32 *, s32);
 extern u8 D_800C3E78;

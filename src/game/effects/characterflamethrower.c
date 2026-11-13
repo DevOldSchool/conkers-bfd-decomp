@@ -17,7 +17,6 @@
  * - func_15198570
  * - func_151987CC
  * - func_1519897C
- * - func_151990AC
  * - func_151994B8
  * - func_15199C34
  * - func_1519A9A4
@@ -1635,29 +1634,27 @@ f32 func_150ADA68(void);
 extern u8 D_80090514[];
 extern CharacterFlamethrowerEmissionPreset D_800A8770[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151990AC CURRENT (5250) */
 void func_151990AC(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
-    CharacterFlamethrowerEmission packet;
     f32 speed;
+    CharacterFlamethrowerEmission packet;
     f32 cosine1;
     f32 sine1;
     f32 cosine2;
-    register f32 sine2;
-    f32 radius;
-    f32 scale;
-    register f32 x;
-    register f32 y;
-    register f32 z;
-    s16 size;
-    s32 angle1;
-    s32 angle2;
+    f32 sine2;
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 angle1;
+    u8 angle2;
+    u32 rnd;
     CharacterFlamethrowerEmissionPreset *preset;
-    CharacterFlamethrowerState *state;
+    CharacterFlamethrowerJet *state;
 
-    state = arg0->state;
-    packet.position[0] = (s16)(s32)arg0->position[0];
-    preset = &D_800A8770[*((u8 *)state + 0x80)];
-    packet.position[1] = (s16)(s32)arg0->position[1];
+    state = (CharacterFlamethrowerJet *)arg0->state;
+    preset = &D_800A8770[state->unk80];
+    packet.position[0] = arg0->position[0];
+    packet.position[1] = arg0->position[1];
+    packet.position[2] = arg0->position[2];
     packet.fraction_x = 0;
     packet.fraction_z = 0;
     packet.fraction_y = 0;
@@ -1674,36 +1671,29 @@ void func_151990AC(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
     packet.frame_rate = 0;
     packet.texture = D_80090514;
     packet.lifetime = 300;
-    packet.position[2] = (s16)(s32)arg0->position[2];
     do {
         speed = func_150ADA68() * preset->speed_range + preset->speed;
-        angle1 = func_150ADA20();
-        angle1 &= 0xFF;
-        angle2 = func_150ADA20();
-        angle2 &= 0xFF;
-        cosine1 = func_151423D8((angle1 - 64) & 0xFF);
-        sine1 = func_151423D8(angle1 & 0xFF);
-        cosine2 = func_151423D8((angle2 - 64) & 0xFF);
-        sine2 = func_151423D8(angle2 & 0xFF);
-        radius = preset->radius;
-        scale = radius * sine2;
-        x = arg1->x + scale * cosine1;
-        y = arg1->y - radius * cosine2;
-        z = arg1->z + scale * sine1;
-        packet.velocity_x = (s16)(s32)((x - arg0->position[0]) * speed);
-        packet.velocity_y = (s16)(s32)((y - arg0->position[1]) * speed);
-        packet.velocity_z = (s16)(s32)((z - arg0->position[2]) * speed);
+        rnd = func_150ADA20();
+        angle1 = rnd & 255;
+        rnd = func_150ADA20();
+        angle2 = rnd & 255;
+        cosine1 = func_151423D8(angle1 - 64);
+        sine1 = func_151423D8(angle1);
+        cosine2 = func_151423D8(angle2 - 64);
+        sine2 = func_151423D8(angle2);
+        x = arg1->x + preset->radius * sine2 * cosine1;
+        y = arg1->y - preset->radius * cosine2;
+        z = arg1->z + preset->radius * sine2 * sine1;
+        packet.velocity_x = (x - arg0->position[0]) * speed;
+        packet.velocity_y = (y - arg0->position[1]) * speed;
+        packet.velocity_z = (z - arg0->position[2]) * speed;
         packet.acceleration = func_150ADA20() % (u32)(preset->acceleration_range + 1) + preset->acceleration;
         packet.fade = func_150ADA20() % (u32)(preset->fade_range + 1) + preset->fade;
-        size = func_150ADA20() % (u32)(preset->size_range + 1) + preset->size;
-        packet.height = size;
-        packet.width = size;
+        packet.width = packet.height = func_150ADA20() % (u32)(preset->size_range + 1) + preset->size;
         func_15167D84(&packet, 0, 0, -1, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
-        *(f32 *)((u8 *)state + 0x88) -= 1.0f;
-    } while (*(f32 *)((u8 *)state + 0x88) > 1.0f);
+        state->unk88 -= 1.0f;
+    } while (state->unk88 > 1.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151990AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151990AC.s")
 void func_151993B4(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerState *state = arg0->state;
 

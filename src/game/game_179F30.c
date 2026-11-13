@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1514CA80
- * - func_1514D64C
  * - func_1514EECC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -219,10 +218,6 @@ extern u8 D_800A58F8[];
 extern u8 D_800A590C[];
 
 struct225 *func_15160A58();
-extern f32 D_800A5DF4;
-extern f32 D_800A5DF8;
-extern f32 D_800A5DFC;
-extern f32 D_800A5E00;
 
 typedef struct {
         f32 sp54;
@@ -277,7 +272,6 @@ typedef struct {
         s8 sp123;
 } Game179F30D64CSetup;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D64C CURRENT (5162) */
 void func_1514D64C(void *arg0) {
     s32 allocated;
     Game179F30D64CSetup setup;
@@ -307,7 +301,8 @@ void func_1514D64C(void *arg0) {
     setup.spD8 = 17.0f;
     setup.spE4 = 0.75f;
     setup.spE8 = 0.25f;
-    setup.spEC = D_800A5DF4;
+    setup.spEC = 0.000001f;
+    setup.sp71 = *(u8 *)((u8 *)arg0 + 0x3B);
     setup.sp6C = arg0;
     setup.sp54 = 0.0f;
     setup.sp58 = 0.0f;
@@ -319,7 +314,6 @@ void func_1514D64C(void *arg0) {
     setup.sp122 = 0;
     setup.sp123 = 0;
     setup.sp72 = 1;
-    setup.sp71 = *(u8 *)((u8 *)arg0 + 0x3B);
     setup.sp5C = 25.0f;
     setup.sp68 = 75.0f;
     setup.sp114 = 1.0f;
@@ -339,18 +333,19 @@ void func_1514D64C(void *arg0) {
     setup.spCC = 30.0f;
     setup.spD0 = 30.0f;
     setup.spD4 = 10.0f;
-    setup.spDC = D_800A5DF8;
-    setup.spE0 = D_800A5DF8;
+    setup.spDC = 0.8f;
+    setup.spE0 = 0.8f;
     setup.sp90 = 0.0f;
     setup.sp94 = 0.0f;
     setup.sp98 = 0.0f;
     setup.sp9C = 0.0f;
     setup.spA0 = 0.0f;
     setup.spA4 = 0.0f;
-    setup.spE4 = D_800A5DFC;
-    setup.spE8 = D_800A5DFC;
+    setup.spE4 = 0.6f;
+    setup.spE8 = 0.6f;
     setup.spD8 = 16.0f;
-    setup.spEC = D_800A5E00;
+    setup.spEC = 0.000001f;
+    setup.sp71 = *(u8 *)((u8 *)arg0 + 0x3B);
     setup.sp6C = arg0;
     setup.sp70 = 5;
     setup.sp120 = 0;
@@ -361,7 +356,6 @@ void func_1514D64C(void *arg0) {
     setup.sp58 = 10.0f;
     setup.sp54 = 0.0f;
     setup.sp60 = 0.0f;
-    setup.sp71 = *(u8 *)((u8 *)arg0 + 0x3B);
     setup.sp5C = -70.0f;
     setup.sp64 = 20.0f;
     setup.sp68 = -140.0f;
@@ -370,8 +364,6 @@ void func_1514D64C(void *arg0) {
     func_1514EC1C(allocated, (s32)arg0, 0xA);
     func_15160A58(arg0, 5, &setup.sp54, 2, 0x12C, 0x28, 0xFF, 0, 0, 0xFF, 0, 1, 0, 0, 0xFF, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514D64C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514D64C.s")
 
 void func_1514D96C(s32 arg0) {
 

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_97AA0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1506A864
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_151A6F00(s16 *, s32, s32, s32);
@@ -121,7 +116,6 @@ typedef struct {
     s32 position[3];
     f32 values[4];
     Game97AA0Descriptor descriptor;
-    u8 tailPad[4];
 } Game97AA0Spawn;
 
 void *func_10022EC0(void *, const void *, u32);
@@ -129,19 +123,18 @@ s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32,
                    s32, s32);
 extern f32 D_80099A28;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506A864 CURRENT (3545) */
 void func_1506A864(void *arg0, s32 arg1) {
-    Game97AA0Spawn spawn;
     void *result;
+    Game97AA0Spawn spawn;
 
     spawn.position[0] = (s32)*(f32 *)((u8 *)arg0 + 0x14);
     spawn.position[1] = (s32)(*(f32 *)((u8 *)arg0 + 0x18) + 50.0f);
+    spawn.position[2] = (s32)*(f32 *)((u8 *)arg0 + 0x1C);
     spawn.values[0] = 0.0f;
     spawn.values[2] = 0.0f;
     spawn.descriptor.type = 2;
     spawn.descriptor.subtype = 0xF;
     spawn.descriptor.value = 0x12C;
-    spawn.position[2] = (s32)*(f32 *)((u8 *)arg0 + 0x1C);
     spawn.descriptor.count = 5;
     spawn.values[1] = 80.0f;
     spawn.values[3] = D_80099A28;
@@ -152,8 +145,6 @@ void func_1506A864(void *arg0, s32 arg1) {
         func_10022EC0((u8 *)result + 0x18, spawn.values, 0x10);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506A864 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_97AA0/func_1506A864.s")
 void func_1506A968(void *arg0, s32 arg1) {
     f32 sp2C[3];
     f32 sp20[3];
