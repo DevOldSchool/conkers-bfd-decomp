@@ -146,9 +146,9 @@ typedef struct Game1E30A0Actor { u8 pad0[0x18]; f32 f18; f32 f1C; u8 pad20[0x18]
 void func_151B5E94(Game1E30A0Actor *arg0) {
     f32 value;
     Game1E30A0Wobble *values = &arg0->s;
-    arg0->s.a += D_800AA434 * D_800BE9A4;
-    if (arg0->s.a > D_800AA438) {
-        arg0->s.a = 0.0f;
+    values->a += D_800AA434 * D_800BE9A4;
+    if (values->a > D_800AA438) {
+        values->a = 0.0f;
         func_10010F88(0x502, 0x5DC0U, 0, 0, -1, (s32)arg0->x, (s32)arg0->y, (s32)arg0->z, 0x64, 0x1F4);
     }
     if (values->a < D_800AA43C) {

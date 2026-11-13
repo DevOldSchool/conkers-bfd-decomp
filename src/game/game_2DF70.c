@@ -258,11 +258,11 @@ void *func_15001DE0(s32 x, s32 y, s32 w, s32 h, s32 arg4, s16 *list) {
         node[2] = 0;
         child0 = func_15001DE0(x - (w >> 1), y - (h >> 1), (w >> 1), (h >> 1), 0, sub);
         node[6] = (u8 *)child0 - (u8 *)node;
-        child1 = func_15001DE0(x - (w >> 1), (h >> 1) + y, (w >> 1), (h >> 1), 0, sub);
+        child1 = func_15001DE0(x - (w >> 1), y + (h >> 1), (w >> 1), (h >> 1), 0, sub);
         child0[2] = (u8 *)child1 - (u8 *)child0;
-        child2 = func_15001DE0((w >> 1) + x, y - (h >> 1), (w >> 1), (h >> 1), 0, sub);
+        child2 = func_15001DE0(x + (w >> 1), y - (h >> 1), (w >> 1), (h >> 1), 0, sub);
         child1[2] = (u8 *)child2 - (u8 *)child1;
-        child3 = func_15001DE0((w >> 1) + x, (h >> 1) + y, (w >> 1), (h >> 1), 0, sub);
+        child3 = func_15001DE0(x + (w >> 1), y + (h >> 1), (w >> 1), (h >> 1), 0, sub);
         child2[2] = (u8 *)child3 - (u8 *)child2;
     }
     func_10004074((s32)sub);

@@ -318,10 +318,9 @@ void func_1514B034(Vec3f *arg0, u8 arg1, s32 arg2) {
             particle.field40 = (func_150ADA68() * 16.0f + 29.0f) * 0.001f;
             particle.field44 = (func_150ADA68() * 600.0f + 400.0f) * 0.001f;
             xScale = (func_150ADA68() * 1205.0f + 304.0f) * 0.001f;
-            yScale = func_150ADA68();
+            yScale = (func_150ADA68() * 1006.0f + 504.0f) * 0.001f;
             particle.field0C = 22.6f * xScale;
             particle.field14 = 13.786f * xScale;
-            yScale = (yScale * 1006.0f + 504.0f) * 0.001f;
             particle.field10 = 57.969f * yScale;
             particle.field18 = 42.714f * yScale;
             particle.field1C = 118.763f * yScale;

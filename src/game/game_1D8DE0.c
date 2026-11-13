@@ -60,7 +60,6 @@ void func_151AB9C8(u8 *arg0) {
         invalid = 1;
     }
     if (!invalid) {
-        state = (Game1D8DE0Packet *)(arg0 + 0x28);
         state->field_C += (state->field_10 + func_150ADA68() * state->field_14) * D_800BE9A4;
         if (state->field_C > 1.0f) {
             func_1504715C(surface, state->field_0);

@@ -125,11 +125,7 @@ void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     descriptor.acceleration.z = 0.0f;
     descriptor.field54 = 0.0f;
     first = (func_150ADA20() & 1) ? 0x40 : 0;
-    if (func_150ADA20() & 1) {
-        second = 0x80;
-    } else {
-        second = 0;
-    }
+    second = (func_150ADA20() & 1) ? 0x80 : 0;
     descriptor.field58 = second | 0xE01 | first | 0x8000 | 0x4000;
     descriptor.field62 = -1;
     descriptor.field63 = -1;

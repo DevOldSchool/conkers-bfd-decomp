@@ -1513,8 +1513,6 @@ s32 func_1508B9BC(void) {
     s32 *neighbors;
     s32 *costs;
     s32 cursor;
-    f32 weight_scale;
-    f32 preferred_scale;
     f32 value;
 
     mode = 1;
@@ -1534,8 +1532,6 @@ s32 func_1508B9BC(void) {
     minimum = 10000000;
     index = 0;
     if (count > 0) {
-        preferred_scale = 0.8f;
-        weight_scale = 0.003921569f;
         do {
             if (active[index] > 0) {
                 cost = -1;
@@ -1551,9 +1547,9 @@ s32 func_1508B9BC(void) {
                         }
                     }
                     if (cost != -1) {
-                        value = (f32)(u32)weights[index] * weight_scale;
+                        value = (f32)(u32)weights[index] * 0.003921569f;
                         if (index == targets[current]) {
-                            value *= preferred_scale;
+                            value *= 0.8f;
                         }
                         cost = (s32)((f32)cost * value);
                         if (cost < minimum) {

@@ -139,9 +139,8 @@ extern f32 D_800BE9A4;
 void func_1515B21C(void *arg0) {
     GameB21CEmitter *emitter;
 
-    ((GameB21CEmitter *)((u8 *)arg0 + 0x28))->count +=
-        ((GameB21CEmitter *)((u8 *)arg0 + 0x28))->rate * D_800BE9A4;
     emitter = (GameB21CEmitter *)((u8 *)arg0 + 0x28);
+    emitter->count += emitter->rate * D_800BE9A4;
     if (emitter->count > 1.0f) {
         GameB21CParticle particle;
         GameB21CMotion motion;

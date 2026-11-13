@@ -1425,7 +1425,7 @@ void func_15047700(Game71820Matrix *arg0, s32 arg1, f32 xEye, f32 yEye, f32 zEye
     xLook = xAt - xEye;
     yLook = yAt - yEye;
     zLook = zAt - zEye;
-    if (xAt == xEye && yLook == 0.0f && zLook == 0.0f) {
+    if (xLook == 0.0f && yLook == 0.0f && zLook == 0.0f) {
         xLook = 0.0f;
         yLook = 0.0f;
         zLook = 1.0f;

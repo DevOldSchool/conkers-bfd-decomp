@@ -660,10 +660,10 @@ typedef struct Game1DA368Owner {
 s32 func_151DA368(Game1DA368Owner *arg0) {
     Game1DA368Motion *motion;
 
-    arg0->motion.angle0 += arg0->motion.speed0 * D_800BE9E4;
-    arg0->motion.angle1 += arg0->motion.speed1 * D_800BE9E4;
     motion = &arg0->motion;
-    arg0->sizeX = func_151423D8(arg0->motion.angle0 - 0x40) * motion->amplitude0 + motion->center;
+    motion->angle0 += motion->speed0 * D_800BE9E4;
+    motion->angle1 += motion->speed1 * D_800BE9E4;
+    arg0->sizeX = func_151423D8(motion->angle0 - 0x40) * motion->amplitude0 + motion->center;
     arg0->sizeY = func_151423D8(motion->angle1 - 0x40) * motion->amplitude1 + motion->center;
     {
         f32 average;
@@ -1477,11 +1477,11 @@ void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s3
         func_1513C73C((s32)&packet, 0, 0, arg3,
                        arg4[0], arg4[1], arg4[2], arg1, arg1,
                        func_150ADA20() & 0xFF, (func_150ADA20() & 1) + ((func_150ADA20() & 1) * 2),
-                       0, (u8)arg5, arg6);
+                       0, arg5, arg6);
         return;
     }
     func_1513C5B0((s32)&packet, 0, 0, 0, arg4[0], arg4[1], arg4[2],
-                   arg1, arg1, 0, 0, 0, (u8)arg5, arg6);
+                   arg1, arg1, 0, 0, 0, arg5, arg6);
 }
 
 

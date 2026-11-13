@@ -368,15 +368,15 @@ extern f32 D_800BE9A4;
 
 void func_1511C548(void *arg0) {
     {
-        f32 temp_ft2;
-        f32 sp20;
+        f32 cosY;
+        f32 sinX;
 
-        sp20 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x80));
-        temp_ft2 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x84)) * 16.0f;
-        *(f32 *)((u8 *)arg0 + 0) = (f32) (sp20 * 16.0f);
-        *(f32 *)((u8 *)arg0 + 8) = temp_ft2;
-        *(f32 *)((u8 *)arg0 + 0x80) = (f32) (*(f32 *)((u8 *)arg0 + 0x80) + (D_800A31EC * D_800BE9A4));
-        *(f32 *)((u8 *)arg0 + 0x84) = (f32) (*(f32 *)((u8 *)arg0 + 0x84) + (D_800A31F0 * D_800BE9A4));
+        sinX = func_15047D60(*(f32 *)((u8 *)arg0 + 0x80));
+        cosY = func_15047D60(*(f32 *)((u8 *)arg0 + 0x84)) * 16.0f;
+        *(f32 *)((u8 *)arg0 + 0) = sinX * 16.0f;
+        *(f32 *)((u8 *)arg0 + 8) = cosY;
+        *(f32 *)((u8 *)arg0 + 0x80) = *(f32 *)((u8 *)arg0 + 0x80) + D_800A31EC * D_800BE9A4;
+        *(f32 *)((u8 *)arg0 + 0x84) = *(f32 *)((u8 *)arg0 + 0x84) + D_800A31F0 * D_800BE9A4;
         *(f32 *)((u8 *)arg0 + 0x80) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x80));
         *(f32 *)((u8 *)arg0 + 0x84) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x84));
     }

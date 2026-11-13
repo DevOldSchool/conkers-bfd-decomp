@@ -376,9 +376,9 @@ s32 func_1515A11C(u8 *arg0, s32 arg1) {
     f32 cosA;
     f32 cosB;
 
-    *(u8 *)(arg0 + 0xAC) += *(s8 *)(arg0 + 0xAE) * D_800BE9E4;
-    *(u8 *)(arg0 + 0xAD) += *(s8 *)(arg0 + 0xAF) * D_800BE9E4;
-    cosA = func_151423D8(*(u8 *)(arg0 + 0xAC) - 0x40);
+    *(u8 *)(motion + 4) += *(s8 *)(motion + 6) * D_800BE9E4;
+    *(u8 *)(motion + 5) += *(s8 *)(motion + 7) * D_800BE9E4;
+    cosA = func_151423D8(*(u8 *)(motion + 4) - 0x40);
     cosB = func_151423D8(*(u8 *)(motion + 5) - 0x40);
     *(f32 *)(arg0 + 0x38) = *(f32 *)(motion + 8) * cosA + *(f32 *)motion;
     *(f32 *)(arg0 + 0x3C) = *(f32 *)(motion + 0xC) * cosB + *(f32 *)motion;
