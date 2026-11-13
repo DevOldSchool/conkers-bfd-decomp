@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514CA80
  * - func_1514EECC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -20,7 +19,359 @@ enum {
     ACTION_SELECTOR_68 = 68
 };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514CA80.s")
+extern s32 D_800BE9F0;
+
+s32 func_1514CA80(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
+    u8 flags = 0;
+
+    switch (*((u8 *)arg0 + 4)) {
+        case 94:
+            *arg3 = 0x19;
+            flags |= 4;
+            break;
+        case 154:
+            *arg3 = 0x18;
+            flags |= 4;
+            break;
+        case 16:
+        case 46:
+            *arg3 = 0x17;
+            flags |= 4;
+            break;
+        case 127:
+            *arg3 = 0x16;
+            flags |= 4;
+            break;
+        case 153:
+            *arg3 = 0x15;
+            flags |= 4;
+            break;
+        case 137:
+        case 186:
+            *arg3 = 0x14;
+            flags |= 4;
+            break;
+        case 173:
+            *arg3 = 0x11;
+            flags |= 4;
+            break;
+        case 134:
+            *arg3 = 0x12;
+            flags |= 4;
+            break;
+        case 82:
+            *arg3 = 0x13;
+            flags |= 4;
+            break;
+        case 95:
+            *arg3 = 0x1B;
+            flags |= 4;
+            break;
+        case 107:
+            *arg3 = 0x10;
+            flags |= 4;
+            break;
+        case 148:
+            *arg3 = 0xE;
+            flags |= 4;
+            break;
+        case 37:
+            *arg3 = 0x1A;
+            flags |= 4;
+            break;
+        case 146:
+            *arg3 = 0xF;
+            flags |= 4;
+            break;
+        case 159:
+        case 160:
+            *arg3 = 0xD;
+            flags |= 4;
+            break;
+        case 147:
+            *arg3 = 0xC;
+            flags |= 4;
+            break;
+        case 141:
+            *arg3 = 0xB;
+            flags |= 4;
+            break;
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 150:
+            *arg3 = 0;
+            flags |= 4;
+            break;
+        case 8:
+            *arg3 = 2;
+            flags |= 4;
+            break;
+        case 10:
+            *arg3 = 3;
+            flags |= 4;
+            break;
+        case 41:
+        case 42:
+            *arg3 = 4;
+            flags |= 4;
+            break;
+        case 83:
+            *arg3 = 5;
+            flags |= 4;
+            break;
+        case 119:
+            *arg3 = 6;
+            flags |= 4;
+            break;
+        case 71:
+            *arg3 = 7;
+            flags |= 4;
+            break;
+        case 40:
+            *arg3 = 8;
+            flags |= 4;
+            break;
+        case 123:
+            *arg3 = 9;
+            flags |= 4;
+            break;
+        case 18:
+            *arg3 = 0xA;
+            flags |= 4;
+            break;
+    }
+    switch (D_800BE9F0) {
+        case 43:
+            *arg2 = 0x15;
+            flags |= 2;
+            if (*((u8 *)arg0 + 4) == 0x9C || *((u8 *)arg0 + 4) == 0x9D) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 29:
+            *arg2 = 0x14;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 9) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 0:
+            *arg2 = 0x10;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 44:
+            *arg2 = 0x11;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 35:
+            *arg2 = 0xF;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 47:
+            *arg2 = 0x12;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 53:
+            *arg2 = 0x13;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 40:
+            *arg2 = 0xE;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 27:
+            *arg2 = 0xA;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 30:
+            *arg2 = 0xB;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 38:
+            *arg2 = 0xC;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 28:
+            *arg2 = 0xD;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 14:
+            *arg2 = 7;
+            flags |= 2;
+            switch (*((u8 *)arg0 + 0x3B)) {
+                case 8:
+                    *arg1 = 0;
+                    flags |= 1;
+                    break;
+                case 1:
+                    *arg1 = 1;
+                    flags |= 1;
+                    break;
+            }
+            break;
+        case 4:
+            *arg2 = 6;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 7:
+            *arg2 = 5;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 0x10) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 12:
+            *arg2 = 3;
+            flags |= 2;
+            break;
+        case 2:
+            *arg2 = 0;
+            flags |= 2;
+            switch (*((u8 *)arg0 + 0x3B)) {
+                case 9:
+                    *arg1 = 0;
+                    flags |= 1;
+                    break;
+                case 7:
+                    *arg1 = 1;
+                    flags |= 1;
+                    break;
+                case 14:
+                case 15:
+                case 23:
+                case 25:
+                    *arg1 = 2;
+                    flags |= 1;
+                    break;
+                case 13:
+                    *arg1 = 3;
+                    flags |= 1;
+                    break;
+            }
+            break;
+        case 10:
+            *arg2 = 1;
+            flags |= 2;
+            switch (*((u8 *)arg0 + 0x3B)) {
+                case 6:
+                    *arg1 = 0;
+                    flags |= 1;
+                    break;
+                case 7:
+                    *arg1 = 1;
+                    flags |= 1;
+                    break;
+                case 8:
+                    *arg1 = 2;
+                    flags |= 1;
+                    break;
+                case 9:
+                    *arg1 = 3;
+                    flags |= 1;
+                    break;
+                case 10:
+                    *arg1 = 4;
+                    flags |= 1;
+                    break;
+                case 11:
+                    *arg1 = 5;
+                    flags |= 1;
+                    break;
+                case 12:
+                    *arg1 = 6;
+                    flags |= 1;
+                    break;
+                case 13:
+                    *arg1 = 7;
+                    flags |= 1;
+                    break;
+                case 15:
+                    *arg1 = 8;
+                    flags |= 1;
+                    break;
+            }
+            break;
+        case 6:
+            *arg2 = 2;
+            flags |= 2;
+            break;
+        case 16:
+            *arg2 = 4;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 6) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 20:
+            *arg2 = 8;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 0x10) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+        case 23:
+            *arg2 = 9;
+            flags |= 2;
+            if (*((u8 *)arg0 + 0x3B) == 1) {
+                *arg1 = 0;
+                flags |= 1;
+            }
+            break;
+    }
+    return flags;
+}
 void *func_15155FD4(s32);
 s32 func_1514CA80(void *, s32 *, s32 *, s32 *);
 extern void (*D_8008AACC)(void *);
@@ -471,7 +822,6 @@ void func_1514DB58(s32 arg0) {
 
 }
 void func_1514F194();
-extern s32 D_800BE9F0;
 
 void func_1514DB64(void *arg0) {
     if (D_800BE9F0 == 0x14) {

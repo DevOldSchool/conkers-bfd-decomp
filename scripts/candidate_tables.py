@@ -62,6 +62,11 @@ def independent_word(word: int, protected: set[int]) -> bool:
             or (is_move(word) and ((word >> 11) & 31) not in protected))
 
 
+def is_constant(word: int) -> bool:
+    """`addiu rt,zero,imm` (li), a small constant load that reads no GPR."""
+    return word >> 26 == 0x09 and (word >> 21) & 31 == 0 and (word >> 16) & 31 != 0
+
+
 DISTANT_LIMIT = 12
 
 
@@ -182,18 +187,21 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                                 for target in direct_edges)):
                 counts.append(guard & 0xFFFF)
                 strict_guards.append(guard_address)
-        # Permit up to three independent instructions before the branch and
+        # Permit up to four independent instructions before the branch and
         # one delay slot before the shift. The boolean xori/sltiu scheduling
         # in func_1511DD98 cannot overwrite the index or guard result. swc1
-        # names an FPR in rt, not a protected GPR. Direct-edge vetoes below
-        # reject bypasses for the new schedule, without inferring a full CFG.
-        for guard_index in (() if hoisted or distant else range(max(0, index - 9), index - 4)):
+        # names an FPR in rt, not a protected GPR. func_150DBD70 schedules four
+        # stack stores and func_1514CA80 four `addiu rt,zero,imm` constants
+        # there; such a constant load is accepted only into an unprotected GPR
+        # and only in this guard window. Direct-edge vetoes below reject
+        # bypasses for the new schedule, without inferring a full CFG.
+        for guard_index in (() if hoisted or distant else range(max(0, index - 10), index - 4)):
             guard = words[guard_index]
             if not (guard >> 26 == 0x0B and rs(guard) == rt(shift) and rt(guard) != 0
                     and rt(guard) != rs(guard) and 0 < (guard & 0xFFFF) <= 1024):
                 continue
             for branch_index in (index - 4, index - 5):
-                if not guard_index < branch_index <= guard_index + 4:
+                if not guard_index < branch_index <= guard_index + 5:
                     continue
                 branch = words[branch_index]
                 if not (branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
@@ -202,7 +210,8 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                     continue
                 independent = words[guard_index + 1:branch_index] + words[branch_index + 1:index - 3]
                 extended = (branch_index - guard_index > 3
-                            or any(word >> 26 in (0x0E, 0x0B) or is_move(word) for word in independent))
+                            or any(word >> 26 in (0x0E, 0x0B) or is_move(word) or is_constant(word)
+                                   for word in independent))
                 # New boolean schedules require a single direct entry at the
                 # guard. Legacy forms include reviewed guard-in-delay and
                 # loop-entry shapes; do not reinterpret those with this local
@@ -216,7 +225,9 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                                    for target in direct_edges)):
                         continue
                 protected = {rs(guard), rt(guard)}
-                if any(not independent_word(word, protected) for word in independent):
+                if any(not (independent_word(word, protected)
+                            or is_constant(word) and rt(word) not in protected)
+                       for word in independent):
                     continue
                 counts.append(guard & 0xFFFF)
                 if extended:

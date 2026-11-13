@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_1A89B0.c
@@ -6,7 +10,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1517BBAC
- * - func_1517D074
  * - func_1517D7B0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -48,7 +51,7 @@ extern Game1A89B0Record D_800DDD28[];
 void func_10004074(s32);
 void func_10006240(s32, s32, s32);
 s32 func_151EF610();
-s32 func_1517D074(s32, s16, s16, s16, f32, s32, s32, s32, s32, s32);
+s32 func_1517D074(Gfx *, s16, s16, s16, f32, s32, s32, u8, u8, s32);
 void func_1517D578(s16, s16, s16, f32, s32, s32, u8);
 
 s32 func_1517B500(Game1A89B0Position *arg0, Game1A89B0Position *arg1, s32 *arg2, s16 arg3) {
@@ -196,7 +199,50 @@ void func_1517CFC4(void) {
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517D074.s")
+extern Vtx *D_800DDD10[];
+extern u8 D_800BE9C0;
+extern u32 D_800DDD0C;
+extern Gfx D_8008CFA0[];
+extern f32 D_800A7248;
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+s32 func_1517D074(Gfx *gdl, s16 arg1, s16 arg2, s16 arg3, f32 angle, s32 radius, s32 height, u8 width, u8 texHeight, s32 texture) {
+    s32 count = D_800DDD58;
+    s16 dx;
+    s16 dz;
+    Vtx *v = &D_800DDD10[D_800BE9C0][count * 4];
+
+    if (D_800DDD58 >= D_800DDD0C) {
+        return (s32)gdl;
+    }
+    gSPDisplayList(gdl++, D_8008CFA0);
+    gDPSetCombineLERP(gdl++, 0, 0, 0, TEXEL0, 0, 0, 0, TEXEL1, 0, 0, 0, COMBINED, 0, 0, 0, COMBINED);
+    gSPClearGeometryMode(gdl++, G_CULL_BACK);
+    gDPSetOtherMode(gdl++, 0x182C3F, 0x0C184B50);
+    angle *= D_800A7248;
+    dx = func_15047C00(angle) * radius;
+    dz = func_15047D60(angle) * radius;
+    v[0].v.ob[0] = v[3].v.ob[0] = arg1 + dx;
+    v[1].v.ob[1] = arg2;
+    v[0].v.ob[1] = v[1].v.ob[1];
+    v[0].v.ob[2] = v[3].v.ob[2] = arg3 - dz;
+    v[1].v.ob[0] = v[2].v.ob[0] = arg1 - dx;
+    v[2].v.ob[1] = v[3].v.ob[1] = arg2 + height + height;
+    v[1].v.ob[2] = v[2].v.ob[2] = arg3 + dz;
+    v[1].v.tc[0] = v[2].v.tc[0] = (width << 5) - 1;
+    v[2].v.tc[1] = v[3].v.tc[1] = (texHeight << 5) - 1;
+    gSPVertex(gdl++, &D_800DDD10[D_800BE9C0][count * 4], 4, 0);
+    gDPLoadTextureBlock(gdl++, texture, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, (texHeight * 5 + 3) >> 2, 0, G_TX_CLAMP, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPSetTile(gdl++, G_IM_FMT_I, G_IM_SIZ_4b, ((width >> 1) + 7) >> 3, (width * texHeight) >> 2, 1, 0, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD, G_TX_CLAMP, G_TX_NOMASK, G_TX_NOLOD);
+    gDPSetTileSize(gdl++, 1, 0, 0, (width - 1) << G_TEXTURE_IMAGE_FRAC, (texHeight - 1) << G_TEXTURE_IMAGE_FRAC);
+    D_800DDD10[D_800BE9C0][count * 4 + 3].v.flag = 0;
+    D_800DDD10[D_800BE9C0][count * 4 + 0].v.flag = D_800DDD10[D_800BE9C0][count * 4 + 1].v.flag = D_800DDD10[D_800BE9C0][count * 4 + 2].v.flag = D_800DDD10[D_800BE9C0][count * 4 + 3].v.flag;
+    gSP1Triangle(gdl++, 0, 2, 1, 0);
+    gSP1Triangle(gdl++, 0, 3, 2, 0);
+    gSPSetGeometryMode(gdl++, G_SHADING_SMOOTH);
+    D_800DDD58++;
+    return (s32)gdl;
+}
 void func_1517D578(s16 arg0, s16 arg1, s16 arg2, f32 arg3, s32 arg4, s32 arg5, u8 arg6) {
     s32 temp_v0;
 
@@ -235,7 +281,7 @@ s32 func_1517D690(s32 arg0, s32 arg1) {
     while (D_8008CEB0 != 0) {
         D_8008CEB0--;
         if (arg1 != 0) {
-            arg0 = func_1517D074(arg0, D_800DDD28[D_8008CEB0].unk0, D_800DDD28[D_8008CEB0].unk2,
+            arg0 = func_1517D074((Gfx *)arg0, D_800DDD28[D_8008CEB0].unk0, D_800DDD28[D_8008CEB0].unk2,
                                  D_800DDD28[D_8008CEB0].unk4, D_800DDD28[D_8008CEB0].unkC,
                                  (u16)D_800DDD28[D_8008CEB0].unk8, (u16)D_800DDD28[D_8008CEB0].unkA, 0x10,
                                  0x20, ((D_800DDD28[D_8008CEB0].unk6 * 0x280) << 1) + arg1);

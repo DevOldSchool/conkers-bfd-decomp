@@ -32,3 +32,16 @@ these 0x2C bytes, then the 0x28-byte `func_1514B8E4` pool, with no data relocati
 (0x800A57B0, 0x1C), `.rodata.177b50_1c` (0x800A5808, 0x2C) and `.rodata.177b50_48`
 (0x800A5860, 0x28), each with an exact linker size assertion. The words
 0x800A57CC..0x800A5807 and 0x800A5834..0x800A585F stay extern reads of other members.
+
+## func_1514B364 pool merge (round-23)
+
+`func_1514B364` loads eleven literals from 0x800A5834..0x800A585F in first-use order. The
+checksum-validated archive holds `411E6667 C0400001 3F820C4A 41F33333 407F5C29 4101C28F 3F1A1CAD
+3ED0624E 41223D70 412451EB 3E4CCCCD` there (each written in the C source with its shortest
+round-tripping spelling), and no other reference function reads them. The function sits between
+`func_1514B034` and `func_1514B8E4` in text, so its words land between their pools in the object as
+well, and the three pools now form one contiguous ROM range 0x800A5808..0x800A5887. The split layout
+collapses to `.rodata.177b50_0` (0x1C at 0x800A57B0) and `.rodata.177b50_1c` (0x80 at 0x800A5808);
+`.rodata.177b50_48` and its base symbol, assertion and `config/data/us.json` entry are gone. The
+object `.rodata` is 0xA0 bytes: 0x9C of payload and 4 zero alignment bytes. 0x800A57CC..0x800A5807
+stay extern reads of other members, and `D_800A5888` stays an extern of `func_1514BC08`.

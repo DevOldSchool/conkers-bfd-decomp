@@ -215,10 +215,11 @@ class ScheduledBooleanGuardTests(unittest.TestCase):
                     words = self.words.copy()
                     words[position] = word
                     self.reject(words)
-        # Four intervening instructions remain unsupported.
-        words = self.words[:4] + [0] + self.words[4:]
+        # Five intervening instructions remain unsupported (four are covered
+        # by WideGuardWindowTests).
+        words = self.words[:4] + [0, 0] + self.words[4:]
         with self.assertRaises(TableEvidenceError):
-            self.verify(words, load=10)
+            self.verify(words, load=11)
 
     def test_direct_entries_and_default_inside_dispatch_are_rejected(self):
         start = 0x15000000
@@ -385,6 +386,74 @@ class HoistedLightDispatchTests(unittest.TestCase):
         with self.assertRaisesRegex(TableEvidenceError, 'bypasses switch bound'):
             reference_tables(raw, code, struct.pack('>I', 0x151604F0) + data[4:],
                              0x151604A0, 0x800A6A18)
+
+
+class WideGuardWindowTests(unittest.TestCase):
+    # Guard five words before beqz at, with four independent instructions
+    # between them, as in the US raw schedules below.
+    # func_150DBD70: sltiu at,a0,6; swc1/sb/sh/sb stack stores; beqz at with
+    # an `or v1,a0,zero` delay slot; sll t7,a0,2; lui/addu/lw/jr.
+    stores = [0x2C810006, 0xE7A00068, 0xA3A00088, 0xA7A00172, 0xA3A0007C,
+              0x10200007, 0x00801825, 0x00047880, 0x3C018009, 0x002F0821,
+              0x8C2F0000, 0x01E00008, 0, 0x03E00008, 0]
+    # func_1514CA80's second dispatch: sltiu at,t6,0x36; four
+    # `addiu tN,zero,imm` constants; beqz at with another constant in its
+    # delay slot; sll t6,t6,2; lui/addu/lw/jr.
+    constants = [0x2DC10036, 0x24090006, 0x240A0003, 0x240B0009, 0x240C0004,
+                 0x10200007, 0x240D0007, 0x000E7080, 0x3C018009, 0x002E0821,
+                 0x8C2E0000, 0x01C00008, 0, 0x03E00008, 0]
+
+    def verify(self, words, count, load=10):
+        start = 0x15000000
+        raw = ''.join(f'/* {i*4:06X} {start+i*4:08X} {word:08X} */ '
+                      + ('lw $t7,%lo(jtbl_80090000)($at)' if i == load else 'instruction')
+                      + '\n' for i, word in enumerate(words))
+        code = b''.join(word.to_bytes(4, 'big') for word in words)
+        data = struct.pack('>' + 'I' * count, *([start + 52] * count))
+        return reference_tables(raw, code, data, start, 0x80090000)
+
+    def reject(self, words, count, load=10):
+        with self.assertRaises(TableEvidenceError):
+            self.verify(words, count, load)
+
+    def test_stack_stores_and_move_delay(self):
+        self.assertEqual(self.verify(self.stores, 6),
+                         (0x15000000, [Table(32, 40, (0x15000034,) * 6)]))
+
+    def test_constant_loads_into_unprotected_registers(self):
+        self.assertEqual(self.verify(self.constants, 54),
+                         (0x15000000, [Table(32, 40, (0x15000034,) * 54)]))
+
+    def test_writes_to_guard_or_index_are_rejected(self):
+        for words, index in ((self.stores, 4), (self.constants, 14)):
+            for position in (1, 2, 3, 4, 6):
+                for word in (0x24010001, 0x24000001 | index << 16,
+                             0x8FA00000 | 1 << 16, 0x8FA00000 | index << 16,
+                             0x00600025 | 1 << 11, 0x00600025 | index << 11):
+                    with self.subTest(index=index, position=position, word=hex(word)):
+                        bad = words.copy()
+                        bad[position] = word
+                        self.reject(bad, 54)
+
+    def test_only_zero_based_constant_loads_are_accepted(self):
+        for position in (1, 4, 6):
+            for word in (0x25C90001, 0x24490001, 0x34090001, 0x24000001):
+                with self.subTest(position=position, word=hex(word)):
+                    bad = self.constants.copy()
+                    bad[position] = word
+                    self.reject(bad, 54)
+
+    def test_five_intervening_instructions_are_rejected(self):
+        for words in (self.stores, self.constants):
+            self.reject(words[:1] + [0] + words[1:], 54, load=11)
+
+    def test_entries_into_guarded_region_are_rejected(self):
+        start = 0x15000000
+        for words in (self.stores, self.constants):
+            for target_index in range(1, 13):
+                address = start + target_index * 4
+                with self.subTest(target=target_index):
+                    self.reject(words + [0x08000000 | ((address >> 2) & 0x03FFFFFF), 0], 54)
 
 
 class DistantGuardDispatchTests(unittest.TestCase):
