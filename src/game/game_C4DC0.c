@@ -43,7 +43,7 @@ s32 func_15097910(s32 arg0, u8 arg1) {
     return result;
 }
 void func_15060F28(u8 *, s32);
-void func_15053430(u8 *);
+s32 func_15053430(u8 *);
 u8 *func_1505EEF4(s32);
 extern u8 D_800D2100;
 extern s32 D_800D3840;
