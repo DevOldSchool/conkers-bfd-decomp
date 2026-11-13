@@ -8,8 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15193CA0
  * - func_151945CC
- * - func_15194810
- * - func_15194BF0
  * - func_151951E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -241,62 +239,62 @@ extern f32 D_800A82E8;
 extern f32 D_800A82EC;
 void *func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194810 CURRENT (120) */
 void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
     Vec3f position;
-    Game194408Packet packet;
-    u8 scratch[0x24];
-    Game1C1150EventPacket event;
 
     switch (arg1->type) {
-    case 0: goto spawn;
-    case 1: goto spawn;
-    case 2: goto spawn;
-    case 3: goto spawn;
-    case 4: goto spawn;
-    case 0x53: goto spawn;
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 0x53:
+        break;
+    default:
+        return;
     }
-    return;
-
-spawn:
     position.x = *(f32 *)((u8 *)arg1 + 0x14);
     position.y = *(f32 *)((u8 *)arg1 + 0x18) + 95.0f;
     position.z = *(f32 *)((u8 *)arg1 + 0x1C);
-    func_1504715C(scratch, arg1);
-    *(Vec3f *)packet.position = position;
-    packet.field2C = 0xF;
-    packet.field2E = 0xA;
-    packet.field02 = 0xFF;
-    packet.field04 = -0x3F;
-    packet.field00 = 0;
-    packet.field06 = 0x39;
-    packet.field30 = 3;
-    packet.field32 = 2;
-    packet.field34 = 0x46;
-    packet.field36 = 0x16;
-    packet.field38 = 0x9B;
-    packet.field3A = 0x64;
-    packet.field44 = 0x10;
-    packet.field46 = 0xF;
-    packet.field48 = 0;
-    packet.field3C = 0;
-    packet.field18 = 5.0f;
-    packet.field24 = 5.0f;
-    packet.field14 = 10.0f;
-    packet.field1C = D_800A82E4;
-    packet.field20 = D_800A82E8;
-    packet.field28 = D_800A82EC;
-    packet.field40 = 0.5f;
-    func_15153F18(&packet.field00, packet.position, (s32)scratch, 0xFF, 1);
-    event.field_0 = 1;
-    event.value = func_150ADA20() % 11U + 0x14;
-    event.field_4 = 8;
-    event.field_6 = -1;
-    event.field_5 = 1;
-    func_151D8868(&event, 0, 0xFF, 0);
+    {
+        Game194408Packet packet;
+        u8 scratch[0x24];
+        Game1C1150EventPacket event;
+
+        func_1504715C(scratch, arg1);
+        *(Vec3f *)packet.position = position;
+        packet.field2C = 0xF;
+        packet.field2E = 0xA;
+        packet.field02 = 0xFF;
+        packet.field04 = -0x3F;
+        packet.field00 = 0;
+        packet.field06 = 0x39;
+        packet.field30 = 3;
+        packet.field32 = 2;
+        packet.field34 = 0x46;
+        packet.field36 = 0x16;
+        packet.field38 = 0x9B;
+        packet.field3A = 0x64;
+        packet.field44 = 0x10;
+        packet.field46 = 0xF;
+        packet.field48 = 0;
+        packet.field3C = 0;
+        packet.field18 = 5.0f;
+        packet.field24 = 5.0f;
+        packet.field14 = 10.0f;
+        packet.field1C = D_800A82E4;
+        packet.field20 = D_800A82E8;
+        packet.field28 = D_800A82EC;
+        packet.field40 = 0.5f;
+        func_15153F18(&packet.field00, packet.position, (s32)scratch, 0xFF, 1);
+        event.field_0 = 1;
+        event.value = func_150ADA20() % 11U + 0x14;
+        event.field_4 = 8;
+        event.field_6 = -1;
+        event.field_5 = 1;
+        func_151D8868(&event, 0, 0xFF, 0);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15194810 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194810.s")
 void func_151949E0(s32 arg0, s32 arg1, s32 arg2) {
 }
 typedef struct Game1C1150TimerState {
@@ -384,27 +382,19 @@ void func_1507CD64(void *, s32);
 void func_15063B64(void *);
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194BF0 CURRENT (765) */
-void func_15194BF0(s32 volatile arg0, void *volatile arg1, s8 *volatile arg2) {
-    s32 temp_a0;
-    s32 temp_v0;
-    u8 *temp_v0_2;
-    void *temp_v0_3;
-
-    temp_v0 = *(u8 *)((u8 *)arg1 + 4);
-    switch ((s32)temp_v0) {
+void func_15194BF0(s32 arg0, void *arg1, s8 *arg2) {
+    switch (*((u8 *)arg1 + 4)) {
     case 0x16:
         func_15136C3C(arg1, 1, 1, 1, 1, 0, 0xFF, 1);
         func_15145A50(arg1);
         /* fallthrough */
     case 0x7C:
-        temp_a0 = *((u8 *)arg1 + 0x65);
-        if (temp_a0 != 0) {
-            temp_v0_2 = &D_800CC2D0[(temp_a0 - 1) * 0x32C];
-            temp_v0_2[0x232] = 0xA;
-            *(s32 *)(temp_v0_2 + 0x218) = 0;
+        if (*((u8 *)arg1 + 0x65) != 0) {
+            s32 index = *((u8 *)arg1 + 0x65) - 1;
+            u8 *actor = D_800CC2D0 + index * 0x32C;
+            actor[0x232] = 0xA;
+            *(s32 *)(actor + 0x218) = 0;
             *((u8 *)arg1 + 0x65) = 0;
-            return;
         }
         return;
     case 0x0:
@@ -439,15 +429,12 @@ void func_15194BF0(s32 volatile arg0, void *volatile arg1, s8 *volatile arg2) {
         func_15136C3C(arg1, 1, 1, 1, 1, 0, 0xFF, 1);
         func_15145A50(arg1);
         func_1507CD64(arg1, 6);
-        temp_v0_3 = *(void **)((u8 *)arg1 + 0x31C);
-        if (temp_v0_3 != 0 && *((u8 *)temp_v0_3 + 0x19B) != 0) {
+        if (*(void **)((u8 *)arg1 + 0x31C) != NULL && *((u8 *)*(void **)((u8 *)arg1 + 0x31C) + 0x19B) != 0) {
             func_15063B64(arg1);
         }
         break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15194BF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194BF0.s")
 /* Call context: func_15194FF4: raw o32 argument homes in asm/nonmatchings/game_1C1150/func_15194FF4.s; pointer uses in entry block; caller discards result */
 void func_15194FF4(s32, s32, u8); /* CONKER_ABI_DISCARDED_RETURN */
 

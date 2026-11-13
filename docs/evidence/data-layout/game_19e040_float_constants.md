@@ -43,5 +43,18 @@ pairs in `asm/nonmatchings/game_19E040/func_15170F4C.s` address the six words
 The generated object's `.rodata` now starts with these 0x18 bytes, immediately followed
 by the existing 0x10-byte pool, so the owned range simply begins earlier:
 `config/game/us-rodata.ld` maps game_19E040 at 0x800A6F98 with a 0x30 extent assertion
-and a 0x28 payload, and `config/data/us.json` records the owner at the new start. The
-words 0x800A6F88..0x800A6F97 stay extern reads of the deferred `func_15170B90`.
+and a 0x28 payload, and `config/data/us.json` records the owner at the new start. The section later grew again for `func_15170B90` (below).
+
+## func_15170B90 table and literals (nov14)
+
+`func_15170B90` picks a debris kind from a six-entry byte table and scales its velocity.
+Its raw HI16/LO16 pairs address 0x800A6F80 (the table) and 0x800A6F88..0x800A6F97, which
+the checksum-validated archive holds as `07020308 090A0000 3E99999A BF333333 BE4CCCCD
+3DA3D70A`: the bytes `7, 2, 3, 8, 9, 10` plus two zero alignment bytes, then `0.3f`,
+`-0.7f`, `-0.2f` and `0.08f`. Written as a block-scoped `const u8 kinds[6]` initialiser
+and those literals (with the 5th parameter narrowed to `u8`, as its `lbu` home read
+shows) the deferred body (CURRENT 9193) reaches `CURRENT (0)`.
+
+The generated object's `.rodata` is now 0x40 bytes, byte-identical to ROM
+0x800A6F80..0x800A6FBF, so the INFO mapping starts at 0x800A6F80 with a 0x40 extent and
+a 0x40 payload; `config/data/us.json` records the owner at the new start.

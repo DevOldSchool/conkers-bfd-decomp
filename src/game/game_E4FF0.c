@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B7B40
- * - func_150B85C0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -92,7 +91,6 @@ typedef struct GameE4FF0Descriptor {
 void *func_15130374(s32, u8, s32, u8, s32);
 extern f32 D_8009FD88;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B85C0 CURRENT (285) */
 void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     GameE4FF0Descriptor descriptor;
     s32 second;
@@ -132,7 +130,7 @@ void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     } else {
         second = 0;
     }
-    descriptor.field58 = second | 0xE01 | first | 0xC000;
+    descriptor.field58 = second | 0xE01 | first | 0x8000 | 0x4000;
     descriptor.field62 = -1;
     descriptor.field63 = -1;
     descriptor.field1E = 0x19;
@@ -143,8 +141,6 @@ void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     descriptor.field24 = D_8009FD88;
     func_15130374((s32)&descriptor, 1, 0, (u8)arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B85C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4FF0/func_150B85C0.s")
 f32 func_150ADA68(void);
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_8009FD8C;

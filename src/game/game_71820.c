@@ -11,7 +11,6 @@
  * - func_15045880
  * - func_15045AE4
  * - func_15047390
- * - func_15047700
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1411,168 +1410,101 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 void func_15047700(Game71820Matrix *, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15047700 CURRENT (12607) */
-void func_15047700(Game71820Matrix *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, volatile f32 arg8, volatile f32 arg9, volatile f32 arg10) {
-    volatile f32 sp4C;
-    f32 upX;
-    f32 upY;
-    f32 upZ;
-    f32 temp_fa0;
-    f32 temp_fa0_2;
-    f32 temp_fa0_3;
-    f32 temp_fa0_4;
-    f32 temp_fa0_6;
-    f32 temp_fa0_7;
-    f32 temp_fa0_8;
-    f32 temp_fa1;
-    f32 temp_fa1_2;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 temp_fv1_3;
-    f32 temp_fv1_4;
-    f32 temp_fv1_5;
-    f32 var_fs4;
-    f32 var_fs5;
-    f32 var_ft5;
-    f32 var_fv0;
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define FTOFRAC8(x) ((s32)MIN(((x) * (128.0f)), 127.0f) & 0xFF)
+void func_15047700(Game71820Matrix *arg0, s32 arg1, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp) {
+    f32 len;
+    f32 xLook;
+    f32 yLook;
+    f32 zLook;
+    f32 xRight;
+    f32 yRight;
+    f32 zRight;
 
     func_150A7BC0(arg0);
-    temp_fv0 = arg6 - arg3;
-    temp_fv1 = arg7 - arg4;
-    temp_fs1 = temp_fv0;
-    temp_fs0 = arg5 - arg2;
-    temp_fs2 = temp_fv1;
-    if ((arg5 == arg2) && (temp_fv0 == 0.0f) && (temp_fv1 == 0.0f)) {
-        temp_fs2 = 1.0f;
-        temp_fs0 = 0.0f;
-        temp_fs1 = 0.0f;
+    xLook = xAt - xEye;
+    yLook = yAt - yEye;
+    zLook = zAt - zEye;
+    if (xAt == xEye && yLook == 0.0f && zLook == 0.0f) {
+        xLook = 0.0f;
+        yLook = 0.0f;
+        zLook = 1.0f;
     }
-    temp_fv1_2 = -1.0f / sqrtf((temp_fs0 * temp_fs0) + (temp_fs1 * temp_fs1) + (temp_fs2 * temp_fs2));
-    temp_fs0 *= temp_fv1_2;
-    temp_fs1 *= temp_fv1_2;
-    temp_fs2 *= temp_fv1_2;
-    upX = arg8;
-    upY = arg9;
-    upZ = arg10;
-    temp_fa0 = (upY * temp_fs2) - (upZ * temp_fs1);
-    temp_fa1 = (upZ * temp_fs0) - (upX * temp_fs2);
-    temp_ft5 = (upX * temp_fs1) - (upY * temp_fs0);
-    sp4C = temp_ft5;
-    temp_fv0_2 = (temp_fa0 * temp_fa0) + (temp_fa1 * temp_fa1) + (temp_ft5 * temp_ft5);
-    if (temp_fv0_2 != 0.0f) {
-        temp_fv1_3 = 1.0f / sqrtf(temp_fv0_2);
-        var_fs4 = temp_fa0 * temp_fv1_3;
-        var_fs5 = temp_fa1 * temp_fv1_3;
-        sp4C *= temp_fv1_3;
+    len = -1.0f / sqrtf(xLook * xLook + yLook * yLook + zLook * zLook);
+    xLook *= len;
+    yLook *= len;
+    zLook *= len;
+
+    xRight = yUp * zLook - zUp * yLook;
+    yRight = zUp * xLook - xUp * zLook;
+    zRight = xUp * yLook - yUp * xLook;
+    len = xRight * xRight + yRight * yRight + zRight * zRight;
+    if (len != 0.0f) {
+        len = 1.0f / sqrtf(len);
+        xRight *= len;
+        yRight *= len;
+        zRight *= len;
     } else {
-        var_fs4 = 1.0f;
-        var_fs5 = 0.0f;
-        sp4C = 0.0f;
+        xRight = 1.0f;
+        yRight = 0.0f;
+        zRight = 0.0f;
     }
-    temp_fv0_3 = (temp_fs1 * sp4C) - (temp_fs2 * var_fs5);
-    arg8 = temp_fv0_3;
-    temp_fv1_4 = (temp_fs2 * var_fs4) - (temp_fs0 * sp4C);
-    arg9 = temp_fv1_4;
-    temp_fa0_2 = (temp_fs0 * var_fs5) - (temp_fs1 * var_fs4);
-    arg10 = temp_fa0_2;
-    temp_fa1_2 = (temp_fv0_3 * temp_fv0_3) + (temp_fv1_4 * temp_fv1_4) + (temp_fa0_2 * temp_fa0_2);
-    if (temp_fa1_2 != 0.0f) {
-        temp_fv1_5 = 1.0f / sqrtf(temp_fa1_2);
-        var_ft5 = arg8 * temp_fv1_5;
-        arg9 *= temp_fv1_5;
-        arg10 *= temp_fv1_5;
+
+    xUp = yLook * zRight - zLook * yRight;
+    yUp = zLook * xRight - xLook * zRight;
+    zUp = xLook * yRight - yLook * xRight;
+    len = xUp * xUp + yUp * yUp + zUp * zUp;
+    if (len != 0.0f) {
+        len = 1.0f / sqrtf(len);
+        xUp *= len;
+        yUp *= len;
+        zUp *= len;
     } else {
-        arg8 = 0.0f;
-        var_ft5 = arg8;
-        arg10 = 0.0f;
-        arg9 = 1.0f;
+        xUp = 0.0f;
+        yUp = 1.0f;
+        zUp = 0.0f;
     }
-    temp_fa0_3 = var_fs4 * 128.0f;
-    if (temp_fa0_3 < 127.0f) {
-        var_fv0 = temp_fa0_3;
-    } else {
-        var_fv0 = 127.0f;
-    }
-    temp_fa0_4 = var_fs5 * 128.0f;
-    *(s8 *)((u8 *)arg1 + 8) = (s8) (s32) var_fv0;
-    if (temp_fa0_4 < 127.0f) {
-        var_fv0 = temp_fa0_4;
-    } else {
-        var_fv0 = 127.0f;
-    }
-    *(s8 *)((u8 *)arg1 + 9) = (s8) (s32) var_fv0;
-    {
-        f32 temp_fa0_5 = sp4C * 128.0f;
-    if (temp_fa0_5 < 127.0f) {
-        var_fv0 = temp_fa0_5;
-    } else {
-        var_fv0 = 127.0f;
-    }
-    temp_fa0_6 = var_ft5 * 128.0f;
-    *(s8 *)((u8 *)arg1 + 0xA) = (s8) (s32) var_fv0;
-    if (temp_fa0_6 < 127.0f) {
-        var_fv0 = temp_fa0_6;
-    } else {
-        var_fv0 = 127.0f;
-    }
-    *(s8 *)((u8 *)arg1 + 0x18) = (s8) (s32) var_fv0;
-    temp_fa0_7 = arg9 * 128.0f;
-    if (temp_fa0_7 < 127.0f) {
-        var_fv0 = temp_fa0_7;
-    } else {
-        var_fv0 = 127.0f;
-    }
-    temp_fa0_8 = arg10 * 128.0f;
-    *(s8 *)((u8 *)arg1 + 0x19) = (s8) (s32) var_fv0;
-    if (temp_fa0_8 < 127.0f) {
-        var_fv0 = temp_fa0_8;
-    } else {
-        var_fv0 = 127.0f;
-    }
-    *(s8 *)((u8 *)arg1 + 0) = 0;
-    *(s8 *)((u8 *)arg1 + 1) = 0;
-    *(s8 *)((u8 *)arg1 + 2) = 0;
-    *(s8 *)((u8 *)arg1 + 3) = 0;
-    *(s8 *)((u8 *)arg1 + 4) = 0;
-    *(s8 *)((u8 *)arg1 + 5) = 0;
-    *(s8 *)((u8 *)arg1 + 6) = 0;
-    *(s8 *)((u8 *)arg1 + 7) = 0;
-    *(s8 *)((u8 *)arg1 + 0x10) = 0;
-    *(s8 *)((u8 *)arg1 + 0x11) = 0x80;
-    *(s8 *)((u8 *)arg1 + 0x12) = 0;
-    *(s8 *)((u8 *)arg1 + 0x13) = 0;
-    *(s8 *)((u8 *)arg1 + 0x14) = 0;
-    *(s8 *)((u8 *)arg1 + 0x15) = 0x80;
-    *(s8 *)((u8 *)arg1 + 0x16) = 0;
-    *(s8 *)((u8 *)arg1 + 0x17) = 0;
-    *(s8 *)((u8 *)arg1 + 0x1A) = (s8) (s32) var_fv0;
-    *(f32 *)((u8 *)arg0 + 0) = var_fs4;
-    *(f32 *)((u8 *)arg0 + 0x10) = var_fs5;
-    *(f32 *)((u8 *)arg0 + 4) = var_ft5;
-    *(f32 *)((u8 *)arg0 + 0x20) = sp4C;
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) -((arg2 * var_fs4) + (arg3 * var_fs5) + (arg4 * sp4C));
-    *(f32 *)((u8 *)arg0 + 0x24) = arg10;
-    *(f32 *)((u8 *)arg0 + 0x14) = arg9;
-    *(f32 *)((u8 *)arg0 + 8) = temp_fs0;
-    *(f32 *)((u8 *)arg0 + 0x18) = temp_fs1;
-    *(f32 *)((u8 *)arg0 + 0x28) = temp_fs2;
-    *(f32 *)((u8 *)arg0 + 0x34) = (f32) -((arg2 * var_ft5) + (arg3 * arg9) + (arg4 * arg10));
-    *(f32 *)((u8 *)arg0 + 0xC) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x1C) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x2C) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x3C) = 1.0f;
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) -((arg2 * temp_fs0) + (arg3 * temp_fs1) + (arg4 * temp_fs2));
-    }
+
+    ((s8 *)arg1)[8] = FTOFRAC8(xRight);
+    ((s8 *)arg1)[9] = FTOFRAC8(yRight);
+    ((s8 *)arg1)[10] = FTOFRAC8(zRight);
+    ((s8 *)arg1)[0x18] = FTOFRAC8(xUp);
+    ((s8 *)arg1)[0x19] = FTOFRAC8(yUp);
+    ((s8 *)arg1)[0x1A] = FTOFRAC8(zUp);
+    ((u8 *)arg1)[0] = 0;
+    ((u8 *)arg1)[1] = 0;
+    ((u8 *)arg1)[2] = 0;
+    ((u8 *)arg1)[3] = 0;
+    ((u8 *)arg1)[4] = 0;
+    ((u8 *)arg1)[5] = 0;
+    ((u8 *)arg1)[6] = 0;
+    ((u8 *)arg1)[7] = 0;
+    ((u8 *)arg1)[0x10] = 0;
+    ((u8 *)arg1)[0x11] = 0x80;
+    ((u8 *)arg1)[0x12] = 0;
+    ((u8 *)arg1)[0x13] = 0;
+    ((u8 *)arg1)[0x14] = 0;
+    ((u8 *)arg1)[0x15] = 0x80;
+    ((u8 *)arg1)[0x16] = 0;
+    ((u8 *)arg1)[0x17] = 0;
+
+    arg0->elements[0] = xRight;
+    arg0->elements[4] = yRight;
+    arg0->elements[8] = zRight;
+    arg0->elements[12] = -(xEye * xRight + yEye * yRight + zEye * zRight);
+    arg0->elements[1] = xUp;
+    arg0->elements[5] = yUp;
+    arg0->elements[9] = zUp;
+    arg0->elements[13] = -(xEye * xUp + yEye * yUp + zEye * zUp);
+    arg0->elements[2] = xLook;
+    arg0->elements[6] = yLook;
+    arg0->elements[10] = zLook;
+    arg0->elements[14] = -(xEye * xLook + yEye * yLook + zEye * zLook);
+    arg0->elements[3] = 0.0f;
+    arg0->elements[7] = 0.0f;
+    arg0->elements[11] = 0.0f;
+    arg0->elements[15] = 1.0f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15047700 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15047700.s")
 void func_15047B80(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10) {
     Game71820Matrix matrix;
 

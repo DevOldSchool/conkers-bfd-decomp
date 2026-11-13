@@ -12,7 +12,6 @@
  * - func_1501D258
  * - func_1501D2C4
  * - func_1501D348
- * - func_1501E73C
  * - func_1501E81C
  * - func_1501EA18
  * - func_1501EC38
@@ -729,41 +728,30 @@ void func_1501E540(s32 arg0) {
 void *func_15083E90(u8);
 extern void *D_800C35F0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E73C CURRENT (50) */
 void func_1501E73C(s32 arg0) {
-    s32 var_s0;
-    s32 count;
-    u16 entryKind;
-    u8 *temp_s1;
-    void *temp_v0;
-    void *temp_v0_2;
+    s32 i;
+    u8 *entry;
+    u8 *obj;
 
-    temp_s1 = &D_800C363A[arg0];
-    count = *temp_s1;
-    for (var_s0 = 0; var_s0 < count; var_s0++) {
-        temp_v0 = (u8 *)D_800C35F0[arg0] + var_s0 * 8;
-        entryKind = *(u16 *)temp_v0;
-        if (entryKind == 2) {
-            temp_v0_2 = func_15083E90(*(u8 *)((u8 *)temp_v0 + 2));
-            if (temp_v0_2 == 0) {
-                count = *temp_s1;
+    for (i = 0; i < D_800C363A[arg0]; i++) {
+        entry = (u8 *)D_800C35F0[arg0] + i * 8;
+        if (*(u16 *)entry == 2) {
+            obj = func_15083E90(entry[2]);
+            if (obj == NULL) {
                 continue;
             }
-            if (*(u8 *)((u8 *)temp_v0_2 + 0x6C) >= 0xA) {
-                *(u8 *)((u8 *)temp_v0_2 + 0x6C) = 0;
-                *(u8 *)((u8 *)temp_v0_2 + 0x6A) = 0;
+            if (obj[0x6C] >= 0xA) {
+                obj[0x6C] = 0;
+                obj[0x6A] = 0;
             }
-            if (*(u8 *)((u8 *)temp_v0_2 + 0x6D) >= 0xA) {
-                *(u8 *)((u8 *)temp_v0_2 + 0x6D) = 0;
-                *(u8 *)((u8 *)temp_v0_2 + 0x6B) = 0;
+            if (obj[0x6D] >= 0xA) {
+                obj[0x6D] = 0;
+                obj[0x6B] = 0;
             }
-            func_1507EABC(temp_v0_2);
-            count = *temp_s1;
+            func_1507EABC((struct GameAB760State *)obj);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501E73C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501E73C.s")
 typedef struct Game49D30TransitionView {
     u8 pad0[0x19C];
     f32 field19C;

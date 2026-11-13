@@ -37,3 +37,13 @@ switch (cases 10, 11, 14, 18, 19 return; 1, 12, 13 share the default) the functi
 the spray pool (0x20). The splitter maps them as `.rodata.blood_0` (0x800A4350), `.rodata.blood_204` (0x800A4554),
 `.rodata.blood_260` (0x800A4874, table, sites 0x4CB0/0x4CB8) and `.rodata.blood_2b0` (0x800A4950, pool), each with
 an exact size assertion.
+
+## func_15137610 table (nov14)
+
+Matching `func_15137610` makes its `jtbl_800A4650_game` switch table compiler-emitted
+`.rodata` (0x1CC bytes, object offset 0x260, HI16/LO16 sites 0x3604/0x360C), ahead of the
+`func_15138C80` table and the spray literal pool. The object rodata is now 0x4A0 bytes;
+`scripts/split_game_rodata.py` adds `.rodata.blood_260` at 0x800A4650 and renames the later
+ranges `.rodata.blood_42c` (0x800A4874) and `.rodata.blood_47c` (0x800A4950) with unchanged
+runtime addresses and sites. Every table word is a relocated `.text` pointer compared against
+the checksum-validated US ROM by the linked-payload verification.

@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_623D0.c
@@ -6,7 +10,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15035808
- * - func_15035D6C
  * - func_15036148
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -183,75 +186,45 @@ s32 func_15035714(s32 arg0, u8 *arg1, u8 *arg2, f32 arg3) {
 typedef struct Game35D6CCommand { u32 word0, word1; } Game35D6CCommand;
 extern u8 D_80082FC0[], D_80083140[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15035D6C CURRENT (7153) */
-void *func_15035D6C(Game35D6CCommand *arg0, u8 *arg1,
-                    s32 arg2, s32 arg3, s32 arg4) {
-    register Game35D6CCommand *sync;
-    register Game35D6CCommand *segment;
-    register Game35D6CCommand *color;
-    Game35D6CCommand *command;
+Gfx *func_15035D6C(Gfx *gdl, u8 *arg1, s32 r, s32 g, s32 b) {
     u8 *entry;
-    register s32 limit;
-    s32 index;
-    u32 count;
+    s32 alpha;
+    s32 i;
+    s32 j;
 
-    if ((u8)D_800C3F00 == 0) return arg0;
-    command = arg0++;
-    command->word1 = 0x200;
-    command->word0 = 0xD9FFFFFF;
-    entry = D_800C3F08;
-    count = (u8)D_800C3F00;
-    if (count > 0) {
-        do {
-            if (entry[11] != 1) {
-                limit = (s32)(D_800C3F08 + (((count << 2) - count) << 2));
-            } else if (arg1[0] != entry[9]) {
-                limit = (s32)(D_800C3F08 + (((count << 2) - count) << 2));
-            } else if (arg1[6] != entry[10]) {
-                limit = (s32)(D_800C3F08 + (((count << 2) - count) << 2));
-            } else {
-                sync = arg0++;
-                limit = (entry[4] * arg1[3]) >> 8;
-                sync->word0 = 0xE7000000;
-                sync->word1 = 0;
-                segment = arg0++;
-                segment->word0 = 0xDB06000C;
-                segment->word1 = *(u32 *)entry;
-                color = arg0++;
-                color->word1 = ((u32)arg2 << 24) | ((arg3 & 255) << 16) |
-                    ((arg4 & 255) << 8) | (limit & 255);
-                color->word0 = 0xFB000000;
-                index = 0;
-                command = arg0++;
-                command->word0 = 0xDB060020;
-                if (limit < 255) command->word1 = (u32)D_80082FC0;
-                else command->word1 = (u32)D_80083140;
-                limit = arg1[0x14];
-                if (limit > 0) {
-                    do {
-                        command = arg0;
-                        if (!(arg1[0x13] & (1U << (index & 31)))) {
-                            command->word0 = 0xDE000000;
-                            arg0++;
-                            command->word1 = ((u32 *)*(u8 **)(arg1 + 0x24))[index];
-                            limit = arg1[0x14];
-                        }
-                        index++;
-                    } while (index < limit);
-                }
-                count = (u8)D_800C3F00;
-                limit = (s32)(D_800C3F08 + (((count << 2) - count) << 2));
-            }
-            entry += 12;
-        } while ((u32)entry < (u32)limit);
+    if ((u8)D_800C3F00 == 0) {
+        return gdl;
     }
-    command = arg0++;
-    command->word0 = 0xD9FFFDFF;
-    command->word1 = 0;
-    return arg0;
+    gSPSetGeometryMode(gdl++, 0x200);
+    for (i = 0; i < (u8)D_800C3F00; i++) {
+        entry = &D_800C3F08[i * 12];
+        if (entry[11] != 1) {
+            continue;
+        }
+        if (arg1[0] != entry[9]) {
+            continue;
+        }
+        if (arg1[6] != entry[10]) {
+            continue;
+        }
+        alpha = (arg1[3] * entry[4]) >> 8;
+        gDPPipeSync(gdl++);
+        gSPSegment(gdl++, 3, *(u32 *)entry);
+        gDPSetEnvColor(gdl++, r, g, b, alpha);
+        if (alpha < 255) {
+            gSPSegment(gdl++, 8, D_80082FC0);
+        } else {
+            gSPSegment(gdl++, 8, D_80083140);
+        }
+        for (j = 0; j < arg1[0x14]; j++) {
+            if (!(arg1[0x13] & (1 << j))) {
+                gSPDisplayList(gdl++, (*(Gfx ***)(arg1 + 0x24))[j]);
+            }
+        }
+    }
+    gSPClearGeometryMode(gdl++, 0x200);
+    return gdl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15035D6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035D6C.s")
 
 typedef struct Game623D0Entry {
     s32 word;

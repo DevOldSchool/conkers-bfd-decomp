@@ -4,33 +4,11 @@
 /*
  * Reviewed source unit: src/game/game_209B50.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_loader_transfer_emission_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151DC6A0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game209B50Vector {
     f32 values[3];
 } Game209B50Vector;
-
-typedef struct Game209B50Packet {
-    Game209B50Vector position;
-    s16 fieldC, fieldE;
-    f32 field10, field14;
-    s16 field18, field1A;
-    f32 field1C, field20;
-    u8 field24, field25;
-    u8 pad26[2];
-    f32 field28, field2C;
-    u8 field30, field31;
-    u8 pad32[2];
-    f32 field34;
-    u8 field38;
-    u8 pad39[3];
-    f32 field3C;
-} Game209B50Packet;
 
 void func_15103254(s32, s32, f32, void *, s32, s32, s32);
 void func_15150178(s16 *, f32 *, s32, u8, s32);
@@ -38,49 +16,58 @@ void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
 extern f32 D_800AB518, D_800AB51C, D_800AB520, D_800AB524;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC6A0 CURRENT (330) */
-void func_151DC6A0(void *arg0, s32 arg1, s32 arg2) {
-    Game209B50Packet packet;
-    s16 angles[4];
-    f32 fraction;
-    u32 sp30;
-    u32 sp2C;
+typedef struct Game209B50Secondary {
+    s16 field00, field02, field04, field06;
+    Game209B50Vector position;
+    s16 field14, field16;
+    f32 field18, field1C;
+    s16 field20, field22;
+    f32 field24, field28;
+    u8 field2C, field2D;
+    u8 pad2E[2];
+    f32 field30, field34;
+    u8 field38, field39;
+    u8 pad3A[2];
+    f32 field3C;
+    u8 field40;
+    u8 pad41[3];
+    f32 field44;
+} Game209B50Secondary;
 
-    sp2C = func_150ADA20();
-    sp30 = func_150ADA20();
-    fraction = func_150ADA68();
-    func_15103254((s16)((sp2C % 5U) + 0xC), ((sp30 % 56U) + 0xC8) & 0xFF,
-                 (fraction * 600.0f) + D_800AB518, arg0, 0xFF, ((u8 *)&arg1)[3], arg2);
-    packet.position = *(Game209B50Vector *)arg0;
-    packet.field10 = 8.0f;
-    packet.fieldC = 0xC;
-    packet.field14 = 10.0f;
-    packet.fieldE = 7;
-    angles[0] = 0;
-    angles[1] = 0xFF;
-    angles[2] = -0x40;
-    angles[3] = 0x3C;
-    packet.field18 = 0x24;
-    packet.field1A = 0x3C;
-    packet.field24 = 0xC8;
-    packet.field25 = 0x37;
-    packet.field30 = 0;
-    packet.field31 = 0xC;
-    packet.field38 = 1;
-    packet.field1C = D_800AB51C;
-    packet.field20 = D_800AB520;
-    packet.field28 = 280.0f;
-    packet.field2C = 390.0f;
-    packet.field34 = D_800AB524;
-    packet.field3C = 1.0f;
-    func_15150178(angles, packet.position.values, 0, ((u8 *)&arg1)[3], arg2);
+void func_151DC6A0(void *arg0, s32 arg1, s32 arg2) {
+    func_15103254((s16)((func_150ADA20() % 5U) + 0xC), ((func_150ADA20() % 56U) + 0xC8) & 0xFF,
+                  (func_150ADA68() * 600.0f) + D_800AB518, arg0, 0xFF, ((u8 *)&arg1)[3], arg2);
+    {
+        Game209B50Secondary packet;
+
+        packet.position = *(Game209B50Vector *)arg0;
+        packet.field18 = 8.0f;
+        packet.field14 = 0xC;
+        packet.field1C = 10.0f;
+        packet.field16 = 7;
+        packet.field00 = 0;
+        packet.field02 = 0xFF;
+        packet.field04 = -0x40;
+        packet.field06 = 0x3C;
+        packet.field20 = 0x24;
+        packet.field22 = 0x3C;
+        packet.field2C = 0xC8;
+        packet.field2D = 0x37;
+        packet.field38 = 0;
+        packet.field39 = 0xC;
+        packet.field40 = 1;
+        packet.field24 = D_800AB51C;
+        packet.field28 = D_800AB520;
+        packet.field30 = 280.0f;
+        packet.field34 = 390.0f;
+        packet.field3C = D_800AB524;
+        packet.field44 = 1.0f;
+        func_15150178(&packet.field00, packet.position.values, 0, ((u8 *)&arg1)[3], arg2);
+    }
     func_151D3F14(arg0, ((u8 *)&arg1)[3], arg2);
-    sp2C = func_150ADA20();
-    func_15182670(0xFF, 0xFF, 0xFF, ((sp2C % 51U) + 0x96) & 0xFF,
-                 (func_150ADA20() % 5U) + 8, 0, ((u8 *)&arg1)[3], arg2);
+    func_15182670(0xFF, 0xFF, 0xFF, ((func_150ADA20() % 51U) + 0x96) & 0xFF,
+                  (func_150ADA20() % 5U) + 8, 0, ((u8 *)&arg1)[3], arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DC6A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_209B50/func_151DC6A0.s")
 
 void func_151DC6A0(void *, s32, s32);
 void *func_10022EC0(void *, const void *, u32);

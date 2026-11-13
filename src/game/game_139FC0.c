@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1510CB10
  * - func_1510CE60
  * - func_1510D0EC
  * - func_1510D404
@@ -22,96 +21,65 @@ typedef struct Game139FC0LevelEntry {
 extern Game139FC0LevelEntry *D_800DBFF0;
 extern s32 D_800BE9E4;
 extern u16 D_800D9E70[][3];
-extern u8 D_800D9E88[], D_800D9E98[], D_800D9EA8[], D_800D9EB4[], D_800D9EB8[];
-extern u8 D_800D9B68[], D_800D9B78[];
+extern u8 D_800D9E88[][3], D_800D9E98[][3], D_800D9EA8[][3], D_800D9EB4[], D_800D9EB8[][3];
+extern u8 D_800D9B68[][3], D_800D9B78[][3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510CB10 CURRENT (6625) */
 void func_1510CB10(s32 arg0) {
-    register u8 *request;
-    register volatile u16 *phase;
-    register u8 *first;
-    register u8 *second;
-    register u8 *current;
-    register u8 *amplitude;
-    register u8 *phaseStep;
-    register s32 step;
-    register s32 index;
-    register s32 enabled;
-    register s32 value;
-    register s32 target;
-    register s32 delta;
-    register s32 magnitude;
-    register f32 wave;
-    register s32 adjustment;
-    register s16 nextPhase;
+    s32 index;
+    s32 step;
+    s32 value;
+    s32 target;
+    s32 enabled;
+    s32 magnitude;
+    f32 wave;
+    s32 adjustment;
 
     if (D_800DBFF0[arg0].flags5F0 & 1) {
-        request = &D_800D9EB8[arg0 * 3];
-        current = &D_800D9EA8[arg0 * 3];
-        enabled = *request;
+        enabled = D_800D9EB8[arg0][0];
         step = D_800BE9E4 * 2;
-        phase = D_800D9E70[arg0];
-        second = &D_800D9B78[arg0 * 3];
-        first = &D_800D9B68[arg0 * 3];
-        phaseStep = &D_800D9E88[arg0 * 3];
-        amplitude = &D_800D9E98[arg0 * 3];
-        index = 0;
-        do {
-            value = *current;
+        for (index = 0; index < 3; index++) {
+            value = D_800D9EA8[arg0][index];
             if (enabled != 0) {
-                target = D_800D9EB8[arg0 * 3 + index];
+                target = D_800D9EB8[arg0][index];
             } else {
                 target = D_800D9EB4[index];
             }
-            delta = target - value;
-            if (delta != 0) {
-                if (delta < 0) {
-                    magnitude = -delta;
+            if (target - value != 0) {
+                if (target - value < 0) {
+                    magnitude = -(target - value);
                 } else {
-                    magnitude = delta;
+                    magnitude = target - value;
                 }
                 if (magnitude < step) {
                     value = target;
-                } else if (delta < 0) {
+                } else if (target - value < 0) {
                     value -= step;
                 } else {
                     value += step;
                 }
-                *current = value;
+                D_800D9EA8[arg0][index] = value;
             }
-            wave = func_150489B0((*phase >> 4) & 0xFF);
-            wave *= (f32)(u32)*amplitude;
-            index++;
-            current++;
-            amplitude++;
+            wave = D_800D9E98[arg0][index] * func_150489B0(D_800D9E70[arg0][index] >> 4);
             adjustment = (s32)wave + value - 127;
             if (adjustment >= 0) {
-                *first += adjustment;
+                D_800D9B68[arg0][index] += adjustment;
             } else {
-                *second -= adjustment;
+                D_800D9B78[arg0][index] -= adjustment;
             }
-            if (*first >= 128) {
-                *first = 127;
+            if (D_800D9B68[arg0][index] >= 128) {
+                D_800D9B68[arg0][index] = 127;
             }
-            first++;
-            if (*second >= 128) {
-                *second = 127;
+            if (D_800D9B78[arg0][index] >= 128) {
+                D_800D9B78[arg0][index] = 127;
             }
-            nextPhase = *phase + *phaseStep;
-            phase++;
-            phase[-1] = nextPhase;
-            second++;
-            phaseStep++;
-            phase[-1] = nextPhase & 0xFFF;
-        } while (index != 3);
-        *request = 0;
+            D_800D9E70[arg0][index] += D_800D9E88[arg0][index];
+            D_800D9E70[arg0][index] &= 0xFFF;
+        }
+        D_800D9EB8[arg0][0] = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510CB10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CB10.s")
 
-extern u8 D_800D9B68[];
-extern u8 D_800D9B78[];
+
 
 typedef struct Game139FC0Command {
     u32 w0;
@@ -120,8 +88,8 @@ typedef struct Game139FC0Command {
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game139FC0Command *func_1510CDB8(Game139FC0Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    { Game139FC0Command *command = arg0++; command->w0 = _SHIFTL(0xFA, 24, 8) | _SHIFTL(0xF2, 8, 8) | _SHIFTL(0, 0, 8); command->w1 = _SHIFTL(D_800D9B68[arg3 * 3 + 0], 24, 8) | _SHIFTL(D_800D9B68[arg3 * 3 + 1], 16, 8) | _SHIFTL(D_800D9B68[arg3 * 3 + 2], 8, 8) | _SHIFTL(arg1, 0, 8); }
-    { Game139FC0Command *command = arg0++; command->w0 = _SHIFTL(0xFB, 24, 8); command->w1 = _SHIFTL(D_800D9B78[arg3 * 3 + 0], 24, 8) | _SHIFTL(D_800D9B78[arg3 * 3 + 1], 16, 8) | _SHIFTL(D_800D9B78[arg3 * 3 + 2], 8, 8) | _SHIFTL(arg2, 0, 8); }
+    { Game139FC0Command *command = arg0++; command->w0 = _SHIFTL(0xFA, 24, 8) | _SHIFTL(0xF2, 8, 8) | _SHIFTL(0, 0, 8); command->w1 = _SHIFTL(D_800D9B68[arg3][0], 24, 8) | _SHIFTL(D_800D9B68[arg3][1], 16, 8) | _SHIFTL(D_800D9B68[arg3][2], 8, 8) | _SHIFTL(arg1, 0, 8); }
+    { Game139FC0Command *command = arg0++; command->w0 = _SHIFTL(0xFB, 24, 8); command->w1 = _SHIFTL(D_800D9B78[arg3][0], 24, 8) | _SHIFTL(D_800D9B78[arg3][1], 16, 8) | _SHIFTL(D_800D9B78[arg3][2], 8, 8) | _SHIFTL(arg2, 0, 8); }
     return arg0;
 }
 void *func_10003C40(s32, s32, s32, s32);

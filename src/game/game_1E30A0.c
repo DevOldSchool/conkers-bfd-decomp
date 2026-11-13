@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B5BF0
- * - func_151B5E94
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -142,34 +141,28 @@ extern f32 D_800AA43C;
 extern f32 D_800AA440;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5E94 CURRENT (675) */
-void func_151B5E94(void *arg0) {
-    f32 *values;
+typedef struct Game1E30A0Wobble { f32 a; f32 b; } Game1E30A0Wobble;
+typedef struct Game1E30A0Actor { u8 pad0[0x18]; f32 f18; f32 f1C; u8 pad20[0x18]; f32 x; f32 y; f32 z; u8 pad44[0x170-0x44]; Game1E30A0Wobble s; } Game1E30A0Actor;
+void func_151B5E94(Game1E30A0Actor *arg0) {
     f32 value;
-
-    *(f32 *)((u8 *)arg0 + 0x170) += D_800AA434 * D_800BE9A4;
-    if (*(volatile f32 *)((u8 *)arg0 + 0x170) > D_800AA438) {
-        *(f32 *)((u8 *)arg0 + 0x170) = 0.0f;
-        func_10010F88(0x502, 0x5DC0U, 0, 0, -1,
-                      (s32)*(f32 *)((u8 *)arg0 + 0x38),
-                      (s32)*(f32 *)((u8 *)arg0 + 0x3C),
-                      (s32)*(f32 *)((u8 *)arg0 + 0x40), 0x64, 0x1F4);
+    Game1E30A0Wobble *values = &arg0->s;
+    arg0->s.a += D_800AA434 * D_800BE9A4;
+    if (arg0->s.a > D_800AA438) {
+        arg0->s.a = 0.0f;
+        func_10010F88(0x502, 0x5DC0U, 0, 0, -1, (s32)arg0->x, (s32)arg0->y, (s32)arg0->z, 0x64, 0x1F4);
     }
-    values = (f32 *)((u8 *)arg0 + 0x170);
-    if (values[0] < D_800AA43C) {
-        value = values[1] +
-                (func_15047D60(values[0]) * (D_800AA440 * values[1]));
-        *(f32 *)((u8 *)arg0 + 0x1C) = value;
-        *(f32 *)((u8 *)arg0 + 0x18) = value;
+    if (values->a < D_800AA43C) {
+        f32 t = func_15047D60(values->a);
+        value = values->b + (t * (D_800AA440 * values->b));
+        arg0->f1C = value;
+        arg0->f18 = value;
     } else {
-        value = values[1];
-        *(f32 *)((u8 *)arg0 + 0x1C) = value;
-        *(f32 *)((u8 *)arg0 + 0x18) = value;
+        value = values->b;
+        arg0->f1C = value;
+        arg0->f18 = value;
     }
     func_15133894(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B5E94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E30A0/func_151B5E94.s")
 /* Call context: func_100111C8: unique active project prototype */
 void func_100111C8(s32, void *);
 

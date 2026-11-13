@@ -56,3 +56,11 @@ extern reads of the deferred burst constructors, so both units are split by
 and `.rodata.<unit>_4` (0x8 at 0x800A043C / 0x800A047C), each with an exact linker
 size assertion, as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
 `config/data/us.json` records both owners per unit.
+
+`func_151AADF8` (`game_1D6E80.o`) is the glow-state twin of `func_150C6460`. Its raw
+HI16/LO16 pairs address 0x800A8FE0..0x800A8FEB, which hold `C6147000 46CCCCCD 3E6C8B44`:
+exactly `-9500.0f`, `26214.4f` and `0.231f`. The deferred body scored CURRENT 5277 with
+externs and is `CURRENT (0)` with literals. The object's `.rodata` is now
+`c6147000 46cccccd 3e6c8b44 3e4ccccd`; the words 0x800A8FEC/0x800A8FF0 stay extern reads
+of other deferred members, so game_1D6E80 is split into `.rodata.1d6e80_0` (0xC at
+0x800A8FE0) and `.rodata.1d6e80_c` (0x4 at 0x800A8FF4).

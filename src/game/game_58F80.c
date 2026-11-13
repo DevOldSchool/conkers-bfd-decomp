@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1502BEE4
  * - func_1502C408
- * - func_1502C974
  * - func_1502D824
  * - func_1502DB84
  * - func_1502DF38
@@ -597,61 +596,61 @@ extern void *D_800B0DF0;
 extern s32 D_800BE9C8[], D_800BEBA4, D_800DF7C0;
 extern u8 D_800DF7C4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C974 CURRENT (6018) */
+#define RENDER_ACTOR(index) ((Game58F80RenderActor *)(&D_800CC2D0 + (index) * 0x32C))
 s32 func_1502C974(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    struct {
-        s32 original, model;
-        s32 color[4];
-        s32 selected;
-    } work;
-    Game58F80RenderActor *actor;
-    Game58F80RenderChild *child;
-    s32 mask, opacity, result, exceeded;
+    s32 selected;
+    s32 opacity;
+    s32 color[4];
+    s32 mask;
+    s32 model;
+    s32 original;
+    s32 exceeded;
 
-    work.original = arg0;
+    original = arg0;
     if (D_800C3638 != 0 && D_800C3656 == 0 &&
-        func_150229E4(&D_800CC2D0 + arg1 * 0x32C) == 0) {
+        func_150229E4(RENDER_ACTOR(arg1)) == 0) {
         return arg0;
     }
-    actor = (Game58F80RenderActor *)(&D_800CC2D0 + arg1 * 0x32C);
     mask = 1 << arg2;
-    if (mask == (actor->hiddenViews & mask)) return arg0;
-    if (func_1506196C((u8 *)actor, arg2) == 0) return arg0;
-    if (actor->model == 0) return arg0;
+    if (mask == (RENDER_ACTOR(arg1)->hiddenViews & mask)) {
+        return arg0;
+    }
+    if (func_1506196C((u8 *)RENDER_ACTOR(arg1), arg2) == 0) {
+        return arg0;
+    }
+    if (RENDER_ACTOR(arg1)->model == 0) {
+        return arg0;
+    }
     if (arg3 != 4 && arg3 != 5 && arg3 != 3) {
         func_1502C6E8(arg1, arg2, arg3);
-        work.selected = actor->lod;
+        selected = RENDER_ACTOR(arg1)->lod;
     } else {
-        func_150849CC(actor, &work.selected);
+        func_150849CC(RENDER_ACTOR(arg1), &selected);
     }
-    func_1502D54C(arg1, work.color);
+    func_1502D54C(arg1, color);
     if (*(s16 *)((u8 *)D_800B0DF0 + 0x3E) != 0) {
-        func_1502D630((Game58F80Actor *)actor, work.color, arg2);
+        func_1502D630((Game58F80Actor *)RENDER_ACTOR(arg1), color, arg2);
     } else {
-        work.color[3] = 0xFF;
+        color[3] = 0xFF;
     }
-    opacity = func_1506196C((u8 *)actor, arg2);
-    if (opacity < 0xFF) {
-        child = actor->child;
-        if (child != 0 && child->kind == 0x100 && arg2 != actor->view127) {
-            opacity = 0xFF;
-        }
+    opacity = func_1506196C((u8 *)RENDER_ACTOR(arg1), arg2);
+    if (opacity < 0xFF && RENDER_ACTOR(arg1)->child != NULL && RENDER_ACTOR(arg1)->child->kind == 0x100 &&
+        arg2 != RENDER_ACTOR(arg1)->view127) {
+        opacity = 0xFF;
     }
     if (arg3 == 4) {
-        work.model = D_800DF7C0;
-        opacity = (D_800DF7C4 * opacity) >> 8;
+        opacity = (opacity * D_800DF7C4) >> 8;
+        model = D_800DF7C0;
     } else {
-        work.model = actor->model;
+        model = RENDER_ACTOR(arg1)->model;
     }
-    result = (s32)func_1502CCFC((void *)arg0, arg1, (void *)(s32)arg2,
-                             work.model, opacity, work.color, arg3, arg4);
-    exceeded = 0;
-    if (D_800BEBA4 < ((result - D_800BE9C8[D_800BE9C0]) >> 3)) exceeded = 1;
-    if (exceeded != 0) return work.original;
-    return result;
+    arg0 = (s32)func_1502CCFC((void *)arg0, arg1, (void *)arg2, model, opacity, color, arg3, arg4);
+    exceeded = (D_800BEBA4 < ((arg0 - D_800BE9C8[D_800BE9C0]) >> 3)) ? 1 : 0;
+    if (exceeded) {
+        return original;
+    }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502C974 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C974.s")
 
 void func_1502EC34(u8 *, s32 *, s32 *, s32 *, s32 *);
 extern u8 D_800D9B68[];

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_F3BA0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_paired_owner_streams.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C68C4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_150C6D90();                                  /* extern */
@@ -97,9 +92,9 @@ typedef struct GameF3BA0SpawnPacket {
     void *owner;
     u8 field_10;
     u8 pad_11[3];
-    volatile f32 field_14;
-    volatile f32 field_18;
-    volatile f32 field_1C;
+    f32 field_14;
+    f32 field_18;
+    f32 field_1C;
     f32 field_20;
     f32 field_24;
     s16 field_28;
@@ -110,29 +105,31 @@ typedef struct GameF3BA0SpawnPacket {
 } GameF3BA0SpawnPacket;
 
 typedef struct GameF3BA0RayPacket {
-    f32 coordinates[3];
     void *source;
     u8 flag;
     u8 pad_11[3];
     f32 result;
 } GameF3BA0RayPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C68C4 CURRENT (257) */
 s32 func_150C68C4(void *arg0, void *arg1) {
     GameF3BA0SpawnPacket packet;
     GameF3BA0RayPacket ray;
     void *spawned;
 
-    ray.source = arg1;
-    ray.flag = 1;
-    ray.coordinates[0] = *(f32 *)((u8 *)arg0 + 0x14);
-    ray.coordinates[1] = *(f32 *)((u8 *)arg0 + 0x18) + D_800A0450;
-    ray.coordinates[2] = *(f32 *)((u8 *)arg0 + 0x1C);
-    if (func_15045800(ray.coordinates, 0, *(f32 *)((u8 *)arg0 + 0x18) - 100.0f,
-                      (u8 *)arg1 + 0x34) != 0) {
-        ray.result = *(f32 *)((u8 *)arg1 + 0x34);
-    } else {
-        ray.result = *(f32 *)((u8 *)arg0 + 0x18) + D_800A0454;
+    {
+        f32 coordinates[3];
+
+        ray.source = arg1;
+        ray.flag = 1;
+        coordinates[0] = *(f32 *)((u8 *)arg0 + 0x14);
+        coordinates[1] = *(f32 *)((u8 *)arg0 + 0x18) + D_800A0450;
+        coordinates[2] = *(f32 *)((u8 *)arg0 + 0x1C);
+        if (func_15045800(coordinates, 0, *(f32 *)((u8 *)arg0 + 0x18) - 100.0f,
+                          (u8 *)arg1 + 0x34) != 0) {
+            ray.result = *(f32 *)((u8 *)arg1 + 0x34);
+        } else {
+            ray.result = *(f32 *)((u8 *)arg0 + 0x18) + D_800A0454;
+        }
     }
     packet.field_0 = 0;
     packet.field_4 = 0;
@@ -149,14 +146,12 @@ s32 func_150C68C4(void *arg0, void *arg1) {
     packet.field_2B = 5;
     packet.field_2C = 2;
     packet.field_2D = 3;
-    spawned = func_1513418C((s32)&packet, 0xC, 0xFF, 0);
+    spawned = func_1513418C(&packet, 0xC, 0xFF, 0);
     if (spawned != 0) {
-        func_10022EC0((u8 *)spawned + 0x58, &ray.source, 0xC);
+        func_10022EC0((u8 *)spawned + 0x58, &ray, 0xC);
     }
     return (s32)spawned;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C68C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C68C4.s")
 typedef struct GameF3BA0Burst {
     s32 flags, zero4;
     s16 texture, lifetime;

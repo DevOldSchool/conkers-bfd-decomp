@@ -3,25 +3,17 @@
 /*
  * Reviewed source unit: src/game/game_F4B20.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C7670
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern f32 D_800A04C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7670 CURRENT (260) */
 s32 func_150C7670(void *arg0) {
-    f32 value;
-
-    value = (f32)*(u8 *)((u8 *)*(void **)((u8 *)*(void **)((u8 *)arg0 + 0x170) + 0x14) + 0x2F);
-    *(s8 *)((u8 *)arg0 + 0x70) = (s8)(u32)(value * D_800A04C0);
+    {
+        f32 value = (f32)*(u8 *)((u8 *)*(void **)((u8 *)*(void **)((u8 *)arg0 + 0x170) + 0x14) + 0x2F);
+        *(s8 *)((u8 *)arg0 + 0x70) = (u32)(value * D_800A04C0);
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C7670 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F4B20/func_150C7670.s")
 void *func_10022EC0(void *, const void *, u32);
 extern u8 D_80089470;
 

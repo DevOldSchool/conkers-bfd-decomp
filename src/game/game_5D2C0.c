@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15030468
  * - func_15030AF4
- * - func_15031070
  * - func_150311C4
  * - func_15031FC8
  *
@@ -457,32 +456,19 @@ s32 func_15030F94(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
 void *func_1503195C(void *, s32, s32);
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031070 CURRENT (660) */
 s32 func_15031070(void *arg0, void *arg1, s32 *arg2, s32 *arg3) {
-    u8 *model;
-    s32 base;
-    s32 value;
-    u16 child;
-    void *object;
-
-    model = *(u8 **)((u8 *)arg0 + 0x48);
-    if (model != 0) {
-        if (model[0x3F6] == 0) {
+    if (*(u8 **)((u8 *)arg0 + 0x48) != 0) {
+        if ((*(u8 **)((u8 *)arg0 + 0x48))[0x3F6] == 0) {
             return 0;
         }
-        *arg2 = *(s32 *)(model + 0x3E8 + D_800BE9C0 * 4);
-        *arg3 = *(s32 *)(*(u8 **)((u8 *)arg0 + 0x48) + 0x3E0 + D_800BE9C0 * 4);
-        goto success;
-    }
-    base = *(s32 *)((u8 *)arg0 + 0x34);
-    if (base != 0) {
-        *arg2 = base + (D_800BE9C0 << 6);
-        *arg3 = *(s32 *)((u8 *)arg1 + 0x1D4) + (((u8 *)arg0)[2] << 6);
-        goto success;
-    }
-    child = *(u16 *)((u8 *)arg0 + 0x1E);
-    if (child != 0) {
-        object = func_1503195C(arg1, child, 0);
+        *arg2 = ((s32 *)(*(u8 **)((u8 *)arg0 + 0x48) + 0x3E8))[D_800BE9C0];
+        *arg3 = ((s32 *)(*(u8 **)((u8 *)arg0 + 0x48) + 0x3E0))[D_800BE9C0];
+    } else if (*(s32 *)((u8 *)arg0 + 0x34) != 0) {
+        *arg2 = *(s32 *)((u8 *)arg0 + 0x34) + (D_800BE9C0 << 6);
+        *arg3 = (((u8 *)arg0)[2] << 6) + *(s32 *)((u8 *)arg1 + 0x1D4);
+    } else if (*(u16 *)((u8 *)arg0 + 0x1E)) {
+        void *object = func_1503195C(arg1, *(u16 *)((u8 *)arg0 + 0x1E), 0);
+
         if (object == 0) {
             return 0;
         }
@@ -490,18 +476,13 @@ s32 func_15031070(void *arg0, void *arg1, s32 *arg2, s32 *arg3) {
             return 0;
         }
         *arg2 += *(u16 *)((u8 *)arg0 + 0x20) << 6;
-        return 1;
+    } else {
+        *arg2 = *(s32 *)((u8 *)arg1 + 0x1D4);
+        *arg2 += ((u8 *)arg0)[2] << 6;
+        *arg3 = *arg2;
     }
-    value = *(s32 *)((u8 *)arg1 + 0x1D4);
-    *arg2 = value;
-    value += ((u8 *)arg0)[2] << 6;
-    *arg2 = value;
-    *arg3 = value;
-success:
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15031070 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031070.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150311C4.s")
 void *func_1503195C(void *arg0, s32 arg1, s32 arg2);
 

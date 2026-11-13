@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B32C8
  * - func_151B3A7C
- * - func_151B3CF0
  * - func_151B3FDC
  * - func_151B42A4
  * - func_151B4A14
@@ -166,107 +165,59 @@ s32 func_151B3A7C(u8 *arg0) {
 f32 func_15047D60(f32);
 f32 func_150484A0(f32, f32);
 f32 func_15047C00(f32);                             /* extern */
-extern f32 D_800AA3A0;
-extern f32 D_800AA3A4;
-extern f32 D_800AA3A8;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3CF0 CURRENT (10356) */
-s32 func_151B3CF0(u8 *arg0) {
-    f32 sp80;
-    f32 sp78;
-    f32 sp74;
-    f32 sp70;
-    f32 sp6C;
-    f32 sp68;
-    f32 sp64;
-    f32 sp60;
-    f32 sp5C;
-    f32 sp58;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_fa1_2;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs1_2;
-    f32 temp_fs1_3;
-    f32 temp_fs2;
-    f32 temp_fs2_2;
-    f32 temp_fs2_3;
-    f32 temp_fs3;
-    f32 temp_fs3_2;
-    f32 temp_fs4;
-    f32 temp_fs4_2;
-    f32 temp_fs5;
-    f32 temp_fs5_2;
-    f32 temp_ft0;
-    f32 temp_ft1;
-    f32 temp_ft3;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 var_fs0;
-    s32 var_s1;
-    u8 *temp_s0;
-    u8 *var_s2;
+s32 func_151B3CF0(HoltenRopeEffect *arg0) {
+    Vec3f delta;
+    Vec3f mid;
+    Vec3f a;
+    Vec3f b;
+    f32 inv;
+    f32 nx;
+    f32 nz;
+    f32 px;
+    f32 py;
+    f32 heading;
+    f32 angle;
+    f32 r;
+    s32 i;
 
-    temp_fs3 = *(f32 *)((u8 *)arg0 + 0x20);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x14);
-    temp_fs4 = *(f32 *)((u8 *)arg0 + 0x24);
-    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x18);
-    temp_ft5 = temp_fs3 - temp_fv1;
-    temp_fv0 = fabsf(temp_ft5);
-    sp80 = temp_fs4 - temp_fa0;
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x1C);
-    temp_fs5 = *(f32 *)((u8 *)arg0 + 0x28);
-    temp_fs0 = temp_fs5 - temp_fa1;
-    if ((D_800AA3A0 < temp_fv0) || (D_800AA3A0 < fabsf(temp_fs0))) {
-        temp_ft4 = temp_fv1 + (temp_ft5 * 0.5f);
-        sp70 = temp_ft4;
-        temp_ft0 = temp_fv1 - temp_ft4;
-        temp_fs1 = temp_fa0 + (sp80 * 0.5f);
-        sp64 = temp_ft0;
-        temp_fs2 = temp_fa1 + (temp_fs0 * 0.5f);
-        sp74 = temp_fs1;
-        temp_ft3 = temp_fs3 - temp_ft4;
-        sp78 = temp_fs2;
-        sp58 = temp_ft3;
-        sp6C = temp_fa1 - temp_fs2;
-        sp5C = temp_fs4 - temp_fs1;
-        sp68 = temp_fa0 - temp_fs1;
-        temp_ft1 = temp_fs5 - temp_fs2;
-        sp60 = temp_ft1;
-        temp_fs1_2 = 1.0f / sqrtf((temp_ft5 * temp_ft5) + (temp_fs0 * temp_fs0));
-        temp_fs3_2 = temp_fs0 * temp_fs1_2;
-        temp_fs4_2 = temp_ft5 * temp_fs1_2;
-        temp_fa1_2 = ((temp_ft1 * temp_fs3_2) + (temp_ft3 * temp_fs4_2)) - ((sp6C * temp_fs3_2) + (temp_ft0 * temp_fs4_2));
-        temp_fs2_2 = sp5C - sp68;
-        temp_fs5_2 = D_800AA3A8;
-        var_s1 = 0;
-        var_s2 = (void *)(arg0 + 0x48);
-        var_fs0 = func_150484A0(temp_fs2_2, temp_fa1_2) - D_800AA3A4;
-        temp_fs1_3 = sqrtf((temp_fa1_2 * temp_fa1_2) + (temp_fs2_2 * temp_fs2_2)) * 0.5f;
-        do {
-            temp_s0 = var_s2;
-            temp_fs2_3 = func_15047D60(var_fs0);
-            temp_fv1_2 = temp_fs1_3 * func_15047C00(var_fs0);
-            var_s1 += 0x18;
-            var_s2 += 0x18;
-            *(f32 *)((u8 *)temp_s0 + 0) = (f32) ((temp_fv1_2 * temp_fs4_2) + sp70);
-            *(f32 *)((u8 *)temp_s0 + 4) = (f32) ((temp_fs1_3 * temp_fs2_3) + sp74);
-            *(f32 *)((u8 *)temp_s0 + 8) = (f32) ((temp_fv1_2 * temp_fs3_2) + sp78);
-            var_fs0 += temp_fs5_2;
-        } while (var_s1 != 0xF0);
+    delta.x = ((Vec3f *)arg0->secondaryState)->x - ((Vec3f *)arg0->primaryState)->x;
+    delta.y = ((Vec3f *)arg0->secondaryState)->y - ((Vec3f *)arg0->primaryState)->y;
+    delta.z = ((Vec3f *)arg0->secondaryState)->z - ((Vec3f *)arg0->primaryState)->z;
+    if ((0.0001f < fabsf(delta.x)) || (0.0001f < fabsf(delta.z))) {
+        mid.x = ((Vec3f *)arg0->primaryState)->x + (delta.x * 0.5f);
+        mid.y = ((Vec3f *)arg0->primaryState)->y + (delta.y * 0.5f);
+        mid.z = ((Vec3f *)arg0->primaryState)->z + (delta.z * 0.5f);
+        a.x = ((Vec3f *)arg0->primaryState)->x - mid.x;
+        a.y = ((Vec3f *)arg0->primaryState)->y - mid.y;
+        a.z = ((Vec3f *)arg0->primaryState)->z - mid.z;
+        b.x = ((Vec3f *)arg0->secondaryState)->x - mid.x;
+        b.y = ((Vec3f *)arg0->secondaryState)->y - mid.y;
+        b.z = ((Vec3f *)arg0->secondaryState)->z - mid.z;
+        inv = 1.0f / sqrtf((delta.x * delta.x) + (delta.z * delta.z));
+        nx = delta.z * inv;
+        nz = delta.x * inv;
+        px = ((b.z * nx) + (b.x * nz)) - ((a.z * nx) + (a.x * nz));
+        py = b.y - a.y;
+        heading = func_150484A0(py, px);
+        r = sqrtf((px * px) + (py * py)) * 0.5f;
+        angle = heading - 3.1415927f;
+        for (i = 0; i < 10; i++, angle += 0.34906587f) {
+            HoltenRopePoint *point = &arg0->points[i];
+            f32 s = func_15047D60(angle);
+            f32 c = func_15047C00(angle);
+
+            point->x = (r * c * nz) + mid.x;
+            point->y = (r * s) + mid.y;
+            point->z = (r * c * nx) + mid.z;
+        }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B3CF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3CF0.s")
 extern f32 D_800AA3AC;
 
 s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {

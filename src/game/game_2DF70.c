@@ -9,7 +9,6 @@
  * - func_15000AD0
  * - func_15001460
  * - func_15001A08
- * - func_15001DE0
  * - func_15002008
  * - func_15002248
  * - func_150028BC
@@ -216,75 +215,59 @@ void func_15001CEC(s32 arg0) {
 }
 s32 func_15002248(s32, s32, s32, s32, s32 *, s32 *, s16 *, s16 **); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001DE0 CURRENT (4729) */
-void *func_15001DE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s16 *arg5) {
-    s32 sp7C;
-    s32 sp78;
-    s16 *sp58;
-    s16 *temp_v0;
-    s16 *temp_v0_2;
-    s16 *var_s4;
-    s32 temp_a0;
-    s32 temp_a0_2;
-    s32 temp_a0_3;
-    s32 temp_a1;
-    s32 temp_a1_2;
-    s32 temp_a1_3;
-    s32 temp_a2;
-    s32 temp_a3;
-    register s32 temp_s1;
-    register s32 temp_s0;
-    u8 *temp_v0_3;
-    u8 *temp_v0_4;
-    u8 *temp_v0_5;
+void *func_15001DE0(s32 x, s32 y, s32 w, s32 h, s32 arg4, s16 *list) {
+    s32 left;
+    s32 right;
+    s32 top;
+    s32 bottom;
+    s32 count;
+    s32 flags;
+    s32 minCount;
+    s32 minSize;
+    s16 *node;
+    s16 *child0;
+    s16 *child1;
+    s16 *child2;
+    s16 *child3;
+    s16 *sub;
 
-    temp_a0 = arg0 - arg2;
-    temp_a1 = arg0 + arg2;
-    temp_a2 = arg1 - arg3;
-    temp_a3 = arg1 + arg3;
-    temp_s0 = (u16) D_800B0DD8;
-    temp_s1 = D_800B0DD4;
-    arg4 = func_15002248(temp_a0, temp_a1, temp_a2, temp_a3, &sp7C, &sp78, arg5, &sp58);
-    if ((arg4 < temp_s0) || (arg2 < temp_s1)) {
-        temp_v0 = func_15001B10();
-        var_s4 = temp_v0;
-        D_800B0DD0 += 1;
-        ((s16 *)temp_v0)[0] = (s16) sp7C;
-        ((s16 *)temp_v0)[3] = (s16) arg2;
-        ((s16 *)temp_v0)[4] = (s16) arg0;
-        ((s16 *)temp_v0)[5] = (s16) arg1;
-        ((s16 *)temp_v0)[2] = 0;
-        ((s16 *)temp_v0)[6] = 0;
-        ((s16 *)temp_v0)[1] = (s16) sp78;
-        func_15002008(temp_a0, temp_a1, temp_a2, temp_a3, sp58);
+    minCount = (u16)D_800B0DD8;
+    minSize = D_800B0DD4;
+    left = x - w;
+    right = x + w;
+    top = y - h;
+    bottom = y + h;
+    if (func_15002248(left, right, top, bottom, &count, &flags, list, &sub) < minCount || w < minSize) {
+        node = func_15001B10();
+        D_800B0DD0++;
+        node[0] = count;
+        node[1] = flags;
+        node[3] = w;
+        node[4] = x;
+        node[5] = y;
+        node[2] = 0;
+        node[6] = 0;
+        func_15002008(left, right, top, bottom, sub);
     } else {
-        temp_v0_2 = func_15001B10();
-        temp_s0 = arg2 >> 1;
-        temp_a0_2 = arg0 - temp_s0;
-        ((s16 *)temp_v0_2)[0] = (s16) sp7C;
-        ((s16 *)temp_v0_2)[3] = (s16) arg2;
-        ((s16 *)temp_v0_2)[4] = (s16) arg0;
-        ((s16 *)temp_v0_2)[5] = (s16) arg1;
-        ((s16 *)temp_v0_2)[2] = 0;
-        ((s16 *)temp_v0_2)[1] = (s16) sp78;
-        var_s4 = temp_v0_2;
-        temp_s1 = arg3 >> 1;
-        temp_a1_2 = arg1 - temp_s1;
-        temp_v0_3 = func_15001DE0(temp_a0_2, temp_a1_2, temp_s0, temp_s1, 0, sp58);
-        ((s16 *)var_s4)[6] = (s16) ((u8 *)temp_v0_3 - (u8 *)var_s4);
-        temp_a1_3 = temp_s1 + arg1;
-        temp_v0_4 = func_15001DE0(temp_a0_2, temp_a1_3, temp_s0, temp_s1, 0, sp58);
-        ((s16 *)temp_v0_3)[2] = (s16) (temp_v0_4 - temp_v0_3);
-        temp_a0_3 = temp_s0 + arg0;
-        temp_v0_5 = func_15001DE0(temp_a0_3, temp_a1_2, temp_s0, temp_s1, 0, sp58);
-        ((s16 *)temp_v0_4)[2] = (s16) (temp_v0_5 - temp_v0_4);
-        ((s16 *)temp_v0_5)[2] = (s16) ((u8 *)func_15001DE0(temp_a0_3, temp_a1_3, temp_s0, temp_s1, 0, sp58) - temp_v0_5);
+        node = func_15001B10();
+        node[0] = count;
+        node[1] = flags;
+        node[3] = w;
+        node[4] = x;
+        node[5] = y;
+        node[2] = 0;
+        child0 = func_15001DE0(x - (w >> 1), y - (h >> 1), (w >> 1), (h >> 1), 0, sub);
+        node[6] = (u8 *)child0 - (u8 *)node;
+        child1 = func_15001DE0(x - (w >> 1), (h >> 1) + y, (w >> 1), (h >> 1), 0, sub);
+        child0[2] = (u8 *)child1 - (u8 *)child0;
+        child2 = func_15001DE0((w >> 1) + x, y - (h >> 1), (w >> 1), (h >> 1), 0, sub);
+        child1[2] = (u8 *)child2 - (u8 *)child1;
+        child3 = func_15001DE0((w >> 1) + x, (h >> 1) + y, (w >> 1), (h >> 1), 0, sub);
+        child2[2] = (u8 *)child3 - (u8 *)child2;
     }
-    func_10004074((s32) sp58);
-    return var_s4;
+    func_10004074((s32)sub);
+    return node;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15001DE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001DE0.s")
 
 typedef struct Game76710CallArgs {
     s32 words[9];

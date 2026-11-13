@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1BFDD0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151929A4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -56,19 +51,13 @@ typedef struct Game1BFDD0Emitter {
     s8 field63;
 } Game1BFDD0Emitter;
 
-void *func_15130374(s32, u8, s32, u8, s32);
+void *func_15130374(void *, u8, s32, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A8180;
-extern f32 D_800A8184;
-extern f32 D_800A8188;
-extern f32 D_800A818C;
-extern f32 D_800A8190;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151929A4 CURRENT (550) */
 void func_151929A4(void *arg0) {
     void *result;
-    s32 side;
+    u8 side;
     f32 scale;
     f32 speed;
     Game1BFDD0Emitter emitter;
@@ -77,7 +66,7 @@ void func_151929A4(void *arg0) {
     u8 *velocity;
 
     packet = (Game1BFDD0Packet *)((u8 *)arg0 + 0x28);
-    packet->value += (312.0f + func_150ADA68() * D_800A8180) * D_800A8184 * D_800BE9A4;
+    packet->value += (312.0f + func_150ADA68() * 599.0f) * 0.001f * D_800BE9A4;
     if ((packet->value > 1.0f) && (func_1515C0F8(packet->owner, &velocity) != 0)) {
         emitter.kind = 0x29;
         emitter.effect = 0xE03;
@@ -102,12 +91,11 @@ void func_151929A4(void *arg0) {
         emitter.field20 = 0xC;
         emitter.field22 = 0x23;
         emitter.field54 = 0.0f;
-        emitter.field24 = D_800A8188;
-        extra = D_800A818C;
+        emitter.field24 = 1.04f;
+        extra = 0.95000005f;
         scale = -1.516f;
         do {
-            side = func_150ADA20();
-            side &= 1;
+            side = func_150ADA20() & 1;
             emitter.lifetime = func_150ADA20() % 31U + 0x14;
             emitter.field1B = func_150ADA20() % 156U + 0x64;
             speed = func_150ADA68() * 150.0f + 100.0f;
@@ -132,7 +120,7 @@ void func_151929A4(void *arg0) {
             emitter.velocityX = *(f32 *)(velocity + 0) * scale;
             emitter.velocityY = *(f32 *)(velocity + 4) * scale;
             emitter.velocityZ = *(f32 *)(velocity + 8) * scale;
-            result = func_15130374((s32)&emitter, 1, 4, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+            result = func_15130374(&emitter, 1, 4, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
             if (result != NULL) {
                 func_10022EC0((u8 *)result + 0xA8, &extra, 4);
             }
@@ -140,8 +128,7 @@ void func_151929A4(void *arg0) {
         } while (packet->value > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151929A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BFDD0/func_151929A4.s")
+
 
 s32 func_15192D48(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     void *result;

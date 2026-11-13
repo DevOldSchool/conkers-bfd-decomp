@@ -11,7 +11,6 @@
  * - func_1511B7D4
  * - func_1511BB04
  * - func_1511BEBC
- * - func_1511C548
  * - func_1511CB44
  * - func_1511D394
  * - func_1511D9E4
@@ -367,26 +366,25 @@ extern f32 D_800A31EC;
 extern f32 D_800A31F0;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511C548 CURRENT (60) */
 void func_1511C548(void *arg0) {
-    f32 temp_ft2;
-    f32 sp20;
+    {
+        f32 temp_ft2;
+        f32 sp20;
 
-    sp20 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x80));
-    temp_ft2 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x84)) * 16.0f;
-    *(f32 *)((u8 *)arg0 + 0) = (f32) (sp20 * 16.0f);
-    *(f32 *)((u8 *)arg0 + 8) = temp_ft2;
-    *(f32 *)((u8 *)arg0 + 0x80) = (f32) (*(f32 *)((u8 *)arg0 + 0x80) + (D_800A31EC * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x84) = (f32) (*(f32 *)((u8 *)arg0 + 0x84) + (D_800A31F0 * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x80) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x80));
-    *(f32 *)((u8 *)arg0 + 0x84) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x84));
+        sp20 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x80));
+        temp_ft2 = func_15047D60(*(f32 *)((u8 *)arg0 + 0x84)) * 16.0f;
+        *(f32 *)((u8 *)arg0 + 0) = (f32) (sp20 * 16.0f);
+        *(f32 *)((u8 *)arg0 + 8) = temp_ft2;
+        *(f32 *)((u8 *)arg0 + 0x80) = (f32) (*(f32 *)((u8 *)arg0 + 0x80) + (D_800A31EC * D_800BE9A4));
+        *(f32 *)((u8 *)arg0 + 0x84) = (f32) (*(f32 *)((u8 *)arg0 + 0x84) + (D_800A31F0 * D_800BE9A4));
+        *(f32 *)((u8 *)arg0 + 0x80) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x80));
+        *(f32 *)((u8 *)arg0 + 0x84) = func_15144B68(*(f32 *)((u8 *)arg0 + 0x84));
+    }
     if ((*(f32 *)((u8 *)arg0 + 8) == 0.0f) && (*(f32 *)((u8 *)arg0 + 0x84) == 0.0f)) {
         *(f32 *)((u8 *)arg0 + 0) = 7.5f;
         *(f32 *)((u8 *)arg0 + 8) = 8.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511C548 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511C548.s")
 typedef struct Game1483E0SoundSet {
     u16 id[3];
 } Game1483E0SoundSet;

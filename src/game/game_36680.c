@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15009334
  * - func_1500AF08
- * - func_1500B1F4
  * - func_1500B8F4
  * - func_1500BAB8
  * - func_1500BC7C
@@ -829,57 +828,33 @@ u32 func_1500AF08(u32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500AF08 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AF08.s")
 extern f32 D_80095C64[][2];
-u32 func_1500AF08(u32, s32, s32, s32, s32, s32, s32, s32, s32);
+u32 func_1500AF08(u32, s32, s32, s32, s32, s32, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B1F4 CURRENT (5052) */
-u32 func_1500B1F4(s16 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+#define LERP(a, b, t) ((a) + (t) * (f32)((b) - (a)))
+#define FLERP(a, b, t) ((a) + (t) * ((b) - (a)))
+u32 func_1500B1F4(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
     f32 *weights;
-    f32 x;
-    f32 y;
-    f32 z;
-    f32 first;
-    f32 second;
-    s16 x0;
-    s16 y0;
-    s16 z0;
+    s32 n;
     s32 index;
     u32 result;
-    u32 count;
-    s16 *point0;
-    s16 *point1;
-    s16 *point2;
 
     index = 0;
-    if (arg0 != 0) {
+    n = arg0;
+    if (n != 0) {
         weights = D_80095C64[0];
-        count = arg4;
         do {
-            point1 = arg5[1];
-            point0 = arg5[0];
-            point2 = arg5[2];
-            x0 = point0[0];
-            first = weights[0];
-            second = weights[1];
-            y0 = point0[1];
-            x = (f32)(point1[0] - x0) * first + (f32)x0;
-            y = (f32)(point1[1] - y0) * first + (f32)y0;
-            z0 = point0[2];
-            z = (f32)(point1[2] - z0) * first + (f32)z0;
-            result = func_1500AF08(count, arg2, arg3,
-                (s16)(s32)(((f32)point2[0] - x) * second + x),
-                (s32)(((f32)point2[1] - y) * second + y),
-                (s32)(((f32)point2[2] - z) * second + z),
-                128, arg1 & 255, count);
+            result = func_1500AF08(arg4, arg2, arg3,
+                (s16)FLERP(LERP(arg5[0][0], arg5[1][0], weights[0]), arg5[2][0], weights[1]),
+                FLERP(LERP(arg5[0][1], arg5[1][1], weights[0]), arg5[2][1], weights[1]),
+                FLERP(LERP(arg5[0][2], arg5[1][2], weights[0]), arg5[2][2], weights[1]),
+                128, arg1, arg4);
             index++;
             weights += 2;
-            count = result;
-        } while (index != arg0);
-        arg4 = result;
+            arg4 = result;
+        } while (index != n);
     }
     return arg4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500B1F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B1F4.s")
 
 typedef struct {
     Vec3f points[3];

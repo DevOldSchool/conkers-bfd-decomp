@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_20A990.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151DD8C0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_10025750(void);
@@ -163,32 +158,32 @@ extern u8 *D_800E0A70;
 extern s32 D_800E0A74;
 extern s8 D_800E0BD2;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD8C0 CURRENT (695) */
 void func_151DD8C0(void) {
     typedef struct { s8 x; s8 y; u16 time; u16 buttons; } Entry;
     typedef struct { u16 buttons; s8 x; s8 y; } Input;
     Input *input = (Input *)D_800BE748;
-    s32 temp_t5;
-    u16 temp_v0;
-    Entry *temp_a0;
-
-    temp_a0 = (Entry *)D_800E0A70 + D_800E0A74;
-    input->x = temp_a0->x;
-    input->y = temp_a0->y;
+    Entry *e;
+    s32 idx;
+    s32 next;
+    s32 time;
+    u16 held;
+    held = input->buttons & 0x1000;
+    idx = D_800E0A74;
+    e = (Entry *)D_800E0A70 + idx;
+    input->x = e->x;
+    input->y = e->y;
+    input->buttons = e->buttons | held;
     D_800E0BD2 = 0;
-    input->buttons = temp_a0->buttons | (input->buttons & 0x1000);
-    if (D_800E0A74 < 0x1F3) {
-        temp_v0 = temp_a0[1].time;
-        if (D_800BE9E4 < (s32)temp_v0) {
-            D_800E0BD2 = temp_v0 - D_800BE9E4;
+    if (idx < 0x1F3) {
+        next = e[1].time;
+        if (D_800BE9E4 < next) {
+            D_800E0BD2 = next - D_800BE9E4;
         }
     }
-    temp_t5 = D_800E0A74 + 1;
-    D_800BE9E4 = temp_a0->time;
-    D_800E0A74 = temp_t5;
-    if (temp_t5 >= 0x1F3) {
+    time = e->time;
+    D_800BE9E4 = time;
+    D_800E0A74 = idx + 1;
+    if (D_800E0A74 >= 0x1F3) {
         D_800E0A74 = 0x1F3;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DD8C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20A990/func_151DD8C0.s")

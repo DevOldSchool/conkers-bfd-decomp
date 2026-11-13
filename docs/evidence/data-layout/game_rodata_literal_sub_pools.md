@@ -50,13 +50,17 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_83300 | 0x14 | 0x4 | 0x80099694 | pool (func_150623F4) | `469C4000` (20000.0) |
 | blood | 0x0 | 0x204 | 0x800A4350 | table, sites 0x1C / 0x24 | `d321edfc…19b509` |
 | blood | 0x204 | 0x5C | 0x800A4554 | table, sites 0x3C / 0x44 | `5147d2f6…6188c3` |
-| blood | 0x260 | 0x50 | 0x800A4874 | table, sites 0x4CB0 / 0x4CB8 | 20 targets ([func_15138C80](game_blood_jump_tables.md)) |
-| blood | 0x2B0 | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
+| blood | 0x260 | 0x1CC | 0x800A4650 | table, sites 0x3604 / 0x360C | func_15137610 switch (nov14) |
+| blood | 0x42C | 0x50 | 0x800A4874 | table, sites 0x4CB0 / 0x4CB8 | 20 targets ([func_15138C80](game_blood_jump_tables.md)) |
+| blood | 0x47C | 0x20 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA` |
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
 | game_1C1150 | 0x3C | 0xC | 0x800A8294 | pool (func_15194408) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3) |
 | game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
-| game_1C1150 | 0x5C | 0x1E8 | 0x800A84C0 | table, sites 0x139C / 0x13A4 | 0x7A targets ([func_15194FF4](game_1c1150_jump_tables.md)) |
-| game_1C1150 | 0x244 | 0x5C | 0x800A86A8 | table, sites 0x13BC / 0x13C4 | 0x17 targets |
+| game_1C1150 | 0x5C | 0x14 | 0x800A82D0 | table, sites 0xBAC / 0xBB4 | func_15194810 switch (nov14) |
+| game_1C1150 | 0x70 | 0x174 | 0x800A82F0 | table, sites 0xF84 / 0xF8C | func_15194BF0 cases 0x58..0xB4 (nov14) |
+| game_1C1150 | 0x1E4 | 0x5C | 0x800A8464 | table, sites 0xFC0 / 0xFC8 | func_15194BF0 cases 0..0x16 (nov14) |
+| game_1C1150 | 0x240 | 0x1E8 | 0x800A84C0 | table, sites 0x139C / 0x13A4 | 0x7A targets ([func_15194FF4](game_1c1150_jump_tables.md)) |
+| game_1C1150 | 0x428 | 0x5C | 0x800A86A8 | table, sites 0x13BC / 0x13C4 | 0x17 targets |
 | game_64120 | 0x0 | 0x4 | 0x80098648 | pool (func_15038468) | `42652EE0` (57.295776) |
 | game_64120 | 0x4 | 0x4 | 0x800986EC | pool (func_1503B708) | `C7C34F80` (-99999.0) |
 | game_114B80 | 0x0 | 0x4 | 0x800A1350 | pool (func_150E7C9C) | `3EDCEE77` (0.43150684) |
@@ -75,6 +79,12 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_F3270 | 0x4 | 0x8 | 0x800A043C | pool (func_150C6460) | `46CCCCCD 3E6C8B44` (26214.4, 0.231) |
 | game_F3BA0 | 0x0 | 0x4 | 0x800A045C | pool (func_150C6A08) | `3E4CCCCD` (0.2) |
 | game_F3BA0 | 0x4 | 0x8 | 0x800A047C | pool (func_150C6D90) | `46CCCCCD 3E6C8B44` (26214.4, 0.231) |
+| game_1D6E80 | 0x0 | 0xC | 0x800A8FE0 | pool (func_151AADF8) | `C6147000 46CCCCCD 3E6C8B44` (-9500, 26214.4, 0.231) |
+| game_1D6E80 | 0xC | 0x4 | 0x800A8FF4 | pool (func_151AB3A4) | `3E4CCCCD` (0.2, [record](game_burst_velocity_literals.md)) |
+| game_2062D0 | 0x0 | 0x18 | 0x800AB480 | pool (func_151DA368) | `3E19999A 3DCCCCCD 43EB8000 461DE800 38D1B717 3A83126F` |
+| game_2062D0 | 0x18 | 0x4 | 0x800AB49C | pool | `3F8CCCCD` (1.1, [record](game_2062d0_float_constant.md)) |
+| holtenrope | 0x0 | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
+| holtenrope | 0xC | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
 | game_179F30 | 0x0 | 0x10 | 0x800A5DF4 | pool (func_1514D64C) | `358637BD 3F4CCCCD 3F19999A 358637BD` ([record](game_179f30_float_constants.md)) |
 | game_179F30 | 0x10 | 0x28 | 0x800A5E20 | table, sites 0x1FB4 / 0x1FBC | unchanged (func_1514EA1C, [record](manual_batch_jump_tables.md)) |
 | game_981E0 | 0x0 | 0x38 | 0x80099D54 | table, sites 0x3170 / 0x3178 | 14 targets ([record](game_981e0_constructor_literal_pool.md)) |
@@ -96,8 +106,9 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_16EE20 | 0x2A4 | 0x4 | 0x800A56A0 | pool (func_1514470C) | `40C90FDB` (6.2831855) |
 | game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
 | game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
-| game_B4080 | 0x28 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
-| game_B4080 | 0x124 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
+| game_B4080 | 0x28 | 0x8 | 0x8009DA60 | pool (func_1508B9BC) | `3F4CCCCD 3B808081` (0.8, 0.003921569; nov14) |
+| game_B4080 | 0x30 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
+| game_B4080 | 0x12C | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
 | game_11D830 | 0x0 | 0x4 | 0x800A1854 | pool (func_150F0A24) | `416E147B` (14.88) |
 | game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
 | game_1E73B0 | 0x0 | 0x48 | 0x800AA718 | pool (func_151BB61C `const` arrays) | `4 4 7 8 18 19 1D 1E 20`, `3F800000 3F800000 3E19999A 3E19999A 3F800000 3F800000 3DC6A7F0 3F800000 3E4CCCCD` |
@@ -231,6 +242,13 @@ keep their runtime addresses.
   new offsets. The object `.rodata` is 0x210 bytes: 0x208 of payload and 8
   zero alignment bytes.
 
+- **game_B4080 (nov14):** `func_1508B9BC` scores route weights with `0.8f` and `1/255`
+  (`0.003921569f`). Its HI16/LO16 pairs address 0x8009DA60/0x8009DA64, which hold
+  `3F4CCCCD 3B808081`; the deferred body scored CURRENT 3260 with externs and is
+  `CURRENT (0)` with literals. They follow the 0x8009DA24 table in object order, so the
+  layout gains a `(0x28, 0x8)` pool and the two later tables move to object offsets 0x30
+  and 0x12C (`.rodata.b4080_30`, `.rodata.b4080_12c`); their runtime addresses and HI16/LO16
+  sites are unchanged. 0x8009DA44..0x8009DA5F and 0x8009DA68.. stay extern reads.
 - **game_11D830:** `func_150F1170` loads 0.109000005, 0.284, 0.986372,
   1.029834, 0.333, 0.514, 0.656 and 514.0 (each checked bit-for-bit against
   the ROM; `0.109f` would round to `3DDF3B64`) from 0x800A1878..0x800A1897 in
