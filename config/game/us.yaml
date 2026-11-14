@@ -522,7 +522,7 @@ segments:
       - [0x1174A0, c, done/game/game_144950]
       - [0x1174F0, c, done/game/game_1449A0]
       - [0x1177C0, c, game/game_144C70]
-      - [0x119FC0, c, game/game_147470]
+      - [0x119FC0, c, done/game/game_147470]
       - [0x11A410, c, game/game_1478C0]
       - [0x11A7C0, c, game/game_147C70]
       - [0x11AF30, c, game/game_1483E0]

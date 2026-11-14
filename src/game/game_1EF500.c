@@ -9,7 +9,6 @@
  * - func_151C2734
  * - func_151C2AD0
  * - func_151C2F48
- * - func_151C329C
  * - func_151C3B0C
  * - func_151C43E0
  *
@@ -710,14 +709,11 @@ extern f32 D_800AAA48;
 extern f32 D_800AAA4C;
 extern f32 D_800AAA50;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C329C CURRENT (2058) */
 void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
     Game1EF500EmitterSpawn spawn;
     Game1EF500EmitterLight light;
     s32 coordinates[3];
-    s32 var_v0;
-    s32 var_v1;
 
     descriptor.field0 = 5;
     descriptor.field4 = 7;
@@ -771,7 +767,7 @@ void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     descriptor.fields70[1] = 0;
     descriptor.fields70[2] = -1;
     descriptor.fields70[3] = -1;
-    func_15152B38(&descriptor, (s32)arg1, arg2);
+    func_15152B38(&descriptor, arg1, arg2);
     spawn.field1D = 0x2B;
     spawn.field8 = 0x4403;
     spawn.field0 = 0x200005;
@@ -801,17 +797,7 @@ void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     spawn.field50 = 0.0f;
     spawn.field54 = 0.0f;
     spawn.field24 = 1.0f;
-    if (func_150ADA20() & 1) {
-        var_v1 = 0x40;
-    } else {
-        var_v1 = 0;
-    }
-    if (func_150ADA20() & 1) {
-        var_v0 = 0x80;
-    } else {
-        var_v0 = 0;
-    }
-    spawn.field58 = var_v0 | 1 | var_v1 | 0xC200;
+    spawn.field58 = 1 | ((func_150ADA20() & 1) ? 0x40 : 0) | ((func_150ADA20() & 1) ? 0x80 : 0) | 0x8000 | 0x4000 | 0x200;
     spawn.fields60[0] = 6;
     spawn.fields60[1] = 6;
     spawn.fields60[2] = -1;
@@ -829,8 +815,6 @@ void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     func_151602C0((u8 *)&light, coordinates, (func_150ADA20() & 1) + 5,
                  0xFF, 0xFF, 0xFF, 0xFF, 0, 0, (s32)arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C329C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C329C.s")
 void func_151C36D8(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
     Game1EF500EmitterSpawn spawn;

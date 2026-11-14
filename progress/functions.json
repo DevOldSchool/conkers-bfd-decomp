@@ -29571,17 +29571,16 @@
       "symbol": "func_15004BF0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1310,
-        "reason": "Two new manual hypotheses nonimproving: shared word command/payload local1335 and typed8-bytearray indexingneutral1335. Restoredoriginal1310; raw counter/shift3 and duplicate LB not reproduced, compiler uses pointer induction.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15004CE0",
           "vram": "0x15004CE0"
         }
@@ -39705,17 +39704,16 @@
       "symbol": "func_15022248"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1215,
-        "reason": "Three bounded source variants remain register/control-flow mismatched; preserve candidate for later expression recovery.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502225C",
           "vram": "0x1502225C"
         }
@@ -63567,17 +63565,16 @@
       "symbol": "func_15015920"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8173,
-        "reason": "Bounded valid bank-zero 95-glyph corpus trial: CURRENT 8173 best with genuine 224-byte slot view and unsized pointer tables; raw extra RLE row preserved. Original BSS capacities unknown, writable-slot precondition explicit. Initial12828, pointer grouping12828, slot view8173; three-attempt budget exhausted. Repeated slot displacement recovered, but RLE run unroll and register/frame differences remain. Independent all95 raw-loop trace and source review passed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1096,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15015A38",
           "vram": "0x15015A38"
         }
@@ -63940,17 +63937,16 @@
       "symbol": "func_15012C84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "CURRENT (300), round22 msweep move op (move19_17: one statement moved within its straight-line run) (stored 375). Earlier: 2085 improved to valid375 after five hypotheses plus restoration: fullword index, raw repeated word loads, captured old output count, shared tag/count/nextword lifetime, actual byte snapshot. Remaining21GPR rows, reversed global-base creation and early counter increment. Direct final extraction500 removes A2 but regresses store scheduling; assignment-in-index neutral500. Both alternatives retained privately; no fresh narrow hypothesis. See deferred-exact-20261005 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15012ED8",
           "vram": "0x15012ED8"
         }
@@ -71693,22 +71689,21 @@
       "symbol": "func_150E0D90"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5142,
-        "reason": "CURRENT (5142), improved from 10412 by matching raw positive-count guard and do/while traversal. Typed padded object/actor structures, signed position outputs and unsigned alpha conversion compile. Remaining frame 0x70 vs 0x58, floating constant lifetime, register allocation and scheduling. Next: share the phase/distance FP lifetime evidenced by raw f20. One targeted revision; no shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15119FC0",
           "vram": "0x15119FC0"
         }
       },
-      "source": "src/game/game_147470.c",
+      "source": "src/done/game/game_147470.c",
       "symbol": "func_15119FC0"
     },
     {
@@ -73611,17 +73606,16 @@
       "symbol": "func_150F884C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 810,
-        "reason": "Manual byte selector, retained owner, shared word selector/counter and inline pointer-array load improve2038 to810. Loop registers exact; interior base folded/rematerialized and exit branches/store delay remain. Native switch2215, do-while870 exhausted; best810 preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F887C",
           "vram": "0x150F887C"
         }
@@ -85179,17 +85173,16 @@
       "symbol": "func_1504B0FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 150,
-        "reason": "Manual deferred-exact-20261005:1435to150, four hypotheses plus restore. Explicit actual scale product before difference fixes all opcode/control/full184B shape. Remaining20register rows: tableV0 insteadV1, byte valuesV1 insteadA1/V0 and scaleF0 causingFPR cascade. Promoted bytes alone neutral1435, reversed final subtrees1435, typedthreebyte record neutral150; closed. Best valid simpler150 preserved. Next investigate evidenced value lifetimes/register priority, not automated permutations. Old detailedhistory unavailable; taskledger/full diffs saved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1504BA38",
           "vram": "0x1504BA38"
         }
@@ -89974,17 +89967,16 @@
       "symbol": "func_150883B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 785,
-        "reason": "Three source-only candidates remain nonzero (CURRENT 580-805); base/index register allocation and loop branch-delay scheduling differ despite matching recovered semantics. Preserve for later ABI/layout investigation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 144,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508855C",
           "vram": "0x1508855C"
         }
@@ -90812,17 +90804,16 @@
       "symbol": "func_1509499C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 9301,
-        "reason": "Manual baseline plus two revisions exhausted; best valid CURRENT (9301), concrete 4/16-byte records. Candidate frame30 vs raw40 and four-way vs two-way unroll; canonical ASM retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 992,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15094AB8",
           "vram": "0x15094AB8"
         }
@@ -91300,17 +91291,16 @@
       "symbol": "func_150AD8B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 6026,
-        "reason": "CURRENT (6026), initial valid candidate. Typed 20-byte settings table, camera/target fields, intrinsic fabsf and both raw angle-folding formulas. Preserves temporary setting reset and raw early-return behavior. Remaining frame 0x48 vs 0x50, scalar homes, FP lifetimes and loop scheduling. Next: retain separate raw angle temporaries and deferred scaleA spill. No shared dependencies changed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1232,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151287E0",
           "vram": "0x151287E0"
         }

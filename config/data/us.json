@@ -1546,6 +1546,16 @@
         }
       },
       {
+        "address": "0x800A3170",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_147470.c",
+            "src/done/game/game_147470.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A3218",
         "section": ".rodata",
         "owner": {
@@ -1572,6 +1582,16 @@
           "sources": [
             "src/game/camera/camera_camera.c",
             "src/done/game/camera/camera_camera.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A35B0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_155C90.c",
+            "src/done/game/game_155C90.c"
           ]
         }
       },

@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_155C90.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151287E0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game155C90Actor { u8 pad00[0x3C]; f32 speed; } Game155C90Actor;
@@ -44,25 +39,19 @@ void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800894F0[][5];
-extern f32 D_800A35B0, D_800A35B4, D_800A35C0, D_800A35C4, D_800A35C8, D_800A35CC;
 extern s32 D_800D2DB4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151287E0 CURRENT (6026) */
 void func_151287E0(Game155C90Camera *arg0, f32 *arg1, f32 *arg2) {
+    f32 angle;
     s32 savedSetting;
     f32 scaleA;
     f32 scaleB;
     f32 speedScaleA;
     f32 speedScaleB;
     f32 bias;
-    f32 angle;
-    f32 speed;
-    f32 sign;
     f32 value;
-    f32 factorA;
-    f32 factorB;
-    f32 *settings;
-    s32 instant;
+    f32 angle2;
+    f32 speed;
 
     savedSetting = arg0->setting;
     if (arg0->flags & 0x40) {
@@ -73,14 +62,12 @@ void func_151287E0(Game155C90Camera *arg0, f32 *arg1, f32 *arg2) {
         func_150495B0(&arg0->valueA, 0.0f, &arg0->velocityA, 1.5f, 2.5f, arg0->delta);
         return;
     }
-    settings = D_800894F0[arg0->setting];
-    scaleB = settings[1];
-    speedScaleA = settings[2];
-    speedScaleB = settings[3];
-    bias = settings[4];
-    instant = arg0->instant;
-    scaleA = settings[0];
-    if (instant != 0 || scaleA == speedScaleA) {
+    scaleA = D_800894F0[arg0->setting][0];
+    scaleB = D_800894F0[arg0->setting][1];
+    speedScaleA = D_800894F0[arg0->setting][2];
+    speedScaleB = D_800894F0[arg0->setting][3];
+    bias = D_800894F0[arg0->setting][4];
+    if (arg0->instant != 0 || scaleA == speedScaleA) {
         speed = 0.0f;
     } else {
         speed = arg0->actor->speed;
@@ -90,7 +77,7 @@ void func_151287E0(Game155C90Camera *arg0, f32 *arg1, f32 *arg2) {
     }
     angle = arg0->angle;
     if (arg0->state != 0 && (arg0->mode == 10 || arg0->mode == 14)) {
-        angle = fabsf(angle);
+        angle = fabsf(arg0->angle);
     }
     while (angle > 180.0f) {
         angle = 360.0f - angle;
@@ -98,48 +85,37 @@ void func_151287E0(Game155C90Camera *arg0, f32 *arg1, f32 *arg2) {
     if (angle < 90.0f) {
         angle = -180.0f + angle;
     }
-    if (angle < 0.0f) {
-        sign = -1.0f;
-    } else {
-        sign = 1.0f;
-    }
-    angle -= 90.0f * sign;
-    value = (angle * D_800A35B0 * scaleA - angle * speed * D_800A35B4 * speedScaleA) + bias;
+    angle -= 90.0f * (angle < 0.0f ? -1.0f : 1.0f);
+    value = (angle * 0.011111111f * scaleA - angle * speed * 0.00037037037f * speedScaleA) + bias;
     if (arg0->flags & 0x100) {
         value = 0.0f;
     }
-    factorA = D_800A35C0;
-    factorB = D_800A35C4;
     if (arg2 != 0) {
         *arg2 = value;
-    } else if (instant != 0) {
+    } else if (arg0->instant != 0) {
         arg0->valueA = value;
         arg0->velocityA = 0.0f;
     } else {
         func_150495B0(&arg0->valueA, value, &arg0->velocityA, 1.5f, 2.5f, arg0->delta);
-        factorA = D_800A35C8;
-        factorB = D_800A35CC;
     }
-    angle = arg0->angle;
-    while (angle > 180.0f) {
-        angle -= 360.0f;
+    angle2 = arg0->angle;
+    while (angle2 > 180.0f) {
+        angle2 -= 360.0f;
     }
-    if (angle > 90.0f) {
-        angle = 180.0f - angle;
-    } else if (angle < -90.0f) {
-        angle = -180.0f - angle;
+    if (angle2 > 90.0f) {
+        angle2 = 180.0f - angle2;
+    } else if (angle2 < -90.0f) {
+        angle2 = -180.0f - angle2;
     }
     if (arg1 != 0) {
-        *arg1 = -(angle * factorA * scaleB) - angle * speed * factorB * speedScaleB;
+        *arg1 = -(angle2 * 0.011111111f * scaleB) - angle2 * speed * 0.00037037037f * speedScaleB;
     } else if (arg0->instant != 0) {
+        arg0->valueB = -(angle2 * 0.011111111f * scaleB) - angle2 * speed * 0.00037037037f * speedScaleB;
         arg0->velocityB = 0.0f;
-        arg0->valueB = -(angle * factorA * scaleB) - angle * speed * factorB * speedScaleB;
     } else if (arg0->flags & 0x100) {
-        func_150495B0(&arg0->valueB, -(angle * factorA * scaleB) - angle * speed * factorB * speedScaleB, &arg0->velocityB, 6.0f, 9.0f, arg0->delta);
+        func_150495B0(&arg0->valueB, -(angle2 * 0.011111111f * scaleB) - angle2 * speed * 0.00037037037f * speedScaleB, &arg0->velocityB, 6.0f, 9.0f, arg0->delta);
     } else {
-        func_150495B0(&arg0->valueB, -(angle * factorA * scaleB) - angle * speed * factorB * speedScaleB, &arg0->velocityB, 1.5f, 2.5f, arg0->delta);
+        func_150495B0(&arg0->valueB, -(angle2 * 0.011111111f * scaleB) - angle2 * speed * 0.00037037037f * speedScaleB, &arg0->velocityB, 1.5f, 2.5f, arg0->delta);
     }
     arg0->setting = savedSetting;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151287E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_155C90/func_151287E0.s")

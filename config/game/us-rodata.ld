@@ -241,6 +241,8 @@ SECTIONS
     {
         *game_1199D0.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_155c90_float_constants.md. */
+    .game_rodata_155c90 0x800A35B0 (INFO) : SUBALIGN(4) { *game_155C90.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_156160_float_constants.md. */
     .game_rodata_156160 0x800A3614 (INFO) : SUBALIGN(4)
     {
@@ -587,6 +589,8 @@ SECTIONS
     .game_rodata_90840_b8 0x800997E8 (INFO) : SUBALIGN(4) { *game_90840.o(.rodata.90840_b8) }
     /* Sound-event switch: docs/evidence/data-layout/game_1483e0_jump_table.md. */
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
+    /* ROM-verified constants: docs/evidence/data-layout/game_147470_float_constants.md. */
+    .game_rodata_147470 0x800A3170 (INFO) : SUBALIGN(4) { *game_147470.o(.rodata) }
     /* Actor callback dispatcher: docs/evidence/data-layout/game_169510_jump_table.md. */
     .game_rodata_169510 0x800A5188 (INFO) : SUBALIGN(4) { *game_169510.o(.rodata) }
     /* Slot-type switch and scale constants: docs/evidence/data-layout/game_1b0740_jump_table_constants.md. */
@@ -831,6 +835,8 @@ __game_rodata_1bc650_payload_size = 0x488;
 
 ASSERT(SIZEOF(.game_rodata_1483e0) == 0xE0, "game_1483E0 table extent changed")
 __game_rodata_1483e0_payload_size = 0xD8;
+ASSERT(SIZEOF(.game_rodata_147470) == 0x10, "game_147470 constant pool extent changed")
+__game_rodata_147470_payload_size = 0x10;
 
 ASSERT(SIZEOF(.game_rodata_61490) == 0xA0, "game_61490 table extent changed")
 __game_rodata_61490_payload_size = 0x94;
@@ -947,6 +953,8 @@ ASSERT(SIZEOF(.game_rodata_1199d0) == 0x20, "game_1199D0 smoke literal extent ch
 __game_rodata_1199d0_payload_size = 0x18;
 ASSERT(SIZEOF(.game_rodata_156160) == 0x10, "game_156160 camera literal extent changed")
 __game_rodata_156160_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_155c90) == 0x20, "game_155C90 camera blend literal extent changed")
+__game_rodata_155c90_payload_size = 0x20;
 ASSERT(SIZEOF(.game_rodata_1ed0f0) == 0x10, "game_1ED0F0 trace epsilon literal extent changed")
 __game_rodata_1ed0f0_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1eb6c0) == 0x10, "game_1EB6C0 constant pool extent changed")

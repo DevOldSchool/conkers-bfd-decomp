@@ -19,7 +19,6 @@
  * - func_15020EC4
  * - func_1502178C
  * - func_15022024
- * - func_1502225C
  * - func_150229E4
  * - func_15022BA4
  * - func_150234A4
@@ -1273,34 +1272,17 @@ void func_15022248(s32 arg0) {
 }
 extern u8 D_800C3518[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502225C CURRENT (1215) */
-void func_1502225C(s8 arg0, s32 arg1) {
-    s32 var_v0;
-    u8 *temp_v1;
-    u8 *var_t0;
-    u8 temp_a2;
+void func_1502225C(s32 arg0, s32 arg1) {
+    s32 i;
 
-    temp_v1 = &D_800C3510[arg1];
-    temp_a2 = *temp_v1;
-    var_v0 = 0;
-    if ((s32)temp_a2 > 0) {
-        var_t0 = (arg1 * 0x19) + D_800C3518;
-loop_2:
-        var_v0 += 1;
-        if (arg0 != *var_t0) {
-            var_t0 += 1;
-            if (var_v0 < (s32)temp_a2) {
-                goto loop_2;
-            }
-        } else {
+    for (i = 0; i < D_800C3510[arg1]; i++) {
+        if (arg0 == *(arg1 * 0x19 + D_800C3518 + i)) {
             return;
         }
     }
-    D_800C3518[(arg1 * 0x19) + temp_a2] = arg0;
-    *temp_v1 = temp_a2 + 1;
+    *(arg1 * 0x19 + D_800C3518 + D_800C3510[arg1]) = arg0;
+    D_800C3510[arg1]++;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502225C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1502225C.s")
 typedef struct Game49D30Entry {
     u16 field_0;
     u8 field_2;
