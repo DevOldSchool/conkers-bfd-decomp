@@ -13,7 +13,6 @@
  * - func_15088F30
  * - func_1508907C
  * - func_150891E8
- * - func_15089F9C
  * - func_1508A1BC
  * - func_1508A6FC
  * - func_1508B2A8
@@ -1324,86 +1323,64 @@ s32 func_15089BC0(void) {
 }
 
 f32 func_15047D60(f32);
-extern f32 D_8009DA44;
-extern f32 D_8009DA48;
-extern f32 D_8009DA4C;
-extern f32 D_8009DA50;
-extern f32 D_8009DA54;
-extern f32 D_8009DA58;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15089F9C CURRENT (1261) */
 s32 func_15089F9C(s32 arg0) {
-    f32 dx;
-    f32 dz;
-    f32 value;
-    f32 distance;
-    f32 minimum;
-    f32 maximum;
-    f32 best;
-    f32 phase;
-    f32 scale;
     s32 *cursor;
     s32 mask;
     s32 count;
-    s32 offset;
-    s32 bit;
     s32 index;
     s32 result;
-    GameB4080SearchActor *actor;
+    s32 bit;
+    f32 minimum;
+    f32 maximum;
+    f32 best;
+    f32 distance;
+    f32 value;
     GameB4080SearchActor *other;
-    u8 *base;
+    GameB4080SearchActor *actor;
+    f32 dx;
+    f32 dz;
 
-    base = (u8 *)D_800D23B0;
-    offset = arg0 * 4;
-    result = -1;
-    cursor = (s32 *)(base + 0xE64);
-    mask = *(s32 *)(base + 0x14);
-    count = *(s32 *)(base + 0x10);
-    if (*(s32 *)(base + offset + 0x15C) == 0) {
-        minimum = D_8009DA44;
-        maximum = D_8009DA48;
+    cursor = (s32 *)((u8 *)D_800D23B0 + 0xE64);
+    mask = *(s32 *)((u8 *)D_800D23B0 + 0x14);
+    count = *(s32 *)((u8 *)D_800D23B0 + 0x10);
+    if (*(s32 *)((u8 *)D_800D23B0 + arg0 * 4 + 0x15C) == 0) {
+        minimum = 750.0f;
+        maximum = 3500.0f;
     } else {
-        minimum = D_8009DA4C;
+        minimum = 1500.0f;
         maximum = 8000.0f;
     }
-    best = D_8009DA50;
-    index = 0;
-    if (count > 0) {
-        phase = D_8009DA54;
-        do {
-            bit = 1 << index;
-            if ((*cursor != 3) && (mask & bit) &&
-                (*(s32 *)((u8 *)D_800D23B0 + offset + 0x16C0) & (bit << 16))) {
-                scale = D_8009DA58 / (maximum - minimum);
-                other = (GameB4080SearchActor *)(&D_800CC2D0 + index * 0x32C);
-                if (other != 0) {
-                    actor = (GameB4080SearchActor *)(&D_800CC2D0 + arg0 * 0x32C);
-                    dx = actor->field14 - other->field14;
-                    dz = actor->field1C - other->field1C;
-                    distance = sqrtf(dx * dx + dz * dz);
-                } else {
-                    distance = 32000.0f;
-                }
-                if (maximum < distance) {
-                    distance = maximum;
-                }
-                if (distance < minimum) {
-                    distance = minimum;
-                }
-                value = func_15047D60((distance - minimum) * scale + phase) + 1.0f;
-                if (best < value) {
-                    best = value;
-                    result = index;
-                }
+    best = -1000000.0f;
+    result = -1;
+    for (index = 0; index < count; index++) {
+        bit = 1 << index;
+        if (cursor[index] != 3 && (mask & bit) &&
+            (*(s32 *)((u8 *)D_800D23B0 + arg0 * 4 + 0x16C0) & (bit << 16))) {
+            other = (GameB4080SearchActor *)(&D_800CC2D0 + index * 0x32C);
+            if (other != NULL) {
+                actor = (GameB4080SearchActor *)(&D_800CC2D0 + arg0 * 0x32C);
+                dx = actor->field14 - other->field14;
+                dz = actor->field1C - other->field1C;
+                distance = sqrtf(dx * dx + dz * dz);
+            } else {
+                distance = 32000.0f;
             }
-            index++;
-            cursor++;
-        } while (index != count);
+            if (maximum < distance) {
+                distance = maximum;
+            }
+            if (distance < minimum) {
+                distance = minimum;
+            }
+            value = func_15047D60((distance - minimum) * (6.2831855f / (maximum - minimum)) + -1.5707964f) + 1.0f;
+            if (best < value) {
+                best = value;
+                result = index;
+            }
+        }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15089F9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15089F9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508A1BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508A6FC.s")
 extern s8 D_8008FD90;

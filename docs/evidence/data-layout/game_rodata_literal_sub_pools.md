@@ -130,9 +130,10 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_16EE20 | 0x2A4 | 0x4 | 0x800A56A0 | pool (func_1514470C) | `40C90FDB` (6.2831855) |
 | game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
 | game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
-| game_B4080 | 0x28 | 0x8 | 0x8009DA60 | pool (func_1508B9BC) | `3F4CCCCD 3B808081` (0.8, 0.003921569; nov14) |
-| game_B4080 | 0x30 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
-| game_B4080 | 0x12C | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
+| game_B4080 | 0x28 | 0x18 | 0x8009DA44 | pool (func_15089F9C) | `443B8000 455AC000 44BB8000 C9742400 BFC90FDB 40C90FDB` (round-24) |
+| game_B4080 | 0x40 | 0x8 | 0x8009DA60 | pool (func_1508B9BC) | `3F4CCCCD 3B808081` (0.8, 0.003921569; nov14) |
+| game_B4080 | 0x48 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
+| game_B4080 | 0x144 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
 | game_11D830 | 0x0 | 0x4 | 0x800A1854 | pool (func_150F0A24) | `416E147B` (14.88) |
 | game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
 | game_1E73B0 | 0x0 | 0x48 | 0x800AA718 | pool (func_151BB61C `const` arrays) | `4 4 7 8 18 19 1D 1E 20`, `3F800000 3F800000 3E19999A 3E19999A 3F800000 3F800000 3DC6A7F0 3F800000 3E4CCCCD` |
@@ -333,6 +334,17 @@ keep their runtime addresses.
   layout gains a `(0x28, 0x8)` pool and the two later tables move to object offsets 0x30
   and 0x12C (`.rodata.b4080_30`, `.rodata.b4080_12c`); their runtime addresses and HI16/LO16
   sites are unchanged. 0x8009DA44..0x8009DA5F and 0x8009DA68.. stay extern reads.
+- **game_B4080 (round-24):** `func_15089F9C` scores candidates by distance. It loads
+  `750.0f`, `3500.0f` and `1500.0f` (distance bounds), `-1000000.0f` (initial best
+  score), `-1.5707964f` (-pi/2) and `6.2831855f` (2pi) from 0x8009DA44..0x8009DA5B,
+  which hold `443B8000 455AC000 44BB8000 C9742400 BFC90FDB 40C90FDB`; the deferred
+  body scored CURRENT 1261 with externs and is `CURRENT (0)` with literals. The
+  function precedes `func_1508B9BC`, so the words open a new `(0x28, 0x18)` pool
+  right after the 0x8009DA24 table, contiguous with it in ROM. The later ranges move
+  to object offsets 0x40, 0x48 and 0x144 (`.rodata.b4080_40`, `.rodata.b4080_48`,
+  `.rodata.b4080_144`) with unchanged runtime addresses and HI16/LO16 sites. The
+  object `.rodata` is now 0x230 bytes: 0x228 of payload and 8 zero alignment bytes.
+  0x8009DA5C (`4CBEBC20`, read by another member) stays an extern read.
 - **game_11D830:** `func_150F1170` loads 0.109000005, 0.284, 0.986372,
   1.029834, 0.333, 0.514, 0.656 and 514.0 (each checked bit-for-bit against
   the ROM; `0.109f` would round to `3DDF3B64`) from 0x800A1878..0x800A1897 in

@@ -6,6 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_150CD59C
  * - func_150CD7F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -215,6 +216,7 @@ void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CD59C */
 void *func_150CD59C(u8 *arg0, s16 arg1) {
     f32 zero;
     void *vertices;
@@ -273,6 +275,8 @@ void *func_150CD59C(u8 *arg0, s16 arg1) {
     }
     return base;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CD59C */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CD59C.s")
 typedef struct {
     s32 countBase, countRange;
     Vec3f position;

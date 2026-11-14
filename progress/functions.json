@@ -8462,16 +8462,16 @@
       "symbol": "func_151B498C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-24 review: effect/base alias locals add nothing (effect never used for field access)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 356,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151B4A14",
           "vram": "0x151B4A14"
         }
@@ -15903,16 +15903,16 @@
       "symbol": "func_1500AD84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-24 review: '+ arg6 - arg6' no-op arithmetic copied from m2c",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 748,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1500AF08",
           "vram": "0x1500AF08"
         }
@@ -52424,17 +52424,16 @@
       "symbol": "func_1514C678"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4809,
-        "reason": "Typed callback sampler first form scores 4809. Fullword integer formals retain explicit observed low-halfword/byte semantics; no existing narrow target declaration was found. Frame 0xD0 versus raw 0xD8, argument reloads and floating lifetimes differ. Preserve first form; no speculative parameter narrowing or forced stack views.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 552,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514C858",
           "vram": "0x1514C858"
         }
@@ -64122,17 +64121,16 @@
       "symbol": "func_15169988"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2636,
-        "reason": "Three manual candidates; retained CURRENT(2636), lowest2586 in prior artifact. Frame60 versus68, state/flag locals four bytes low, command-expression scheduling and temporary registers remain. Callee twelve-slot ABI and descriptor signedness independently verified.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 552,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15169A48",
           "vram": "0x15169A48"
         }
@@ -78142,17 +78140,16 @@
       "symbol": "func_15102EB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 438,
-        "reason": "Valid best 438 uses actual big-endian byte views of word parameter homes to recover incoming LBU reads without changing formal widths. Remaining early halfword load, initializer ordering and RNG flag spill differ. Real descriptor storage is 0x70 bytes, confirmed by consumer memcpy. Volatile first-flag trial regressed to 1505; restored best. Two targeted attempts exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15103254",
           "vram": "0x15103254"
         }
@@ -78923,16 +78920,16 @@
       "symbol": "func_150CD17C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-24 review: constant-holding 'zero' local",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 604,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150CD59C",
           "vram": "0x150CD59C"
         }
@@ -90222,17 +90219,16 @@
       "symbol": "func_15089BC0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1261,
-        "reason": "Three scored hypotheses exhausted: best1261 retains frameA0 versus raw70, extra persistent constant address, saved-register allocation and mask spill differences; inline scale2441 and narrow scratch1461 regress. One compile fix and one accidental unchanged rerun separately recorded.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 544,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15089F9C",
           "vram": "0x15089F9C"
         }

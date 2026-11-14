@@ -8,6 +8,7 @@
  * TODO: Implement these source-unit functions:
  * - func_151B32C8
  * - func_151B3FDC
+ * - func_151B4A14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -601,6 +602,7 @@ s32 func_151B498C(s32 arg0, u32 *arg1, u32 *arg2, u32 *arg3, u32 *arg4, u32 *arg
 }
 void func_1502EC34(u8 *, s32 *, s32 *, s32 *, s32 *);
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4A14 */
 u8 func_151B4A14(void *arg0, u32 *arg1, u32 *arg2, u32 *arg3,
                  u32 *arg4, u32 *arg5, u32 *arg6, u32 *arg7,
                  u32 *arg8, u32 *arg9, u32 *arg10, u32 *arg11,
@@ -637,6 +639,8 @@ u8 func_151B4A14(void *arg0, u32 *arg1, u32 *arg2, u32 *arg3,
     }
     return result;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B4A14 */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4A14.s")
 
 s32 func_151B4B78(HoltenRopeEffect *arg0) {
     f32 x;

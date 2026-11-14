@@ -7,6 +7,7 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15009334
+ * - func_1500AF08
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -771,6 +772,7 @@ extern Game36680RecordHeader *D_800B0DF0;
 extern Game36680Record *D_800DDD18;
 s32 func_151EF610(void);
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500AF08 */
 u32 func_1500AF08(u32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4,
                   s16 arg5, s32 arg6, u8 arg7, s32 arg8) {
     s16 scale;
@@ -806,6 +808,8 @@ u32 func_1500AF08(u32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4,
     }
     return arg0 + 1;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_1500AF08 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AF08.s")
 extern f32 D_80095C64[][2];
 u32 func_1500AF08(u32, s32, s32, s16, s16, s16, s32, u8, s32);
 
