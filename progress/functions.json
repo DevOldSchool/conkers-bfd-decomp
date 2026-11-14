@@ -2310,16 +2310,15 @@
       "symbol": "func_1516295C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 628,
-        "reason": "Manual revisions exhausted: full-span 1685 to 640 to 628; recovered reference 0x38 frame. Phase register allocation, pointer-relative accesses, blend FP allocation and state-pointer stack slot remain different. Callback owner argument and unsigned float conversions verified against raw code.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15162B28",
           "vram": "0x15162B28"
         }
@@ -8700,17 +8699,16 @@
       "symbol": "func_150BE494"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 15665,
-        "reason": "Best CURRENT (15665), two finish calls and two bounded revision probes. Full 24-argument sight-helper contract recovered; reference frame0x180 versus candidate0x148, arithmetic spills and argument scheduling remain. Manual revision ceiling exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 972,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C71A0",
           "vram": "0x151C71A0"
         }
@@ -15912,17 +15910,16 @@
       "symbol": "func_1500AD84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3213,
-        "reason": "Manual 14-byte record initializer candidate 3213; full-width coordinate parameter ABI retained, remaining stack frame and register-allocation differences.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 748,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500AF08",
           "vram": "0x1500AF08"
         }
@@ -28709,17 +28706,16 @@
       "symbol": "func_1513CBA4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3410,
-        "reason": "CURRENT (3410), exact 0x80 frame and addressed local offsets; viewport branch, mode-byte and texture promotion, GPR allocation and packet scheduling still differ. Two bounded probe batches exhausted; final variants worsened score and frame.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 940,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513CBF0",
           "vram": "0x1513CBF0"
         }
@@ -62373,8 +62369,13 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6389,
-        "reason": "-g3 layout exact (vertices, result, camera, delta, end, middle, view, side, lengthSquared, length, fresh, scale, slot, source, x, y, z); residual: raw keeps arg0+0x34..0x3C loads in f0/f2/f12 across end/middle (no reload after end stores) and stores end.x late",
+        "layout_failure": {
+          "focused_current_differences": 0,
+          "object_sha256": "bbc0bf03b979b52822079afe696ede289504e3f4becea22e97ec65c4e84b829e",
+          "reason": "func_150D317C offset 0xA48, expected 0xA8C (delta -68); func_150D32FC offset 0xBC8, expected 0xC0C (delta -68); source-unit text extent 0xC30 (aligned 0xC30), expected 0xC70 (aligned 0xC70)",
+          "source_sha256": "73126bcfce25a253f021da9a5ba0563a74062161286859a63250f9906dcf175e"
+        },
+        "reason": "round-24 s062: probe CURRENT 0 but in-file compile is 68 bytes shorter (layout delta -68 for later members); investigate file-context difference",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -75644,17 +75645,16 @@
       "symbol": "func_151DE8F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4070,
-        "reason": "Best full-span CURRENT (4070), improved from 5838 after two finish calls and two bounded probe batches. Explicit actor-home store and fullword button temporary recover some lifetimes, but enlarge frame from original 0x30 to 0x40; actor reloads, global address materialization and GPR/setup scheduling remain different. Raw helper review proves func_1000EA94 takes a fullword argument and returns u16; no shared contracts changed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 952,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151DF1BC",
           "vram": "0x151DF1BC"
         }
@@ -83914,17 +83914,16 @@
       "symbol": "func_151C2F48"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2058,
-        "reason": "Independently inspected sibling particle/spawn/light emitter score2058, same cached byte-promotion, extra8-byte frame and late-call GPR pattern as151C36D8. Do not repeat its exhausted inline-flag or widened-argument probes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1084,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C329C",
           "vram": "0x151C329C"
         }

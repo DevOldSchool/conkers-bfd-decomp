@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15009334
- * - func_1500AF08
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -769,63 +768,46 @@ typedef struct Game36680RecordHeader {
 } Game36680RecordHeader;
 
 extern Game36680RecordHeader *D_800B0DF0;
-extern Game36680Record *volatile D_800DDD18;
+extern Game36680Record *D_800DDD18;
 s32 func_151EF610(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500AF08 CURRENT (3213) */
-u32 func_1500AF08(u32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
-                  s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
+u32 func_1500AF08(u32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4,
+                  s16 arg5, s32 arg6, u8 arg7, s32 arg8) {
     s16 scale;
-    s32 offset;
-    u8 *resource;
-    s16 *position;
-    s16 random_scale;
-    u32 limit;
-    s32 resource_index;
 
-    resource_index = arg1;
-    arg3 = (s16)arg3;
-    limit = D_800B0DF0->count - 1;
-    if (arg0 >= limit) {
-        return limit;
+    if (arg0 >= D_800B0DF0->count - 1) {
+        return D_800B0DF0->count - 1;
     }
-    offset = arg0 * sizeof(Game36680Record);
-    ((Game36680Record *)((u8 *)D_800DDD18 + offset))->x = arg3;
-    ((Game36680Record *)((u8 *)D_800DDD18 + offset))->y = ((s16 *)&arg4)[1];
-    ((Game36680Record *)((u8 *)D_800DDD18 + offset))->z = ((s16 *)&arg5)[1];
-    if (D_800DDBD0[resource_index] >= 2) {
-        if ((1 << resource_index) & D_800DDC00) {
-            ((Game36680Record *)((u8 *)D_800DDD18 + offset))->frame = resource_index * 4 + (arg8 & 1);
+    D_800DDD18[arg0].x = arg3;
+    D_800DDD18[arg0].y = arg4;
+    D_800DDD18[arg0].z = arg5;
+    if (D_800DDBD0[arg1] >= 2) {
+        if ((1 << arg1) & D_800DDC00) {
+            D_800DDD18[arg0].frame = (arg1 << 2) + (arg8 & 1);
         } else {
-            ((Game36680Record *)((u8 *)D_800DDD18 + offset))->frame = (arg0 & 3) + resource_index * 4;
+            D_800DDD18[arg0].frame = (arg0 & 3) + (arg1 << 2);
         }
     } else {
-        ((Game36680Record *)((u8 *)D_800DDD18 + offset))->frame = 0x3C;
+        D_800DDD18[arg0].frame = 0x3C;
     }
-    ((Game36680Record *)((u8 *)D_800DDD18 + offset))->type = (arg2 << 5) | resource_index;
-    ((Game36680Record *)((u8 *)D_800DDD18 + offset))->alpha = ((u8 *)&arg7)[3];
-    resource = &D_800DDBC0[resource_index];
-    ((Game36680Record *)((u8 *)D_800DDD18 + offset))->resource = *resource;
+    D_800DDD18[arg0].type = (arg2 << 5) | arg1;
+    D_800DDD18[arg0].alpha = arg7;
+    D_800DDD18[arg0].resource = D_800DDBC0[arg1];
     if (arg6 != 0) {
-        random_scale = (((func_151EF610() % arg6) + arg6) - arg6) + 256;
-        scale = random_scale;
-        position = D_800BE438[resource_index];
-        ((Game36680Record *)((u8 *)D_800DDD18 + offset))->scaleX = (position[0] * random_scale) >> 10;
-        if (D_80095CE0[*resource].flags & 4) {
-            scale += (func_151EF610() % arg6) * 4;
+        scale = func_151EF610() % arg6 + arg6 - arg6 + 0x100;
+        D_800DDD18[arg0].scaleX = (D_800BE438[arg1][0] * scale) >> 10;
+        if (D_80095CE0[D_800DDBC0[arg1]].flags & 4) {
+            scale = scale + (func_151EF610() % arg6) * 4;
         }
-        ((Game36680Record *)((u8 *)D_800DDD18 + offset))->scaleY = (position[1] * scale) >> 10;
+        D_800DDD18[arg0].scaleY = (D_800BE438[arg1][1] * scale) >> 10;
     } else {
-        position = D_800BE438[resource_index];
-        ((Game36680Record *)((u8 *)D_800DDD18 + offset))->scaleX = position[0] >> 2;
-        ((Game36680Record *)((u8 *)D_800DDD18 + offset))->scaleY = position[1] >> 2;
+        D_800DDD18[arg0].scaleX = D_800BE438[arg1][0] >> 2;
+        D_800DDD18[arg0].scaleY = D_800BE438[arg1][1] >> 2;
     }
     return arg0 + 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500AF08 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AF08.s")
 extern f32 D_80095C64[][2];
-u32 func_1500AF08(u32, s32, s32, s32, s32, s32, s32, u8, s32);
+u32 func_1500AF08(u32, s32, s32, s16, s16, s16, s32, u8, s32);
 
 #define LERP(a, b, t) ((a) + (t) * (f32)((b) - (a)))
 #define FLERP(a, b, t) ((a) + (t) * ((b) - (a)))
