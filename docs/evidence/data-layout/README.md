@@ -53,6 +53,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_123D40 spawn float constants](game_123d40_float_constants.md)
 - [US game_133190 float constants](game_133190_float_constants.md)
 - [US game_1355D0 particle constants](game_1355d0_float_constants.md)
+- [US game_14EE80 camera bounds constants](game_14ee80_float_constants.md)
 - [US game_177B50 particle float constants](game_177b50_float_constants.md)
 - [US game_197120 float constant](game_197120_float_constant.md)
 - [US game_1B81D0 particle float constants](game_1b81d0_float_constants.md)

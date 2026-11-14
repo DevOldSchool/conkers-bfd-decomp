@@ -383,6 +383,8 @@ SECTIONS
     {
         *game_1AC2F0.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_14ee80_float_constants.md. */
+    .game_rodata_14ee80 0x800A3420 (INFO) : SUBALIGN(4) { *game_14EE80.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_ac030_float_constant.md. */
     .game_rodata_ac030 0x8009BD04 (INFO) : SUBALIGN(4) { *game_AC030.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_1b5370_float_constant.md. */
@@ -527,6 +529,7 @@ SECTIONS
     .game_rodata_179f30_410 0x800A5DBC (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata.179f30_410) }
     .game_rodata_179f30_438 0x800A5DF4 (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata.179f30_438) }
     .game_rodata_179f30_448 0x800A5E20 (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata.179f30_448) }
+    .game_rodata_179f30_470 0x800A5E48 (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata.179f30_470) }
     /* Recovered blocked switches: docs/evidence/data-layout/blocked_switch_jump_tables.md. */
     .game_rodata_5d2c0 0x80096F40 (INFO) : SUBALIGN(4) { *game_5D2C0.o(.rodata) }
     /* Literal pool before the table: docs/evidence/data-layout/game_1bf090_literal_pool.md. */
@@ -687,6 +690,7 @@ __game_rodata_179f30_3c4_base = ADDR(.game_rodata_179f30_3c4) - 0x3C4;
 __game_rodata_179f30_410_base = ADDR(.game_rodata_179f30_410) - 0x410;
 __game_rodata_179f30_438_base = ADDR(.game_rodata_179f30_438) - 0x438;
 __game_rodata_179f30_448_base = ADDR(.game_rodata_179f30_448) - 0x448;
+__game_rodata_179f30_470_base = ADDR(.game_rodata_179f30_470) - 0x470;
 __game_rodata_981e0_0_base = ADDR(.game_rodata_981e0_0);
 __game_rodata_981e0_38_base = ADDR(.game_rodata_981e0_38) - 0x38;
 __game_rodata_981e0_144_base = ADDR(.game_rodata_981e0_144) - 0x144;
@@ -743,6 +747,7 @@ ASSERT(SIZEOF(.game_rodata_179f30_3c4) == 0x4C, "game_179F30 func_1514CA80 third
 ASSERT(SIZEOF(.game_rodata_179f30_410) == 0x28, "game_179F30 func_1514CA80 fourth table extent changed")
 ASSERT(SIZEOF(.game_rodata_179f30_438) == 0x10, "game_179F30 func_1514D64C literal extent changed")
 ASSERT(SIZEOF(.game_rodata_179f30_448) == 0x28, "game_179F30 table extent changed")
+ASSERT(SIZEOF(.game_rodata_179f30_470) == 0x10, "game_179F30 func_1514EECC literal extent changed")
 __game_rodata_49be0_payload_size = 0x1C;
 __game_rodata_cd860_payload_size = 0x18;
 ASSERT(SIZEOF(.game_rodata_5d2c0) == 0x1A0, "game_5D2C0 table extent changed")
@@ -984,6 +989,8 @@ ASSERT(SIZEOF(.game_rodata_1ac2f0) == 0x10, "game_1AC2F0 constant pool extent ch
 __game_rodata_1ac2f0_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_ac030) == 0x10, "game_AC030 constant pool extent changed")
 __game_rodata_ac030_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_14ee80) == 0x10, "game_14EE80 constant pool extent changed")
+__game_rodata_14ee80_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_1b5370) == 0x10, "game_1B5370 constant pool extent changed")
 __game_rodata_1b5370_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1b81d0) == 0x20,

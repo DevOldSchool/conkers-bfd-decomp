@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D9014
  * - func_151D9B8C
- * - func_151DA6F8
  * - func_151DB5D0
  * - func_151DBAA8
  *
@@ -858,13 +857,12 @@ void *func_10022EC0(void *, const void *, u32);
 extern u8 D_800AB3F4[], D_800AB404[], D_800AB330[];
 extern f32 D_800AB498;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA6F8 CURRENT (3065) */
 void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
                     f32 arg2, s16 arg3, u8 arg4, f32 arg5, s32 arg6,
                     u8 arg7, f32 arg8, f32 arg9, u8 arg10, u8 arg11,
-                    void *arg12, s16 arg13, s16 arg14, s32 arg15,
+                    s32 arg12, s16 arg13, s16 arg14, s32 arg15,
                     u8 arg16, s32 arg17) {
-    Game1DA6F8Object *saved;
+    Game1DA6F8Object *result;
     Game1DA6F8Descriptor descriptor;
     Game1DA6F8Config config;
     Game1DA6F8Extension extension;
@@ -873,8 +871,6 @@ void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
     s32 flagA;
     s32 flagB;
     Game1DA6F8Preset preset;
-    register s32 flags;
-    Game1DA6F8Object *result;
 
     descriptor.variant = arg6;
     descriptor.position = *arg0;
@@ -889,52 +885,52 @@ void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
     config.decay = D_800AB498;
     flagA = D_800AB404[arg11] != 0 ? 0x20 : 0;
     flagB = D_800AB330[arg11] != 0 ? 0x80 : 0;
-    flags = (flagB | 8 | flagA | 0x40) & 0xFF;
-    config.alpha = 0xFF;
+    config.flags = flagB | 8 | flagA | 0x40;
     config.mode = D_800AB3F4[arg11];
+    config.alpha = 0xFF;
     config.variant = arg4;
     config.field1C = arg13;
     config.field1E = arg14;
     if (arg7 != 0) {
         mode0 = 7;
-        config.flags = flags | 3;
+        config.flags |= 3;
         mode1 = 4;
     } else {
-        config.flags = flags;
         mode0 = 0;
         mode1 = 0;
     }
     extension.kind = arg11;
     extension.scaleX = arg8;
     extension.scaleY = arg9;
-    preset.words[0] = 0;
-    preset.words[1] = 0x220005;
-    preset.words[2] = 0x50600;
-    preset.words[3] = 3;
-    preset.words[4] = 0x46;
-    preset.words[5] = 0x80;
-    preset.words[6] = 0x20;
-    preset.field1C = 0;
-    preset.field1D = 0xC;
-    if (arg10 != 0) {
-        flagB = 2;
-        flagA = 0xFF;
-    } else {
-        flagB = 0;
-        flagA = 0;
+    {
+        s32 extraA;
+        s32 extraB;
+
+        preset.words[0] = 0;
+        preset.words[1] = 0x220005;
+        preset.words[2] = 0x50600;
+        preset.words[3] = 3;
+        preset.words[4] = 0x46;
+        preset.words[5] = 0x80;
+        preset.words[6] = 0x20;
+        preset.field1C = 0;
+        preset.field1D = 0xC;
+        if (arg10 != 0) {
+            extraB = 2;
+            extraA = 0xFF;
+        } else {
+            extraB = 0;
+            extraA = 0;
     }
     result = func_15147DA0(&descriptor, &config, 0x10, 1, 0, 0,
-                           mode0, mode1, 0, flagB, flagA, &preset,
+                           mode0, mode1, 0, extraB, extraA, &preset,
                            arg12, arg16, arg17);
-    if (result != 0) {
-        saved = result;
+    }
+    if (result != NULL) {
         func_10022EC0(result->data + 0x48, &extension, 0xC);
-        result = saved;
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DA6F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA6F8.s")
 
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 typedef struct {

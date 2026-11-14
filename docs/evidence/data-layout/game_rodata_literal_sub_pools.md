@@ -96,6 +96,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_179F30 | 0x410 | 0x28 | 0x800A5DBC | table, sites 0x598 / 0x5A0 | 10 targets (func_1514CA80; round-23) |
 | game_179F30 | 0x438 | 0x10 | 0x800A5DF4 | pool (func_1514D64C) | `358637BD 3F4CCCCD 3F19999A 358637BD` ([record](game_179f30_float_constants.md)) |
 | game_179F30 | 0x448 | 0x28 | 0x800A5E20 | table, sites 0x1FB4 / 0x1FBC | unchanged (func_1514EA1C, [record](manual_batch_jump_tables.md)) |
+| game_179F30 | 0x470 | 0x10 | 0x800A5E48 | pool (func_1514EECC) | `3E19999A 3F333333 3ECCCCCD 358637BD` ([record](game_179f30_float_constants.md); round-24) |
 | game_981E0 | 0x0 | 0x38 | 0x80099D54 | table, sites 0x3170 / 0x3178 | 14 targets ([record](game_981e0_constructor_literal_pool.md)) |
 | game_981E0 | 0x38 | 0x10C | 0x80099D8C | pool (func_1506DE84 .. func_1506F54C) | unchanged ([record](game_981e0_constructor_literal_pool.md)) |
 | game_981E0 | 0x144 | 0x80 | 0x80099EAC | pool (func_15070898) | 32 words ([record](game_981e0_constructor_literal_pool.md)) |

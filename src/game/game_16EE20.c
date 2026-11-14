@@ -13,7 +13,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15141A7C
- * - func_15142600
  * - func_1514306C
  * - func_15144CEC
  * - func_15145740
@@ -513,77 +512,52 @@ void func_151424F4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
 f32 sqrtf(f32);
 
 #pragma intrinsic(sqrtf)
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142600 CURRENT (10388) */
 void func_15142600(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11) {
-    f32 transform[4][4];
-    f32 sp70;
-    f32 sp6C;
-    f32 sp68;
-    f32 sp50;
-    f32 sp4C;
-    f32 sp48;
-    f32 sp44;
-    f32 sp3C;
-    f32 sp30;
-    f32 sp2C;
-    f32 sp28;
-    f32 temp_fa0;
-    f32 temp_fa0_2;
-    f32 temp_fa0_3;
-    f32 temp_fa1;
-    f32 temp_fs0;
-    f32 temp_ft0;
-    f32 temp_ft0_2;
-    f32 temp_ft3;
-    f32 temp_ft3_2;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    f32 temp_fv1;
+    f32 mtx[4][4];
+    f32 inv;
+    f32 fx;
+    f32 fy;
+    f32 fz;
+    f32 rx;
+    f32 rz;
+    f32 ux;
+    f32 uy;
+    f32 uz;
 
-    temp_ft4 = arg9 - arg6;
-    sp28 = arg6;
-    temp_ft5 = arg10 - arg7;
-    sp2C = arg7;
-    temp_ft3 = arg11 - arg8;
-    sp30 = arg8;
-    sp3C = temp_ft3;
-    temp_fa0 = 1.0f / sqrtf((temp_ft4 * temp_ft4) + (temp_ft5 * temp_ft5) + (temp_ft3 * temp_ft3));
-    temp_fa1 = temp_ft3 * temp_fa0;
-    sp44 = temp_ft4 * temp_fa0;
-    sp6C = temp_ft5 * temp_fa0;
-    sp70 = sp44;
-    temp_ft0 = -sp44;
-    sp44 = temp_ft0;
-    sp68 = temp_fa1;
-    temp_fa0_2 = 1.0f / sqrtf((temp_fa1 * temp_fa1) + (temp_ft0 * temp_ft0));
-    temp_fv1 = temp_fa1 * temp_fa0_2;
-    temp_fs0 = temp_ft0 * temp_fa0_2;
-    transform[0][1] = 0.0f;
-    transform[0][3] = 0.0f;
-    transform[1][3] = 0.0f;
-    transform[2][3] = 0.0f;
-    temp_ft3_2 = sp6C * temp_fs0;
-    sp50 = temp_ft3_2;
-    temp_ft0_2 = (sp68 * temp_fv1) - (sp70 * temp_fs0);
-    sp4C = temp_ft0_2;
-    sp48 = -sp6C * temp_fv1;
-    temp_fa0_3 = 1.0f / sqrtf((temp_ft3_2 * temp_ft3_2) + (sp4C * temp_ft0_2) + (sp48 * sp48));
-    transform[0][0] = temp_fv1 * arg3 * arg1;
-    transform[1][0] = temp_ft3_2 * temp_fa0_3 * arg3 * arg2;
-    transform[3][0] = sp28;
-    transform[2][0] = sp70 * arg3 * arg1;
-    transform[1][1] = sp4C * temp_fa0_3 * arg4 * arg2;
-    transform[3][1] = arg7;
-    transform[2][1] = sp6C * arg4 * arg1;
-    transform[0][2] = temp_fs0 * arg5 * arg1;
-    transform[1][2] = sp48 * temp_fa0_3 * arg5 * arg2;
-    transform[3][3] = 1.0f;
-    transform[3][2] = arg8;
-    transform[2][2] = sp68 * arg5 * arg1;
-    func_150A7790(transform, arg0);
+    fx = arg9 - arg6;
+    fy = arg10 - arg7;
+    fz = arg11 - arg8;
+    inv = 1.0f / sqrtf((fx * fx) + (fy * fy) + (fz * fz));
+    fx *= inv;
+    fy *= inv;
+    fz *= inv;
+    rx = fz;
+    rz = -fx;
+    inv = 1.0f / sqrtf((rx * rx) + (rz * rz));
+    rx *= inv;
+    rz *= inv;
+    ux = fy * rz;
+    uy = (fz * rx) - (fx * rz);
+    uz = -fy * rx;
+    inv = 1.0f / sqrtf((ux * ux) + (uy * uy) + (uz * uz));
+    mtx[0][0] = rx * arg3 * arg1;
+    mtx[1][0] = ux * inv * arg3 * arg2;
+    mtx[2][0] = fx * arg3 * arg1;
+    mtx[3][0] = arg6;
+    mtx[0][1] = 0.0f;
+    mtx[1][1] = uy * inv * arg4 * arg2;
+    mtx[2][1] = fy * arg4 * arg1;
+    mtx[3][1] = arg7;
+    mtx[0][2] = rz * arg5 * arg1;
+    mtx[1][2] = uz * inv * arg5 * arg2;
+    mtx[2][2] = fz * arg5 * arg1;
+    mtx[3][2] = arg8;
+    mtx[0][3] = 0.0f;
+    mtx[1][3] = 0.0f;
+    mtx[2][3] = 0.0f;
+    mtx[3][3] = 1.0f;
+    func_150A7790(mtx, arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15142600 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15142600.s")
 /* Call context: func_150A7790: unique active project prototype */
 void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
