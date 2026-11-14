@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15005290
  * - func_15005818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -30,16 +29,11 @@ extern u8 *D_800DC020;
 extern u8 *D_800DC2A0[2];
 extern u8 *D_800DC2B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15005290 CURRENT (2519) */
 void func_15005290(s32 resource, s32 mode) {
+    u32 index;
     s32 resource_size;
-    u8 **buffer;
     s32 count;
     s32 matrix_bytes;
-    u8 *view;
-    u8 *flag;
-    u32 index;
-    s16 view_resource;
 
     D_800DC020 = (u8 *)func_1502B5C8(&resource_size, 3, 0xC, resource, 8);
     D_80089550 = (u32)resource_size / 24U;
@@ -49,26 +43,18 @@ void func_15005290(s32 resource, s32 mode) {
     D_800DC2B0 = (u8 *)func_10003C40(count * 0xB0, 1, 0, 0);
     D_800DC2A0[0] = (u8 *)func_10003C40(matrix_bytes, 1, 1, 0);
     D_800DC2A0[1] = (u8 *)func_10003C40(matrix_bytes, 1, 1, 0);
-    view_resource = resource;
-    flag = D_800DBFF4;
-    buffer = D_800BE2B0;
-    index = 0;
-    do {
-        view = (u8 *)&D_800DBFF0[index];
-        *buffer = (u8 *)func_10003C40(D_800BE620 * 2, 1, 2, 0);
-        func_150054C4(view, index, (s16)view_resource, mode);
-        *flag = 0;
-        index += 1;
-        buffer += 1;
-        flag += 1;
-    } while ((u32)D_80082FA0 >= index);
+    for (index = 0; index <= (u32)D_80082FA0; index++) {
+        u8 *view = (u8 *)&D_800DBFF0[index];
+
+        D_800BE2B0[index] = (u8 *)func_10003C40(D_800BE620 * 2, 1, 2, 0);
+        func_150054C4(view, index, resource, mode);
+        D_800DBFF4[index] = 0;
+    }
     func_1512ABF8();
     func_1512D238();
     D_800894B0 = 0;
     D_800DC010 = (u8 *)func_10003C40(D_80082FA0 * 0x9A0 + 0x9A0, 1, 2, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15005290 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_15005290.s")
 typedef struct Game32740View {
     u8 pad0[0x2C];
     s32 field2C;

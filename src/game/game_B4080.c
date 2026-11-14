@@ -27,7 +27,6 @@
  * - func_1508DA1C
  * - func_1508DC24
  * - func_1508E89C
- * - func_1508ECC0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2216,55 +2215,34 @@ void func_1508EC5C(s32 arg0, s32 arg1) {
 extern u32 D_80087380;
 extern void *D_800D23C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508ECC0 CURRENT (2869) */
-s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
-    u8 *record;
-    u16 value;
+typedef struct GameB4080Group {
+    u16 unk0;
     u16 count;
-    u32 selected;
-    u32 index;
-    u32 other;
-    u8 *base;
-    u8 *cursor;
-    u8 *selectedCursor;
+    s32 unk4;
+    u16 entries[8];
+} GameB4080Group;
 
-    index = 0;
-    if (D_80087380 != 0) {
-        record = (u8 *)D_800D23C0;
-        do {
-            count = *(u16 *)(record + 2);
-            selected = 0;
-            if (count != 0) {
-                base = (u8 *)D_800D23C0 + index * 0x18;
-                selectedCursor = base;
-                do {
-                    if ((u16)((arg0 << 12) + arg1) == *(u16 *)(selectedCursor + 8)) {
-                        other = 0;
-                        if (count != 0) {
-                            cursor = base;
-                            do {
-                                value = *(u16 *)(cursor + 8);
-                                if ((arg2 == (value >> 12)) && (other != selected)) {
-                                    return value & 0xFFF;
-                                }
-                                other++;
-                                cursor += 2;
-                            } while (other < count);
-                        }
-                        return -1;
+s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
+    u32 i;
+    u32 j;
+    u32 k;
+    u16 key;
+
+    key = (arg0 << 12) + arg1;
+    for (i = 0; i < D_80087380; i++) {
+        for (j = 0; j < ((GameB4080Group *)D_800D23C0)[i].count; j++) {
+            if (key == ((GameB4080Group *)D_800D23C0)[i].entries[j]) {
+                for (k = 0; k < ((GameB4080Group *)D_800D23C0)[i].count; k++) {
+                    if (arg2 == (((GameB4080Group *)D_800D23C0)[i].entries[k] >> 12) && k != j) {
+                        return ((GameB4080Group *)D_800D23C0)[i].entries[k] & 0xFFF;
                     }
-                    selected++;
-                    selectedCursor += 2;
-                } while (selected < count);
+                }
+                return -1;
             }
-            index++;
-            record += 0x18;
-        } while (index < (u32)D_80087380);
+        }
     }
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508ECC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508ECC0.s")
 extern u32 D_80087380;
 extern void *D_800D23C0;
 
@@ -2281,12 +2259,6 @@ void func_1508EDBC(u32 arg0) {
 void func_1503DDD0(s32);
 void func_15114B94(u32);
 
-typedef struct GameB4080Group {
-    u16 unk0;
-    u16 count;
-    s32 unk4;
-    u16 entries[8];
-} GameB4080Group;
 
 void func_1508EE0C(u16 arg0, u16 arg1) {
     u32 i;

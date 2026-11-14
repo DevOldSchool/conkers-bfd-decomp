@@ -14118,17 +14118,16 @@
       "symbol": "func_150039BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2519,
-        "reason": "Valid allocation initializer with fullword parameters, true word varargs, coherent signed-count declaration and byte-pointer storage. CURRENT 2519; two targeted revisions did not improve. Raw repeated signed16 normalization, global-address retention and parameter-home allocation remain different. No artificial storage, ABI narrowing or permutation attempted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 564,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15005290",
           "vram": "0x15005290"
         }
@@ -31753,17 +31752,16 @@
       "symbol": "func_150AEDF8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5019,
-        "reason": "Preserve dual-packet initializer at CURRENT (5019). Independent callees prove 0x88 and 0x48 input extents, including consumed word at +0x84. Fullword target formal retained. Single byte normalization worsens to5228; restore first form. Duplicate conversion spills, shifted frame and store scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 816,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C1F60",
           "vram": "0x150C1F60"
         }
@@ -78941,17 +78939,16 @@
       "symbol": "func_150CD17C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2665,
-        "reason": "Manual 3-attempt limit; restored best CURRENT2665. Real16-float matrix with translation and4x3 corners replaces unsafe scalar starter. Index allocation, frameE0 vsD8, homes+8 and zero-store scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 604,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CD59C",
           "vram": "0x150CD59C"
         }
@@ -80737,17 +80734,16 @@
       "symbol": "func_1511BA24"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 6550,
-        "reason": "Bounded ordinary-C UV-cache trial 8449/6695/6550. Best preserves the observed 0x84 partial view of the real 0xA0 owner, real count-sized buffers/cache, exact-alias copy/add order, unknown vertex bytes, and finite-representable float contract. Remaining dominant mismatch is naturally halfword-aligned aggregate copying versus raw aligned words; no fabricated word/alignment members or unsafe casts. Two arithmetic-staging revisions exhausted; retain valid best for independent review.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 752,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511BB04",
           "vram": "0x1511BB04"
         }
@@ -90727,17 +90723,16 @@
       "symbol": "func_1508EC5C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2869,
-        "reason": "Manual raw-supported u16 parameters and structured loops improve3271 to CURRENT2869. Signed index and typed24-byte record remain neutral; saved-register and MULTU stride differences unresolved. Best preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 252,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508ECC0",
           "vram": "0x1508ECC0"
         }

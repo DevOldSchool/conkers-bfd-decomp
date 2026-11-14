@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CD59C
  * - func_150CD7F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -216,71 +215,64 @@ void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CD59C CURRENT (2665) */
-void *func_150CD59C(u8 *arg0, s32 arg1) {
+void *func_150CD59C(u8 *arg0, s16 arg1) {
+    f32 zero;
     void *vertices;
     void *base;
     f32 matrix[16];
     f32 corners[4][3];
+    u8 i;
     u8 fresh;
-    u8 *buffers;
-    u8 *template;
-    f32 *point;
-    s32 i;
-    s32 next_i;
 
-    arg1 = (s16)arg1;
-    func_151D5D60(arg0 + 0x100, (s16)arg1, 0x40, &vertices, &fresh);
+    func_151D5D60(arg0 + 0x100, arg1, 0x40, &vertices, &fresh);
     base = vertices;
     if (vertices != 0) {
         if (fresh != 0) {
-            buffers = arg0 + arg1 * 4;
-            template = arg0 + 0xC0;
-            func_10022EC0(*(void **)(buffers + 0x100), template, 0x40U);
-            func_10022EC0(*(u8 **)(buffers + 0x100) + 0x40, template, 0x40U);
+            func_10022EC0(((u8 **)(arg0 + 0x100))[arg1], arg0 + 0xC0, 0x40U);
+            func_10022EC0(((u8 **)(arg0 + 0x100))[arg1] + 0x40, arg0 + 0xC0, 0x40U);
         }
     } else {
         return 0;
     }
-    corners[0][0] = *(f32 *)(arg0 + 0x2C);
-    corners[0][2] = 0.0f;
-    corners[0][1] = *(f32 *)(arg0 + 0x30);
-    corners[1][0] = -*(f32 *)(arg0 + 0x2C);
-    corners[1][2] = 0.0f;
-    corners[1][1] = *(f32 *)(arg0 + 0x30);
-    corners[2][0] = -*(f32 *)(arg0 + 0x2C);
-    corners[2][2] = 0.0f;
-    corners[2][1] = -*(f32 *)(arg0 + 0x30);
-    corners[3][0] = *(f32 *)(arg0 + 0x2C);
-    corners[3][2] = 0.0f;
-    corners[3][1] = -*(f32 *)(arg0 + 0x30);
-    func_150A8050(matrix, *(f32 *)(arg0 + 0x40),
-                 *(f32 *)(arg0 + 0x44), *(f32 *)(arg0 + 0x48));
-    matrix[12] = *(f32 *)(arg0 + 0x34);
-    matrix[13] = *(f32 *)(arg0 + 0x38);
-    matrix[14] = *(f32 *)(arg0 + 0x3C);
-    if (*(f32 *)(arg0 + 0x114) < 0.0f) {
-        matrix[12] += *(f32 *)(arg0 + 0x4C);
-        matrix[13] += *(f32 *)(arg0 + 0x50);
-        matrix[14] += *(f32 *)(arg0 + 0x54);
+    zero = 0.0f;
+    {
+        f32 *translation = &matrix[12];
+
+        corners[0][0] = *(f32 *)(arg0 + 0x2C);
+        corners[0][1] = *(f32 *)(arg0 + 0x30);
+        corners[0][2] = zero;
+        corners[1][0] = -*(f32 *)(arg0 + 0x2C);
+        corners[1][1] = *(f32 *)(arg0 + 0x30);
+        corners[1][2] = zero;
+        corners[2][0] = -*(f32 *)(arg0 + 0x2C);
+        corners[2][1] = -*(f32 *)(arg0 + 0x30);
+        corners[2][2] = zero;
+        corners[3][0] = *(f32 *)(arg0 + 0x2C);
+        corners[3][1] = -*(f32 *)(arg0 + 0x30);
+        corners[3][2] = zero;
+        func_150A8050(matrix, *(f32 *)(arg0 + 0x40),
+                     *(f32 *)(arg0 + 0x44), *(f32 *)(arg0 + 0x48));
+        translation[0] = *(f32 *)(arg0 + 0x34);
+        translation[1] = *(f32 *)(arg0 + 0x38);
+        translation[2] = *(f32 *)(arg0 + 0x3C);
+        if (*(f32 *)(arg0 + 0x114) < zero) {
+            translation[0] += *(f32 *)(arg0 + 0x4C);
+            translation[1] += *(f32 *)(arg0 + 0x50);
+            translation[2] += *(f32 *)(arg0 + 0x54);
+        }
+        for (i = 0; i < 4; i++) {
+            f32 *point = corners[i];
+            func_150A7960(matrix, point[0], point[1], zero,
+                         &point[0], &point[1], &point[2]);
+            *(s16 *)vertices = (s32)point[0];
+            *(s16 *)((u8 *)vertices + 2) = (s32)point[1];
+            *(s16 *)((u8 *)vertices + 4) = (s32)point[2];
+            *(s16 *)((u8 *)vertices + 6) = 0;
+            vertices = (u8 *)vertices + 0x10;
+        }
     }
-    i = 0;
-    do {
-        point = corners[i];
-        func_150A7960(matrix, point[0], point[1], 0.0f,
-                     &point[0], &point[1], &point[2]);
-        *(s16 *)vertices = (s32)point[0];
-        next_i = (i + 1) & 0xFF;
-        *(s16 *)((u8 *)vertices + 2) = (s32)point[1];
-        *(s16 *)((u8 *)vertices + 4) = (s32)point[2];
-        *(s16 *)((u8 *)vertices + 6) = 0;
-        vertices = (u8 *)vertices + 0x10;
-        i = next_i;
-    } while (i < 4);
     return base;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CD59C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CD59C.s")
 typedef struct {
     s32 countBase, countRange;
     Vec3f position;
