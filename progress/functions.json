@@ -24656,17 +24656,16 @@
       "symbol": "func_15075884"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 305,
-        "reason": "Original valid305 retained: table local removal355 regressed negative lookup scheduling despite restored early desired LUI; state local removal neutral305. Count/mode registers already rawV0, width/reuse probes rejected before edit. State/position/desired register swap and desired LUI scheduling remain; two fresh revisions exhausted, keep signed desired count-2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 280,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15075938",
           "vram": "0x15075938"
         }
@@ -42069,17 +42068,16 @@
       "symbol": "func_15045880"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 865,
-        "reason": "Best CURRENT 1065 (eb3bde757ee240cf830d1e81671c96f7); exact frame and scan prefix, remaining copy-cursor scheduling, surface-address lifetime and scratch-register allocation; bounded manual revisions exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 612,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15045AE4",
           "vram": "0x15045AE4"
         }
@@ -44952,17 +44950,16 @@
       "symbol": "func_151ED430"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 370,
-        "reason": "Frame40, six saved registers and instruction/control sequence recovered; 37 register rows and two setup-move scheduling differences remain (370). Merged scan size/cleanup counter and unsigned opcode constants improved; separate scan pointer improved. Raw word arg0 is required; u8 hypothesis added unsupported masks. FullA8 object and40 matrices audited.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 588,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151ED90C",
           "vram": "0x151ED90C"
         }
@@ -60024,17 +60021,16 @@
       "symbol": "func_15035FE8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 328,
-        "reason": "CURRENT (328), refreshed full-span baseline 77d0f6662b71481bb6fad048ffac214a. Exact 0x98 frame, all locals and loop. Remaining func_15035808 stack-float argument store order/a2 load scheduling plus focused terminal padding. ROM sentinel at 80097D74 confirmed -10000.0f. No declaration changes justified; preserve candidate pending evidence-backed call-order hypothesis and literal mapping.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 456,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15036148",
           "vram": "0x15036148"
         }
@@ -77121,17 +77117,16 @@
       "symbol": "func_15114CC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1180,
-        "reason": "Source-only isolated queue worker handoff independently reproduced1180. Three variants1248/1884/1180; setup/return lifetimes and real local order tested. Word-width formals retained except proven arg3s16. Register/stack differences remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 480,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15114D24",
           "vram": "0x15114D24"
         }
@@ -82310,17 +82305,16 @@
       "symbol": "func_150F0A24"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 130,
-        "reason": "Corrected RNG void calls and unsigned character access preserve valid CURRENT130 (original135). Seed1903 completed6000; generated111 fails canonical cleanup, clean fieldflags210 and scalarflags130. No accepted zero; continuation1903 ledger.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 604,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F0BEC",
           "vram": "0x150F0BEC"
         }

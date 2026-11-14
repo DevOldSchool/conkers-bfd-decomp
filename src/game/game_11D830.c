@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150F03F8
- * - func_150F0BEC
  * - func_150F16DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -322,7 +321,8 @@ typedef struct Game11D830EffectInitPacket {
     f32 field_54;
     s32 flags;
     s32 field_5C;
-    s8 bytes[7];
+    s8 bytes[6];
+    u8 field_66;
     u8 pad67;
     s16 field_68;
     u8 pad6A[2];
@@ -346,7 +346,6 @@ extern f32 D_800A186C;
 extern Vec3f D_800A5480;
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (130) */
 void func_150F0BEC(u8 *arg0) {
     Game11D830EffectInitPacket packet;
     Game11D830SpawnTail tail;
@@ -392,7 +391,7 @@ void func_150F0BEC(u8 *arg0) {
     } else {
         flags2 = 0;
     }
-    packet.flags = flags2 | flags1 | 0xC000 | 0x40000;
+    packet.flags = flags2 | flags1 | 0x8000 | 0x4000 | 0x40000;
     packet.bytes[0] = 6;
     packet.bytes[1] = 6;
     packet.bytes[2] = 0x25;
@@ -400,7 +399,7 @@ void func_150F0BEC(u8 *arg0) {
     packet.bytes[4] = -1;
     packet.bytes[5] = 0xA;
     packet.field_5C = 0;
-    ((u8 *)packet.bytes)[6] = 0xFF;
+    packet.field_66 = 0xFF;
     packet.field_68 = 0;
     tail.actor = arg0;
     packet.field_6C = D_800A1860;
@@ -413,8 +412,6 @@ void func_150F0BEC(u8 *arg0) {
         func_10022EC0((u8 *)result + 0xA8, &tail, 0x14);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F0BEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0BEC.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */

@@ -480,6 +480,8 @@ SECTIONS
     {
         *game_61950.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_623d0_float_constants.md. */
+    .game_rodata_623d0 0x80097D70 (INFO) : SUBALIGN(4) { *game_623D0.o(.rodata) }
     /* Glyph switch and constants: docs/evidence/data-layout/game_6ea90_glyph_rodata.md. */
     .game_rodata_6ea90 0x80098AB0 (INFO) : SUBALIGN(4)
     {
@@ -791,6 +793,8 @@ __game_rodata_1bf090_payload_size = 0x64;
 __game_rodata_aeb40_payload_size = 0x18C;
 ASSERT(SIZEOF(.game_rodata_61950) == 0x20,
        "game_61950 external rodata extent changed")
+ASSERT(SIZEOF(.game_rodata_623d0) == 0x10, "game_623D0 surface literal extent changed")
+__game_rodata_623d0_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_6ea90) == 0x60,
        "game_6EA90 glyph rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_1dc720) == 0x10,

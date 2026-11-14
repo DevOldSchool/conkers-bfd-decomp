@@ -11,7 +11,6 @@
  * - func_15113218
  * - func_15114188
  * - func_15114A1C
- * - func_15114D24
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -853,62 +852,50 @@ typedef struct Game13F9D0SoundEntry {
     u16 sound;
 } Game13F9D0SoundEntry;
 
-u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010E78(u16, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_100111C8(u16);
-void func_1001123C(s32);
+void func_1001123C(u16);
 s32 func_1001147C(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114D24 CURRENT (1180) */
 void func_15114D24(Game13F9D0SoundEntry *arg0, s32 arg1, s32 arg2,
                    s16 arg3, s32 arg4, s32 arg5) {
-    s32 independent;
-    s32 sound;
-    u16 result;
+    u16 sound;
 
-    if (!(arg5 & 1) || (arg0->sound == 0) ||
-        (func_1001147C(arg0->sound) != arg1)) {
-        independent = arg5 & 8;
-        if (arg1 == -1) {
-            if (arg0->sound != 0) {
-                func_100111C8(arg0->sound);
-                arg0->sound = 0;
-            }
-        } else {
-            if (independent != 0) {
-                sound = 0;
-            } else {
-                sound = arg0->sound;
-            }
-            if (arg5 & 4) {
-                func_10010E78(sound & 0xFFFF, arg1, (u16)arg2, 0, 0, -1,
-                             arg0->x, arg0->y, arg0->z, arg3, (s16)arg4);
-                if (independent == 0) {
-                    arg0->sound = 0;
-                }
-            } else {
-                if (arg5 & 2) {
-                    if (sound != 0) {
-                        func_1001123C(sound & 0xFFFF);
-                        sound = 0;
-                    }
-                    result = func_10010E78(sound & 0xFFFF, arg1, (u16)arg2,
-                                          0, 0, -1, arg0->x, arg0->y, arg0->z,
-                                          arg3, (s16)arg4);
-                } else {
-                    if (sound != 0) {
-                        func_1001123C(sound & 0xFFFF);
-                    }
-                    result = func_1000FA64((u16)arg1, arg0->x, arg0->y,
-                                          arg0->z, arg2, (s16)arg4, arg3,
-                                          func_15114CC4, arg0, 0, 0, 0);
-                }
-                arg0->sound = result;
-            }
+    if ((arg5 & 1) && (arg0->sound != 0) && (func_1001147C(arg0->sound) == arg1)) {
+        return;
+    }
+    if (arg1 == -1) {
+        if (arg0->sound != 0) {
+            func_100111C8(arg0->sound);
+            arg0->sound = 0;
         }
+        return;
+    }
+    if (arg5 & 8) {
+        sound = 0;
+    } else {
+        sound = arg0->sound;
+    }
+    if (arg5 & 4) {
+        func_10010E78(sound, arg1, arg2, 0, 0, -1, arg0->x, arg0->y, arg0->z, arg3, (s16)arg4);
+        if (!(arg5 & 8)) {
+            arg0->sound = 0;
+        }
+    } else if (arg5 & 2) {
+        if (sound != 0) {
+            func_1001123C(sound);
+            sound = 0;
+        }
+        arg0->sound = func_10010E78(sound, arg1, arg2, 0, 0, -1, arg0->x, arg0->y, arg0->z, arg3, (s16)arg4);
+    } else {
+        if (sound != 0) {
+            func_1001123C(sound);
+        }
+        arg0->sound = func_1000FA64(arg1, arg0->x, arg0->y, arg0->z, arg2, (s16)arg4, arg3,
+                                    func_15114CC4, (s32)arg0, 0, 0, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15114D24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114D24.s")
+
 extern s32 func_1001001C(s32 (*arg0)(void *, s32, s32 *, s32), s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15114F04(s32 arg0, s32 arg1, s32 arg2) {
