@@ -12,6 +12,7 @@
  * - func_150A1DA0
  * - func_150A24C0
  * - func_150A25D4
+ * - func_150A29C8
  * - func_150A2E4C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -488,6 +489,7 @@ extern u16 D_800D2340;
 extern u8 D_800D30F4[];
 extern u8 D_800CC2D0;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A29C8 */
 s32 func_150A29C8(u32 arg0, s32 arg1) {
     u32 index;
 
@@ -504,6 +506,8 @@ s32 func_150A29C8(u32 arg0, s32 arg1) {
     }
     return func_150A1DA0((GameCDE80Actor *)((u8 *)&D_800CC2D0 + arg0 * 0x32C), index * 0x34 + D_800D3098, 1);
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A29C8 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A29C8.s")
 u64 func_10026800(u64, u64);
 
 typedef struct GameA2AECRow {

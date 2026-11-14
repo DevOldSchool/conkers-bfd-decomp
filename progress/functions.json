@@ -16943,16 +16943,16 @@
       "symbol": "func_15017868"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "review: temp size only copies global D_800D3094; natural /= scores 105",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 496,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15017930",
           "vram": "0x15017930"
         }
@@ -28698,16 +28698,16 @@
       "symbol": "func_1513CBA4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "review: one s32 mode local reused for six unrelated values; inline ternaries 129, distinct locals 311",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 940,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1513CBF0",
           "vram": "0x1513CBF0"
         }
@@ -46751,16 +46751,16 @@
       "symbol": "func_150A2940"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "review: alias local index=arg1 after arg1&=0xFFF; natural u32 param form scores 10",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 292,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150A29C8",
           "vram": "0x150A29C8"
         }
@@ -56401,16 +56401,16 @@
       "symbol": "func_1515589C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "review: constant-only local scale=2.25f (lui, no shared rodata); natural inline 2.25f scores 42",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 508,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15155CFC",
           "vram": "0x15155CFC"
         }
@@ -81268,16 +81268,16 @@
       "symbol": "func_151BD42C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "review: second-name local obj for arg5->owner used once; single spelling scores 895",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 788,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151BD43C",
           "vram": "0x151BD43C"
         }

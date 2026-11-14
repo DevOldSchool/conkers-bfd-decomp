@@ -102,7 +102,7 @@ void func_1502DF38(s32, s32);
 void func_1502C608(s32);
 void func_1502E4C4(s32);
 void func_1502F264(s32);
-void func_1502FBE8(void *);
+void func_1502FBE8(u8 *);
 void func_1503A08C(void *);
 void func_1503A830(void *);
 void func_1503DF48(s32);
@@ -1620,11 +1620,10 @@ void func_1505E650(void *, u16, f32, f32, f32, f32, s32);
  * Rejected nonzero selectors remain stored and still inhibit automatic choice.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-void func_1502FBE8(void *arg0) {
+void func_1502FBE8(u8 *actor) {
     s32 next;
     void *old;
     s32 selection;
-    u8 *actor = arg0;
 
     if (actor[0x1C9] == 0) {
         return;
@@ -1648,20 +1647,19 @@ void func_1502FBE8(void *arg0) {
     if (old != D_800D1588[selection]) {
         if (*(u16 *)(actor + 0x84) >= D_800C5A90[selection]) {
             *(u16 *)(actor + 0x84) = 0xFFFF;
-            func_1505E650(arg0, 0, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+            func_1505E650(actor, 0, 1.0f, 0.0f, 0.0f, 0.0f, 0);
         } else {
             s32 anim = *(u16 *)(actor + 0x84);
 
             *(u16 *)(actor + 0x84) = 0xFFFF;
-            func_1505E650(arg0, anim, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+            func_1505E650(actor, anim, 1.0f, 0.0f, 0.0f, 0.0f, 0);
         }
     }
     if (D_800C35EA == 1) {
         D_800C3638 = 1;
     }
-    func_1507EABC(arg0);
-}
-extern u8 D_80038080;
+    func_1507EABC(actor);
+}extern u8 D_80038080;
 extern s32 D_800BE9F0;
 extern u8 D_800D2040;
 

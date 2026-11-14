@@ -9,6 +9,11 @@
 /*
  * Reviewed source unit: src/game/game_182C30.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_indexed_controller_view_worklist.md
+ *
+ * TODO: Implement these source-unit functions:
+ * - func_15155CFC
+ *
+ * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game182C30Effect {
@@ -154,6 +159,7 @@ extern u8 D_800BE9C0;
 extern u8 D_800CC2D0[];
 extern s32 *D_800E03E0;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
 Gfx *func_15155CFC(Gfx *gdl, Game182C30Effect *arg1, s16 arg2) {
     u8 state;
     f32 scale;
@@ -184,6 +190,8 @@ Gfx *func_15155CFC(Gfx *gdl, Game182C30Effect *arg1, s16 arg2) {
     }
     return gdl;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
 
 extern void func_1518CA04(s32 arg0);
 

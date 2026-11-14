@@ -5,6 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_15017930
  * - func_15017B20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -95,6 +96,7 @@ extern u8 D_800D30F0[];
 extern s32 *D_800D3270;
 extern s32 D_800D3274;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15017930 */
 void func_15017930(s32 arg0) {
     s32 offset;
     u32 index;
@@ -147,6 +149,8 @@ void func_15017930(s32 arg0) {
     func_100226F0(D_800D30F0, 0x180);
     func_100226F0(D_800D30D0, 0x20);
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15017930 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017930.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017B20.s")
 typedef struct {

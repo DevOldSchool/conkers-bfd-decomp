@@ -40,7 +40,7 @@ void func_15193390(void *arg0) {
     if (D_800A81B0 != (f32)height) {
         packet.field96 = height;
     } else {
-        packet.field96 = (s16)(s32)((f32)pos[1] - 200.0f);
+        packet.field96 = (s16)((f32)pos[1] - 200.0f);
         ((u8 *)pos)[8] = 0;
     }
     packet.field8C = pos[0];

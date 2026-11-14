@@ -8210,7 +8210,7 @@
         "us": {
           "end": "0x156190",
           "start": "0x155780",
-          "state": "candidate"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_182C30.c"

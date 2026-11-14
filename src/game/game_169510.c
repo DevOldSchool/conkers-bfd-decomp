@@ -10,6 +10,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_dispatcher_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_1513CBF0
  * - func_1513D6FC
  * - func_1513DB00
  * - func_1513E13C
@@ -404,6 +405,7 @@ s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
 extern s32 D_800A4AC8[][2];
 extern s32 D_800D2C9C;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
     s32 mode;
     u8 changed;
@@ -464,6 +466,8 @@ Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
     }
     return gdl;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
 
 extern void (*D_80089F60)(s32, s32, u8);
 

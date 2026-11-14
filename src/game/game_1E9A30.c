@@ -8,6 +8,7 @@
  * TODO: Implement these source-unit functions:
  * - func_151BC794
  * - func_151BCA90
+ * - func_151BD43C
  * - func_151BD828
  * - func_151BDD8C
  *
@@ -355,6 +356,7 @@ typedef struct Game1E9A30Emitter {
     f32 scale;
 } Game1E9A30Emitter;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD43C */
 void func_151BD43C(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, Game1E9A30Emitter *arg5) {
     Game1E9A30Particle particle;
     f32 scale;
@@ -414,6 +416,8 @@ void func_151BD43C(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, Game1
         }
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BD43C */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD43C.s")
 extern f32 D_800AA860;
 extern f32 D_800AA864;
 extern s32 D_800BE9E4;
