@@ -15,7 +15,6 @@
  * - func_15141A7C
  * - func_15142600
  * - func_1514306C
- * - func_15143E94
  * - func_15144CEC
  * - func_15145740
  * - func_15145AD8
@@ -1232,12 +1231,6 @@ typedef struct Game143E94Packet {
     s8 negative;
 } Game143E94Packet;
 
-typedef struct Game143E94Locals {
-    Game143E94Packet packet;
-    u8 pad7[7];
-    volatile u8 success;
-} Game143E94Locals;
-
 s32 func_150A29C8(s32, s32);
 void func_1512D748(void *, s32, s32);
 void func_151D8868(Game143E94Packet *, s32, s32, s32);
@@ -1245,57 +1238,48 @@ void func_151D8868(Game143E94Packet *, s32, s32, s32);
 extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15143E94 CURRENT (933) */
 u8 func_15143E94(s32 arg0, s32 arg1) {
-    Game143E94Locals locals;
-    s8 limit = D_80082FA0 + 1;
-    s8 index = 0;
-    s32 found = 0;
-    s32 effect_found;
+    u8 success = 0;
 
-    locals.success = 0;
-    if (limit > 0) {
-        do {
+    {
+        s8 limit = D_80082FA0 + 1;
+        s8 index = 0;
+        s8 found = 0;
+        s8 effect_found;
+
+        while (!found && index < limit) {
             if (D_800CC2D0[index * 0x32C + 0x1CA] != 0) {
                 found = 1;
             } else {
                 index++;
             }
-            if (found != 0) {
-                break;
-            }
-        } while (index < limit);
-    }
-    if (found != 0) {
-        index = 0;
-        effect_found = 0;
-        if (limit > 0) {
-            do {
+        }
+        if (found != 0) {
+            index = 0;
+            effect_found = 0;
+            while (!effect_found && index < limit) {
                 if (func_150A29C8(index, arg1) == 0) {
                     effect_found = 1;
                 } else {
                     index++;
                 }
-                if (effect_found != 0) {
-                    break;
-                }
-            } while (index < limit);
-        }
-        if (effect_found != 0) {
-            func_1512D748((u8 *)D_800DBFF0 + D_800BE9E8 * 0x9A0, arg0, 1);
-            locals.packet.type = 1;
-            locals.packet.lifetime = (func_150ADA20() & 0xF) + 0x14;
-            locals.packet.size = (func_150ADA20() & 3) + 4;
-            locals.packet.negative = -1;
-            locals.packet.one = 1;
-            func_151D8868(&locals.packet, 0, 0xFF, 0);
-            locals.success = 1;
+            }
+            if (effect_found != 0) {
+                Game143E94Packet packet;
+
+                func_1512D748(D_800BE9E8 * 0x9A0 + (u8 *)D_800DBFF0, arg0, 1);
+                packet.type = 1;
+                packet.lifetime = (func_150ADA20() & 0xF) + 0x14;
+                packet.size = (func_150ADA20() & 3) + 4;
+                packet.negative = -1;
+                packet.one = 1;
+                func_151D8868(&packet, 0, 0xFF, 0);
+                success = 1;
+            }
         }
     }
-    return locals.success;
+    return success;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15143E94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143E94.s")
 extern u8 D_80090B64[];
 extern s32 D_800BE9E4;
 

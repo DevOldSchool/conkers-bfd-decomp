@@ -12460,17 +12460,16 @@
       "symbol": "func_15143E64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 933,
-        "reason": "CURRENT (933): signed-byte actor/effect scans and calls mostly align; grouped packet/status places fields correctly relative to frame top but compiler allocates 0x48 frame versus raw 0x38, shifting ten stack rows and delaying initial status store. No source-local stack-shape hypothesis remains after grouping probe.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 392,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15143E94",
           "vram": "0x15143E94"
         }
@@ -68773,17 +68772,16 @@
       "symbol": "func_1518B2A8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1543,
-        "reason": "CURRENT (1543): padded aggregate recovers exact 0xD8 frame and sp28 packet placement; remaining mismatches are volatile arg reloads, constant/store scheduling, and register allocation; hoisting the shared pointer/constants regressed to 2031",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 292,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15193390",
           "vram": "0x15193390"
         }
@@ -78882,17 +78880,16 @@
       "symbol": "func_150D7630"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 742,
-        "reason": "Manual pointer-pair aggregate and phase temporary improved2970to742. Directarg/scopedpacket1163; padding-free locals752 snapshot retained. Remaining s2/s3 allocation, output capture, stack positions. Preserve742; no new useful hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 308,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D765C",
           "vram": "0x150D765C"
         }
@@ -82525,17 +82522,16 @@
       "symbol": "func_150F16DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1581,
-        "reason": "CURRENT (1581): one-argument func_15047C00 call improves ABI evidence, but compiler uses 0x40 frame/weights at +0x38 versus raw 0x48/+0x3c and restructures nested transform loop; padded staged variant worsens. Preserve best candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F1A00",
           "vram": "0x150F1A00"
         }
@@ -89140,17 +89136,16 @@
       "symbol": "func_1503F5B8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1095,
-        "reason": "Valid wrapping count SLL6 with signed allocator word CURRENT1095; FE10 raw SRL4 permits0x0fffffff, so legacy signed shift invalid. Frame40 correct; model spills instead of raw s0, output s0/raw s1, actor snapshot spills,20 register and6 missing/extra rows. Prior lifetime and width probes exhausted; no new supported hypothesis. One fresh correctness revision; no ABI/shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 396,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503F62C",
           "vram": "0x1503F62C"
         }
@@ -90798,17 +90793,16 @@
       "symbol": "func_1508EDBC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4543,
-        "reason": "CURRENT (4543): two-case action switch/shared actual operand improve4678; count reloads and unsigned row offset preserved. Raw frame0x30/s0-s5 versus C0x38/s0-s7; input masking, row CSE, loop/control scheduling remain. Phase reuse regressed4858. Two fresh revisions exhausted; best valid retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 372,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508EE0C",
           "vram": "0x1508EE0C"
         }

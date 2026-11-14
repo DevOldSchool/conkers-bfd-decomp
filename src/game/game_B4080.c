@@ -28,7 +28,6 @@
  * - func_1508DC24
  * - func_1508E89C
  * - func_1508ECC0
- * - func_1508EE0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2215,7 +2214,7 @@ void func_1508EC5C(s32 arg0, s32 arg1) {
     func_1509BFB0(1, temp_v0 | 0x2000, 0x61, arg1);
 }
 extern u32 D_80087380;
-extern s32 D_800D23C0;
+extern void *D_800D23C0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508ECC0 CURRENT (2869) */
 s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
@@ -2267,7 +2266,7 @@ s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508ECC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508ECC0.s")
 extern u32 D_80087380;
-extern s32 D_800D23C0;
+extern void *D_800D23C0;
 
 void func_1508EDBC(u32 arg0) {
     s32 temp_v0;
@@ -2282,71 +2281,37 @@ void func_1508EDBC(u32 arg0) {
 void func_1503DDD0(s32);
 void func_15114B94(u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508EE0C CURRENT (4543) */
-void func_1508EE0C(s32 arg0, s32 arg1) {
-    u32 row;
-    u32 rowOffset;
-    u32 index;
-    u32 actionIndex;
-    u32 actionOffset;
+typedef struct GameB4080Group {
+    u16 unk0;
     u16 count;
-    u16 value;
+    s32 unk4;
+    u16 entries[8];
+} GameB4080Group;
+
+void func_1508EE0C(u16 arg0, u16 arg1) {
+    u32 i;
+    u32 j;
     s32 operand;
     u16 key;
-    u16 group = arg0;
-    u16 item = arg1;
-    u8 *table;
-    u8 *rowPointer;
-    u8 *entry;
 
-    row = 0;
-    if (D_80087380 == 0) {
-        return;
-    }
-    table = (u8 *)D_800D23C0;
-    rowOffset = 0;
-    rowPointer = table;
-    do {
-        count = *(u16 *)(rowPointer + 2);
-        index = 0;
-        if (count != 0) {
-            key = ((group << 12) + item) & 0xFFFF;
-            entry = table + (((row << 2) - row) << 3) + 8;
-            do {
-                index++;
-                if (key == *(u16 *)entry) {
-                    actionIndex = 0;
-                    if (count != 0) {
-                        actionOffset = 0;
-                        do {
-                            value = *(u16 *)(table + (((row << 2) - row) << 3) + actionOffset + 8);
-                            operand = value & 0xFFF;
-                            switch (value >> 12) {
-                            case 2:
-                                func_15114B94(operand);
-                                table = (u8 *)D_800D23C0;
-                                count = *(u16 *)(table + rowOffset + 2);
-                                break;
-                            case 3:
-                                func_1503DDD0(operand);
-                                table = (u8 *)D_800D23C0;
-                                count = *(u16 *)(table + rowOffset + 2);
-                                break;
-                            }
-                            actionIndex++;
-                            actionOffset += 2;
-                        } while (actionIndex < count);
+    key = (arg0 << 12) + arg1;
+    for (i = 0; i < D_80087380; i++) {
+        for (j = 0; j < ((GameB4080Group *)D_800D23C0)[i].count; j++) {
+            if (((GameB4080Group *)D_800D23C0)[i].entries[j] == key) {
+                for (j = 0; j < ((GameB4080Group *)D_800D23C0)[i].count; j++) {
+                    operand = ((GameB4080Group *)D_800D23C0)[i].entries[j] & 0xFFF;
+                    switch (((GameB4080Group *)D_800D23C0)[i].entries[j] >> 12) {
+                    case 2:
+                        func_15114B94(operand);
+                        break;
+                    case 3:
+                        func_1503DDD0(operand);
+                        break;
                     }
-                    func_1508EDBC(row);
-                    return;
                 }
-                entry += 2;
-            } while (index < count);
+                func_1508EDBC(i);
+                return;
+            }
         }
-        row++;
-        rowOffset += 0x18;
-        rowPointer += 0x18;
-    } while (row < D_80087380);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508EE0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EE0C.s")

@@ -4,16 +4,20 @@
 /*
  * Reviewed source unit: src/game/game_6C960.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1503F62C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game6C960Actor {
-    u8 pad0[0x3F5];
+    u8 pad0[0x45];
+    u8 field_45;
+    u8 pad46[0x215 - 0x46];
+    u8 field_215;
+    u8 pad216[0x3E8 - 0x216];
+    void *field_3E8;
+    void *field_3EC;
+    s32 field_3F0;
+    u8 field_3F4;
     u8 field_3F5;
+    u8 field_3F6;
 } Game6C960Actor;
 
 void func_1505E0C4(s32, s32, Game6C960Actor *, s32, s32, s32, s32,
@@ -71,46 +75,38 @@ void func_1503F5B8(Game6C960Actor *arg0, s32 arg1, s32 arg2, f32 arg3,
 void func_100226F0(void *, s32);
 s32 func_1502FE10(s32, void *, void *, void **, void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F62C CURRENT (1095) */
-s32 func_1503F62C(u8 arg0, s32 arg1, void *arg2, void *arg3,
+s32 func_1503F62C(s32 arg0, s32 arg1, void *arg2, void *arg3,
                    void **arg4, void *arg5, Game6C960Actor **arg6) {
     s32 count;
-    Game6C960Actor *actor;
-    void *allocation;
+    void *ptr;
 
-    actor = func_10003C40(0x3F8, 1, 2, 2);
-    *arg6 = actor;
-    if (actor == 0) {
+    if ((*arg6 = func_10003C40(0x3F8, 1, 2, 2)) == NULL) {
         return 1;
     }
     func_100226F0(*arg6, 0x40);
-    ((u8 *)*arg6)[0x215] = 1;
-    ((u8 *)*arg6)[0x45] = 1;
-    func_1502FE10(arg0, arg2, arg3, arg4, arg5,
-                   (s32)((u8 *)*arg6 + 0x3F0), (s32)&count);
-    ((u8 *)*arg6)[0x3F4] = (u8)count;
-    ((u8 *)*arg6)[0x3F5] = (u8)arg1;
-    ((u8 *)*arg6)[0x3F6] = 0;
-    *(void **)((u8 *)*arg6 + 0x3E8) = func_10003C40((s32)((u32)count << 6), 1, 2, 2);
-    *(void **)((u8 *)*arg6 + 0x3EC) = func_10003C40((s32)((u32)count << 6), 1, 2, 2);
-    actor = *arg6;
-    allocation = *(void **)((u8 *)actor + 0x3E8);
-    if (allocation == 0 || *(void **)((u8 *)actor + 0x3EC) == 0) {
-        if (allocation == 0) {
-            func_10004074((s32)allocation);
+    (*arg6)->field_215 = 1;
+    (*arg6)->field_45 = 1;
+    func_1502FE10(arg0, arg2, arg3, arg4, arg5, (s32)&(*arg6)->field_3F0, (s32)&count);
+    (*arg6)->field_3F4 = count;
+    (*arg6)->field_3F5 = arg1;
+    (*arg6)->field_3F6 = 0;
+    (*arg6)->field_3E8 = func_10003C40(count << 6, 1, 2, 2);
+    (*arg6)->field_3EC = func_10003C40(count << 6, 1, 2, 2);
+    ptr = (*arg6)->field_3E8;
+    if (ptr == NULL || (*arg6)->field_3EC == NULL) {
+        if (ptr == NULL) {
+            func_10004074((s32)ptr);
         }
-        allocation = *(void **)((u8 *)*arg6 + 0x3EC);
-        if (allocation == 0) {
-            func_10004074((s32)allocation);
+        ptr = (*arg6)->field_3EC;
+        if (ptr == NULL) {
+            func_10004074((s32)ptr);
         }
         func_10004074((s32)*arg6);
         return 1;
     }
-    func_1503F5B8(actor, 1, 0, 1.0f, 0.0f, 0);
+    func_1503F5B8(*arg6, 1, 0, 1.0f, 0.0f, 0);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503F62C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6C960/func_1503F62C.s")
 extern void func_10004074(s32 arg0);
 extern void func_100043B4();
 
