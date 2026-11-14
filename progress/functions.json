@@ -7378,17 +7378,16 @@
       "symbol": "func_15048AD0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1745,
-        "reason": "CURRENT1745 after one finish and two probe batches. Full7C helper copy buffer gives frame128 versus raw108; local offsets otherwise agree. Repeated rodata load promotion and FP registers differ. Chained stores and const declarations did not improve.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 892,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150113E0",
           "vram": "0x150113E0"
         }
@@ -14138,17 +14137,16 @@
       "symbol": "func_15005290"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 485,
-        "reason": "CURRENT (485) round9: initializer moved into the declaration (615 -> 485); residual f0/f2 constant allocation and loop-init scheduling. Prior: CURRENT 615 after initial and two bounded probe revisions; frame and parameter homes match, but initialization/store scheduling and FP temporary register allocation differ. Best attempt 9c4dcbdb666847b794b30d9c55615b0a; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 852,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150054C4",
           "vram": "0x150054C4"
         }
@@ -81005,26 +81003,25 @@
           "vram": "0x15101F50"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_15101F50"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1982,
-        "reason": "CURRENT1982/frame0x30 exact after explicit upper-bound snapshot fixed FP promotion. Remaining differences are folded arg0/state pointer lifetime, coalesced stack pointer snapshots, unsigned conversion register and tail saved-pointer reuse. Two finishes/two probe batches exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 840,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151022AC",
           "vram": "0x151022AC"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_151022AC"
     },
     {
@@ -81042,7 +81039,7 @@
           "vram": "0x151025F4"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_151025F4"
     },
     {
@@ -81060,7 +81057,7 @@
           "vram": "0x151026BC"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_151026BC"
     },
     {
@@ -81078,7 +81075,7 @@
           "vram": "0x151027E8"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_151027E8"
     },
     {
@@ -81096,7 +81093,7 @@
           "vram": "0x1510281C"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_1510281C"
     },
     {
@@ -81114,7 +81111,7 @@
           "vram": "0x15102884"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_15102884"
     },
     {
@@ -81132,7 +81129,7 @@
           "vram": "0x151028AC"
         }
       },
-      "source": "src/game/game_12F400.c",
+      "source": "src/done/game/game_12F400.c",
       "symbol": "func_151028AC"
     },
     {
@@ -81294,17 +81291,16 @@
       "symbol": "func_151BD42C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3202,
-        "reason": "CURRENT 3202 initial restored after two revision probes. Three finishes include one invalid3093 and rollback recheck. B0 vs B8 frame, persistent velocity temporaries and initial owner register unresolved; scoped snapshots worse5245. Do not reuse invalid combined flag expression: reversed random association.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BD43C",
           "vram": "0x151BD43C"
         }
@@ -83827,8 +83823,13 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2998,
-        "reason": "CURRENT 2998 after two focused comparisons and two bounded probe batches. Typed motion subobject and cached third-vertex cursor preserve raw geometry and improve 5787; frame 0xC0 versus 0xB0, float register allocation, spill placement and scheduling remain. No shared dependency changes.",
+        "layout_failure": {
+          "focused_current_differences": 0,
+          "object_sha256": "81a1abae5a4a6b43c24ef4896280e49411f8fcaa8fba0402bad89b26987b331f",
+          "reason": "func_151C2E4C offset 0xDE8, expected 0xDFC (delta -20); func_151C2E94 offset 0xE30, expected 0xE44 (delta -20); func_151C2EF0 offset 0xE8C, expected 0xEA0 (delta -20); func_151C2F48 offset 0xEE4, expected 0xEF8 (delta -20); func_151C329C offset 0x1238, expected 0x124C (delta -20); func_151C36D8 offset 0x1674, expected 0x1688 (delta -20); func_151C3B0C offset 0x1AA8, expected 0x1ABC (delta -20); func_151C436C offset 0x2308, expected 0x231C (delta -20); func_151C43E0 offset 0x237C, expected 0x2390 (delta -20); func_151C4510 offset 0x24AC, expected 0x24C0 (delta -20); func_151C455C offset 0x24F8, expected 0x250C (delta -20); func_151C4644 offset 0x25E0, expected 0x25F4 (delta -20); source-unit text extent 0x27C0 (aligned 0x27C0), expected 0x27D0 (aligned 0x27D0)",
+          "source_sha256": "346638359773ef53453c4121965b446faff279dd2e6853d8abac95068c5a24c6"
+        },
+        "reason": "round-24 s053: probe CURRENT 0 (vertices++->field stores) but in-file compile is 20 bytes shorter (layout delta -20 for every later member); probe strips other GLOBAL_ASM so file context differs",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -85959,17 +85960,16 @@
       "symbol": "func_150BFFE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 910,
-        "reason": "Related spawn descriptor reconstruction: 1651/1651/910. Exact frame and homes; ROM-backed repeated 0x3e8624de literal restores constant lifetime. Remaining initial copied-word/vector scheduling; no further evidenced source form.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 740,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C01DC",
           "vram": "0x150C01DC"
         }

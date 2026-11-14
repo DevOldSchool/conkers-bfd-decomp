@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_3E890.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150113E0
  * - func_1501175C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -20,7 +19,6 @@ typedef struct {
     s16 angles[4];
     u8 colors[4];
     u8 mode;
-    u8 pad59[0x23];
 } Game3E890SceneParameters;
 typedef struct {
     u8 kind, mode;
@@ -32,35 +30,29 @@ typedef struct {
     f32 position[3], target[3], scales[3];
     s32 flags;
     u8 channels[4];
-    u8 pad48[0xC];
+    u8 pad48[0x10]; /* func_1513D524 copies the complete 0x58-byte packet. */
 } Game3E890SceneDescriptor;
 typedef struct { f32 values[7]; } Game3E890SceneExtra;
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151407D0(void *, u32, Game3E890SceneDescriptor *,
                   u8, u8, u8, u8, s8, u8, s32);
-extern f32 D_800964C0, D_800964C4, D_800964C8, D_800964CC;
-extern f32 D_800964D0, D_800964D4, D_800964D8, D_800964DC;
-extern f32 D_800964E0, D_800964E4, D_800964E8, D_800964EC;
-extern f32 D_800964F0, D_800964F4, D_800964F8, D_800964FC;
-extern f32 D_80096500, D_80096504;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150113E0 CURRENT (1745) */
 void func_150113E0(void) {
     Game3E890SceneParameters parameters;
-    s32 result;
     Game3E890SceneDescriptor descriptor;
     Game3E890SceneExtra extra;
+    s32 result;
 
-    extra.values[0] = D_800964C8;
-    extra.values[1] = D_800964CC;
-    extra.values[2] = D_800964D0;
+    extra.values[0] = 1.042f;
+    extra.values[1] = 0.901f;
+    extra.values[2] = 1.201f;
     extra.values[4] = 0.0f;
     extra.values[5] = 7.0f;
-    extra.values[6] = D_800964D4;
-    descriptor.position[2] = D_800964D8;
-    descriptor.target[2] = D_800964DC;
-    parameters.values[4] = D_800964E0;
+    extra.values[6] = 0.7023f;
+    descriptor.position[2] = 2337.0f;
+    descriptor.target[2] = 2220.0f;
+    parameters.values[4] = 0.41f;
     descriptor.kind = 3;
     descriptor.texture = 0x3403;
     descriptor.lifetime = 0x12C;
@@ -85,20 +77,20 @@ void func_150113E0(void) {
     descriptor.channels[0] = 0xFF;
     descriptor.channels[2] = 0;
     descriptor.channels[3] = 6;
-    parameters.values[1] = D_800964C0;
-    parameters.values[0] = D_800964C0;
-    parameters.values[3] = D_800964C4;
-    parameters.values[2] = D_800964C4;
+    parameters.values[1] = 175.5f;
+    parameters.values[0] = 175.5f;
+    parameters.values[3] = 115.4f;
+    parameters.values[2] = 115.4f;
     parameters.colors[0] = 0;
     parameters.colors[1] = 0;
     parameters.colors[2] = 0;
     parameters.colors[3] = 0;
     parameters.scale = 1.0f;
     parameters.mode = 0;
-    parameters.values[5] = D_800964E4;
-    parameters.values[6] = D_800964E8;
-    parameters.values[7] = D_800964EC;
-    parameters.values[8] = D_800964F0;
+    parameters.values[5] = 0.2f;
+    parameters.values[6] = 0.35f;
+    parameters.values[7] = 0.35f;
+    parameters.values[8] = 0.000001f;
     result = func_151407D0(&parameters, 0x7C, &descriptor, 0, 0x20, 0, 0, -1, 0xFF, 1);
     if (result != 0) {
         func_10022EC0((void *)(result + 0x170), &extra, 0x1CU);
@@ -107,17 +99,17 @@ void func_150113E0(void) {
     descriptor.target[0] = -520.0f;
     descriptor.position[1] = 72.0f;
     descriptor.target[1] = 72.0f;
-    descriptor.position[2] = D_800964F4;
-    descriptor.target[2] = D_800964F8;
+    descriptor.position[2] = 2337.0f;
+    descriptor.target[2] = 2220.0f;
     result = func_151407D0(&parameters, 0x7C, &descriptor, 0, 0x20, 0, 0, -1, 0xFF, 1);
     if (result != 0) {
         func_10022EC0((void *)(result + 0x170), &extra, 0x1CU);
     }
     descriptor.position[1] = 70.0f;
     descriptor.target[1] = 70.0f;
-    descriptor.position[2] = D_800964FC;
-    descriptor.target[2] = D_800964FC;
-    descriptor.position[0] = D_80096500;
+    descriptor.position[2] = 926.0f;
+    descriptor.target[2] = 926.0f;
+    descriptor.position[0] = -710.0f;
     descriptor.target[0] = -584.0f;
     result = func_151407D0(&parameters, 0x7C, &descriptor, 0, 0x20, 0, 0, -1, 0xFF, 1);
     if (result != 0) {
@@ -127,15 +119,13 @@ void func_150113E0(void) {
     descriptor.target[0] = 506.0f;
     descriptor.position[1] = 47.0f;
     descriptor.target[1] = 47.0f;
-    descriptor.position[2] = D_80096504;
+    descriptor.position[2] = -339.0f;
     descriptor.target[2] = -208.0f;
     result = func_151407D0(&parameters, 0x7C, &descriptor, 0, 0x20, 0, 0, -1, 0xFF, 1);
     if (result != 0) {
         func_10022EC0((void *)(result + 0x170), &extra, 0x1CU);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150113E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3E890/func_150113E0.s")
 typedef struct Game3E890Controller {
     void *owner;
     u8 id;

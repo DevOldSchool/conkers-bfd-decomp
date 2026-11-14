@@ -408,7 +408,13 @@ typedef struct {
     Game1C2AD0Motion motion;
 } Game1C2AD0Strip;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 CURRENT (2998) */
+typedef struct Game1C2AD0Vertex {
+    s16 x, y, z, flag;
+    u8 pad8[7];
+    u8 alpha;
+} Game1C2AD0Vertex;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */
 void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     Vec3f start;
     Vec3f end;
@@ -418,29 +424,24 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     Vec3f offset;
     f32 lengthSquared;
     f32 scale;
-    void *vertices;
+    Game1C2AD0Vertex *vertices;
     void *base;
-    u8 *cursor;
+    Game1C2AD0Motion *motion;
     u8 fresh;
     Vec3f *camera;
-    u8 *buffers;
-    void *vertexTemplate;
-    Game1C2AD0Motion *motion;
 
-    func_151D5D60(arg0->buffers, arg1, 0x40, &vertices, &fresh);
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     base = vertices;
     if (vertices != NULL) {
         if (fresh != 0) {
-            buffers = (u8 *)arg0 + arg1 * 4;
-            vertexTemplate = arg0->vertexTemplate;
-            func_10022EC0(*(void **)(buffers + 0x100), vertexTemplate, 0x40);
-            func_10022EC0(*(u8 **)(buffers + 0x100) + 0x40, vertexTemplate, 0x40);
+            func_10022EC0(arg0->buffers[arg1], arg0->vertexTemplate, 0x40);
+            func_10022EC0((u8 *)arg0->buffers[arg1] + 0x40, arg0->vertexTemplate, 0x40);
         }
     } else {
         return NULL;
     }
+    motion = &arg0->motion;
     camera = (Vec3f *)func_15144B34(arg1);
-    motion = (Game1C2AD0Motion *)((u8 *)arg0 + 0x110);
     start = arg0->position;
     end.x = arg0->position.x - motion->displacement.x;
     end.y = arg0->position.y - motion->displacement.y;
@@ -456,39 +457,35 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     normal.z = delta.x * midpoint.y - midpoint.x * delta.y;
     lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
     if (lengthSquared == 0.0f) {
-        offset.z = 0.0f;
         offset.x = 0.0f;
         offset.y = 0.0f;
+        offset.z = 0.0f;
     } else {
         scale = arg0->width / sqrtf(lengthSquared);
         offset.x = normal.x * scale;
         offset.y = normal.y * scale;
         offset.z = normal.z * scale;
     }
-    *(s16 *)vertices = (s32)(start.x - offset.x);
-    *(s16 *)((u8 *)vertices + 2) = (s32)(start.y - offset.y);
-    *(s16 *)((u8 *)vertices + 4) = (s32)(start.z - offset.z);
-    *((u8 *)vertices + 0xF) = arg0->alpha;
-    *(s16 *)((u8 *)vertices + 6) = 0;
-    vertices = (u8 *)vertices + 0x10;
-    *(s16 *)vertices = (s32)(end.x - offset.x);
-    *(s16 *)((u8 *)vertices + 2) = (s32)(end.y - offset.y);
-    *(s16 *)((u8 *)vertices + 4) = (s32)(end.z - offset.z);
-    *((u8 *)vertices + 0xF) = 0;
-    *(s16 *)((u8 *)vertices + 6) = 0;
-    cursor = (u8 *)vertices + 0x10;
-    vertices = cursor;
-    cursor[0xF] = 0;
-    *(s16 *)(cursor + 6) = 0;
-    *(s16 *)cursor = (s32)(end.x + offset.x);
-    *(s16 *)(cursor + 2) = (s32)(end.y + offset.y);
-    *(s16 *)(cursor + 4) = (s32)(end.z + offset.z);
-    vertices = cursor + 0x10;
-    *(s16 *)vertices = (s32)(start.x + offset.x);
-    *(s16 *)((u8 *)vertices + 2) = (s32)(start.y + offset.y);
-    *(s16 *)((u8 *)vertices + 4) = (s32)(start.z + offset.z);
-    *((u8 *)vertices + 0xF) = arg0->alpha;
-    *(s16 *)((u8 *)vertices + 6) = 0;
+    vertices->x = (s32)(start.x - offset.x);
+    vertices->y = (s32)(start.y - offset.y);
+    vertices->z = (s32)(start.z - offset.z);
+    vertices->alpha = arg0->alpha;
+    vertices++->flag = 0;
+    vertices->x = (s32)(end.x - offset.x);
+    vertices->y = (s32)(end.y - offset.y);
+    vertices->z = (s32)(end.z - offset.z);
+    vertices->alpha = 0;
+    vertices++->flag = 0;
+    vertices->alpha = 0;
+    vertices->flag = 0;
+    vertices->x = (s32)(end.x + offset.x);
+    vertices->y = (s32)(end.y + offset.y);
+    vertices++->z = (s32)(end.z + offset.z);
+    vertices->x = (s32)(start.x + offset.x);
+    vertices->y = (s32)(start.y + offset.y);
+    vertices->z = (s32)(start.z + offset.z);
+    vertices->alpha = arg0->alpha;
+    vertices->flag = 0;
     return base;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */

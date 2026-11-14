@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_12F400.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151022AC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -86,23 +81,19 @@ typedef struct Game12F400Animation {
 
 f32 func_15144B68(f32);
 f32 func_150ADA68(void);
-extern f32 D_800BE9A4, D_800A228C, D_800A2290, D_800A2294;
+extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151022AC CURRENT (1982) */
 s32 func_151022AC(u8 *arg0) {
+    Game12F400Animation *state;
     u8 *scaleLink;
     u8 *particleLink;
-    Game12F400Animation *state;
-    u8 *link;
-    u32 alpha;
-    f32 upperBound;
+    Game12F400Animation *child;
 
     state = (Game12F400Animation *)(arg0 + 0x110);
-    *(f32 *)(arg0 + 0x160) += *(f32 *)(arg0 + 0x164) * D_800BE9A4;
-    state->angle = func_15144B68(*(f32 *)(arg0 + 0x160));
-    upperBound = D_800A228C;
+    state->angle += state->rate * D_800BE9A4;
+    state->angle = func_15144B68(state->angle);
     state->rotation += state->velocity * D_800BE9A4;
-    while (upperBound < state->rotation) {
+    while (state->rotation > 32767.0f) {
         state->rotation -= 65536.0f;
     }
     while (state->rotation < -32768.0f) {
@@ -115,11 +106,10 @@ s32 func_151022AC(u8 *arg0) {
     }
     state->velocity += (state->targetVelocity - state->velocity) * state->velocityBlend;
     state->field38 += (state->field3C - state->field38) * state->field40;
-    link = state->linked28;
-    if (link != NULL) {
-        scaleLink = link;
+    if (state->linked28 != NULL) {
+        scaleLink = state->linked28;
         *(f32 *)(scaleLink + 0x2C) = *(f32 *)(scaleLink + 0x30) =
-            (func_150ADA68() * D_800A2290 + D_800A2294) * state->field38;
+            (func_150ADA68() * 0.2f + 0.4f) * state->field38;
     }
     state->alphaTimer -= D_800BE9A4;
     if (state->alphaTimer < 0.0f) {
@@ -127,30 +117,23 @@ s32 func_151022AC(u8 *arg0) {
         state->targetAlpha = func_150ADA68() * state->alphaRange + state->alphaBase;
     }
     state->alpha += (state->targetAlpha - state->alpha) * state->alphaBlend;
-    alpha = (u32)state->alpha;
-    arg0[0x5C] = alpha;
-    link = state->linked28;
-    if (link != NULL) {
-        link[0x5C] = alpha;
+    arg0[0x5C] = state->alpha;
+    if (state->linked28 != NULL) {
+        state->linked28[0x5C] = arg0[0x5C];
     }
-    link = state->linked24;
-    if (link != NULL) {
-        link[0x2B] = arg0[0x5C];
+    if (state->linked24 != NULL) {
+        state->linked24[0x2B] = arg0[0x5C];
     }
-    link = state->linked2C;
-    if (link != NULL) {
-        particleLink = link;
+    if (state->linked2C != NULL) {
+        particleLink = state->linked2C;
         (*(u8 **)(particleLink + 0x14))[0x2F] = (func_150ADA20() & 3) + 2;
     }
-    link = state->linked34;
-    if (link != NULL) {
-        state = (Game12F400Animation *)link;
-        state->field38 = state->field3C = func_150ADA68() * 10.0f + 120.0f;
+    if (state->linked34 != NULL) {
+        child = (Game12F400Animation *)state->linked34;
+        child->field38 = child->field3C = func_150ADA68() * 10.0f + 120.0f;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151022AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151022AC.s")
 
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);

@@ -3538,7 +3538,7 @@
         "us": {
           "end": "0x5A60",
           "start": "0x5290",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_32740.c"
@@ -15811,15 +15811,15 @@
         "func_15102884",
         "func_151028AC"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x102920",
           "start": "0x101F50",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_12F400.c"
+      "source": "src/done/game/game_12F400.c"
     },
     {
       "boundary_evidence": {

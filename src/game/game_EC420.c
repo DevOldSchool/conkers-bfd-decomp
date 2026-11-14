@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150BFA7C
- * - func_150C01DC
  * - func_150C0648
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -449,93 +448,85 @@ typedef struct GameEC420Burst {
 void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
 extern GameEC420Word D_800A0100;
 extern GameEC420Word D_800A0104;
-extern f32 D_800A014C;
-extern f32 D_800A0150;
-extern f32 D_800A0154;
-extern f32 D_800A0158;
-extern f32 D_800A015C;
-extern f32 D_800A0160;
-extern f32 D_800A0164;
-extern f32 D_800A0168;
-extern f32 D_800A016C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C01DC CURRENT (910) */
 s32 func_150C01DC(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     Vec3f position;
-    GameEC420Burst burst;
-    GameEC420Word word1;
-    GameEC420Word word2;
-    GameEC420Spawn spawn;
 
     position.x = *(f32 *)((u8 *)arg0 + 0x38);
     position.y = arg4 + 20.0f;
     position.z = *(f32 *)((u8 *)arg0 + 0x40);
-    word1 = D_800A0100;
-    word2 = D_800A0104;
-    burst.field00 = 5;
-    burst.field04 = 4;
-    burst.position = position;
-    burst.field1C = 12.0f;
-    burst.field20 = 8.0f;
-    burst.field14 = 0;
-    burst.field16 = 0xFF;
-    burst.field18 = -0x40;
-    burst.field1A = 0x22;
-    burst.field2C = 0x1E;
-    burst.field2E = 0xF;
-    burst.field24 = D_800A014C;
-    burst.field28 = D_800A0150;
-    burst.field30 = D_800A0154;
-    burst.field34 = D_800A0158;
-    burst.field38 = D_800A015C;
-    func_15152190(&burst, &word1, &word2, 1, 0.0f, 1, (s32) *(u8 *)((u8 *)arg0 + 0xC), (s32) *((u8 *)arg0 + 1));
-    spawn.field00 = 5;
-    spawn.field02 = 8;
-    spawn.field04 = 0x6C;
-    spawn.field06 = 0x5103;
-    spawn.field08 = 0x200005;
-    spawn.field0C = 0;
-    spawn.field10 = 0x1E;
-    spawn.field12 = 0xF;
-    spawn.field14 = 0;
-    spawn.field18 = 0;
-    spawn.field1F = 0xFF;
-    spawn.field1C = 0x4E;
-    spawn.field1D = 0x54;
-    spawn.field1E = 0x7B;
-    spawn.field20 = 0xA4;
-    spawn.field21 = 0xA1;
-    spawn.field22 = 0xC8;
-    spawn.field23 = 0x64;
-    spawn.field24 = 0x9B;
-    spawn.field25 = 0xFF;
-    spawn.field26 = 0xE;
-    spawn.field28 = 0x12;
-    spawn.field2A = 0xE;
-    spawn.field2C = D_800A0164;
-    spawn.field30 = 218.0f;
-    spawn.field34 = D_800A0168;
-    *(Vec3f *)&spawn.field38 = position;
-    spawn.field44 = 0;
-    spawn.field46 = -0x28;
-    spawn.field48 = 0xFF;
-    spawn.field4A = 0x28;
-    spawn.field4C = 19.0f;
-    spawn.field50 = 8.0f;
-    spawn.field54 = 0.26200002431869507f;
-    spawn.field58 = 0.26200002431869507f;
-    spawn.field5C = 0x840E07;
-    spawn.field60 = 0x10;
-    spawn.field61 = -1;
-    spawn.field62 = 8;
-    spawn.field63 = 6;
-    spawn.field64 = 1;
-    spawn.field68 = D_800A016C;
-    func_15153634(&spawn, 0xFF, (s32) *(u8 *)((u8 *)arg0 + 0xC), (s32) *((u8 *)arg0 + 1));
+    {
+        GameEC420Burst burst;
+        GameEC420Word word1;
+        GameEC420Word word2;
+        word1 = D_800A0100;
+        word2 = D_800A0104;
+        burst.field00 = 5;
+        burst.field04 = 4;
+        burst.position = position;
+        burst.field1C = 12.0f;
+        burst.field20 = 8.0f;
+        burst.field14 = 0;
+        burst.field16 = 0xFF;
+        burst.field18 = -0x40;
+        burst.field1A = 0x22;
+        burst.field2C = 0x1E;
+        burst.field2E = 0xF;
+        burst.field24 = -1.697f;
+        burst.field28 = 0.499f;
+        burst.field30 = 0.8f;
+        burst.field34 = 1.2f;
+        burst.field38 = 15.299001f;
+        func_15152190(&burst, &word1, &word2, 1, 0.0f, 1, (s32) *(u8 *)((u8 *)arg0 + 0xC), (s32) *((u8 *)arg0 + 1));
+    }
+    {
+        GameEC420Spawn spawn;
+        spawn.field00 = 5;
+        spawn.field02 = 8;
+        spawn.field04 = 0x6C;
+        spawn.field06 = 0x5103;
+        spawn.field08 = 0x200005;
+        spawn.field0C = 0;
+        spawn.field10 = 0x1E;
+        spawn.field12 = 0xF;
+        spawn.field14 = 0;
+        spawn.field18 = 0;
+        spawn.field1F = 0xFF;
+        spawn.field1C = 0x4E;
+        spawn.field1D = 0x54;
+        spawn.field1E = 0x7B;
+        spawn.field20 = 0xA4;
+        spawn.field21 = 0xA1;
+        spawn.field22 = 0xC8;
+        spawn.field23 = 0x64;
+        spawn.field24 = 0x9B;
+        spawn.field25 = 0xFF;
+        spawn.field26 = 0xE;
+        spawn.field28 = 0x12;
+        spawn.field2A = 0xE;
+        spawn.field2C = 1.046154f;
+        spawn.field30 = 218.0f;
+        spawn.field34 = 305.0f;
+        *(Vec3f *)&spawn.field38 = position;
+        spawn.field44 = 0;
+        spawn.field46 = -0x28;
+        spawn.field48 = 0xFF;
+        spawn.field4A = 0x28;
+        spawn.field4C = 19.0f;
+        spawn.field50 = 8.0f;
+        spawn.field54 = 0.26200002f;
+        spawn.field58 = 0.26200002f;
+        spawn.field5C = 0x840E07;
+        spawn.field60 = 0x10;
+        spawn.field61 = -1;
+        spawn.field62 = 8;
+        spawn.field63 = 6;
+        spawn.field64 = 1;
+        spawn.field68 = 0.897767f;
+        func_15153634(&spawn, 0xFF, (s32) *(u8 *)((u8 *)arg0 + 0xC), (s32) *((u8 *)arg0 + 1));
+    }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C01DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150C01DC.s")
 
 typedef struct GameEC420Head {
     s32 value;
