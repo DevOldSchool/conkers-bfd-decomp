@@ -109,6 +109,11 @@ in the US game code or an aligned pointer in owned game data. There is no
 independent callback identity evidence, so neither is assigned a new symbol
 or a separate function work item. Their bytes remain inside the existing raw
 spans for `1503EA54` and `1516E8CC` respectively.
+(Both were later split as separate empty functions once their parents' C
+reproduced every other word: `1516ECA4` in
+[the deferred-parent splits](../mapping/game_unreferenced_return_stub_splits.md#deferred-parent-splits)
+and `1503EB70` in
+[the round-24 split](../mapping/game_unreferenced_return_stub_splits.md#round-24-deferred-parent-split).)
 
 Thus raw membership has 22 entries versus 23 index candidates in the first
 range, and 30 versus 31 in the third. These deliberate differences are not

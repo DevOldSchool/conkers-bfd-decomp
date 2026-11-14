@@ -12,7 +12,6 @@
  * - func_150A1DA0
  * - func_150A24C0
  * - func_150A25D4
- * - func_150A2864
  * - func_150A2E4C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -449,46 +448,23 @@ void func_150A278C(void *arg0) {
         }
     }
 }
-u64 func_100268A4(s32, s32, s32, s32);
+u64 func_100268A4(u64, u64);
 extern u8 D_800D30F0[];
 extern u8 D_800D3270[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A2864 CURRENT (2892) */
-void func_150A2864(s32 arg0, s32 arg1) {
-    u32 index;
+void func_150A2864(u32 arg0, s32 arg1) {
+    s32 i;
 
-    index = arg0 & 0xFFF;
-    if (index < D_800D3094) {
-        *(s8 *)((u8 *)D_800D3098 + index * 0x34 + 0x14) = arg1;
+    arg0 &= 0xFFF;
+    if (arg0 < D_800D3094) {
+        ((GameCDE80Zone *)D_800D3098)[arg0].disabled = arg1;
     }
     if (arg1 == 1) {
-        u8 *row;
-        s32 group_offset;
-        volatile s32 word_index;
-        volatile s32 within_group;
-
-        row = D_800D30F0;
-        word_index = 0;
-        within_group = index & 0x3F;
-        group_offset = (index >> 6) * 8;
-        do {
-            u64 mask;
-            u32 *words;
-            s32 first;
-            s32 second;
-
-            mask = func_100268A4(0, 1, word_index, within_group);
-            words = (u32 *)(row + group_offset);
-            first = words[0];
-            second = words[1];
-            row += 0x18;
-            words[1] = second & ~(u32)mask;
-            words[0] = first & ~mask;
-        } while (row != D_800D3270);
+        for (i = 0; i < 16; i++) {
+            ((u64 (*)[3])D_800D30F0)[i][arg0 >> 6] &= ~func_100268A4(1, arg0 & 0x3F);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A2864 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2864.s")
 
 void func_150A2940(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_v0;

@@ -10,7 +10,6 @@
  * - func_151C2AD0
  * - func_151C2F48
  * - func_151C3B0C
- * - func_151C43E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -931,50 +930,52 @@ void func_151C436C(s32 arg0, void *arg1, s32 arg2) {
         *(f32 *)((u8 *)arg1 + 0x18) += (*(f32 *)((u8 *)arg1 + 0x24) - *(f32 *)((u8 *)arg1 + 0x18)) * 0.228659f;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C43E0 CURRENT (1331) */
-u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
-    u8 spDF;
-    s32 spD8;
-    u8 sp64[0x5A];
-    f32 temp_fv1;
-    f32 var_fv0;
-    u8 temp_v1;
-    u8 var_t0;
+typedef struct Game1EF500Hit {
+    s32 surface;
+    u8 pad04[4];
+    Vec3f position;
+    u8 pad14[0xC];
+    Vec3f normal;
+    u8 pad2C[0x2D];
+    u8 status;
+    u8 pad5A[0xA];
+} Game1EF500Hit;
 
-    var_t0 = 1;
-    spD8 = *(s32 *)(arg1 + 0x90);
-    temp_v1 = arg1[0];
-    if (temp_v1 & 4) {
-        temp_fv1 = *(f32 *)(arg1 + 0x8C);
-        if (temp_fv1 < arg2) {
-            var_fv0 = *(f32 *)(arg1 + 0x98) * temp_fv1;
+u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
+    u8 result;
+    void *object;
+    Game1EF500TrailExt *ext = (Game1EF500TrailExt *)arg1;
+    u8 flags;
+    f32 limit;
+    f32 amount;
+    Game1EF500Hit hit;
+
+    result = 1;
+    object = ext->owner;
+    flags = ext->flags;
+    if (flags & 4) {
+        limit = *(f32 *)ext->extra;
+        if (limit < arg2) {
+            amount = ext->scale * limit;
         } else {
-            var_fv0 = *(f32 *)(arg1 + 0x98) * arg2;
+            amount = ext->scale * arg2;
         }
-        if (var_fv0 != 0.0f) {
-            spDF = 1;
-            func_15081690((void *)spD8,
-                          *(f32 *)((u8 *)arg0 + 0x34),
-                          *(f32 *)((u8 *)arg0 + 0x38),
-                          *(f32 *)((u8 *)arg0 + 0x3C),
-                          *(f32 *)(arg1 + 0x60),
-                          *(f32 *)(arg1 + 0x64),
-                          *(f32 *)(arg1 + 0x68), sp64, var_fv0, 1, 0,
-                          (temp_v1 & 8) == 0, *(s8 *)(arg1 + 0xA8), 0,
-                          *(s32 *)(arg1 + 0xAC));
-            var_t0 = spDF;
-            if (sp64[0x59] >= 2) {
-                func_151C2EF0(*(s32 *)sp64, spD8, arg0,
-                              (s32)(sp64 + 8), (s32)(sp64 + 0x20),
-                              (s32)sp64);
-                var_t0 = 0;
+        if (amount != 0.0f) {
+            Vec3f *pos = (Vec3f *)((u8 *)arg0 + 0x34);
+            f32 *dir = ext->direction;
+
+            func_15081690(object, pos->x, pos->y,
+                          pos->z, dir[0], dir[1],
+                          dir[2], &hit, amount, 1, 0, !(ext->flags & 8),
+                          ext->fieldA8, 0, ext->handle);
+            if (hit.status >= 2) {
+                func_151C2EF0(hit.surface, (s32)object, arg0, (s32)&hit.position, (s32)&hit.normal, (s32)&hit);
+                result = 0;
             }
         }
     }
-    return var_t0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C43E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C43E0.s")
 void func_151C4510(void *arg0, void *arg1, f32 arg2) {
     *(f32 *)((u8 *)arg0 + 0x34) = (f32) ((*(f32 *)((u8 *)arg1 + 4) * arg2) + *(f32 *)((u8 *)arg0 + 0x34));
     *(f32 *)((u8 *)arg0 + 0x38) = (f32) ((*(f32 *)((u8 *)arg1 + 8) * arg2) + *(f32 *)((u8 *)arg0 + 0x38));

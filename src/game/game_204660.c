@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D792C
  * - func_151D7A38
  * - func_151D7CD0
  * - func_151D80C4
@@ -341,42 +340,37 @@ void func_151D7830(void *arg0) {
 extern f32 D_800BE9A4;
 void func_151D8718(void *, f32 *, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D792C CURRENT (405) */
 s32 func_151D792C(void *arg0) {
-    u8 *temp_s4;
-    s32 var_s0;
-    u8 *temp_a0;
-    f32 zero;
+    u8 *points;
 
-    temp_s4 = *(u8 **)((u8 *)arg0 + 0x94);
+    points = *(u8 **)((u8 *)arg0 + 0x94);
     if ((*(s8 *)((u8 *)arg0 + 0x2C) < 2) &&
         (*(u16 *)((u8 *)arg0 + 0x1E) & 8)) {
         return 0;
-    }
-    var_s0 = *(s8 *)((u8 *)arg0 + 0x2E);
-    if (var_s0 != *(s8 *)((u8 *)arg0 + 0x2D)) {
-        do {
-            var_s0--;
-            if (var_s0 < 0) {
-                var_s0 = *(u8 *)((u8 *)arg0 + 0x25) - 1;
+    } else {
+        s32 index = *(s8 *)((u8 *)arg0 + 0x2E);
+
+        while (index != *(s8 *)((u8 *)arg0 + 0x2D)) {
+            u8 *point;
+
+            index--;
+            if (index < 0) {
+                index = *(u8 *)((u8 *)arg0 + 0x25) - 1;
             }
-            temp_a0 = temp_s4 + (var_s0 * 0x1C);
-            func_151D8718(temp_a0, (f32 *)(temp_a0 + 0xC), D_800BE9A4);
-        } while (var_s0 != *(s8 *)((u8 *)arg0 + 0x2D));
+            point = points + (index * 0x1C);
+            func_151D8718(point, (f32 *)(point + 0xC), D_800BE9A4);
+        }
     }
     if (*(s8 *)((u8 *)arg0 + 0x2C) > 0) {
         *(Vec3i *)((u8 *)arg0 + 0x54) =
-            *(Vec3i *)((u8 (*)[0x1C])temp_s4)[*(s8 *)((u8 *)arg0 + 0x2D)];
+            *(Vec3i *)((u8 (*)[0x1C])points)[*(s8 *)((u8 *)arg0 + 0x2D)];
     } else {
-        zero = 0.0f;
-        *(f32 *)((u8 *)arg0 + 0x54) = zero;
-        *(f32 *)((u8 *)arg0 + 0x58) = zero;
-        *(f32 *)((u8 *)arg0 + 0x5C) = zero;
+        *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;
+        *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
+        *(f32 *)((u8 *)arg0 + 0x5C) = 0.0f;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D792C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D792C.s")
 typedef struct Game204660TrailOwner {
     u8 unknown0[0x2D];
     u8 flags;

@@ -148,3 +148,28 @@ parent. All three spans scored `CURRENT (0)` through `./conker finish`. As
 above, no callback identity or historical name is claimed, and no reference
 to either address exists in retail game data or code. The source-unit
 boundary is unchanged and the unit remains mixed.
+
+## Round-24 deferred-parent split
+
+`func_1503EA54` (`src/game/game_6B320.c`) advances every active particle of a
+slot by its per-axis rates. Its C now reproduces every word of the old
+`0x124`-byte span except the final unlabelled `jr $ra; nop` at `0x1503EB70`,
+which follows the function's own `jr $ra; nop` at `0x1503EB68`. As in the
+deferred-parent splits above, a single C function cannot emit a second return
+sequence after its epilogue, so the eight bytes are a separate empty function.
+
+| Parent | Old span | New span | Split symbol | Source |
+| --- | ---: | ---: | --- | --- |
+| `func_1503EA54` | `0x124` | `0x11C` | `func_1503EB70` | `src/game/game_6B320.c` |
+
+The beta index already proposed `1503EB70` as an entry; the
+[raw state lifecycle groups](../families/game_raw_state_lifecycle_groups.md#anonymous-return-sequences-and-limits)
+had kept it inside the parent's raw span for lack of a matched parent. The
+label was added to `config/symbols/game-us.txt`, `./conker game-asm` added
+only the `glabel func_1503EB70` line in `reference/game/us/asm/3DE70.s`, the
+deferred parent was resumed and `./conker split-game-function --parent
+func_1503EA54 --id func_1503EB70 --us func_1503EB70` shortened the parent to
+`0x11C`. The source gained `void func_1503EB70(void) {}` after the parent.
+Both spans scored `CURRENT (0)` through `./conker finish`. No callback identity
+or historical name is claimed, and no reference to the address exists in
+retail game data or code. The source-unit boundary is unchanged.
