@@ -38603,17 +38603,16 @@
       "symbol": "func_1507F640"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2919,
-        "reason": "Manual-only budget exhausted; best CURRENT2919 preserved. Frame50 vs48, mask/sequence homes and branch scheduling remain; old-value sound cycle corrected.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 628,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507FC2C",
           "vram": "0x1507FC2C"
         }
@@ -48797,17 +48796,16 @@
       "symbol": "func_15164F0C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2709,
-        "reason": "Best CURRENT (2709); manual budget exhausted; float ownership, byte-input homes and stack layout remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 692,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15165628",
           "vram": "0x15165628"
         }
@@ -74170,22 +74168,21 @@
       "symbol": "func_151A743C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1010,
-        "reason": "Best valid CURRENT1010 versus fresh2480 invalid baseline: restored single D_800AA8A4 snapshot before later stores and reused state cursor. Call-free sum reversal neutral1010; simpler valid snapshot retained. Initial cursor folding/branch delay, FP ring allocation and scaleF2 versus rawF14 remain; two revisions exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 680,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BE210",
           "vram": "0x151BE210"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE210"
     },
     {
@@ -74203,7 +74200,7 @@
           "vram": "0x151BE4B8"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE4B8"
     },
     {
@@ -74221,7 +74218,7 @@
           "vram": "0x151BE558"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE558"
     },
     {
@@ -74239,7 +74236,7 @@
           "vram": "0x151BE604"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE604"
     },
     {
@@ -74257,7 +74254,7 @@
           "vram": "0x151BE644"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE644"
     },
     {
@@ -74275,7 +74272,7 @@
           "vram": "0x151BE674"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE674"
     },
     {
@@ -74293,7 +74290,7 @@
           "vram": "0x151BE6A0"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE6A0"
     },
     {
@@ -74311,7 +74308,7 @@
           "vram": "0x151BE6CC"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE6CC"
     },
     {
@@ -74329,7 +74326,7 @@
           "vram": "0x151BE788"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE788"
     },
     {
@@ -74347,7 +74344,7 @@
           "vram": "0x151BE7C8"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE7C8"
     },
     {
@@ -74365,7 +74362,7 @@
           "vram": "0x151BE7F8"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE7F8"
     },
     {
@@ -74383,7 +74380,7 @@
           "vram": "0x151BE824"
         }
       },
-      "source": "src/game/game_1EB6C0.c",
+      "source": "src/done/game/game_1EB6C0.c",
       "symbol": "func_151BE824"
     },
     {

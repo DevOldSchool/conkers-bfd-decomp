@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15164F0C
- * - func_15165628
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -182,19 +181,18 @@ typedef struct {
 
 void *func_15164780(u8 *, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15165628 CURRENT (2709) */
-void *func_15165628(Game191C30Motion *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+void *func_15165628(Game191C30Motion *arg0, u8 arg1, s8 arg2, s32 arg3, s32 arg4, s32 arg5) {
     Game191C30Header header;
     Game191C30Payload payload;
-    f32 firstInverse, secondInverse;
+    f32 firstInverse;
+    f32 secondInverse;
     void *result;
 
-    arg1 = (u8)arg1;
-    arg2 = (s8)arg2;
-    if (arg0->firstDuration == 0.0f || arg0->secondDuration == 0.0f) {
+    if (!arg0->firstDuration || !arg0->secondDuration) {
         return 0;
     }
     firstInverse = 1.0f / arg0->firstDuration;
+    secondInverse = 1.0f / arg0->secondDuration;
     header.kind = 4;
     header.flags = 0;
     header.duration = 300;
@@ -212,7 +210,6 @@ void *func_15165628(Game191C30Motion *arg0, s32 arg1, s32 arg2, s32 arg3, s32 ar
     header.vectors[3].x = 0.0f;
     header.vectors[3].y = 0.0f;
     header.vectors[3].z = 0.0f;
-    secondInverse = 1.0f / arg0->secondDuration;
     payload.firstVelocity[0].x = arg0->points[0].x * firstInverse;
     payload.firstVelocity[0].y = arg0->points[0].y * firstInverse;
     payload.firstVelocity[0].z = arg0->points[0].z * firstInverse;
@@ -243,16 +240,14 @@ void *func_15165628(Game191C30Motion *arg0, s32 arg1, s32 arg2, s32 arg3, s32 ar
     payload.points[3] = arg0->points[3];
     payload.firstDuration = arg0->firstDuration;
     payload.holdDuration = arg0->holdDuration;
-    payload.elapsed = 0.0f;
     payload.secondDuration = arg0->secondDuration;
+    payload.elapsed = 0.0f;
     result = func_15164780((u8 *)&header, arg3 + 0xA0, (u8)arg4, arg5);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x68, &payload, 0xA0);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15165628 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165628.s")
 extern f32 D_800BE9A4;
 
 typedef struct {

@@ -14402,15 +14402,15 @@
         "func_151BE7F8",
         "func_151BE824"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1BE850",
           "start": "0x1BE210",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1EB6C0.c"
+      "source": "src/done/game/game_1EB6C0.c"
     },
     {
       "boundary_evidence": {

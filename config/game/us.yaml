@@ -715,7 +715,7 @@ segments:
       - [0x1B9F00, c, game/game_1E73B0]
       - [0x1BC370, c, done/game/game_1E9820]
       - [0x1BC580, c, game/game_1E9A30]
-      - [0x1BE210, c, game/game_1EB6C0]
+      - [0x1BE210, c, done/game/game_1EB6C0]
       - [0x1BE850, c, game/game_1EBD00]
       - [0x1BEB20, c, game/game_1EBFD0]
       - [0x1BEEE0, c, game/game_1EC390]

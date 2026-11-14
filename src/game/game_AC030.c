@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1507EFD0
  * - func_1507F640
- * - func_1507FC2C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -391,62 +390,68 @@ extern s32 D_800418B0[][16];
 extern u8 D_800419A0;
 extern s32 D_800D18C4;
 void func_1000E7A0(u32, s32);
-void func_1000E8C4(s32, s32);
+void func_1000E8C4(s32);
 void func_1000D96C(s32, s32, s32);
 void func_1000DE1C(s32, s32);
 void func_100109D0(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FC2C CURRENT (2919) */
-void func_1507FC2C(void *volatile arg0) {
-    GameFC2CSequence *sequence;
+void func_1507FC2C(void *arg0) {
     GameFC2CFrame *frame;
+    u8 group;
     s32 flags;
     s32 old;
-    s32 changed;
-    s32 enabled;
-    s32 id;
-    s32 previous_sound;
+    GameFC2CSequence *sequence;
+    s32 index;
     f32 fade;
-    u8 *intensity;
+    u8 *light;
+    s32 changed;
 
-    flags = 0;
-    sequence = (GameFC2CSequence *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x58);
-    id = sequence->id;
-    if (id != 0) {
-        frame = &D_8009B8B0[D_80086BA0[id & 0xFF][sequence->frame]];
+    sequence = (GameFC2CSequence *)((u8 *)((GameAC030RootState *)arg0)->nested + 0x58);
+    if (sequence->id != 0) {
+        group = sequence->id;
+        index = sequence->frame;
+        frame = &D_8009B8B0[D_80086BA0[group][index]];
         flags = frame->flags;
+    } else {
+        flags = 0;
     }
     if (flags & 0x10) {
-        fade = (f32)D_800418B0[D_800419A0][0];
-        intensity = arg0;
+        fade = D_800418B0[D_800419A0][0];
         if (fade >= 0.0f) {
-            intensity = *(u8 **)(intensity + 0x2D0);
-            *(f32 *)(intensity + 8) = *(f32 *)(intensity + 0x18) * (32768.0f - fade) / 32768.0f;
+            light = *(u8 **)((u8 *)arg0 + 0x2D0);
+            *(f32 *)(light + 8) = *(f32 *)(light + 0x18) * (32768.0f - fade) / 32768.0f;
         }
     }
     old = sequence->flags;
-    changed = flags ^ old;
     if (flags != old) {
-        enabled = changed & flags;
-        if ((enabled & 1) == 1) *(u16 *)((u8 *)arg0 + 0x2F8) |= 1;
-        else if ((changed & old & 1) == 1) *(u16 *)((u8 *)arg0 + 0x2F8) &= 0xFFFE;
-        if ((enabled & 2) == 2) func_1000E7A0(1, 0);
-        else if ((changed & old & 2) == 2) func_1000E8C4(1, id);
-        if ((enabled & 4) == 4) {
-            previous_sound = D_800D18C4;
-            if (previous_sound == 0) D_800D18C4 = 0x15;
-            else {
-                D_800D18C4 = (u32)previous_sound + 1;
-                if ((previous_sound ^ 0x17) == 0) D_800D18C4 = 0x15;
+        changed = flags ^ old;
+        if ((changed & flags & 1) == 1) {
+            *(u16 *)((u8 *)arg0 + 0x2F8) |= 1;
+        } else if ((changed & old & 1) == 1) {
+            *(u16 *)((u8 *)arg0 + 0x2F8) &= 0xFFFE;
+        }
+        if ((changed & flags & 2) == 2) {
+            func_1000E7A0(1, 0);
+        } else if ((changed & old & 2) == 2) {
+            func_1000E8C4(1);
+        }
+        if ((changed & flags & 4) == 4) {
+            if (D_800D18C4 == 0) {
+                D_800D18C4 = 0x15;
+            } else if (D_800D18C4++ == 0x17) {
+                D_800D18C4 = 0x15;
             }
             func_1000D96C(D_800D18C4, 0, 0);
-        } else if ((changed & old & 4) == 4) func_1000DE1C(D_800D18C4, 0);
-        if ((enabled & 8) != 8 && (changed & old & 8) == 8) func_100109D0((s32)arg0);
+        } else if ((changed & old & 4) == 4) {
+            func_1000DE1C(D_800D18C4, 0);
+        }
+        if ((changed & flags & 8) != 8 && (changed & old & 8) == 8) {
+            func_100109D0((s32)arg0);
+        }
         sequence->flags = flags;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507FC2C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FC2C.s")
+
 
 void func_1507FC2C(void *);
 void func_1507FF94(void *);

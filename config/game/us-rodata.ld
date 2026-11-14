@@ -244,6 +244,8 @@ SECTIONS
     {
         *game_156160.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1eb6c0_float_constants.md. */
+    .game_rodata_1eb6c0 0x800AA89C (INFO) : SUBALIGN(4) { *game_1EB6C0.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_1ed0f0_float_constant.md. */
     .game_rodata_1ed0f0 0x800AA9C4 (INFO) : SUBALIGN(4)
     {
@@ -938,6 +940,8 @@ ASSERT(SIZEOF(.game_rodata_156160) == 0x10, "game_156160 camera literal extent c
 __game_rodata_156160_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_1ed0f0) == 0x10, "game_1ED0F0 trace epsilon literal extent changed")
 __game_rodata_1ed0f0_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1eb6c0) == 0x10, "game_1EB6C0 constant pool extent changed")
+__game_rodata_1eb6c0_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_135d00) == 0x10, "game_135D00 billboard literal extent changed")
 __game_rodata_135d00_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_1368c0) == 0x10, "game_1368C0 func_1510A40C literal extent changed")
