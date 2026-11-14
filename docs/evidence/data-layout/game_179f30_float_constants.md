@@ -28,3 +28,21 @@ After `func_1514CA80` matched, its four jump tables precede this pool in the
 object. The two sections above are now `.rodata.179f30_438` and
 `.rodata.179f30_448` at the same addresses; see the
 [game_179F30 jump tables](game_179f30_jump_tables.md).
+
+## func_1514EECC particle constants (round-24)
+
+`func_1514EECC` fills a particle setup record. Its raw HI16/LO16 pairs in
+`asm/nonmatchings/game_179F30/func_1514EECC.s` address 0x800A5E48..0x800A5E57,
+where the checksum-validated archive holds `3E19999A 3F333333 3ECCCCCD 358637BD`:
+`0.15f` (loaded once and stored to two fields), `0.7f`, `0.4f` and `0.000001f`.
+With `extern f32` symbols the body scores CURRENT 794 (frame 0x128); as literals
+the function is `CURRENT (0)`.
+
+`func_1514EECC` follows `func_1514EA1C` in the source, so the literals form a new
+0x10-byte pool at object offset 0x470, right after the 0x28-byte table, and the
+object `.rodata` grows from 0x470 to 0x480 bytes with no alignment tail. The
+split layout gains the range `(0x470, 0x10)`, mapped as `.rodata.179f30_470` at
+0x800A5E48 with an exact size assertion and a matching `config/data/us.json`
+owner. The table ends at 0x800A5E48, so the pool is contiguous with it in the
+ROM as well. The words from 0x800A5E58 (`D_800A5E58`, `D_800A5E5C`) stay extern
+reads of later members.

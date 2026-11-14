@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -6,7 +10,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D765C
  * - func_150D7928
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -23,42 +26,27 @@ void func_150D7630(s32 arg0) {
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 *D_80088900[2];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D765C CURRENT (742) */
-s32 *func_150D765C(s32 *arg0) {
-    typedef struct { s32 *entries[2]; } PointerPair;
-    struct {
-        PointerPair table;
-        u8 pad54[0xC];
-        s32 sp60;
-    } locals;
+typedef struct { s32 *entries[2]; } PointerPair;
+Gfx *func_150D765C(Gfx *gdl) {
     s32 temp_v0;
-    s32 var_s0;
-    s32 var_s1;
+    s32 sp60[3];
+    s32 i;
+    s32 base;
     s32 var_s2;
-    s32 *var_s3;
+    PointerPair table;
 
-    var_s3 = arg0;
     var_s2 = 0;
-    locals.table = *(PointerPair *)D_80088900;
-    var_s0 = 8;
-    temp_v0 = (s32)D_800D9910 >> 8;
-    var_s1 = temp_v0;
-    do {
-        if (var_s0 >= 0x18) {
+    table = *(PointerPair *)D_80088900;
+    base = D_800D9910 >> 8;
+    for (i = 0; i < 6; i++) {
+        if (i >= 4) {
             var_s2 = 1;
         }
-        temp_v0 = func_1510D0EC(locals.table.entries[var_s2][var_s1 % 5],
-                                &locals.sp60, 3, 0);
-        var_s3[0] = (var_s0 & 0xFFFF) | 0xDB060000;
-        var_s3[1] = temp_v0;
-        var_s3 += 2;
-        var_s0 += 4;
-        var_s1 += 0xD;
-    } while (var_s0 != 0x20);
-    return var_s3;
+        temp_v0 = func_1510D0EC(table.entries[var_s2][(base + i * 13) % 5], sp60, 3, 0);
+        gSPSegment(gdl++, i + 2, temp_v0);
+    }
+    return gdl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D765C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_104AE0/func_150D765C.s")
 void func_10010154(s32, void *, s32, s32, s32);
 u8 *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32, s32, s32, s32);
 s32 func_1508855C(s32);

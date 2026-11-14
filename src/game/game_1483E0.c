@@ -9,7 +9,6 @@
  * - func_1511B07C
  * - func_1511B51C
  * - func_1511B7D4
- * - func_1511BB04
  * - func_1511BEBC
  * - func_1511CB44
  * - func_1511D394
@@ -253,7 +252,7 @@ typedef struct Game1483E0UvVertex {
     s16 x, y, z;
     u8 unknown06[2];
     s16 s, t;
-    u8 unknown0C[4];
+    u32 unknown0C;
 } Game1483E0UvVertex;
 
 typedef struct Game1483E0UvPair {
@@ -281,7 +280,6 @@ extern f32 D_800A31D4;
 extern f32 D_800A31D8;
 extern f32 D_800A31DC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511BB04 CURRENT (6550) */
 void func_1511BB04(Game1483E0State *arg0, f32 arg1, f32 arg2,
                    f32 arg3, f32 arg4) {
     Game1483E0UvPair *coords;
@@ -308,6 +306,7 @@ void func_1511BB04(Game1483E0State *arg0, f32 arg1, f32 arg2,
         }
     }
 
+    coords = arg0->coords;
     s_offset = arg1 - ((f32)arg0->x + D_800A31D0);
     t_offset = arg2 - ((f32)arg0->z + D_800A31D4);
     s_offset = -s_offset;
@@ -323,16 +322,14 @@ void func_1511BB04(Game1483E0State *arg0, f32 arg1, f32 arg2,
     if (arg4 != 1.0f) {
         t_scale = 1.0f / arg4;
     }
-    coords = arg0->coords;
     for (i = 0; i < arg0->count; i++) {
         arg0->buffers[D_800BE9C0][i].s =
-            (s16)(s32)(((f32)coords[i].s + s_offset) * s_scale + 1024.0f);
+            (s16)(((f32)coords[i].s + s_offset) * s_scale + 1024.0f);
         arg0->buffers[D_800BE9C0][i].t =
-            (s16)(s32)(((f32)coords[i].t + t_offset) * t_scale + 1024.0f);
+            (s16)(((f32)coords[i].t + t_offset) * t_scale + 1024.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511BB04 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BB04.s")
+
 
 Game1483E0Reference *func_15083E90(u8);
 void func_1511BB04(Game1483E0State *, f32, f32, f32, f32);

@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_1F4350.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_anchor_owner_cores.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151C7038
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
@@ -88,31 +83,27 @@ void func_151C6EA0(u8 *arg0, u8 arg1, s32 arg2) {
 }
 s32 func_15142A5C(void *);          /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C7038 CURRENT (863) */
 s32 func_151C7038(void *arg0) {
-    void *sp1C;
-    void *temp_a2;
+    void *target;
 
-    temp_a2 = *(void **)((u8 *)arg0 + 0x7C);
-    if (*(u16 *)((u8 *)temp_a2 + 0x84) != 0xE9) {
+    target = *(void **)((u8 *)arg0 + 0x7C);
+    if (*(u16 *)((u8 *)target + 0x84) != 0xE9) {
         return 0;
     }
-    sp1C = temp_a2;
-    if (func_15142A5C(temp_a2) != 0) {
-        *(s32 *)((u8 *)arg0 + 0x60) = (s32) (*(s32 *)((u8 *)arg0 + 0x60) | 0x20000);
+    if (func_15142A5C(target) != 0) {
+        *(s32 *)((u8 *)arg0 + 0x60) |= 0x20000;
     } else {
-        *(s32 *)((u8 *)arg0 + 0x60) = (s32) (*(s32 *)((u8 *)arg0 + 0x60) & 0xFFFDFFFF);
+        *(s32 *)((u8 *)arg0 + 0x60) &= ~0x20000;
     }
     {
-        f32 var_fv0 = *(f32 *)((u8 *)temp_a2 + 0x4C) * 35.0f;
-    if (var_fv0 > 255.0f) {
-        var_fv0 = 255.0f;
-    } else if (var_fv0 < 0.0f) {
-        var_fv0 = 0.0f;
+        f32 value = *(f32 *)((u8 *)target + 0x4C) * 35.0f;
+
+        if (value > 255.0f) {
+            value = 255.0;
+        } else if (value < 0.0f) {
+            value = 0.0f;
+        }
+        *(u8 *)((u8 *)arg0 + 0x70) = value;
     }
-    *(s8 *)((u8 *)arg0 + 0x70) = (s8) (u32) var_fv0;
     return 1;
-    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C7038 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F4350/func_151C7038.s")

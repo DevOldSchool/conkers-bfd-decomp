@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 #include "game_view.h"
 
@@ -8,7 +12,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15155CFC
- * - func_15156028
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -156,65 +159,40 @@ extern u8 D_800BE9C0;
 extern u8 D_800CC2D0[];
 extern s32 *D_800E03E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155CFC CURRENT (4991) */
-void *func_15155CFC(void *arg0, Game182C30Effect *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
+Gfx *func_15155CFC(Gfx *gdl, Game182C30Effect *arg1, s16 arg2) {
+    u8 state;
+    f32 scale;
     f32 angle;
+    u8 index;
     f32 height;
-    u8 *actor;
 
-    arg2 = (s16)arg2;
-    if (arg1->field11 == 1 || arg1->field11 == 3) {
-        actor = D_800CC2D0 + ((u8)arg1->field10 * 0x32C);
-        if ((*(u8 **)(actor + 0x31C))[0x75] == 5) {
+    state = arg1->field11;
+    index = arg1->field10;
+    if (state == 1 || state == 3) {
+        if ((*(u8 **)(D_800CC2D0 + index * 0x32C + 0x31C))[0x75] == 5) {
             height = 85.0f;
         } else {
             height = 0.0f;
         }
+        scale = 2.25f;
         angle = D_800DBFF0[arg2].unk380;
-        arg0 = func_15096934(arg0);
+        gdl = func_15096934(gdl);
         func_15043D90((s32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x18),
-            0.0f, angle, 0.0f, 2.25f, 2.25f, 2.25f,
-            *(f32 *)(actor + 0x14),
-            (func_15048A40(*((u8 *)arg1 + 0x12)) * 15.0f) +
-              (*(f32 *)(actor + 0x18) + 160.0f + height + arg1->field98),
-            *(f32 *)(actor + 0x1C));
-        {
-            u32 *command;
-
-            command = arg0;
-            arg0 = (u8 *)arg0 + 8;
-            command[0] = 0xDA380003;
-            command[1] = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x18);
-        }
-        {
-            u32 *command;
-
-            command = arg0;
-            arg0 = (u8 *)arg0 + 8;
-            command[0] = 0xD9FFFFFE;
-            command[1] = 0;
-        }
-        {
-            u32 *command;
-
-            command = arg0;
-            arg0 = (u8 *)arg0 + 8;
-            command[0] = 0xDE000000;
-            command[1] = *D_800E03E0;
-        }
-        {
-            u32 *command;
-
-            command = arg0;
-            arg0 = (u8 *)arg0 + 8;
-            command[1] = 1;
-            command[0] = 0xD9FFFFFF;
-        }
+            0.0f, angle, 0.0f, scale, scale, scale,
+            *(f32 *)(D_800CC2D0 + index * 0x32C + 0x14),
+            (*(f32 *)(D_800CC2D0 + index * 0x32C + 0x18) + 160.0f + height + arg1->field98) + func_15048A40(arg1->field12) * 15.0f,
+            *(f32 *)(D_800CC2D0 + index * 0x32C + 0x1C));
+        gSPMatrix(gdl++, (u8 *)arg1 + (D_800BE9C0 << 6) + 0x18, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
+        gSPClearGeometryMode(gdl++, G_ZBUFFER);
+        gSPDisplayList(gdl++, *D_800E03E0);
+        gSPSetGeometryMode(gdl++, G_ZBUFFER);
     }
-    return arg0;
+    return gdl;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
+
 extern void func_1518CA04(s32 arg0);
 
 void func_15155EF8(void *arg0) {
@@ -287,31 +265,23 @@ void *func_15155FD4(s32 arg0) {
 }
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15156028 CURRENT (1225) */
-void func_15156028(u8 *arg0, s32 *arg1, u8 arg2) {
-    s32 first;
-    s32 second;
-    u8 type;
-
+void func_15156028(u8 *arg0, u8 **arg1, u8 arg2) {
     if (arg2 == 0) {
-        first = (s32)((u32)*arg1 - (u32)D_800CC2D0) / 0x32C;
-        if (first >= 0 && first < 0x19 && first == arg0[0x10]) {
+        s32 index = (arg1[0] - D_800CC2D0) / 0x32C;
+
+        if (index >= 0 && index < 25 && index == arg0[0x10]) {
             func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
-        first = (s32)((u32)arg1[0] - (u32)D_800CC2D0) / 0x32C;
-        second = (s32)((u32)arg1[1] - (u32)D_800CC2D0) / 0x32C;
-        if (first >= 0 && first < 0x19 && second >= 0 && second < 0x19) {
-            type = arg0[0x10];
-            if (first == type) {
-                arg0[0x10] = (u8)second;
-                return;
-            }
-            if (second == type) {
-                arg0[0x10] = (u8)first;
+        s32 first = (arg1[0] - D_800CC2D0) / 0x32C;
+        s32 second = (arg1[1] - D_800CC2D0) / 0x32C;
+
+        if (first >= 0 && first < 25 && second >= 0 && second < 25) {
+            if (first == arg0[0x10]) {
+                arg0[0x10] = second;
+            } else if (second == arg0[0x10]) {
+                arg0[0x10] = first;
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15156028 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15156028.s")

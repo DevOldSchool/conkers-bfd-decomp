@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15190898
  * - func_15191520
- * - func_15191980
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -281,33 +280,32 @@ void func_151918BC(void *arg0) {
 }
 void func_15169850(void *, u8, s32 *, u8 *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191980 CURRENT (725) */
 void func_15191980(void *arg0, void *arg1, u8 arg2) {
-    void *temp_s0;
-
-    temp_s0 = arg0;
     if (arg2 == 0xD) {
-        if ((*(s32 *)((u8 *)temp_s0 + 0x10) == *(s32 *)arg1) ||
-            (*(u8 *)((u8 *)temp_s0 + 0x14) == *(u8 *)((u8 *)arg1 + 4))) {
-            *(s16 *)((u8 *)temp_s0 + 0x16) = 0x64;
-            *(u8 *)((u8 *)temp_s0 + 0x18) |= 1;
+        if (*(s32 *)((u8 *)arg0 + 0x10) == *(s32 *)arg1) {
+            goto hit2;
         }
+        if (*((u8 *)arg0 + 0x14) != ((u8 *)arg1)[4]) {
+            goto skip;
+        }
+    hit2:
+        *((u8 *)arg0 + 0x18) |= 1;
+        *(s16 *)((u8 *)arg0 + 0x16) = 0x64;
+    skip:;
     } else if ((arg2 == 0xC) || (arg2 == 0x50) || (arg2 == 0xE)) {
-        if ((*(s32 *)((u8 *)temp_s0 + 0x10) == *(s32 *)arg1) ||
-            (*(u8 *)((u8 *)temp_s0 + 0x14) == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C(temp_s0);
+        if (*(s32 *)((u8 *)arg0 + 0x10) == *(s32 *)arg1) {
+            goto hit;
         }
+        if (*((u8 *)arg0 + 0x14) == ((u8 *)arg1)[4]) {
+        hit:
+            func_1516972C(arg0);
+        }
+    } else if (arg2 == 0x4E) {
+        func_1516972C(arg0);
     } else {
-        if (arg2 == 0x4E) {
-            func_1516972C(temp_s0);
-            return;
-        }
-        func_15169850(arg1, arg2, (s32 *)((u8 *)temp_s0 + 0x10),
-                      (u8 *)temp_s0 + 0x14, temp_s0);
+        func_15169850(arg1, arg2, (s32 *)((u8 *)arg0 + 0x10), (u8 *)arg0 + 0x14, arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15191980 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191980.s")
 void func_15191A84(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
 

@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_42DD0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15015A38
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game42DD0Range {
@@ -39,7 +34,6 @@ void func_15015920(s16 arg0) {
     }
     func_10004074((s32)buffer);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015A38 CURRENT (8173) */
 void func_15015A38(void *arg0, s32 glyph, s32 bank) {
     u8 *source = arg0;
     s32 x;
@@ -47,7 +41,7 @@ void func_15015A38(void *arg0, s32 glyph, s32 bank) {
     s32 input_offset;
     s32 row_stride;
     s32 swizzle;
-    s32 packed;
+    s32 shade;
     s32 run;
     s32 i;
 
@@ -62,15 +56,20 @@ void func_15015A38(void *arg0, s32 glyph, s32 bank) {
         D_80085990[bank][glyph][x] = 0;
     }
     for (y = 1; y < D_80085994[bank][glyph * 4 + 1] + 1; y++) {
-        swizzle = (y & 1) ? 4 : 0;
+        if ((y & 1) == 0) {
+            swizzle = 0;
+        } else {
+            swizzle = 4;
+        }
         for (x = 0; x < D_80085994[bank][glyph * 4]; x++) {
             if (x == 0) {
                 D_80085990[bank][glyph][(x ^ swizzle) + y * row_stride] = 0;
             } else {
-                packed = source[input_offset++];
-                run = (packed & 0xF) + 1;
+                run = (source[input_offset] & 0xF) + 1;
+                shade = source[input_offset] & 0xF0;
+                input_offset++;
                 for (i = 0; i < run; i++) {
-                    D_80085990[bank][glyph][((x + i) ^ swizzle) + y * row_stride] = packed & 0xF0;
+                    D_80085990[bank][glyph][((x + i) ^ swizzle) + y * row_stride] = shade;
                 }
                 x += run - 1;
             }
@@ -83,5 +82,3 @@ void func_15015A38(void *arg0, s32 glyph, s32 bank) {
         D_80085990[bank][glyph][x + y * row_stride] = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15015A38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_42DD0/func_15015A38.s")

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_recovered_pointer_helper_groups_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F887C
  * - func_150F892C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -146,28 +145,47 @@ void func_150F884C(s32 arg0, s32 arg1) {
 }
 extern void func_150F892C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F887C CURRENT (810) */
-void func_150F887C(void *arg0, u8 *arg1, u8 arg2) {
-    void *owner;
-    u8 *base;
-    s32 var_v0;
+typedef struct Game125A50Item {
+    u8 pad0[0x6E];
+    u8 active;
+} Game125A50Item;
 
-    owner = arg0;
-    var_v0 = arg2;
+typedef struct Game125A50Group {
+    s32 id;
+    u8 key;
+    u8 pad5[3];
+    u8 count;
+    u8 pad9[3];
+    Game125A50Item *items[8];
+} Game125A50Group;
+
+typedef struct Game125A50Owner {
+    u8 pad0[0x28];
+    Game125A50Group group;
+} Game125A50Owner;
+
+typedef struct Game125A50Message {
+    s32 id;
+    u8 key;
+} Game125A50Message;
+
+void func_150F887C(Game125A50Owner *arg0, Game125A50Message *arg1, u8 arg2) {
+    Game125A50Group *group = &arg0->group;
+
     if (arg2 == 0x42) {
-        base = (u8 *)owner + 0x28;
-        var_v0 = 0;
-        if (arg1[4] == base[4]) {
-            for (; var_v0 < 7; var_v0 = (var_v0 + 1) & 0xFF) {
-                (*(u8 **)(base + (var_v0 * 4) + 0xC))[0x6E] = 1;
+        if (group->key == arg1->key) {
+            u8 i;
+
+            for (i = 0; i < 7; i++) {
+                group->items[i]->active = 1;
             }
-            *(u8 *)((u8 *)*(void **)(base + 0x28) + 0x6E) = 0;
-            base[8] = 7;
+            group->items[7]->active = 0;
+            group->count = 7;
         }
-    } else if ((var_v0 == 0x3F) && (*(s32 *)arg1 == *(s32 *)((u8 *)owner + 0x28))) {
-        func_150F892C(owner);
+    } else if (arg2 == 0x3F) {
+        if (group->id == arg1->id) {
+            func_150F892C(arg0);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F887C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_125A50/func_150F887C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_125A50/func_150F892C.s")

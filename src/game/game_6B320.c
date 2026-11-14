@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_lifecycle_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1503EA54
  * - func_1503EB78
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -36,9 +35,13 @@ typedef struct Game6B320Particle {
     f32 rot[3];
     f32 pos[3];
     f32 scale[3];
-    u8 pad_48[4];
+    f32 field_48;
     f32 field_4C;
-    u8 pad_50[0x14];
+    f32 field_50;
+    f32 field_54;
+    f32 field_58;
+    f32 field_5C;
+    f32 field_60;
     u8 active;
     u8 reserved_65[3];
 } Game6B320Particle;
@@ -342,45 +345,34 @@ void func_1503E82C(s32 arg0) {
         }
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EA54 CURRENT (3165) */
 void func_1503EA54(s32 arg0) {
-    Game6B320Particle *temp_a0;
-    Game6B320Slot *temp_v1;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 var_a1;
-    s32 var_a2;
-    u8 *temp_a3;
-    s32 temp_v0;
+    s32 count;
+    s32 i;
+    f32 dt;
+    Game6B320Particle *p;
 
-    temp_v1 = &D_800C6660[arg0];
-    temp_v0 = D_80098914[temp_v1->pad_E[0]];
-    var_a1 = 0;
-    temp_fv0 = (f32) D_800BE9E4;
-    if ((s32) temp_v0 > 0) {
-        var_a2 = 0;
-        do {
-            temp_a0 = temp_v1->entity;
-            temp_a3 = (u8 *) temp_a0 + var_a2;
-            if (temp_a3[0x64] != 0) {
-                if (D_80084454[temp_v1->pad_E[0]][var_a1] == -1) {
-                    temp_fv1 = *(f32 *) (temp_a3 + 0x4C);
-                    *(f32 *) (temp_a3 + 0x24) += *(f32 *) (temp_a3 + 0x48) * temp_fv0;
-                    *(f32 *) (temp_a3 + 0x28) += temp_fv1 * temp_fv0;
-                    *(f32 *) (temp_a3 + 0x2C) += *(f32 *) (temp_a3 + 0x50) * temp_fv0;
-                    *(f32 *) (temp_a3 + 0x30) += *(f32 *) (temp_a3 + 0x54) * temp_fv0;
-                    *(f32 *) (temp_a3 + 0x34) += *(f32 *) (temp_a3 + 0x58) * temp_fv0;
-                    *(f32 *) (temp_a3 + 0x38) += *(f32 *) (temp_a3 + 0x5C) * temp_fv0;
-                    *(f32 *) (temp_a3 + 0x4C) = temp_fv1 + *(f32 *) (temp_a3 + 0x60) * temp_fv0;
-                }
-            }
-            var_a1++;
-            var_a2 += 0x68;
-        } while (var_a1 != temp_v0);
+    count = D_80098914[D_800C6660[arg0].pad_E[0]];
+    dt = D_800BE9E4;
+    for (i = 0; i < count; i++) {
+        if (D_800C6660[arg0].entity[i].active == 0) {
+            continue;
+        }
+        if (D_80084454[D_800C6660[arg0].pad_E[0]][i] != -1) {
+            continue;
+        }
+        p = &D_800C6660[arg0].entity[i];
+        p->rot[0] += p->field_48 * dt;
+        p->rot[1] += p->field_4C * dt;
+        p->rot[2] += p->field_50 * dt;
+        p->pos[0] += p->field_54 * dt;
+        p->pos[1] += p->field_58 * dt;
+        p->pos[2] += p->field_5C * dt;
+        p->field_4C += p->field_60 * dt;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503EA54 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EA54.s")
+
+void func_1503EB70(void) {
+}
 extern f32 D_80098920;
 extern f32 D_80098924;
 

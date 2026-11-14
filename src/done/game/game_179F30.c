@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_179F30.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_callback_state_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1514EECC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 /* Reviewed attachment action selectors, distinct from bank-09 model IDs.
@@ -1599,94 +1594,138 @@ void func_1514EE70(u8 *arg0) {
     func_1514EC1C((s32)temp_v0, (s32)arg0, 0x16);
 }
 extern Vec3i D_800A5934, D_800A5940, D_800A594C;
-extern f32 D_800A5E48, D_800A5E4C, D_800A5E50, D_800A5E54;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514EECC CURRENT (5880) */
-void func_1514EECC(void *arg0) {
-    struct {
-        void *owner;
-        u8 mode;
-        u8 ownerId;
-        u8 kind;
-        u8 pad1F;
-        f32 sp68, sp6C, sp70, sp74, sp78, sp7C, sp80, sp84, sp88;
-        u8 pad44[0x24];
-        f32 spB0;
-        u8 pad6C[8];
-        u8 spBC, spBD, spBE, spBF;
-        u8 pad78[4];
-        u8 spC4, spC5;
-        s16 spC6, spC8;
-        u8 pad82[2];
-        s32 spCC, spD0;
-        u8 spD4, spD5, spD6, spD7;
-        f32 spD8, spDC, spE0, spE4, spE8, spEC, spF0, spF4, spF8, spFC, sp100;
-        s32 sp104;
-        u8 sp108, sp109, sp10A, sp10B;
-        s32 sp10C;
-        u8 sp110;
-        u8 padC9[3];
-        s32 sp114;
-        s16 sp118, sp11A;
-    } setup;
-    Vec3i second;
+typedef struct {
+    u8 spC4;
+    u8 spC5;
+    s16 spC6;
+    s16 spC8;
+    u8 padCA[2];
+    s32 spCC;
+    s32 spD0;
+    u8 spD4;
+    u8 spD5;
+    u8 spD6;
+    u8 spD7;
+    f32 spD8;
+    f32 spDC;
+    f32 spE0;
+    f32 spE4;
+    f32 spE8;
+    f32 spEC;
+    f32 spF0;
+    f32 spF4;
+    f32 spF8;
+    f32 spFC;
+    f32 sp100;
+    s32 sp104;
+    u8 sp108;
+    u8 sp109;
+    u8 sp10A;
+    u8 sp10B;
+    s32 sp10C;
+    u8 sp110;
+    u8 pad111[3];
+    s32 sp114;
+    s16 sp118;
+    s16 sp11A;
+} Game179F30EECCEmitter;
+
+typedef struct {
+    f32 sp68;
+    f32 sp6C;
+    f32 sp70;
+    f32 sp74;
+    f32 sp78;
+    f32 sp7C;
+    f32 sp80;
+    f32 sp84;
+    f32 sp88;
+    u8 pad8C[0x24];
+    f32 spB0;
+    u8 padB4[8];
+    u8 spBC;
+    u8 spBD;
+    u8 spBE;
+    u8 spBF;
+    u8 kindC0;
+    u8 padC1[3];
+} Game179F30EECCParticle;
+
+typedef struct {
     Vec3i first;
-    func_1514EC1C((s32)func_15160A58(arg0, 1, &D_800A5934, 2, 0x12C, 2, 0xFF, 0, 0, 0xFF, 0, 3, 0, 0, 0xFF, 1), (s32) arg0, 0x19);
-    setup.spC4 = 0x69;
-    setup.sp104 = 0x04ED200A;
-    setup.spC8 = 0x12C;
-    setup.spCC = 0;
-    setup.spD0 = 0;
-    setup.sp109 = 0xFF;
-    setup.spD4 = 0xFF;
-    setup.spD5 = 0;
-    setup.spD6 = 0;
-    setup.spD7 = 0xFF;
-    setup.spC6 = 0x4403;
-    setup.spE0 = 0.0f;
-    setup.spE4 = 0.0f;
-    setup.spE8 = 0.0f;
-    setup.spEC = 0.0f;
-    setup.spF0 = 0.0f;
-    setup.spF4 = 0.0f;
-    setup.spC5 = 3;
-    setup.spDC = 100.0f;
-    setup.spD8 = 100.0f;
-    setup.spF8 = 1.0f;
-    setup.spFC = 1.0f;
-    setup.sp100 = 1.0f;
-    setup.sp108 = 0xFF;
-    setup.sp10A = 0;
-    setup.sp10B = 6;
-    setup.sp10C = 0;
-    setup.sp110 = 0xFF;
-    setup.sp114 = 0;
-    setup.sp118 = 1;
-    setup.sp11A = 0xFF;
-    setup.sp6C = 95.0f;
-    setup.sp68 = 95.0f;
-    setup.sp74 = 65.0f;
-    setup.sp70 = 65.0f;
-    setup.sp78 = D_800A5E48;
-    setup.sp7C = D_800A5E48;
-    setup.sp80 = D_800A5E4C;
-    setup.sp84 = D_800A5E50;
-    setup.sp88 = D_800A5E54;
-    setup.owner = arg0;
-    setup.ownerId = *(u8 *)((u8 *)arg0 + 0x3B);
-    first = D_800A5940;
-    second = D_800A594C;
-    setup.mode = 1;
-    setup.spBC = 0;
-    setup.spBD = 0;
-    setup.spBE = 0;
-    setup.spBF = 0;
-    setup.spB0 = 1.0f;
-    setup.kind = 3;
-    func_15189FF0(&setup.spC4, &setup.sp68, &first, 2, 0U, 0U, 0U);
+    Vec3i second;
+    void *owner;
+    u8 mode;
+    u8 ownerId;
+    u8 kind;
+    u8 pad1F;
+} Game179F30EECCAttachment;
+
+void func_1514EECC(void *arg0) {
+    struct225 *effect;
+
+    effect = func_15160A58(arg0, 1, &D_800A5934, 2, 0x12C, 2, 0xFF, 0, 0, 0xFF, 0, 3, 0, 0, 0xFF, 1);
+    func_1514EC1C((s32)effect, (s32)arg0, 0x19);
+    {
+        Game179F30EECCEmitter emitter;
+        Game179F30EECCParticle particle;
+        Game179F30EECCAttachment attachment;
+
+        emitter.spC4 = 0x69;
+        emitter.sp104 = 0x04ED200A;
+        emitter.spC8 = 0x12C;
+        emitter.spCC = 0;
+        emitter.spD0 = 0;
+        emitter.sp109 = 0xFF;
+        emitter.spD4 = 0xFF;
+        emitter.spD5 = 0;
+        emitter.spD6 = 0;
+        emitter.spD7 = 0xFF;
+        emitter.spC6 = 0x4403;
+        emitter.spE0 = 0.0f;
+        emitter.spE4 = 0.0f;
+        emitter.spE8 = 0.0f;
+        emitter.spEC = 0.0f;
+        emitter.spF0 = 0.0f;
+        emitter.spF4 = 0.0f;
+        emitter.spC5 = 3;
+        emitter.spDC = 100.0f;
+        emitter.spD8 = 100.0f;
+        emitter.spF8 = 1.0f;
+        emitter.spFC = 1.0f;
+        emitter.sp100 = 1.0f;
+        emitter.sp108 = 0xFF;
+        emitter.sp10A = 0;
+        emitter.sp10B = 6;
+        emitter.sp10C = 0;
+        emitter.sp110 = 0xFF;
+        emitter.sp114 = 0;
+        emitter.sp118 = 1;
+        emitter.sp11A = 0xFF;
+        particle.sp6C = 95.0f;
+        particle.sp68 = 95.0f;
+        particle.sp74 = 65.0f;
+        particle.sp70 = 65.0f;
+        particle.sp78 = 0.15f;
+        particle.sp7C = 0.15f;
+        particle.sp80 = 0.7f;
+        particle.sp84 = 0.4f;
+        particle.sp88 = 0.000001f;
+        attachment.ownerId = *(u8 *)((u8 *)arg0 + 0x3B);
+        attachment.owner = arg0;
+        attachment.first = D_800A5940;
+        attachment.second = D_800A594C;
+        attachment.mode = 1;
+        particle.spBC = 0;
+        particle.spBD = 0;
+        particle.spBE = 0;
+        particle.spBF = 0;
+        particle.spB0 = 1.0f;
+        attachment.kind = 3;
+        func_15189FF0(&emitter, &particle, &attachment, 2, 0U, 0U, 0U);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514EECC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EECC.s")
 void func_1514F110(void) {
     func_1514F194();
 }

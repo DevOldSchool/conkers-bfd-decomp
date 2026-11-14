@@ -9,9 +9,7 @@
  * - func_151C2734
  * - func_151C2AD0
  * - func_151C2F48
- * - func_151C329C
  * - func_151C3B0C
- * - func_151C43E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -408,7 +406,13 @@ typedef struct {
     Game1C2AD0Motion motion;
 } Game1C2AD0Strip;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 CURRENT (2998) */
+typedef struct Game1C2AD0Vertex {
+    s16 x, y, z, flag;
+    u8 pad8[7];
+    u8 alpha;
+} Game1C2AD0Vertex;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */
 void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     Vec3f start;
     Vec3f end;
@@ -418,29 +422,24 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     Vec3f offset;
     f32 lengthSquared;
     f32 scale;
-    void *vertices;
+    Game1C2AD0Vertex *vertices;
     void *base;
-    u8 *cursor;
+    Game1C2AD0Motion *motion;
     u8 fresh;
     Vec3f *camera;
-    u8 *buffers;
-    void *vertexTemplate;
-    Game1C2AD0Motion *motion;
 
-    func_151D5D60(arg0->buffers, arg1, 0x40, &vertices, &fresh);
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     base = vertices;
     if (vertices != NULL) {
         if (fresh != 0) {
-            buffers = (u8 *)arg0 + arg1 * 4;
-            vertexTemplate = arg0->vertexTemplate;
-            func_10022EC0(*(void **)(buffers + 0x100), vertexTemplate, 0x40);
-            func_10022EC0(*(u8 **)(buffers + 0x100) + 0x40, vertexTemplate, 0x40);
+            func_10022EC0(arg0->buffers[arg1], arg0->vertexTemplate, 0x40);
+            func_10022EC0((u8 *)arg0->buffers[arg1] + 0x40, arg0->vertexTemplate, 0x40);
         }
     } else {
         return NULL;
     }
+    motion = &arg0->motion;
     camera = (Vec3f *)func_15144B34(arg1);
-    motion = (Game1C2AD0Motion *)((u8 *)arg0 + 0x110);
     start = arg0->position;
     end.x = arg0->position.x - motion->displacement.x;
     end.y = arg0->position.y - motion->displacement.y;
@@ -456,39 +455,35 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     normal.z = delta.x * midpoint.y - midpoint.x * delta.y;
     lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
     if (lengthSquared == 0.0f) {
-        offset.z = 0.0f;
         offset.x = 0.0f;
         offset.y = 0.0f;
+        offset.z = 0.0f;
     } else {
         scale = arg0->width / sqrtf(lengthSquared);
         offset.x = normal.x * scale;
         offset.y = normal.y * scale;
         offset.z = normal.z * scale;
     }
-    *(s16 *)vertices = (s32)(start.x - offset.x);
-    *(s16 *)((u8 *)vertices + 2) = (s32)(start.y - offset.y);
-    *(s16 *)((u8 *)vertices + 4) = (s32)(start.z - offset.z);
-    *((u8 *)vertices + 0xF) = arg0->alpha;
-    *(s16 *)((u8 *)vertices + 6) = 0;
-    vertices = (u8 *)vertices + 0x10;
-    *(s16 *)vertices = (s32)(end.x - offset.x);
-    *(s16 *)((u8 *)vertices + 2) = (s32)(end.y - offset.y);
-    *(s16 *)((u8 *)vertices + 4) = (s32)(end.z - offset.z);
-    *((u8 *)vertices + 0xF) = 0;
-    *(s16 *)((u8 *)vertices + 6) = 0;
-    cursor = (u8 *)vertices + 0x10;
-    vertices = cursor;
-    cursor[0xF] = 0;
-    *(s16 *)(cursor + 6) = 0;
-    *(s16 *)cursor = (s32)(end.x + offset.x);
-    *(s16 *)(cursor + 2) = (s32)(end.y + offset.y);
-    *(s16 *)(cursor + 4) = (s32)(end.z + offset.z);
-    vertices = cursor + 0x10;
-    *(s16 *)vertices = (s32)(start.x + offset.x);
-    *(s16 *)((u8 *)vertices + 2) = (s32)(start.y + offset.y);
-    *(s16 *)((u8 *)vertices + 4) = (s32)(start.z + offset.z);
-    *((u8 *)vertices + 0xF) = arg0->alpha;
-    *(s16 *)((u8 *)vertices + 6) = 0;
+    vertices->x = (s32)(start.x - offset.x);
+    vertices->y = (s32)(start.y - offset.y);
+    vertices->z = (s32)(start.z - offset.z);
+    vertices->alpha = arg0->alpha;
+    vertices++->flag = 0;
+    vertices->x = (s32)(end.x - offset.x);
+    vertices->y = (s32)(end.y - offset.y);
+    vertices->z = (s32)(end.z - offset.z);
+    vertices->alpha = 0;
+    vertices++->flag = 0;
+    vertices->alpha = 0;
+    vertices->flag = 0;
+    vertices->x = (s32)(end.x + offset.x);
+    vertices->y = (s32)(end.y + offset.y);
+    vertices++->z = (s32)(end.z + offset.z);
+    vertices->x = (s32)(start.x + offset.x);
+    vertices->y = (s32)(start.y + offset.y);
+    vertices->z = (s32)(start.z + offset.z);
+    vertices->alpha = arg0->alpha;
+    vertices->flag = 0;
     return base;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */
@@ -713,14 +708,11 @@ extern f32 D_800AAA48;
 extern f32 D_800AAA4C;
 extern f32 D_800AAA50;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C329C CURRENT (2058) */
 void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
     Game1EF500EmitterSpawn spawn;
     Game1EF500EmitterLight light;
     s32 coordinates[3];
-    s32 var_v0;
-    s32 var_v1;
 
     descriptor.field0 = 5;
     descriptor.field4 = 7;
@@ -774,7 +766,7 @@ void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     descriptor.fields70[1] = 0;
     descriptor.fields70[2] = -1;
     descriptor.fields70[3] = -1;
-    func_15152B38(&descriptor, (s32)arg1, arg2);
+    func_15152B38(&descriptor, arg1, arg2);
     spawn.field1D = 0x2B;
     spawn.field8 = 0x4403;
     spawn.field0 = 0x200005;
@@ -804,17 +796,7 @@ void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     spawn.field50 = 0.0f;
     spawn.field54 = 0.0f;
     spawn.field24 = 1.0f;
-    if (func_150ADA20() & 1) {
-        var_v1 = 0x40;
-    } else {
-        var_v1 = 0;
-    }
-    if (func_150ADA20() & 1) {
-        var_v0 = 0x80;
-    } else {
-        var_v0 = 0;
-    }
-    spawn.field58 = var_v0 | 1 | var_v1 | 0xC200;
+    spawn.field58 = 1 | ((func_150ADA20() & 1) ? 0x40 : 0) | ((func_150ADA20() & 1) ? 0x80 : 0) | 0x8000 | 0x4000 | 0x200;
     spawn.fields60[0] = 6;
     spawn.fields60[1] = 6;
     spawn.fields60[2] = -1;
@@ -832,8 +814,6 @@ void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     func_151602C0((u8 *)&light, coordinates, (func_150ADA20() & 1) + 5,
                  0xFF, 0xFF, 0xFF, 0xFF, 0, 0, (s32)arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C329C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C329C.s")
 void func_151C36D8(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
     Game1EF500EmitterSpawn spawn;
@@ -950,50 +930,52 @@ void func_151C436C(s32 arg0, void *arg1, s32 arg2) {
         *(f32 *)((u8 *)arg1 + 0x18) += (*(f32 *)((u8 *)arg1 + 0x24) - *(f32 *)((u8 *)arg1 + 0x18)) * 0.228659f;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C43E0 CURRENT (1331) */
-u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
-    u8 spDF;
-    s32 spD8;
-    u8 sp64[0x5A];
-    f32 temp_fv1;
-    f32 var_fv0;
-    u8 temp_v1;
-    u8 var_t0;
+typedef struct Game1EF500Hit {
+    s32 surface;
+    u8 pad04[4];
+    Vec3f position;
+    u8 pad14[0xC];
+    Vec3f normal;
+    u8 pad2C[0x2D];
+    u8 status;
+    u8 pad5A[0xA];
+} Game1EF500Hit;
 
-    var_t0 = 1;
-    spD8 = *(s32 *)(arg1 + 0x90);
-    temp_v1 = arg1[0];
-    if (temp_v1 & 4) {
-        temp_fv1 = *(f32 *)(arg1 + 0x8C);
-        if (temp_fv1 < arg2) {
-            var_fv0 = *(f32 *)(arg1 + 0x98) * temp_fv1;
+u8 func_151C43E0(void *arg0, u8 *arg1, f32 arg2) {
+    u8 result;
+    void *object;
+    Game1EF500TrailExt *ext = (Game1EF500TrailExt *)arg1;
+    u8 flags;
+    f32 limit;
+    f32 amount;
+    Game1EF500Hit hit;
+
+    result = 1;
+    object = ext->owner;
+    flags = ext->flags;
+    if (flags & 4) {
+        limit = *(f32 *)ext->extra;
+        if (limit < arg2) {
+            amount = ext->scale * limit;
         } else {
-            var_fv0 = *(f32 *)(arg1 + 0x98) * arg2;
+            amount = ext->scale * arg2;
         }
-        if (var_fv0 != 0.0f) {
-            spDF = 1;
-            func_15081690((void *)spD8,
-                          *(f32 *)((u8 *)arg0 + 0x34),
-                          *(f32 *)((u8 *)arg0 + 0x38),
-                          *(f32 *)((u8 *)arg0 + 0x3C),
-                          *(f32 *)(arg1 + 0x60),
-                          *(f32 *)(arg1 + 0x64),
-                          *(f32 *)(arg1 + 0x68), sp64, var_fv0, 1, 0,
-                          (temp_v1 & 8) == 0, *(s8 *)(arg1 + 0xA8), 0,
-                          *(s32 *)(arg1 + 0xAC));
-            var_t0 = spDF;
-            if (sp64[0x59] >= 2) {
-                func_151C2EF0(*(s32 *)sp64, spD8, arg0,
-                              (s32)(sp64 + 8), (s32)(sp64 + 0x20),
-                              (s32)sp64);
-                var_t0 = 0;
+        if (amount != 0.0f) {
+            Vec3f *pos = (Vec3f *)((u8 *)arg0 + 0x34);
+            f32 *dir = ext->direction;
+
+            func_15081690(object, pos->x, pos->y,
+                          pos->z, dir[0], dir[1],
+                          dir[2], &hit, amount, 1, 0, !(ext->flags & 8),
+                          ext->fieldA8, 0, ext->handle);
+            if (hit.status >= 2) {
+                func_151C2EF0(hit.surface, (s32)object, arg0, (s32)&hit.position, (s32)&hit.normal, (s32)&hit);
+                result = 0;
             }
         }
     }
-    return var_t0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C43E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C43E0.s")
 void func_151C4510(void *arg0, void *arg1, f32 arg2) {
     *(f32 *)((u8 *)arg0 + 0x34) = (f32) ((*(f32 *)((u8 *)arg1 + 4) * arg2) + *(f32 *)((u8 *)arg0 + 0x34));
     *(f32 *)((u8 *)arg0 + 0x38) = (f32) ((*(f32 *)((u8 *)arg1 + 8) * arg2) + *(f32 *)((u8 *)arg0 + 0x38));

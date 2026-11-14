@@ -7,3 +7,7 @@ With the extern symbol IDO allocates the function differently (CURRENT 355); the
 The generated `game_49D30.o` has rodata `4479c000000000000000000000000000`: the constant followed by 12 zero alignment bytes, with no data relocations. The verifier compares only the 4-byte payload with ROM. `func_1501F72C` later added a second pool word (0.01 at 0x800969D0); the unit is now split into two literal sub-pools, see [game_rodata_literal_sub_pools.md](game_rodata_literal_sub_pools.md).
 
 The INFO mapping retains linked bytes for verification without appending to the code-only payload. A size assertion detects unexpected constant-pool growth. No reference assembly, compiler flag or verifier changes are involved.
+
+`func_15022024` later added a third pool word (`C61C3C00`, -9999.0f at
+0x80096A14, its "unset" sentinel); it is mapped as a third sub-pool, see
+[game_rodata_literal_sub_pools.md](game_rodata_literal_sub_pools.md).

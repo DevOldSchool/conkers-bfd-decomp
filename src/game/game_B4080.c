@@ -9,12 +9,10 @@
  * - func_15086D94
  * - func_15087350
  * - func_150883B0
- * - func_1508855C
  * - func_150888A8
  * - func_15088F30
  * - func_1508907C
  * - func_150891E8
- * - func_15089F9C
  * - func_1508A1BC
  * - func_1508A6FC
  * - func_1508B2A8
@@ -27,8 +25,6 @@
  * - func_1508DA1C
  * - func_1508DC24
  * - func_1508E89C
- * - func_1508ECC0
- * - func_1508EE0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -629,40 +625,24 @@ void *func_150883B0(s32 arg0, s32 arg1, f32 *arg2, s32 *arg3) {
 extern u8 D_800CC2D0;
 extern s8 D_800D2399;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508855C CURRENT (785) */
 s32 func_1508855C(s32 arg0) {
-    u8 *temp_v1;
-    s32 temp_a1;
-    s32 temp_lo;
-    s32 var_a0;
-    u8 *var_a2;
+    s32 index;
+    s32 i;
 
-    temp_v1 = (u8 *) D_800872A0;
-    if (temp_v1 == 0) {
+    index = (arg0 - (s32)&D_800CC2D0) / 0x32C;
+    if (D_800872A0 == 0) {
         return -1;
     }
-    temp_lo = (s32) (arg0 - (s32) &D_800CC2D0) / 0x32C;
-    if (temp_lo == 0) {
+    if (index == 0) {
         return 0;
     }
-    var_a0 = 1;
-    var_a2 = temp_v1 + 0x84;
-    temp_a1 = D_800D2398 + D_800D2399;
-    if (temp_a1 >= 2) {
-loop_5:
-        if (temp_lo == *(s8 *)(var_a2 + 0x31)) {
-            return var_a0;
-        }
-        var_a0 += 1;
-        if (var_a0 < temp_a1) {
-            var_a2 += 0x84;
-            goto loop_5;
+    for (i = 1; i < D_800D2398 + D_800D2399; i++) {
+        if (index == ((s8 *)(D_800872A0 + i * 0x84))[0x31]) {
+            return i;
         }
     }
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508855C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508855C.s")
 void func_10023A10(void *, void *, s32);
 
 void func_150885EC(s32 arg0, s32 arg1) {
@@ -1343,86 +1323,64 @@ s32 func_15089BC0(void) {
 }
 
 f32 func_15047D60(f32);
-extern f32 D_8009DA44;
-extern f32 D_8009DA48;
-extern f32 D_8009DA4C;
-extern f32 D_8009DA50;
-extern f32 D_8009DA54;
-extern f32 D_8009DA58;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15089F9C CURRENT (1261) */
 s32 func_15089F9C(s32 arg0) {
-    f32 dx;
-    f32 dz;
-    f32 value;
-    f32 distance;
-    f32 minimum;
-    f32 maximum;
-    f32 best;
-    f32 phase;
-    f32 scale;
     s32 *cursor;
     s32 mask;
     s32 count;
-    s32 offset;
-    s32 bit;
     s32 index;
     s32 result;
-    GameB4080SearchActor *actor;
+    s32 bit;
+    f32 minimum;
+    f32 maximum;
+    f32 best;
+    f32 distance;
+    f32 value;
     GameB4080SearchActor *other;
-    u8 *base;
+    GameB4080SearchActor *actor;
+    f32 dx;
+    f32 dz;
 
-    base = (u8 *)D_800D23B0;
-    offset = arg0 * 4;
-    result = -1;
-    cursor = (s32 *)(base + 0xE64);
-    mask = *(s32 *)(base + 0x14);
-    count = *(s32 *)(base + 0x10);
-    if (*(s32 *)(base + offset + 0x15C) == 0) {
-        minimum = D_8009DA44;
-        maximum = D_8009DA48;
+    cursor = (s32 *)((u8 *)D_800D23B0 + 0xE64);
+    mask = *(s32 *)((u8 *)D_800D23B0 + 0x14);
+    count = *(s32 *)((u8 *)D_800D23B0 + 0x10);
+    if (*(s32 *)((u8 *)D_800D23B0 + arg0 * 4 + 0x15C) == 0) {
+        minimum = 750.0f;
+        maximum = 3500.0f;
     } else {
-        minimum = D_8009DA4C;
+        minimum = 1500.0f;
         maximum = 8000.0f;
     }
-    best = D_8009DA50;
-    index = 0;
-    if (count > 0) {
-        phase = D_8009DA54;
-        do {
-            bit = 1 << index;
-            if ((*cursor != 3) && (mask & bit) &&
-                (*(s32 *)((u8 *)D_800D23B0 + offset + 0x16C0) & (bit << 16))) {
-                scale = D_8009DA58 / (maximum - minimum);
-                other = (GameB4080SearchActor *)(&D_800CC2D0 + index * 0x32C);
-                if (other != 0) {
-                    actor = (GameB4080SearchActor *)(&D_800CC2D0 + arg0 * 0x32C);
-                    dx = actor->field14 - other->field14;
-                    dz = actor->field1C - other->field1C;
-                    distance = sqrtf(dx * dx + dz * dz);
-                } else {
-                    distance = 32000.0f;
-                }
-                if (maximum < distance) {
-                    distance = maximum;
-                }
-                if (distance < minimum) {
-                    distance = minimum;
-                }
-                value = func_15047D60((distance - minimum) * scale + phase) + 1.0f;
-                if (best < value) {
-                    best = value;
-                    result = index;
-                }
+    best = -1000000.0f;
+    result = -1;
+    for (index = 0; index < count; index++) {
+        bit = 1 << index;
+        if (cursor[index] != 3 && (mask & bit) &&
+            (*(s32 *)((u8 *)D_800D23B0 + arg0 * 4 + 0x16C0) & (bit << 16))) {
+            other = (GameB4080SearchActor *)(&D_800CC2D0 + index * 0x32C);
+            if (other != NULL) {
+                actor = (GameB4080SearchActor *)(&D_800CC2D0 + arg0 * 0x32C);
+                dx = actor->field14 - other->field14;
+                dz = actor->field1C - other->field1C;
+                distance = sqrtf(dx * dx + dz * dz);
+            } else {
+                distance = 32000.0f;
             }
-            index++;
-            cursor++;
-        } while (index != count);
+            if (maximum < distance) {
+                distance = maximum;
+            }
+            if (distance < minimum) {
+                distance = minimum;
+            }
+            value = func_15047D60((distance - minimum) * (6.2831855f / (maximum - minimum)) + -1.5707964f) + 1.0f;
+            if (best < value) {
+                best = value;
+                result = index;
+            }
+        }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15089F9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15089F9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508A1BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508A6FC.s")
 extern s8 D_8008FD90;
@@ -2215,59 +2173,38 @@ void func_1508EC5C(s32 arg0, s32 arg1) {
     func_1509BFB0(1, temp_v0 | 0x2000, 0x61, arg1);
 }
 extern u32 D_80087380;
-extern s32 D_800D23C0;
+extern void *D_800D23C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508ECC0 CURRENT (2869) */
-s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
-    u8 *record;
-    u16 value;
+typedef struct GameB4080Group {
+    u16 unk0;
     u16 count;
-    u32 selected;
-    u32 index;
-    u32 other;
-    u8 *base;
-    u8 *cursor;
-    u8 *selectedCursor;
+    s32 unk4;
+    u16 entries[8];
+} GameB4080Group;
 
-    index = 0;
-    if (D_80087380 != 0) {
-        record = (u8 *)D_800D23C0;
-        do {
-            count = *(u16 *)(record + 2);
-            selected = 0;
-            if (count != 0) {
-                base = (u8 *)D_800D23C0 + index * 0x18;
-                selectedCursor = base;
-                do {
-                    if ((u16)((arg0 << 12) + arg1) == *(u16 *)(selectedCursor + 8)) {
-                        other = 0;
-                        if (count != 0) {
-                            cursor = base;
-                            do {
-                                value = *(u16 *)(cursor + 8);
-                                if ((arg2 == (value >> 12)) && (other != selected)) {
-                                    return value & 0xFFF;
-                                }
-                                other++;
-                                cursor += 2;
-                            } while (other < count);
-                        }
-                        return -1;
+s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
+    u32 i;
+    u32 j;
+    u32 k;
+    u16 key;
+
+    key = (arg0 << 12) + arg1;
+    for (i = 0; i < D_80087380; i++) {
+        for (j = 0; j < ((GameB4080Group *)D_800D23C0)[i].count; j++) {
+            if (key == ((GameB4080Group *)D_800D23C0)[i].entries[j]) {
+                for (k = 0; k < ((GameB4080Group *)D_800D23C0)[i].count; k++) {
+                    if (arg2 == (((GameB4080Group *)D_800D23C0)[i].entries[k] >> 12) && k != j) {
+                        return ((GameB4080Group *)D_800D23C0)[i].entries[k] & 0xFFF;
                     }
-                    selected++;
-                    selectedCursor += 2;
-                } while (selected < count);
+                }
+                return -1;
             }
-            index++;
-            record += 0x18;
-        } while (index < (u32)D_80087380);
+        }
     }
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508ECC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508ECC0.s")
 extern u32 D_80087380;
-extern s32 D_800D23C0;
+extern void *D_800D23C0;
 
 void func_1508EDBC(u32 arg0) {
     s32 temp_v0;
@@ -2282,71 +2219,31 @@ void func_1508EDBC(u32 arg0) {
 void func_1503DDD0(s32);
 void func_15114B94(u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508EE0C CURRENT (4543) */
-void func_1508EE0C(s32 arg0, s32 arg1) {
-    u32 row;
-    u32 rowOffset;
-    u32 index;
-    u32 actionIndex;
-    u32 actionOffset;
-    u16 count;
-    u16 value;
+
+void func_1508EE0C(u16 arg0, u16 arg1) {
+    u32 i;
+    u32 j;
     s32 operand;
     u16 key;
-    u16 group = arg0;
-    u16 item = arg1;
-    u8 *table;
-    u8 *rowPointer;
-    u8 *entry;
 
-    row = 0;
-    if (D_80087380 == 0) {
-        return;
-    }
-    table = (u8 *)D_800D23C0;
-    rowOffset = 0;
-    rowPointer = table;
-    do {
-        count = *(u16 *)(rowPointer + 2);
-        index = 0;
-        if (count != 0) {
-            key = ((group << 12) + item) & 0xFFFF;
-            entry = table + (((row << 2) - row) << 3) + 8;
-            do {
-                index++;
-                if (key == *(u16 *)entry) {
-                    actionIndex = 0;
-                    if (count != 0) {
-                        actionOffset = 0;
-                        do {
-                            value = *(u16 *)(table + (((row << 2) - row) << 3) + actionOffset + 8);
-                            operand = value & 0xFFF;
-                            switch (value >> 12) {
-                            case 2:
-                                func_15114B94(operand);
-                                table = (u8 *)D_800D23C0;
-                                count = *(u16 *)(table + rowOffset + 2);
-                                break;
-                            case 3:
-                                func_1503DDD0(operand);
-                                table = (u8 *)D_800D23C0;
-                                count = *(u16 *)(table + rowOffset + 2);
-                                break;
-                            }
-                            actionIndex++;
-                            actionOffset += 2;
-                        } while (actionIndex < count);
+    key = (arg0 << 12) + arg1;
+    for (i = 0; i < D_80087380; i++) {
+        for (j = 0; j < ((GameB4080Group *)D_800D23C0)[i].count; j++) {
+            if (((GameB4080Group *)D_800D23C0)[i].entries[j] == key) {
+                for (j = 0; j < ((GameB4080Group *)D_800D23C0)[i].count; j++) {
+                    operand = ((GameB4080Group *)D_800D23C0)[i].entries[j] & 0xFFF;
+                    switch (((GameB4080Group *)D_800D23C0)[i].entries[j] >> 12) {
+                    case 2:
+                        func_15114B94(operand);
+                        break;
+                    case 3:
+                        func_1503DDD0(operand);
+                        break;
                     }
-                    func_1508EDBC(row);
-                    return;
                 }
-                entry += 2;
-            } while (index < count);
+                func_1508EDBC(i);
+                return;
+            }
         }
-        row++;
-        rowOffset += 0x18;
-        rowPointer += 0x18;
-    } while (row < D_80087380);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508EE0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EE0C.s")

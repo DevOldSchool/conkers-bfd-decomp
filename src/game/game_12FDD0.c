@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_12FDD0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15102920
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game12FDD0Particle {
@@ -39,10 +34,8 @@ void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
 extern f32 D_800A2340;
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15102920 CURRENT (2294) */
-void *func_15102920(f32 arg0, s32 arg1, s32 arg2, f32 *arg3,
-    s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
-    s32 enabled;
+void *func_15102920(f32 arg0, u8 arg1, s32 arg2, f32 *arg3, s16 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
+    void *result;
     Game12FDD0Particle particle;
     s32 sp60;
     s32 sp5C;
@@ -67,42 +60,40 @@ void *func_15102920(f32 arg0, s32 arg1, s32 arg2, f32 *arg3,
         break;
     }
     particle.mode = 0;
-    enabled = ((s16)arg4 == -1) ? 0 : 1;
-    particle.flags = enabled | 0x9700 | 0x20000;
-    if ((s16)arg4 == -1) {
+    particle.flags = ((arg4 == -1) ? 0 : 1) | 0x100 | 0x200 | 0x400 | 0x1000 | 0x8000 | 0x20000;
+    if (arg4 == -1) {
         particle.lifetime = 0x12C;
     } else {
-        particle.lifetime = (s16)arg4;
+        particle.lifetime = arg4;
     }
     particle.field8 = 0;
     particle.fieldC = 0;
     if (D_800BE9F0 == 0x36) {
-        particle.field10 = (s32)(u8)arg1 >> 1;
+        particle.field10 = (s32)arg1 >> 1;
     } else {
-        particle.field10 = (u8)arg1;
+        particle.field10 = arg1;
     }
     particle.field11 = 0xFF;
     particle.field14 = 0;
     particle.field13 = 0;
     particle.field12 = 0;
     particle.field15 = 0xFF;
-    particle.field18 = ((u8)arg6 ? 2 : 1) + 0x3B0000;
+    particle.field18 = (arg6 ? 2 : 1) + 0x3B0000;
     particle.field16 = 0;
     particle.field17 = 7;
-    if ((u8)arg5 != 0) {
+    if (arg5 != 0) {
         sp60 = 3;
         sp5C = 0xFF;
     } else {
         sp60 = 0;
         sp5C = 0;
     }
-    return func_1513C650((s32)&particle, 0, 0, arg2, arg3[0], arg3[1],
+    result = func_1513C650((s32)&particle, 0, 0, arg2, arg3[0], arg3[1],
         arg3[2], arg0, arg0, func_150ADA20() & 0xFF,
-        ((func_150ADA20() & 1) * 2) + (func_150ADA20() & 1), sp60, sp5C, 0,
-        (u8)arg8, arg9);
+        (func_150ADA20() & 1) + ((func_150ADA20() & 1) * 2), sp60, sp5C, 0,
+        arg8, arg9);
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15102920 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12FDD0/func_15102920.s")
 
 typedef struct Game12FDD0Object {
     u8 pad0[0x3B];

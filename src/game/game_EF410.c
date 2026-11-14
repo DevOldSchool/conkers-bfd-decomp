@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C1F60
  * - func_150C2C00
  * - func_150C3230
  *
@@ -75,37 +74,41 @@ extern f32 D_800A024C;
 extern f32 D_800A0250;
 extern f32 D_800A0254;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1F60 CURRENT (5019) */
-void func_150C1F60(s32 arg0) {
+void func_150C1F60(u8 arg0) {
     GameC2290Packet packet;
-    GameEF410Spawn spawn;
 
     packet.floats[0] = D_800A0230;
-    packet.shorts[0] = 0xC;
     packet.floats[1] = 40.0f;
+    packet.floats[2] = D_800A0234;
+    packet.floats[7] = D_800A0238;
+    packet.floats[8] = D_800A023C;
+    packet.floats[3] = 9.0f;
+    packet.floats[4] = D_800A0240;
+    packet.shorts[0] = 0xC;
+    packet.shorts[1] = 0xD;
     packet.shorts[2] = -0xA0;
     packet.shorts[4] = -0x3C;
     packet.shorts[3] = 0x45;
     packet.shorts[5] = 0x43;
     packet.shorts[6] = 3;
     packet.shorts[7] = 5;
-    packet.shorts[9] = 0x1F;
-    packet.bytes50[0] = 0xB;
-    packet.floats[2] = D_800A0234;
-    packet.shorts[1] = 0xD;
     packet.shorts[8] = 0x32;
+    packet.shorts[9] = 0x1F;
+    packet.floats[5] = D_800A0244;
+    packet.floats[6] = 0.5f;
+    packet.bytes50[0] = 0xB;
+    packet.bytes50[1] = 1;
     packet.bytes50[2] = 0x28;
     packet.words54[0] = 1;
     packet.words54[1] = 4;
-    packet.bytes6C[0] = 0xFF;
-    packet.bytes6C[1] = 0xFF;
-    packet.words70[0] = 3;
-    packet.bytes50[1] = 1;
     packet.words54[2] = 0;
     packet.words54[3] = 0;
     packet.words54[4] = 0;
     packet.words54[5] = 0;
+    packet.bytes6C[0] = 0xFF;
+    packet.bytes6C[1] = 0xFF;
     packet.bytes6C[2] = 0;
+    packet.words70[0] = 3;
     packet.words70[1] = 0xFF;
     packet.words70[2] = 0;
     packet.words70[3] = 0x220005;
@@ -118,14 +121,11 @@ void func_150C1F60(s32 arg0) {
     packet.bytes94[1] = 7;
     packet.shorts98[0] = 0xC;
     packet.shorts98[1] = 0x15;
-    packet.floats[7] = D_800A0238;
-    packet.floats[8] = D_800A023C;
-    packet.floats[3] = 9.0f;
-    packet.floats[4] = D_800A0240;
-    packet.floats[5] = D_800A0244;
-    packet.floats[6] = 0.5f;
-    /* The raw caller leaves the consumed word at packet+0x84 uninitialized. */
-    func_15151A38(packet.floats, (u8)arg0, 1);
+    func_15151A38(packet.floats, arg0, 1);
+    packet.floats[7] = 100.0f;
+    packet.floats[8] = 57.5f;
+    packet.floats[3] = D_800A0248;
+    packet.floats[4] = 39.0f;
     packet.shorts[0] = 2;
     packet.shorts[1] = 3;
     packet.shorts[2] = -0x6C;
@@ -136,39 +136,37 @@ void func_150C1F60(s32 arg0) {
     packet.shorts[7] = 0;
     packet.shorts[8] = 0x30;
     packet.shorts[9] = 0x15;
-    packet.floats[7] = 100.0f;
-    packet.floats[8] = 57.5f;
-    packet.floats[3] = D_800A0248;
-    packet.floats[4] = 39.0f;
     packet.floats[5] = D_800A024C;
     packet.floats[6] = 1.0f;
-    func_15151A38(packet.floats, (u8)arg0, 1);
-    *(Vec3f *)spawn.position = *(Vec3f *)packet.floats;
-    spawn.field14 = 0x19;
-    spawn.field16 = 0x12;
-    spawn.field00 = -0x9F;
-    spawn.field02 = 0x44;
-    spawn.field04 = -0x34;
-    spawn.field06 = 0x26;
-    spawn.field20 = 0x19;
-    spawn.field22 = 0x19;
-    spawn.field2C = 0x9B;
-    spawn.field2D = 0x64;
-    spawn.field38 = 1;
-    spawn.field39 = 6;
-    spawn.field3C = 0.0f;
-    spawn.field40 = 1;
-    spawn.field44 = 0.0f;
-    spawn.field18 = 40.0f;
-    spawn.field1C = 35.0f;
-    spawn.field24 = D_800A0250;
-    spawn.field28 = D_800A0254;
-    spawn.field30 = 1152.0f;
-    spawn.field34 = 848.0f;
-    func_15150178(&spawn.field00, spawn.position, 0, arg0, 1);
+    func_15151A38(packet.floats, arg0, 1);
+    {
+        GameEF410Spawn spawn;
+
+        *(Vec3f *)spawn.position = *(Vec3f *)packet.floats;
+        spawn.field14 = 0x19;
+        spawn.field16 = 0x12;
+        spawn.field00 = -0x9F;
+        spawn.field02 = 0x44;
+        spawn.field04 = -0x34;
+        spawn.field06 = 0x26;
+        spawn.field20 = 0x19;
+        spawn.field22 = 0x19;
+        *(u8 *)&spawn.field2C = 0x9B;
+        spawn.field2D = 0x64;
+        spawn.field38 = 1;
+        spawn.field39 = 6;
+        spawn.field3C = 0.0f;
+        spawn.field40 = 1;
+        spawn.field44 = 0.0f;
+        spawn.field18 = 40.0f;
+        spawn.field1C = 35.0f;
+        spawn.field24 = D_800A0250;
+        spawn.field28 = D_800A0254;
+        spawn.field30 = 1152.0f;
+        spawn.field34 = 848.0f;
+        func_15150178(&spawn.field00, spawn.position, 0, arg0, 1);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C1F60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
 
 
 void func_15151A38(f32 *, u8, s32);

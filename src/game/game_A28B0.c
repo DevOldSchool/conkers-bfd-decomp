@@ -13,7 +13,6 @@
  * - func_15078A60
  * - func_15079B30
  * - func_1507AA48
- * - func_1507BB28
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2497,49 +2496,39 @@ typedef struct GameA28B0ScriptEntry {
 } GameA28B0ScriptEntry;
 
 extern void *D_800D1588[];
-extern s32 D_80086A88;
+extern GameA28B0ScriptEntry D_80086A88[];
 extern u8 D_8009A120[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507BB28 CURRENT (325) */
 s32 func_1507BB28(s32 arg0, s32 arg1) {
     void *data;
     GameA28B0ScriptEntry *entries;
-    GameA28B0ScriptEntry *cursor;
     s32 index;
 
     data = D_800D1588[D_800D154C->modelIndex];
-    if (data == 0) {
+    if (data == NULL) {
         return (s32)D_8009A120;
     }
     entries = *(GameA28B0ScriptEntry **)((u8 *)data - 0x10);
-    if (entries == 0) {
+    if (entries == NULL) {
         return (s32)D_8009A120;
     }
-    index = 0;
-    while (arg1 != entries[index].key) {
+    for (index = 0; arg1 != entries[index].key; index++) {
         if (entries[index].value == 0) {
             index = 0;
-            entries = (GameA28B0ScriptEntry *)&D_80086A88;
-            if (arg1 != ((GameA28B0ScriptEntry *)&D_80086A88)->key) {
-                cursor = entries;
-                do {
-                    if (entries->value == 0) {
-                        for (;;) {
-                        }
+            entries = D_80086A88;
+            while (arg1 != entries[index].key) {
+                if (entries[index].value == 0) {
+                    for (;;) {
                     }
-                    index++;
-                    cursor++;
-                    entries++;
-                } while (arg1 != cursor->key);
+                }
+                index++;
             }
-            return ((GameA28B0ScriptEntry *)&D_80086A88)[index].value;
+            return entries[index].value;
         }
-        index++;
     }
     return entries[index].value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507BB28 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507BB28.s")
+
 typedef struct GameA28B0ScriptState {
     u8 pad0[0xF4];
     s32 flags;

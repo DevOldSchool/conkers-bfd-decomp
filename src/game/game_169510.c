@@ -1,5 +1,9 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_169510.c
@@ -12,11 +16,9 @@
  * - func_1513E13C
  * - func_1513E2AC
  * - func_1513E6E8
- * - func_1513E83C
  * - func_1513F114
  * - func_1513F728
  * - func_1513FAB4
- * - func_15140190
  * - func_15140410
  * - func_151406AC
  *
@@ -352,14 +354,7 @@ void func_1513CBA4(void *arg0) {
     }
     D_80089F2C[var_v0]();
 }
-typedef struct {
-    u32 w0;
-    u32 w1;
-} Game169510Gwords;
 
-typedef union {
-    Game169510Gwords words;
-} Gfx;
 
 typedef struct {
     u8 pad0[6];
@@ -410,75 +405,70 @@ s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
 extern s32 D_800A4AC8[][2];
 extern s32 D_800D2C9C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 CURRENT (3410) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
-    Gfx *packet;
+    s32 mode;
     u8 changed;
-    volatile u8 renderMode;
-    volatile u8 combineMode;
+    u8 renderMode;
+    u8 combineMode;
     s16 savedFlags;
-    s32 packedMode;
+    s32 geometry;
     s16 red, green, blue, alpha;
     s16 red2, green2, blue2, alpha2;
-    s32 mode;
-    s32 geometry;
-    s32 texture;
+    u8 texture;
     s32 *blendMode;
 
     if (owner->active & 1) {
         if ((owner->flags & 0x2000) && !(owner->viewportMask & (1 << viewport))) {
-        } else {
-            changed = 1;
-            packedMode = owner->renderMode;
-            combineMode = (u32)(packedMode & 0xFFFF0000) >> 16;
-            renderMode = packedMode;
-            savedFlags = owner->flags & 0x30;
-            mode = (owner->flags & 0x4000) ? owner->transformMode : 0;
-            gdl = (Gfx *)func_151462C8((s32)gdl, owner->transform, 0, 0, 0,
-                                      viewport, owner->auxiliary, 2, mode);
-            mode = (owner->flags & 0x100) ? owner->colorMode : 3;
-            func_151441A4(&red, &green, &blue, &alpha, owner->red, owner->green,
-                         owner->blue, owner->intensity, 255, 255, 255,
-                         owner->alpha, owner->blend, mode);
-            mode = (owner->flags & 0x200) ? owner->alphaMode : 4;
-            func_151442FC(&red2, &green2, &blue2, &alpha2, owner->red, owner->green,
-                         owner->blue, owner->intensity, 255, 255, 255,
-                         owner->alpha, owner->blend, mode);
-            geometry = 0;
-            if (savedFlags & 0x10) geometry = 0x200;
-            if (savedFlags & 0x20) geometry |= 0x400;
-            if (owner->flags & 0x400) mode = 0x20000;
-            else mode = 0;
-            gdl = func_15142B7C(gdl, mode | geometry | 1, 0x600);
-            texture = owner->texture;
-            if (texture != 255) {
-                mode = (owner->flags & 0x20000) ? 0x3E : 3;
-                gdl = (Gfx *)func_15142E24((s32)gdl, (s32)&D_80090B60[texture],
-                                         owner->frame, 2, 0, 0, texture, 0, 0,
-                                         &changed, mode);
-            }
-            gdl = func_15142C10(gdl, red2, green2, blue2, alpha2, &changed);
-            gdl = func_15142CF0(gdl, 0, 0, red, green, blue, alpha, &changed);
-            gdl = func_1513F4E4(gdl, combineMode, &changed);
-            mode = (owner->texture == 255) ? 0 : D_800D2C9C;
-            blendMode = D_800A4AC8[renderMode];
-            gdl = func_15142FBC(gdl, mode | 0x80000 | 0x2CA0,
-                               blendMode[1] | blendMode[0], &changed);
-            packet = gdl++;
-            packet->words.w0 = 0x01004008;
-            packet->words.w1 = (u32)owner->vertices;
-            packet = gdl++;
-            packet->words.w0 = 0x05000204;
-            packet->words.w1 = 0;
-            packet = gdl++;
-            packet->words.w0 = 0x05000406;
-            packet->words.w1 = 0;
+            return gdl;
         }
+        changed = 1;
+        renderMode = owner->renderMode & 0xFF;
+        combineMode = (owner->renderMode & 0xFFFF0000) >> 16;
+        savedFlags = owner->flags & 0x30;
+        mode = (owner->flags & 0x4000) ? owner->transformMode : 0;
+        gdl = (Gfx *)func_151462C8((s32)gdl, owner->transform, 0, 0, 0,
+                                  viewport, owner->auxiliary, 2, mode);
+        mode = (owner->flags & 0x100) ? owner->colorMode : 3;
+        func_151441A4(&red, &green, &blue, &alpha, owner->red, owner->green,
+                     owner->blue, owner->intensity, 255, 255, 255,
+                     owner->alpha, owner->blend, mode);
+        mode = (owner->flags & 0x200) ? owner->alphaMode : 4;
+        func_151442FC(&red2, &green2, &blue2, &alpha2, owner->red, owner->green,
+                     owner->blue, owner->intensity, 255, 255, 255,
+                     owner->alpha, owner->blend, mode);
+        geometry = 0;
+        if (savedFlags & 0x10) {
+            geometry = 0x200;
+        }
+        if (savedFlags & 0x20) {
+            geometry |= 0x400;
+        }
+        mode = (owner->flags & 0x400) ? 0x20000 : 0;
+        gdl = func_15142B7C(gdl, mode | geometry | 1, 0x600);
+        texture = owner->texture;
+        if (texture != 255) {
+            mode = (owner->flags & 0x20000) ? 0x3E : 3;
+            gdl = (Gfx *)func_15142E24((s32)gdl, (s32)&D_80090B60[texture],
+                                     owner->frame, 2, 0, 0, texture, 0, 0,
+                                     &changed, mode);
+        }
+        gdl = func_15142C10(gdl, red2, green2, blue2, alpha2, &changed);
+        gdl = func_15142CF0(gdl, 0, 0, red, green, blue, alpha, &changed);
+        gdl = func_1513F4E4(gdl, combineMode, &changed);
+        mode = (owner->texture == 255) ? 0 : D_800D2C9C;
+        blendMode = D_800A4AC8[renderMode];
+        gdl = func_15142FBC(gdl, mode | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20,
+                           blendMode[0] | blendMode[1], &changed);
+        gSPVertex(gdl++, owner->vertices, 4, 0);
+        gSP1Triangle(gdl++, 0, 1, 2, 0);
+        gSP1Triangle(gdl++, 0, 2, 3, 0);
     }
     return gdl;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
+
 extern void (*D_80089F60)(s32, s32, u8);
 
 void func_1513CF9C(s32 arg0, s32 arg1, u8 arg2) {
@@ -896,26 +886,26 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E83C CURRENT (1509) */
-void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
+void *func_1513E83C(Game169510ScaledOwner *owner, s16 arg1) {
     f32 matrix[4][4];
     s16 index;
     Game169510ScaledVertex *vertices;
     void *result;
     f32 coords[4][3];
-    u8 fresh;
-    f32 *point;
 
-    arg1 = (s16)arg1;
-    func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
-    result = vertices;
-    if (vertices != 0) {
-        if (fresh != 0) {
-            func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
-            func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
+    {
+        u8 fresh;
+
+        func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+        result = vertices;
+        if (vertices != 0) {
+            if (fresh != 0) {
+                func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
+                func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
+            }
+        } else {
+            return 0;
         }
-    } else {
-        return 0;
     }
     coords[0][0] = owner->width;
     coords[0][1] = owner->height;
@@ -927,7 +917,6 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     coords[3][1] = -owner->height;
     func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
     matrix[3][0] = owner->x;
-    index = 0;
     matrix[3][1] = owner->y;
     matrix[3][2] = owner->z;
     matrix[0][0] *= owner->sx;
@@ -939,20 +928,17 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     matrix[2][0] *= owner->sz;
     matrix[2][1] *= owner->sz;
     matrix[2][2] *= owner->sz;
-    do {
-        point = coords[index];
+    for (index = 0; index < 4; index++) {
+        f32 *point = coords[index];
         func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
         vertices->x = (s32)point[0];
         vertices->y = (s32)point[1];
-        index++;
         vertices->z = (s32)point[2];
         vertices->flag = 0;
         vertices++;
-    } while (index < 4);
+    }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513E83C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E83C.s")
 
 extern f32 D_800DD1D8[], D_800DD1E8[];
 
@@ -1172,36 +1158,6 @@ s16 func_15143044(u8, s32);
 extern u8 D_800A4BA8[];
 extern s16 D_800DD1BE;
 
-#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
-#define G_SETCOMBINE 0xfc
-#define G_RDPPIPESYNC 0xe7
-#define gDPNoParam(pkt, cmd) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(cmd, 24, 8); \
-    _g->words.w1 = 0; \
-}
-#define gDPPipeSync(pkt) gDPNoParam(pkt, G_RDPPIPESYNC)
-#define gDPSetCombine(pkt, muxs0, muxs1) \
-{ \
-    Gfx *_g = (Gfx *)(pkt); \
- \
-    _g->words.w0 = _SHIFTL(G_SETCOMBINE, 24, 8) | _SHIFTL(muxs0, 0, 24); \
-    _g->words.w1 = (u32)(muxs1); \
-}
-#define GCCc0w0(saRGB0, mRGB0, saA0, mA0) \
-    (_SHIFTL((saRGB0), 20, 4) | _SHIFTL((mRGB0), 15, 5) | \
-     _SHIFTL((saA0), 12, 3) | _SHIFTL((mA0), 9, 3))
-#define GCCc1w0(saRGB1, mRGB1) \
-    (_SHIFTL((saRGB1), 5, 4) | _SHIFTL((mRGB1), 0, 5))
-#define GCCc0w1(sbRGB0, aRGB0, sbA0, aA0) \
-    (_SHIFTL((sbRGB0), 28, 4) | _SHIFTL((aRGB0), 15, 3) | \
-     _SHIFTL((sbA0), 12, 3) | _SHIFTL((aA0), 9, 3))
-#define GCCc1w1(sbRGB1, saA1, mA1, aRGB1, sbA1, aA1) \
-    (_SHIFTL((sbRGB1), 24, 4) | _SHIFTL((saA1), 21, 3) | \
-     _SHIFTL((mA1), 18, 3) | _SHIFTL((aRGB1), 6, 3) | \
-     _SHIFTL((sbA1), 3, 3) | _SHIFTL((aA1), 0, 3))
 
 Gfx *func_1513F4E4(Gfx *gdl, u8 arg1, u8 *arg2) {
     extern s16 D_800DD1BE;
@@ -1376,26 +1332,26 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15140190 CURRENT (1466) */
-void *func_15140190(Game169510RenderOwner *arg0, s32 arg1) {
+void *func_15140190(Game169510RenderOwner *arg0, s16 arg1) {
     Game169510Vertex *vertices;
     void *result;
     f32 matrix[4][4];
     f32 coords[4][3];
-    u8 fresh;
-    f32 *point;
     u8 index;
-    s16 bufferIndex = (s16)arg1;
 
-    func_151D5D60(arg0->buffers, bufferIndex, 0x40, (void **)&vertices, &fresh);
-    result = vertices;
-    if (vertices != 0) {
-        if (fresh != 0) {
-            func_10022EC0(arg0->buffers[bufferIndex], arg0->templateData, 0x40);
-            func_10022EC0(arg0->buffers[bufferIndex] + 0x40, arg0->templateData, 0x40);
+    {
+        u8 fresh;
+
+        func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+        result = vertices;
+        if (vertices != 0) {
+            if (fresh != 0) {
+                func_10022EC0(arg0->buffers[arg1], arg0->templateData, 0x40);
+                func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->templateData, 0x40);
+            }
+        } else {
+            return 0;
         }
-    } else {
-        return 0;
     }
     coords[0][0] = arg0->width;
     coords[0][1] = arg0->height;
@@ -1410,24 +1366,20 @@ void *func_15140190(Game169510RenderOwner *arg0, s32 arg1) {
     coords[3][1] = -arg0->height;
     coords[3][2] = 0.0f;
     func_150A8050(matrix, arg0->rx, arg0->ry, arg0->rz);
-    index = 0;
     matrix[3][0] = arg0->x;
     matrix[3][1] = arg0->y;
     matrix[3][2] = arg0->z;
-    do {
-        point = coords[index];
+    for (index = 0; index < 4; index++) {
+        f32 *point = coords[index];
         func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
         vertices->x = (s32)point[0];
         vertices->y = (s32)point[1];
         vertices->z = (s32)point[2];
         vertices->flag = 0;
         vertices++;
-        index++;
-    } while (index < 4);
+    }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15140190 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_15140190.s")
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A5168;
 

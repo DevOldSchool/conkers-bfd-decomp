@@ -16,7 +16,6 @@
  * - func_1502F01C
  * - func_1502F3C8
  * - func_1502F9FC
- * - func_1502FBE8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -103,7 +102,7 @@ void func_1502DF38(s32, s32);
 void func_1502C608(s32);
 void func_1502E4C4(s32);
 void func_1502F264(s32);
-void func_1502FBE8(void *);
+void func_1502FBE8(u8 *);
 void func_1503A08C(void *);
 void func_1503A830(void *);
 void func_1503DF48(s32);
@@ -499,7 +498,7 @@ extern f32 D_80096DE0;
 extern f32 D_80096DE4;
 extern u8 D_800BE616;
 extern u8 D_800C35EA;
-void func_150837D4(s32, u8, s32, void *);
+void func_150837D4(s32, s32, s32);
 
 /* Semantic role: actor_update_distance_representation.
  * With override +1C9 zero, choose from the automatic prefix by view distance,
@@ -568,7 +567,7 @@ void func_1502C6E8(s32 arg0, s16 arg1, s32 arg2) {
             }
             if (selected != -1 && selected != actor->lod) {
                 modelId = actor->models[selected];
-                func_150837D4(arg0, modelId, 0, actor);
+                func_150837D4(arg0, modelId, 0);
                 actor->lod = selected;
             }
         }
@@ -1612,8 +1611,8 @@ extern u8 D_800C35EA;
 extern u8 D_800C3638;
 extern u16 D_800C5A90[];
 extern void *D_800D1588[];
-void func_150837D4(s32, u8, s32, void *);
-void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
+void func_150837D4(s32, s32, s32);
+void func_1505E650(void *, u16, f32, f32, f32, f32, s32);
 
 /* Semantic role: actor_apply_representation_override.
  * Zero returns; 0xFF clears the override and applies entry zero. Other selectors
@@ -1621,56 +1620,46 @@ void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
  * Rejected nonzero selectors remain stored and still inhibit automatic choice.
  * See docs/evidence/assets/naming/actor_representation_selection_semantics.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FBE8 CURRENT (979) */
-void func_1502FBE8(void *arg0) {
-    u8 *actor = arg0;
-    u8 current = actor[0x1C9];
-    s32 actor_index = (s32)((u32)actor - (u32)&D_800CC2D0) / 0x32C;
-    void *old;
+void func_1502FBE8(u8 *actor) {
     s32 next;
+    void *old;
     s32 selection;
-    s32 mode;
-    s32 value;
 
-    if (current == 0) {
+    if (actor[0x1C9] == 0) {
         return;
     }
     old = D_800D1588[actor[4]];
-    if (current == 0xFF) {
+    if (actor[0x1C9] == 0xFF) {
         actor[0x1C9] = 0;
         next = 0;
     } else {
-        next = current - 1;
+        next = actor[0x1C9] - 1;
         if (next >= actor[0x2C9] || next == actor[0x1C8]) {
             return;
         }
     }
-    selection = *(u8 *)(*(u8 **)(actor + 0x2C4) + next);
-    func_150837D4(actor_index, selection, 0, old);
+    selection = (*(u8 **)(actor + 0x2C4))[next];
+    func_150837D4((actor - &D_800CC2D0) / 0x32C, selection, 0);
     actor[0x1C8] = next;
-    mode = D_800C35EA;
-    if (mode == 1) {
+    if (D_800C35EA == 1) {
         D_800C3638 = 0;
     }
     if (old != D_800D1588[selection]) {
-        value = *(u16 *)(actor + 0x84);
-        if (value >= D_800C5A90[selection]) {
+        if (*(u16 *)(actor + 0x84) >= D_800C5A90[selection]) {
             *(u16 *)(actor + 0x84) = 0xFFFF;
-            func_1505E650(arg0, 0, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+            func_1505E650(actor, 0, 1.0f, 0.0f, 0.0f, 0.0f, 0);
         } else {
+            s32 anim = *(u16 *)(actor + 0x84);
+
             *(u16 *)(actor + 0x84) = 0xFFFF;
-            func_1505E650(arg0, value, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+            func_1505E650(actor, anim, 1.0f, 0.0f, 0.0f, 0.0f, 0);
         }
-        mode = D_800C35EA;
     }
-    if (mode == 1) {
+    if (D_800C35EA == 1) {
         D_800C3638 = 1;
     }
-    func_1507EABC(arg0);
-}
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502FBE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502FBE8.s")
-extern u8 D_80038080;
+    func_1507EABC(actor);
+}extern u8 D_80038080;
 extern s32 D_800BE9F0;
 extern u8 D_800D2040;
 

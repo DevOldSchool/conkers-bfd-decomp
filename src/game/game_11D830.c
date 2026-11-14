@@ -9,7 +9,6 @@
  * - func_150F03F8
  * - func_150F0BEC
  * - func_150F16DC
- * - func_150F1A00
  * - func_150F1D10
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -713,17 +712,17 @@ extern f32 D_800A18F0;
 extern s32 D_800BE9E4;
 extern u8 D_800CC298[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1A00 CURRENT (1581) */
 void func_150F1A00(void *arg0) {
+    s32 i;
     Game11D830Weights weights;
+    s32 j;
     s32 index;
     s32 flags;
-    s32 i;
-    s32 j;
     f32 *row;
-    f32 *cursor;
-    f32 current;
+    u8 *base;
     f32 scale;
+    s16 *angle;
+    s32 weight;
 
     weights = D_80088B00;
     index = 0;
@@ -734,26 +733,18 @@ void func_150F1A00(void *arg0) {
     if ((flags & 0xC) == 0xC) {
         index = 2;
     }
-    *(s16 *)(D_800CC298 + 0x14) += weights.value[index] * D_800BE9E4;
-    scale = ((func_15047C00((f32)*(s16 *)(D_800CC298 + 0x14) * D_800A18E8) + 1.0f)
+    angle = (s16 *)(D_800CC298 + 0x14);
+    weight = weights.value[index];
+    *angle += weight * D_800BE9E4;
+    scale = ((func_15047C00((f32)*angle * D_800A18E8) + 1.0f)
              * 0.5f * D_800A18EC) + D_800A18F0;
-    row = (f32 *)((u8 *)*(void **)((u8 *)arg0 + 0x1D4) + 0xF80);
-    for (i = 0; i != 3; i++) {
-        cursor = row;
-        j = 1;
-        current = *cursor * scale;
-        do {
-            j++;
-            *cursor = current;
-            current = cursor[1] * scale;
-            cursor++;
-        } while (j != 3);
-        *cursor = current;
-        row += 4;
+    base = *(u8 **)((u8 *)arg0 + 0x1D4);
+    for (i = 0, row = (f32 *)(base + 0xF80); i != 3; i++, row += 4) {
+        for (j = 0; j != 3; j++) {
+            row[j] *= scale;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F1A00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1A00.s")
 extern u8 D_800CC354[];
 extern f32 D_800A18F4;
 extern f32 D_800A18F8;

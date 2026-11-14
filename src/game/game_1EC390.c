@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151BEEE0
- * - func_151BF0C8
  * - func_151BF340
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -177,7 +176,6 @@ extern f32 D_800AA8E8, D_800AA8EC, D_800AA8F0, D_800AA8F4;
 extern f32 D_800AA8F8, D_800AA8FC, D_800AA900;
 extern f32 D_800AA904, D_800AA908, D_800AA90C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BF0C8 CURRENT (961) */
 void func_151BF0C8(f32 *arg0) {
     Game150F90Config first;
     GameBF0C8Burst second;
@@ -202,7 +200,6 @@ void func_151BF0C8(f32 *arg0) {
     first.scale = D_800AA8FC;
     func_15150F90(&first, 1, 255, 1);
     second.countBase = 20;
-    second.field1E = 6;
     second.countRange = 8;
     second.kind = 108;
     second.texture = 0x5103;
@@ -215,6 +212,7 @@ void func_151BF0C8(f32 *arg0) {
     second.zero14 = 0;
     second.zero18 = 0;
     second.field1D = 145;
+    second.field1E = 6;
     second.field20 = 255;
     second.field21 = 255;
     second.field22 = 0;
@@ -245,8 +243,6 @@ void func_151BF0C8(f32 *arg0) {
     second.field68 = D_800AA90C;
     func_15153634(&second, 255, 255, 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BF0C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF0C8.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF340.s")
 typedef struct Game1EC390Animation {

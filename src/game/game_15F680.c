@@ -10,7 +10,6 @@
  * - func_1513264C
  * - func_15132B80
  * - func_15133588
- * - func_151336A8
  * - func_15133894
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -276,7 +275,7 @@ extern s32 D_800BE9F0;
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(void *);
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151336A8(u16, Game15F680ListNode *, void *);
+s32 func_151336A8(s32, Game15F680ListNode *, void *);
 void *func_1515D480(s32);
 void func_15168A9C(void *);
 
@@ -754,8 +753,8 @@ void func_15133588(void *arg0, void *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15133588 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133588.s")
 s32 *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
-void func_1510CE60(s32, s32, s32, s32, void *);
-void func_15168E54(s32, s32 *);
+s32 func_1510CE60(s32, s32, s32, s32, void *);
+void func_15168E54(s8 *, s32);
 extern s32 D_800A3880[];
 extern u8 D_800DC640[];
 
@@ -766,25 +765,19 @@ extern u8 D_800DC640[];
  * list. Returns zero for a null load, otherwise one; downstream allocation
  * success is not checked here. No local selector bounds check is performed.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151336A8 CURRENT (473) */
-s32 func_151336A8(s32 arg0, s32 **arg1, s32 arg2) {
+s32 func_151336A8(s32 arg0, Game15F680ListNode *arg1, void *arg2) {
     s32 sp2C;
     s32 sp28;
-    s32 sp24;
-    s32 *temp_v0;
 
-    sp24 = arg0 * 4;
-    temp_v0 = func_1502B6BC(&sp2C, 0, &sp28, 2, 9, D_800A3880[arg0]);
-    *arg1 = temp_v0;
-    if (temp_v0 == 0) {
+    arg1->resource = func_1502B6BC(&sp2C, 0, &sp28, 2, 9, D_800A3880[arg0]);
+    if (arg1->resource == NULL) {
         return 0;
     }
-    func_1510CE60(**arg1, 0, 1, 0x3E, D_800DC640 + sp24);
-    func_15168E54(**arg1, *arg1);
+    func_1510CE60(*(s32 *)arg1->resource, 0, 1, 0x3E, D_800DC640 + arg0 * 4);
+    func_15168E54(*(s8 **)arg1->resource, (s32)arg1->resource);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151336A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151336A8.s")
+
 s32 func_15133760(s32 arg0, Game15F680TransformState *arg1) {
     func_15142838(arg0, arg1->field18, arg1->field1C, arg1->field20,
                   arg1->field24, arg1->field28, arg1->field38,

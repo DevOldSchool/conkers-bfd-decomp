@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151DE8F0
- * - func_151DF1BC
  * - func_151DF574
  * - func_151E0424
  * - func_151E0B70
@@ -53,14 +52,13 @@ extern s32 D_800BE9E4;
 extern u8 D_800E0A95;
 extern s8 D_800E0A96;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DF1BC CURRENT (4070) */
 void func_151DF1BC(void) {
     u32 buttons;
     s32 alpha;
     s32 animation;
     GameDF1BCActor *actor;
 
-    *(GameDF1BCActor *volatile *)&actor = func_15083E90(9);
+    actor = func_15083E90(9);
     if (D_800E0A96 != -1) {
         alpha = D_800E0A95 - (D_800BE9E4 << 5);
         if (alpha <= 0) {
@@ -76,7 +74,7 @@ void func_151DF1BC(void) {
             if (actor != NULL) {
                 actor->animationId = animation;
                 D_800D154C = actor;
-                D_800C3E78 = ((u8 *)actor - D_800CC2D0) / 0x32C;
+                D_800C3E78 = ((u8 *)D_800D154C - D_800CC2D0) / 0x32C;
                 actor->animation = func_1507BB28(0, actor->animationId);
                 actor->frame = 0;
                 actor->duration = 0x14;
@@ -102,9 +100,8 @@ void func_151DF1BC(void) {
         if ((buttons & 0x10) && D_8008FE34 == 0x15 && D_8008FDE8 == 0.0f) {
             D_800E0A96 = 1;
             *(u16 *)(D_8008FDD4 + 0x20) &= 0xFFCF;
-            buttons = *(u16 *)(D_8008FDD4 + 0x20);
         }
-        if (buttons & 0x20) func_15007668();
+        if (*(u16 *)(D_8008FDD4 + 0x20) & 0x20) func_15007668();
     }
     if (actor != NULL) {
         if (func_151F2CDC() == 1) {
@@ -115,7 +112,7 @@ void func_151DF1BC(void) {
         if (*(u16 *)(D_8008FDD4 + 0x20) & 0x20) D_800E0A96 = 1;
         *(u16 *)(D_8008FDD4 + 0x20) &= 0xFFDF;
         if (D_8008FEF8 != 0) {
-            func_1504332C(0xFF, 0, 0, (u8)alpha);
+            func_1504332C(0xFF, 0, 0, alpha);
             func_15042D94(0x94, 0x14, 0x81, (s32)D_800AB800, 0x10);
         }
         D_800BE9EC = 0;
@@ -123,8 +120,6 @@ void func_151DF1BC(void) {
         if (D_800E9D00 & 0x800000) D_800BE9EC = 2;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DF1BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20BDA0/func_151DF1BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20BDA0/func_151DF574.s")
 typedef struct Game20BDA0Record {
     u32 time;

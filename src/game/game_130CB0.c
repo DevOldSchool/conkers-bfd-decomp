@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15103828
- * - func_15103AA0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -132,48 +131,43 @@ s32 func_15103910(void *arg0, s32 *arg1, u32 *arg2, s32 *arg3, s32 *arg4, s32 *a
     return 0;
 }
 
-void func_1000F85C(u16, s32, s32, u32);
+void func_1000F85C(u16, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103AA0 CURRENT (785) */
 s32 func_15103AA0(void *arg0, s32 *arg1, u32 *arg2, s32 *arg3,
                   s32 *arg4, s32 *arg5, u16 *arg6) {
+    u32 remaining;
     Game130CB0Record *record;
     Game130CB0Source *source;
-    s32 packed;
-    u32 remaining;
-    u16 trigger;
 
     record = arg0;
     source = record->source;
-    packed = record->remaining;
-    remaining = packed & 0x7FFF;
+    remaining = record->remaining & 0x7FFF;
     record->x = (s16)(s32)source->x;
     record->y = (s16)(s32)source->y;
     record->z = (s16)(s32)source->z;
     if (remaining != 0) {
-        trigger = *arg6;
-        if (trigger != 0) {
-            record->remaining = ((u32)trigger << 16) | (packed & 0xFFFF);
+        if (*arg6 != 0) {
+            record->remaining = (*arg6 << 16) | (record->remaining & 0xFFFF);
             record->field0 = 0;
             *arg6 = 0;
-            func_10010344(0x5B0, (s32)source, (u32)-0x61A8, record->fieldA, record->field8);
+            func_10010344(0x5B0, (s32)source, -0x61A8, record->fieldA, record->field8);
             return 0;
         }
-        if ((u32)D_800BE9E4 >= remaining) {
-            *arg6 = packed >> 16;
-            record->field0 = packed >> 16;
+        if (remaining <= D_800BE9E4) {
+            *arg6 = record->remaining >> 16;
+            record->field0 = *arg6;
             record->remaining &= ~0x7FFF;
             return 0;
         }
         remaining -= D_800BE9E4;
     } else {
         if (record->field24 == 0) {
-            func_10010344(0x5B1, (s32)source, (u32)-0x61A8, record->fieldA, record->field8);
+            func_10010344(0x5B1, (s32)source, -0x61A8, record->fieldA, record->field8);
             return 1;
         }
-        if (packed != 0) {
-            if ((packed & 0x8000) == 0) {
-                func_1000F85C(record->field24, -0x8000, 2, remaining);
+        if (record->remaining != 0) {
+            if (!(record->remaining & 0x8000)) {
+                func_1000F85C(record->field24, -0x8000, 2);
             }
             record->remaining = 0;
         }
@@ -182,8 +176,6 @@ s32 func_15103AA0(void *arg0, s32 *arg1, u32 *arg2, s32 *arg3,
     record->remaining = (record->remaining & ~0x7FFF) | remaining;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15103AA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103AA0.s")
 typedef s32 (*Game130CB0SoundCallback)(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
 
 s32 func_10010894(void *);

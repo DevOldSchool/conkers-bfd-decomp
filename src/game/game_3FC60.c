@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_3FC60.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15012ED8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game3FC60Scene {
@@ -149,34 +144,17 @@ extern u8 D_800BE530[];
 extern s16 D_800BE550[];
 extern u8 D_800BE564;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012ED8 CURRENT (300) */
 void func_15012ED8(u32 *arg0) {
-    u32 index;
-    s32 tag;
-    u32 *record;
-    u8 value;
-    u8 *output;
+    s32 i;
+    s32 op;
 
-    index = 0;
-    tag = *arg0;
-    record = arg0;
-    tag = (s8)((u32)tag >> 24);
-    while (tag != -0x21) {
-        if (tag == -5) {
-            tag = D_800BE564;
-            D_800BE550[tag] = index;
-            output = D_800BE530 + (tag * 3);
-            output[0] = (u8)(record[1] >> 24);
-            D_800BE564 = tag + 1;
-            output[1] = (u8)(record[1] >> 16);
-            value = (u8)(record[1] >> 8);
-            output[2] = value;
+    for (i = 0; (op = (s8)(arg0[i * 2] >> 24)) != -0x21; i++) {
+        if (op == -5) {
+            D_800BE550[D_800BE564] = i;
+            D_800BE530[D_800BE564 * 3] = (arg0[i * 2 + 1] >> 24) & 0xFF;
+            D_800BE530[D_800BE564 * 3 + 1] = (arg0[i * 2 + 1] >> 16) & 0xFF;
+            D_800BE530[D_800BE564 * 3 + 2] = (arg0[i * 2 + 1] >> 8) & 0xFF;
+            D_800BE564++;
         }
-        tag = record[2];
-        index += 1;
-        record += 2;
-        tag = (s8)((u32)tag >> 24);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15012ED8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3FC60/func_15012ED8.s")

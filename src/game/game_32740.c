@@ -7,8 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15005290
- * - func_150054C4
  * - func_15005818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -16,7 +14,7 @@
 
 s32 func_10003C40(s32 size, s32 pool, s32 flags, s32 alignment);
 s32 func_1502B5C8(s32 *size, s32 count, ...);
-void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode);
+void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode);
 void func_1512ABF8(void);
 void func_1512D238(void);
 
@@ -31,16 +29,11 @@ extern u8 *D_800DC020;
 extern u8 *D_800DC2A0[2];
 extern u8 *D_800DC2B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15005290 CURRENT (2519) */
 void func_15005290(s32 resource, s32 mode) {
+    u32 index;
     s32 resource_size;
-    u8 **buffer;
     s32 count;
     s32 matrix_bytes;
-    u8 *view;
-    u8 *flag;
-    u32 index;
-    s16 view_resource;
 
     D_800DC020 = (u8 *)func_1502B5C8(&resource_size, 3, 0xC, resource, 8);
     D_80089550 = (u32)resource_size / 24U;
@@ -50,26 +43,18 @@ void func_15005290(s32 resource, s32 mode) {
     D_800DC2B0 = (u8 *)func_10003C40(count * 0xB0, 1, 0, 0);
     D_800DC2A0[0] = (u8 *)func_10003C40(matrix_bytes, 1, 1, 0);
     D_800DC2A0[1] = (u8 *)func_10003C40(matrix_bytes, 1, 1, 0);
-    view_resource = resource;
-    flag = D_800DBFF4;
-    buffer = D_800BE2B0;
-    index = 0;
-    do {
-        view = (u8 *)&D_800DBFF0[index];
-        *buffer = (u8 *)func_10003C40(D_800BE620 * 2, 1, 2, 0);
-        func_150054C4(view, index, (s16)view_resource, mode);
-        *flag = 0;
-        index += 1;
-        buffer += 1;
-        flag += 1;
-    } while ((u32)D_80082FA0 >= index);
+    for (index = 0; index <= (u32)D_80082FA0; index++) {
+        u8 *view = (u8 *)&D_800DBFF0[index];
+
+        D_800BE2B0[index] = (u8 *)func_10003C40(D_800BE620 * 2, 1, 2, 0);
+        func_150054C4(view, index, resource, mode);
+        D_800DBFF4[index] = 0;
+    }
     func_1512ABF8();
     func_1512D238();
     D_800894B0 = 0;
     D_800DC010 = (u8 *)func_10003C40(D_80082FA0 * 0x9A0 + 0x9A0, 1, 2, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15005290 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_15005290.s")
 typedef struct Game32740View {
     u8 pad0[0x2C];
     s32 field2C;
@@ -169,27 +154,24 @@ void func_1512D66C(void *);
 void func_1512D6F0(void *);
 void func_151298C0(u8 *, s16, void *);
 extern s32 D_80089520, D_80089524[], D_80089534[];
-extern f32 D_800959E0, D_800959E4, D_800959E8, D_800959EC;
 extern void *D_800B0DF0;
 extern s32 D_800BE624;
 extern s8 D_800C3671;
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150054C4 CURRENT (485) */
-void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
+void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode) {
     Game32740View *state = (Game32740View *)view;
-    u16 i = 0;
+    u16 i;
     s32 actorIndex;
     u8 *actor;
-    f32 value;
 
     func_100226F0(view, 0x9A0);
-    state->field23D = index;
     state->field23C = 1;
-    do {
+    state->field23D = index;
+    for (i = 0; i < 0x15; i++) {
         func_151239CC(view, i);
-        state->field1B6[i++] = 0x3E7;
-    } while (i < 0x15);
+        state->field1B6[i] = 0x3E7;
+    }
     state->field5D4 = ((f32)D_800BE624 * 60.0f) / 216.0f;
     state->field5D8 = ((f32)D_800BE624 * 40.0f) / 216.0f;
     actorIndex = state->field23D;
@@ -216,12 +198,12 @@ void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
     state->field2B0 = state->field2A4;
     state->field2B4 = state->field2A8;
     state->field2B8 = state->field2AC;
-    state->field384 = D_800959E0;
+    state->field384 = 999.0f;
     state->field5F0 |= 0x80000000;
     func_15124AB4(view);
     func_15125394(view);
     state->field5FC = 0xA;
-    state->field26C = 1.0f;
+    state->field26C = 1.0;
     func_1512D66C(view);
     actorIndex = state->field23D;
     state->field238 = -1;
@@ -230,24 +212,23 @@ void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
     actor = D_800CC2D0 + actorIndex * 0x32C;
     state->field3D0 = actor;
     state->field3D4 = *(u8 **)(actor + 0x31C);
-    func_151298C0(view, ((s16 *)&resource)[1], actor);
-    value = D_800959E4;
+    func_151298C0(view, resource, actor);
     state->field7CC = 2;
     state->field3F4 = -1.0f;
     state->field3F8 = -1.0f;
-    state->field7BC = value;
+    state->field7BC = 999.0f;
     state->field3E0 = state->field3A0;
-    *(f32 *)(state->field3D4 + 0x18C) = value;
+    *(f32 *)(state->field3D4 + 0x18C) = 999.0f;
     func_1512D6F0(view);
     func_15125924(view);
     state->field674 = 1.0f;
     func_15085430(state->field3D0, mode, 0);
-    func_15005A60(view, ((s16 *)&resource)[1]);
-    state->field364 = D_800959E8;
+    func_15005A60(view, resource);
+    state->field364 = -10000.0f;
     *(Game32740Words3 *)state->field2E0 = *(Game32740Words3 *)state->field2BC;
     *(Game32740Words3 *)state->field2EC = *(Game32740Words3 *)state->field2F8;
     state->field7E8 = 50.0f;
-    state->field86C = D_800959EC;
+    state->field86C = 999.0f;
     state->field8BC = D_800BE2B0[state->field23D];
     D_80089520 = 0;
     D_800C3671 = 0;
@@ -256,8 +237,7 @@ void func_150054C4(u8 *view, u32 index, s32 resource, s32 mode) {
     state->field5FE = 0x3C;
     state->field23C = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150054C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_150054C4.s")
+
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)

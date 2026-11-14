@@ -345,16 +345,26 @@ void *func_15130374(s32, u8, s32, u8, s32);
 f32 func_150ADA68(void);
 extern f32 D_800AA854, D_800AA858, D_800AA85C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD43C CURRENT (3202) */
-void func_151BD43C(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
+typedef struct Game1E9A30Emitter {
+    u8 pad00;
+    u8 field01;
+    u8 pad02[0xA];
+    u8 field0C;
+    u8 pad0D[0xF];
+    u8 *owner;
+    u8 pad20[0x54];
+    f32 scale;
+} Game1E9A30Emitter;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD43C */
+void func_151BD43C(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, Game1E9A30Emitter *arg5) {
     Game1E9A30Particle particle;
     f32 scale;
     void *spawned;
     Game1E9A30Owner owner;
-    s32 flag0;
-    s32 flag1;
+    u8 *obj = arg5->owner;
 
-    if ((*(u8 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x74) & 0xF) != 0xF) {
+    if ((obj[0x74] & 0xF) != 0xF) {
         particle.kind = 0x29;
         particle.texture = 0xE03;
         particle.flags = 0x200005;
@@ -364,9 +374,7 @@ void func_151BD43C(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3, f32 arg4, void *arg
         particle.rotation = (func_150ADA68() * 251.0f + 44.0f) * D_800AA854;
         particle.duration = 0x14;
         particle.period = 0xC;
-        flag0 = (func_150ADA20() & 1) ? 0x40 : 0;
-        flag1 = (func_150ADA20() & 1) ? 0x80 : 0;
-        particle.mode = flag1 | 7 | flag0 | 0xDE00;
+        particle.mode = ((func_150ADA20() & 1) ? 0x40 : 0) | (((func_150ADA20() & 1) ? 0x80 : 0) | 7) | 0x8000 | 0x4000 | 0x1000 | 0x800 | 0x400 | 0x200;
         particle.field60 = 3;
         particle.field61 = 3;
         particle.field63 = -1;
@@ -386,23 +394,22 @@ void func_151BD43C(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3, f32 arg4, void *arg
         particle.maximum = 0xFF;
         particle.lifetime = func_150ADA20() % 18U + 0x19;
         particle.width = particle.height = func_150ADA68() * 53.0f + 49.0f;
-        particle.vx = (arg1[0] - arg0[0]) * *(f32 *)((u8 *)arg5 + 0x74);
-        particle.vy = (arg1[1] - arg0[1]) * *(f32 *)((u8 *)arg5 + 0x74);
-        particle.vz = (arg1[2] - arg0[2]) * *(f32 *)((u8 *)arg5 + 0x74);
-        particle.x = arg0[0] - *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x14);
-        particle.y = arg0[1] - *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x18);
-        particle.z = arg0[2] - *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x1C);
+        particle.vx = (arg1->x - arg0->x) * arg5->scale;
+        particle.vy = (arg1->y - arg0->y) * arg5->scale;
+        particle.vz = (arg1->z - arg0->z) * arg5->scale;
+        particle.x = arg0->x - *(f32 *)(arg5->owner + 0x14);
+        particle.y = arg0->y - *(f32 *)(arg5->owner + 0x18);
+        particle.z = arg0->z - *(f32 *)(arg5->owner + 0x1C);
         particle.x += particle.vx * arg4;
         particle.y += particle.vy * arg4;
         particle.z += particle.vz * arg4;
-        owner.object = *(void **)((u8 *)arg5 + 0x1C);
+        owner.object = arg5->owner;
+        owner.id = arg5->owner[0x3B];
         particle.field62 = 0x13;
-        owner.id = *(u8 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x3B);
-        particle.originX = *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x14);
-        particle.originY = *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x18);
-        particle.originZ = *(f32 *)((u8 *)*(void **)((u8 *)arg5 + 0x1C) + 0x1C);
-        spawned = func_15130374((s32)&particle, 1, 0x10,
-                                *(u8 *)((u8 *)arg5 + 0xC), *(u8 *)((u8 *)arg5 + 1));
+        particle.originX = *(f32 *)(arg5->owner + 0x14);
+        particle.originY = *(f32 *)(arg5->owner + 0x18);
+        particle.originZ = *(f32 *)(arg5->owner + 0x1C);
+        spawned = func_15130374((s32)&particle, 1, 0x10, arg5->field0C, arg5->field01);
         if (spawned != NULL) {
             func_10022EC0((u8 *)spawned + 0xA8, &scale, 4);
             func_10022EC0((u8 *)spawned + 0xB0, &owner, 8);

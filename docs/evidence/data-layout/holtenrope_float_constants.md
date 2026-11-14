@@ -62,3 +62,22 @@ The match also names two struct fields that were padding before. In
 `HoltenRopePoint`, `velocity` (`Vec3f`) replaces `padC[0xC]`. In
 `HoltenRopeEffect`, `gain`, `stiffness` and `pad44[4]` replace `pad3C[0xC]`.
 No other source reads those bytes.
+
+## func_151B3A7C sub-pool (round-24)
+
+`func_151B3A7C` spaces the ten rope points evenly from the primary to the
+secondary anchor. Its raw HI16/LO16 pairs address 0x800AA394..0x800AA39F, which
+the checksum-validated archive holds as `3DE38E39 3DE38E39 3DE38E39`: `0.11111111f`
+(1/9) once per axis (IDO emits one word per use). With extern symbols the
+deferred body scored CURRENT 3908; as literals it is `CURRENT (0)`. The function
+precedes `func_151B3CF0`, so the three words open the object's `.rodata`, which
+grows from 0x20 to 0x30 bytes (0x2C payload, 4 zero alignment bytes). The new
+pool ends where the `func_151B3CF0` pool begins (0x800AA3A0). `D_800AA390`
+(`411DE9E7`) stays an extern read of the matched `func_151B30B0`, and
+0x800AA3AC..0x800AA3B7 stay extern reads of other members. Holtenrope now splits
+into four ranges, each with an exact linker size assertion:
+
+- `.rodata.holtenrope_0`: 0xC bytes at 0x800AA394 (new).
+- `.rodata.holtenrope_c`: 0xC bytes at 0x800AA3A0, renamed from `_0`.
+- `.rodata.holtenrope_18`: 0xC bytes at 0x800AA3B8, renamed from `_c`.
+- `.rodata.holtenrope_24`: 0x8 bytes at 0x800AA3C4, renamed from `_18`.

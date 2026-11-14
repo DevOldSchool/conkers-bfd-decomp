@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15003120
  * - func_150031EC
  * - func_150034B4
  * - func_15003570
@@ -23,43 +22,26 @@ void func_15001970(void);
 void func_15002754(void);
 void func_1510F800(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15003120 CURRENT (545) */
-void func_15003120(s32 arg0, s32 arg1, s32 arg2) {
-    s32 relocation;
-    s32 *temp_v1;
-    u8 *var_t0;
-    s32 temp_v0;
-    s32 var_t1;
-    s32 var_v1;
+typedef struct {
+    s32 start;
+    s32 end;
+    s32 unk8;
+} Game305D0Reloc;
 
-    relocation = arg1;
-    temp_v0 = arg0 * 4;
-    *(s32 *)(D_800B0E30 + temp_v0) = arg2;
-    *(u8 *)(D_800B0E34 + arg0) = 0;
+void func_15003120(s32 arg0, s32 arg1, s32 arg2) {
+    s32 i;
+
+    ((s32 *)D_800B0E30)[arg0] = arg2;
+    ((u8 *)D_800B0E34)[arg0] = 0;
     if (arg2 != 0) {
-        arg2 = 0;
-        temp_v1 = (void *)(D_800B0E30 + temp_v0);
-        *temp_v1 += relocation;
-        var_v1 = 0;
-        arg1 = *(s32 *)(D_800B0E30 + temp_v0);
-        var_t0 = (u8 *)arg1;
-        if (*(volatile s32 *)arg1 != 0) {
-            var_t1 = *(s32 *)arg1;
-            do {
-                *(s32 *)var_t0 = var_t1 + relocation;
-                arg2 += 1;
-                var_t0 = (void *)(*(s32 *)(D_800B0E30 + temp_v0) + var_v1);
-                var_v1 += 0xC;
-                *(s32 *)(var_t0 + 4) += relocation;
-                var_t0 = (void *)(*(s32 *)(D_800B0E30 + temp_v0) + var_v1);
-                var_t1 = *(s32 *)var_t0;
-            } while (var_t1 != 0);
+        ((Game305D0Reloc **)D_800B0E30)[arg0] = (Game305D0Reloc *)((u8 *)((Game305D0Reloc **)D_800B0E30)[arg0] + arg1);
+        for (i = 0; ((Game305D0Reloc **)D_800B0E30)[arg0][i].start != 0; i++) {
+            ((Game305D0Reloc **)D_800B0E30)[arg0][i].start += arg1;
+            ((Game305D0Reloc **)D_800B0E30)[arg0][i].end += arg1;
         }
-        *(u8 *)(D_800B0E34 + arg0) = arg2;
+        ((u8 *)D_800B0E34)[arg0] = i;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15003120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_15003120.s")
 typedef struct {
     u32 commands;
     u8 pad4[4];

@@ -151,7 +151,7 @@ typedef struct GameF4D20Object7C90 {
     s16 angle;
 } GameF4D20Object7C90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 */
 void func_150C7C90(GameF4D20State7C90 *arg0) {
     s32 angle;
     s32 *entry;
@@ -162,7 +162,7 @@ void func_150C7C90(GameF4D20State7C90 *arg0) {
     if (current == 0) {
         entry = (s32 *)arg0->entries;
         index = 0;
-        while (*((s8 *)entry + (index << 3)) != -14) {
+        while (*(s8 *)((index << 3) + (s32)entry) != -14) {
             index++;
         }
         arg0->index = index;

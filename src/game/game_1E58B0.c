@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1E58B0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151B8908
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -227,20 +222,15 @@ struct Game15D730CopyBlock;
 extern Game1E58B0ChoiceTable D_800AA4B8;
 extern Vec3i D_800A5480;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B8908 CURRENT (1068) */
 void *func_151B8908(void *arg0) {
+    s32 flags;
     Game1E58B0ActorDescriptor descriptor;
     Game1E58B0ChoiceTable choices;
-    f32 size;
-    s32 selected;
-    s32 secondFlags;
-    s32 firstFlags;
 
     choices = D_800AA4B8;
-    selected = choices.values[func_150ADA20() & 3];
+    descriptor.field1D = choices.values[func_150ADA20() & 3];
     descriptor.field08 = 0x1303;
     descriptor.field00 = 0x200005;
-    descriptor.field1D = (u8)selected;
     descriptor.field04 = 0;
     descriptor.field0A = 0x12C;
     descriptor.field0C = 0;
@@ -254,9 +244,7 @@ void *func_151B8908(void *arg0) {
     descriptor.fields14[6] = 0xFF;
     descriptor.fields14[7] = 0xFF;
     descriptor.fields14[8] = 0xFF;
-    size = (func_150ADA68() * 500.0f) + 900.0f;
-    descriptor.field2C = size;
-    descriptor.field28 = size;
+    descriptor.field28 = descriptor.field2C = (func_150ADA68() * 500.0f) + 900.0f;
     descriptor.field30 = *(Vec3i *)((u8 *)arg0 + 0x38);
     descriptor.field3C = D_800A5480;
     descriptor.field48 = D_800A5480;
@@ -265,13 +253,8 @@ void *func_151B8908(void *arg0) {
     descriptor.field22 = 1;
     descriptor.field54 = 0.0f;
     descriptor.field24 = 1.0f;
-    firstFlags = (func_150ADA20() & 1) ? 0x40 : 0;
-    if (func_150ADA20() & 1) {
-        secondFlags = 0x80;
-    } else {
-        secondFlags = 0;
-    }
-    descriptor.field58 = secondFlags | firstFlags | 0xC000 | 0x40000 | 0x800000;
+    flags = ((func_150ADA20() & 1) ? 0x40 : 0) | ((func_150ADA20() & 1) ? 0x80 : 0);
+    descriptor.field58 = flags | 0x8000 | 0x4000 | 0x40000 | 0x800000;
     descriptor.fields60[0] = 6;
     descriptor.fields60[1] = 5;
     descriptor.fields60[2] = -1;
@@ -283,5 +266,3 @@ void *func_151B8908(void *arg0) {
     return func_15130280(&descriptor, 1, 0, 0,
                           *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B8908 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8908.s")

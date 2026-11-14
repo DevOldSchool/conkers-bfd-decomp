@@ -83,90 +83,91 @@ void func_150AD8B0(f32 *, f32 *, f32 *);
 s32 func_15144B34(s32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D2D6C CURRENT (6389) */
-void *func_150D2D6C(u8 *arg0, s32 arg1) {
+typedef struct GameFFBA0Beam {
+    u8 pad0[0x2C];
+    f32 width;
+    u8 pad30[4];
+    Vec3f start;
+    Vec3f end;
+    u8 pad4C[0x74];
+    u8 vertexTemplate[0x40];
+    u8 *buffers[4];
+    f32 texture[2];
+} GameFFBA0Beam;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D2D6C */
+void *func_150D2D6C(GameFFBA0Beam *arg0, s16 arg1) {
     GameFFBA0BeamVertex *vertices;
     void *result;
-    f32 *camera;
-    f32 delta[3];
-    f32 end[3];
-    f32 middle[3];
-    f32 view[3];
-    f32 side[3];
+    Vec3f *camera;
+    Vec3f delta;
+    Vec3f end;
+    Vec3f middle;
+    Vec3f view;
+    Vec3f side;
     f32 lengthSquared;
-    f32 length;
+    f32 *texture;
     u8 fresh;
-    f32 scale;
-    u8 *slot;
-    u8 *source;
-    f32 x;
-    f32 y;
-    f32 z;
 
-    func_151D5D60(arg0 + 0x100, ((s16 *)&arg1)[1], 0x40, (void **)&vertices, &fresh);
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
     result = vertices;
     if (vertices != NULL) {
         if (fresh != 0) {
-            slot = arg0 + ((s16 *)&arg1)[1] * 4;
-            source = arg0 + 0xC0;
-            func_10022EC0(*(void **)(slot + 0x100), source, 0x40U);
-            func_10022EC0(*(u8 **)(slot + 0x100) + 0x40, source, 0x40U);
+            func_10022EC0(arg0->buffers[arg1], arg0->vertexTemplate, 0x40);
+            func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->vertexTemplate, 0x40);
         }
     } else {
         return NULL;
     }
-    camera = (f32 *)func_15144B34(((s16 *)&arg1)[1]);
-    delta[0] = *(f32 *)(arg0 + 0x40) - *(f32 *)(arg0 + 0x34);
-    delta[1] = *(f32 *)(arg0 + 0x44) - *(f32 *)(arg0 + 0x38);
-    delta[2] = *(f32 *)(arg0 + 0x48) - *(f32 *)(arg0 + 0x3C);
-    end[0] = *(f32 *)(arg0 + 0x34) + delta[0];
-    end[1] = *(f32 *)(arg0 + 0x38) + delta[1];
-    end[2] = *(f32 *)(arg0 + 0x3C) + delta[2];
-    middle[0] = *(f32 *)(arg0 + 0x34) + delta[0] * 0.5f;
-    middle[1] = *(f32 *)(arg0 + 0x38) + delta[1] * 0.5f;
-    middle[2] = *(f32 *)(arg0 + 0x3C) + delta[2] * 0.5f;
-    view[0] = middle[0] - camera[0];
-    view[1] = middle[1] - camera[1];
-    view[2] = middle[2] - camera[2];
-    func_150AD8B0(delta, view, side);
-    x = side[0];
-    y = side[1];
-    z = side[2];
-    lengthSquared = x * x + y * y + z * z;
-    if (lengthSquared == 0.0f) {
-        scale = 0.0f;
-        side[0] = scale;
-        side[1] = scale;
-        side[2] = scale;
+    texture = arg0->texture;
+    camera = (Vec3f *)func_15144B34(arg1);
+    delta.x = arg0->end.x - arg0->start.x;
+    delta.y = arg0->end.y - arg0->start.y;
+    delta.z = arg0->end.z - arg0->start.z;
+    end.x = arg0->start.x + delta.x;
+    end.y = arg0->start.y + delta.y;
+    end.z = arg0->start.z + delta.z;
+    middle.x = arg0->start.x + delta.x * 0.5f;
+    middle.y = arg0->start.y + delta.y * 0.5f;
+    middle.z = arg0->start.z + delta.z * 0.5f;
+    view.x = middle.x - camera->x;
+    view.y = middle.y - camera->y;
+    view.z = middle.z - camera->z;
+    func_150AD8B0(&delta.x, &view.x, &side.x);
+    lengthSquared = side.x * side.x + side.y * side.y + side.z * side.z;
+    if (lengthSquared != 0.0f) {
+        f32 scale = arg0->width / sqrtf(lengthSquared);
+
+        side.x = side.x * scale;
+        side.y = side.y * scale;
+        side.z = side.z * scale;
     } else {
-        length = sqrtf(lengthSquared);
-        scale = *(f32 *)(arg0 + 0x2C) / length;
-        side[0] = x * scale;
-        side[1] = y * scale;
-        side[2] = z * scale;
+        side.x = 0;
+        side.y = 0;
+        side.z = 0;
     }
-    vertices->x = *(f32 *)(arg0 + 0x34) - side[0];
-    vertices->y = *(f32 *)(arg0 + 0x38) - side[1];
-    vertices->z = *(f32 *)(arg0 + 0x3C) - side[2];
-    vertices->s = *(f32 *)(arg0 + 0x114);
+    vertices->x = arg0->start.x - side.x;
+    vertices->y = arg0->start.y - side.y;
+    vertices->z = arg0->start.z - side.z;
+    vertices->s = texture[1];
     vertices->flag = 0;
     vertices++;
-    vertices->x = end[0] - side[0];
-    vertices->y = end[1] - side[1];
-    vertices->z = end[2] - side[2];
-    vertices->s = *(f32 *)(arg0 + 0x110);
+    vertices->x = end.x - side.x;
+    vertices->y = end.y - side.y;
+    vertices->z = end.z - side.z;
+    vertices->s = texture[0];
     vertices->flag = 0;
     vertices++;
-    vertices->x = end[0] + side[0];
-    vertices->y = end[1] + side[1];
-    vertices->z = end[2] + side[2];
-    vertices->s = *(f32 *)(arg0 + 0x110);
+    vertices->x = end.x + side.x;
+    vertices->y = end.y + side.y;
+    vertices->z = end.z + side.z;
+    vertices->s = texture[0];
     vertices->flag = 0;
     vertices++;
-    vertices->x = *(f32 *)(arg0 + 0x34) + side[0];
-    vertices->y = *(f32 *)(arg0 + 0x38) + side[1];
-    vertices->z = *(f32 *)(arg0 + 0x3C) + side[2];
-    vertices->s = *(f32 *)(arg0 + 0x114);
+    vertices->x = arg0->start.x + side.x;
+    vertices->y = arg0->start.y + side.y;
+    vertices->z = arg0->start.z + side.z;
+    vertices->s = texture[1];
     vertices->flag = 0;
     return result;
 }

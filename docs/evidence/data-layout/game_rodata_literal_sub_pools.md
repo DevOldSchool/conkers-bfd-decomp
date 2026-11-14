@@ -72,6 +72,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_200930 | 0x28 | 0x24 | 0x800AB21C | pool (func_151D5514, func_151D57F8) | unchanged, 9 words ([record](game_200930_float_constants.md)) |
 | game_DC6B0 | 0x0 | 0x18 | 0x8009F7B8 | pool (func_150AF328) | `44D44000 38D1B717 3F7870B9 3F82B114 3DC8B43A 3E3020C5` |
 | game_DC6B0 | 0x18 | 0x4 | 0x8009F7D8 | pool (func_150B0094) | `3F333333` (0.7) |
+| game_EC420 | 0x0 | 0x14 | 0x800A0110 | pool (func_150BF21C) | `3D4CCCCD 44BB8000 3E4CCCCD 3ECCCCCD 3F8CCCCD` ([record](game_ec420_float_constants.md)) |
+| game_EC420 | 0x14 | 0x24 | 0x800A014C | pool (func_150C01DC) | nine words, 0.26200002 once ([record](game_ec420_float_constants.md); round-24) |
 | game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |
@@ -87,20 +89,25 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_2062D0 | 0x0 | 0x10 | 0x800AB470 | pool (func_151DA08C) | `3E4CCCCD 3DCCCCCD 3E4CCCCD 3DCCCCCD` (0.2, 0.1 ×2; round-23) |
 | game_2062D0 | 0x10 | 0x18 | 0x800AB480 | pool (func_151DA368) | `3E19999A 3DCCCCCD 43EB8000 461DE800 38D1B717 3A83126F` |
 | game_2062D0 | 0x28 | 0x4 | 0x800AB49C | pool | `3F8CCCCD` (1.1, [record](game_2062d0_float_constant.md)) |
-| holtenrope | 0x0 | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
-| holtenrope | 0xC | 0xC | 0x800AA3B8 | pool (func_151B42A4) | `38D1B717 3EB2B8C3 3EB2B8C3` (0.0001, pi/9 ×2; round-23) |
-| holtenrope | 0x18 | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
+| holtenrope | 0x0 | 0xC | 0x800AA394 | pool (func_151B3A7C) | `3DE38E39 3DE38E39 3DE38E39` (1/9 ×3; round-24) |
+| holtenrope | 0xC | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
+| holtenrope | 0x18 | 0xC | 0x800AA3B8 | pool (func_151B42A4) | `38D1B717 3EB2B8C3 3EB2B8C3` (0.0001, pi/9 ×2; round-23) |
+| holtenrope | 0x24 | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
+| characterflamethrower | 0x0 | 0x4 | 0x800A8ADC | pool (func_151987CC) | `451C4000` (2500.0, [record](characterflamethrower_float_constants.md); round-24) |
+| characterflamethrower | 0x4 | 0x8 | 0x800A8AFC | pool (func_1519C9C4) | `3DCCCCCD 3D4CCCCD` ([record](characterflamethrower_float_constants.md)) |
 | game_179F30 | 0x0 | 0x2EC | 0x800A59AC | table, sites 0x14 / 0x1C | 187 targets (func_1514CA80, [record](game_179f30_jump_tables.md); round-23) |
 | game_179F30 | 0x2EC | 0xD8 | 0x800A5C98 | table, sites 0x200 / 0x208 | 54 targets (func_1514CA80; round-23) |
 | game_179F30 | 0x3C4 | 0x4C | 0x800A5D70 | table, sites 0x518 / 0x520 | 19 targets (func_1514CA80; round-23) |
 | game_179F30 | 0x410 | 0x28 | 0x800A5DBC | table, sites 0x598 / 0x5A0 | 10 targets (func_1514CA80; round-23) |
 | game_179F30 | 0x438 | 0x10 | 0x800A5DF4 | pool (func_1514D64C) | `358637BD 3F4CCCCD 3F19999A 358637BD` ([record](game_179f30_float_constants.md)) |
 | game_179F30 | 0x448 | 0x28 | 0x800A5E20 | table, sites 0x1FB4 / 0x1FBC | unchanged (func_1514EA1C, [record](manual_batch_jump_tables.md)) |
+| game_179F30 | 0x470 | 0x10 | 0x800A5E48 | pool (func_1514EECC) | `3E19999A 3F333333 3ECCCCCD 358637BD` ([record](game_179f30_float_constants.md); round-24) |
 | game_981E0 | 0x0 | 0x38 | 0x80099D54 | table, sites 0x3170 / 0x3178 | 14 targets ([record](game_981e0_constructor_literal_pool.md)) |
 | game_981E0 | 0x38 | 0x10C | 0x80099D8C | pool (func_1506DE84 .. func_1506F54C) | unchanged ([record](game_981e0_constructor_literal_pool.md)) |
 | game_981E0 | 0x144 | 0x80 | 0x80099EAC | pool (func_15070898) | 32 words ([record](game_981e0_constructor_literal_pool.md)) |
 | game_49D30 | 0x0 | 0x4 | 0x800969C0 | pool (func_1501D044) | `4479C000` (999.0) |
 | game_49D30 | 0x4 | 0x4 | 0x800969D0 | pool (func_1501F72C) | `3C23D70A` (0.01) |
+| game_49D30 | 0x8 | 0x4 | 0x80096A14 | pool (func_15022024) | `C61C3C00` (-9999.0; round-24) |
 | game_39750 | 0x0 | 0x1C | 0x80096104 | pool (func_1500D8C8 `const u16` table) | `00760077 00780079 0053003E 003D0039 00020003 004E004F 00500051` ([record](game_39750_float_constants.md); round-23) |
 | game_39750 | 0x1C | 0x50 | 0x80096158 | pool (func_1500CE4C, func_1500D3AC, func_1500D8C8) | 5 + 7 + 8 words ([record](game_39750_float_constants.md); round-23) |
 | game_1865D0 | 0x0 | 0x20 | 0x800A63C4 | pool (func_15159C08) | 8 words ([record](game_1865d0_float_constants.md); round-23) |
@@ -123,9 +130,10 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_16EE20 | 0x2A4 | 0x4 | 0x800A56A0 | pool (func_1514470C) | `40C90FDB` (6.2831855) |
 | game_B4080 | 0x0 | 0x8 | 0x8009DA18 | pool (func_150896EC) | `3F91DE69 AD42C3CA` (f64 0.01745) |
 | game_B4080 | 0x8 | 0x20 | 0x8009DA24 | table, sites 0x3028 / 0x3030 | unchanged |
-| game_B4080 | 0x28 | 0x8 | 0x8009DA60 | pool (func_1508B9BC) | `3F4CCCCD 3B808081` (0.8, 0.003921569; nov14) |
-| game_B4080 | 0x30 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
-| game_B4080 | 0x12C | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
+| game_B4080 | 0x28 | 0x18 | 0x8009DA44 | pool (func_15089F9C) | `443B8000 455AC000 44BB8000 C9742400 BFC90FDB 40C90FDB` (round-24) |
+| game_B4080 | 0x40 | 0x8 | 0x8009DA60 | pool (func_1508B9BC) | `3F4CCCCD 3B808081` (0.8, 0.003921569; nov14) |
+| game_B4080 | 0x48 | 0xFC | 0x8009DA94 | table, sites 0x7B10 / 0x7B18 | unchanged |
+| game_B4080 | 0x144 | 0xE4 | 0x8009DB90 | table, sites 0x7BD4 / 0x7BDC | unchanged |
 | game_11D830 | 0x0 | 0x4 | 0x800A1854 | pool (func_150F0A24) | `416E147B` (14.88) |
 | game_11D830 | 0x4 | 0x20 | 0x800A1878 | pool (func_150F1170) | `3DDF3B65 3E916873 3F7C82E0 3F83D19A 3EAA7EFA 3F039581 3F27EF9E 44008000` |
 | game_1E73B0 | 0x0 | 0x48 | 0x800AA718 | pool (func_151BB61C `const` arrays) | `4 4 7 8 18 19 1D 1E 20`, `3F800000 3F800000 3E19999A 3E19999A 3F800000 3F800000 3DC6A7F0 3F800000 3E4CCCCD` |
@@ -252,6 +260,14 @@ keep their runtime addresses.
   first word. The words 0x800969C4..0x800969CF belong to the unmatched
   `func_1501EA18` and `func_1501EC38` and keep their extern symbols. The
   object `.rodata` is 0x10 bytes: 8 of payload and 8 zero alignment bytes.
+  Round-24: `func_15022024` compares two selection values with the `-9999.0f`
+  "unset" sentinel. The raw function loads it once from 0x80096A14 (ROM
+  `C61C3C00`, HI16/LO16 at raw 0x150220E0/0x150220E4) and reuses it for
+  both comparisons; as a literal the function matches (CURRENT 2593 with the
+  extern). The word lands at object offset 0x8, so the unit gains a third
+  sub-pool `.rodata.49d30_8` at 0x80096A14. The words 0x800969D4..0x80096A10
+  and 0x80096A18.. stay extern reads of other members. The object `.rodata`
+  is still 0x10 bytes, now 0xC of payload and 4 zero alignment bytes.
 - **game_1F2730:** `func_151C577C` hoists eight literals out of loops that
   contain calls; as `extern` symbols IDO reloads them and the function does
   not match. The checksum-validated ROM holds the nine words `3DCCCCCD
@@ -318,6 +334,17 @@ keep their runtime addresses.
   layout gains a `(0x28, 0x8)` pool and the two later tables move to object offsets 0x30
   and 0x12C (`.rodata.b4080_30`, `.rodata.b4080_12c`); their runtime addresses and HI16/LO16
   sites are unchanged. 0x8009DA44..0x8009DA5F and 0x8009DA68.. stay extern reads.
+- **game_B4080 (round-24):** `func_15089F9C` scores candidates by distance. It loads
+  `750.0f`, `3500.0f` and `1500.0f` (distance bounds), `-1000000.0f` (initial best
+  score), `-1.5707964f` (-pi/2) and `6.2831855f` (2pi) from 0x8009DA44..0x8009DA5B,
+  which hold `443B8000 455AC000 44BB8000 C9742400 BFC90FDB 40C90FDB`; the deferred
+  body scored CURRENT 1261 with externs and is `CURRENT (0)` with literals. The
+  function precedes `func_1508B9BC`, so the words open a new `(0x28, 0x18)` pool
+  right after the 0x8009DA24 table, contiguous with it in ROM. The later ranges move
+  to object offsets 0x40, 0x48 and 0x144 (`.rodata.b4080_40`, `.rodata.b4080_48`,
+  `.rodata.b4080_144`) with unchanged runtime addresses and HI16/LO16 sites. The
+  object `.rodata` is now 0x230 bytes: 0x228 of payload and 8 zero alignment bytes.
+  0x8009DA5C (`4CBEBC20`, read by another member) stays an extern read.
 - **game_11D830:** `func_150F1170` loads 0.109000005, 0.284, 0.986372,
   1.029834, 0.333, 0.514, 0.656 and 514.0 (each checked bit-for-bit against
   the ROM; `0.109f` would round to `3DDF3B64`) from 0x800A1878..0x800A1897 in

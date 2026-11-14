@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15030468
- * - func_15030AF4
  * - func_150311C4
  * - func_15031FC8
  *
@@ -271,16 +270,14 @@ typedef struct GameCoreNode {
 s32 func_1502FFD8(u8 *, u8 *);
 void func_15031A50(u8 *, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030AF4 CURRENT (1667) */
 GameCoreNode *func_15030AF4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
                            s32 arg4, s32 arg5, s32 arg6, s32 arg7,
                            s32 arg8, u16 *arg9, s32 arg10, s32 arg11,
                            s32 arg12) {
-    s32 failed;
     GameCoreNode *node;
     GameCoreNode *next;
-    void *matrices;
-    u8 owner;
+    s32 failed;
+    s32 owner;
 
     owner = arg0[0x3B];
     if (owner == 0) {
@@ -310,6 +307,7 @@ GameCoreNode *func_15030AF4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
     D_800C3EE0 = node;
     node->owner = arg0[0x3B];
     node->type = arg1;
+    node->index = arg2;
     node->field_24 = 0;
     node->field_28 = 0;
     node->field_2C = 0;
@@ -319,32 +317,30 @@ GameCoreNode *func_15030AF4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
     node->flags = arg3;
     node->tag = arg7;
     node->scale = 1.0f;
-    node->index = arg2;
+    node->callback = arg8;
     node->field_38 = 0;
     node->field_3C = 0;
     node->allocated = 0;
     node->loaded = 0;
     node->field_18 = 0;
     node->field_1A = 0;
-    node->callback = arg8;
     node->x = arg9[0];
     node->y = arg9[1];
     node->z = arg9[2];
-    node->field_48 = 0;
     node->mode = arg10;
-    node->field_16 = arg5;
+    node->field_48 = 0;
     node->field_15 = arg4;
+    node->field_16 = arg5;
     node->child = arg11;
+    node->childOffset = arg12;
     node->field_13 = 0;
     node->field_4C = 0;
     node->field_50 = 0;
     node->field_5 = 0;
     node->field_22 = 0;
-    node->childOffset = arg12;
     if ((arg5 == 4) || (arg3 & 4)) {
-        matrices = func_10003C40(0x80, 1, 2, 2);
-        node->field_34 = matrices;
-        if (matrices == 0) {
+        node->field_34 = func_10003C40(0x80, 1, 2, 2);
+        if (node->field_34 == 0) {
             failed = 1;
         }
     } else {
@@ -365,8 +361,6 @@ GameCoreNode *func_15030AF4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
     func_15031A50((u8 *)node, arg0);
     return node;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15030AF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030AF4.s")
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_15030D54(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {

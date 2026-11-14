@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15156190
  * - func_151564F8
- * - func_15156D24
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -305,38 +304,25 @@ void func_15156B54(u8 *arg0) {
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 void func_151568F8(Game183640CombinedRecord *, u8);
-extern f32 D_800A6040;
-extern f32 D_800A6044;
-extern f32 D_800A6048;
-extern f32 D_800A604C;
-extern f32 D_800A6050;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15156D24 CURRENT (2335) */
 void func_15156D24(void *arg0, u8 arg1) {
     Game183640CombinedRecord record;
-    f32 scale;
 
     func_10022EC0(&record.position, arg0, 0xC);
-    record.field_29 = 0xFF;
     record.field_0C = 10;
     record.field_0E = 30;
     record.field_12 = -63;
-    record.field_16 = 128;
-    record.field_30 = 9;
     record.field_14 = 255;
-    record.field_8A = 255;
-    record.field_28 = 255;
-    record.field_64 = 255;
-    record.field_8B = 255;
-    record.field_65 = 255;
-    record.field_66 = 255;
-    record.field_2A = 255;
-    record.field_8C = 255;
+    record.field_16 = 128;
+    record.field_8A = record.field_28 = record.field_64 = 255;
+    record.field_8B = record.field_29 = record.field_65 = 255;
+    record.field_8C = record.field_2A = record.field_66 = 255;
     record.field_2B = 255;
     record.field_2C = 255;
     record.field_2D = 255;
     record.field_2E = 255;
     record.field_2F = 255;
+    record.field_30 = 9;
     record.field_10 = 0;
     record.field_32 = 5;
     record.field_34 = 10;
@@ -350,12 +336,12 @@ void func_15156D24(void *arg0, u8 arg1) {
     record.field_48 = 0x1A01;
     record.field_4C = 0x200005;
     record.field_50 = 0;
-    record.field_20 = D_800A6040;
-    record.field_24 = D_800A6040;
-    record.field_18 = D_800A6044;
-    record.field_1C = D_800A6048;
-    record.field_38 = D_800A604C;
-    record.field_3C = D_800A6050;
+    record.field_20 = 1.6899999f;
+    record.field_24 = 1.6899999f;
+    record.field_18 = 6.97f;
+    record.field_1C = 3.37f;
+    record.field_38 = 2.01f;
+    record.field_3C = 3.02f;
     record.field_54 = (func_150ADA20() % 3U) + 7;
     record.field_58 = 0;
     record.field_5C = 0;
@@ -366,13 +352,11 @@ void func_15156D24(void *arg0, u8 arg1) {
     func_150ADA20();
     record.field_67 = 255;
     record.field_68 = 255;
-    scale = (func_150ADA68() * 150.0f) + 196.0f;
+    record.pair_6C.first = record.pair_6C.second = (func_150ADA68() * 150.0f) + 196.0f;
     record.field_74 = 4;
     record.field_76 = 63;
     record.field_78 = 22;
-    record.pair_6C.first = scale;
     record.field_80 = 0xE01;
-    record.pair_6C.second = scale;
     record.field_7C = 1.25f;
     if (func_150ADA20() & 1) {
         record.field_80 |= 0x40;
@@ -388,8 +372,6 @@ void func_15156D24(void *arg0, u8 arg1) {
     record.field_89 = 1;
     func_151568F8(&record, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15156D24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156D24.s")
 void func_15156F94(u8 *arg0) {
     func_151D5E30(arg0 + 0x88, arg0);
 }

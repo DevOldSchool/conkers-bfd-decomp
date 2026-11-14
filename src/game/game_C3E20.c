@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15096A68
- * - func_15096D78
  * - func_1509759C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -172,7 +171,202 @@ void func_15096D08(void) {
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_15096D78.s")
+extern s32 D_80082FA0;
+extern s32 D_800D3840;
+extern s8 D_800C365C;
+extern s32 D_80089520;
+extern f32 D_800D2DB0;
+extern u8 D_800CC2D0[];
+extern s32 D_800DC310[][26];
+s32 func_15084000(s32);
+void func_151254F4(void *, s32);
+void func_15124770(void *, s32);
+void func_1512A390(void *);
+void func_1512D748(void *, s32, s32);
+
+s32 func_15096D78(s32 arg0, s32 arg1, s32 *arg2) {
+    u8 *actor;
+
+    actor = D_800DBFF0 + arg0 * 0x9A0;
+    if (D_80082FA0 < arg0) {
+        return 0;
+    }
+    switch (arg1) {
+    case 12:
+        ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].finalSpeed = *(f32 *)(actor + 0x37C);
+        ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].actor = arg0;
+        ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].pose = arg2[3];
+        ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].timer = arg2[4];
+        ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].state = 1;
+        if (D_800D3840 >= 6) {
+            ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].flags = arg2[5];
+        } else {
+            ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].flags = 0;
+        }
+        if (D_800D3840 >= 7) {
+            ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].duration = (f32)arg2[6] * (1.0f / 65536.0f);
+        } else {
+            ((GameC3E20Command *)&D_800D2DC0)[arg2[2]].duration = 1.0f;
+        }
+        if (func_150969A0(arg2[2]) == 0) {
+            func_15096A68(arg2[2]);
+        }
+        break;
+    case 13:
+        break;
+    case 4:
+        func_15123934(actor, arg2[2], arg2[3], arg2[4], 0x11);
+        return 1;
+    case 5:
+        func_151239CC(actor, 0x11);
+        return 1;
+    case 6:
+        if (arg2[2] != 0) {
+            *(s32 *)(actor + 0x84) |= arg2[3];
+        } else {
+            *(s32 *)(actor + 0x84) &= ~arg2[3];
+        }
+        return 1;
+    case 8:
+        if ((*(u8 **)(actor + 0x3D4))[0x120] == 0) {
+            *(f32 *)(actor + 0x374) = arg2[2];
+            *(f32 *)(actor + 0x34C) = arg2[3];
+            *(f32 *)(actor + 0x348) = arg2[3];
+        }
+        return 1;
+    case 7:
+        *(s16 *)(actor + 0x1E0) = arg2[2];
+        *(s16 *)(actor + 0x1B4) = arg2[3];
+        return 1;
+    case 9:
+        *(s32 *)(actor + 0x134) = arg2[2];
+        return 1;
+    case 10: {
+        GameC3E20Packet *packet = &D_800C3600;
+        GameC3E20Pose *pose = (GameC3E20Pose *)D_800DC020;
+        pose = &pose[arg2[2] & 0xFFF];
+        D_800D2DB4 = 1;
+        D_800DBFF4[arg0] = 3;
+        packet->enabled = 1;
+        packet->state = 0;
+        packet->x = (f32)pose->x;
+        packet->y = (f32)pose->y;
+        packet->z = (f32)pose->z;
+        packet->value20 = pose->value14;
+        packet->value24 = pose->valueC;
+        packet->value28 = pose->value10;
+        packet->time = 0.0f;
+        D_800C365C = 0;
+        func_1512D560(actor, 5, 0);
+        func_1512D560(actor, 7, (s32)packet);
+        *(s32 *)(D_800CC2D0 + 0x25C) |= 0x200;
+    }
+        break;
+    case 11:
+        func_1512D560(actor, 6, 0);
+        D_800D2DB4 = 0;
+        *(s32 *)(D_800CC2D0 + 0x25C) &= ~0x200;
+        break;
+    case 14:
+        *(f32 *)(actor + 0x2A4) = arg2[2];
+        *(f32 *)(actor + 0x2A8) = arg2[3];
+        *(f32 *)(actor + 0x2AC) = arg2[4];
+        *(f32 *)(actor + 0x2BC) = arg2[2];
+        *(f32 *)(actor + 0x2C0) = arg2[3];
+        *(f32 *)(actor + 0x2C4) = arg2[4];
+        *(f32 *)(actor + 0x2F8) = arg2[5];
+        *(f32 *)(actor + 0x2FC) = arg2[6];
+        *(f32 *)(actor + 0x300) = arg2[7];
+        *(f32 *)(actor + 0x358) = *(f32 *)(actor + 0x2FC);
+        func_1512A390(actor);
+        break;
+    case 2:
+        *(f32 *)(actor + 0x2F8) = arg2[2];
+        *(f32 *)(actor + 0x2FC) = arg2[3];
+        *(f32 *)(actor + 0x300) = arg2[4];
+        *(f32 *)(actor + 0x358) = *(f32 *)(actor + 0x2FC);
+        func_1512A390(actor);
+        break;
+    case 3:
+        *(f32 *)(actor + 0x2A4) = arg2[2];
+        *(f32 *)(actor + 0x2A8) = arg2[3];
+        *(f32 *)(actor + 0x2AC) = arg2[4];
+        break;
+    case 15:
+        *(f32 *)(actor + 0x198) = arg2[2];
+        if (D_800D3840 == 4) {
+            *(f32 *)(actor + 0x194) = arg2[3];
+        }
+        break;
+    case 16:
+        *(f32 *)(actor + 0x190) = arg2[2];
+        if (D_800D3840 == 4) {
+            *(f32 *)(actor + 0x18C) = arg2[3];
+        }
+        break;
+    case 17:
+        if (D_800D3840 == 5 && arg2[4] != 0) {
+            func_1512D748(actor, arg2[2], arg2[3]);
+            return 1;
+        }
+        if (D_800DC310[arg0][0] == 5) {
+            func_1512D748(actor, arg2[2], arg2[3]);
+            return 1;
+        }
+        return 0;
+    case 18:
+        func_151254F4(actor, func_15084000(arg2[2] & 0xFFF));
+        break;
+    case 19:
+        func_15124770(actor, func_15084000(arg2[2] & 0xFFF));
+        break;
+    case 20:
+        *(f32 *)(actor + 0x1A4) = (f32)arg2[2] * (1.0f / 65536.0f);
+        *(f32 *)(actor + 0x1A8) = (f32)arg2[3] * (1.0f / 65536.0f);
+        if (D_800D3840 == 5 && arg2[4] != 0) {
+            *(f32 *)(actor + 0x19C) = *(f32 *)(actor + 0x1A4);
+            *(f32 *)(actor + 0x1A0) = *(f32 *)(actor + 0x1A8);
+        }
+        break;
+    case 21: {
+        GameC3E20Pose *pose = (GameC3E20Pose *)D_800DC020;
+        pose = &pose[arg2[2] & 0xFFF];
+        pose->x = arg2[3];
+        pose->y = arg2[4];
+        pose->z = arg2[5];
+    }
+        break;
+    case 22:
+        actor[0x23C] = 1;
+        break;
+    case 23:
+        *(f32 *)(actor + 0x7C0) = (f32)arg2[2] * (1.0f / 65536.0f);
+        break;
+    case 24:
+        if (D_800D3840 == 5) {
+            actor[0x78C] = 1;
+            *(f32 *)(actor + 0x794) = arg2[2];
+            *(f32 *)(actor + 0x790) = arg2[3];
+            *(f32 *)(actor + 0x798) = arg2[4];
+        } else {
+            actor[0x78C] = 0;
+        }
+        break;
+    case 25:
+        *(f32 *)(actor + 0x3A4) = (f32)arg2[2] * (1.0f / 65536.0f);
+        D_800D2DB0 = *(f32 *)(actor + 0x3A4);
+        break;
+    case 26:
+        func_1512868C(actor);
+        break;
+    case 27:
+        D_80089520 = arg2[2] - 1;
+        break;
+    default:
+        return 0;
+    }
+    return 0;
+}
 typedef struct GameC3E20View {
     u8 pad0[0x2A4];
     f32 firstX;

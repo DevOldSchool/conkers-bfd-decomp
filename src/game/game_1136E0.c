@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_subranges.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E6230
  * - func_150E63A0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -35,38 +34,36 @@ f32 func_15144A74(void *, void *);
 extern s32 (*D_80088A10[])(void *);
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6230 CURRENT (2478) */
 s8 func_150E6230(Game1136E0MotionActor *arg0) {
-    f32 delta[3];
-    f32 sign;
     s8 result;
-    Game1136E0MotionState *state;
 
     result = 1;
-    state = &arg0->state;
-    if (state->flags & 1) {
-        delta[0] = state->target[0] - arg0->position[0];
-        delta[1] = state->target[1] - arg0->position[1];
-        delta[2] = state->target[2] - arg0->position[2];
-        if (func_15144A74(delta, state->target) < 0.0f) {
-            sign = -1.0f;
-        } else {
-            sign = 1.0f;
-        }
-        if (sign != state->previousSign) {
-            result = 0;
-            if (state->callback != -1) {
-                result = (s8)D_80088A10[state->callback](arg0);
+    {
+        Game1136E0MotionState *state = &arg0->state;
+        f32 sign;
+        f32 delta[3];
+
+        if (state->flags & 1) {
+            delta[0] = state->target[0] - arg0->position[0];
+            delta[1] = state->target[1] - arg0->position[1];
+            delta[2] = state->target[2] - arg0->position[2];
+            sign = (func_15144A74(delta, state->target) < 0.0f) ? -1.0f : 1.0f;
+            if (sign != state->previousSign) {
+                result = (state->callback != -1) ? D_80088A10[state->callback](arg0) : 0;
             }
         }
     }
-    arg0->position[0] += arg0->velocity[0] * arg0->factor * D_800BE9A4;
-    arg0->position[1] += arg0->velocity[1] * arg0->factor * D_800BE9A4;
-    arg0->position[2] += arg0->velocity[2] * arg0->factor * D_800BE9A4;
+    {
+        f32 stepX = arg0->velocity[0] * arg0->factor;
+        f32 stepY = arg0->velocity[1] * arg0->factor;
+        f32 stepZ = arg0->velocity[2] * arg0->factor;
+
+        arg0->position[0] += stepX * D_800BE9A4;
+        arg0->position[1] += stepY * D_800BE9A4;
+        arg0->position[2] += stepZ * D_800BE9A4;
+    }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E6230 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1136E0/func_150E6230.s")
 typedef struct Game1136E0StripVertex {
     s16 x, y, z, flag;
     u8 pad8[7];

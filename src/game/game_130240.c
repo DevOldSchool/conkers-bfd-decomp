@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15102EB8
- * - func_15103254
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -195,14 +194,15 @@ typedef struct Game130240Descriptor {
 void *func_15130374(s32, u8, s32, u8, s32);
 extern s32 D_80088BD0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103254 CURRENT (438) */
 void func_15103254(s32 arg0, s32 arg1, f32 arg2, Vec3f *arg3,
                    s32 arg4, s32 arg5, s32 arg6) {
-    s32 second;
+    s32 index;
     Game130240Descriptor descriptor;
+    s32 second;
     s32 first;
 
-    descriptor.kind = D_80088BD0[func_150ADA20() & 3];
+    index = func_150ADA20() & 3;
+    descriptor.kind = D_80088BD0[index];
     descriptor.field8 = 0x2203;
     descriptor.flags = 0x200005;
     descriptor.field4 = 0x20000;
@@ -216,10 +216,10 @@ void func_15103254(s32 arg0, s32 arg1, f32 arg2, Vec3f *arg3,
     descriptor.color18[0] = 0xFF;
     descriptor.color18[1] = 0xFF;
     descriptor.color18[2] = 0xFF;
+    descriptor.color18[3] = ((u8 *)&arg1)[3];
     descriptor.alpha = 0xFF;
     descriptor.field2C = arg2;
     descriptor.field28 = arg2;
-    descriptor.color18[3] = ((u8 *)&arg1)[3];
     descriptor.position = *arg3;
     descriptor.field1E = 3;
     descriptor.field20 = 0x55;
@@ -238,7 +238,7 @@ void func_15103254(s32 arg0, s32 arg1, f32 arg2, Vec3f *arg3,
     } else {
         second = 0;
     }
-    descriptor.field58 = second | 1 | first | 0xC200 | 0x40000 | 0x800000;
+    descriptor.field58 = second | 1 | first | 0x8000 | 0x4000 | 0x200 | 0x40000 | 0x800000;
     descriptor.field60 = 6;
     descriptor.field61 = 8;
     descriptor.field62 = -1;
@@ -248,5 +248,3 @@ void func_15103254(s32 arg0, s32 arg1, f32 arg2, Vec3f *arg3,
     descriptor.field66 = ((u8 *)&arg4)[3];
     func_15130374((s32)&descriptor, 1, 0, ((u8 *)&arg5)[3], arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15103254 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130240/func_15103254.s")

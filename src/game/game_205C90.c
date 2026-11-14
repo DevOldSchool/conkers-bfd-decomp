@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_205C90.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151D8868
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern u8 D_80084060[4];
@@ -42,11 +37,8 @@ extern u8 D_800BEAC2;
 extern u8 D_800BEAC3;
 extern u8 D_800E0B94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8868 CURRENT (500) */
 void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
-    s32 index;
-    s32 nextIndex;
-    s32 bit;
+    u8 i;
     u8 *result;
 
     if (D_800E0B94 != 0) {
@@ -58,39 +50,30 @@ void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     if (D_800BEAC0 != 0 || D_800BEAC1 != 0 || D_800BEAC2 != 0 || D_800BEAC3 != 0) {
         return 0;
     }
-    nextIndex = 0;
-    index = 0;
-    if (D_80082FA0 >= 0) {
-        do {
-            if (arg0[5] & (1 << index)) {
-                if (func_15181CC8(index) == 0 || func_1517EF00(index) != 0) {
+    {
+        u8 slot;
+
+        for (slot = 0; slot <= D_80082FA0; slot++) {
+            if (arg0[5] & (1 << slot)) {
+                if (func_15181CC8(slot) == 0 || func_1517EF00(slot) != 0) {
                     return 0;
                 }
             }
-            index = (nextIndex + 1) & 0xFF;
-            nextIndex = index;
-        } while (D_80082FA0 >= index);
+        }
     }
     result = func_15167A68(0x3F, arg3, arg1 + 0x18, 1, arg2, 1);
     if (result == 0) {
         return 0;
     }
     func_10022EC0(result + 0xE, arg0, 8);
-    index = 0;
-    bit = 0;
-    do {
-        if (result[0x13] & (1 << bit)) {
-            func_1501C010(index, arg0[4]);
+    for (i = 0; i < 4; i++) {
+        if (result[0x13] & (1 << i)) {
+            func_1501C010(i, arg0[4]);
         }
-        index += 1;
-        bit = index & 0xFF;
-        index = bit;
-    } while (bit < 4);
+    }
     result[0x16] = arg0[4];
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D8868 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8868.s")
 void func_1501C17C(u8);
 extern void (*D_8008FCC0[])(void *);
 extern s32 D_800BE9E4;

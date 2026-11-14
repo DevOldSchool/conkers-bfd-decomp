@@ -1,13 +1,9 @@
 #include "types.h"
+#include <PR/gbi.h>
 
 /*
  * Reviewed source unit: src/game/game_C1D70.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_reconciled_empty_stub_splits.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15094AB8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_1509499C(u8 *, u8 *);
@@ -54,43 +50,28 @@ f32 func_15047D60(f32);
 f32 func_15047C00(f32);                             /* extern */
 extern f32 D_8009DEA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15094AB8 CURRENT (9301) */
-void func_15094AB8(u8 *arg0, u8 *arg1, s32 arg2, f32 arg3, s32 arg4, s32 arg5) {
-    struct Output {
-        s16 prefix[4];
-        s16 x;
-        s16 y;
-        s16 suffix[2];
-    };
-    struct Input {
-        s16 x;
-        s16 y;
-    };
-    struct Output *output = (struct Output *)arg0;
-    struct Input *input = (struct Input *)arg1;
-    f32 angle;
+void func_15094AB8(Vtx *arg0, s16 (*arg1)[2], s32 arg2, f32 arg3, s32 arg4, s32 arg5) {
+    s32 halfWidth;
+    s32 halfHeight;
     f32 sine;
     f32 cosine;
     f32 centerX;
     f32 centerY;
+    f32 angle;
     s32 i;
 
     angle = arg3 * D_8009DEA0;
     sine = func_15047D60(angle);
     cosine = func_15047C00(angle);
+    halfWidth = arg4 / 2;
+    halfHeight = arg5 / 2;
+    centerX = halfWidth << 5;
+    centerY = halfHeight << 5;
     for (i = 0; i < arg2; i++) {
-        centerX = (f32)((arg4 / 2) << 5);
-        centerY = (f32)((arg5 / 2) << 5);
-        output[i].x = (s32)
-            ((((f32)input[i].x - centerX) * cosine -
-              ((f32)input[i].y - centerY) * sine) + centerX);
-        output[i].y = (s32)
-            ((((f32)input[i].y - centerY) * cosine +
-              ((f32)input[i].x - centerX) * sine) + centerY);
+        arg0[i].v.tc[0] = ((arg1[i][0] - centerX) * cosine - (arg1[i][1] - centerY) * sine) + centerX;
+        arg0[i].v.tc[1] = ((arg1[i][0] - centerX) * sine + (arg1[i][1] - centerY) * cosine) + centerY;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15094AB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C1D70/func_15094AB8.s")
 void func_15094E98(void) {
 
 }

@@ -36,3 +36,20 @@ changed.
 
 Focused matching, source-unit integration and clean batch verification remain
 separate required checks.
+
+## func_151022AC literals (round-24)
+
+`func_151022AC` is now matched in C with its three literals written in place:
+`0x800A228C` = `46FFFE00` (32767.0f), `0x800A2290` = `3E4CCCCD` (0.2f) and
+`0x800A2294` = `3ECCCCCD` (0.4f), read from the checksum-validated US ROM with
+`rom_game_data`. With extern symbols the deferred body scored CURRENT 1982; as
+literals it is `CURRENT (0)`. The words directly before them
+(`D_800A2288` and earlier) are read by `game_12E540` and `game_12DAB0` members.
+
+As predicted above, the literals now open the object's `.rodata` at offsets
+0x0, 0x4 and 0x8, and the 41-word table follows at offset 0xC. The section is
+0xB0 bytes, all payload, with no alignment tail. The mapping therefore moves
+to `0x800A228C`; the size assertion stays 0xB0 and the payload-size symbol
+grows from 0xA4 to 0xB0. The table still links at `0x800A2298`, and the
+section now ends at `0x800A233C`, where the extern `D_800A233C` begins, so the
+mapping no longer spans that word.

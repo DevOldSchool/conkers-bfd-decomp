@@ -9,7 +9,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501D258
  * - func_1501D2C4
  * - func_1501D348
  * - func_1501E81C
@@ -19,8 +18,6 @@
  * - func_15020878
  * - func_15020EC4
  * - func_1502178C
- * - func_15022024
- * - func_1502225C
  * - func_150229E4
  * - func_15022BA4
  * - func_150234A4
@@ -362,18 +359,15 @@ s32 func_1501D1D4(s32 arg0, s32 arg1, s32 arg2) {
     }
     return temp_v0;
 }
-u64 func_100268A4(s32, s32, s32, s32);
+u64 func_100268A4(u64, u64); /* __ll_lshift */
 extern u8 D_800C3670;
 extern u64 D_800C3A60[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D258 CURRENT (5) */
 void func_1501D258(s32 arg0, s32 arg1) {
     if (D_800C3670 == 0) {
-        D_800C3A60[arg0] |= 1LL << arg1;
+        D_800C3A60[arg0] |= func_100268A4(1, arg1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501D258 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D258.s")
 extern u8 D_800C3A64;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D2C4 CURRENT (2260) */
@@ -384,7 +378,7 @@ s32 func_1501D2C4(s32 arg0, s32 arg1) {
     if (D_800C3670 != 0) {
         return 1;
     }
-    temp_ret = func_100268A4(0, 1, arg1 >> 0x1F, arg1);
+    temp_ret = func_100268A4(1, arg1);
     if ((temp_ret & D_800C3A60[arg0]) ||
         (var_v0 = 0, (((u32)temp_ret & *(u32 *)((u8 *)&D_800C3A64 + (arg0 * 8))) != 0))) {
         var_v0 = 1;
@@ -1194,59 +1188,37 @@ s32 func_15021DB8(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5
 }
 extern void *D_800C35C8[];
 extern u8 *D_800C3958[];
-extern f32 D_80096A14;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15022024 CURRENT (2593) */
 s32 func_15022024(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     s32 index;
-    s32 count;
-    u16 *flags;
-    u8 *match;
-    u8 *table;
-    f32 value;
-    f32 sentinel;
 
     if (D_800C35EA[arg3] != 1) {
         return 0;
     }
-    count = D_800C363A[arg3];
-    index = 0;
-    if (count > 0) {
-        flags = D_800C35C8[arg3];
-loop_4:
-        if (*flags != 0) {
-            match = (u8 *)D_800C35F0[arg3] + (index * 8);
-            if ((*(u16 *)match == 2) &&
-                (*((u8 *)&D_800CC2D0 + (arg2 * 0x32C) + 0x3B) == match[2])) {
-                sentinel = D_80096A14;
-                arg0[1] = 0.0f;
-                arg1[1] = 0.0f;
-                arg0[0] = 0.0f;
-                arg1[0] = 0.0f;
-                table = D_800C3958[arg3] + (index * 0x44);
-                value = *(f32 *)(table + 0x3C);
-                if (sentinel != value) {
-                    arg1[0] = value;
-                    arg1[1] = *(volatile f32 *)&arg1[0];
-                }
-                value = *(f32 *)(D_800C3958[arg3] + (index * 0x44) + 0x40);
-                if (sentinel != value) {
-                    arg0[0] = value;
-                    arg0[1] = *(volatile f32 *)&arg0[0];
-                }
-                return 1;
-            }
+    for (index = 0; index < D_800C363A[arg3]; index++) {
+        if (((u16 *)D_800C35C8[arg3])[index] == 0) {
+            continue;
         }
-        index++;
-        flags++;
-        if (index < count) {
-            goto loop_4;
+        if (((Game49D30Selection *)D_800C35F0[arg3])[index].kind != 2 ||
+            ((u8 (*)[0x32C])&D_800CC2D0)[arg2][0x3B] != ((Game49D30Selection *)D_800C35F0[arg3])[index].actor) {
+            continue;
         }
+        arg0[1] = 0.0f;
+        arg1[1] = 0.0f;
+        arg0[0] = 0.0f;
+        arg1[0] = 0.0f;
+        if (*(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x3C) != -9999.0f) {
+            arg1[0] = *(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x3C);
+            arg1[1] = arg1[0];
+        }
+        if (*(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x40) != -9999.0f) {
+            arg0[0] = *(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x40);
+            arg0[1] = arg0[0];
+        }
+        return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15022024 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022024.s")
 extern s8 D_800C3663;
 
 void func_15022190(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
@@ -1277,34 +1249,17 @@ void func_15022248(s32 arg0) {
 }
 extern u8 D_800C3518[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502225C CURRENT (1215) */
-void func_1502225C(s8 arg0, s32 arg1) {
-    s32 var_v0;
-    u8 *temp_v1;
-    u8 *var_t0;
-    u8 temp_a2;
+void func_1502225C(s32 arg0, s32 arg1) {
+    s32 i;
 
-    temp_v1 = &D_800C3510[arg1];
-    temp_a2 = *temp_v1;
-    var_v0 = 0;
-    if ((s32)temp_a2 > 0) {
-        var_t0 = (arg1 * 0x19) + D_800C3518;
-loop_2:
-        var_v0 += 1;
-        if (arg0 != *var_t0) {
-            var_t0 += 1;
-            if (var_v0 < (s32)temp_a2) {
-                goto loop_2;
-            }
-        } else {
+    for (i = 0; i < D_800C3510[arg1]; i++) {
+        if (arg0 == *(arg1 * 0x19 + D_800C3518 + i)) {
             return;
         }
     }
-    D_800C3518[(arg1 * 0x19) + temp_a2] = arg0;
-    *temp_v1 = temp_a2 + 1;
+    *(arg1 * 0x19 + D_800C3518 + D_800C3510[arg1]) = arg0;
+    D_800C3510[arg1]++;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502225C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1502225C.s")
 typedef struct Game49D30Entry {
     u16 field_0;
     u8 field_2;

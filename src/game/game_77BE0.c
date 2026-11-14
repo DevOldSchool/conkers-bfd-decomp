@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1504A730
  * - func_1504B0FC
- * - func_1504BA38
  * - func_1504BE2C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -122,33 +121,25 @@ void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
 extern s8 D_80099140[];
 extern f32 D_800991D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BA38 CURRENT (150) */
 void func_1504BA38(void *arg0) {
-    s32 temp_a1;
-    s32 temp_v0;
+    u8 i;
     s8 *entry;
-    f32 scale;
 
     if (*(f32 *)((u8 *)arg0 + 0x28) > 10.0f) {
         *(s16 *)((u8 *)arg0 + 0xCE) = 0;
         return;
     }
-    entry = D_80099140 + ((*(s32 *)((u8 *)arg0 + 0x184) & 0x1F) * 3);
-    temp_a1 = entry[2];
-    if ((temp_a1 != 0) && (*(u8 *)((u8 *)arg0 + 0xAA) == 0)) {
-        *(u8 *)((u8 *)arg0 + 0xAA) = temp_a1;
+    i = *(s32 *)((u8 *)arg0 + 0x184) & 0x1F;
+    entry = &D_80099140[i * 3];
+    if (entry[2] != 0 && *(u8 *)((u8 *)arg0 + 0xAA) == 0) {
+        *(u8 *)((u8 *)arg0 + 0xAA) = entry[2];
     }
-    temp_v0 = entry[1];
-    if (temp_v0 == 0) {
+    if (entry[1] == 0) {
         *(s16 *)((u8 *)arg0 + 0xCE) = entry[0];
         return;
     }
-    scale = (f32)temp_v0 * D_800991D4;
-    *(s16 *)((u8 *)arg0 + 0xCE) = (s16)(s32)(scale *
-        ((f32)entry[0] - *(f32 *)((u8 *)arg0 + 0x3C)));
+    *(s16 *)((u8 *)arg0 + 0xCE) = (entry[0] - *(f32 *)((u8 *)arg0 + 0x3C)) * (entry[1] * D_800991D4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504BA38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BA38.s")
 void func_1506EBC0(void);
 void func_1507490C(void);
 extern u8 D_800CC2D0[];

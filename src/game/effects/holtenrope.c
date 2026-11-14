@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B32C8
- * - func_151B3A7C
  * - func_151B3FDC
  * - func_151B4A14
  *
@@ -119,48 +118,33 @@ void func_151B3A34(void *arg0, s32 arg1, u8 arg2) {
         temp_v0(arg0, arg1, arg2);
     }
 }
-extern f32 D_800AA394;
-extern f32 D_800AA398;
-extern f32 D_800AA39C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3A7C CURRENT (3908) */
 s32 func_151B3A7C(u8 *arg0) {
-    typedef struct { f32 x, y, z; } RopePoint;
-    RopePoint position;
-    RopePoint delta;
-    RopePoint step;
-    u8 *node;
+    HoltenRopeEffect *effect = (HoltenRopeEffect *)arg0;
+    Vec3f delta;
+    Vec3f pos;
+    Vec3f *start = (Vec3f *)effect->primaryState;
+    Vec3f *end = (Vec3f *)effect->secondaryState;
     s32 i;
 
-    delta.x = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x14);
-    delta.y = *(f32 *)(arg0 + 0x24) - *(f32 *)(arg0 + 0x18);
-    delta.z = *(f32 *)(arg0 + 0x28) - *(f32 *)(arg0 + 0x1C);
-    position = *(RopePoint *)(arg0 + 0x14);
-    *(RopePoint *)(arg0 + 0x48) = position;
-    *(f32 *)(arg0 + 0x5C) = 0.0f;
-    *(f32 *)(arg0 + 0x58) = 0.0f;
-    *(f32 *)(arg0 + 0x54) = 0.0f;
-    step.x = delta.x * D_800AA394;
-    step.y = delta.y * D_800AA398;
-    step.z = delta.z * D_800AA39C;
-    position.x += step.x;
-    position.y += step.y;
-    position.z += step.z;
-    for (i = 1; i < 10; i++) {
-        node = arg0 + 0x48 + i * 0x18;
-        *(RopePoint *)node = position;
-        *(f32 *)(node + 0xC) = 0.0f;
-        *(f32 *)(node + 0x10) = 0.0f;
-        *(f32 *)(node + 0x14) = 0.0f;
-        position.x += step.x;
-        position.y += step.y;
-        position.z += step.z;
+    delta.x = end->x - start->x;
+    delta.y = end->y - start->y;
+    delta.z = end->z - start->z;
+    pos = *start;
+    for (i = 0; i < 10; i++) {
+        HoltenRopePoint *point = &effect->points[i];
+
+        *(Vec3f *)point = pos;
+        point->velocity.x = 0.0f;
+        point->velocity.y = 0.0f;
+        point->velocity.z = 0.0f;
+        pos.x += delta.x * 0.11111111f;
+        pos.y += delta.y * 0.11111111f;
+        pos.z += delta.z * 0.11111111f;
     }
-    arg0[0x10] &= ~2;
+    effect->flags &= ~2;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B3A7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3A7C.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_15047D60(f32);
@@ -600,7 +584,7 @@ s32 func_151B48DC(HoltenRopeEffect *arg0) {
     arg0->flags &= ~2;
     return 1;
 }
-s32 func_151B498C(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5, s32 *arg6, s32 *arg7, s32 *arg8, s32 *arg9, s32 *arg10, s32 *arg11, s8 *arg12, s8 *arg13) {
+s32 func_151B498C(s32 arg0, u32 *arg1, u32 *arg2, u32 *arg3, u32 *arg4, u32 *arg5, u32 *arg6, u32 *arg7, u32 *arg8, u32 *arg9, u32 *arg10, u32 *arg11, s8 *arg12, s8 *arg13) {
     *arg1 = 0x220005;
     *arg2 = 0x40600;
     *arg3 = 0xFF;
@@ -618,19 +602,22 @@ s32 func_151B498C(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg
 }
 void func_1502EC34(u8 *, s32 *, s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4A14 CURRENT (649) */
-u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
-                 s32 *arg4, s32 *arg5, s32 *arg6, s32 *arg7,
-                 s32 *arg8, s32 *arg9, s32 *arg10, s32 *arg11,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4A14 */
+u8 func_151B4A14(void *arg0, u32 *arg1, u32 *arg2, u32 *arg3,
+                 u32 *arg4, u32 *arg5, u32 *arg6, u32 *arg7,
+                 u32 *arg8, u32 *arg9, u32 *arg10, u32 *arg11,
                  s8 *arg12, s8 *arg13) {
     u8 result;
+    HoltenRopeEffect *effect = (HoltenRopeEffect *)arg0;
+    u8 *base;
     u8 *data;
     s32 value0;
     s32 value1;
     s32 value2;
     s32 value3;
 
-    data = *(u8 **)((u8 *)arg0 + 0x150);
+    base = (u8 *)effect + 0x150;
+    data = *(u8 **)base;
     result = 1;
     func_1502EC34(data, &value0, &value1, &value2, &value3);
     if (data[0xA4] & 1) {
@@ -640,15 +627,13 @@ u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
         *arg4 = value1;
         *arg5 = value2;
         *arg6 = 0xFF;
-        *arg9 = value3;
-        *arg8 = value3;
-        *arg7 = value3;
+        *arg7 = *arg8 = *arg9 = value3;
         *arg10 = 0xFF;
         *arg11 = 0x100000;
         *arg12 = 5;
         *arg13 = 0x2F;
     } else {
-        result = func_151B498C((s32)arg0, arg1, arg2, arg3, arg4,
+        result = func_151B498C((s32)effect, arg1, arg2, arg3, arg4,
                               arg5, arg6, arg7, arg8, arg9, arg10,
                               arg11, arg12, arg13);
     }
