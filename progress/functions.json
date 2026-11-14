@@ -8463,17 +8463,16 @@
       "symbol": "func_151B498C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 649,
-        "reason": "nov11 review cut: prior candidate kept; u32 value3 + alias shade local + alpha local reaches CURRENT 0 (hint only: build/us/manual-attempts/nov11/wF/func_151B4A14/best.c)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 356,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B4A14",
           "vram": "0x151B4A14"
         }
@@ -39610,17 +39609,16 @@
       "symbol": "func_15021DB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2593,
-        "reason": "CURRENT (2593): explicit loop prevented unrolling and sentinel/volatile reads restored the two memory reloads, but candidate saves only s0 with frame 8 versus raw s0-s2/frame 0x10; loop index/count/flag register allocation and float comparison operand order still differ. Two targeted revisions exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15022024",
           "vram": "0x15022024"
         }
@@ -55054,17 +55052,16 @@
       "symbol": "func_151C6EA0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 863,
-        "reason": "Fresh1093 stale three-arg callee contract rejected; canonical local one-pointer15142A5C call valid863. Actual pointer/float lifetime revision1246 regressed; restored863 after two revisions. Spill18vs1C, FP constant/allocation and return scheduling remain. Target-only declaration, no known matched C callers or shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 360,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C7038",
           "vram": "0x151C7038"
         }
@@ -56504,17 +56501,16 @@
       "symbol": "func_15155FD4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1225,
-        "reason": "CURRENT (1225): wrapping actor subtraction before signed division; frame exact. Base register selection and DIV/MFLO scheduling diverge; mode/first quotient reuse neutral and prior base/stride/difference locals regressed. Two fresh revisions exhausted; simpler valid candidate retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 360,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15156028",
           "vram": "0x15156028"
         }
@@ -56631,17 +56627,16 @@
       "symbol": "func_1517EA4C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 583,
-        "reason": "CURRENT (583): wrapping view products/addresses recover raw integer registers; frame0x98 exact. Matrix/output/camera homes+0x10 and FPR/scheduling remain. Natural88B workspace regressed1629; prior scratch widening/local reversal exhausted. Two fresh revisions exhausted; valid best retained.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 368,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517EAAC",
           "vram": "0x1517EAAC"
         }
@@ -63329,17 +63324,16 @@
       "symbol": "func_151B9CB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3020,
-        "reason": "CURRENT (3020): extra saved s7 and hoisted bound/count alter the lookup loop; reloading count and integer call ABI revisions regressed, so preserve initial 60-row candidate",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 336,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15016850",
           "vram": "0x15016850"
         }
@@ -69332,17 +69326,16 @@
       "symbol": "func_150E02C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2478,
-        "reason": "CURRENT (2478): motion/threshold/callback logic matches broadly, but raw frame 0x48 and delta at sp30 versus candidate frame 0x38 and delta at sp2c; branch-likely and vector-update scheduling also differ. Source-local padded aggregate trial regressed to CURRENT (4403).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 368,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E6230",
           "vram": "0x150E6230"
         }

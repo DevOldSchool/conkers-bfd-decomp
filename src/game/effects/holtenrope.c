@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B32C8
  * - func_151B3FDC
- * - func_151B4A14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -584,7 +583,7 @@ s32 func_151B48DC(HoltenRopeEffect *arg0) {
     arg0->flags &= ~2;
     return 1;
 }
-s32 func_151B498C(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5, s32 *arg6, s32 *arg7, s32 *arg8, s32 *arg9, s32 *arg10, s32 *arg11, s8 *arg12, s8 *arg13) {
+s32 func_151B498C(s32 arg0, u32 *arg1, u32 *arg2, u32 *arg3, u32 *arg4, u32 *arg5, u32 *arg6, u32 *arg7, u32 *arg8, u32 *arg9, u32 *arg10, u32 *arg11, s8 *arg12, s8 *arg13) {
     *arg1 = 0x220005;
     *arg2 = 0x40600;
     *arg3 = 0xFF;
@@ -602,19 +601,21 @@ s32 func_151B498C(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg
 }
 void func_1502EC34(u8 *, s32 *, s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4A14 CURRENT (649) */
-u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
-                 s32 *arg4, s32 *arg5, s32 *arg6, s32 *arg7,
-                 s32 *arg8, s32 *arg9, s32 *arg10, s32 *arg11,
+u8 func_151B4A14(void *arg0, u32 *arg1, u32 *arg2, u32 *arg3,
+                 u32 *arg4, u32 *arg5, u32 *arg6, u32 *arg7,
+                 u32 *arg8, u32 *arg9, u32 *arg10, u32 *arg11,
                  s8 *arg12, s8 *arg13) {
     u8 result;
+    HoltenRopeEffect *effect = (HoltenRopeEffect *)arg0;
+    u8 *base;
     u8 *data;
     s32 value0;
     s32 value1;
     s32 value2;
     s32 value3;
 
-    data = *(u8 **)((u8 *)arg0 + 0x150);
+    base = (u8 *)effect + 0x150;
+    data = *(u8 **)base;
     result = 1;
     func_1502EC34(data, &value0, &value1, &value2, &value3);
     if (data[0xA4] & 1) {
@@ -624,22 +625,18 @@ u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
         *arg4 = value1;
         *arg5 = value2;
         *arg6 = 0xFF;
-        *arg9 = value3;
-        *arg8 = value3;
-        *arg7 = value3;
+        *arg7 = *arg8 = *arg9 = value3;
         *arg10 = 0xFF;
         *arg11 = 0x100000;
         *arg12 = 5;
         *arg13 = 0x2F;
     } else {
-        result = func_151B498C((s32)arg0, arg1, arg2, arg3, arg4,
+        result = func_151B498C((s32)effect, arg1, arg2, arg3, arg4,
                               arg5, arg6, arg7, arg8, arg9, arg10,
                               arg11, arg12, arg13);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B4A14 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4A14.s")
 
 s32 func_151B4B78(HoltenRopeEffect *arg0) {
     f32 x;

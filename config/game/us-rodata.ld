@@ -351,6 +351,7 @@ SECTIONS
        and docs/evidence/data-layout/game_rodata_literal_sub_pools.md. */
     .game_rodata_49d30_0 0x800969C0 (INFO) : SUBALIGN(4) { *game_49D30.o(.rodata.49d30_0) }
     .game_rodata_49d30_4 0x800969D0 (INFO) : SUBALIGN(4) { *game_49D30.o(.rodata.49d30_4) }
+    .game_rodata_49d30_8 0x80096A14 (INFO) : SUBALIGN(4) { *game_49D30.o(.rodata.49d30_8) }
     /* Camera literals with an aligned double: docs/evidence/data-layout/game_rodata_literal_sub_pools.md. */
     .game_rodata_197f20_0 0x800A6DBC (INFO) : SUBALIGN(4) { *game_197F20.o(.rodata.197f20_0) }
     .game_rodata_197f20_8 0x800A6DC8 (INFO) : SUBALIGN(4) { *game_197F20.o(.rodata.197f20_8) }
@@ -662,6 +663,7 @@ __game_rodata_1f2730_0_base = ADDR(.game_rodata_1f2730_0);
 __game_rodata_1f2730_c_base = ADDR(.game_rodata_1f2730_c) - 0xC;
 __game_rodata_49d30_0_base = ADDR(.game_rodata_49d30_0);
 __game_rodata_49d30_4_base = ADDR(.game_rodata_49d30_4) - 0x4;
+__game_rodata_49d30_8_base = ADDR(.game_rodata_49d30_8) - 0x8;
 __game_rodata_197f20_0_base = ADDR(.game_rodata_197f20_0);
 __game_rodata_197f20_8_base = ADDR(.game_rodata_197f20_8) - 0x8;
 __game_rodata_1865d0_0_base = ADDR(.game_rodata_1865d0_0);
@@ -1068,6 +1070,8 @@ ASSERT(SIZEOF(.game_rodata_49d30_0) == 0x4,
        "game_49D30 func_1501D044 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_49d30_4) == 0x4,
        "game_49D30 func_1501F72C literal extent changed")
+ASSERT(SIZEOF(.game_rodata_49d30_8) == 0x4,
+       "game_49D30 func_15022024 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_197f20_0) == 0x8, "game_197F20 func_1516CC58 float literal extent changed")
 ASSERT(SIZEOF(.game_rodata_197f20_8) == 0x1C, "game_197F20 func_1516CC58 double literal extent changed")
 ASSERT(SIZEOF(.game_rodata_40490) == 0x10,

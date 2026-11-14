@@ -105,6 +105,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_981E0 | 0x144 | 0x80 | 0x80099EAC | pool (func_15070898) | 32 words ([record](game_981e0_constructor_literal_pool.md)) |
 | game_49D30 | 0x0 | 0x4 | 0x800969C0 | pool (func_1501D044) | `4479C000` (999.0) |
 | game_49D30 | 0x4 | 0x4 | 0x800969D0 | pool (func_1501F72C) | `3C23D70A` (0.01) |
+| game_49D30 | 0x8 | 0x4 | 0x80096A14 | pool (func_15022024) | `C61C3C00` (-9999.0; round-24) |
 | game_39750 | 0x0 | 0x1C | 0x80096104 | pool (func_1500D8C8 `const u16` table) | `00760077 00780079 0053003E 003D0039 00020003 004E004F 00500051` ([record](game_39750_float_constants.md); round-23) |
 | game_39750 | 0x1C | 0x50 | 0x80096158 | pool (func_1500CE4C, func_1500D3AC, func_1500D8C8) | 5 + 7 + 8 words ([record](game_39750_float_constants.md); round-23) |
 | game_1865D0 | 0x0 | 0x20 | 0x800A63C4 | pool (func_15159C08) | 8 words ([record](game_1865d0_float_constants.md); round-23) |
@@ -256,6 +257,14 @@ keep their runtime addresses.
   first word. The words 0x800969C4..0x800969CF belong to the unmatched
   `func_1501EA18` and `func_1501EC38` and keep their extern symbols. The
   object `.rodata` is 0x10 bytes: 8 of payload and 8 zero alignment bytes.
+  Round-24: `func_15022024` compares two selection values with the `-9999.0f`
+  "unset" sentinel. The raw function loads it once from 0x80096A14 (ROM
+  `C61C3C00`, HI16/LO16 at raw 0x150220E0/0x150220E4) and reuses it for
+  both comparisons; as a literal the function matches (CURRENT 2593 with the
+  extern). The word lands at object offset 0x8, so the unit gains a third
+  sub-pool `.rodata.49d30_8` at 0x80096A14. The words 0x800969D4..0x80096A10
+  and 0x80096A18.. stay extern reads of other members. The object `.rodata`
+  is still 0x10 bytes, now 0xC of payload and 4 zero alignment bytes.
 - **game_1F2730:** `func_151C577C` hoists eight literals out of loops that
   contain calls; as `extern` symbols IDO reloads them and the function does
   not match. The checksum-validated ROM holds the nine words `3DCCCCCD

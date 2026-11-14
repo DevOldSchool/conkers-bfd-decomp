@@ -498,6 +498,16 @@
         }
       },
       {
+        "address": "0x80096A14",
+        "section": ".rodata.49d30_8",
+        "owner": {
+          "sources": [
+            "src/game/game_49D30.c",
+            "src/done/game/game_49D30.c"
+          ]
+        }
+      },
+      {
         "address": "0x80096DF8",
         "section": ".rodata.58f80_0",
         "owner": {

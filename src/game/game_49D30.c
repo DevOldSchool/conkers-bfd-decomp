@@ -18,7 +18,6 @@
  * - func_15020878
  * - func_15020EC4
  * - func_1502178C
- * - func_15022024
  * - func_150229E4
  * - func_15022BA4
  * - func_150234A4
@@ -1189,59 +1188,37 @@ s32 func_15021DB8(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5
 }
 extern void *D_800C35C8[];
 extern u8 *D_800C3958[];
-extern f32 D_80096A14;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15022024 CURRENT (2593) */
 s32 func_15022024(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     s32 index;
-    s32 count;
-    u16 *flags;
-    u8 *match;
-    u8 *table;
-    f32 value;
-    f32 sentinel;
 
     if (D_800C35EA[arg3] != 1) {
         return 0;
     }
-    count = D_800C363A[arg3];
-    index = 0;
-    if (count > 0) {
-        flags = D_800C35C8[arg3];
-loop_4:
-        if (*flags != 0) {
-            match = (u8 *)D_800C35F0[arg3] + (index * 8);
-            if ((*(u16 *)match == 2) &&
-                (*((u8 *)&D_800CC2D0 + (arg2 * 0x32C) + 0x3B) == match[2])) {
-                sentinel = D_80096A14;
-                arg0[1] = 0.0f;
-                arg1[1] = 0.0f;
-                arg0[0] = 0.0f;
-                arg1[0] = 0.0f;
-                table = D_800C3958[arg3] + (index * 0x44);
-                value = *(f32 *)(table + 0x3C);
-                if (sentinel != value) {
-                    arg1[0] = value;
-                    arg1[1] = *(volatile f32 *)&arg1[0];
-                }
-                value = *(f32 *)(D_800C3958[arg3] + (index * 0x44) + 0x40);
-                if (sentinel != value) {
-                    arg0[0] = value;
-                    arg0[1] = *(volatile f32 *)&arg0[0];
-                }
-                return 1;
-            }
+    for (index = 0; index < D_800C363A[arg3]; index++) {
+        if (((u16 *)D_800C35C8[arg3])[index] == 0) {
+            continue;
         }
-        index++;
-        flags++;
-        if (index < count) {
-            goto loop_4;
+        if (((Game49D30Selection *)D_800C35F0[arg3])[index].kind != 2 ||
+            ((u8 (*)[0x32C])&D_800CC2D0)[arg2][0x3B] != ((Game49D30Selection *)D_800C35F0[arg3])[index].actor) {
+            continue;
         }
+        arg0[1] = 0.0f;
+        arg1[1] = 0.0f;
+        arg0[0] = 0.0f;
+        arg1[0] = 0.0f;
+        if (*(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x3C) != -9999.0f) {
+            arg1[0] = *(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x3C);
+            arg1[1] = arg1[0];
+        }
+        if (*(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x40) != -9999.0f) {
+            arg0[0] = *(f32 *)(D_800C3958[arg3] + index * 0x44 + 0x40);
+            arg0[1] = arg0[0];
+        }
+        return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15022024 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022024.s")
 extern s8 D_800C3663;
 
 void func_15022190(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {

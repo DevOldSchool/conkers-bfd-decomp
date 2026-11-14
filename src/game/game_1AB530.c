@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_1AB530.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_indexed_controller_view_worklist.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1517EAAC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10003C40(s32, s32, s32, s32);
@@ -334,40 +329,38 @@ extern s32 D_80082FA4;
 extern u8 *D_800DBFF0;
 extern u8 *D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517EAAC CURRENT (583) */
 s32 func_1517EAAC(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
-    f32 output[4];
+    Game1AB530TransformRef *view;
+    f32 pitch;
+    f32 yaw;
+    f32 roll;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 w;
     u8 transform[0x40];
-    f32 camera_x;
-    f32 camera_y;
-    f32 ratio;
-    f32 x_component;
-    f32 y_component;
-    Game1AB530TransformRef *transform_ref;
-    Game1AB530CameraInfo *camera_info;
+    f32 cameraX;
+    f32 cameraY;
 
-    transform_ref = (Game1AB530TransformRef *)((u32)D_800DBFF0 + (u32)D_80082FA4 * 0x9A0U);
-    func_15110360(D_80082FA4, transform, -transform_ref->field388, -transform_ref->field380, transform_ref->field5EC);
-    camera_info = (Game1AB530CameraInfo *)((u32)D_800BE628 + (u32)D_80082FA4 * 0x180U);
-    camera_x = camera_info->fieldC;
-    camera_y = camera_info->field10;
-    func_150A7A00(transform, arg0, arg1, arg2, &output[3], &output[2], &output[1], &output[0]);
-    if (output[0] > 10.0f) {
-        ratio = 1.0f / output[0];
-        x_component = output[3] * camera_x * ratio;
-        output[3] = x_component;
-        y_component = output[2] * camera_y * ratio;
-        output[2] = y_component;
-        *arg3 = camera_x + x_component;
-        *arg4 = camera_y - y_component;
+    view = (Game1AB530TransformRef *)((u32)D_800DBFF0 + (u32)D_80082FA4 * 0x9A0U);
+    pitch = -view->field388;
+    yaw = -view->field380;
+    roll = view->field5EC;
+    func_15110360(D_80082FA4, transform, pitch, yaw, roll);
+    cameraX = ((Game1AB530CameraInfo *)((u32)D_800BE628 + (u32)D_80082FA4 * 0x180U))->fieldC;
+    cameraY = ((Game1AB530CameraInfo *)((u32)D_800BE628 + (u32)D_80082FA4 * 0x180U))->field10;
+    func_150A7A00(transform, arg0, arg1, arg2, &x, &y, &z, &w);
+    if (w > 10.0f) {
+        x = x * cameraX * (1.0f / w);
+        y = y * cameraY * (1.0f / w);
+        *arg3 = cameraX + x;
+        *arg4 = cameraY - y;
         return 1;
     }
     *arg3 = 0.0f;
     *arg4 = 0.0f;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517EAAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517EAAC.s")
 typedef struct Game1AB530ProjectionNode {
     f32 position[3];
     f32 screen[2];
