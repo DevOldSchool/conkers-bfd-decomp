@@ -8,9 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15009334
  * - func_1500AF08
- * - func_1500B8F4
- * - func_1500BAB8
- * - func_1500BC7C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -919,135 +916,76 @@ u32 func_1500B714(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
     func_1000FA64(0x4D, (s16)x, (s16)y, (s16)z, 0x8000, volume, volume >> 3, 0, 0, 0, 0, 0);
     return arg4;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 CURRENT (4848) */
-void func_1500B8F4(s32 count, s32 alpha, s32 resource, s32 type, u32 volatile first_record, s16 **points) {
-    f32 (*weights)[2];
-    f32 x;
-    f32 y;
-    f32 z;
-    f32 first;
-    f32 second;
-    s16 x0;
-    s16 y0;
-    s16 z0;
-    u32 index;
+void func_1500B8F4(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+    f32 *weights;
+    s32 n;
+    s32 index;
     u32 result;
-    u32 record;
-    s16 *point0;
-    s16 *point2;
-    s16 *point1;
 
-    count = (s16)count;
     index = 0;
-    if (count != 0) {
-        weights = D_80095C64;
-        record = first_record;
+    n = arg0;
+    if (n != 0) {
+        weights = D_80095C64[0];
         do {
-            point1 = points[1];
-            point0 = points[0];
-            point2 = points[2];
-            x0 = point0[0];
-            first = (*weights)[0];
-            second = (*weights)[1];
-            y0 = point0[1];
-            x = (f32)(point1[0] - x0) * first + (f32)x0;
-            y = (f32)(point1[1] - y0) * first + (f32)y0;
-            z0 = point0[2];
-            z = (f32)(point1[2] - z0) * first + (f32)z0;
-            result = func_1500AF08(record, resource, type,
-                (s16)((f32)(point2[0] - x) * second + x),
-                (s32)((f32)(point2[1] - y) * second + y),
-                (s32)((f32)(point2[2] - z) * second + z),
-                0, alpha & 0xFF, record);
+            result = func_1500AF08(arg4, arg2, arg3,
+                (s16)FLERP(LERP(arg5[0][0], arg5[1][0], weights[0]), arg5[2][0], weights[1]),
+                FLERP(LERP(arg5[0][1], arg5[1][1], weights[0]), arg5[2][1], weights[1]),
+                FLERP(LERP(arg5[0][2], arg5[1][2], weights[0]), arg5[2][2], weights[1]),
+                0, arg1, arg4);
             index++;
-            weights++;
-            record = result;
-        } while ((s32)index != count);
-        first_record = result;
+            weights += 2;
+            arg4 = result;
+        } while (index != n);
     }
-    D_800DDBD0[resource] = 0x57;
+    D_800DDBD0[arg2] = 0x57;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B8F4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BAB8 CURRENT (3055) */
 void func_1500BAB8(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
-    f32 (*var_s0)[2];
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 alpha;
-    s32 count;
-    s32 var_s1;
-    u32 temp_v0_2;
-    u32 var_s3;
-    s16 *temp_t0;
-    s16 *temp_v0;
-    s16 *temp_v1;
+    f32 *weights;
+    s32 n;
+    s32 index;
+    u32 result;
 
-    alpha = arg1;
-    count = arg0;
-    var_s1 = 0;
-    if (arg0 != 0) {
-        var_s0 = D_80095C64;
-        var_s3 = arg4;
+    index = 0;
+    n = arg0;
+    if (n != 0) {
+        weights = D_80095C64[0];
         do {
-            temp_v1 = arg5[1];
-            temp_t0 = arg5[0];
-            temp_v0 = arg5[2];
-            temp_fv0 = var_s0[0][0];
-            temp_fv1 = var_s0[0][1];
-            temp_v0_2 = func_1500AF08(var_s3, arg2, arg3, (s32) (s16) (s32) ((((f32) temp_v0[0] - (((f32)(temp_v1[0] - temp_t0[0]) * temp_fv0) + (f32)temp_t0[0])) * temp_fv1) + (((f32)(temp_v1[0] - temp_t0[0]) * temp_fv0) + (f32)temp_t0[0])), (s32) ((((f32) temp_v0[1] - (((f32)(temp_v1[1] - temp_t0[1]) * temp_fv0) + (f32)temp_t0[1])) * temp_fv1) + (((f32)(temp_v1[1] - temp_t0[1]) * temp_fv0) + (f32)temp_t0[1])), (s32) ((((f32) temp_v0[2] - (((f32)(temp_v1[2] - temp_t0[2]) * temp_fv0) + (f32)temp_t0[2])) * temp_fv1) + (((f32)(temp_v1[2] - temp_t0[2]) * temp_fv0) + (f32)temp_t0[2])), 0, alpha, (s32) var_s3);
-            var_s1 += 1;
-            var_s0++;
-            var_s3 = temp_v0_2;
-        } while (var_s1 != count);
-        arg4 = temp_v0_2;
+            result = func_1500AF08(arg4, arg2, arg3,
+                (s16)FLERP(LERP(arg5[0][0], arg5[1][0], weights[0]), arg5[2][0], weights[1]),
+                FLERP(LERP(arg5[0][1], arg5[1][1], weights[0]), arg5[2][1], weights[1]),
+                FLERP(LERP(arg5[0][2], arg5[1][2], weights[0]), arg5[2][2], weights[1]),
+                0, arg1, arg4);
+            index++;
+            weights += 2;
+            arg4 = result;
+        } while (index != n);
     }
     D_800DDBD0[arg2] = 8;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500BAB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BAB8.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BC7C CURRENT (2294) */
-void func_1500BC7C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 volatile arg4, s16 **arg5) {
-    f32 (*var_s0)[2];
-    s16 x0;
-    s16 y0;
-    s16 z0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 count;
-    u32 var_s1;
-    u32 temp_v0_2;
-    u32 var_s3;
-    s16 *temp_t0;
-    s16 *temp_v0;
-    s16 *temp_v1;
+void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+    f32 *weights;
+    s32 n;
+    s32 index;
+    u32 result;
 
-    count = (s16)arg0;
-    var_s1 = 0;
-    if (count != 0) {
-        var_s0 = D_80095C64;
-        var_s3 = arg4;
+    index = 0;
+    n = arg0;
+    if (n != 0) {
+        weights = D_80095C64[0];
         do {
-            temp_v1 = arg5[1];
-            temp_t0 = arg5[0];
-            temp_v0 = arg5[2];
-            x0 = temp_t0[0];
-            y0 = temp_t0[1];
-            z0 = temp_t0[2];
-            temp_fv0 = var_s0[0][0];
-            temp_fv1 = var_s0[0][1];
-            temp_v0_2 = func_1500AF08(var_s3, arg2, arg3, (s32) (s16) (s32) ((((f32) temp_v0[0] - (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)) * temp_fv1) + (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)), (s32) ((((f32) temp_v0[1] - (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)) * temp_fv1) + (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)), (s32) ((((f32) temp_v0[2] - (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)) * temp_fv1) + (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)), 0, arg1 & 0xFF, (s32) var_s3);
-            var_s1 += 1;
-            var_s0++;
-            var_s3 = temp_v0_2;
-        } while ((s32)var_s1 != count);
-        arg4 = temp_v0_2;
+            result = func_1500AF08(arg4, arg2, arg3,
+                (s16)FLERP(LERP(arg5[0][0], arg5[1][0], weights[0]), arg5[2][0], weights[1]),
+                FLERP(LERP(arg5[0][1], arg5[1][1], weights[0]), arg5[2][1], weights[1]),
+                FLERP(LERP(arg5[0][2], arg5[1][2], weights[0]), arg5[2][2], weights[1]),
+                0, arg1, arg4);
+            index++;
+            weights += 2;
+            arg4 = result;
+        } while (index != n);
     }
     D_800DDBD0[arg2] = 0x21;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1500BC7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BC7C.s")
 extern s32 D_800DDD0C;
 extern s32 D_800DDD10[];
 

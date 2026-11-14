@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1518BD60
  * - func_1518C0B8
- * - func_1518C69C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -188,46 +187,41 @@ u8 func_151D8E20(void);
 f32 func_150ADA68(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C69C CURRENT (957) */
 s32 func_1518C69C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                    s32 arg5) {
     Game1B9210EffectPacket packet;
-    f32 position[3];
-    u8 kind;
     u8 *effect;
     Game18C69CPosition *positions;
-    s32 height;
-    s16 size;
 
     effect = *(u8 **)(arg0 + 0x98);
     positions = *(Game18C69CPosition **)(arg0 + 0x94);
     packet.field80 = 0;
     packet.field8A = 0x100;
     packet.field8C = (s32)positions[*(s8 *)(arg0 + 0x2D)].x;
-    height = (s32)arg4;
-    packet.field8E = height;
+    packet.field8E = (s32)arg4;
     packet.field90 = (s32)positions[*(s8 *)(arg0 + 0x2D)].z;
-    size = (func_150ADA20() % 21U) + 0x23;
-    packet.field92 = size;
+    packet.field92 = packet.field94 = (func_150ADA20() % 21U) + 0x23;
     packet.fieldA2 = -1;
     packet.fieldA0 = 0x12;
     packet.field98 = 0xC;
     packet.fieldA1 = 0;
-    packet.field94 = size;
-    packet.field96 = height;
+    packet.field96 = (s32)arg4;
     func_1516865C(&packet, 0xFF, 0xFF, 0xFF, 0xFF);
     func_15168800(&packet, arg0[0xC], arg0[1]);
     effect[0x20] = 4;
-    position[0] = positions[*(s8 *)(arg0 + 0x2D)].x;
-    position[1] = arg4;
-    position[2] = positions[*(s8 *)(arg0 + 0x2D)].z;
-    kind = func_151D8E20();
-    func_151DBCBC(kind, func_150ADA68() * 40.0f + 100.0f, 0xFF,
-                   arg5, position, arg0[0xC], arg0[1]);
+    {
+        u8 kind;
+        f32 position[3];
+
+        position[0] = positions[*(s8 *)(arg0 + 0x2D)].x;
+        position[1] = arg4;
+        position[2] = positions[*(s8 *)(arg0 + 0x2D)].z;
+        kind = func_151D8E20();
+        func_151DBCBC(kind, func_150ADA68() * 40.0f + 100.0f, 0xFF,
+                      arg5, position, arg0[0xC], arg0[1]);
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518C69C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C69C.s")
 
 void func_1518C850(void *arg0, void *arg1, u8 arg2) {
     if (arg2 == 0x2D) {

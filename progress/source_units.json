@@ -18775,15 +18775,15 @@
       "functions": [
         "func_15108120"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1082D0",
           "start": "0x108120",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1355D0.c"
+      "source": "src/done/game/game_1355D0.c"
     },
     {
       "boundary_evidence": {

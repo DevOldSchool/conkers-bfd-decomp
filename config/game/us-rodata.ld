@@ -57,6 +57,8 @@ SECTIONS
     {
         *game_133190.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1355d0_float_constants.md. */
+    .game_rodata_1355d0 0x800A2438 (INFO) : SUBALIGN(4) { *game_1355D0.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_191c30_float_constants.md. */
     .game_rodata_191c30 0x800A6B20 (INFO) : SUBALIGN(4)
     {
@@ -598,6 +600,8 @@ SECTIONS
     .game_rodata_138b40 0x800A2C2C (INFO) : SUBALIGN(4) { *game_138B40.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_10e510_float_constants.md. */
     .game_rodata_10e510 0x800A1014 (INFO) : SUBALIGN(4) { *game_10E510.o(.rodata) }
+    /* Beam scale bounds: docs/evidence/data-layout/game_108320_float_constants.md. */
+    .game_rodata_108320 0x800A0BE4 (INFO) : SUBALIGN(4) { *game_108320.o(.rodata) }
     /* Switch table and constants: docs/evidence/data-layout/game_109220_rodata.md. */
     .game_rodata_109220 0x800A0C40 (INFO) : SUBALIGN(4) { *game_109220.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_ec420_float_constants.md. */
@@ -849,6 +853,8 @@ __game_rodata_10e510_payload_size = 0x14;
 
 ASSERT(SIZEOF(.game_rodata_109220) == 0xB0, "game_109220 table and literal extent changed")
 __game_rodata_109220_payload_size = 0xB0;
+ASSERT(SIZEOF(.game_rodata_108320) == 0x10, "game_108320 constant pool extent changed")
+__game_rodata_108320_payload_size = 0xC;
 
 ASSERT(SIZEOF(.game_rodata_ec420) == 0x20, "game_EC420 func_150BF21C literal extent changed")
 __game_rodata_ec420_payload_size = 0x14;
@@ -1122,6 +1128,8 @@ __game_rodata_de5a0_payload_size = 0x1C;
 
 ASSERT(SIZEOF(.game_rodata_133190) == 0x10, "game_133190 constant pool extent changed")
 __game_rodata_133190_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_1355d0) == 0x10, "game_1355D0 constant pool extent changed")
+__game_rodata_1355d0_payload_size = 0x10;
 
 ASSERT(SIZEOF(.game_rodata_191c30) == 0x20, "game_191C30 constant pool extent changed")
 __game_rodata_191c30_payload_size = 0x18;

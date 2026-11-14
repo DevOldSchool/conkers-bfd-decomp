@@ -961,16 +961,15 @@
       "symbol": "func_151356D4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1110,
-        "reason": "Manual 6876->1110 (2026-10-13 game-matching-3): source-local motion record (s16 timer, spin, Vec2 velocity, gravity, spinScale) at +0x70, Vec2 struct-copy average, fabsf intrinsic, motion pointer assigned before the timer test; declaration order inBounds/spin/average/motion fixes the 0x18 frame and average at sp+8. Residual is scheduling only: raw hoists lui %hi(D_800BE9A4) before blez with lui 0x3F00 in the delay slot and recomputes arg0+0x70 per branch (candidate fills slot with addiu v0); raw loads dt after the average stack stores. Per-branch pointer assignment folds offsets (frame 0x20); statement reordering, address-taken/volatile average, and 32-variant permute did not improve.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15135BF8",
           "vram": "0x15135BF8"
         }
@@ -15991,17 +15990,16 @@
       "symbol": "func_1500B714"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4848,
-        "reason": "Manual two-revision ceiling: preserve valid wrapping index and explicit word-to-s16 count normalization with actual volatile record home; CURRENT 4848, frame50 and zero stack rows. Final raw record store recovered; count prologue, saved-register allocation and interpolation scheduling remain. Invalid signed-loop baseline excluded; no supported untried hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 452,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500B8F4",
           "vram": "0x1500B8F4"
         }
@@ -16010,17 +16008,16 @@
       "symbol": "func_1500B8F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3055,
-        "reason": "Manual barycentric interpolation; CURRENT 3055 after direct shared expressions. Parameter normalization, saved-register allocation and float scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 452,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500BAB8",
           "vram": "0x1500BAB8"
         }
@@ -16029,17 +16026,16 @@
       "symbol": "func_1500BAB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2294,
-        "reason": "Best valid CURRENT2294 after wrapping loop index and explicit raw word count/byte normalization; final record home restored with actual volatile parameter. Old1604 rejected for unbounded signed loop. Frame50, zero stack rows; prologue homes, saved registers, FP operand order and coordinate load scheduling remain. Two fresh revisions exhausted; no shared edits or other declarations/callers found.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 452,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500BC7C",
           "vram": "0x1500BC7C"
         }
@@ -71068,17 +71064,16 @@
       "symbol": "func_1518C57C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 957,
-        "reason": "CURRENT (957), round22 pass1 move sweep (dependency-checked: moved statement crosses only independent statements) (stored 1787). Earlier: Manual packet candidate CURRENT (1787): call/store control aligns, but local packet/vector layout yields frame 0x100 instead of raw 0xF8, plus scheduling and register differences. Local declaration reorder regressed and no further evidence-backed layout change is clear.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 436,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518C69C",
           "vram": "0x1518C69C"
         }
@@ -87155,17 +87150,16 @@
       "symbol": "func_150DAE70"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2565,
-        "reason": "Preserved saved2465 unchanged: next --ready selected nondeferred150335C8 instead, outside authorized deferred scope. Untested useful hypothesis: early maximum-bound F12 and color-byte snapshots from raw assembly.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 452,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DB114",
           "vram": "0x150DB114"
         }
@@ -91903,22 +91897,21 @@
       "symbol": "func_1512D390"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 911,
-        "reason": "Actual volatile incoming-byte home improves CURRENT2234 to911 and frame98 to90; all call registers restore, remaining frame90/raw88, shifted stack homes and D_A2438 early-load scheduling. Natural packet/vector aggregate neutral. Same byte parameter width; top-level qualifier changes no callable ABI; indexed matched callers none, raw sole caller passes FF. Two fresh revisions exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 432,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108120",
           "vram": "0x15108120"
         }
       },
-      "source": "src/game/game_1355D0.c",
+      "source": "src/done/game/game_1355D0.c",
       "symbol": "func_15108120"
     },
     {

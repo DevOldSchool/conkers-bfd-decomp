@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150DAE70
- * - func_150DB114
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -33,13 +32,30 @@ typedef struct Game108320BeamOwner {
     s32 transform;
 } Game108320BeamOwner;
 
-typedef struct Game108320BeamResult {
-    u8 pad0[0x110];
+typedef struct Game108320Vertex {
+    s16 x, y, z, flag;
+    u8 attributes[8];
+} Game108320Vertex;
+
+typedef struct Game108320BeamMotion {
     Vec3f delta;
     f32 field11C, field120, field124, field128;
     f32 field12C, field130, field134;
     u8 field138;
-} Game108320BeamResult;
+} Game108320BeamMotion;
+
+typedef struct Game108320Geometry {
+    u8 pad0[0x2C];
+    f32 width, height, x, y, z, directionX;
+    u8 pad44[4];
+    f32 directionZ;
+    u8 pad4C[0x10];
+    u8 field5C;
+    u8 pad5D[0x63];
+    Game108320Vertex templateVertices[4];
+    Game108320Vertex *buffers[4];
+    Game108320BeamMotion motion;
+} Game108320Geometry;
 
 void func_15143134(f32 *, f32 *, s32);
 void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
@@ -64,7 +80,7 @@ void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
         Vec3f first;
         s32 transform;
     } work;
-    Game108320BeamResult *result;
+    Game108320Geometry *result;
     s32 wordOffset;
     s32 vectorOffset;
     f32 speed;
@@ -110,15 +126,15 @@ void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 work.packet.direction.z = x * speed;
                 result = func_1513D524((s32)&work.packet, 9, 0, 0, 7, 0, 0x2C, ((u8 *)&arg2)[3], arg3);
                 if (result != 0) {
-                    result->delta = work.delta;
-                    result->field11C = *(f32 *)((u8 *)D_80088934 + wordOffset);
-                    result->field120 = *(f32 *)((u8 *)D_80088938 + wordOffset);
-                    result->field12C = *(f32 *)((u8 *)D_80088944 + wordOffset);
-                    result->field124 = 1.0f;
-                    result->field128 = 1.0f;
-                    result->field130 = *(f32 *)((u8 *)D_80088948 + wordOffset);
-                    result->field134 = *(f32 *)((u8 *)D_8008893C + wordOffset);
-                    result->field138 = D_80088940[arg1];
+                    result->motion.delta = work.delta;
+                    result->motion.field11C = *(f32 *)((u8 *)D_80088934 + wordOffset);
+                    result->motion.field120 = *(f32 *)((u8 *)D_80088938 + wordOffset);
+                    result->motion.field12C = *(f32 *)((u8 *)D_80088944 + wordOffset);
+                    result->motion.field124 = 1.0f;
+                    result->motion.field128 = 1.0f;
+                    result->motion.field130 = *(f32 *)((u8 *)D_80088948 + wordOffset);
+                    result->motion.field134 = *(f32 *)((u8 *)D_8008893C + wordOffset);
+                    result->motion.field138 = D_80088940[arg1];
                 }
             }
         }
@@ -126,78 +142,45 @@ void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DAE70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_108320/func_150DAE70.s")
-extern f32 D_800A0BE4;
-extern f32 D_800A0BE8;
-extern f32 D_800A0BEC;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB114 CURRENT (2565) */
-s32 func_150DB114(u8 *arg0) {
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv1;
-    f32 var_fa1;
-    s16 temp_v1;
-    u8 *var_v0;
+s32 func_150DB114(Game108320Geometry *arg0) {
+    Game108320BeamMotion *motion = &arg0->motion;
+    s16 remaining = arg0->field5C;
 
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x134);
-    var_v0 = (void *)(arg0 + 0x110);
-    *(f32 *)((u8 *)arg0 + 0x110) = (f32) (*(f32 *)((u8 *)arg0 + 0x110) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x114) = (f32) (*(f32 *)((u8 *)arg0 + 0x114) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x118) = (f32) (*(f32 *)((u8 *)arg0 + 0x118) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)arg0 + 0x34) + (*(f32 *)((u8 *)arg0 + 0x110) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + (*(f32 *)((u8 *)arg0 + 0x114) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + (*(f32 *)((u8 *)arg0 + 0x118) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x124) = (f32) (*(f32 *)((u8 *)arg0 + 0x124) + (*(f32 *)((u8 *)arg0 + 0x12C) * D_800BE9A4));
-    if (D_800A0BE4 < *(f32 *)((u8 *)arg0 + 0x124)) {
-        var_v0 = (void *)(arg0 + 0x110);
-        *(f32 *)((u8 *)var_v0 + 0x14) = (f32) D_800A0BE4;
-        *(f32 *)((u8 *)var_v0 + 0x1C) = (f32) -*(f32 *)((u8 *)var_v0 + 0x1C);
-        var_fa1 = D_800A0BE8;
-    } else {
-        var_fa1 = D_800A0BEC;
-        if (*(f32 *)((u8 *)var_v0 + 0x14) < var_fa1) {
-            *(f32 *)((u8 *)var_v0 + 0x14) = var_fa1;
-            *(f32 *)((u8 *)var_v0 + 0x1C) = (f32) -*(f32 *)((u8 *)var_v0 + 0x1C);
-        }
+    motion->delta.x *= motion->field134;
+    motion->delta.y *= motion->field134;
+    motion->delta.z *= motion->field134;
+    arg0->x += motion->delta.x * D_800BE9A4;
+    arg0->y += motion->delta.y * D_800BE9A4;
+    arg0->z += motion->delta.z * D_800BE9A4;
+    motion->field124 += motion->field12C * D_800BE9A4;
+    if (motion->field124 > 1.2f) {
+        motion->field124 = 1.2f;
+        motion->field12C = -motion->field12C;
+    } else if (motion->field124 < 0.8f) {
+        motion->field124 = 0.8f;
+        motion->field12C = -motion->field12C;
     }
-    temp_fv0_2 = *(f32 *)((u8 *)var_v0 + 0x20);
-    *(f32 *)((u8 *)var_v0 + 0x18) = (f32) (*(f32 *)((u8 *)var_v0 + 0x18) + (temp_fv0_2 * D_800BE9A4));
-    temp_fv1 = *(f32 *)((u8 *)var_v0 + 0x18);
-    if (D_800A0BE4 < temp_fv1) {
-        *(f32 *)((u8 *)var_v0 + 0x18) = (f32) D_800A0BE4;
-        *(f32 *)((u8 *)var_v0 + 0x20) = (f32) -temp_fv0_2;
-    } else if (temp_fv1 < var_fa1) {
-        *(f32 *)((u8 *)var_v0 + 0x18) = var_fa1;
-        *(f32 *)((u8 *)var_v0 + 0x20) = (f32) -temp_fv0_2;
+    motion->field128 += motion->field130 * D_800BE9A4;
+    if (motion->field128 > 1.2f) {
+        motion->field128 = 1.2f;
+        motion->field130 = -motion->field130;
+    } else if (motion->field128 < 0.8f) {
+        motion->field128 = 0.8f;
+        motion->field130 = -motion->field130;
     }
-    *(f32 *)((u8 *)var_v0 + 0xC) = (f32) (*(f32 *)((u8 *)var_v0 + 0xC) + (*(f32 *)((u8 *)var_v0 + 0x10) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)var_v0 + 0xC) * *(f32 *)((u8 *)var_v0 + 0x14));
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)var_v0 + 0xC) * *(f32 *)((u8 *)var_v0 + 0x18));
-    temp_v1 = *(u8 *)((u8 *)arg0 + 0x5C) - *(u8 *)((u8 *)var_v0 + 0x28);
-    if (temp_v1 < 0) {
-        *(u8 *)((u8 *)arg0 + 0x5C) = 0U;
+    motion->field11C += motion->field120 * D_800BE9A4;
+    arg0->width = motion->field11C * motion->field124;
+    arg0->height = motion->field11C * motion->field128;
+    remaining -= motion->field138;
+    if (remaining < 0) {
+        arg0->field5C = 0;
         return 0;
     }
-    *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v1;
+    arg0->field5C = remaining;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DB114 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_108320/func_150DB114.s")
-typedef struct Game108320Vertex {
-    s16 x, y, z, flag;
-    u8 attributes[8];
-} Game108320Vertex;
-
-typedef struct Game108320Geometry {
-    u8 pad0[0x2C];
-    f32 width, height, x, y, z, directionX;
-    u8 pad44[4];
-    f32 directionZ;
-    u8 pad4C[0x74];
-    Game108320Vertex templateVertices[4];
-    Game108320Vertex *buffers[4];
-} Game108320Geometry;
 
 void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);

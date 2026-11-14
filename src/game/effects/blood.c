@@ -9,7 +9,6 @@
  * - func_151349D0
  * - func_15134E48
  * - func_15135480
- * - func_15135BF8
  * - func_15136404
  * - func_15136F50
  * - func_151382E0
@@ -881,11 +880,8 @@ typedef struct {
     f32 spinScale;
 } Blood135BF8Motion;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15135BF8 CURRENT (1110) */
 s32 func_15135BF8(u8 *arg0) {
     s32 inBounds = 1;
-    f32 spin;
-    Blood135BF8Vec2 average;
     Blood135BF8Motion *motion;
 
     motion = (Blood135BF8Motion *)(arg0 + 0x70);
@@ -896,6 +892,8 @@ s32 func_15135BF8(u8 *arg0) {
         *(f32 *)(arg0 + 0x18) += motion->spin * D_800BE9A4;
         *(f32 *)(arg0 + 0x1C) += motion->spin * D_800BE9A4;
     } else {
+        Blood135BF8Vec2 average;
+
         average = motion->velocity;
         *(f32 *)(arg0 + 0x14) += motion->velocity.y * D_800BE9A4 +
                                  motion->gravity * D_800BE9A4 * D_800BE9A4 * 0.5f;
@@ -904,9 +902,12 @@ s32 func_15135BF8(u8 *arg0) {
         average.y += motion->velocity.y;
         average.x *= 0.5f;
         average.y *= 0.5f;
-        spin = fabsf(average.x) * motion->spinScale;
-        *(f32 *)(arg0 + 0x18) += spin * D_800BE9A4;
-        *(f32 *)(arg0 + 0x1C) += spin * D_800BE9A4;
+        {
+            f32 spin = fabsf(average.x) * motion->spinScale;
+
+            *(f32 *)(arg0 + 0x18) += spin * D_800BE9A4;
+            *(f32 *)(arg0 + 0x1C) += spin * D_800BE9A4;
+        }
     }
     if (*(f32 *)(arg0 + 0x10) > 200.0f || *(f32 *)(arg0 + 0x10) < -200.0f ||
         *(f32 *)(arg0 + 0x14) > 200.0f || *(f32 *)(arg0 + 0x14) < -200.0f) {
@@ -914,8 +915,6 @@ s32 func_15135BF8(u8 *arg0) {
     }
     return inBounds;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15135BF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135BF8.s")
 s32 func_15046460(Vec3f *, u16, f32, Game71820Hit *);
 void func_15143794(s16, s16, f32, void *);
 void func_151DB5D0(s32, void *, f32 *, f32, f32, f32, f32, s32, s32, s32,
