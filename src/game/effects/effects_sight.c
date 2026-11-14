@@ -19,7 +19,6 @@
  * - func_151CB5FC
  * - func_151CC524
  * - func_151CC840
- * - func_151CCF08
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2073,15 +2072,15 @@ extern SightPanelColors D_8008FC28;
 extern f32 D_800AAD8C[];
 extern f32 D_800AADB4[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCF08 CURRENT (3493) */
 void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
     SightPanelSpawn spawn;
+    void *object;
     SightPanelPayload payload;
+    s32 mode;
     SightPanelColors colors;
-    s32 select;
     u8 side;
     u8 slot;
-    void *object;
+    s32 bits;
 
     payload.unk1C = 0.0f;
     payload.owner = (u8 *)arg0;
@@ -2090,27 +2089,27 @@ void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
     payload.unk20 = D_800AADB4[D_80082FA0 == 1];
     payload.unk8 = 130.0f;
     if (arg2 == -1) {
-        select = 0;
+        mode = 0;
     } else {
-        select = 4;
+        mode = 4;
     }
-    payload.mode = select;
+    payload.mode = mode;
     payload.unk54 = arg2;
     spawn.angle = 300;
     if (arg1) {
-        select = 0x40;
+        bits = 0x40;
     } else {
-        select = 0;
+        bits = 0;
     }
+    spawn.flags = bits | 0x20 | 0x10;
+    spawn.count = 1;
+    spawn.color = 255;
     spawn.mode = 7;
     spawn.arg1 = 255;
-    spawn.flags = select | 0x30;
-    spawn.count = 1;
     spawn.arg2 = 255;
     spawn.arg3 = 255;
     spawn.time = 255;
     spawn.color0 = 255;
-    spawn.color = 255;
     spawn.color1 = 255;
     spawn.color2 = 255;
     spawn.color3 = 255;
@@ -2124,13 +2123,13 @@ void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
     spawn.field3C = 0x20;
     spawn.field40 = 0;
     spawn.field41 = 0;
-    spawn.field50 = 0.0f;
-    spawn.field54 = 0.0f;
+    spawn.field44 = ((u8 *)arg0)[0x23D];
     spawn.field48 = 1.0f;
     spawn.field4C = 1.0f;
+    spawn.field50 = 0.0f;
+    spawn.field54 = 0.0f;
     spawn.width = 35.75f;
     spawn.height = 16.0f;
-    spawn.field44 = ((u8 *)arg0)[0x23D];
     for (side = 0; side < 2; side++) {
         colors = D_8008FC28;
         if (side) {
@@ -2139,11 +2138,11 @@ void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
             spawn.y = -90.0f;
         }
         if (side) {
-            select = 4;
+            bits = 4;
         } else {
-            select = 0;
+            bits = 0;
         }
-        spawn.flags |= select;
+        spawn.flags |= bits;
         if (side) {
             payload.side = 5;
         } else {
@@ -2159,8 +2158,6 @@ void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CCF08 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCF08.s")
 f32 func_151CC1D4(void *);                          /* extern */
 
 typedef struct SightUpdateFields {

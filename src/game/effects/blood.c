@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_blood.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151349D0
  * - func_15134E48
  * - func_15135480
  * - func_15136404
@@ -463,63 +462,59 @@ extern void (*D_80089AFC[])(f32, f32, f32, f32, f32, f32, void *);
 extern s32 D_800BE9E4;
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151349D0 CURRENT (2481) */
 void func_151349D0(BloodTrail *trail) {
-    f32 radius;
-    Vec3f position;
-    f32 deltaX;
-    f32 deltaY;
+    u8 flags;
+    f32 position[3];
     f32 deltaZ;
-    f32 diameter;
-    f32 fraction;
+    f32 deltaY;
+    f32 deltaX;
     f32 randomX;
     f32 randomY;
-    f32 randomZ;
-    s32 value;
 
-    position.x = *trail->x;
-    position.y = *trail->y;
-    position.z = *trail->z;
+    position[0] = *trail->x;
+    position[1] = *trail->y;
+    position[2] = *trail->z;
     if (trail->flags & 4) {
-        value = trail->callback;
-        if ((value != -1) && (D_80089B18[value](trail) == 0)) {
+        if ((trail->callback != -1) && (D_80089B18[trail->callback](trail) == 0)) {
             func_1516972C(trail);
             return;
         }
     }
-    value = trail->flags;
-    if (value & 2) {
-        trail->flags = value & ~2;
+    flags = trail->flags;
+    if (flags & 2) {
+        trail->flags = flags & ~2;
     } else {
-        deltaX = trail->previous.x - position.x;
-        deltaY = trail->previous.y - position.y;
-        deltaZ = trail->previous.z - position.z;
-        trail->accumulator += ((trail->inverseDiameter *
-            sqrtf(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) + 1.0f) *
-            D_800BE9A4 * trail->rate;
+        f32 scale;
+        f32 distance;
+
+        deltaX = trail->previous.x - position[0];
+        deltaY = trail->previous.y - position[1];
+        deltaZ = trail->previous.z - position[2];
+        distance = sqrtf(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+        scale = trail->inverseDiameter * distance + 1.0f;
+        trail->accumulator += scale * D_800BE9A4 * trail->rate;
         if (trail->accumulator > 7.0f) {
             trail->accumulator = 7.0f;
         }
-        if (trail->accumulator > 1.0f) {
-            do {
-                diameter = trail->radius + trail->radius;
-                fraction = func_150ADA68();
-                if (D_80089AFC[trail->emitter] != 0) {
-                    randomX = func_150ADA68();
-                    randomY = func_150ADA68();
-                    randomZ = func_150ADA68();
-                    radius = trail->radius;
-                    D_80089AFC[trail->emitter](
-                        (position.x + deltaX * fraction + radius) - randomX * diameter,
-                        (position.y + deltaY * fraction + radius) - randomY * diameter,
-                        (position.z + deltaZ * fraction + radius) - randomZ * diameter,
-                        deltaX, deltaY, deltaZ, trail);
-                }
-                trail->accumulator -= 1.0f;
-            } while (trail->accumulator > 1.0f);
+        while (trail->accumulator > 1.0f) {
+            f32 diameter;
+            f32 fraction;
+
+            diameter = trail->radius + trail->radius;
+            fraction = func_150ADA68();
+            if (D_80089AFC[trail->emitter] != NULL) {
+                randomX = func_150ADA68();
+                randomY = func_150ADA68();
+                D_80089AFC[trail->emitter](
+                    (position[0] + deltaX * fraction + trail->radius) - randomX * diameter,
+                    (position[1] + deltaY * fraction + trail->radius) - randomY * diameter,
+                    (position[2] + deltaZ * fraction + trail->radius) - func_150ADA68() * diameter,
+                    deltaX, deltaY, deltaZ, trail);
+            }
+            trail->accumulator -= 1.0f;
         }
     }
-    trail->previous = position;
+    trail->previous = *(Vec3f *)position;
     if (trail->flags & 1) {
         trail->lifetime -= D_800BE9E4;
         if (trail->lifetime < 0) {
@@ -527,8 +522,6 @@ void func_151349D0(BloodTrail *trail) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151349D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151349D0.s")
 void func_15134C98(BloodState *arg0, s32 arg1, u8 arg2) {
     if (arg0->unk28 == 1) {
         func_151BC5A4(arg0, arg1, arg2);

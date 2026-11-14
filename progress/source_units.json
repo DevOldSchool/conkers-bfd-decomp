@@ -14080,7 +14080,7 @@
         "us": {
           "end": "0x14C2F0",
           "start": "0x14BF50",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_179400.c"
@@ -18151,7 +18151,7 @@
         "us": {
           "end": "0x104170",
           "start": "0x103E40",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1312F0.c"

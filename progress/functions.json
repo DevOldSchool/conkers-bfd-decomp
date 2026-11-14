@@ -675,16 +675,15 @@
       "symbol": "func_15134908"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2481,
-        "reason": "Manual budget exhausted: best CURRENT 2481; original frame and position-copy stack span recovered, FP scheduling and loop join remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151349D0",
           "vram": "0x151349D0"
         }
@@ -9470,17 +9469,16 @@
       "symbol": "func_151CCE94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3493,
-        "reason": "best 3493; next hypothesis (s32 arg3 masked at use + object/select homes) hits BLOCKED_TOOLING address-alias padding check",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 796,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CCF08",
           "vram": "0x151CCF08"
         }
@@ -73064,17 +73062,16 @@
       "symbol": "func_1514BF7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 800,
-        "reason": "Bounded manual trial exhausted: initial 14240, real extension base 800, shorter address lifetime/removed owner alias 1735. Preserve valid CURRENT 800 model with actual 12-byte snapshot and unsigned fullword countdown; remaining frame slot, address lifetime and scheduling mismatch. Live initialized 0x168 slot33 owner and stable disjoint timing/finite-intermediate preconditions; no universal lifecycle claim. No permutation, forced storage, ABI or shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 700,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514BF9C",
           "vram": "0x1514BF9C"
         }
@@ -79218,17 +79215,16 @@
       "symbol": "func_150FC818"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1082,
-        "reason": "Manual budget exhausted; bestCURRENT1082 exactframeB0/alllocaladdresses; initializer register ownership and branch-tail schedule remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 708,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E76D0",
           "vram": "0x150E76D0"
         }
@@ -91286,17 +91282,16 @@
       "symbol": "func_151287E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2996,
-        "reason": "Valid first-pass effect candidate CURRENT 2996, one finish attempt. Full 0x24 hit result is proven by raw func_1504715C writes through offset 0x20. Remaining frame 0xA0 vs 0x98, stack homes and cached low-byte arguments. Accepted func_151D5404 has six parameters while raw caller writes eight slots: candidate follows canonical six-argument contract; exact ABI reconciliation requires separately reviewed callee-family scope. Existing caller prototype retains s32 arg3/arg5; do not narrow solely for matching.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 816,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15103E40",
           "vram": "0x15103E40"
         }
