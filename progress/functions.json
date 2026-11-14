@@ -16958,17 +16958,16 @@
       "symbol": "func_15017868"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2145,
-        "reason": "Three bounded forms2595/2145/2405. Proven loader varargs ABI and actual 0x34-byte records; direct global load/divide recovers dual stores, but global pointer lifetimes and repeated address formation remain. Best2145 restored.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15017930",
           "vram": "0x15017930"
         }
@@ -38664,17 +38663,16 @@
       "symbol": "func_1507FF94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1911,
-        "reason": "CURRENT 1911 after 3 candidates, plateau after register-qualified squared-distance revision. Corrected local A3194 full-word input/return ABI; output has3 floats. Frame a8 versus b0, missing saved f24, group-copy scheduling and loop register allocation remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 552,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507FFD8",
           "vram": "0x1507FFD8"
         }
@@ -40134,17 +40132,16 @@
       "symbol": "func_150238D8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3604,
-        "reason": "CURRENT3604: audited outer-marker versus inner-search semantics retained, but frame18 versus10 with extra saved registers and byte-delta strength reduction. Natural backedges worsened4597; integer-address cursor plateaued3604. Four distinct inputs including NULL compile correction, five finishes with typed-pointer restoration.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 560,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15023BB0",
           "vram": "0x15023BB0"
         }
@@ -42467,17 +42464,16 @@
       "symbol": "func_15081690"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 525,
-        "reason": "Three manual forms555/565/525. Typed existing actor collision fields and real vector arrays recover frame/stack. Separate factor worsens scale spill; physical XYZ center order and raw-compatible pointer/address views improve. Early helper argument scheduling and first delta load order remain; no further equivalent probes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 492,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15081C20",
           "vram": "0x15081C20"
         }
@@ -87579,17 +87575,16 @@
       "symbol": "func_150EFB80"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3643,
-        "reason": "CURRENT 3643 after 3 manual candidates. Fully backed 0x6c parameter storage retained; original frame 0xf8 reads across parameter, saved and incoming stack slots, while safe backing gives 0x108. Initializer scheduling/register differences remain. Earlier 4970/3333 candidates invalid due undersized copy object.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 548,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EFEC8",
           "vram": "0x150EFEC8"
         }
@@ -91135,17 +91130,16 @@
       "symbol": "func_150006E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2294,
-        "reason": "CURRENT (2294), round22 s32 enabled declared before the particle (raw 0x8C), inline RNG args, cast ABI kept (frame 0x98 vs 0x90: inline RNG costs 4-5 words here, raw has 3 + 1 unused bottom word) (stored 2441). Earlier: Validity-corrected reviewed candidate CURRENT 2441. Numeric truncation casts and explicit byte-low-high RNG draw sequence replace invalid scalar-parameter home forcing and incorrect prior RNG order. Old score 795 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 536,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15102920",
           "vram": "0x15102920"
         }

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15081C20
  * - func_15081E78
  * - func_150825C0
  * - func_15082A44
@@ -204,52 +203,53 @@ void func_15081690(GameAEB40State *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
 s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15081C20 CURRENT (525) */
 s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
                    s32 arg3, s32 arg4, f32 *arg5, f32 *arg6) {
     f32 world[3];
-    f32 origin[3];
-    f32 direction[3];
-    f32 center[3];
-    f32 scale;
-    f32 inverse;
-    f32 delta[3];
 
     world[0] = arg2->x;
     world[1] = arg2->y + (f32)arg2->height;
     world[2] = arg2->z;
-    scale = arg2->scale;
-    inverse = arg2->inverse;
-    origin[0] = ((f32 *)arg0)[0];
-    origin[1] = ((f32 *)arg0)[1] * scale;
-    origin[2] = ((f32 *)arg0)[2];
-    direction[0] = ((f32 *)arg1)[0];
-    direction[1] = ((f32 *)arg1)[1] * scale;
-    direction[2] = ((f32 *)arg1)[2];
-    if (func_15145128(direction, direction, 0, 0) == 0) {
-        return 0;
+    {
+        f32 origin[3];
+        f32 direction[3];
+        f32 center[3];
+        f32 scale = arg2->scale;
+        f32 inverse = arg2->inverse;
+
+        origin[0] = ((f32 *)arg0)[0];
+        origin[1] = ((f32 *)arg0)[1] * scale;
+        origin[2] = ((f32 *)arg0)[2];
+        direction[0] = ((f32 *)arg1)[0];
+        direction[1] = ((f32 *)arg1)[1] * scale;
+        direction[2] = ((f32 *)arg1)[2];
+        if (func_15145128(direction, direction, NULL, NULL) == 0) {
+            return 0;
+        }
+        center[0] = world[0];
+        center[1] = world[1] * scale;
+        center[2] = world[2];
+        if (func_151452C4(origin, direction, (s32)center, (f32)arg2->radius,
+                           arg3, arg4, arg5, arg6) == 0) {
+            return 0;
+        }
+        ((f32 *)arg3)[1] *= inverse;
+        ((f32 *)arg4)[1] *= inverse;
+        {
+            f32 delta[3];
+
+            delta[0] = ((f32 *)arg3)[0] - ((f32 *)arg0)[0];
+            delta[1] = ((f32 *)arg3)[1] - ((f32 *)arg0)[1];
+            delta[2] = ((f32 *)arg3)[2] - ((f32 *)arg0)[2];
+            *arg5 = func_15143E64(delta);
+            delta[0] = ((f32 *)arg4)[0] - ((f32 *)arg0)[0];
+            delta[1] = ((f32 *)arg4)[1] - ((f32 *)arg0)[1];
+            delta[2] = ((f32 *)arg4)[2] - ((f32 *)arg0)[2];
+            *arg6 = func_15143E64(delta);
+        }
     }
-    center[0] = world[0];
-    center[1] = world[1] * scale;
-    center[2] = world[2];
-    if (func_151452C4(origin, direction, (s32)center, (f32)arg2->radius,
-                       (s32)arg3, (s32)arg4, arg5, arg6) == 0) {
-        return 0;
-    }
-    ((f32 *)arg3)[1] *= inverse;
-    ((f32 *)arg4)[1] *= inverse;
-    delta[0] = ((f32 *)arg3)[0] - ((f32 *)arg0)[0];
-    delta[1] = ((f32 *)arg3)[1] - ((f32 *)arg0)[1];
-    delta[2] = ((f32 *)arg3)[2] - ((f32 *)arg0)[2];
-    *arg5 = func_15143E64(delta);
-    delta[0] = ((f32 *)arg4)[0] - ((f32 *)arg0)[0];
-    delta[1] = ((f32 *)arg4)[1] - ((f32 *)arg0)[1];
-    delta[2] = ((f32 *)arg4)[2] - ((f32 *)arg0)[2];
-    *arg6 = func_15143E64(delta);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15081C20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081C20.s")
 void func_1507DF10(void *, s32);
 extern u8 D_800BE616;
 

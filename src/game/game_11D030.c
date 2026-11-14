@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_11D030.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150EFEC8
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game11D030Emission {
@@ -114,14 +109,14 @@ typedef struct Game11D030SpawnDescriptor {
 
 typedef struct Game11D030SpawnParameters {
     f32 values[9];
-    s32 handles[8];
+    s32 handles[4];
+    s32 links[4];
     s32 count;
     f32 multiplier;
     s16 angles[4];
     u8 colors[4];
     u8 state;
     s8 mode;
-    u8 pad5A[0x12];
 } Game11D030SpawnParameters;
 
 typedef struct Game11D030SpawnOwner {
@@ -136,44 +131,63 @@ s32 func_151407D0();
 extern s32 (*D_8008FD00)(void *, u8);
 extern f32 D_800A1830, D_800A1834;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EFEC8 CURRENT (3643) */
 s32 func_150EFEC8(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
                    s32 arg5, u8 arg6, s32 arg7) {
-    s32 saved;
+    s32 value;
     Game11D030SpawnParameters parameters;
     Game11D030SpawnDescriptor descriptor;
     Game11D030SpawnOwner owner;
-    register s32 value;
 
     owner.actor = arg0;
-    owner.mode = arg1;
     owner.kind = arg0[0x3B];
+    owner.mode = arg1;
     owner.data = arg5;
     descriptor.kind = D_8008FD00(arg0, arg1);
-    descriptor.colors[3] = 0xFF;
-    descriptor.options = 0xCD2002;
     descriptor.mode = 3;
     descriptor.flags = 0x2203;
     descriptor.lifetime = 0x12C;
-    descriptor.colors[0] = arg2;
-    parameters.handles[6] = -1;
-    parameters.handles[3] = -1;
-    descriptor.channels[0] = 0xFF;
-    descriptor.channels[3] = 6;
-    parameters.handles[0] = -1;
-    parameters.handles[4] = -1;
-    parameters.handles[1] = -1;
-    descriptor.colors[1] = arg3;
-    descriptor.colors[2] = arg4;
     descriptor.callback0 = 0;
     descriptor.callback1 = 0;
+    descriptor.colors[0] = arg2;
+    descriptor.colors[1] = arg3;
+    descriptor.colors[2] = arg4;
+    descriptor.colors[3] = 0xFF;
+    descriptor.field18 = 100.0f;
+    descriptor.field14 = 100.0f;
+    descriptor.position[0] = 0.0f;
+    descriptor.position[1] = 0.0f;
+    descriptor.position[2] = 0.0f;
+    descriptor.direction[0] = 0.0f;
+    descriptor.direction[1] = 0.0f;
+    descriptor.direction[2] = 0.0f;
+    descriptor.scales[0] = 1.0f;
+    descriptor.scales[1] = 1.0f;
+    descriptor.scales[2] = 1.0f;
+    descriptor.options = 0xCD2002;
+    descriptor.channels[0] = 0xFF;
     descriptor.channels[1] = 0xFF;
     descriptor.channels[2] = 0;
+    descriptor.channels[3] = 6;
     descriptor.parameter = 0;
-    parameters.handles[5] = -1;
+    parameters.values[1] = 160.0f;
+    parameters.values[0] = 160.0f;
+    parameters.values[3] = 80.0f;
+    parameters.values[2] = 80.0f;
+    parameters.values[4] = 0.5f;
+    parameters.values[5] = 0.5f;
+    parameters.values[6] = 1.0f;
+    parameters.values[7] = D_800A1830;
+    parameters.values[8] = D_800A1834;
+    parameters.handles[0] = -1;
+    parameters.links[0] = -1;
+    parameters.handles[1] = -1;
+    parameters.links[1] = -1;
     parameters.handles[2] = -1;
-    parameters.handles[7] = -1;
+    parameters.links[2] = -1;
+    parameters.handles[3] = -1;
+    parameters.links[3] = -1;
     parameters.count = 0;
+    parameters.multiplier = 1.0f;
     parameters.angles[0] = 0;
     parameters.angles[1] = 0;
     parameters.angles[2] = 0;
@@ -184,38 +198,13 @@ s32 func_150EFEC8(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
     parameters.colors[3] = 0xFF;
     parameters.state = 0xA;
     parameters.mode = -1;
-    descriptor.scales[0] = 1.0f;
-    descriptor.scales[1] = 1.0f;
-    descriptor.scales[2] = 1.0f;
-    parameters.values[6] = 1.0f;
-    parameters.multiplier = 1.0f;
-    descriptor.field18 = 100.0f;
-    descriptor.field14 = 100.0f;
-    parameters.values[1] = 160.0f;
-    parameters.values[0] = 160.0f;
-    parameters.values[3] = 80.0f;
-    parameters.values[2] = 80.0f;
-    descriptor.position[0] = 0.0f;
-    descriptor.position[1] = 0.0f;
-    descriptor.position[2] = 0.0f;
-    descriptor.direction[0] = 0.0f;
-    descriptor.direction[1] = 0.0f;
-    descriptor.direction[2] = 0.0f;
-    parameters.values[4] = 0.5f;
-    parameters.values[5] = 0.5f;
-    parameters.values[7] = D_800A1830;
-    parameters.values[8] = D_800A1834;
-    value = func_151407D0(&parameters, 0x6C, &descriptor, 0x1E,
-                         0, 0, 0, -1, arg6, arg7);
+    value = func_151407D0(&parameters, 0x6C, &descriptor, 0x1E, 0, 0, 0, -1, arg6, arg7);
     if (value != 0) {
-        saved = value;
-        func_10022EC0((void *)(value + 0x170), &owner, 0xCU);
-        value = saved;
+        func_10022EC0((void *)(value + 0x170), &owner, 0xC);
     }
     return value;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EFEC8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150EFEC8.s")
+
 s32 func_150F00EC(u8 *arg0) {
     typedef struct { f32 words[3]; } Copy3;
     u8 *object;

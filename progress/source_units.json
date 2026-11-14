@@ -16841,7 +16841,7 @@
         "us": {
           "end": "0xF0260",
           "start": "0xEFB80",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_11D030.c"
@@ -17939,7 +17939,7 @@
         "us": {
           "end": "0x102D50",
           "start": "0x102920",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_12FDD0.c"

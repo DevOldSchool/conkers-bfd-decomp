@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15017930
  * - func_15017B20
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -96,22 +95,16 @@ extern u8 D_800D30F0[];
 extern s32 *D_800D3270;
 extern s32 D_800D3274;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15017930 CURRENT (2145) */
 void func_15017930(s32 arg0) {
-    s32 *allocated;
-    s32 *out;
-    s32 type;
     s32 offset;
-    s32 nextOffset;
     u32 index;
-    u32 nextIndex;
-    u8 mode;
-    u8 nextMode;
+    s32 type;
     Game44C40Entry *entry;
-    Game44C40Entry *next;
+    u32 size;
 
     D_800D3094 = func_1502B7F0(&D_800D3098, 3, 12, arg0, 5);
-    D_800D3094 /= 52U;
+    size = D_800D3094;
+    D_800D3094 = size / sizeof(Game44C40Entry);
     func_15017B20(D_800D3098, D_800D3094);
     D_800D3274 = 0;
     D_800D3270 = 0;
@@ -120,42 +113,40 @@ void func_15017930(s32 arg0) {
         offset = 0;
         do {
             index++;
-            entry = (Game44C40Entry *)(D_800D3098 + offset);
-            type = (s32)entry->type >> 2;
-            if (type == 1 && ((mode = entry->mode) == 2 || mode == 0 || mode == 6)) {
+            entry = (Game44C40Entry *)((u8 *)D_800D3098 + offset);
+            if ((entry->type >> 2) == 1 && (entry->mode == 2 || entry->mode == 0 || entry->mode == 6)) {
                 D_800D3274++;
-                type = (s32)entry->type >> 2;
             }
-            if (type == 2 || type == 7) entry->state = 0;
+            type = entry->type >> 2;
+            if (type == 2 || type == 7) {
+                entry->state = 0;
+            }
             offset += sizeof(Game44C40Entry);
         } while (index < D_800D3094);
     }
     if (D_800D3274 != 0) {
-        allocated = func_10003C40(D_800D3274 * 4, 1, 0, 0);
-        D_800D3270 = allocated;
-        if (allocated != 0) {
-            out = allocated;
-            nextIndex = 0;
-            nextOffset = 0;
+        D_800D3270 = func_10003C40(D_800D3274 * 4, 1, 0, 0);
+        if (D_800D3270 != NULL) {
+            s32 *out = D_800D3270;
+
+            index = 0;
             if (D_800D3094 != 0) {
+                offset = 0;
                 do {
-                    nextIndex++;
-                    next = (Game44C40Entry *)(D_800D3098 + nextOffset);
-                    if (((s32)next->type >> 2) == 1 &&
-                        ((nextMode = next->mode) == 2 || nextMode == 0 || nextMode == 6)) {
-                        *out = nextOffset + D_800D3098;
+                    index++;
+                    entry = (Game44C40Entry *)((u8 *)D_800D3098 + offset);
+                    if ((entry->type >> 2) == 1 && (entry->mode == 2 || entry->mode == 0 || entry->mode == 6)) {
+                        *out = offset + D_800D3098;
                         out++;
                     }
-                    nextOffset += sizeof(Game44C40Entry);
-                } while (nextIndex < D_800D3094);
+                    offset += sizeof(Game44C40Entry);
+                } while (index < D_800D3094);
             }
         }
     }
     func_100226F0(D_800D30F0, 0x180);
     func_100226F0(D_800D30D0, 0x20);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15017930 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017930.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017B20.s")
 typedef struct {

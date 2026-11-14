@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150238D8
- * - func_15023BB0
  * - func_150241B4
  * - func_150242F8
  * - func_1502460C
@@ -119,71 +118,58 @@ extern u16 *D_800C35D8[];
 extern s32 D_800C3640[];
 extern u8 D_800C3688[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15023BB0 CURRENT (3604) */
-s32 func_15023BB0(u32 arg0, s32 arg1, s32 arg2, void **arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
-    s32 var_v1;
-    s32 var_a1;
-    u16 temp_a3;
-    u8 var_v0;
-    Game50D80Record *temp_v0;
-    Game50D80Record *var_a0;
+s32 func_15023BB0(u32 arg0, s32 arg1, s32 arg2, void **arg3, s32 arg4, s32 arg5,
+                  s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    Game50D80Record **slot;
+    Game50D80Record *record;
+    s32 offset;
+    s32 time;
+    u32 count;
 
-    temp_v0 = *(Game50D80Record **)(D_800C3688 + arg10 * 0x78 + arg2 * 4);
-    if (temp_v0 != 0) {
-        var_a0 = temp_v0 + 4;
-        temp_a3 = D_800C35D8[arg10][arg2];
-        var_a1 = (u8 *)var_a0 - (u8 *)temp_v0;
-        var_v1 = temp_v0->value;
-        if ((u32) (var_a1 >> 3) < temp_a3) {
-loop_3:
-            var_v0 = var_a0->step;
-            if ((var_v0 == 0) && (var_a0->kind == 0)) {
-                var_v1 = var_a0->value;
-                goto block_37;
-            }
-            if ((arg0 < (u32) var_a0) && (arg1 == var_a0->kind) && ((arg4 == 0) || ((arg4 == 1) && (arg5 == var_a0->value))) && ((arg6 == 0) || ((arg6 == 1) && (arg7 == var_a0->field4))) && ((arg8 == 0) || ((arg8 == 1) && (arg9 == var_a0->field5)))) {
-                *arg3 = var_a0;
-                return (s32) var_v1;
-            }
-            if (var_v0 == 0) {
-loop_19:
-                if (var_a0->kind == 0) {
-                    var_v1 = var_a0->value;
-                    goto block_36;
+    slot = (Game50D80Record **)(D_800C3688 + arg10 * 0x78 + arg2 * 4);
+    if (*slot != NULL) {
+        time = (*slot)->value;
+        record = *slot + 4;
+        offset = (u8 *)record - (u8 *)*slot;
+        count = D_800C35D8[arg10][arg2];
+        while ((u32)(offset >> 3) < count) {
+            if (record->step == 0 && record->kind == 0) {
+                time = record->value;
+            } else {
+                if ((arg0 < (u32)record) && (arg1 == record->kind) &&
+                    ((arg4 == 0) || ((arg4 == 1) && (arg5 == record->value))) &&
+                    ((arg6 == 0) || ((arg6 == 1) && (arg7 == record->field4))) &&
+                    ((arg8 == 0) || ((arg8 == 1) && (arg9 == record->field5)))) {
+                    *arg3 = record;
+                    return time;
                 }
-                var_a1 += 8;
-                var_a0++;
-                if ((u32) (var_a1 >> 3) >= temp_a3) {
-                    var_v0 = var_a0->step;
-                    goto block_36;
+                while (record->step == 0) {
+                    if (record->kind == 0) {
+                        time = record->value;
+                        break;
+                    }
+                    offset += 8;
+                    record++;
+                    if ((u32)(offset >> 3) >= count) {
+                        break;
+                    }
+                    if ((arg0 < (u32)record) && (arg1 == record->kind) &&
+                        ((arg4 == 0) || ((arg4 == 1) && (arg5 == record->value))) &&
+                        ((arg6 == 0) || ((arg6 == 1) && (arg7 == record->field4))) &&
+                        ((arg8 == 0) || ((arg8 == 1) && (arg9 == record->field5)))) {
+                        *arg3 = record;
+                        return time;
+                    }
                 }
-                if ((arg0 < (u32) var_a0) && (arg1 == var_a0->kind) && ((arg4 == 0) || ((arg4 == 1) && (arg5 == var_a0->value))) && ((arg6 == 0) || ((arg6 == 1) && (arg7 == var_a0->field4))) && ((arg8 == 0) || ((arg8 == 1) && (arg9 == var_a0->field5)))) {
-                    *arg3 = var_a0;
-                    return (s32) var_v1;
-                }
-                var_v0 = var_a0->step;
-                if (var_v0 != 0) {
-                    goto block_36;
-                }
-                goto loop_19;
+                time += record->step;
             }
-block_36:
-            var_v1 += var_v0;
-block_37:
-            var_a1 += 8;
-            var_a0++;
-            if ((u32) (var_a1 >> 3) >= temp_a3) {
-                goto block_38;
-            }
-            goto loop_3;
+            offset += 8;
+            record++;
         }
     }
-block_38:
-    *arg3 = 0;
+    *arg3 = NULL;
     return D_800C3640[arg10];
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15023BB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_15023BB0.s")
 
 void func_15023DE0(void **arg0, void **arg1, s32 *arg2, s32 *arg3,
                    s32 arg4, s32 arg5, s32 arg6, s32 arg7,

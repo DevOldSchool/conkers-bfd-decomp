@@ -9,7 +9,6 @@
  * - func_1507EFD0
  * - func_1507F640
  * - func_1507FC2C
- * - func_1507FFD8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -525,13 +524,11 @@ typedef struct GameAC030TargetGroups {
 s32 func_150A3194(s32, s32, s32, s32, s32);
 s32 func_15037698(s32, s32, s32, f32, f32, f32, f32 *, f32, s32, s32);
 extern GameAC030TargetGroups D_80086C50;
-extern f32 D_8009BD04;
 extern u8 D_800CC2D0[];
 extern GameAC030Target *D_800DCE50[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FFD8 CURRENT (1911) */
 s32 func_1507FFD8(void *arg0) {
-    f32 dz;
+    s32 found;
     f32 z;
     f32 limit;
     GameAC030TargetGroups groups;
@@ -540,44 +537,44 @@ s32 func_1507FFD8(void *arg0) {
     f32 dx;
     f32 dy;
     f32 output[3];
-    register f32 squared;
-    s32 *group;
+    f32 squared;
+    s32 i;
+    s32 id;
     GameAC030Target *target;
-    s32 *end;
 
-    if (func_150A3194(4, 5, (s32)((GameAC030Position *)arg0)->position[0],
-                           (s32)((GameAC030Position *)arg0)->position[1],
-                           (s32)((GameAC030Position *)arg0)->position[2]) ||
-        func_150A3194(4, 11, (s32)((GameAC030Position *)arg0)->position[0],
-                               (s32)((GameAC030Position *)arg0)->position[1],
-                               (s32)((GameAC030Position *)arg0)->position[2])) {
+    found = func_150A3194(4, 5, (s32)((GameAC030Position *)arg0)->position[0],
+                          (s32)((GameAC030Position *)arg0)->position[1],
+                          (s32)((GameAC030Position *)arg0)->position[2]);
+    if (found == 0) {
+        found = func_150A3194(4, 11, (s32)((GameAC030Position *)arg0)->position[0],
+                              (s32)((GameAC030Position *)arg0)->position[1],
+                              (s32)((GameAC030Position *)arg0)->position[2]);
+    }
+    if (found != 0) {
         groups = D_80086C50;
-        limit = D_8009BD04;
-        group = groups.entries;
-        end = groups.entries + 3;
-        do {
-            target = D_800DCE50[*group];
+        limit = 1000000.0f;
+        for (i = 0; i < 3; i++) {
+            id = groups.entries[i];
+            target = D_800DCE50[id];
             if (target != 0) {
                 do {
                     x = target->position[0];
                     y = target->position[1];
-                    dx = x - ((GameAC030Position *)arg0)->position[0];
                     z = target->position[2];
+                    dx = x - ((GameAC030Position *)arg0)->position[0];
                     dy = y - ((GameAC030Position *)arg0)->position[1];
-                    dz = z - ((GameAC030Position *)arg0)->position[2];
-                    squared = dx * dx + dy * dy + dz * dz;
-                    if ((squared < limit) &&
-                        func_15037698(((u8 *)arg0 - D_800CC2D0) / 812,
-                                      0, 0, x, y, z, output, 90.0f, 0, 0) != 0) {
+                    squared = dx * dx + dy * dy;
+                    squared += (z - ((GameAC030Position *)arg0)->position[2]) *
+                               (z - ((GameAC030Position *)arg0)->position[2]);
+                    if (squared < limit &&
+                        func_15037698(((u8 *)arg0 - D_800CC2D0) / 812, 0, 0, x, y, z,
+                                      output, 90.0f, 0, 0) != 0) {
                         return 1;
                     }
                     target = target->next;
                 } while (target != 0);
             }
-            group++;
-        } while (group != end);
+        }
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507FFD8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FFD8.s")

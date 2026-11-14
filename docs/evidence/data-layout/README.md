@@ -113,6 +113,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [Constructor literal pool in game_981E0](game_981e0_constructor_literal_pool.md)
 - [Burst velocity literals](game_burst_velocity_literals.md)
 - [US switch table for game_A9D90](game_a9d90_jump_table.md)
+- [US game_AC030 search-radius constant](game_ac030_float_constant.md)
 - [US callback switch table](game_c98f0_jump_table.md)
 - [Effect helper floating constants (US)](game_effect_constant_pools.md)
 - [AI buffer submission private data](main_ai_private_data.md)
