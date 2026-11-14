@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C5280
- * - func_151C5F44
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -314,17 +313,16 @@ typedef struct {
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AAAF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5F44 CURRENT (1597) */
 s32 func_151C5F44(Vec3f *arg0, Vec3f *arg1,
-                   f32 arg2, f32 arg3, s32 arg4, s32 arg5,
-                   f32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+                   f32 arg2, f32 arg3, u8 arg4, s16 arg5,
+                   f32 arg6, u8 arg7, s32 arg8, u8 arg9, s32 arg10) {
     Game1F2730SpawnInit packet;
     f32 value;
     s32 result;
     Game1F2730SpawnExtra extra;
-    s32 first_flag;
-    s32 has_lifetime;
     s32 second_flag;
+    s32 has_lifetime;
+    s32 first_flag;
 
     value = arg3;
     packet.field1D = 0x6C;
@@ -335,31 +333,20 @@ s32 func_151C5F44(Vec3f *arg0, Vec3f *arg1,
     packet.field10 = 0;
     packet.field1E = 0x14;
     packet.field20 = 0xC;
-    if (func_150ADA20() & 1) {
-        first_flag = 0x40;
-    } else {
-        first_flag = 0;
-    }
-    has_lifetime = 1;
-    if ((s16)arg5 == -1) {
-        has_lifetime = 0;
-    }
-    if (func_150ADA20() & 1) {
-        second_flag = 0x80;
-    } else {
-        second_flag = 0;
-    }
-    packet.flags = second_flag | has_lifetime | 6 | first_flag | 0xC200 | 0x800000;
+    first_flag = (func_150ADA20() & 1) ? 0x40 : 0;
+    has_lifetime = (arg5 == -1) ? 0 : 1;
+    second_flag = (func_150ADA20() & 1) ? 0x80 : 0;
+    packet.flags = second_flag | has_lifetime | 2 | 4 | first_flag | 0x8000 | 0x4000 | 0x200 | 0x800000;
     packet.controls[0] = 8;
     packet.controls[1] = 6;
-    if ((u8)arg7 != 0) {
+    if (arg7 != 0) {
         packet.controls[2] = 0x1D;
     } else {
         packet.controls[2] = 0xA;
     }
-    packet.field22 = 1;
     packet.controls[3] = -1;
     packet.controls[4] = -1;
+    packet.field22 = 1;
     packet.controls[5] = 0;
     extra.enabled = 1;
     extra.field01 = 0;
@@ -380,22 +367,20 @@ s32 func_151C5F44(Vec3f *arg0, Vec3f *arg1,
     packet.direction = *arg1;
     packet.field54 = arg2;
     packet.colors[7] = arg4;
-    if ((s16)arg5 == -1) {
+    if (arg5 == -1) {
         packet.lifetime = 0x12C;
     } else {
         packet.lifetime = arg5;
     }
     packet.field2C = arg6;
     packet.field28 = arg6;
-    result = func_15130280(&packet, 1, arg8, 0x10, (u8)arg9, arg10);
+    result = func_15130280(&packet, 1, arg8, 0x10, arg9, arg10);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0xA8, &value, 4U);
         func_10022EC0((u8 *)result + 0xB0, &extra, 8U);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C5F44 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C5F44.s")
 
 typedef struct {
     s16 field00;

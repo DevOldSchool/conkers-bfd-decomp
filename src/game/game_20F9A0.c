@@ -12,7 +12,6 @@
  * - func_151E50C8
  * - func_151E565C
  * - func_151E5FF4
- * - func_151E6964
  * - func_151E6C1C
  * - func_151E7F60
  * - func_151E81EC
@@ -697,119 +696,82 @@ s32 func_1502B5C8(s32 *, s32, ...);
 extern u8 D_800BEAAB;
 extern s8 D_800E0BEA;
 extern s8 D_800E0BD3;
-extern s32 D_800E0BD4;
-extern s32 D_8008FDD8;
-extern s32 D_800E0B88;
+extern u8 *D_800E0BD4;
+extern u8 *D_8008FDD8;
+extern u8 **D_800E0B88;
 extern u8 **D_800E0BD8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E6964 CURRENT (3149) */
 void func_151E6964(s32 kind) {
+    u8 *cursor;
+    u8 *end;
+    s32 i;
     s32 length;
-    s32 index;
-    register s32 current;
-    register s32 resource;
-    register s32 count;
-    register s32 offset;
-    register u8 *cursor;
-    register u32 end;
-    register u8 value;
-    register s32 next;
 
-    current = D_800E0BEA;
-    if (D_800BEAAB != current) {
-        D_800BEAAB = current;
+    if (D_800E0BEA != D_800BEAAB) {
+        D_800BEAAB = D_800E0BEA;
         D_800E0BD3 = 0;
     }
-    if (kind != D_800E0BD3) {
-        resource = D_800E0BD4;
-        if (resource != 0) {
-            func_10004074(resource);
-            D_800E0BD4 = 0;
-            resource = D_8008FDD8;
-            if (resource != 0) {
-                func_10004074(resource);
-                func_10004074(D_800E0B88);
-                func_10004074((s32)D_800E0BD8);
-                D_8008FDD8 = 0;
-            }
+    if (kind == D_800E0BD3) {
+        return;
+    }
+    if (D_800E0BD4 != NULL) {
+        func_10004074((s32)D_800E0BD4);
+        D_800E0BD4 = NULL;
+        if (D_8008FDD8 != NULL) {
+            func_10004074((s32)D_8008FDD8);
+            func_10004074((s32)D_800E0B88);
+            func_10004074((s32)D_800E0BD8);
+            D_8008FDD8 = NULL;
         }
-        D_800E0BD3 = kind;
-        if (*(volatile s8 *)&D_800E0BD3 != 0) {
-            index = kind - 1;
-            resource = func_1502B5C8(&length, 3, 0x1C, (s32)D_800BEAAB, index);
-            D_800E0BD4 = resource;
-            cursor = (u8 *)resource;
-            count = 0;
-            value = *cursor;
-            end = (u32)resource + (u32)length;
-            do {
-                if (value != 0) {
-                    do {
-                        value = cursor[1];
-                        cursor++;
-                    } while (value != 0);
+    }
+    D_800E0BD3 = kind;
+    if (D_800E0BD3 != 0) {
+        D_800E0BD4 = (u8 *)func_1502B5C8(&length, 3, 0x1C, D_800BEAAB, kind - 1);
+        cursor = D_800E0BD4;
+        end = cursor + length;
+        i = 0;
+        do {
+            while (*cursor != 0) {
+                cursor++;
+            }
+            while (*cursor == 0) {
+                cursor++;
+            }
+            i++;
+        } while (cursor < end);
+        D_800E0BD8 = func_10003C40((i + 1) << 2, 1, 0, 0);
+        cursor = D_800E0BD4;
+        end = cursor + length;
+        i = 0;
+        do {
+            D_800E0BD8[i] = cursor;
+            i++;
+            while (*cursor != 0) {
+                cursor++;
+            }
+            while (*cursor == 0) {
+                cursor++;
+            }
+        } while (cursor < end);
+        if (kind == 1) {
+            D_8008FDD8 = (u8 *)func_1502B5C8(&length, 3, 0x1C, D_800BEAAB, 2);
+            D_800E0B88 = func_10003C40(0x140, 1, 0, 0);
+            cursor = D_8008FDD8;
+            for (i = 0; i < 0x50; i++) {
+                D_800E0B88[i] = cursor;
+                while (*cursor != 0) {
+                    cursor++;
                 }
-                if (value == 0) {
-                    do {
-                        value = cursor[1];
-                        cursor++;
-                    } while (value == 0);
+                while (*cursor == 0) {
+                    cursor++;
                 }
-                count++;
-            } while ((u32)cursor < end);
-            count += 1;
-            D_800E0BD8 = func_10003C40(count * 4, 1, 0, 0);
-            cursor = (u8 *)D_800E0BD4;
-            offset = 0;
-            end = (u32)cursor + (u32)length;
-            do {
-                *(u8 **)((u8 *)D_800E0BD8 + offset) = cursor;
-                value = *cursor;
-                offset += 4;
-                if (value != 0) {
-                    do {
-                        value = cursor[1];
-                        cursor++;
-                    } while (value != 0);
-                }
-                if (value == 0) {
-                    do {
-                        next = cursor[1];
-                        cursor++;
-                    } while (next == 0);
-                }
-            } while ((u32)cursor < end);
-            if (index == 0) {
-                D_8008FDD8 = func_1502B5C8(&length, 3, 0x1C, (s32)D_800BEAAB, 2);
-                D_800E0B88 = (s32)func_10003C40(0x140, 1, 0, 0);
-                cursor = (u8 *)D_8008FDD8;
-                offset = 0;
-                do {
-                    *(u8 **)(D_800E0B88 + offset) = cursor;
-                    value = *cursor;
-                    offset += 4;
-                    if (value != 0) {
-                        do {
-                            value = cursor[1];
-                            cursor++;
-                        } while (value != 0);
-                    }
-                    if (value == 0) {
-                        do {
-                            next = cursor[1];
-                            cursor++;
-                        } while (next == 0);
-                    }
-                } while (offset != 0x140);
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E6964 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E6964.s")
-extern s32 D_8008FDD8;
+extern u8 *D_8008FDD8;
 extern s8 D_800E0BD3;
-extern s32 D_800E0BD4;
+extern u8 *D_800E0BD4;
 
 void func_151E6BFC(void) {
     D_800E0BD3 = 0;

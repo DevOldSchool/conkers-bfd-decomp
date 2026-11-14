@@ -12,7 +12,6 @@
  * - func_1513E13C
  * - func_1513E2AC
  * - func_1513E6E8
- * - func_1513E83C
  * - func_1513F114
  * - func_1513F728
  * - func_1513FAB4
@@ -896,26 +895,26 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E83C CURRENT (1509) */
-void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
+void *func_1513E83C(Game169510ScaledOwner *owner, s16 arg1) {
     f32 matrix[4][4];
     s16 index;
     Game169510ScaledVertex *vertices;
     void *result;
     f32 coords[4][3];
-    u8 fresh;
-    f32 *point;
 
-    arg1 = (s16)arg1;
-    func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
-    result = vertices;
-    if (vertices != 0) {
-        if (fresh != 0) {
-            func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
-            func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
+    {
+        u8 fresh;
+
+        func_151D5D60(owner->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+        result = vertices;
+        if (vertices != 0) {
+            if (fresh != 0) {
+                func_10022EC0(owner->buffers[arg1], owner->templateData, 0x40);
+                func_10022EC0(owner->buffers[arg1] + 0x40, owner->templateData, 0x40);
+            }
+        } else {
+            return 0;
         }
-    } else {
-        return 0;
     }
     coords[0][0] = owner->width;
     coords[0][1] = owner->height;
@@ -927,7 +926,6 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     coords[3][1] = -owner->height;
     func_150A8050(matrix, owner->rx, owner->ry, owner->rz);
     matrix[3][0] = owner->x;
-    index = 0;
     matrix[3][1] = owner->y;
     matrix[3][2] = owner->z;
     matrix[0][0] *= owner->sx;
@@ -939,20 +937,17 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
     matrix[2][0] *= owner->sz;
     matrix[2][1] *= owner->sz;
     matrix[2][2] *= owner->sz;
-    do {
-        point = coords[index];
+    for (index = 0; index < 4; index++) {
+        f32 *point = coords[index];
         func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
         vertices->x = (s32)point[0];
         vertices->y = (s32)point[1];
-        index++;
         vertices->z = (s32)point[2];
         vertices->flag = 0;
         vertices++;
-    } while (index < 4);
+    }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513E83C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E83C.s")
 
 extern f32 D_800DD1D8[], D_800DD1E8[];
 

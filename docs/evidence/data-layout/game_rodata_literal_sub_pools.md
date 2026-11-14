@@ -87,9 +87,10 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_2062D0 | 0x0 | 0x10 | 0x800AB470 | pool (func_151DA08C) | `3E4CCCCD 3DCCCCCD 3E4CCCCD 3DCCCCCD` (0.2, 0.1 ×2; round-23) |
 | game_2062D0 | 0x10 | 0x18 | 0x800AB480 | pool (func_151DA368) | `3E19999A 3DCCCCCD 43EB8000 461DE800 38D1B717 3A83126F` |
 | game_2062D0 | 0x28 | 0x4 | 0x800AB49C | pool | `3F8CCCCD` (1.1, [record](game_2062d0_float_constant.md)) |
-| holtenrope | 0x0 | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
-| holtenrope | 0xC | 0xC | 0x800AA3B8 | pool (func_151B42A4) | `38D1B717 3EB2B8C3 3EB2B8C3` (0.0001, pi/9 ×2; round-23) |
-| holtenrope | 0x18 | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
+| holtenrope | 0x0 | 0xC | 0x800AA394 | pool (func_151B3A7C) | `3DE38E39 3DE38E39 3DE38E39` (1/9 ×3; round-24) |
+| holtenrope | 0xC | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
+| holtenrope | 0x18 | 0xC | 0x800AA3B8 | pool (func_151B42A4) | `38D1B717 3EB2B8C3 3EB2B8C3` (0.0001, pi/9 ×2; round-23) |
+| holtenrope | 0x24 | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
 | game_179F30 | 0x0 | 0x2EC | 0x800A59AC | table, sites 0x14 / 0x1C | 187 targets (func_1514CA80, [record](game_179f30_jump_tables.md); round-23) |
 | game_179F30 | 0x2EC | 0xD8 | 0x800A5C98 | table, sites 0x200 / 0x208 | 54 targets (func_1514CA80; round-23) |
 | game_179F30 | 0x3C4 | 0x4C | 0x800A5D70 | table, sites 0x518 / 0x520 | 19 targets (func_1514CA80; round-23) |

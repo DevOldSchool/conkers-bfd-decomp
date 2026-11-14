@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B32C8
- * - func_151B3A7C
  * - func_151B3FDC
  * - func_151B4A14
  *
@@ -119,48 +118,33 @@ void func_151B3A34(void *arg0, s32 arg1, u8 arg2) {
         temp_v0(arg0, arg1, arg2);
     }
 }
-extern f32 D_800AA394;
-extern f32 D_800AA398;
-extern f32 D_800AA39C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3A7C CURRENT (3908) */
 s32 func_151B3A7C(u8 *arg0) {
-    typedef struct { f32 x, y, z; } RopePoint;
-    RopePoint position;
-    RopePoint delta;
-    RopePoint step;
-    u8 *node;
+    HoltenRopeEffect *effect = (HoltenRopeEffect *)arg0;
+    Vec3f delta;
+    Vec3f pos;
+    Vec3f *start = (Vec3f *)effect->primaryState;
+    Vec3f *end = (Vec3f *)effect->secondaryState;
     s32 i;
 
-    delta.x = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x14);
-    delta.y = *(f32 *)(arg0 + 0x24) - *(f32 *)(arg0 + 0x18);
-    delta.z = *(f32 *)(arg0 + 0x28) - *(f32 *)(arg0 + 0x1C);
-    position = *(RopePoint *)(arg0 + 0x14);
-    *(RopePoint *)(arg0 + 0x48) = position;
-    *(f32 *)(arg0 + 0x5C) = 0.0f;
-    *(f32 *)(arg0 + 0x58) = 0.0f;
-    *(f32 *)(arg0 + 0x54) = 0.0f;
-    step.x = delta.x * D_800AA394;
-    step.y = delta.y * D_800AA398;
-    step.z = delta.z * D_800AA39C;
-    position.x += step.x;
-    position.y += step.y;
-    position.z += step.z;
-    for (i = 1; i < 10; i++) {
-        node = arg0 + 0x48 + i * 0x18;
-        *(RopePoint *)node = position;
-        *(f32 *)(node + 0xC) = 0.0f;
-        *(f32 *)(node + 0x10) = 0.0f;
-        *(f32 *)(node + 0x14) = 0.0f;
-        position.x += step.x;
-        position.y += step.y;
-        position.z += step.z;
+    delta.x = end->x - start->x;
+    delta.y = end->y - start->y;
+    delta.z = end->z - start->z;
+    pos = *start;
+    for (i = 0; i < 10; i++) {
+        HoltenRopePoint *point = &effect->points[i];
+
+        *(Vec3f *)point = pos;
+        point->velocity.x = 0.0f;
+        point->velocity.y = 0.0f;
+        point->velocity.z = 0.0f;
+        pos.x += delta.x * 0.11111111f;
+        pos.y += delta.y * 0.11111111f;
+        pos.z += delta.z * 0.11111111f;
     }
-    arg0[0x10] &= ~2;
+    effect->flags &= ~2;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B3A7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3A7C.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_15047D60(f32);
