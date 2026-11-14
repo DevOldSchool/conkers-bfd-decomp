@@ -6,11 +6,6 @@
 /*
  * Reviewed source unit: src/game/game_188440.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_quad_actor_effect_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1515AF90
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -30,33 +25,36 @@ extern f32 D_800A642C;
 extern f32 D_800A6430;
 extern f32 D_800A6434;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515AF90 CURRENT (2718) */
 void func_1515AF90(s16 arg0) {
-    void *result;
-    GameAF90Packet packet;
-    Vec3f *base;
-    s32 offset;
-    u8 valid;
-    s16 angle;
-    f32 radius;
-    f32 cosine;
-    f32 sine;
-    Game71820Hit hit;
-    Vec3f query;
-    Game71820Hit lowerHit;
-    Vec3f lowerQuery;
-    f32 lowerHeight;
-
     if (!(func_150ADA20() & 0xF)) {
+        void *result;
+        GameAF90Packet packet;
+        Vec3f *base;
+        s32 offset;
+        u8 valid;
+        s16 angle;
+        f32 radius;
+        f32 cosine;
+        f32 sine;
+        Game71820Hit hit;
+        Vec3f query;
+        Game71820Hit lowerHit;
+        Vec3f lowerQuery;
+        f32 lowerHeight;
+
         valid = 1;
         base = (Vec3f *)&D_800DBFF0[arg0].unk2F8;
         offset = D_800DBFF0[arg0].unk380 * D_800A6420;
-        angle = (func_150ADA20() % 41U) + offset - 0x14;
-        radius = func_150ADA68() * D_800A6424 + 107.0f;
-        cosine = func_151423D8(angle);
-        sine = func_151423D8(angle - 0x40);
-        packet.position.x = base->x - radius * sine;
-        packet.position.z = base->z - radius * cosine;
+        {
+            u32 roll = func_150ADA20();
+
+            angle = (roll % 41U) + offset - 0x14;
+            radius = func_150ADA68() * D_800A6424 + 107.0f;
+            cosine = func_151423D8(angle);
+            sine = func_151423D8(angle - 0x40);
+            packet.position.x = base->x - radius * sine;
+            packet.position.z = base->z - radius * cosine;
+        }
         query.x = packet.position.x;
         hit.object = 0;
         hit.flags = 0;
@@ -87,8 +85,8 @@ void func_1515AF90(s16 arg0) {
             }
         }
         func_150ADA68();
-        packet.zero = 0.0f;
         packet.scale = 195.0f * D_800A6434;
+        packet.zero = 0.0f;
         if (valid) {
             angle = (func_150ADA20() % 61U) + 5;
             result = func_151491F4(angle, -1, 0xC, 1, 7, 0x18, 0xFF, 0);
@@ -98,8 +96,6 @@ void func_1515AF90(s16 arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515AF90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515AF90.s")
 
 typedef struct {
     s32 flags, zero4;

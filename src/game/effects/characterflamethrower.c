@@ -20,7 +20,6 @@
  * - func_15199C34
  * - func_1519A9A4
  * - func_1519B4B8
- * - func_1519C26C
  * - func_1519C56C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -2179,14 +2178,12 @@ typedef struct CharacterFlamethrowerMotion {
 extern f32 D_800BE9A8;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C26C CURRENT (400) */
 s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     f32 time_squared;
     Vec3f first;
     Vec3f second;
     Vec3f first_acceleration;
     Vec3f second_acceleration;
-    s32 steps;
     CharacterFlamethrowerVelocity *velocity;
 
     velocity = &arg0->motion;
@@ -2195,17 +2192,17 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     second = arg0->motion.second;
     arg0->motion.first.y += arg0->motion.gravity * D_800BE9A4;
     arg0->motion.second.y += arg0->motion.gravity * D_800BE9A4;
-    steps = D_800BE9E4;
-    if (steps > 0) {
-        do {
-            steps--;
+    {
+        s32 steps;
+
+        for (steps = D_800BE9E4; steps > 0; steps--) {
             velocity->first.x *= velocity->damping;
             velocity->first.y *= velocity->damping;
             velocity->first.z *= velocity->damping;
             velocity->second.x *= velocity->second_damping;
             velocity->second.y *= velocity->second_damping;
             velocity->second.z *= velocity->second_damping;
-        } while (steps > 0);
+        }
     }
     first_acceleration.x = (velocity->first.x - first.x) * D_800BE9A8;
     first_acceleration.y = (velocity->first.y - first.y) * D_800BE9A8;
@@ -2221,8 +2218,6 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     arg0->second_position.z += second.z * D_800BE9A4 + 0.5f * second_acceleration.z * time_squared;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519C26C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C26C.s")
 extern s32 D_800BE9E4;
 
 s32 func_1519C4E4(u8 *arg0) {

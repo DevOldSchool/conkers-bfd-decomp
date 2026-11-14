@@ -413,6 +413,11 @@ SECTIONS
     {
         *game_FA360.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_fb600_float_constant.md. */
+    .game_rodata_fb600 0x800A0800 (INFO) : SUBALIGN(4)
+    {
+        *game_FB600.o(.rodata)
+    }
     /* ROM-verified constants: docs/evidence/data-layout/game_123d40_float_constants.md. */
     .game_rodata_123d40 0x800A1B74 (INFO) : SUBALIGN(4)
     {
@@ -1036,6 +1041,9 @@ __game_rodata_1b81d0_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_fa360) == 0x10,
        "game_FA360 drift literal extent changed")
 __game_rodata_fa360_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_fb600) == 0x10,
+       "game_FB600 remap bound literal extent changed")
+__game_rodata_fb600_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_123d40) == 0x10,
        "game_123D40 spawn literal extent changed")
 __game_rodata_123d40_payload_size = 0xC;

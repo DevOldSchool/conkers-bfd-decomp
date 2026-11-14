@@ -4073,16 +4073,15 @@
       "symbol": "func_1519C258"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Manual typed physics candidate CURRENT (400): all instructions, stack slots and registers agree except blez/nop versus blezl/load scheduling.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1519C26C",
           "vram": "0x1519C26C"
         }
@@ -29384,17 +29383,16 @@
       "symbol": "func_151403DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 730,
-        "reason": "Best CURRENT 730 after three candidates. Vertex arithmetic/registers agree; stack homes and copy scheduling remain. No shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 668,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15140410",
           "vram": "0x15140410"
         }
@@ -55302,17 +55300,16 @@
       "symbol": "func_1517E05C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 886,
-        "reason": "Manual budget exhausted; preserved initial CURRENT886. Frame100/first packet match; saved pointer FC versus2C, second packet28 versus30, float-immediate and owner-store scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 612,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108850",
           "vram": "0x15108850"
         }
@@ -56835,17 +56832,16 @@
       "symbol": "func_1517AB7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2718,
-        "reason": "frame/layout exact (result first, sine word, angle reused for spawn id); base pointer allocated to s0 while reference keeps it memory-resident at 0xB0; f32*/volatile/order variants no better",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 652,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515AF90",
           "vram": "0x1515AF90"
         }
@@ -62007,17 +62003,16 @@
       "symbol": "func_150CE150"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 960,
-        "reason": "Raw snapshots and signed bounds preserved. 3042to960 then4947; restored960. Frame58vs50/vector4Cvs40, eleven integer register rows, maxX load scheduling and success return order. Inline widths regressed; explicit object improved prologue but not body. FullC/8/3word extents audited; existing unsigned remap bounds unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 592,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CE200",
           "vram": "0x150CE200"
         }

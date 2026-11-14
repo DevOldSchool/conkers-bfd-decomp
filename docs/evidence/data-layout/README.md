@@ -80,6 +80,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_DE5A0 float constants](game_de5a0_float_constants.md)
 - [US game_F9430 particle constants](game_f9430_float_constants.md)
 - [US game_FA360 drift float constants](game_fa360_float_constants.md)
+- [US game_FB600 remap bound float constant](game_fb600_float_constant.md)
 - [US game_1FA770 particle constants](game_1fa770_float_constants.md)
 - [US game_1D8DE0 particle speed constants](game_1d8de0_float_constants.md)
 - [US game_1FBB80 rain emitter constants](game_1fbb80_float_constants.md)

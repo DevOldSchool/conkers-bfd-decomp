@@ -1176,6 +1176,16 @@
         }
       },
       {
+        "address": "0x800A0800",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_FB600.c",
+            "src/done/game/game_FB600.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A0840",
         "section": ".rodata",
         "owner": {

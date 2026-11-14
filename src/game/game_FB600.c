@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CE150
- * - func_150CE200
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -95,41 +94,34 @@ void func_15143134(f32 *, f32 *, s32);
 s32 func_15144CEC(f32 *, f32 *, f32 *, f32 *, f32 *, s32);
 extern s32 D_80082FA4;
 extern f32 D_800A07F0[3];
-extern f32 D_800A0800;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE200 CURRENT (960) */
 s32 func_150CE200(GameFB600Actor *arg0) {
+    GameFB600Remap *remap;
     f32 transformed[3];
     f32 projectedZ;
     f32 projectedW;
     f32 scale;
-    GameFB600Remap *remap;
-    f32 width;
-    f32 height;
-    f32 maxX;
-    s32 transform;
 
     remap = &arg0->remap;
     if (arg0->remap.object->active == 0) {
         return 0;
     }
-    if (remap->generation != remap->object->generation) {
+    if (remap->object->generation != remap->generation) {
         return 0;
     }
-    transform = remap->object->transform;
-    if (transform == 0) {
+    if (remap->object->transform == 0) {
         remap->flags &= 0xFFFE;
     } else {
-        func_15143134(D_800A07F0, transformed, transform + 0xD00);
+        func_15143134(D_800A07F0, transformed, remap->object->transform + 0xD00);
         if (func_15144CEC(transformed, remap->center, &projectedZ, &projectedW, &scale, D_80082FA4)) {
-            maxX = D_800A0800;
-            width = remap->width * scale;
-            height = remap->height * scale;
+            f32 width = remap->width * scale;
+            f32 height = remap->height * scale;
+
             remap->left = (s32)(remap->center[0] - width);
             remap->top = (s32)(remap->center[1] - height);
             remap->right = (s32)(remap->center[0] + width);
             remap->bottom = (s32)(remap->center[1] + height);
-            if (maxX < (f32)(s32)remap->left ||
+            if (291.0f < (f32)(s32)remap->left ||
                 (f32)(s32)remap->right < 0.0f ||
                 (f32)(s32)remap->top > 215.0f ||
                 (f32)(s32)remap->bottom < 0.0f) {
@@ -141,14 +133,13 @@ s32 func_150CE200(GameFB600Actor *arg0) {
                 if ((f32)(s32)remap->top < 0.0f) {
                     remap->top = 0;
                 }
-                if (maxX < (f32)(s32)remap->right) {
+                if (291.0f < (f32)(s32)remap->right) {
                     remap->right = 0x123;
                 }
                 if ((f32)(s32)remap->bottom > 215.0f) {
                     remap->bottom = 0xD7;
                 }
                 remap->flags |= 1;
-                return 1;
             }
         } else {
             remap->flags &= 0xFFFE;
@@ -156,8 +147,6 @@ s32 func_150CE200(GameFB600Actor *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CE200 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FB600/func_150CE200.s")
 
 void *func_10022EC0(void *, const void *, u32);
 extern s32 D_800BE620;
