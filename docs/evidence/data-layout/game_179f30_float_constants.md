@@ -23,3 +23,8 @@ exact linker size assertion, as described in
 [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
 `config/data/us.json` records both owners. No reference assembly, compiler flag or
 verifier change is involved.
+
+After `func_1514CA80` matched, its four jump tables precede this pool in the
+object. The two sections above are now `.rodata.179f30_438` and
+`.rodata.179f30_448` at the same addresses; see the
+[game_179F30 jump tables](game_179f30_jump_tables.md).

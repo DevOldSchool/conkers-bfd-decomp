@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150BF21C
  * - func_150BFA7C
  * - func_150C01DC
  * - func_150C0648
@@ -91,8 +90,160 @@ s32 func_150BF0F4(void *arg0) {
     *(u8 *)((u8 *)arg0 + 0x2C) = (u8) var_v1;
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EC420/func_150BF21C.s")
+typedef struct {
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 pad6[0xA];
+} Game150BF21CVtx;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 padC[4];
+    s16 rx;
+    s16 ry;
+    s16 rz;
+    u16 count;
+    u8 pad18[8];
+    Game150BF21CVtx *dst[2];
+    Game150BF21CVtx *src;
+    f32 sx;
+    f32 sy;
+    f32 sz;
+    u8 pad38[4];
+    s32 target;
+    u8 pad40[0x33];
+    u8 flags;
+    u16 unk74;
+    u8 pad76[6];
+    f32 pos;
+    f32 phase;
+    f32 vel;
+    u8 pad88[0x54];
+    s32 unkDC;
+    u8 padE0[0x44];
+    f32 unk124;
+} Game150BF21CObj;
+
+void func_15114D24(void *, s32, s32, s16, s32, s32);
+void func_15114F04(s32, s32, s32);
+f32 func_15047C00(f32);
 f32 func_15047D60(f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_150A7A48(void *, void *, void *);
+void func_150A7DA0(void *, f32, f32, f32);
+void func_15043F6C(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+extern f32 D_800BE9A4;
+extern u8 D_800BE9B4;
+extern u8 D_800BE9C0;
+extern u8 D_800C35E8, D_800C35EA;
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+void func_150BF21C(Game150BF21CObj *arg0) {
+    Game150BF21CVtx *dst;
+    Game150BF21CVtx *src;
+    f32 diff;
+    f32 spE8;
+    f32 spE4;
+    f32 spE0;
+    f32 vel;
+    f32 step;
+    f32 scale;
+    f32 mtx1[16];
+    f32 mtx2[16];
+    f32 rate;
+    s32 i;
+    s32 skip;
+    step = 0.05f;
+    spE4 = arg0->pos;
+    scale = 0.0f;
+    rate = step;
+    if (D_800C35EA == 0) {
+        skip = 0;
+    } else if (D_800C35E8 == 1) {
+        skip = 0;
+    } else {
+        skip = 1;
+    }
+    if (D_800BE9B4 != 0) {
+        spE4 = arg0->target;
+        arg0->pos = spE4;
+    }
+    if (skip == 0) {
+        diff = arg0->target - spE4;
+        if (diff == 0.0f) {
+            arg0->phase += step;
+            arg0->vel = 0.0f;
+            scale = ((spE4 / 1500.0f) + 1.0f) * D_800BE9A4;
+            if (scale < 0.0f) {
+                scale = 0.0f;
+            }
+            func_15114D24(arg0, -1, 0x7D00, 0x1F4, 0x7D0, 0);
+        } else {
+            rate = 0.2f;
+            arg0->phase = 0.0f;
+            vel = arg0->vel;
+            if (diff < 0.0f) {
+                if (vel > -60.0f) {
+                    vel -= 5.0f;
+                }
+            } else {
+                if (vel < 6.0f) {
+                    vel += 0.5f;
+                }
+                func_15114D24(arg0, 0xB9, 0x7D00, 0x1F4, 0x7D0, 1);
+            }
+            arg0->vel = vel;
+            if (fabsf(vel) < fabsf(diff)) {
+                spE4 += vel * D_800BE9A4;
+                if (vel < -25.0f) {
+                    arg0->unk124 = -10.0f;
+                } else {
+                    arg0->unk124 = vel * 0.4f;
+                }
+                arg0->unkDC = 0x7D00;
+                arg0->flags &= ~3;
+                arg0->flags |= 2;
+                if (arg0->unk74 == 0) {
+                    func_15114D24(arg0, 0xB9, 0x3E80, 0x3E8, 0xFA0, 0);
+                }
+                func_15114F04((s32)arg0, 0x3E80, vel * 500.0f);
+            } else {
+                spE4 = arg0->target;
+                if (vel < 0.0f) {
+                    arg0->unkDC = 0x80;
+                }
+                arg0->unk124 = 0.0f;
+                arg0->flags &= ~3;
+                arg0->flags |= 3;
+                func_15114D24(arg0, -1, 0, 0, 0, 0);
+            }
+            arg0->pos = spE4;
+            arg0->vel = vel;
+        }
+        arg0->x += (scale * 3.0f * func_15047D60(arg0->phase) - arg0->x) * rate;
+        arg0->y += (scale * 4.0f * func_15047D60(arg0->phase * 1.1f) - arg0->y) * rate;
+        arg0->z += (scale * 3.0f * func_15047C00(arg0->phase) - arg0->z) * rate;
+    } else {
+        spE4 = 0.0f;
+    }
+    func_150A7DA0(mtx1, 0.0f, spE4, 0.0f);
+    func_15043F6C(mtx2, arg0->x, arg0->y, arg0->z, arg0->sx, arg0->sy, arg0->sz, arg0->rx, arg0->ry, arg0->rz);
+    func_150A7A48(mtx1, mtx2, mtx1);
+    src = arg0->src;
+    dst = arg0->dst[D_800BE9C0];
+    for (i = 0; i < arg0->count; i++) {
+        func_150A7960(mtx1, src->x, src->y, src->z, &spE8, &spE4, &spE0);
+        dst->x = spE8;
+        dst->y = spE4;
+        dst->z = spE0;
+        src++;
+        dst++;
+    }
+}
 void func_15060F28(u8 *, s32);
 void func_150825C0(s32, s32);
 s32 func_15083E0C(s32);
@@ -100,7 +251,6 @@ void *func_15083E90(u8);
 void func_1511B51C(void *);
 extern s32 D_800902B8;
 extern f32 D_800A0124, D_800A0128, D_800A012C, D_800A0130;
-extern u8 D_800C35E8, D_800C35EA;
 extern u8 *D_800D20FC;
 
 void func_150BF760(u8 *arg0) {

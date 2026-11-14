@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D9014
  * - func_151D9B8C
- * - func_151DA08C
  * - func_151DA6F8
  * - func_151DB5D0
  * - func_151DBAA8
@@ -622,21 +621,50 @@ void func_151D9EB0(u8 *arg0) {
     }
 }
 void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
-void func_151DA08C(u8, f32, s32, u8, s32, s32, f32 *, s32, s32);
+void *func_151DA08C(u8, f32, f32, u8, s16, s32, f32 *, s32, s32);
 extern f32 D_800AB46C;
 
 void func_151D9FC0(u8 arg0, f32 arg1, u8 arg2, s32 arg3, f32 *arg4,
                    u8 arg5, s32 arg6) {
     func_151DBCBC(arg0, arg1 * 0.5f, arg2, arg3, arg4, arg5, arg6);
     if ((arg0 != 5) && (arg0 != 2)) {
-        func_151DA08C(arg0, arg1 * D_800AB46C, 0x3F8147AE, arg2, 0x64,
+        func_151DA08C(arg0, arg1 * D_800AB46C, 1.01f, arg2, 0x64,
                       arg3, arg4, arg5, arg6);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA08C.s")
-void *func_151DB5D0(s32, f32 *, f32 *, f32, f32, f32, f32,
-                    s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800BE9A4;
+typedef struct Game1DBE80Packet {
+    s8 type;
+    s8 mode;
+    s16 flags;
+    s16 duration;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 alpha;
+    f32 scaleX;
+    f32 scaleY;
+    s32 position[3];
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    f32 magnitude;
+    f32 field38;
+    f32 field3C;
+    s32 field40;
+    u8 selector;
+    u8 flag45;
+    u8 flag46;
+    u8 flag47;
+    s32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+    s32 field50;
+    s16 field54;
+    s16 field56;
+} Game1DBE80Packet;
 
 typedef struct Game1DA368Motion {
     u8 angle0, angle1;
@@ -645,6 +673,77 @@ typedef struct Game1DA368Motion {
     f32 phase, center, decay;
     u8 kind;
 } Game1DA368Motion;
+
+void *func_151DA08C(u8 arg0, f32 arg1, f32 arg2, u8 arg3, s16 arg4, s32 arg5, f32 *arg6, s32 arg7, s32 arg8) {
+    void *result;
+    Game1DBE80Packet packet;
+    Game1DA368Motion motion;
+
+    motion.angle0 = 0;
+    motion.angle1 = 0;
+    motion.center = arg1;
+    motion.speed0 = func_150ADA20() % 5U + 2;
+    motion.speed1 = func_150ADA20() % 5U + 2;
+    motion.amplitude0 = (func_150ADA68() * 0.2f + 0.1f) * motion.center;
+    motion.amplitude1 = (func_150ADA68() * 0.2f + 0.1f) * motion.center;
+    motion.kind = arg0;
+    motion.phase = 0.0f;
+    packet.type = D_8008FD04[arg0]();
+    packet.flags = 3;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.red = 0;
+    packet.green = 0;
+    packet.blue = 0;
+    packet.alpha = 0xFF;
+    packet.scaleX = packet.scaleY = arg1;
+    *(Game2062D0Vector3 *)packet.position = *(Game2062D0Vector3 *)arg6;
+    packet.field40 = 0x0CDC0008;
+    packet.magnitude = 1.0f;
+    packet.field38 = 1.0f;
+    packet.field3C = 1.0f;
+    packet.field28 = 0.0f;
+    packet.field2C = 0.0f;
+    packet.field30 = 0.0f;
+    if (arg4 == -1) {
+        packet.duration = 0x12C;
+        motion.decay = 1.0f;
+        packet.field54 = 1;
+        packet.field56 = 0xFF;
+    } else {
+        packet.duration = arg4;
+        packet.field40 = 0x0CDC0009;
+        motion.decay = arg2;
+        if (arg4 >= 0x100) {
+            packet.field54 = 0xFF;
+        } else {
+            packet.field54 = arg4;
+        }
+        if (arg4 >= 0x100) {
+            packet.field56 = 1;
+        } else {
+            packet.field56 = 0xFF / arg4;
+        }
+    }
+    packet.selector = arg3;
+    packet.flag45 = 0xFF;
+    packet.mode = 0;
+    packet.flag46 = 4;
+    packet.flag47 = 5;
+    packet.field48 = 0;
+    packet.field4C = 0xFF;
+    packet.field50 = 0;
+    result = func_1513D668((s32)&packet, 0, 0xE, 0x13, 0, (func_150ADA20() & 1) + (func_150ADA20() & 1),
+                           func_150ADA20() & 0xFF, 500.0f, 500.0f, 0, arg5, 0, 0x1C, 0xFF, 0);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x128, &motion, 0x1C);
+    }
+    return result;
+}
+void *func_151DB5D0(s32, f32 *, f32 *, f32, f32, f32, f32,
+                    s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800BE9A4;
+
 
 typedef struct Game1DA368Owner {
     u8 pad0, owner;
@@ -1485,39 +1584,6 @@ void func_151DBCBC(u8 arg0, f32 arg1, s16 arg2, s32 arg3, f32 *arg4, u8 arg5, s3
 }
 
 
-typedef struct Game1DBE80Packet {
-    s8 type;
-    s8 mode;
-    s16 flags;
-    s16 duration;
-    u8 pad6[2];
-    s32 field8;
-    s32 fieldC;
-    u8 red;
-    u8 green;
-    u8 blue;
-    u8 alpha;
-    f32 scaleX;
-    f32 scaleY;
-    s32 position[3];
-    f32 field28;
-    f32 field2C;
-    f32 field30;
-    f32 magnitude;
-    f32 field38;
-    f32 field3C;
-    s32 field40;
-    u8 selector;
-    u8 flag45;
-    u8 flag46;
-    u8 flag47;
-    s32 field48;
-    u8 field4C;
-    u8 pad4D[3];
-    s32 field50;
-    s16 field54;
-    s16 field56;
-} Game1DBE80Packet;
 
 void func_151DBE80(u8 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
                     s32 arg5, u8 arg6, u8 arg7, u8 arg8, s32 arg9) {

@@ -9,7 +9,6 @@
  * - func_151B32C8
  * - func_151B3A7C
  * - func_151B3FDC
- * - func_151B42A4
  * - func_151B4A14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -19,7 +18,7 @@ typedef struct HoltenRopePoint {
     f32 x;
     f32 y;
     f32 z;
-    u8 padC[0xC];
+    Vec3f velocity;
 } HoltenRopePoint;
 
 typedef struct HoltenRopeEffect {
@@ -35,7 +34,9 @@ typedef struct HoltenRopeEffect {
     s8 updateCallback;
     u8 pad35[3];
     f32 radius;
-    u8 pad3C[0xC];
+    f32 gain;
+    f32 stiffness;
+    u8 pad44[4];
     HoltenRopePoint points[10];
     f32 doubledRadiusSquared;
     s32 scaledRadius;
@@ -378,7 +379,156 @@ block_6:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B3FDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3FDC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B42A4.s")
+extern f32 D_800BE9A4;
+extern s32 D_800DBFF4;
+extern Vec3f D_800A5480;
+
+s32 func_151B42A4(HoltenRopeEffect *arg0) {
+    u8 result;
+
+    result = 1;
+    {
+        Vec3f delta;
+
+        delta.x = ((Vec3f *)arg0->secondaryState)->x - ((Vec3f *)arg0->primaryState)->x;
+        delta.y = ((Vec3f *)arg0->secondaryState)->y - ((Vec3f *)arg0->primaryState)->y;
+        delta.z = ((Vec3f *)arg0->secondaryState)->z - ((Vec3f *)arg0->primaryState)->z;
+        if ((0.0001f < fabsf(delta.x)) || (0.0001f < fabsf(delta.z))) {
+            Vec3f mid;
+            Vec3f a;
+            Vec3f b;
+            f32 halfX;
+            f32 halfY;
+            f32 halfZ;
+            f32 distance;
+            f32 inv;
+            f32 farSide;
+            f32 nearSide;
+            f32 nx;
+            f32 nz;
+            f32 px;
+            f32 ux;
+            f32 uy;
+            f32 py;
+            f32 lengthSquared;
+            f32 r;
+            f32 length;
+            f32 invLength;
+            f32 halfSquared;
+
+            halfX = delta.x * 0.5f;
+            halfY = delta.y * 0.5f;
+            halfZ = delta.z * 0.5f;
+            mid.x = ((Vec3f *)arg0->primaryState)->x + halfX;
+            mid.y = ((Vec3f *)arg0->primaryState)->y + halfY;
+            mid.z = ((Vec3f *)arg0->primaryState)->z + halfZ;
+            a.x = ((Vec3f *)arg0->primaryState)->x - mid.x;
+            a.y = ((Vec3f *)arg0->primaryState)->y - mid.y;
+            a.z = ((Vec3f *)arg0->primaryState)->z - mid.z;
+            b.x = ((Vec3f *)arg0->secondaryState)->x - mid.x;
+            b.y = ((Vec3f *)arg0->secondaryState)->y - mid.y;
+            b.z = ((Vec3f *)arg0->secondaryState)->z - mid.z;
+            distance = sqrtf((delta.x * delta.x) + (delta.z * delta.z));
+            inv = 1.0f / distance;
+            nx = delta.z * inv;
+            nz = delta.x * inv;
+            farSide = (b.z * nx) + (b.x * nz);
+            nearSide = (a.z * nx) + (a.x * nz);
+            px = farSide - nearSide;
+            py = b.y - a.y;
+            lengthSquared = (px * px) + (py * py);
+            length = sqrtf(lengthSquared);
+            invLength = 1.0f / length;
+            r = length * 0.5f;
+            ux = px * invLength;
+            uy = py * invLength;
+            halfSquared = lengthSquared * 0.25f;
+            if (arg0->doubledRadiusSquared < halfSquared) {
+                result = func_151B3A7C((u8 *)arg0);
+            } else {
+                f32 angle;
+                f32 h;
+                f32 dampAngle;
+                s32 i;
+                HoltenRopePoint *point;
+                f32 s;
+                f32 c;
+                f32 damp;
+                f32 v;
+                f32 t;
+                f32 w;
+                Vec3f prev;
+                Vec3f pos;
+                f32 lift;
+                f32 offsetX;
+                f32 offsetZ;
+
+                h = sqrtf(arg0->doubledRadiusSquared - halfSquared);
+                for (i = 0, angle = 0.0f, dampAngle = 0.0f; i < 10; i++) {
+                    point = &arg0->points[i];
+                    prev = *(Vec3f *)point;
+                    s = func_15047D60(angle);
+                    c = func_15047C00(angle);
+                    damp = func_15047D60(dampAngle);
+                    v = r * c;
+                    t = h * s;
+                    w = (v * ux) - (t * uy);
+                    offsetX = w * nz;
+                    lift = (v * uy) - (t * ux);
+                    offsetZ = w * nx;
+                    pos.x = offsetX + mid.x;
+                    pos.y = lift + mid.y;
+                    pos.z = offsetZ + mid.z;
+                    if (arg0->flags & 2) {
+                        *(Vec3f *)point = pos;
+                        point->velocity.x = 0.0f;
+                        point->velocity.y = 0.0f;
+                        point->velocity.z = 0.0f;
+                    } else if (D_800DBFF4 != 0) {
+                        *(Vec3f *)point = pos;
+                        point->velocity = D_800A5480;
+                    } else {
+                        f32 diffX;
+                        f32 diffY;
+                        f32 diffZ;
+                        f32 dx;
+                        f32 dy;
+                        f32 dz;
+                        f32 ax;
+                        f32 ay;
+                        f32 az;
+
+                        diffX = prev.x - pos.x;
+                        dx = diffX * damp;
+                        dx *= arg0->stiffness;
+                        diffY = prev.y - pos.y;
+                        dy = diffY * damp;
+                        dy *= arg0->stiffness;
+                        diffZ = prev.z - pos.z;
+                        dz = diffZ * damp;
+                        dz *= arg0->stiffness;
+                        point->x = pos.x + dx;
+                        point->y = pos.y + dy;
+                        point->z = pos.z + dz;
+                        ax = arg0->gain * dx;
+                        ay = arg0->gain * dy;
+                        az = arg0->gain * dz;
+                        point->x += (point->velocity.x * D_800BE9A4) + (0.5f * ax * D_800BE9A4 * D_800BE9A4);
+                        point->y += (point->velocity.y * D_800BE9A4) + (0.5f * ay * D_800BE9A4 * D_800BE9A4);
+                        point->z += (point->velocity.z * D_800BE9A4) + (0.5f * az * D_800BE9A4 * D_800BE9A4);
+                        point->velocity.x += ax * D_800BE9A4;
+                        point->velocity.y += ay * D_800BE9A4;
+                        point->velocity.z += az * D_800BE9A4;
+                    }
+                    angle += 0.34906587f;
+                    dampAngle += 0.34906587f;
+                }
+            }
+        }
+    }
+    arg0->flags &= ~2;
+    return result;
+}
 typedef struct {
     s32 active;
     u8 pad4[0x37];

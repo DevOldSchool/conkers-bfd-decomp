@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B2740
- * - func_150B3188
  * - func_150B37C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -108,7 +107,99 @@ s32 func_150B2EB4(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     func_15132A4C(&packet, 3, 0xFF, 0, arg14, 0);
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/pipeexplode/func_150B3188.s")
+extern u8 D_8009F968[], D_8009F970[], D_8009F998[], D_8009F9A4[], D_8009F9CC[], D_8009F9D8[];
+extern u8 D_8009FA00[], D_8009FA0C[], D_8009FA34[], D_8009FA44[], D_8009FA6C[], D_8009FA78[];
+extern u8 D_8009FAA0[], D_8009FAB0[], D_8009FAD8[], D_8009FAE4[], D_8009FB0C[], D_8009FB18[];
+extern f32 D_8009FB9C, D_8009FBA0, D_8009FBA4, D_8009FBA8, D_8009FBAC, D_8009FBB0;
+void *func_10022EC0(void *, const void *, u32);
+
+s32 func_150B3188(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
+                   f32 arg10, s32 arg11, f32 arg12, s32 arg13, u8 arg14) {
+    f32 cosYaw;
+    f32 sinYaw;
+    f32 sinTilt;
+    f32 cosPitch;
+    f32 sinPitch;
+    f32 cosTilt;
+    f32 size;
+    f32 magnitude;
+    s16 life;
+    f32 rateBase;
+    f32 rateRange;
+    f32 speedBase;
+    f32 speedRange;
+    f32 sizeBase;
+    f32 sizeRange;
+    f32 spread;
+    f32 tilt;
+    PipeExplodePacket packet;
+    void *result;
+    f32 offset;
+
+    cosYaw = func_151423D8(arg8 - 0x40);
+    sinYaw = func_151423D8(arg8);
+    life = func_151422DC(6, D_8009F968, 1, 0x1F4, 0x12C, D_8009F970, 0x742);
+    rateBase = func_151422DC(7, D_8009F998, -0x1388, 0, 0, D_8009F9A4, 0x750) * D_8009FB9C;
+    rateRange = func_151422DC(8, D_8009F9CC, -0x1388, 0, 0, D_8009F9D8, 0x752) * D_8009FBA0;
+    speedBase = func_151422DC(9, D_8009FA00, 0, 0x1F4, 0, D_8009FA0C, 0x75A);
+    speedRange = func_151422DC(0xA, D_8009FA34, 0, 0x1F4, 0, D_8009FA44, 0x75C);
+    sizeBase = func_151422DC(0xB, D_8009FA6C, 0, 0x1388, 0x3E8, D_8009FA78, 0x761) * D_8009FBA4;
+    sizeRange = func_151422DC(0xC, D_8009FAA0, 0, 0x1388, 0, D_8009FAB0, 0x763) * D_8009FBA8;
+    spread = func_151422DC(0xD, D_8009FAD8, -0xFF, 0xFF, 0, D_8009FAE4, 0x769);
+    tilt = func_151422DC(0xE, D_8009FB0C, -0xFF, 0xFF, 0, D_8009FB18, 0x76F);
+    packet.flags = 0x29E9;
+    packet.scale[0] = 1.0f;
+    packet.scale[1] = 1.0f;
+    packet.scale[2] = 1.0f;
+    packet.angle[0] = 0.0f;
+    packet.angle[1] = 0.0f;
+    packet.angle[2] = 0.0f;
+    offset = -18.0f;
+    packet.position[0] = arg2;
+    packet.position[1] = arg3;
+    packet.position[2] = arg4;
+    packet.field4 = D_8009FBAC;
+    magnitude = func_150ADA68() * speedRange + speedBase;
+    cosPitch = func_151423D8((s16)(arg9 - 0x40 + (s16)(spread * sinYaw * arg10 * arg12)) - 0x40);
+    sinPitch = func_151423D8((s16)(arg9 - 0x40 + (s16)(spread * sinYaw * arg10 * arg12)));
+    cosTilt = func_151423D8((s16)((s16)(tilt * cosYaw) - 0x14) - 0x40);
+    sinTilt = func_151423D8((s16)((s16)(tilt * cosYaw) - 0x14));
+    packet.velocity[0] = magnitude * sinTilt * cosPitch;
+    packet.velocity[1] = -magnitude * cosTilt;
+    packet.velocity[2] = magnitude * sinTilt * sinPitch;
+    packet.acceleration[0] = func_150ADA68() * 4.0f + -2.0f;
+    packet.acceleration[1] = 0.0f;
+    packet.acceleration[2] = func_150ADA68() * 4.0f + -2.0f;
+    packet.duration = life + 0x20;
+    packet.field4C = func_150ADA68() * rateRange + rateBase;
+    size = func_150ADA68() * sizeRange + sizeBase;
+    packet.field8 = size;
+    packet.field0 = size * D_8009FBB0;
+    packet.kind = 0x1C;
+    packet.field58 = 0;
+    packet.field5C = 0;
+    packet.color[0] = 0xFF;
+    packet.color[1] = 1;
+    packet.color[2] = 0;
+    packet.color[3] = 5;
+    packet.color[4] = 0;
+    packet.color[5] = 0;
+    packet.color[6] = 0;
+    packet.color[7] = 0;
+    packet.color[8] = 0;
+    packet.field6A = 2;
+    packet.field6C = 0;
+    packet.field70 = 0;
+    packet.field72 = 0x20;
+    packet.field74 = 7;
+    packet.fieldC = size;
+    result = func_15132A4C(&packet, 3, 0xFF, 4, arg14, 0);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x170, &offset, 4);
+    }
+    return 1;
+}
 s32 func_150B36AC(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     f32 scale;
 

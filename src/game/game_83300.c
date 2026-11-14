@@ -12,7 +12,6 @@
  * - func_15058898
  * - func_15058F24
  * - func_150599C8
- * - func_15059C84
  * - func_1505A3A8
  * - func_1505A9AC
  * - func_1505B9C4
@@ -862,7 +861,118 @@ s32 func_15059B54(void *arg0, u16 arg1) {
     }
     return (mag >> 8) & 0xFF;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059C84.s")
+typedef struct Game83300Point {
+    f32 values[3];
+} Game83300Point;
+
+typedef struct Game83300Triangle {
+    Game83300Point vertices[3];
+} Game83300Triangle;
+
+void func_15049350(Game83300Triangle);
+extern s32 D_800D1548;
+extern f32 D_800CC210;
+extern f32 D_800CC214;
+extern f32 D_800CC218;
+extern f32 D_800D1550;
+
+void func_15059C84(void *arg0) {
+    f32 x;
+    f32 z;
+    f32 y;
+    f32 vertical;
+    u16 angle;
+    Game83300Triangle triangle;
+    f32 speed;
+    s32 i;
+    f32 length;
+    f32 scale;
+
+    speed = *(f32 *)((u8 *)arg0 + 0x3C);
+    angle = *(u16 *)((u8 *)arg0 + 0x76);
+    if (D_800D1548 == 1) {
+        return;
+    }
+    if (*((u8 *)arg0 + 0x1FC) & 8) {
+        *((u8 *)arg0 + 0x1FC) &= ~8;
+        return;
+    }
+    if (*((u8 *)arg0 + 0x127) != 0xFF) {
+        if (*(s16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x46) > 0) {
+            angle += *(u16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x10);
+            *(u16 *)((u8 *)arg0 + 0x7A) = angle;
+        }
+    }
+    if (*(f32 *)((u8 *)arg0 + 0x3C) < 1.0f && *(f32 *)((u8 *)arg0 + 0x3C) >= 0.0f &&
+        !(*((u8 *)arg0 + 0x1FC) & 1)) {
+        if (*((u8 *)arg0 + 0x7E) < 0xFA) {
+            *((u8 *)arg0 + 0x7E) += 1;
+        }
+        if (*(f32 *)((u8 *)arg0 + 0x164) == 0.0f && *(f32 *)((u8 *)arg0 + 0x168) == 0.0f &&
+            *(f32 *)((u8 *)arg0 + 0x16C) == 0.0f && *(f32 *)((u8 *)arg0 + 0x170) == 0.0f) {
+            *(f32 *)((u8 *)arg0 + 0x1F4) = 0.0f;
+            return;
+        }
+    } else {
+        *((u8 *)arg0 + 0x7E) = 0;
+    }
+    if ((*((u8 *)arg0 + 0xAD) != 0 && (*(u8 **)((u8 *)arg0 + 0x31C) == NULL ||
+                                        *(*(u8 **)((u8 *)arg0 + 0x31C) + 0x21) == 0)) ||
+        (*(u16 *)((u8 *)arg0 + 0x22C) & 8)) {
+        x = *(f32 *)((u8 *)arg0 + 0xB8);
+        if (x > 90.0f) {
+            x = 90.0f;
+        } else if (x < -90.0f) {
+            x = -90.0f;
+        }
+    } else {
+        x = 0.0f;
+    }
+    if (*((u8 *)arg0 + 0x1FC) & 1) {
+        *((u8 *)arg0 + 0x1FC) &= ~1;
+        if (D_800D1550) {
+            speed = 2.0f * (*(f32 *)((u8 *)arg0 + 0x14C) * *(f32 *)((u8 *)arg0 + 0x1F4) / D_800D1550);
+        }
+        *(f32 *)((u8 *)arg0 + 0x1F4) = *(f32 *)((u8 *)arg0 + 0x3C);
+        angle = *(u16 *)((u8 *)arg0 + 0x7A);
+    }
+    *(f32 *)((u8 *)arg0 + 0x1F4) = speed;
+    func_1505A184(angle, speed, x, &x, &z, &y);
+    x += *(f32 *)((u8 *)arg0 + 0x164) + *(f32 *)((u8 *)arg0 + 0x16C);
+    z += *(f32 *)((u8 *)arg0 + 0x168) + *(f32 *)((u8 *)arg0 + 0x170);
+    if (*((u8 *)arg0 + 0xAD) == 0xA) {
+        y = 0.0f;
+    }
+    if ((*(s32 *)arg0 != 1 || *(*(u8 **)((u8 *)arg0 + 0x31C) + 0x4F) == 0) &&
+        *(f32 *)((u8 *)arg0 + 0x28) <= 0.0f && *((u8 *)arg0 + 0xAD) == 0 &&
+        !(*(u16 *)((u8 *)arg0 + 0x22C) & 8)) {
+        for (i = 0; i < 3; i++) {
+            triangle.vertices[i].values[0] = *(s16 *)((u8 *)arg0 + 0x18C + i * 6);
+            triangle.vertices[i].values[1] = *(s16 *)((u8 *)arg0 + 0x18E + i * 6);
+            triangle.vertices[i].values[2] = *(s16 *)((u8 *)arg0 + 0x190 + i * 6);
+        }
+        func_15049350(triangle);
+        if (D_800CC214 != 0.0f) {
+            vertical = (-D_800CC210 * x - D_800CC218 * z) / D_800CC214;
+            if (vertical > 4.0f || *(s32 *)arg0 != 1 ||
+                *(*(u8 **)((u8 *)arg0 + 0x31C) + 0x4E) != 2) {
+                length = sqrtf(x * x + z * z + vertical * vertical);
+                if (length != 0.0f) {
+                    scale = sqrtf(x * x + z * z);
+                    x = x * scale / length;
+                    y = vertical * scale / length;
+                    z = z * scale / length;
+                }
+            }
+        }
+    }
+    x *= D_800D1550;
+    z *= D_800D1550;
+    y *= D_800D1550;
+    *(f32 *)((u8 *)arg0 + 0x14) += x;
+    *(f32 *)((u8 *)arg0 + 0x1C) += z;
+    *(f32 *)((u8 *)arg0 + 0x18) += y;
+}
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
 extern f32 D_800994B8;

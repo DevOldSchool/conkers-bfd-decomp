@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1865D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15159C08
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_15159120(void *arg0, u8 arg1) {
@@ -282,7 +277,7 @@ typedef struct {
 } Game1865D0ParticleMotion;
 
 f32 func_150ADA68(void);
-void *func_151303BC(s32, u8, s32);
+void *func_151303BC(void *, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800A63A8, D_800A63AC, D_800A63B0, D_800A63B4;
 extern f32 D_800A63B8, D_800A63BC, D_800A63C0;
@@ -343,7 +338,7 @@ void *func_15159890(f32 *arg0, f32 *arg1, u8 arg2, u8 arg3) {
     motion.amount2 = (func_150ADA68() * D_800A63B0 + D_800A63B4) * motion.size;
     motion.amount3 = (func_150ADA68() * D_800A63B8 + D_800A63BC) * motion.size;
     particle.rotation = (func_150ADA68() * 254.0f + 108.0f) * D_800A63C0;
-    result = func_151303BC((s32)&particle, 2, 0x28);
+    result = func_151303BC(&particle, 2, 0x28);
     if (result != NULL) {
         func_10022EC0((u8 *)result + 0xA8, &motion, 0x28);
     }
@@ -363,7 +358,120 @@ void func_15159BB0(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, v
     position[2] = arg2;
     func_15159890(&position[0], &velocity[0], *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159C08.s")
+typedef struct {
+    f32 size;
+    u8 phase0, phase1, step0, step1;
+    f32 amount0, amount1;
+    Vec3f offset;
+    f32 angle, spin;
+} Game159C08Motion;
+
+f32 func_15047D60(f32);
+f32 func_15047C00(f32);
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+s32 func_151454BC(u8, f32, void *);
+extern u8 D_800BE9EB;
+extern f32 D_800BE9A4;
+
+void func_15159C08(u8 *arg0) {
+    f32 *emitter;
+    Game1865D0Particle particle;
+    Game159C08Motion motion;
+
+    emitter = (f32 *)(arg0 + 0x28);
+    if (!func_151454BC(D_800BE9EB, 3000.0f, emitter)) {
+        return;
+    }
+    emitter[10] += (emitter[11] + func_150ADA68() * emitter[12]) * D_800BE9A4;
+    if (emitter[10] > 1.0f) {
+        f32 angle;
+        f32 radius;
+        f32 x;
+        f32 z;
+        f32 speed;
+        f32 inv;
+        f32 matrix[4][4];
+
+        particle.kind = 0x2F;
+        particle.texture = 0xC01;
+        particle.flags = 0x200005;
+        particle.zero4 = 0;
+        particle.zero1A = 0;
+        particle.zero19 = 0;
+        particle.zero18 = 0;
+        particle.zero17 = 0;
+        particle.zero16 = 0;
+        particle.zero15 = 0;
+        particle.zero14 = 0;
+        particle.zero10 = 0;
+        particle.zeroC = 0;
+        particle.maximum = 0xFF;
+        particle.zero22 = 0;
+        particle.zero24 = 0.0f;
+        particle.mode = 0x1205;
+        particle.field60 = 5;
+        particle.field61 = 5;
+        particle.field62 = 0xC;
+        particle.field63 = -1;
+        particle.position = *(Vec3f *)emitter;
+        particle.zero3C = 0.0f;
+        particle.zero40 = 0.0f;
+        particle.zero44 = 0.0f;
+        motion.phase0 = 0;
+        motion.phase1 = 0;
+        particle.rotation = 0.0f;
+        do {
+            angle = func_150ADA68() * 6.2831855f;
+            radius = emitter[7] * func_150ADA68();
+            x = func_15047D60(angle) * radius;
+            z = func_15047C00(angle) * radius;
+            func_150A8050(matrix, emitter[8], emitter[9], 0.0f);
+            func_150A7960(matrix, x, 0.0f, z, &motion.offset.x, &motion.offset.y, &motion.offset.z);
+            motion.angle = func_150ADA68() * 6.2831855f;
+            motion.spin = (func_150ADA68() * 320.0f + -160.0f) * 0.001f;
+            {
+                f32 dist;
+                f32 spread;
+                s32 duration;
+                void *result;
+
+                speed = (func_150ADA68() * 161.0f + 446.0f) * 0.01f;
+                inv = 1.0f / speed;
+                dist = emitter[6] * inv;
+                spread = (func_150ADA68() * 6596.0f + 2402.0f) * 0.1f * inv;
+                particle.velocity.x = emitter[3] * speed;
+                particle.velocity.y = emitter[4] * speed;
+                particle.velocity.z = emitter[5] * speed;
+                if (500.0f < dist) {
+                    particle.lifetime = 500;
+                } else {
+                    particle.lifetime = spread * 0.5f + dist;
+                }
+                duration = (s16)spread;
+                particle.period = 255 / duration;
+                particle.mode &= ~0xC0;
+                particle.duration = duration;
+                if (func_150ADA20() & 1) particle.mode |= 0x40;
+                if (func_150ADA20() & 1) particle.mode |= 0x80;
+                particle.alpha = (func_150ADA20() % 51U) + 0x7C;
+                particle.height = func_150ADA68() * 100.0f + 240.0f;
+                particle.width = particle.height;
+                motion.size = particle.height;
+                motion.step0 = (func_150ADA20() % 5U) + 4;
+                motion.step1 = (func_150ADA20() % 5U) + 4;
+                motion.amount0 = (func_150ADA68() * 0.25f + 0.15f) * motion.size;
+                motion.amount1 = (func_150ADA68() * 0.25f + 0.15f) * motion.size;
+                result = func_151303BC(&particle, 2, 0x24);
+                if (result != NULL) {
+                    func_10022EC0((u8 *)result + 0xA8, &motion, 0x24);
+                }
+            }
+            emitter[10] -= 1.0f;
+        } while (emitter[10] > 1.0f);
+    }
+}
+
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_151423D8: unique active project prototype */
 f32 func_15047D60(f32);

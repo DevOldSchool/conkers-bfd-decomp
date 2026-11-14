@@ -1,12 +1,15 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_193430.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_display_transition_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15166268
  * - func_151668B8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -144,7 +147,110 @@ void func_15166204(Game193430State *arg0) {
     }
     arg0->field_92 = temp_v0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_193430/func_15166268.s")
+extern u8 D_800BE9C0;
+Gfx *func_15166268(Gfx *gdl, u8 *effect, s32 arg2) {
+    s32 i;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 size;
+    s32 alpha;
+    s32 limit;
+    s32 half;
+    s32 dx;
+    s32 dz;
+    s32 mode;
+
+    if (effect[0x92] != 0) {
+        x = *(s16 *)(effect + 0x98);
+        y = *(s16 *)(effect + 0x9A);
+        z = *(s16 *)(effect + 0x9C);
+        size = *(s16 *)(effect + 0x9E);
+        half = effect[0x93] >> 1;
+        limit = effect[0x93] * 3 / 4;
+        if (effect[0x92] < half) {
+            *(s16 *)(effect + 0x96) = *(s16 *)(effect + 0x96) * 14 / 15;
+            if (*(s16 *)(effect + 0x96) <= 0) {
+                *(s16 *)(effect + 0x96) = 1;
+            }
+        }
+        if (effect[0x92] < limit) {
+            alpha = effect[0x92] * 255 / limit;
+        } else {
+            alpha = 255;
+        }
+        mode = effect[0x95];
+        if (mode == 0) {
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[0].position[0] = x - size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[0].position[2] = z - size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[1].position[0] = x + size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[1].position[2] = z - size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[2].position[0] = x + size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[2].position[2] = z + size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[3].position[0] = x - size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[3].position[2] = z + size;
+        } else if (mode == 1) {
+            dx = (s8)effect[0x90] * size / 127;
+            dz = (s8)effect[0x91] * size / 127;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[0].position[0] = x - dx;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[0].position[1] = y + size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[0].position[2] = z - dz;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[1].position[0] = x + dx;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[1].position[1] = y + size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[1].position[2] = z + dz;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[2].position[0] = x + dx;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[2].position[1] = y - size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[2].position[2] = z + dz;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[3].position[0] = x - dx;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[3].position[1] = y - size;
+            ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[3].position[2] = z - dz;
+        } else {
+            f32 points[4][3];
+            f32 sinA;
+            f32 cosA;
+            f32 sinB;
+            f32 cosB;
+            f32 py;
+            f32 pz;
+            f32 px;
+
+            points[0][0] = -size;
+            points[0][1] = size;
+            points[0][2] = 0.0f;
+            points[1][0] = size;
+            points[1][1] = size;
+            points[1][2] = 0.0f;
+            points[2][0] = size;
+            points[2][1] = -size;
+            points[2][2] = 0.0f;
+            points[3][0] = -size;
+            points[3][1] = -size;
+            points[3][2] = 0.0f;
+            sinA = func_15048A40(effect[0xA0]);
+            sinB = func_15048A40(effect[0xA1]);
+            cosA = func_150489B0(effect[0xA0]);
+            cosB = func_150489B0(effect[0xA1]);
+            for (i = 0; i < 4; i++) {
+                py = points[i][1];
+                pz = points[i][2];
+                points[i][1] = cosA * py - sinA * pz;
+                pz = cosA * pz + sinA * py;
+                px = points[i][0];
+                points[i][0] = cosB * px - sinB * pz;
+                points[i][2] = cosB * pz + sinB * px;
+                ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[i].position[0] = points[i][0] + x;
+                ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[i].position[1] = points[i][1] + y;
+                ((Game193430Quad *)(effect + 0x10))[D_800BE9C0].vertices[i].position[2] = points[i][2] + z;
+            }
+        }
+        gDPPipeSync(gdl++);
+        gDPSetPrimColor(gdl++, 0, 0, 0xFF, 0xFF, 0xFF, alpha);
+        gSPVertex(gdl++, &((Game193430Quad *)(effect + 0x10))[D_800BE9C0], 4, 0);
+        gSP1Triangle(gdl++, 0, 1, 2, 0);
+        gSP1Triangle(gdl++, 0, 2, 3, 0);
+    }
+    return gdl;
+}
 void *func_15142FBC(void *, s32, s32, u8 *);
 s32 func_15094F70();
 extern s32 D_800903F4;

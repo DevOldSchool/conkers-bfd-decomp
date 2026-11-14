@@ -42,3 +42,23 @@ the words 0x800AA3AC..0x800AA3C3 stay extern reads of other deferred members, so
 `scripts/split_game_rodata.py` splits holtenrope into `.rodata.holtenrope_0` (0xC at
 0x800AA3A0) and `.rodata.holtenrope_c` (0x8 at 0x800AA3C4), each with an exact linker
 size assertion, as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
+
+## func_151B42A4 sub-pool (round-23)
+
+`func_151B42A4` relaxes the rope between its two anchor states. Its three
+non-`lui` literals are `0.0001f` and `0.34906587f` twice (IDO emits one word
+per use). The checksum-validated archive holds `38D1B717 3EB2B8C3 3EB2B8C3` at
+0x800AA3B8..0x800AA3C3. In object order they sit between the
+`func_151B3CF0` pool and the `3DCCCCCD 435E38E4` pool, so the object
+`.rodata` is still 0x20 bytes, now all payload. The words
+0x800AA3AC..0x800AA3B7 stay extern reads of raw members. Holtenrope now splits
+into three ranges:
+
+- `.rodata.holtenrope_0`: 0xC bytes at 0x800AA3A0.
+- `.rodata.holtenrope_c`: 0xC bytes at 0x800AA3B8 (new).
+- `.rodata.holtenrope_18`: 0x8 bytes at 0x800AA3C4, renamed from `_c`.
+
+The match also names two struct fields that were padding before. In
+`HoltenRopePoint`, `velocity` (`Vec3f`) replaces `padC[0xC]`. In
+`HoltenRopeEffect`, `gain`, `stiffness` and `pad44[4]` replace `pad3C[0xC]`.
+No other source reads those bytes.

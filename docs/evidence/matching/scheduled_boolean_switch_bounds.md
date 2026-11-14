@@ -46,3 +46,28 @@ A ROM-backed comparison of all 103 currently emitted raw game switches
 preserves all 78 previously accepted references and admits exactly this one
 additional reference. The full suite passes 1,075 tests (12 skipped).
 No match or linker placement is established by this verifier-only change.
+
+## Wider guard window
+
+`func_150DBD70` (game_109220) and the second dispatch of `func_1514CA80`
+(game_179F30) put the guard five words before `beqz at`. Between them,
+`func_150DBD70` has four stack stores (`swc1`/`sb`/`sh`/`sb`) and an
+`or v1,a0,zero` delay slot. `func_1514CA80` has four `addiu tN,zero,imm`
+constants and a fifth in the delay slot. The general case of
+`scripts/candidate_tables.py` now searches one more word back (guard at
+`index - 10`) and accepts a branch up to five words after the guard. It also
+accepts `addiu rt,zero,imm` (`is_constant`) in this window only, and only
+into a register other than the guard result or index. Every other invariant
+is unchanged: protected-register writes, wider or non-zero-based `addiu`,
+other opcodes and direct entries into the guarded region are still rejected.
+Any constant load or a gap over three makes the dispatch use the strict
+entry checks. Hoisted and distant forms are unchanged.
+
+`WideGuardWindowTests` in `tests/test_candidate_tables.py` covers both raw
+shapes and their rejections. The previous "four intervening instructions"
+rejection now uses five. A comparison over every US game function in
+`progress/functions.json` with a `lui`/`addu`/`lw`/`jr` dispatch (125
+functions, ROM words) keeps all 110 previously accepted results byte-identical
+(same table offsets, bounds and targets). It admits four more: `func_150DBD70`
+(6), `func_1511B07C` (8), `func_15146970` (9) and `func_1514CA80` (187, 54, 19,
+10).

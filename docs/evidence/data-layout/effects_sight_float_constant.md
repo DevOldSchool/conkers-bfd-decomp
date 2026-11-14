@@ -16,3 +16,29 @@ compared. `config/game/us-rodata.ld` maps the object as an INFO section at
 `0x800AAEBC` with a 0x10 extent assertion and a 0x4 payload;
 `config/data/us.json` records the owner. No reference assembly, compiler flag
 or verifier change is involved.
+
+## func_151C9BA0 switch split (round-23)
+
+`func_151C9BA0` matched as a natural `switch` over cases 9..0x3B. Its raw dispatch
+(`lui`/`lw` at text offsets 0x2A84/0x2A8C of the integrated object) loads
+`jtbl_800AADBC_game`, whose 0x33 checksum-validated ROM words at
+0x800AADBC..0x800AAE87 are the case targets `151C9C38`, `151C9C68`, `151C9C98`,
+`151C9CB4`, `151C9D98`, `151C9DD4` and the default `151C9DC8`. The compiled table
+emits the same targets as text-relative `R_MIPS_32` entries (default 0x2C14), and it
+precedes the constant in text order, so `effects_sight.o` `.rodata` is now 0xD0 bytes:
+the 0xCC table, the `3CEA0EA1` constant at offset 0xCC and no alignment tail.
+The words between (0x800AAE88..0x800AAEBB) belong to other members and stay extern
+reads. `effects_sight.o` joined `GAME_SPLIT_RODATA_OBJS`; `scripts/split_game_rodata.py`
+splits it into `.rodata.effects_sight_0` (0xCC at 0x800AADBC, table sites 0x2A84/0x2A8C)
+and `.rodata.effects_sight_cc` (0x4 at 0x800AAEBC), each with an exact linker size
+assertion and a base symbol, replacing the former single 0x10 placement and its payload
+symbol; `config/data/us.json` names both sections. The constant keeps its runtime
+address, and the linked-payload verification compares both ranges with the ROM.
+
+`func_151C899C` (also round-23) loads `491.0f`, `0.0605f`, `0.0523f`, `0.698f`,
+`-0.44500002f` and `0.441f` from 0x800AAC58..0x800AAC6F (ROM `43F58000 3D77CED9
+3D563886 3F32B021 BEE3D70B 3EE1CAC1`); no other reference function reads them. It
+precedes `func_151C9BA0` in text, so its pool leads the object `.rodata` (now 0xF0
+bytes: 0x18 pool, 0xCC table, 0x4 constant and 4 zero alignment bytes) as
+`.rodata.effects_sight_0` at 0x800AAC58; the table and constant keep their runtime
+addresses as `.rodata.effects_sight_18` and `.rodata.effects_sight_e4`.

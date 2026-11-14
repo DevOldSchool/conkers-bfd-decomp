@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_1FC5D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151CF120
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -35,20 +30,19 @@ typedef struct {
 } Game1FC5D0Actor;
 
 f32 func_15047D60(f32);
-extern f32 D_800AB014, D_800AB018, D_800AB01C, D_800BE9A4;
+extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF120 */
 s32 func_151CF120(Game1FC5D0Actor *arg0) {
     Game1FC5D0Config *config;
     Game1FC5D0Point *points;
     s32 count;
-    f32 total;
-    f32 limit;
 
     count = arg0->count;
     config = arg0->config;
     points = arg0->points;
     if (count >= 2) {
+        f32 total;
+        f32 limit;
         s32 index;
         s32 current;
         Game1FC5D0Point *point;
@@ -101,11 +95,9 @@ s32 func_151CF120(Game1FC5D0Actor *arg0) {
         f32 phase;
         s32 index;
 
-        total = D_800AB014;
         amplitude = 0.0f;
         index = arg0->tail;
         phase = config->phase;
-        limit = D_800AB018;
         do {
             Game1FC5D0Point *point;
             f32 result;
@@ -117,12 +109,10 @@ s32 func_151CF120(Game1FC5D0Actor *arg0) {
             result = func_15047D60(phase);
             point->wave = result * amplitude;
             distance = point->distance;
-            amplitude += distance * limit;
-            phase += distance * total;
+            amplitude += distance * 0.037499998f;
+            phase += distance * 0.0122f;
         } while (index != arg0->head);
     }
-    config->phase += D_800AB01C * D_800BE9A4;
+    config->phase += -0.70900005f * D_800BE9A4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CF120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC5D0/func_151CF120.s")

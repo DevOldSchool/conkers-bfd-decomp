@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1514A6A0
- * - func_1514B364
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -333,7 +332,204 @@ void func_1514B034(Vec3f *arg0, u8 arg1, s32 arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B364.s")
+typedef struct Game1514B364Burst {
+    s32 countBase, countRange;
+    Vec3f position;
+    f32 sizeBase, sizeRange, spreadBase, spreadRange, speedBase, speedRange;
+    s16 yawBase, yawRange, pitchBase, pitchRange;
+    s32 burstBase, burstRange;
+    s16 lifeBase, lifeRange;
+    u16 kind;
+    u8 field42, field43, field44;
+    u8 colorBase[4], colorRange[4], fadeBase[4], fadeRange[4];
+    u8 field55, field56, field57, field58;
+    u8 pad59[3];
+    s32 flags, mode;
+    s16 duration, period, repeat;
+    u8 field6A, pad6B;
+    f32 scale;
+    s8 field70, field71, field72, field73;
+} Game1514B364Burst;
+
+typedef struct Game1514B364Debris {
+    Vec3f position;
+    f32 sizeBase, sizeRange, growthBase, growthRange, speedBase, speedRange;
+    s16 countBase, countRange, yawBase, yawRange, pitchBase, pitchRange;
+    s16 fadeBase, fadeRange, lifeBase, lifeRange;
+    u8 green, red, pad3A[2];
+    s32 callbacks[6];
+    u8 blue, alpha;
+} Game1514B364Debris;
+
+typedef struct Game1514B364Packet {
+    s8 type;
+    s8 mode;
+    s16 flags;
+    s16 duration;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 alpha;
+    f32 scaleX;
+    f32 scaleY;
+    Vec3f position;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    f32 magnitude;
+    f32 field38;
+    f32 field3C;
+    s32 field40;
+    u8 selector;
+    u8 flag45;
+    u8 flag46;
+    u8 flag47;
+    s32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+    s32 field50;
+    s16 field54;
+    s16 field56;
+} Game1514B364Packet;
+
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_15152B38(void *, u8, s32);
+void func_15152F70(void *, u8);
+
+void func_1514B364(Vec3f *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    Vec3f position;
+
+    position = *arg0;
+    {
+        Vec3f probe;
+        Game1514B364Burst burst;
+        Game1514B364Debris debris;
+        Game1514B364Packet packet;
+
+        probe.x = arg0->x;
+        probe.y = arg0->y + 200.0f;
+        probe.z = arg0->z;
+        if (func_15046C80(&probe.x, 0, arg0->y - 200.0f, (void *)arg1) != 0) {
+            burst.countBase = 10;
+            burst.countRange = 0;
+            burst.sizeBase = 9.900001f;
+            burst.sizeRange = 21.0f;
+            burst.spreadBase = -3.0000002f;
+            burst.spreadRange = 1.016f;
+            burst.speedBase = 30.0f;
+            burst.speedRange = 30.4f;
+            burst.yawBase = 0;
+            burst.yawRange = 0xFF;
+            burst.pitchBase = -0x3F;
+            burst.pitchRange = 0x2B;
+            burst.burstBase = 4;
+            burst.burstRange = 5;
+            burst.lifeBase = 0x1E;
+            burst.lifeRange = 0x1E;
+            burst.kind = 1;
+            burst.field42 = 0xC;
+            burst.field43 = 2;
+            burst.field44 = 3;
+            burst.colorBase[0] = 0xB4;
+            burst.colorBase[1] = 0;
+            burst.colorBase[2] = 0;
+            burst.colorBase[3] = 0x9B;
+            burst.colorRange[0] = 0x32;
+            burst.colorRange[1] = 0x64;
+            burst.colorRange[2] = 0;
+            burst.colorRange[3] = 0x64;
+            burst.fadeBase[0] = 0xFF;
+            burst.fadeBase[1] = 0xFF;
+            burst.fadeBase[2] = 0xFF;
+            burst.fadeBase[3] = 0xFF;
+            burst.fadeRange[0] = 0;
+            burst.fadeRange[1] = 0;
+            burst.fadeRange[2] = 0;
+            burst.fadeRange[3] = 0;
+            burst.field55 = 0xFF;
+            burst.field56 = 0;
+            burst.field57 = 1;
+            burst.field58 = 0x24;
+            burst.flags = 0x200005;
+            burst.mode = 0x60600;
+            burst.duration = 0x14;
+            burst.period = 0xC;
+            burst.repeat = 1;
+            burst.field6A = 0;
+            burst.scale = 1.0;
+            burst.field70 = -1;
+            burst.field71 = 0;
+            burst.field72 = -1;
+            burst.field73 = -1;
+            burst.position = position;
+            func_15152B38(&burst, arg2, arg3);
+            debris.position = position;
+            debris.sizeBase = 3.99f;
+            debris.sizeRange = 8.11f;
+            debris.growthBase = 0.60200006f;
+            debris.growthRange = 0.407f;
+            debris.speedBase = 10.139999f;
+            debris.speedRange = 10.2699995f;
+            debris.countBase = 8;
+            debris.countRange = 8;
+            debris.yawBase = 0;
+            debris.yawRange = 0xFF;
+            debris.pitchBase = -0x40;
+            debris.pitchRange = 0x2C;
+            debris.fadeBase = 5;
+            debris.fadeRange = 4;
+            debris.lifeBase = 0x42;
+            debris.lifeRange = 0x1E;
+            debris.green = 0xA;
+            debris.red = 0x21;
+            debris.callbacks[0] = 1;
+            debris.callbacks[1] = 0xC;
+            debris.callbacks[2] = 0;
+            debris.callbacks[3] = 0;
+            debris.callbacks[4] = 0;
+            debris.callbacks[5] = 0;
+            debris.blue = 0xFF;
+            debris.alpha = func_150ADA20() % 101U + 0x9B;
+            func_15152F70(&debris, 0xFF);
+            func_1514B034(&position, arg2, arg3);
+            {
+                f32 height = position.y + 10.0f;
+                packet.type = 0x38;
+                packet.flags = 1;
+                packet.duration = 0x32;
+                packet.field8 = 0;
+                packet.fieldC = 0x6666;
+                packet.alpha = 0xFF;
+                packet.scaleX = 1.0f;
+                packet.scaleY = 1.0f;
+                packet.position.x = position.x;
+                packet.position.y = height;
+                packet.position.z = position.z;
+                packet.field28 = 0.0f;
+                packet.field2C = 0.0f;
+                packet.field30 = 0.0f;
+                packet.field38 = 1.0f;
+                packet.field3C = 1.0f;
+                packet.field40 = 0x400C0001;
+                packet.magnitude = 0.2f;
+                packet.selector = func_150ADA20() % 101U + 0x64;
+                packet.flag45 = 0xFF;
+                packet.flag46 = 0;
+                packet.flag47 = 6;
+                packet.red = func_150ADA20() % 51U + 0xB4;
+                packet.green = func_150ADA20() % 101U;
+                packet.blue = func_150ADA20() % 1U;
+                func_1513D668((s32)&packet, 0, 0x12, 0x1D, 0,
+                              (func_150ADA20() & 1) + (func_150ADA20() & 1),
+                              func_150ADA20() & 0xFF, 100.0f, 100.0f, 0, arg1 + 4,
+                              0, 0, arg2, arg3);
+            }
+        }
+    }
+}
 s32 func_1514B844(void *arg0) {
     s16 temp_v1;
     s32 temp_a0;
