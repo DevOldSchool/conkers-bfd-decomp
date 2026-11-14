@@ -85996,17 +85996,16 @@
       "symbol": "func_150C04C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2699,
-        "reason": "CURRENT (2699), frame 0x118 and packet/spawn offsets exact after two finishes and two targeted probe batches. Remaining zero/height FP allocation, spill location, incoming arg5 scheduling and instruction ordering differ. Final zero lifetime/cast probes 2842 and 2892 did not improve. Best verified candidate retained; manual budget exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 872,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C0648",
           "vram": "0x150C0648"
         }
