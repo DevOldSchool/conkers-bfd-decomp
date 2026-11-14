@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CD59C
- * - func_150CD7F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -70,21 +69,6 @@ typedef struct GameFA360DriftInit {
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
-extern f32 D_800A0710;
-extern f32 D_800A0714;
-extern f32 D_800A0718;
-extern f32 D_800A071C;
-extern f32 D_800A0720;
-extern f32 D_800A0724;
-extern f32 D_800A0728;
-extern f32 D_800A072C;
-extern f32 D_800A0730;
-extern f32 D_800A0734;
-extern f32 D_800A0738;
-extern f32 D_800A073C;
-extern f32 D_800A0740;
-extern f32 D_800A0744;
-extern f32 D_800A0748;
 
 void *func_150CCEB0(GameFA360Emitter *arg0, u8 arg1, u8 arg2) {
     void *result;
@@ -117,15 +101,15 @@ void *func_150CCEB0(GameFA360Emitter *arg0, u8 arg1, u8 arg2) {
     drift.minVy = arg0->minVy;
     drift.drag = arg0->drag;
     drift.gravity = arg0->gravity;
-    drift.offsetX = (func_150ADA68() * D_800A0710 + D_800A0714) * D_800A0718;
-    drift.offsetY = (func_150ADA68() * D_800A071C + D_800A0720) * D_800A0724;
-    drift.offsetZ = (func_150ADA68() * D_800A0728 + D_800A072C) * D_800A0730;
+    drift.offsetX = (func_150ADA68() * 20000.0f + -10000.0f) * 0.001f;
+    drift.offsetY = (func_150ADA68() * 20000.0f + -10000.0f) * 0.001f;
+    drift.offsetZ = (func_150ADA68() * 20000.0f + -10000.0f) * 0.001f;
     drift.swayAngle = 0.0f;
-    drift.swaySpeed = (func_150ADA68() * 206.0f + 58.0f) * D_800A0734;
+    drift.swaySpeed = (func_150ADA68() * 206.0f + 58.0f) * 0.001f;
     drift.swayRadius = func_150ADA68() * 360.0f;
     drift.phase = 0.0f;
-    drift.phaseSpeed = func_150ADA68() * D_800A0738 * D_800A073C;
-    drift.phaseScale = (func_150ADA68() * D_800A0740 + D_800A0744) * D_800A0748;
+    drift.phaseSpeed = func_150ADA68() * 1210.0f * 0.0001f;
+    drift.phaseScale = (func_150ADA68() * 12960.0f + 15241.0f) * 0.0001f;
     result = func_1513D524((s32)&packet, 0x13, 0x1E, 0, 0x11, 0, 0x40, arg1, arg2);
     if (result != NULL) {
         func_10022EC0((u8 *)result + 0x110, &drift, 0x40);
@@ -300,73 +284,64 @@ extern s32 D_80082FA4;
 extern GameFA360Angles D_80088874;
 extern u8 *D_800DBFF0;
 extern f32 D_800BE9A4;
-extern f32 D_800A0754, D_800A0758, D_800A075C;
-extern f64 D_800A0760, D_800A0768;
-extern f32 D_800A0770, D_800A0774, D_800A0778, D_800A077C, D_800A0780;
-extern f32 D_800A0784, D_800A0788, D_800A078C, D_800A0790;
-extern f32 D_800A0794, D_800A0798, D_800A079C, D_800A07A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CD7F8 CURRENT (1565) */
 void func_150CD7F8(u8 *arg0) {
     f32 random;
     GameFA360Particle particle;
     GameFA360Angles angles;
+    f32 *pending;
+    u8 index;
     f32 angle;
     f32 yaw;
-    f64 radiusBase;
-    f64 radiusRange;
-    s32 index;
-    f32 *pending;
+    f32 diff;
 
     pending = (f32 *)(arg0 + 0x28);
-    *pending += D_800A0754 * D_800BE9A4 * *(f32 *)(arg0 + 0x2C);
+    *pending += 0.08f * D_800BE9A4 * *(f32 *)(arg0 + 0x2C);
     if (*pending > 1.0f) {
         particle.pitchBase = -23;
         particle.pitchRange = 6;
         particle.colorIndex = 0;
-        particle.field24 = D_800A0758;
-        particle.field48 = D_800A075C;
-        radiusBase = D_800A0760;
-        radiusRange = D_800A0768;
+        particle.field24 = 0.992233f;
+        particle.field48 = -10.1175995f;
         do {
             angles = D_80088874;
-            index = (func_150ADA20() % 5U) & 0xFF;
-            angle = func_150ADA68() * D_800A0770 + angles.values[index];
-            yaw = *(f32 *)(D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x380) - 180.0f;
-            if (yaw > 360.0f) {
-                do { yaw -= 360.0f; } while (yaw > 360.0f);
+            index = func_150ADA20() % 5U;
+            angle = func_150ADA68() * 0.59999996f;
+            angle += angles.values[index];
+            yaw = *(f32 *)(D_800DBFF0 + 0x380 + D_80082FA4 * 0x9A0) - 180.0f;
+            while (yaw > 360.0f) {
+                yaw -= 360.0f;
             }
-            if (yaw < 0.0f) {
-                do { yaw += 360.0f; } while (yaw < 0.0f);
+            while (yaw < 0.0f) {
+                yaw += 360.0f;
             }
-            yaw *= D_800A0774;
-            if (fabsf(angle - yaw) < D_800A0778) {
+            yaw *= 0.017453292f;
+            diff = angle - yaw;
+            if (fabsf(diff) < 0.39269912f) {
                 random = func_150ADA68();
-                particle.position.y = D_800A077C * random + D_800A0780 + 500.0f;
-                func_1514373C(angle, (f32)((f64)random * radiusRange + radiusBase),
+                particle.position.y = 1613.5835f * random + 2411.0085f + 500.0f;
+                func_1514373C(angle, random * 2026.6800000000003 + 8400.0,
                               &particle.position.x, &particle.position.z);
                 particle.countBase = 15;
                 particle.countRange = 20;
+                particle.angleBase = (angle + 3.1415927f - 0.15100001f) * 40.743664f;
                 particle.angleRange = 12;
                 particle.lifeBase = 0x226;
                 particle.lifeRange = 0;
                 particle.field3C = 15.0f;
                 particle.field38 = 15.0f;
-                particle.field44 = D_800A0784;
-                particle.field40 = D_800A0784;
-                particle.angleBase = (s32)((angle + D_800A0788 - D_800A078C) * D_800A0790);
-                particle.speedBase = D_800A0794;
-                particle.speedRange = D_800A0798;
-                particle.scaleBase = D_800A079C;
-                particle.scaleRange = D_800A07A0;
+                particle.field44 = 25.300001f;
+                particle.field40 = 25.300001f;
+                particle.speedBase = 78.6f;
+                particle.speedRange = 25.2f;
+                particle.scaleBase = -1.108f;
+                particle.scaleRange = 0.201f;
                 func_15152874(&particle, arg0[0xC], arg0[1]);
             }
             *pending -= 1.0f;
         } while (*pending > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CD7F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FA360/func_150CD7F8.s")
 
 extern s32 D_80088870;
 extern f32 D_800A07A4;

@@ -12,7 +12,6 @@
  * - func_15150400
  * - func_1515080C
  * - func_15150D1C
- * - func_15152190
  * - func_15152520
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -928,9 +927,8 @@ typedef struct Game152190Config {
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15152190 CURRENT (1380) */
 void func_15152190(Game152190Config *arg0, s32 *arg1, f32 *arg2, u32 arg3,
-                   f32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+                   f32 arg4, u8 arg5, u8 arg6, s32 arg7) {
     u32 flags;
     Game154884Descriptor packet;
     s16 yaw;
@@ -943,7 +941,7 @@ void func_15152190(Game152190Config *arg0, s32 *arg1, f32 *arg2, u32 arg3,
     packet.scale.y = 1.0f;
     packet.scale.z = 1.0f;
     packet.field44 = 0.0f;
-    if (((u8 *)&arg5)[3] != 0) {
+    if (arg5 != 0) {
         flags = 0x100000;
     } else {
         flags = 0;
@@ -983,17 +981,19 @@ void func_15152190(Game152190Config *arg0, s32 *arg1, f32 *arg2, u32 arg3,
             packet.position.x += arg0->position.x;
             packet.position.y += arg0->position.y;
             packet.position.z += arg0->position.z;
-            flags = func_150ADA20() % arg3;
-            packet.field56 = arg1[flags];
-            packet.field0C = arg2[flags] * (arg0->sizeBase + func_150ADA68() * arg0->sizeRange);
-            packet.field08 = *(volatile f32 *)&packet.field0C;
-            func_15132A4C(&packet, 3, 0xFF, 0, (u8)arg6, arg7);
+            {
+                u32 index;
+
+                index = func_150ADA20() % arg3;
+                packet.field56 = arg1[index];
+                packet.field0C = (arg0->sizeBase + func_150ADA68() * arg0->sizeRange) * arg2[index];
+                packet.field08 = packet.field0C;
+            }
+            func_15132A4C(&packet, 3, 0xFF, 0, arg6, arg7);
             count--;
         } while (count != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15152190 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152190.s")
 
 typedef struct {
     u8 red;

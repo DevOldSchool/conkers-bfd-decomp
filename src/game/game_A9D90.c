@@ -594,7 +594,7 @@ void func_150BC488(void *);
 void func_150BE494(void *, u8, s32);
 void func_150BFFE0(void *);
 void func_150D85AC(void *);
-void func_150E0870(void *, s32, s32);
+void func_150E0870(void *, u8, s32);
 void func_150F1D10(u8 *, u8, s32);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_15145A50(u8 *);

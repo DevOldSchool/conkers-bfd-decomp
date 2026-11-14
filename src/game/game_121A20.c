@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F4570
  * - func_150F48D0
- * - func_150F4DEC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -276,38 +275,31 @@ typedef struct GameF4DECChoices {
 void func_150F4570(Vec3f *, Vec3f *, s32, f32, f32, f32, s32, s32, s32, s32);
 extern GameF4DECChoices D_80088B20[];
 extern s32 (*D_80088B38[])(void);
-extern f32 D_800A1A98, D_800A1A9C, D_800A1AA0, D_800A1AA4, D_800A1AA8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4DEC CURRENT (961) */
 void func_150F4DEC(u8 *arg0) {
     GameF4DECChoices *choices;
-    register GameF4DECState *state;
+    GameF4DECState *state;
     Vec3f *camera;
     Vec3f first;
     Vec3f second;
-    f32 radiusRange;
     f32 duration;
     s32 index;
+    s32 base;
     Vec3f swap;
-    s16 firstAngle;
-    s32 secondAngle;
 
-    if (*(volatile s8 *)(arg0 + 0x30) != -1 && D_80088B38[*(s8 *)(arg0 + 0x30)]() == 0) return;
     state = (GameF4DECState *)(arg0 + 0x28);
-    state->pending += (D_800A1A98 + func_150ADA68() * D_800A1A9C) * D_800BE9A4;
+    if (state->callback != -1 && D_80088B38[state->callback]() == 0) return;
+    state->pending += (0.051000003f + func_150ADA68() * 0.15300001f) * D_800BE9A4;
     if (state->pending > 1.0f) {
         camera = (Vec3f *)func_15144B34(state->owner[0x23D]);
-        index = (s32)((*(f32 *)(state->owner + 0x380) + 180.0f) * D_800A1AA0);
-        radiusRange = D_800A1AA4;
-        secondAngle = (s16)(index - 0x15);
-        firstAngle = index + 0x15;
+        base = (*(f32 *)(state->owner + 0x380) + 180.0f) * 0.7111111f;
         do {
-            func_15143874(firstAngle, func_150ADA68() * radiusRange + 254.0f, &first.x, &first.z);
+            func_15143874(base + 0x15, func_150ADA68() * 381 + 254.0f, &first.x, &first.z);
             first.y = func_150ADA68() * 212.0f + -133.0f;
             first.x += camera->x;
             first.y += camera->y;
             first.z += camera->z;
-            func_15143874(((s16 *)&secondAngle)[1], func_150ADA68() * radiusRange + 254.0f, &second.x, &second.z);
+            func_15143874(base - 0x15, func_150ADA68() * 381 + 254.0f, &second.x, &second.z);
             second.y = func_150ADA68() * 212.0f + -133.0f;
             second.x += camera->x;
             second.y += camera->y;
@@ -321,11 +313,9 @@ void func_150F4DEC(u8 *arg0) {
             index = ((u32)func_150ADA20() % choices->count) & 0xFF;
             duration = func_150ADA68() * 10.0f + 5.0f;
             func_150F4570(&first, &second, choices->kinds[index * 2 + 1], duration, 1.0f / duration,
-                         (func_150ADA68() * D_800A1AA8 + D_800A1AA8) * choices->scales[index],
+                         choices->scales[index] * (func_150ADA68() * 0.075f + 0.075f),
                          0, 0, arg0[0xC], arg0[1]);
             state->pending -= 1.0f;
         } while (state->pending > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F4DEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4DEC.s")

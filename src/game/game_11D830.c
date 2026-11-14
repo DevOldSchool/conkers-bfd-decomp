@@ -9,7 +9,6 @@
  * - func_150F03F8
  * - func_150F0BEC
  * - func_150F16DC
- * - func_150F1D10
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -814,7 +813,7 @@ typedef struct GameF1D10ExtendedBurst {
 } GameF1D10ExtendedBurst;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void func_151D5334(void *, f32, f32, f32, u8, u8, s32);
@@ -825,67 +824,66 @@ extern u8 D_800A18D8[], D_800A18E0[];
 extern f32 D_800A18FC, D_800A1900, D_800A1904, D_800A1908;
 extern f32 D_800A190C, D_800A1910, D_800A1914, D_800A1918;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1D10 CURRENT (4890) */
 void func_150F1D10(u8 *arg0, u8 arg1, s32 arg2) {
     Vec3f position;
     f32 scale;
-    GameF1D10ExtendedBurst first;
-    GameF1D10Burst second;
-    f32 random;
-    u32 value;
 
     if (arg0 != NULL) {
         position.x = *(f32 *)(arg0 + 0x14);
         position.y = *(f32 *)(arg0 + 0x18) + 20.0f;
         position.z = *(f32 *)(arg0 + 0x1C);
-        scale = (*(f32 *)(arg0 + 0x14C) + *(f32 *)(arg0 + 0x150)) * 0.5f;
+        scale = (*(f32 *)(arg0 + 0x150) + *(f32 *)(arg0 + 0x14C)) * 0.5f;
         func_151D5404(&position, 506.0f, 1013.0f, 0.0009871669f, 15, 20, arg1, arg2);
         func_151D5334(&position, 506.0f, 1013.0f, 0.0009871669f, 5, arg1, arg2);
         func_151D5514(&position, arg1, arg2);
         func_10010F88((func_150ADA20() & 8) + 0x2B6, 0x7FFF, 0, 0, 0,
                      (s32)position.x, (s32)position.y, (s32)position.z, 4000, 6000);
         func_151D3FF4(&position.x, arg1, arg2);
-        random = func_150ADA68();
-        value = func_150ADA20();
-        func_151541B8(&position, random * 4.0f + 12.0f, 1.6409999f,
-                     (f32)(value % 56U + 200), 0.0f, arg1, arg2);
-        first.base.count = 3;
-        first.base.countRange = 0;
-        first.base.position = position;
-        first.base.field1C = 30.0f;
-        first.base.field20 = 20.0f;
-        first.base.field24 = D_800A18FC;
-        first.base.yaw = 0;
-        first.base.yawRange = 255;
-        first.base.pitch = -0x40;
-        first.base.pitchRange = 0x2C;
-        first.base.lifetime = 60;
-        first.base.lifetimeRange = 20;
-        first.base.field30 = 1.0f * scale;
-        first.base.field34 = 0.0f * scale;
-        first.field3C = 0.0f;
-        first.field40 = 12;
-        first.base.field28 = D_800A1900;
-        first.base.field38 = D_800A1904;
-        func_1515080C(&first, D_800A18C0, D_800A18CC, 3, NULL, 0, 0, 1, -1, NULL, 0.0f, 0, 0, arg1, arg2);
-        second.count = 5;
-        second.countRange = 3;
-        second.position = position;
-        second.field1C = 25.0f;
-        second.field20 = 15.0f;
-        second.yaw = 0;
-        second.yawRange = 255;
-        second.pitch = -0x40;
-        second.pitchRange = 30;
-        second.lifetime = 70;
-        second.lifetimeRange = 20;
-        second.field24 = D_800A1908;
-        second.field28 = D_800A190C;
-        second.field30 = D_800A1910;
-        second.field34 = D_800A1914;
-        second.field38 = D_800A1918;
-        func_15152190(&second, D_800A18D8, D_800A18E0, 2, 0.0f, 0, arg1, arg2);
+        func_151541B8(&position, func_150ADA68() * 4.0f + 12.0f, 1.6409999f,
+                     (f32)(func_150ADA20() % 56U + 200), 0.0f, arg1, arg2);
+        {
+            GameF1D10ExtendedBurst first;
+
+            first.base.count = 3;
+            first.base.countRange = 0;
+            first.base.position = position;
+            first.base.field1C = 30.0f;
+            first.base.field20 = 20.0f;
+            first.base.field24 = D_800A18FC;
+            first.base.field28 = D_800A1900;
+            first.base.yaw = 0;
+            first.base.yawRange = 255;
+            first.base.pitch = -0x40;
+            first.base.pitchRange = 0x2C;
+            first.base.lifetime = 60;
+            first.base.lifetimeRange = 20;
+            first.base.field30 = 1 * scale;
+            first.base.field34 = 0 * scale;
+            first.field3C = 0.0f;
+            first.field40 = 12;
+            first.base.field38 = D_800A1904;
+            func_1515080C(&first, D_800A18C0, D_800A18CC, 3, NULL, 0, 0, 1, -1, NULL, 0.0f, 0, 0, arg1, arg2);
+        }
+        {
+            GameF1D10Burst second;
+
+            second.count = 5;
+            second.countRange = 3;
+            second.position = position;
+            second.field1C = 25.0f;
+            second.field20 = 15.0f;
+            second.yaw = 0;
+            second.yawRange = 255;
+            second.pitch = -0x40;
+            second.pitchRange = 30;
+            second.lifetime = 70;
+            second.lifetimeRange = 20;
+            second.field24 = D_800A1908;
+            second.field28 = D_800A190C;
+            second.field30 = D_800A1910;
+            second.field34 = D_800A1914;
+            second.field38 = D_800A1918;
+            func_15152190(&second, D_800A18D8, D_800A18E0, 2, 0.0f, 0, arg1, arg2);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F1D10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1D10.s")

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15116110
- * - func_151162D4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -81,23 +80,17 @@ void func_1511617C(void *arg0) {
 f32 func_15047C00(f32);                             /* extern */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151162D4 CURRENT (25) */
 void func_151162D4(void *arg0) {
-    volatile f32 sp24;
-    s32 sp20;
-    s16 sp1E;
-    f32 temp_fv1;
-    s32 value;
+    f32 scale;
+    u32 step;
+    s16 prev;
+    f32 offset;
 
-    value = (s16) (s32) (*(f32 *)((u8 *)arg0 + 0x18) + (f32) *(s16 *)((u8 *)arg0 + 0x12));
-    sp1E = value;
-    value = *(s32 *)((u8 *)arg0 + 0x3C);
-    sp24 = (f32)(s16)value;
-    sp20 = (value >> 16) & 0xFFFF;
-    temp_fv1 = func_15047C00((f32) *(s32 *)((u8 *)arg0 + 0x7C) * 0.005493164f) * sp24;
-    *(f32 *)((u8 *)arg0 + 0x18) = temp_fv1;
-    *(s32 *)((u8 *)arg0 + 0x7C) = (s32) (*(u32 *)((u8 *)arg0 + 0x7C) + ((u32) sp20 * (u32) D_800BE9E4));
-    *(s16 *)((u8 *)arg0 + 0x5C) = (s16) (s32) (((f32) *(s16 *)((u8 *)arg0 + 0x12) + temp_fv1) - (f32) sp1E);
+    prev = *(f32 *)((u8 *)arg0 + 0x18) + (f32) *(s16 *)((u8 *)arg0 + 0x12);
+    scale = (s16) (*(s32 *)((u8 *)arg0 + 0x3C) & 0xFFFF);
+    step = (*(s32 *)((u8 *)arg0 + 0x3C) >> 16) & 0xFFFF;
+    offset = func_15047C00((f32) *(s32 *)((u8 *)arg0 + 0x7C) * 0.0054931640625f) * scale;
+    *(f32 *)((u8 *)arg0 + 0x18) = offset;
+    *(s32 *)((u8 *)arg0 + 0x7C) += step * D_800BE9E4;
+    *(s16 *)((u8 *)arg0 + 0x5C) = ((f32) *(s16 *)((u8 *)arg0 + 0x12) + offset) - prev;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151162D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1435C0/func_151162D4.s")
