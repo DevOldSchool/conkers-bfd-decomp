@@ -10,7 +10,6 @@
  * - func_151CD7BC
  * - func_151CDE20
  * - func_151CE51C
- * - func_151CE634
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -491,52 +490,23 @@ extern s32 D_800A5760[];
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE634 CURRENT (1255) */
 void *func_151CE634(s32 arg0) {
-    u8 *var_a0;
-    void **var_a1;
-    s32 temp_t0;
-    u8 *temp_t1;
-    s32 temp_t4;
-    s32 temp_t7;
-    s32 temp_t8;
-    s32 var_a3;
-    s32 var_v0;
-    void *var_v1;
+    u8 i;
+    s32 j;
+    u8 *node;
 
-    var_a3 = arg0;
-    temp_t1 = D_800DD190;
-    temp_t0 = 0xB;
-    var_v0 = 0;
-loop_1:
-    temp_t7 = var_v0 << 2;
-    temp_t8 = D_800A5760[var_v0];
-    var_a0 = D_800DCE50;
-    var_a1 = (void **)(var_a0 + (temp_t8 << 2));
-loop_2:
-    var_v1 = *var_a1;
-    if (var_v1 != 0) {
-loop_3:
-        if ((*(s32 *)((u8 *)var_v1 + 0x20) == temp_t0) &&
-            (var_a3 == *(s32 *)(*(u8 **)((u8 *)var_v1 + 0x98) + 0x48))) {
-            return var_v1;
-        }
-        var_v1 = *(void **)((u8 *)var_v1 + 8);
-        if (var_v1 != 0) {
-            goto loop_3;
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            for (node = ((u8 **)&D_800DCE50[j * 0x1A0])[D_800A5760[i]]; node != 0; node = *(u8 **)(node + 8)) {
+                if (*(s32 *)(node + 0x20) == 0xB) {
+                    u8 *owner = *(u8 **)(node + 0x98);
+
+                    if (arg0 == *(s32 *)(owner + 0x48)) {
+                        return node;
+                    }
+                }
+            }
         }
     }
-    var_a0 += 0x1A0;
-    var_a1 += 0x1A0 / sizeof(void *);
-    if (var_a0 == temp_t1) {
-        temp_t4 = (var_v0 + 1) & 0xFF;
-        var_v0 = temp_t4;
-        if (var_v0 < 2) {
-            goto loop_1;
-        }
-        return 0;
-    }
-    goto loop_2;
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CE634 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CE634.s")

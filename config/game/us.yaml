@@ -536,7 +536,7 @@ segments:
       - [0x1220D0, c, done/game/game_14F580]
       - [0x122440, c, game/game_14F8F0]
       - [0x122AE0, c, game/camera/camera_camera]
-      - [0x1287E0, c, game/game_155C90]
+      - [0x1287E0, c, done/game/game_155C90]
       - [0x128CB0, c, game/game_156160]
       - [0x129C30, c, game/game_1570E0]
       - [0x12A390, c, game/game_157840]

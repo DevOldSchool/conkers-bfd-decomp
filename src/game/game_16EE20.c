@@ -17,7 +17,6 @@
  * - func_15144CEC
  * - func_15145740
  * - func_15145AD8
- * - func_15145DB4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2206,37 +2205,19 @@ void func_15145CD0(u8 *arg0, f32 **arg1, f32 **arg2, s32 arg3) {
         dst++;
     } while (arg3 > 0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145DB4 CURRENT (156) */
-void func_15145DB4(u8 *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
+void func_15145DB4(u8 *arg0, Vec3f *arg1, Vec3f *arg2, s32 arg3) {
     f32 matrix[4][4];
-    f32 *x;
-    f32 *y;
-    f32 *z;
-    f32 *in;
-    f32 *out;
+    s32 i;
 
     func_150A8050(matrix, *(f32 *)(arg0 + 0), *(f32 *)(arg0 + 4), *(f32 *)(arg0 + 8));
-    out = arg2;
-    x = out;
-    y = x + 1;
-    z = x + 2;
     matrix[3][0] = *(s16 *)(arg0 + 0x10);
     matrix[3][1] = *(s16 *)(arg0 + 0x12);
     matrix[3][2] = *(s16 *)(arg0 + 0x14);
-    if (arg3 > 0) {
-        in = arg1;
-        do {
-            func_150A7960(matrix, in[0], in[1], in[2], x, y, z);
-            arg3--;
-            in += 3;
-            x += 3;
-            y += 3;
-            z += 3;
-        } while (arg3 > 0);
+    for (i = 0; arg3 > 0; i++) {
+        func_150A7960(matrix, arg1[i].x, arg1[i].y, arg1[i].z, &arg2[i].x, &arg2[i].y, &arg2[i].z);
+        arg3--;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15145DB4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145DB4.s")
 void func_15145EA4(f32 **arg0, f32 **arg1, s32 arg2, s32 arg3) {
     f32 *input;
     f32 transform[4][4];
