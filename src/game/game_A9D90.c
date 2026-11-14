@@ -917,35 +917,31 @@ s32 func_1507E114(s32 arg0) {
 
 void func_15143134(f32 *, f32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 CURRENT (975) */
-void func_1507E1D0(u8 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
-    struct {
-        Vec3f output;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 CURRENT (300) */
+void func_1507E1D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+        s32 var_a2;
         Vec3f input;
-    } local;
-    s32 temp_v0;
-    s32 var_a2;
+        Vec3f output;
 
-    if (*(s32 *)(arg0 + 0x1D4) != 0) {
-        local.input.x = 0.0f;
-        local.input.z = 0.0f;
-        local.input.y = *(f32 *)(arg0 + 0x150) * 30.0f;
-        temp_v0 = *(s32 *)arg0;
-        var_a2 = *(s32 *)(arg0 + 0x1D4);
-        if (temp_v0 == 1) {
+        input.x = 0.0f;
+        input.y = *(f32 *)((u8 *)arg0 + 0x150) * 30.0f;
+        input.z = 0.0f;
+        var_a2 = *(s32 *)((u8 *)arg0 + 0x1D4);
+        if (*(s32 *)arg0 == 1) {
             var_a2 += 0x300;
-        } else if (temp_v0 == 0x1E) {
+        } else if (*(s32 *)arg0 == 0x1E) {
             var_a2 += 0xC0;
         }
-        func_15143134(&local.input.x, &local.output.x, var_a2);
-        *arg1 = local.output.x;
-        *arg2 = local.output.y;
-        *arg3 = local.output.z;
-        return;
+        func_15143134(&input.x, &output.x, var_a2);
+        *arg1 = output.x;
+        *arg2 = output.y;
+        *arg3 = output.z;
+    } else {
+        *arg1 = *(f32 *)((u8 *)arg0 + 0x14);
+        *arg2 = *(f32 *)((u8 *)arg0 + 0x18);
+        *arg3 = *(f32 *)((u8 *)arg0 + 0x1C);
     }
-    *arg1 = *(f32 *)(arg0 + 0x14);
-    *arg2 = *(f32 *)(arg0 + 0x18);
-    *arg3 = *(f32 *)(arg0 + 0x1C);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507E1D0.s")

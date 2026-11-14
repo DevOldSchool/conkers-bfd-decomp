@@ -9,7 +9,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501D258
  * - func_1501D2C4
  * - func_1501D348
  * - func_1501E81C
@@ -362,18 +361,15 @@ s32 func_1501D1D4(s32 arg0, s32 arg1, s32 arg2) {
     }
     return temp_v0;
 }
-u64 func_100268A4(s32, s32, s32, s32);
+u64 func_100268A4(u64, u64); /* __ll_lshift */
 extern u8 D_800C3670;
 extern u64 D_800C3A60[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D258 CURRENT (5) */
 void func_1501D258(s32 arg0, s32 arg1) {
     if (D_800C3670 == 0) {
-        D_800C3A60[arg0] |= 1LL << arg1;
+        D_800C3A60[arg0] |= func_100268A4(1, arg1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501D258 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D258.s")
 extern u8 D_800C3A64;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D2C4 CURRENT (2260) */
@@ -384,7 +380,7 @@ s32 func_1501D2C4(s32 arg0, s32 arg1) {
     if (D_800C3670 != 0) {
         return 1;
     }
-    temp_ret = func_100268A4(0, 1, arg1 >> 0x1F, arg1);
+    temp_ret = func_100268A4(1, arg1);
     if ((temp_ret & D_800C3A60[arg0]) ||
         (var_v0 = 0, (((u32)temp_ret & *(u32 *)((u8 *)&D_800C3A64 + (arg0 * 8))) != 0))) {
         var_v0 = 1;

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150C79BC
- * - func_150C7C90
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -151,7 +150,6 @@ typedef struct GameF4D20Object7C90 {
     s16 angle;
 } GameF4D20Object7C90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 CURRENT (10) */
 void func_150C7C90(GameF4D20State7C90 *arg0) {
     s32 angle;
     s32 *entry;
@@ -162,7 +160,7 @@ void func_150C7C90(GameF4D20State7C90 *arg0) {
     if (current == 0) {
         entry = (s32 *)arg0->entries;
         index = 0;
-        while (*((s8 *)entry + (index << 3)) != -14) {
+        while (*(s8 *)((index << 3) + (s32)entry) != -14) {
             index++;
         }
         arg0->index = index;
@@ -182,8 +180,6 @@ void func_150C7C90(GameF4D20State7C90 *arg0) {
     *entry &= ~0xFFF;
     *entry |= angle;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C7C90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7C90.s")
 /* Call context: func_15083E90: unique active project prototype */
 void * func_15083E90(u8);
 

@@ -11,7 +11,6 @@
  * - func_151D40D4
  * - func_151D4794
  * - func_151D5334
- * - func_151D5714
  * - func_151D5A18
  * - func_151D5B6C
  *
@@ -1173,31 +1172,28 @@ typedef struct Game200930RayLocals {
     Vec3f second;
 } Game200930RayLocals;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5714 CURRENT (2337) */
 void func_151D5714(void *arg0, s32 arg1, s32 arg2, u8 arg3,
                    f32 arg4, u8 arg5, s32 arg6) {
     Game200930RayLocals locals;
-    s32 temp_a2;
-    s32 temp_v0;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x1D4);
-    if ((temp_v0 != 0) && ((*(u8 *)((u8 *)arg0 + 0x74) & 0xF) != 0xF)) {
-        temp_a2 = temp_v0 + (arg3 << 6);
-        locals.second_ptr = &locals.second;
-        locals.first_ptr = &locals.first;
-        locals.transform = temp_a2;
+    {
+        s32 transforms = *(s32 *)((u8 *)arg0 + 0x1D4);
+
+        if ((transforms == 0) || ((*(u8 *)((u8 *)arg0 + 0x74) & 0xF) == 0xF)) {
+            return;
+        }
+        locals.transform = (s32)((u8 *)transforms + (arg3 << 6));
         locals.input[0] = arg1;
         locals.input[1] = arg2;
-        func_15145EA4(locals.input, (s32 *)&locals.second_ptr, temp_a2, 2);
+        locals.second_ptr = &locals.second;
+        locals.first_ptr = &locals.first;
+        func_15145EA4(locals.input, (s32 *)&locals.second_ptr, locals.transform, 2);
         locals.first.x -= locals.second.x;
         locals.first.y -= locals.second.y;
         locals.first.z -= locals.second.z;
-        func_151D4408(&locals.second, &locals.first, locals.transform, arg0,
-                       arg4, arg5, arg6);
     }
+    func_151D4408(&locals.second, &locals.first, locals.transform, arg0, arg4, arg5, arg6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D5714 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5714.s")
 void func_151D5174(void *, void *, void *, void *, void *, void *, void *, void **, void **, void *);
 void func_151D5A18(void *, s32, void *, void *, void *, s32, u8);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);

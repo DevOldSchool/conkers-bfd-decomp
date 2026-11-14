@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15160E30
- * - func_15161F4C
  * - func_1516295C
  * - func_15162B28
  * - func_151630F4
@@ -727,47 +726,39 @@ s32 func_15163F50();
 void func_15161F2C(s32 arg0) {
     func_15163F50(arg0, arg0 + 0x18);
 }
-extern LightCallback D_8008B358[];
+extern void (*D_8008B358[])(void *, void *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161F4C CURRENT (2915) */
-void func_15161F4C(u8 *arg0, u8 *arg1, u8 arg2) {
-    LightCallback temp_v0_2;
-    s32 temp_a0;
-    s32 temp_v1;
-    u8 var_a2;
-    register s32 temp_v0;
-    u8 *var_a3;
+void func_15161F4C(void *arg0, void *arg1, u8 arg2) {
+    void (*callback)(void *, void *, u8);
+    s32 temp_t6;
+    u8 *temp_v0;
 
-    var_a3 = arg0;
-    var_a2 = arg2;
-    if (var_a2 == 0) {
-        temp_v0 = (s32)var_a3 + 0x18;
-        if ((*(s32 *)temp_v0 == *(s32 *)arg1) || (*(u8 *)(temp_v0 + 4) == arg1[4])) {
-            arg2 = var_a2;
-            func_1516972C(var_a3);
-            var_a2 = arg2;
+    temp_t6 = arg2;
+    temp_v0 = (u8 *)arg0 + 0x18;
+    if (temp_t6 == 0) {
+        u8 *src = arg1;
+
+        if ((*(s32 *)temp_v0 == *(s32 *)src) ||
+            (temp_v0[4] == src[4])) {
+            func_1516972C(arg0);
         }
-    } else {
-        temp_v0 = (s32)var_a3 + 0x18;
-        if (var_a2 == 0x2D) {
-            temp_a0 = *(s32 *)(var_a3 + 0x18);
-            temp_v1 = *(s32 *)arg1;
-            if (temp_v1 == temp_a0) {
-                *(s32 *)(var_a3 + 0x18) = *(s32 *)(arg1 + 4);
-                *(u8 *)(temp_v0 + 4) = arg1[9];
-            } else if (*(s32 *)(arg1 + 4) == temp_a0) {
-                *(s32 *)(var_a3 + 0x18) = temp_v1;
-                *(u8 *)(temp_v0 + 4) = arg1[8];
-            }
+    } else if (temp_t6 == 0x2D) {
+        if (*(s32 *)arg1 == *(s32 *)temp_v0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0) {
+            u8 *dst = temp_v0;
+
+            *(s32 *)dst = *(s32 *)arg1;
+            *(u8 *)(dst + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
-    temp_v0_2 = D_8008B358[var_a3[0x1D]];
-    if (temp_v0_2 != 0) {
-        temp_v0_2(var_a3);
+    callback = D_8008B358[*((u8 *)arg0 + 0x1D)];
+    if (callback != 0) {
+        callback(arg0, arg1, arg2);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15161F4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161F4C.s")
+
 extern f32 D_800A6AF0;
 
 void *func_15162034(s32 arg0, u8 arg1, s32 arg2) {

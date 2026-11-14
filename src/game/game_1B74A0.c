@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15189FF0
  * - func_1518A094
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -14,20 +13,20 @@
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15189FF0 CURRENT (405) */
 s32 func_15189FF0(void *arg0, void *arg1, void *arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6) {
-    s32 temp_v0;
+    s32 result;
 
     *(u8 *)((u8 *)arg1 + 0x58) = 0xB;
-    temp_v0 = func_151407D0(arg1, 0x80, arg0, arg3, arg4, arg5, arg6, -1, 0xFF, 1);
-    if (temp_v0 != 0) {
-        func_10022EC0((u8 *)temp_v0 + 0x170, arg2, 0x20);
-        return temp_v0;
+    result = func_151407D0(arg1, 0x80, arg0, arg3, arg4, arg5, arg6, -1, 0xFF, 1);
+    if (result != 0) {
+        u8 *inner = (u8 *)result + 0x170;
+
+        func_10022EC0(inner, arg2, 0x20);
+    } else {
+        return 0;
     }
-    return 0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15189FF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_15189FF0.s")
 typedef s32 (*Game18A094Callback)(void *, u8 *);
 extern Game18A094Callback D_8008D5A0[];
 s32 func_15083E90(u8);
