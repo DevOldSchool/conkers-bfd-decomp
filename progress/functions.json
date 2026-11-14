@@ -3559,16 +3559,15 @@
       "symbol": "func_15198570"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1088,
-        "reason": "Manual collision scan; CURRENT 1088. ROM-verified margin 2500.0f; remaining load scheduling, register allocation and stack layout.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151987CC",
           "vram": "0x151987CC"
         }
@@ -9800,17 +9799,16 @@
       "symbol": "func_150597FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1385,
-        "reason": "Manual ABI u8/u16 formals, rate-first calculation and fullwidth LHU locals improve2780->1385. Explicit fullwidth wrappedaccumulator2090 and reversed initialADD1385 exhausted. Signedhalfword lifetimes/clamp scheduling remain; best deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 396,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150599C8",
           "vram": "0x150599C8"
         }
@@ -32124,17 +32122,16 @@
       "symbol": "func_15103910"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 785,
-        "reason": "Manual budget exhausted: best valid repaired callback CURRENT785; legacy667 fails conflicting callback declaration and has signed trigger-shift overflow. Existing seven-word pointer callback signature and unsigned packed shift repaired. Raw merge/high/sound snapshots809 regressed; frame38 versus30, five stack rows and six extra moves in packed/remaining lifetimes remain. No shared dependency changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 372,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15103AA0",
           "vram": "0x15103AA0"
         }
@@ -40904,17 +40901,16 @@
       "symbol": "func_1502F9FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 979,
-        "reason": "Valid wrapping actor word subtraction then signed DIV812 CURRENT979; replaces invalid scalar-object pointer subtraction. Actual mode/value reuse neutral979, prior narrow widths1204 worse. Remaining frame48/raw40, delayed SUBU, selection/byte registers and merged mode reload; two fresh revisions exhausted. No ABI/shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 392,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502FBE8",
           "vram": "0x1502FBE8"
         }
@@ -54474,17 +54470,16 @@
       "symbol": "func_151D87E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 500,
-        "reason": "Manual620 to500: correct cross-loop counter lifetime, direct global bound and combined increment/narrow expression. Guard flattening neutral. Remaining branch-likely/memcpy scheduling and tail temporaries; no new hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 444,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D8868",
           "vram": "0x151D8868"
         }
@@ -68373,17 +68368,16 @@
       "symbol": "func_151082D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1491,
-        "reason": "Best CURRENT1491 restored: interior threshold reload and shared float lifetime improved1991; two neutral timer/equality hypotheses exhausted; frame/control/FP mismatches remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 420,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108658",
           "vram": "0x15108658"
         }

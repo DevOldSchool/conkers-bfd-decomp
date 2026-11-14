@@ -15,7 +15,6 @@
  * - func_15197148
  * - func_15198110
  * - func_15198570
- * - func_151987CC
  * - func_1519897C
  * - func_151994B8
  * - func_15199C34
@@ -1253,7 +1252,6 @@ typedef struct CharacterFlamethrowerCollisionActor {
 } CharacterFlamethrowerCollisionActor;
 
 extern CharacterFlamethrowerCollisionActor D_800CC2D0[];
-extern CharacterFlamethrowerCollisionActor D_800D121C;
 
 s32 func_1505D024(void *, s32, s32, s32);
 s32 func_1518D1C0(void *, s32, s32, s32, s32, s32, void *);
@@ -1317,60 +1315,58 @@ s32 func_15198570(CharacterFlamethrowerActor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15198570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198570.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151987CC CURRENT (1088) */
 s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
-    Vec3f position;
-    s32 index;
-    CharacterFlamethrowerCollisionActor *actor;
-    f32 x;
-    f32 z;
-    f32 y;
-    f32 radius;
-    f32 height;
     CharacterFlamethrowerState *state;
     CharacterFlamethrowerPoint *points;
-    Vec3f *point;
+    CharacterFlamethrowerCollisionActor *actor;
+    s32 index;
+    s32 i;
+    Vec3f position;
+    f32 radius;
+    f32 height;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 ratio;
+    f32 scale;
+    f32 distance;
 
     state = arg0->state;
     points = arg0->points;
-    actor = D_800CC2D0;
-    do {
-        if (actor->active != 0 && actor->disabled == 0 &&
-            state->identity->unk3B != actor->generation) {
-            index = arg0->point_end;
-            if (index != arg0->point_index) {
-        do {
-                    index--;
-                    if (index < 0) {
-                        index = arg0->point_capacity - 1;
+    for (i = 0; i < 25; i++) {
+        actor = &D_800CC2D0[i];
+        if (actor->active == 0 || actor->disabled != 0 || state->identity->unk3B == actor->generation) {
+            continue;
+        }
+        index = arg0->point_end;
+        while (index != arg0->point_index) {
+            index--;
+            if (index < 0) {
+                index = arg0->point_capacity - 1;
+            }
+            position = points[index].position;
+            radius = actor->radius;
+            height = actor->height;
+            dx = position.x - actor->x;
+            dz = position.z - actor->z;
+            ratio = radius / height;
+            scale = (1.0f + ratio) * 0.5f;
+            dy = position.y - (actor->y + (f32)actor->y_offset);
+            dy *= scale;
+            distance = dx * dx + dy * dy + dz * dz;
+            if (distance < radius * radius + 2500.0f) {
+                while (index != arg0->point_index) {
+                    arg0->point_index++;
+                    if (arg0->point_index == arg0->point_capacity) {
+                        arg0->point_index = 0;
                     }
-                    radius = actor->radius;
-                    height = actor->height;
-                    point = (Vec3f *)((u8 *)points + index * 0x24);
-                    position = *point;
-                    x = position.x - actor->x;
-                    z = position.z - actor->z;
-                    y = (position.y - (actor->y + (f32)actor->y_offset)) *
-                        ((1.0f + radius / height) * 0.5f);
-                    if (x * x + y * y + z * z < radius * radius + 2500.0f &&
-                        index != arg0->point_index) {
-                do {
-                            arg0->point_index++;
-                            if (arg0->point_capacity == arg0->point_index) {
-                                arg0->point_index = 0;
-                            }
-                            arg0->unk2C--;
-                        } while (index != arg0->point_index);
-                    }
-                } while (index != arg0->point_index);
+                    arg0->unk2C--;
+                }
             }
         }
-        actor++;
-    } while (actor != &D_800D121C);
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151987CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151987CC.s")
 
 typedef struct CharacterFlamethrowerGroups {
     u8 ids[3];

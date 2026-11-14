@@ -11,7 +11,6 @@
  * - func_15056B08
  * - func_15058898
  * - func_15058F24
- * - func_150599C8
  * - func_1505A3A8
  * - func_1505A9AC
  * - func_1505B9C4
@@ -279,7 +278,10 @@ typedef struct Game83300State585F0 {
     u8 pad11C[0xAE];
     u8 field1CA, pad1CB;
     f32 height1CC;
-    u8 pad1D0[0x4C];
+    u8 pad1D0[0x18];
+    u8 field1E8, pad1E9;
+    u16 field1EA, field1EC;
+    u8 pad1EE[0x2E];
     s16 cooldown21C;
     u8 pad21E[0x1A];
     u8 owner238, pad239, backup23A;
@@ -288,7 +290,7 @@ typedef struct Game83300State585F0 {
 } Game83300State585F0;
 
 void func_1505A3A8(f32, void *, f32, f32, u8);
-void func_150599C8(u8 *, s32, u16);
+u8 func_150599C8(Game83300State585F0 *, u8, u16);
 void func_1505E874(u8, void *);
 void func_1506B078(void);
 extern f32 D_80099478, D_8009947C, D_80099480, D_80099484;
@@ -374,7 +376,7 @@ void func_150585F0(u8 *arg0, f32 arg1) {
                     angle ^= 0x8000;
                 }
                 actor->field80 = 10;
-                func_150599C8(arg0, 12, angle);
+                func_150599C8(actor, 12, angle);
             }
         }
     }
@@ -770,53 +772,44 @@ void func_150597FC(struct127 *arg0)
 }
 extern s16 D_800CC264;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150599C8 CURRENT (1385) */
-s32 func_150599C8(void *arg0, u8 arg1, u16 arg2) {
-    s16 temp_a2;
-    s16 temp_t3;
-    s16 temp_v1;
-    s16 var_a3;
-    s32 temp_lo;
-    s32 temp_t0;
-    s32 temp_t1;
-    s32 temp_t2;
-    s32 var_v0;
+u8 func_150599C8(Game83300State585F0 *arg0, u8 arg1, u16 arg2) {
+    s32 limit;
+    s16 diff;
+    s16 sign;
+    s16 hi;
+    s16 lo;
+    s32 range;
 
-    var_v0 = (s32) (((arg1 << 8) + *(u8 *)((u8 *)arg0 + 0x1E8)) * D_800CC264) / 100;
-    temp_t0 = *(u16 *)((u8 *)arg0 + 0x7A);
-    temp_t1 = *(u16 *)((u8 *)arg0 + 0x1EA);
-    var_a3 = arg2 - temp_t0;
-
-    if (temp_t1 != 0) {
-        temp_t2 = *(u16 *)((u8 *)arg0 + 0x1EC);
-        temp_lo = (s32) (temp_t1 * D_800CC264) / 100;
-        temp_a2 = temp_t2 + temp_lo;
-        temp_t3 = temp_t2 - temp_lo;
-        if (temp_a2 < var_a3) {
-            var_a3 = temp_a2;
+    limit = ((arg1 << 8) + arg0->field1E8) * D_800CC264 / 100;
+    diff = arg2 - arg0->angle7A;
+    if (arg0->field1EA != 0) {
+        range = arg0->field1EA * D_800CC264 / 100;
+        hi = arg0->field1EC + range;
+        lo = arg0->field1EC - range;
+        if (hi < diff) {
+            diff = hi;
         }
-        if (var_a3 < temp_t3) {
-            var_a3 = temp_t3;
+        if (diff < lo) {
+            diff = lo;
         }
     }
-    temp_v1 = var_a3;
-    if (var_a3 < 0) {
-        var_a3 ^= 0xFFFF;
+    sign = diff;
+    if (diff < 0) {
+        diff ^= 0xFFFF;
     }
-    if (var_a3 < var_v0) {
-        var_v0 = (s32) var_a3;
+    if (diff < limit) {
+        limit = diff;
     }
-    if (!(*(s32 *)((u8 *)arg0 + 0xF4) & 1) && (*(u8 *)((u8 *)arg0 + 0x80) != 0)) {
-        if (temp_v1 < 0) {
-            *(u16 *)((u8 *)arg0 + 0x7A) = (u16) (temp_t0 - var_v0);
+    if (!(arg0->flagsF4 & 1) && arg0->field80 != 0) {
+        if (sign < 0) {
+            arg0->angle7A = arg0->angle7A - limit;
         } else {
-            *(u16 *)((u8 *)arg0 + 0x7A) = (u16) (temp_t0 + var_v0);
+            arg0->angle7A = arg0->angle7A + limit;
         }
     }
-    return (var_a3 >> 8) & 0xFF;
+    return diff >> 8;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150599C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150599C8.s")
+
 extern s16 D_800CC264;
 
 s32 func_15059B54(void *arg0, u16 arg1) {

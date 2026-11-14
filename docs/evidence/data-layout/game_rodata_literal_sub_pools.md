@@ -93,6 +93,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | holtenrope | 0xC | 0xC | 0x800AA3A0 | pool (func_151B3CF0) | `38D1B717 40490FDB 3EB2B8C3` |
 | holtenrope | 0x18 | 0xC | 0x800AA3B8 | pool (func_151B42A4) | `38D1B717 3EB2B8C3 3EB2B8C3` (0.0001, pi/9 ×2; round-23) |
 | holtenrope | 0x24 | 0x8 | 0x800AA3C4 | pool | `3DCCCCCD 435E38E4` ([record](holtenrope_float_constants.md)) |
+| characterflamethrower | 0x0 | 0x4 | 0x800A8ADC | pool (func_151987CC) | `451C4000` (2500.0, [record](characterflamethrower_float_constants.md); round-24) |
+| characterflamethrower | 0x4 | 0x8 | 0x800A8AFC | pool (func_1519C9C4) | `3DCCCCCD 3D4CCCCD` ([record](characterflamethrower_float_constants.md)) |
 | game_179F30 | 0x0 | 0x2EC | 0x800A59AC | table, sites 0x14 / 0x1C | 187 targets (func_1514CA80, [record](game_179f30_jump_tables.md); round-23) |
 | game_179F30 | 0x2EC | 0xD8 | 0x800A5C98 | table, sites 0x200 / 0x208 | 54 targets (func_1514CA80; round-23) |
 | game_179F30 | 0x3C4 | 0x4C | 0x800A5D70 | table, sites 0x518 / 0x520 | 19 targets (func_1514CA80; round-23) |

@@ -1526,6 +1526,16 @@
         }
       },
       {
+        "address": "0x800A2460",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_135780.c",
+            "src/done/game/game_135780.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A2498",
         "section": ".rodata",
         "owner": {
@@ -2276,8 +2286,18 @@
         }
       },
       {
+        "address": "0x800A8ADC",
+        "section": ".rodata.characterflamethrower_0",
+        "owner": {
+          "sources": [
+            "src/game/effects/characterflamethrower.c",
+            "src/done/game/effects/characterflamethrower.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A8AFC",
-        "section": ".rodata",
+        "section": ".rodata.characterflamethrower_4",
         "owner": {
           "sources": [
             "src/game/effects/characterflamethrower.c",
