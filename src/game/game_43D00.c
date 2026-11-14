@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150169A0
- * - func_15017114
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -63,37 +62,28 @@ typedef struct Game43D00Entry {
     s32 kind;
 } Game43D00Entry;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15017114 CURRENT (2230) */
 void func_15017114(s32 arg0) {
-    s32 data;
     s32 index;
-    s32 byteCount;
-    u8 count;
-    Game43D00Entry *entry;
+    s32 data;
+    s32 count;
 
-    count = D_800D2100;
     data = 0;
-    byteCount = count * 4;
-    D_800D2104 = func_10003C40(byteCount, 1, 0, 0);
-    D_800D2108 = func_10003C40(count, 1, 0, 0);
-    func_100226F0(D_800D2104, byteCount);
-    func_100226F0(D_800D2108, count);
+    count = D_800D2100;
+    D_800D2104 = func_10003C40(count * sizeof(*D_800D2104), 1, 0, 0);
+    D_800D2108 = func_10003C40(count * sizeof(*D_800D2108), 1, 0, 0);
+    func_100226F0(D_800D2104, count * sizeof(*D_800D2104));
+    func_100226F0(D_800D2108, count * sizeof(*D_800D2108));
     for (index = 0; index < D_8008FD8C; index++) {
         D_800D2104[index] = func_10003C40(0x10, 1, 2, 0);
         func_100226F0(D_800D2104[index], 0x10);
         D_800D2108[index] = 2;
     }
     if (func_1502B7F0(&data, 2, 0x10, arg0) != 0) {
-        index = D_800D2101;
-        while (index < D_800D2100) {
-            entry = (Game43D00Entry *)(data + index * 8 - D_800D2101 * 8);
-            if (entry->offset != 0) {
-                D_800D2108[index] = entry->kind;
-                D_800D2104[index] = (void *)(((Game43D00Entry *)(data + index * 8 - D_800D2101 * 8))->offset + data);
+        for (index = D_800D2101; index < D_800D2100; index++) {
+            if (((Game43D00Entry *)data)[index - D_800D2101].offset != 0) {
+                D_800D2108[index] = ((Game43D00Entry *)data)[index - D_800D2101].kind;
+                D_800D2104[index] = (void *)(((Game43D00Entry *)data)[index - D_800D2101].offset + data);
             }
-            index++;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15017114 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_43D00/func_15017114.s")

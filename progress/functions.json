@@ -10177,17 +10177,16 @@
       "symbol": "func_1505D34C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2569,
-        "reason": "Manual best valid CURRENT (2569), 2 revisions exhausted: actual float parameters normalized in raw sequence reduce baseline4714; remaining saved f20/frame10 vs leaf, flag/pointer allocation and homes/output scheduling. Volatile body views regress2582 via alias spills. No shared changes or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 456,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505D408",
           "vram": "0x1505D408"
         }
@@ -13264,17 +13263,16 @@
       "symbol": "func_151671E8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1435,
-        "reason": "Isolated small-queue worker group3 source-only handoff; best candidate independently reproduced. See saved worker report for exact three-variant hypotheses, type-field proof and exhausted approaches; no new match.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15167310",
           "vram": "0x15167310"
         }
@@ -29332,17 +29330,16 @@
       "symbol": "func_151400D0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1466,
-        "reason": "Selection trial: proven quad output contract, natural matrix/vector and vertex types. Three variants2167/2523/1466; physical coordinate stores best. Full-width formal retained; local s16 normalization adds live storage. Frame+8, formal normalization and final loop schedule remain. Trial cap reached.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 536,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15140190",
           "vram": "0x15140190"
         }
@@ -53456,17 +53453,16 @@
       "symbol": "func_151AE984"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1070,
-        "reason": "Bounded source-only group five independently reproduced; detailed hypotheses, scores and remaining differences preserved in worker-group-5/report.json.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 492,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AEAB4",
           "vram": "0x151AEAB4"
         }
@@ -63350,17 +63346,16 @@
       "symbol": "func_150169A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2230,
-        "reason": "Typed allocation/entry-loop candidate2230 after proving helper1502B7F0 varargs/size return from rawcallee. Separate byte selected index and local ordering worsened2686. First restored; frame/spill, count-copy lifetime and indexed-loop strength reduction differ. Stop after non-improving alternate rather than speculative register changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 492,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15017114",
           "vram": "0x15017114"
         }

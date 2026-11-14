@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1DBD40.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_emission_trio.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151AEAB4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 f32 func_150ADA68(void);
@@ -71,7 +66,6 @@ extern f32 D_800A9D9C;
 extern f32 D_800A9DA0;
 extern f32 D_800A9DA4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AEAB4 CURRENT (1070) */
 void func_151AEAB4(f32 *arg0, s32 arg1, u8 arg2) {
     u32 phase;
     f32 velocity[3];
@@ -83,36 +77,32 @@ void func_151AEAB4(f32 *arg0, s32 arg1, u8 arg2) {
     f32 pitchSin;
     f32 pitchCos;
     f32 speed;
-    f32 randomFloat1;
-    u32 randomInt1;
-    u32 randomInt0;
-    f32 randomFloat0;
 
-    yaw = func_150ADA20();
+    yaw = func_150ADA20() & 0xFF;
     pitch = (func_150ADA20() & 0x7F) - 0x3F;
     yawSin = func_151423D8(yaw);
-    phase = yaw;
-    phase -= 0x40;
-    phase = (u8)phase;
+    phase = yaw - 0x40;
     yawCos = func_151423D8(phase);
     pitchSin = func_151423D8(pitch);
-    phase = pitch;
-    phase -= 0x40;
-    phase = (u8)phase;
-    pitchCos = func_151423D8(phase);
+    pitchCos = func_151423D8(pitch - 0x40);
     speed = ((func_150ADA68() * 80.0f) + 20.0f) * D_800A9D98;
     horizontal = speed * pitchSin;
     velocity[0] = horizontal * yawCos;
     velocity[1] = -speed * pitchCos;
     velocity[2] = horizontal * yawSin;
-    randomFloat0 = func_150ADA68();
-    randomInt0 = func_150ADA20();
-    randomInt1 = func_150ADA20();
-    randomFloat1 = func_150ADA68();
-    func_151DA6F8(arg0, velocity, randomFloat0 * D_800A9D9C + D_800A9DA0,
-                  (s16)(randomInt0 % 41U + 0x3C), randomInt1 % 101U + 0x9B,
-                  randomFloat1 * 4.0f + D_800A9DA4, func_150ADA20() % 5U + 3,
-                  (u8)arg1, 1.0f, 1.0f, 0, 0, 0, 0x10, 0xF, 0, arg2, 1);
+    {
+        f32 randomFloat1;
+        u32 randomInt1;
+        u32 randomInt0;
+        f32 randomFloat0;
+
+        randomFloat0 = func_150ADA68();
+        randomInt0 = func_150ADA20();
+        randomInt1 = func_150ADA20();
+        randomFloat1 = func_150ADA68();
+        func_151DA6F8(arg0, velocity, randomFloat0 * D_800A9D9C + D_800A9DA0,
+                      (s16)(randomInt0 % 41U + 0x3C), randomInt1 % 101U + 0x9B,
+                      randomFloat1 * 4.0f + D_800A9DA4, func_150ADA20() % 5U + 3,
+                      (u8)arg1, 1.0f, 1.0f, 0, 0, 0, 0x10, 0xF, 0, arg2, 1);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AEAB4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DBD40/func_151AEAB4.s")

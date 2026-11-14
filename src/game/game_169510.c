@@ -18,7 +18,6 @@
  * - func_1513F114
  * - func_1513F728
  * - func_1513FAB4
- * - func_15140190
  * - func_15140410
  * - func_151406AC
  *
@@ -1329,26 +1328,26 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15140190 CURRENT (1466) */
-void *func_15140190(Game169510RenderOwner *arg0, s32 arg1) {
+void *func_15140190(Game169510RenderOwner *arg0, s16 arg1) {
     Game169510Vertex *vertices;
     void *result;
     f32 matrix[4][4];
     f32 coords[4][3];
-    u8 fresh;
-    f32 *point;
     u8 index;
-    s16 bufferIndex = (s16)arg1;
 
-    func_151D5D60(arg0->buffers, bufferIndex, 0x40, (void **)&vertices, &fresh);
-    result = vertices;
-    if (vertices != 0) {
-        if (fresh != 0) {
-            func_10022EC0(arg0->buffers[bufferIndex], arg0->templateData, 0x40);
-            func_10022EC0(arg0->buffers[bufferIndex] + 0x40, arg0->templateData, 0x40);
+    {
+        u8 fresh;
+
+        func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+        result = vertices;
+        if (vertices != 0) {
+            if (fresh != 0) {
+                func_10022EC0(arg0->buffers[arg1], arg0->templateData, 0x40);
+                func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->templateData, 0x40);
+            }
+        } else {
+            return 0;
         }
-    } else {
-        return 0;
     }
     coords[0][0] = arg0->width;
     coords[0][1] = arg0->height;
@@ -1363,24 +1362,20 @@ void *func_15140190(Game169510RenderOwner *arg0, s32 arg1) {
     coords[3][1] = -arg0->height;
     coords[3][2] = 0.0f;
     func_150A8050(matrix, arg0->rx, arg0->ry, arg0->rz);
-    index = 0;
     matrix[3][0] = arg0->x;
     matrix[3][1] = arg0->y;
     matrix[3][2] = arg0->z;
-    do {
-        point = coords[index];
+    for (index = 0; index < 4; index++) {
+        f32 *point = coords[index];
         func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
         vertices->x = (s32)point[0];
         vertices->y = (s32)point[1];
         vertices->z = (s32)point[2];
         vertices->flag = 0;
         vertices++;
-        index++;
-    } while (index < 4);
+    }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15140190 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_15140190.s")
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A5168;
 

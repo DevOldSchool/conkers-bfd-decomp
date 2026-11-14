@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_state_callback_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15167310
  * - func_15167C58
  * - func_15167E0C
  * - func_15168118
@@ -132,75 +131,39 @@ extern f32 D_800DD1D0[2];
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15167310 CURRENT (1435) */
 void func_15167310(void) {
-    s32 columnOffset;
-    struct Game1944C0Node *(*row)[104];
-    struct Game1944C0Node **next;
-    struct Game1944C0Node **head;
-    struct Game1944C0Node *initial;
     struct Game1944C0Node *node;
-    f32 *cosines;
-    f32 *sines;
-    f32 angle;
-    f32 mainAngle;
-    f32 cosineValue;
-    s32 index;
-    s32 offset;
     s32 column;
-    Game1944C0UpdateEntry *entry;
+    s32 row;
 
-    index = 0;
-    offset = 0;
-    if (D_80082FA0 + 1 > 0) {
-        sines = D_800DD1D8;
-        cosines = D_800DD1E8;
-        do {
-            angle = *(f32 *)((u8 *)D_800DBFF0 + offset + 0x3A0);
-            *sines = func_15047D60(angle);
-            cosineValue = func_15047C00(angle);
-            index++;
-            offset += 0x9A0;
-            sines++;
-            cosines++;
-            cosines[-1] = cosineValue;
-        } while (D_80082FA0 >= index);
+    {
+        s32 i;
+        f32 angle;
+
+        for (i = 0; i < D_80082FA0 + 1; i++) {
+            angle = *(f32 *)((u8 *)D_800DBFF0 + i * 0x9A0 + 0x3A0);
+            D_800DD1D8[i] = func_15047D60(angle);
+            D_800DD1E8[i] = func_15047C00(angle);
+        }
+        angle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
+        D_800DD1D0[0] = func_15047D60(angle);
+        D_800DD1D0[1] = func_15047C00(angle);
     }
-    mainAngle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
-    D_800DD1D0[0] = func_15047D60(mainAngle);
-    D_800DD1D0[1] = func_15047C00(mainAngle);
-    column = 0;
-    columnOffset = 0;
-    do {
-        row = D_800DCE50;
-        head = (struct Game1944C0Node **)((u8 *)D_800DCE50 + columnOffset);
-        do {
-            initial = *head;
-            if (initial != 0) {
-                entry = (Game1944C0UpdateEntry *)&D_8008B4A8 + column;
-                if (entry->update != 0) {
-                    node = initial;
-                    D_800DD190++;
-                    if (initial != 0) {
-                        next = &D_800DD198[D_800DD190];
-                        do {
-                            entry->update((*next = ((Game1944C0ProcessNode *)node)->next, node));
-                            next = &D_800DD198[D_800DD190];
-                            node = *next;
-                        } while (node != 0);
-                    }
-                    D_800DD190--;
+    for (column = 0; column < 0x68; column++) {
+        for (row = 0; row < 2; row++) {
+            if (D_800DCE50[row][column] != 0 && ((Game1944C0UpdateEntry *)&D_8008B4A8)[column].update != 0) {
+                node = D_800DCE50[row][column];
+                D_800DD190++;
+                while (node != 0) {
+                    D_800DD198[D_800DD190] = ((Game1944C0ProcessNode *)node)->next;
+                    ((Game1944C0UpdateEntry *)&D_8008B4A8)[column].update(node);
+                    node = D_800DD198[D_800DD190];
                 }
+                D_800DD190--;
             }
-            row++;
-            head = (struct Game1944C0Node **)((u8 *)head + 0x1A0);
-        } while ((u8 *)row != (u8 *)&D_800DD190);
-        column++;
-        columnOffset += 4;
-    } while (column != 104);
+        }
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15167310 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167310.s")
 typedef struct Game74F8Command {
     u32 w0, w1;
 } Game74F8Command;

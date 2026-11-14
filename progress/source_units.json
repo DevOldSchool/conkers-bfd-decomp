@@ -7579,7 +7579,7 @@
         "us": {
           "end": "0x1AECA0",
           "start": "0x1AE890",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1DBD40.c"
