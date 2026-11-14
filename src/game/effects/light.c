@@ -7,6 +7,7 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15160E30
+ * - func_15161F4C
  * - func_1516295C
  * - func_15162B28
  * - func_151630F4
@@ -728,6 +729,7 @@ void func_15161F2C(s32 arg0) {
 }
 extern void (*D_8008B358[])(void *, void *, u8);
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161F4C */
 void func_15161F4C(void *arg0, void *arg1, u8 arg2) {
     void (*callback)(void *, void *, u8);
     s32 temp_t6;
@@ -758,6 +760,8 @@ void func_15161F4C(void *arg0, void *arg1, u8 arg2) {
         callback(arg0, arg1, arg2);
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15161F4C */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161F4C.s")
 
 extern f32 D_800A6AF0;
 

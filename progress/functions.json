@@ -2156,15 +2156,15 @@
       "symbol": "func_15161F2C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-24 review: src/dst alias pointer locals and mixed field spellings; keep as candidate",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15161F4C",
           "vram": "0x15161F4C"
         }
@@ -67712,16 +67712,16 @@
       "symbol": "func_150C79BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-24 review: index-first int-cast scan spelling is a mixed operand-order steer (nov12 precedent cut); natural entries[index].marker form scores 10",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 236,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150C7C90",
           "vram": "0x150C7C90"
         }
