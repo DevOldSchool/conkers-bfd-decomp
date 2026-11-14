@@ -16037,7 +16037,7 @@
         "us": {
           "end": "0x1B8B40",
           "start": "0x1B8400",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1E58B0.c"

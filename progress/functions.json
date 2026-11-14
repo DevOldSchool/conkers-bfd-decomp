@@ -82862,17 +82862,16 @@
       "symbol": "func_151B86F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1068,
-        "reason": "Pointer return consumed by raw caller; provider-proved 0x70 descriptor retained with unknown tail. Scores2006/2732/1068, third best. Defining first random flag after RNG restores branch merge and real spill; frame/home and register differences remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 568,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B8908",
           "vram": "0x151B8908"
         }
