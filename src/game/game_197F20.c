@@ -206,7 +206,7 @@ extern struct108 *D_800DBFF0;
 extern Game197F20Heading D_800CC310[];
 extern u16 D_8009055C[];
 extern u16 D_8009057C[];
-void func_1501A764(s32, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_1501A764(s16, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1516D0CC(void *, f32 *, f32 *, f32 *);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);

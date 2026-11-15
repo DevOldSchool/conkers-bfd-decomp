@@ -110,7 +110,7 @@ void func_150E68B0(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 f32 func_15047D60(f32);
 f32 func_150ADA68();
 f32 func_15144528(f32, f32, f32);
-void *func_150E5FD0(void *, void *, f32, f32, f32, s32, s32, s32, s32, s32, s32);
+void *func_150E5FD0(Vec3f *, Vec3f *, f32, f32, f32, u8, s32, u8, u8, s16, s8);
 extern f32 D_800BE9A4;
 
 void func_150E6B84(Game113D60Effect *arg0) {

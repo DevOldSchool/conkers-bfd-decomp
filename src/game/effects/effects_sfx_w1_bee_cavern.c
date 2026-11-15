@@ -250,7 +250,7 @@ typedef struct BeeCavernParticles {
 } BeeCavernParticles;
 void func_1504715C(void *, void *);
 void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_15153F18(s16 *, void *, void *, s32, s32);
 extern s32 D_800A0010[], D_800A0060[];
 extern f32 D_800A0038[], D_800A0064[];

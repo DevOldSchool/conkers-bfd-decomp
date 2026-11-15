@@ -9,7 +9,7 @@
 void func_15103690(s32 arg0) {
     func_15103828();
 }
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 typedef struct Game130B40Word {
     s32 value;
 } Game130B40Word;

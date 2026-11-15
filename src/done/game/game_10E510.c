@@ -23,7 +23,7 @@ typedef struct Game10E510Payload1060 {
 
 void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
-s32 func_1510FD20(s16, s16);
+s32 func_1510FD20(s32, s32);
 extern u8 D_800A0FE0[];
 
 s32 func_150E1060(u8 arg0, u8 arg1, s32 arg2) {

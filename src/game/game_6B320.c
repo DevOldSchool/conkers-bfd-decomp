@@ -422,7 +422,7 @@ void func_1503EB78(void *arg0, f32 arg1, f32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503EB78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EB78.s")
 void func_1510F800(s32);
-s32 func_1510F8D8(s32, s32, s32, s32);
+s32 func_1510F8D8(s32, s32, s32, s32 *);
 extern f32 D_80098928;
 extern f32 D_8009892C;
 

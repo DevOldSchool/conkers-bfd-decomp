@@ -17032,7 +17032,7 @@
           "vram": "0x1501A220"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A220"
     },
     {
@@ -17050,7 +17050,7 @@
           "vram": "0x1501A39C"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A39C"
     },
     {
@@ -17068,7 +17068,7 @@
           "vram": "0x1501A490"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A490"
     },
     {
@@ -17086,7 +17086,7 @@
           "vram": "0x1501A680"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A680"
     },
     {
@@ -17104,7 +17104,7 @@
           "vram": "0x1501A6CC"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A6CC"
     },
     {
@@ -17122,7 +17122,7 @@
           "vram": "0x1501A764"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A764"
     },
     {
@@ -17140,7 +17140,7 @@
           "vram": "0x1501A8C0"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501A8C0"
     },
     {
@@ -17158,7 +17158,7 @@
           "vram": "0x1501AE94"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501AE94"
     },
     {
@@ -17176,7 +17176,7 @@
           "vram": "0x1501AF44"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501AF44"
     },
     {
@@ -17194,26 +17194,25 @@
           "vram": "0x1501B0A0"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501B0A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1139,
-        "reason": "CURRENT (1139): recovered both trigonometric matrix updates, but the compiler coalesces the explicit angle temporary into spill slots, shrinking the frame from 0x40 to 0x38 and changing the floating-point schedule; volatile forcing regressed.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501B22C",
           "vram": "0x1501B22C"
         }
       },
-      "source": "src/game/game_476D0.c",
+      "source": "src/done/game/game_476D0.c",
       "symbol": "func_1501B22C"
     },
     {
@@ -17231,7 +17230,7 @@
           "vram": "0x1502AAF0"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502AAF0"
     },
     {
@@ -17249,7 +17248,7 @@
           "vram": "0x1502AAF8"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502AAF8"
     },
     {
@@ -17267,7 +17266,7 @@
           "vram": "0x1502AB04"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502AB04"
     },
     {
@@ -17285,7 +17284,7 @@
           "vram": "0x1502AC88"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502AC88"
     },
     {
@@ -17303,7 +17302,7 @@
           "vram": "0x1502AF04"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502AF04"
     },
     {
@@ -17321,7 +17320,7 @@
           "vram": "0x1502B020"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B020"
     },
     {
@@ -17339,7 +17338,7 @@
           "vram": "0x1502B110"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B110"
     },
     {
@@ -17357,26 +17356,25 @@
           "vram": "0x1502B224"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B224"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 330,
-        "reason": "review nov12: only matches with a (u32) call-argument cast steer; natural candidate scores 330",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 344,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502B350",
           "vram": "0x1502B350"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B350"
     },
     {
@@ -17394,7 +17392,7 @@
           "vram": "0x1502B4A8"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B4A8"
     },
     {
@@ -17412,7 +17410,7 @@
           "vram": "0x1502B5C8"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B5C8"
     },
     {
@@ -17430,7 +17428,7 @@
           "vram": "0x1502B6BC"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B6BC"
     },
     {
@@ -17448,7 +17446,7 @@
           "vram": "0x1502B7F0"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B7F0"
     },
     {
@@ -17466,26 +17464,25 @@
           "vram": "0x1502B8E0"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B8E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "nov11 agI: varargs form (va_start/va_arg like sibling func_1502B8E0, u64 buffer[3]) matches every instruction; CURRENT (200) is only the two trailing alignment nops of the unit's last member, provable once game_57FA0 has no raw members",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 284,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502B9B4",
           "vram": "0x1502B9B4"
         }
       },
-      "source": "src/game/game_57FA0.c",
+      "source": "src/done/game/game_57FA0.c",
       "symbol": "func_1502B9B4"
     },
     {
@@ -58257,17 +58254,16 @@
       "symbol": "func_15096D78"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 562,
-        "reason": "Three forms scored 604/562/1050. Actual actor lookup has one argument, and existing view fields are extended without moving prior members. Real result local fixes frame; reordered result home fixes stack but shared zero label worsens control flow. Best562 retained; third snapshot preserves exact stack-home lead.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509759C",
           "vram": "0x1509759C"
         }
@@ -86340,17 +86336,16 @@
       "symbol": "func_150BD070"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2337,
-        "reason": "Grounded four-XYZ transform groups and corrected float provider contract; scores2488/2337. Named true loop endpoint removes repeated address computation; best2337 retains proven arrays and fullword formals. Frame/register/color-reload differences remain without justified extra storage.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 532,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BD740",
           "vram": "0x150BD740"
         }

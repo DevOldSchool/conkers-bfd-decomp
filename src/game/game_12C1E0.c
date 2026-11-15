@@ -20,9 +20,7 @@ void func_150FF2D4(u8 *, void *, f32 *, void *, void *, f32 *, s32, s32,
 void func_150FF474(void *, void *, u8, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
-void func_151C229C(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32,
-                  f32, f32, s32, f32 *, s32, s32, s32, s32, s32, s32,
-                  s32, s32, f32, s32, s32, s32, s32, s32);
+void *func_151C229C(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, f32 *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 extern f32 D_800A2110;
 extern u8 D_800BE616;
 
@@ -129,8 +127,7 @@ void func_150FF2D4(u8 *, void *, f32 *, void *, void *, f32 *, s32, s32,
 void func_150FF474(void *, void *, u8, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
-void func_150F7470(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32,
-                    void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150F7470(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, void *, u8, u8, u8, u8, s32, s8, s32, u8, u8, s32);
 extern f32 D_800A2114, D_800A2118;
 
 void func_150FF084(u8 *arg0, s32 arg1, s32 arg2) {

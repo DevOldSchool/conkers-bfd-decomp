@@ -10,7 +10,7 @@ s32 func_150535F4(u8 *);
 void func_15056B08(u8 *);
 void func_150585F0(u8 *, f32);
 void func_15059140(u8 *);
-void func_150599C8(u8 *, s32, u16);
+u8 func_150599C8(u8 *, u8, u16);
 void func_1506E8D8(void);
 extern u8 D_800BE9A0;
 extern u8 D_800CC2D0;

@@ -177,7 +177,7 @@ typedef struct Game1CC440Config {
 } Game1CC440Config;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 u8 func_151D8E20(void);
 s32 func_1519EF90(u8 *, u8, u8 *);
 extern f32 D_800A8CE8;

@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  */
 
-void func_151A6F00(s16 *, s32, s32, s32);
+void func_151A6F00(s16 *, u8, u8, s32);
 
 typedef struct {
     s16 type;
@@ -73,14 +73,14 @@ void func_1506A5F0(void *arg0, s32 arg1) {
 void func_1506A6FC(void *arg0, u8 arg1) {
     func_150E0348(arg0, 0xFF, 1);
 }
-void func_151BB61C(void *, void *, void *, s32, s32);
+void func_151BB61C(void *, void *, void *, u8, s32);
 extern f32 D_800D1560[];
 extern f32 D_800D1570[];
 
 void func_1506A724(void *arg0, s32 arg1) {
     func_151BB61C(arg0, &D_800D1560, &D_800D1570, 0xFF, 1);
 }
-void func_151BBA9C(void *, void *, void *, s32, s32);
+void func_151BBA9C(void *, void *, void *, u8, s32);
 
 void func_1506A760(void *arg0, s32 arg1) {
     func_151BBA9C(arg0, &D_800D1560, &D_800D1570, 0xFF, 1);

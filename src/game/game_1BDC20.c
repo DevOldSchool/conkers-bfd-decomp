@@ -169,7 +169,7 @@ void func_15191400(u8 *arg0) {
 }
 s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
-void func_151DBCBC(s32, f32, s32, s32, f32 *, s32, s32);
+void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800BE9A4, D_800A801C, D_800A8020;
 

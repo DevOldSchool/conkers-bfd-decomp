@@ -43,8 +43,7 @@ typedef struct GameBA55COwner {
 
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
-void *func_1518A3C0(void *, f32 *, f32, f32 *, f32 *, f32, f32,
-                    s32, s32, s32, s32, s32, s32);
+void *func_1518A3C0(void *, f32 *, f32, f32 *, f32 *, f32, f32, u8, s16, u8, s32, u8, s32);
 extern f32 D_800BE9A4;
 
 void func_150BA55C(u8 *arg0) {

@@ -28,7 +28,7 @@ typedef struct Game1C1150Event {
 } Game1C1150Event;
 
 extern u8 D_800A8210;
-void *func_1518D1C0(Game1C1150Event *, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(Game1C1150Event *, s16, s16, u8, u8, s32, void *);
 
 void func_15194320(void *arg0, Game1C1150Event *arg1, s32 arg2) {
     switch (arg1->type) {
@@ -237,7 +237,7 @@ typedef struct {
 extern f32 D_800A82E4;
 extern f32 D_800A82E8;
 extern f32 D_800A82EC;
-void *func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
+void *func_151D8868(Game1C1150EventPacket *, s32, u8, s32);
 
 void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
     Vec3f position;
@@ -448,7 +448,7 @@ void func_15194DA4(s32 arg0, s32 arg1, s32 arg2) {
 }
 extern u8 D_800A8244;
 extern u8 D_800BE616;
-void func_1514B364(f32 *, void *, s32, s32);
+void func_1514B364(f32 *, void *, u8, s32);
 
 void func_15194DC8(s32 arg0, s32 arg1, s32 arg2) {
     u8 sp2C[0x24];
@@ -476,7 +476,7 @@ void func_15194E54(s32 arg0, Game1C1150Data *arg1, s32 arg2) {
         func_150B06B0(arg1, arg0, 0xFF, 1);
     }
 }
-void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15182670(u8, u8, u8, u8, s16, u8, u8, s32);
 void func_15194BF0(s32, void *, s8 *);
 
 void func_15194EA8(s32 arg0, void *arg1, s32 arg2) {
@@ -599,7 +599,7 @@ void func_15194FF4(s32 arg0, s32 arg1, u8 arg2) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151951E0.s")
-void func_15137610(void *, void *, void *, s32, s32, s32);
+void func_15137610(void *, void *, void *, s32, u8, s32);
 void func_1514373C(f32, f32, f32 *, f32 *);
 f32 func_150ADA68(void);
 extern f32 D_800A8708;
@@ -652,7 +652,7 @@ void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
 }
 
 
-void *func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
+void *func_151D8868(Game1C1150EventPacket *, s32, u8, s32);
 
 void func_15195738(s32 arg0, s32 arg1, s32 arg2) {
     Game1C1150EventPacket packet;

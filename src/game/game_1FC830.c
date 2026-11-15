@@ -16,7 +16,7 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF380.s")
-void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151CF844(void *arg0, s32 arg1, u8 arg2) {
     void *temp_v0;
@@ -337,7 +337,7 @@ void func_151D13E0(Game1FC830ActorContext *arg0) {
     }
 }
 extern s32 D_80082FA0;
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 void func_151D1448(u8 *arg0) {
     u8 *link;

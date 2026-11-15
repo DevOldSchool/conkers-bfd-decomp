@@ -35,8 +35,7 @@ typedef struct {
 } Game1E37D0Spawn;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
-                    s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 void func_151B6320(void *arg0, u8 arg1, s32 arg2) {
     typedef struct { s32 words[3]; } Copy3;

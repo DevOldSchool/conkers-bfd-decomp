@@ -41,9 +41,9 @@ typedef struct Game115D70Spawn {
 extern Game115D70Pair D_80088A80;
 extern u8 D_800BE9EB;
 extern s32 D_800DCDC4;
-void func_15169260(Game115D70Pair *, s32, s32, s32);
+void func_15169260(Game115D70Pair *, s32, s32, u8);
 void func_15164F0C(u8, u8, void *, u8, s32);
-void *func_151D8868(Game115D70Spawn *, s32, s32, s32);
+void *func_151D8868(Game115D70Spawn *, s32, u8, s32);
 void func_150E8A80(void);
 void func_150E90DC(void);
 void func_10010F30(s32, s32, s32, s16, s32);

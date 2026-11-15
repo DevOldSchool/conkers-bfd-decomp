@@ -441,7 +441,7 @@ s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
 void func_15164F0C(u8, u8, void *, u8, s32);
-void func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 s32 func_1505D024(void *, s32, u16, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1514FBFC(void *, u8, s32);
@@ -971,7 +971,7 @@ void func_151C9740(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
 
 
 void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
-void func_151ABE40(Vec3f *, EffectsSightTransform *, s32, u8, s32);
+void func_151ABE40(Vec3f *, EffectsSightTransform *, s32, s32, s32);
 
 void func_151C9AC0(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
     Vec3f position;

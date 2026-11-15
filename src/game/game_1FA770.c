@@ -119,8 +119,7 @@ typedef struct Game1CD4C0Locals {
     s32 zero;
 } Game1CD4C0Locals;
 
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
-                    s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 extern f32 D_800AAFB4;
 extern f32 D_800AAFB8;
 extern f32 D_800AAFBC;
@@ -444,7 +443,7 @@ void func_151CE4DC(void *arg0) {
 }
 void *func_151CE634(s32);
 void func_1515C1A0(void *, void *, f32 *, f32 *);
-s32 func_1505D024(void *, s32, s32, s32);
+s32 func_1505D024(void *, s32, u16, s32);
 
 typedef struct {
     f32 position[3];

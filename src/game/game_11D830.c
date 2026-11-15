@@ -78,10 +78,8 @@ typedef struct Game11D830Motion {
 f32 func_150ADA68(void);
 void func_15145EA4(f32 **, f32 **, s32, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
-s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32, f32, f32,
-                  s32, void *, s32, s32, s32, s32, s32, s32, s32, s32, f32,
-                  s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
+void *func_151C229C(Vec3f *, Vec3f *, s32, Vec3f *, u8, s32, f32, f32, f32, f32, f32, u8, u8 *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 extern u8 D_800A1640[], D_800A1658[], D_800A1670[];
 extern f32 D_800A1838, D_800A183C, D_800A1840, D_800A1844;
 extern f32 D_800A1848, D_800A184C, D_800A1850;
@@ -635,7 +633,7 @@ void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
         func_1516972C(arg0);
     }
 }
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_800A168C[], D_800A174C[], D_800A180C[];
 typedef union { u16 word; u8 bytes[2]; } Game11D830Flags;

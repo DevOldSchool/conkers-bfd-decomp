@@ -1586,8 +1586,7 @@ void func_15153C84(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     func_15153CCC(sp24 + 4, (Game153CCCConfig *)arg1, (void *)arg2, arg3, arg4);
 }
 
-void *func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32,
-                    f32, f32, s32, s32, void *, s32, s32, s32, s32, s32);
+void *func_151DA6F8(f32 *, f32 *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, void *, s16, s16, s32, u8, s32);
 
 void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32 arg4) {
     s32 count;
@@ -1767,7 +1766,7 @@ s32 func_1515452C(u8 *arg0) {
     }
 }
 void func_15143794(s16, s16, f32, void *);
-void func_151C5F44(s32, f32 *, f32, f32, s32, s32, f32, s32, s32, u8, s32);
+s32 func_151C5F44(s32, f32 *, f32, f32, u8, s16, f32, u8, s32, u8, s32);
 
 typedef struct {
     s16 field00;

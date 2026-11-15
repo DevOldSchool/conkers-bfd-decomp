@@ -111,8 +111,8 @@ typedef struct Game11C2B0Hit {
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
-s32 func_1505D024(void *, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
+s32 func_1505D024(void *, s32, u16, s32);
 extern f32 D_800A181C;
 extern f32 D_800A1820;
 extern f32 D_800BE9A4;

@@ -100,7 +100,7 @@ typedef struct Game13F9D0DrawEntry {
 void *func_151733D8(void *, s32);
 struct Game13F9D0Model;
 s32 func_151137D4(s32, struct Game13F9D0Model *, s32, s32, s32, s32);
-s32 func_1515E544(s32, s32, s32, s32, void *);
+s32 func_1515E544(s32, s32, u8, u8, void *);
 extern u8 **D_80089240;
 extern u8 **D_80089250[];
 extern u8 D_80089470;
@@ -121,7 +121,7 @@ typedef struct Game13F9D0AttachedActor {
     u8 pad1D8[0x154];
 } Game13F9D0AttachedActor;
 
-s32 func_150859AC(s32, s32);
+s32 func_150859AC(s16, s16);
 void func_150A7790(void *, s32);
 void func_150A7B80(void *);
 void func_150A7CB0(Game13F9D0Matrix *, f32, f32, f32);
@@ -354,7 +354,7 @@ s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4,
     return arg0;
 }
 s32 func_15022B08(s32, s32);
-s32 func_150859AC(s32, s32);
+s32 func_150859AC(s16, s16);
 void *func_1510D970(s32, s32, s32, s32, s32);
 extern s32 D_80082FA0;
 extern u8 D_800C35EA;

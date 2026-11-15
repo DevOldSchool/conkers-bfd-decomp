@@ -1206,7 +1206,7 @@ typedef struct Game143E94Packet {
 
 s32 func_150A29C8(s32, s32);
 void func_1512D748(void *, s32, s32);
-void func_151D8868(Game143E94Packet *, s32, s32, s32);
+void *func_151D8868(Game143E94Packet *, s32, u8, s32);
 
 extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;
@@ -2344,7 +2344,7 @@ s32 func_15146078(f32 *direction, Vec3f *first,
 }
 s32 func_1515D914(s32, s32, s32, s32, s32, s32, s32, s32,
                    s32, void *, s32, s32, s32, s32);
-s32 func_1515E544(s32, s32, s32, s32, void *);
+s32 func_1515E544(s32, s32, u8, u8, void *);
 extern u8 D_800BE9C0;
 extern u8 D_800D9BD0[];
 extern s32 D_800D9E10[];

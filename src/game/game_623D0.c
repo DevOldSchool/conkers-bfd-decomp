@@ -235,7 +235,7 @@ typedef struct Game623D0Entry {
     u8 fieldB;
 } Game623D0Entry;
 
-void *func_1502CCFC(void *, u8, void *, s32, s32, s32 *, s32, s32);
+void *func_1502CCFC(void *, s32, void *, s32, s32, s32 *, s32, s32);
 
 void *func_15035FE8(Game35D6CCommand *gfx, void *arg1) {
     Game623D0Entry *entry;

@@ -110,7 +110,7 @@ typedef struct {
 
 void func_100226F0(void *, s32);
 s32 func_151EF610(void);
-void func_1516865C(void *, s32, s32, s32, s32);
+void func_1516865C(u8 *, u8, u8, u8, u8);
 void func_151C329C(f32 *, u8, s32);
 void func_150E4E04(f32, f32, f32, s32, s32, s32, s32);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32, s32);

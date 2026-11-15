@@ -175,7 +175,7 @@ void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509CE64 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CE64.s")
-s32 func_1502B6BC(s32, s32, u32 *, s32, s32, s32, s32);
+s32 func_1502B6BC(u32 *, s32, u32 *, s32, s32, s32, s32);
 extern u8 *D_800D2FB0;
 
 typedef struct GameC9EC0Reloc {

@@ -5,11 +5,6 @@
 /*
  * Reviewed source unit: src/game/game_476D0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1501B22C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_10003C40(s32, s32, s32, s32);
@@ -373,46 +368,34 @@ void func_1501B0A0(s32 arg0, s32 arg1) {
 }
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-extern f32 D_80096900;
-extern f32 D_80096904;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501B22C CURRENT (1139) */
 void func_1501B22C(s32 arg0) {
-    f32 sp34;
-    f32 sp28;
-    f32 sp24;
-    f32 temp_fa0;
-    f32 temp_fa0_2;
-    f32 temp_fa0_3;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    GameRenderView *temp_s0;
+    f32 s;
+    f32 n;
+    f32 c;
+    f32 hx;
+    GameRenderView *view;
+    f32 hy;
 
-    temp_s0 = &D_800BE628[arg0];
-    temp_fa0 = -(temp_s0->value_x * 0.5f) * D_80096900;
-    sp28 = temp_s0->value_y * 0.5f;
-    sp24 = temp_fa0;
-    sp34 = func_15047C00(sp24);
-    temp_fv0 = func_15047D60(sp24);
-    *(f32 *)((u8 *)temp_s0 + 0x9C) = temp_fv0;
-    temp_fv1 = -sp34;
-    *(f32 *)((u8 *)temp_s0 + 0x90) = temp_fv0;
-    *(f32 *)((u8 *)temp_s0 + 0x94) = temp_fv1;
-    *(f32 *)((u8 *)temp_s0 + 0x88) = -temp_fv1;
-    *(f32 *)((u8 *)temp_s0 + 0x98) = 0.0f;
-    *(f32 *)((u8 *)temp_s0 + 0x8C) = 0.0f;
-    temp_fa0_2 = sp28 * D_80096904;
-    sp24 = temp_fa0_2;
-    sp34 = func_15047C00(sp24);
-    temp_fa0_3 = -func_15047D60(sp24);
-    *(f32 *)((u8 *)temp_s0 + 0xA0) = 0.0f;
-    *(f32 *)((u8 *)temp_s0 + 0xA8) = temp_fa0_3;
-    *(f32 *)((u8 *)temp_s0 + 0xB4) = temp_fa0_3;
-    temp_fv1_2 = -sp34;
-    *(f32 *)((u8 *)temp_s0 + 0xAC) = 0.0f;
-    *(f32 *)((u8 *)temp_s0 + 0xA4) = temp_fv1_2;
-    *(f32 *)((u8 *)temp_s0 + 0xB0) = -temp_fv1_2;
+    view = &D_800BE628[arg0];
+    hx = view->value_x * 0.5f;
+    hy = view->value_y * 0.5f;
+    c = func_15047C00(-hx * 0.017453292f);
+    s = func_15047D60(-hx * 0.017453292f);
+    n = -c;
+    *(f32 *)((u8 *)view + 0x88) = -n;
+    *(f32 *)((u8 *)view + 0x94) = n;
+    *(f32 *)((u8 *)view + 0x9C) = s;
+    *(f32 *)((u8 *)view + 0x90) = s;
+    *(f32 *)((u8 *)view + 0x98) = 0.0f;
+    *(f32 *)((u8 *)view + 0x8C) = 0.0f;
+    c = func_15047C00(hy * 0.017453292f);
+    s = -func_15047D60(hy * 0.017453292f);
+    n = -c;
+    *(f32 *)((u8 *)view + 0xA0) = 0.0f;
+    *(f32 *)((u8 *)view + 0xA4) = n;
+    *(f32 *)((u8 *)view + 0xA8) = s;
+    *(f32 *)((u8 *)view + 0xAC) = 0.0f;
+    *(f32 *)((u8 *)view + 0xB0) = -n;
+    *(f32 *)((u8 *)view + 0xB4) = s;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501B22C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501B22C.s")

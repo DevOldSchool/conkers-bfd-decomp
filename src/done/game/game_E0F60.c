@@ -32,9 +32,8 @@ typedef struct GameE0F60Packet {
 
 void func_1512D748(void *, s32, s32);
 void func_15143134(f32 *, f32 *, s32);
-void func_1514C858(f32, f32, f32, f32, s32, s32, s32, s32, s32,
-                   s32, f32, s32, u8);
-void func_151D8868(s8 *, s32, u8, s32);
+void func_1514C858(f32, f32, f32, f32, s16, s16, s16, s16, u8, s32, f32, s32, u8);
+void *func_151D8868(s8 *, s32, u8, s32);
 extern f32 D_8009FBC0;
 extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;

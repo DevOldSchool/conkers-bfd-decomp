@@ -14,7 +14,7 @@
  */
 
 void func_10001444(void);
-s32 func_1501A39C(void);
+void func_1501A39C(void);
 void func_151E6BFC(void);
 s32 func_1501878C(void);
 s32 func_151DCFD8(s32);

@@ -45,7 +45,7 @@ typedef struct GameDDB60Particles {
     s32 field40;
 } GameDDB60Particles;
 s16 func_15143E24(void *);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_1504715C(void *, void *);
 void func_15153F18(s16 *, void *, void *, s32, s32);
 void func_151C329C(void *, u8, s32);

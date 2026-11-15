@@ -289,8 +289,7 @@ typedef struct Game1BF090Effect {
 } Game1BF090Effect;
 
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32,
-                  s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_151DA6F8(f32 *, f32 *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, s32, s16, s16, s32, u8, s32);
 f32 func_150ADA68(void);
 
 s32 func_15192358(s32 arg0, s32 arg1) {

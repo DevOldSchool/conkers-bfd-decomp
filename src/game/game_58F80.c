@@ -106,7 +106,7 @@ void func_1503A08C(void *);
 void func_1503A830(void *);
 void func_1503DF48(s32);
 void func_150A4B04(void *);
-void func_1517AD00(u8, u8, s32);
+s32 func_1517AD00(s32, s32, s32);
 void func_1502EEF4(s32);
 void func_1502EAFC(void *);
 extern u8 D_800C666F[];
@@ -1191,7 +1191,7 @@ s32 func_1502EE8C(s32 arg0, s32 arg1) {
     }
     return r;
 }
-s32 func_1507E3C0(void *);
+void func_1507E3C0(void *);
 
 void func_1502EEF4(s32 arg0) {
     u8 state;

@@ -34,7 +34,7 @@ s32 func_151DCEF0(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     return func_10024A40(&D_80042A58, value, 0ULL, &D_80042A78, &D_80042A90);
 }
 s32 func_10023440(u8 *, s32, s32);
-s32 func_151DD4E0(u8 *, s32, u8 *);
+s32 func_151DD4E0(u8 *, u8, u8 *);
 
 s32 func_151DCFD8(s32 arg0) {
     u64 value;

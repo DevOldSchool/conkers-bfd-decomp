@@ -60,7 +60,7 @@ void func_150D5A4C(void *arg0) {
     func_15149368(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1028F0/func_150D5A6C.s")
-void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 f32 func_150ADA68();
 
 void func_150D6388(f32 *arg0, u8 arg1, s32 arg2) {

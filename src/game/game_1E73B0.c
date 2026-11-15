@@ -325,7 +325,7 @@ s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 s32 func_15145C90(s32);
 void func_1514FBFC(void *, u8, s32);
-void func_15151D6C(void *, void *, void *, s32, u8, s32);
+void func_15151D6C(void *, void *, void *, u32, u8, s32);
 void func_15055A2C(s32, f32, f32, f32, s32);
 s32 func_15144E80(void *, void *, void *, void *);
 void func_151BBEE4(void *, u8, s32);
@@ -456,7 +456,7 @@ typedef struct Game1E73B0Config {
 void func_15055A2C(s32, f32, f32, f32, s32);
 s32 func_15144E80(void *, void *, void *, void *);
 void func_1514FCE8(s16 *, u8, s32);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_151BBEE4(void *, u8, s32);
 void func_151BBFBC(s32, s32, u8, s32);
 void func_151C0644(void *, u8, s32);
@@ -661,7 +661,7 @@ typedef struct Game1E73B0Glow {
     u8 pad5[7];
 } Game1E73B0Glow;
 
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 s32 func_15163414(u8 *, f32 *, f32 *, f32 *, s8, u8, u8, u8, u8, u8, u8, u8, s32, u8, s32);
 extern f32 D_800AA830;
 extern f32 D_800DCA24;

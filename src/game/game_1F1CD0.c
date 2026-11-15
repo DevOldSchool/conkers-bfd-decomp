@@ -28,9 +28,7 @@ typedef struct Game1F1CD0Actor {
 f32 func_15047D60(f32);
 f32 func_150ADA68(void);
 f32 func_15144B68(f32);
-s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, s32, s32,
-                  f32, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32,
-                  s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
+void *func_151C229C(Vec3f *, Vec3f *, s32, Vec3f *, u8, s32, f32, f32, f32, f32, f32, u8, u8 *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 extern f32 D_800BE9A4;
 
 void func_151C4820(Game1F1CD0Actor *arg0) {

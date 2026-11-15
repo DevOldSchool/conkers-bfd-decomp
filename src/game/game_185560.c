@@ -140,7 +140,7 @@ void *func_1513F4E4(void *, u8, u8 *);
 void *func_15142FBC(void *, s32, s32, u8 *);
 void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, u8, u8);
 void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
-s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+s32 func_151462C8(s32, void *, u8, s32, u8, s16, void *, u8, s32);
 
 Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor *arg1, s32 arg2) {
     s32 callback;

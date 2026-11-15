@@ -36,7 +36,7 @@ void func_1500FE30(void) {
     }
 }
 extern s32 D_800917B8;
-void func_1510C4AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void *func_1510C4AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1500FF9C(void) {
     func_1510C4AC(D_800917B8, 0, 0xAD, 0x75);

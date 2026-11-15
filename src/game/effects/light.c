@@ -810,7 +810,7 @@ void func_15162110(s32 arg0) {
 }
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);
-void func_1515D4D4(s32, s32, s32, s32);
+void func_1515D4D4(s32, s32, s32, u8);
 
 typedef struct Light235 { f32 unk0, unk4, unk8, unkC, unk10, unk14, unk18, unk1C; } struct235;
 

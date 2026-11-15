@@ -611,7 +611,7 @@ SECTIONS
     .game_rodata_cbbe0 0x8009F3D0 (INFO) : SUBALIGN(4) { *game_CBBE0.o(.rodata) }
     /* Seventeen query targets: docs/evidence/data-layout/game_cbdb0_jump_table.md. */
     .game_rodata_cbdb0 0x8009F43C (INFO) : SUBALIGN(4) { *game_CBDB0.o(.rodata) }
-    /* Twenty-six script-command targets: docs/evidence/data-layout/game_c3e20_jump_table.md. */
+    /* Two switch tables and one constant: docs/evidence/data-layout/game_c3e20_jump_table.md. */
     .game_rodata_c3e20 0x8009DED0 (INFO) : SUBALIGN(4) { *game_C3E20.o(.rodata) }
     /* Pending actor actions: docs/evidence/data-layout/game_90840_jump_table.md. */
     .game_rodata_90840_0 0x800996D8 (INFO) : SUBALIGN(4) { *game_90840.o(.rodata.90840_0) }
@@ -899,8 +899,8 @@ ASSERT(SIZEOF(.game_rodata_cbbe0) == 0x20, "game_CBBE0 table extent changed")
 __game_rodata_cbbe0_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_cbdb0) == 0x50, "game_CBDB0 table extent changed")
 __game_rodata_cbdb0_payload_size = 0x44;
-ASSERT(SIZEOF(.game_rodata_c3e20) == 0x70, "game_C3E20 table extent changed")
-__game_rodata_c3e20_payload_size = 0x68;
+ASSERT(SIZEOF(.game_rodata_c3e20) == 0x80, "game_C3E20 table extent changed")
+__game_rodata_c3e20_payload_size = 0x80;
 
 ASSERT(SIZEOF(.game_rodata_981e0_0) == 0x38, "game_981E0 func_1506DE84 table extent changed")
 ASSERT(SIZEOF(.game_rodata_981e0_38) == 0x10C, "game_981E0 leading and constructor literal extent changed")
@@ -1020,8 +1020,8 @@ ASSERT(SIZEOF(.game_rodata_1368c0) == 0x10, "game_1368C0 func_1510A40C literal e
 __game_rodata_1368c0_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_eeb70) == 0x20, "game_EEB70 motion literal extent changed")
 __game_rodata_eeb70_payload_size = 0x14;
-ASSERT(SIZEOF(.game_rodata_476d0) == 0x10, "game_476D0 view literal extent changed")
-__game_rodata_476d0_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_476d0) == 0x20, "game_476D0 view literal extent changed")
+__game_rodata_476d0_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_ddf10) == 0x30, "game_DDF10 spawn literal extent changed")
 __game_rodata_ddf10_payload_size = 0x24;
 ASSERT(SIZEOF(.game_rodata_e35c0) == 0x10, "game_E35C0 effect literal extent changed")

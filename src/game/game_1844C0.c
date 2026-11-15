@@ -279,7 +279,7 @@ s32 func_15157AA8(Game1844C0MotionOwnerPrefix *arg0) {
     }
     return 1;
 }
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15157D88(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x4C, arg0 + 0x50, arg0);

@@ -12,7 +12,7 @@
  */
 
 s32 func_15045800(Vec3f *, u16, f32, void *);
-void func_151ABE40(Vec3f *, void *, s32, u8, s32);
+void func_151ABE40(Vec3f *, void *, s32, s32, s32);
 extern f32 D_800A8F74;
 
 void func_151A99D0(void *arg0) {
@@ -631,7 +631,7 @@ void func_15153F18(s16 *, void *, s32, s32, s32);
 u8 func_151D8E20(void);
 s32 func_1504697C(void *, u16, f32, void *);
 void func_1504715C(void *, void *);
-void func_151DBCBC(s32, f32, s32, s32, f32 *, s32, s32);
+void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
 extern u8 D_800A8F70[];
 extern f32 D_800A8FCC;
 extern f32 D_800A8FD0;

@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150BBB5C
  * - func_150BD070
- * - func_150BD740
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -160,7 +159,7 @@ s32 func_150BB760(u8 *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BBB5C.s")
-void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_151DA6F8(f32 *, f32 *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, s32, s16, s16, s32, u8, s32);
 
 s32 func_150BC488(u8 *arg0) {
     f32 width;
@@ -465,65 +464,51 @@ s32 func_150BCFB8(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD070.s")
 f32 func_150ADA68(void);
 void func_15143134(f32 *, f32 *, s32);
-void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
+void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, u8);
 extern f32 D_8009FF40[12];
 extern f32 D_8009FF70[12];
 extern f32 D_8009FFA0[12];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BD740 CURRENT (2337) */
 void func_150BD740(u8 *arg0, u8 arg1, s32 arg2) {
     f32 pointsA[12];
     f32 pointsB[12];
     f32 pointsC[12];
+    s32 i;
     f32 direction1[3];
     f32 direction0[3];
-    f32 *endC;
-    f32 *outC;
-    f32 *inA;
-    f32 *outA;
-    f32 *inB;
-    f32 *outB;
-    f32 *inC;
+    f32 *start0;
+    f32 *end0;
+    f32 width0;
+    f32 *start1;
+    f32 *end1;
+    f32 width1;
 
     if (arg0 != 0) {
-        inA = D_8009FF40;
-        outA = pointsA;
         if (*(s32 *)(arg0 + 0x1D4) != 0) {
-            inC = D_8009FFA0;
-            inB = D_8009FF70;
-            outB = pointsB;
-            outC = pointsC;
-            endC = pointsC + 12;
-            do {
-                func_15143134(inA, outA, *(s32 *)(arg0 + 0x1D4));
-                func_15143134(inB, outB, *(s32 *)(arg0 + 0x1D4));
-                func_15143134(inC, outC, *(s32 *)(arg0 + 0x1D4));
-                outC += 3;
-                inA += 3;
-                outA += 3;
-                inB += 3;
-                outB += 3;
-                inC += 3;
-            } while (outC != endC);
+            for (i = 0; i < 4; i++) {
+                func_15143134(&D_8009FF40[i * 3], &pointsA[i * 3], *(s32 *)(arg0 + 0x1D4));
+                func_15143134(&D_8009FF70[i * 3], &pointsB[i * 3], *(s32 *)(arg0 + 0x1D4));
+                func_15143134(&D_8009FFA0[i * 3], &pointsC[i * 3], *(s32 *)(arg0 + 0x1D4));
+            }
             direction0[0] = pointsC[6] - pointsB[6];
             direction0[1] = pointsC[7] - pointsB[7];
             direction0[2] = pointsC[8] - pointsB[8];
-            func_1514C470(pointsA[6], pointsA[7], pointsA[8],
-                           pointsA[9], pointsA[10], pointsA[11],
-                           (func_150ADA68() * 6.0f) + 14.0f,
-                           0xD, 0, 0.0f, (s32)direction0, (u8)arg1);
+            start0 = &pointsA[6];
+            end0 = &pointsA[9];
+            width0 = (func_150ADA68() * 6.0f) + 14.0f;
+            func_1514C470(start0[0], start0[1], start0[2], end0[0], end0[1], end0[2],
+                           width0, 0xD, 0, 0.0f, (s32)direction0, arg1);
             direction1[0] = pointsC[9] - pointsB[9];
             direction1[1] = pointsC[10] - pointsB[10];
             direction1[2] = pointsC[11] - pointsB[11];
-            func_1514C470(pointsA[9], pointsA[10], pointsA[11],
-                           pointsA[0], pointsA[1], pointsA[2],
-                           (func_150ADA68() * 6.0f) + 14.0f,
-                           0xD, 0, 0.0f, (s32)direction1, (u8)arg1);
+            start1 = &pointsA[9];
+            end1 = &pointsA[0];
+            width1 = (func_150ADA68() * 6.0f) + 14.0f;
+            func_1514C470(start1[0], start1[1], start1[2], end1[0], end1[1], end1[2],
+                           width1, 0xD, 0, 0.0f, (s32)direction1, arg1);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BD740 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD740.s")
 f32 func_150ADA68(void);
 extern f32 D_8009FFD0, D_8009FFD4, D_8009FFD8, D_8009FFDC, D_8009FFE0, D_8009FFE4;
 

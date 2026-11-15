@@ -20,7 +20,7 @@ typedef struct GameE1280State {
 } GameE1280State;
 
 void func_1000FC18(s32, s16, s16, s16, s32);
-void func_15147D64(s32, s32);
+void func_15147D64(s32, u8);
 
 void func_150B3DD0(void) {
     struct {
@@ -54,7 +54,7 @@ void func_150B3EE8(GameE1280State *arg0) {
     func_15147928(arg0);
 }
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 extern u8 D_1000EF40[];
 
 typedef struct {

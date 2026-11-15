@@ -62,7 +62,7 @@ void func_1000D96C(s32, s32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 void func_150D8B3C(void *, void *);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 s32 func_151EF610(void);
 extern f32 D_800A0B48;
 extern s32 D_800BE9F0;

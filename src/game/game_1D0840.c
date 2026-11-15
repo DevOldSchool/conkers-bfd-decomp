@@ -101,8 +101,7 @@ typedef struct {
 } Game1D0840SpawnLocals;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
-                    s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 s32 func_151A4E34();
 
 void *func_151A3504(void *arg0, u8 arg1) {
@@ -612,7 +611,7 @@ typedef struct Game1D0840BurstPacket {
 } Game1D0840BurstPacket;
 
 void func_15143134(f32 *, f32 *, s32);
-void func_15153634(Game1D0840BurstPacket *, s32, s32, s32);
+void func_15153634(Game1D0840BurstPacket *, u8, u8, s32);
 
 void func_151A4A38(u8 *object) {
     Game1D0840EffectPacket *state;

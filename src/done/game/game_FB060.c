@@ -6,8 +6,8 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_radial_queue_render_groups.md
  */
 
-void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, s32, u8);
-s32 func_15046C80(f32 *, s32, f32, f32 *);
+void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, s32, u8);
+s32 func_15046C80(f32 *, u16, f32, f32 *);
 void func_1504715C(f32 *, void *);
 extern f32 D_800A07B0;
 

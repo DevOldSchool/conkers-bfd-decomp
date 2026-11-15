@@ -89,7 +89,7 @@ void func_150585F0(u8 *, f32);
 void func_15059140(u8 *);
 /* Raw callee overwrites a2 at 15059628 before reading it. */
 void func_1505959C(void *, s32);
-void func_150599C8(u8 *, s32, u16);
+u8 func_150599C8(u8 *, u8, u16);
 void func_1505A3A8(f32, void *, f32, f32, u8);
 f32 func_1505A5CC(void *);
 s32 func_1505A630(f32, f32, s32);

@@ -173,7 +173,7 @@ typedef struct {
 } Game203E20SpawnWork;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_150859AC(s32, s32);
+s32 func_150859AC(s16, s16);
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 void *func_1509B570(s32);
 void *func_150CFF10(u8, u8 *, s16, s32, s8, u8, u8, s32);

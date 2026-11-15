@@ -13,7 +13,7 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 void *func_1515C2F0(void *arg0, void *arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     void *temp_v0;
@@ -298,7 +298,7 @@ typedef struct Game1897A0EmitterOwner {
 } Game1897A0EmitterOwner;
 
 void func_15143794(s16, s16, f32, void *);
-void func_15152B38(void *, s32, s32);
+void func_15152B38(void *, u8, s32);
 f32 func_150ADA68();
 extern Game1897A0EmitterSettings D_800A64A0[];
 

@@ -22,7 +22,7 @@ typedef struct Game168A90Allocated {
 } Game168A90Allocated;
 
 extern s32 D_80082FA0;
-s32 *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+s32 *func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 void func_1510CE60(s32, s32, s32, s32, void *);
 void *func_10022EC0(void *, const void *, u32);
 

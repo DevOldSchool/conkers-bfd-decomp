@@ -340,7 +340,7 @@ typedef struct Game1E9A30Owner {
     u8 id;
 } Game1E9A30Owner;
 
-void *func_15130374(s32, u8, s32, u8, s32);
+void *func_15130374(void *, u8, s32, u8, s32);
 f32 func_150ADA68(void);
 extern f32 D_800AA854, D_800AA858, D_800AA85C;
 

@@ -373,7 +373,7 @@ s32 func_15013DE8(u8 *arg0) {
     func_15149550(packet.position, 10, 1, mode & 0xFF, 0xFF, 1);
     return 1;
 }
-void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);
+s32 func_151CD2C0(s32 arg0, u8 arg1, s32 arg2);
 
 s32 func_15013F9C(s32 arg0) {
     func_151CD2C0(arg0, 0xFF, 1);

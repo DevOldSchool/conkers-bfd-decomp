@@ -109,7 +109,7 @@ typedef struct {
 
 extern Game1B0740Slot D_800DDE80[];
 void func_15183ACC(s32); /* extern */
-void *func_1502B6BC(s32, s32, s32, s32, s32, s32);
+void *func_1502B6BC(u32 *, s32, s32, s32, s32, s32);
 extern u8 D_800DDF69[];
 
 /* Keep slot reads inline: a named pointer local changes IDO stack layout. */

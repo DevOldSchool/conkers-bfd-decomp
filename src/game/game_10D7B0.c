@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  */
 
-extern void func_1513BAE8(void);
+void *func_1513BAE8(void);
 extern u8 D_80088980;
 
 void func_150E0300(void) {
@@ -119,8 +119,7 @@ void func_150E05F8(void *arg0) {
     }
     *(s8 *)((u8 *)arg0 + 0x8A) = var_v0;
 }
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32,
-                   s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 void func_15145EA4(s32 *, s32 *, s32, s32);
 f32 func_150ADA68(void);
 extern u8 D_80088988;

@@ -5,7 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
  */
 
-s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_151EFEB8(void *, s32);
 void *func_15073118(void *, s32, s32, f32, f32, f32, f32, f32, f32, f32, s32);
 extern f32 D_800A04F0;

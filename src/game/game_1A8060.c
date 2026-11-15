@@ -54,7 +54,7 @@ extern u8 D_800BEAC0;
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 void func_10023D20(void *, s32);
-s32 func_1502B5C8(s32 *, s32, ...);
+s32 func_1502B5C8(u32 *, s32, ...);
 
 extern u8 D_800A7230[];
 extern u16 D_800C4310[];
@@ -112,7 +112,7 @@ s32 func_1517AD00(s32 arg0, s32 arg1, s32 arg2) {
     Game1A8060Blend *blend;
     Game1A8060Config *config;
     s32 type;
-    s32 size;
+    u32 size;
     s32 kind;
     s32 index;
     s32 i;

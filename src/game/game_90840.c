@@ -100,7 +100,7 @@ void func_15063570(Game90840Actor *arg0) {
     func_1505E650(arg0, 0x221, 1.0f, 0.0f, 0.0f, 0.0f, 0);
 }
 
-void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 
 void func_15063628(Game90840Actor *arg0, f32 arg1) {
     Game90840Inner *inner = arg0->field_31C;
@@ -146,7 +146,7 @@ s32 func_15081E78(Game90840Actor *, void *, s32);
 s32 func_10010894(void *);
 void func_10010558(u16, void *, s32, s32, s32, s32);
 void func_150FFCC8(void *, void *, void *, void *, void *);
-void func_150FFD84(f32 *, f32 *, s32, s32);
+void func_150FFD84(f32 *, f32 *, u8, s32);
 
 void func_150636F0(void) {
     Game90840Actor *actor;
@@ -293,7 +293,7 @@ s32 func_15063A38(Game90840Actor *arg0, s32 arg1, s32 arg2) {
     }
     return 0;
 }
-s32 func_1503195C(void *, s32, s32);
+void *func_1503195C(void *, s32, s32);
 void func_1506AC8C(void *, s32, void *);
 void func_15143134(f32 *, f32 *, s32);
 

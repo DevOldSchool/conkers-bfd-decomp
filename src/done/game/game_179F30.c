@@ -556,7 +556,7 @@ void func_1514D564(u8 *arg0) {
     }
 }
 /* Raw US callees establish pointer arguments and the stack byte parameters. */
-s32 func_15189FF0(void *, void *, void *, s32, u8, u8, u8);
+s32 func_15189FF0(void *, void *, void *, u8, u8, u8, u8);
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
 extern u8 D_800A58D0[];
 extern u8 D_800A58E4[];
@@ -912,8 +912,7 @@ void func_1514DE50(void *arg0) {
 void func_1514DE88(s32 arg0) {
 
 }
-void func_15160CDC(s32, s32, void *, void *, f32, s32, s32, s32, s32,
-                   s32, s32, s32, s32, s32, s32, s32);
+s32 func_15160CDC(s32, u8, void *, void *, f32, u8, s16, s32, s32, s32, s32, u8, u8, u8, u8, s32);
 extern u8 D_800A58AC[];
 extern u8 D_800A58B8[];
 extern u8 D_800A58C4[];
@@ -1256,7 +1255,7 @@ void func_1514E31C(void *arg0) {
     }
 }
 
-void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
 
 void func_1514E508(s32 arg0) {
     s32 temp_v1;
@@ -1267,7 +1266,7 @@ void func_1514E508(s32 arg0) {
 }
 
 
-void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
 
 void func_1514E5B8(s32 arg0) {
     s32 temp_v1;
@@ -1278,7 +1277,7 @@ void func_1514E5B8(s32 arg0) {
 }
 
 
-void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
 
 void func_1514E668(s32 arg0) {
     s32 temp_v1;
@@ -1289,7 +1288,7 @@ void func_1514E668(s32 arg0) {
 }
 
 
-void * func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
 
 void func_1514E718(s32 arg0) {
     s32 temp_v1;
@@ -1300,7 +1299,7 @@ void func_1514E718(s32 arg0) {
 }
 
 
-void *func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
 extern u8 D_800A5920;
 
 void func_1514E7C8(s32 arg0) {
@@ -1575,7 +1574,7 @@ void func_1514EDF0(void *arg0, void *arg1) {
         } while (loop_flag != 0);
     }
 }
-void *func_1515BE50(void *, s32, s32, s32);
+void *func_1515BE50(void *, s32, u8, s32);
 
 void func_1514EE70(u8 *arg0) {
     struct {
@@ -1757,7 +1756,7 @@ s32 func_1514F130(Game179F30ModeState *arg0, s32 arg1, s32 arg2) {
 void func_151BB044(void *);
 void func_151BC074(s32);
 void func_151BD2F8(void *, s32, s32);
-void func_151B9F00(void *, s32, s32);
+void *func_151B9F00(void *, u8, s32);
 extern u8 D_800A5958;
 extern u8 D_800A5964;
 extern u8 D_800BE616;
@@ -1781,8 +1780,7 @@ void func_1514F194(void *arg0) {
         func_1514EC1C((s32)effect, (s32)arg0, 0x19);
     }
 }
-void func_15160CDC(s32, s32, void *, void *, f32, s32, s32, s32, s32, s32,
-    s32, s32, s32, s32, s32, s32);
+s32 func_15160CDC(s32, u8, void *, void *, f32, u8, s16, s32, s32, s32, s32, u8, u8, u8, u8, s32);
 extern s32 D_800A5970[];
 extern s32 D_800A597C[];
 extern f32 D_800A5E58;
@@ -1841,7 +1839,7 @@ void func_1514F508(void *arg0) {
 void func_1514F538(void *arg0) {
     func_151D74B0(arg0, 4, -1, 0xFF, 1);
 }
-void func_150C4120(void *, s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
+void func_150C4120(u8 *, s16, u8, s32);
 
 void func_1514F568(void *arg0) {
     func_150C4120(arg0, -1, 0xFF, 1);
@@ -1870,7 +1868,7 @@ typedef struct Game179F30EffectPacket {
 } Game179F30EffectPacket;
 
 extern f32 D_800A5E5C;
-void func_150C0AC0(Game179F30EffectPacket *, s32, s32);
+void *func_150C0AC0(Game179F30EffectPacket *, u8, s32);
 
 void func_1514F5CC(Game179F30Actor *arg0) {
     Game179F30EffectPacket packet;

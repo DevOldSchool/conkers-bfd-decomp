@@ -711,7 +711,7 @@ typedef struct Game1865D0A974Locals {
 } Game1865D0A974Locals;
 
 extern Game1865D0A974Entry D_800A636C[];
-void *func_151A8B20(void *, s32, s32, s32, s32);
+void *func_151A8B20(void *, s16, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 void func_1515A974(void *arg0, s32 arg1) {

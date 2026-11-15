@@ -330,7 +330,7 @@ typedef struct Game135D00DispatchMessage {
 } Game135D00DispatchMessage;
 
 extern Game135D00DispatchDescriptor D_80088C50;
-void func_15169260(Game135D00DispatchDescriptor *, s32, Game135D00DispatchMessage *, s32);
+void func_15169260(Game135D00DispatchDescriptor *, s32, Game135D00DispatchMessage *, u8);
 
 void func_15108FFC(s32 arg0, s32 arg1, u8 arg2) {
     Game135D00DispatchMessage message;

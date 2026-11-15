@@ -55,7 +55,7 @@ f32 func_15086BD0(s32 arg0, s32 arg1) {
 void func_15086C68(void) {
 
 }
-void func_150A3194(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);
+s32 func_150A3194(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15086C70(s32 arg0) {
     s32 offset;
@@ -92,7 +92,7 @@ s32 func_15086D48(s32 arg0) {
     }
     return 0xFF;
 }
-s32 func_15085DA8(f32);                             /* extern */
+u8 func_15085DA8(f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D94 CURRENT (7578) */
 f32 func_15086D94(f32 arg0, f32 arg1, volatile f32 arg2, volatile f32 arg3, f32 arg4) {

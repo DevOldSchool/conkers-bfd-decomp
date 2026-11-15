@@ -15,9 +15,7 @@ s32 func_1514654C(void *, s32, s32, void **, void **, s32);
 void *func_1503195C(void *, s32, s32);
 void func_151C56A4(void *, u8, s32);
 void func_151C5588(s32, s32, s16, u8, s32);
-s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32,
-                  f32, f32, f32, f32, f32, s32, void *, s32, s32, s32,
-                  s32, s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
+s32 func_151C229C(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 f32 func_150ADA68(void);
 extern s32 D_800AAA90;
 extern u8 D_800AAAA8[];
@@ -89,8 +87,7 @@ void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
                       0xFF, mode, 0, arg1, arg2);
     }
 }
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
-                   s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 f32 func_150ADA68(void);
 extern s32 D_800AAA90;
 extern s32 D_800AAA9C;
@@ -153,9 +150,8 @@ typedef struct {
 } Game1F2730Spawn577C;
 
 s32 func_15137C64(void *, Vec3f *, Vec3f *, Vec3f *, Vec3f *, s32, s32, s32);
-void func_151DC034(void *, f32, u8, s16, s32, u8, s32);
-void func_151DA6F8(void *, Vec3f *, f32, s16, s32, f32, s32, s32, f32, f32,
-                   s32, s32, s32, s32, s32, s32, u8, s32);
+void func_151DC034(void *, f32, u8, s16, u8, u8, s32);
+void *func_151DA6F8(void *, Vec3f *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, s32, s16, s16, s32, u8, s32);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);

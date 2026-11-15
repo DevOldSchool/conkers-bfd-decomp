@@ -8,7 +8,7 @@
 
 void func_150C0A48(u8 *arg0);
 
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_150C09B0(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x20, arg0 + 0x24, arg0);

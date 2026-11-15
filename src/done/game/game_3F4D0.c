@@ -17,7 +17,7 @@ typedef struct Game3F4D0Descriptor {
     s8 field_26;
 } Game3F4D0Descriptor;
 
-void func_151A8B20(Game3F4D0Descriptor *, s32, s32, s32, s32);
+void *func_151A8B20(void *, s16, s32, u8, s32);
 extern f32 D_80096530;
 extern f32 D_80096534;
 

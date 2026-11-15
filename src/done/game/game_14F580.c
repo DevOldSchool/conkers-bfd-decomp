@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  */
 
-void *func_15122980(void *);
+void func_15122980(void *);
 extern f32 D_800A3460;
 
 void func_151220D0(void *arg0) {

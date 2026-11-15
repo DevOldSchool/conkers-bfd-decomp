@@ -13,7 +13,7 @@
  */
 
 void func_100226F0(void *, s32);
-void func_1515D4D4(s32, s32, s32, s32);
+void func_1515D4D4(s32, s32, s32, u8);
 
 extern u8 D_800DCD24[3];
 extern u8 D_800DCD28[3];
@@ -260,17 +260,17 @@ void func_15009870(s32 arg0, s32 arg1) {
 void func_15009894(s32 arg0, u8 arg1) {
     func_151615F8(arg0, 1, 0, 0xE, 0xFF, 1);
 }
-void func_15162034(s32 arg0, s32 arg1, s32 arg2);
+void *func_15162034(s32 arg0, u8 arg1, s32 arg2);
 
 void func_150098D0(s32 arg0, u8 arg1) {
     func_15162034(arg0, 0xFF, 1);
 }
-void func_151623F4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
+void *func_151623F4(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s8 arg4, s16 arg5, u8 arg6, s32 arg7);
 
 void func_150098F8(s32 arg0, u8 arg1) {
     func_151623F4(arg0, 1, 0x16, 0, -1, 0x12C, 0xFF, 1);
 }
-void func_15162740(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
+void *func_15162740(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s8 arg5, u8 arg6, s32 arg7);
 
 void func_15009944(s32 arg0, u8 arg1) {
     func_15162740(arg0, 1, 6, 0, 0x12C, 2, 0xFF, 1);
@@ -302,7 +302,7 @@ void func_15009A38(s32 arg0, s32 arg1) {
     sp20.field_4 = D_80095B27[arg1];
     func_1516037C(&sp20, arg0, 0, 0xFF, 1);
 }
-void func_15162FAC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
+void *func_15162FAC(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4, s8 arg5, u8 arg6, s32 arg7);
 
 void func_15009AA0(s32 arg0, u8 arg1) {
     func_15162FAC(arg0, 1, 0, 2, 0x12C, 0xD, 0xFF, 1);
@@ -350,7 +350,7 @@ void func_15009C7C(s32 arg0, s32 arg1) {
         func_10022EC0((u8 *)result + 0x18, &parameters, 12);
     }
 }
-extern void func_15163604(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
+void *func_15163604(s32 arg0, u8 arg1, u8 arg2, s16 arg3, u8 arg4, s32 arg5, u8 arg6, s32 arg7);
 
 void func_15009D28(s32 arg0, u8 arg1) {
     func_15163604(arg0, 1, 5, 0x12C, 0, 0, 0xFF, 1);
@@ -495,7 +495,7 @@ typedef struct Game36680LightAttachment {
     f32 z;
 } Game36680LightAttachment;
 
-s32 func_150B060C(s32, void *);
+s32 func_150B060C(u8, void *);
 extern Game36680SixIndices D_80082BEC;
 extern s32 D_800BE9F0;
 

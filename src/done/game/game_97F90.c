@@ -5,7 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_continued.md
  */
 
-void func_15137610(void *, void *, void *, s32, s32, s32);
+void func_15137610(void *, void *, void *, s32, u8, s32);
 extern s32 D_800CC260;
 extern u8 D_800CC2D0;
 extern u8 D_800D1560;
@@ -54,7 +54,7 @@ void func_1506AC0C(void *arg0, s32 arg1) {
     sp20.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
     func_151B7328((void **)&sp20, 0, 8, 0xFF, 1);
 }
-void func_151CEAAC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void *func_151CEAAC(s32 arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4);
 
 void func_1506AC58(s32 arg0, s32 arg1) {
     func_151CEAAC(arg0, 0, 1, 0xFF, 1);

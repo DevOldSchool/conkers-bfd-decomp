@@ -288,8 +288,7 @@ void func_151D77C8(Game204660ActorContext *arg0) {
         *temp_v0 = 0;
     }
 }
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32,
-                    s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 typedef struct Game204660Spawn {
     Vec3i position;

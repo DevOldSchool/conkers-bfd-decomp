@@ -39,7 +39,7 @@ typedef struct Game10CD70Actor {
 typedef struct Game10CD70Command { u32 first, second; } Game10CD70Command;
 
 void *func_15083E90(u8);
-void func_150A2864(s32, s32);
+void func_150A2864(u32, s32);
 void func_150A3444(s32, s16, s16, s16);
 void func_151749A0(s32, s32);
 extern Game10CD70Command *D_800B0E00;

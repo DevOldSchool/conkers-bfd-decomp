@@ -122,7 +122,7 @@ f32 func_15142A80(f32);
 f32 func_15142AC0(f32);
 f32 func_15142B04(f32);
 f32 func_15142B44(f32);
-void *func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;
 
@@ -309,8 +309,8 @@ typedef struct GameE81A8Event {
     s8 field4, field5, field6;
 } GameE81A8Event;
 
-void func_1514FCE8(s16 *, s32, s32);
-void *func_151D8868(s8 *, s32, s32, s32);
+void func_1514FCE8(s16 *, u8, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 extern Vec3f D_800A1290[];
 extern f32 D_800A1354, D_800A1358, D_800A135C, D_800A1360, D_800A1364;
 

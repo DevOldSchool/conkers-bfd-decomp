@@ -131,7 +131,7 @@ void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, u8 arg2, u8 arg
 }
 f32 func_150ADA68(void);
 void func_150FB8C0(void *, s32, f32, s32, s32, s32);
-void *func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;

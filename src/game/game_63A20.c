@@ -86,7 +86,7 @@ typedef struct Game368C4State {
 
 void *func_1503195C(void *, s32, s32);
 void func_15036570(s32, void *, void *);
-s32 func_1515E544(s32, s32, s32, s32, void *);
+s32 func_1515E544(s32, s32, u8, u8, void *);
 struct GameC2350Input;
 struct GameC2350Owner;
 s32 func_15094F70(s32, struct GameC2350Input *, s32, struct GameC2350Owner *, s32, s32, s32, s32, s32);

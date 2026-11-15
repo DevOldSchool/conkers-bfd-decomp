@@ -147,7 +147,7 @@ typedef struct GameAD9B0TextDescriptor {
 s32 func_10022EEC(void *);
 void func_10023A10(void *, void *, s32);
 void *func_10003C40(s32, s32, s32, s32);
-void *func_1502B6BC(s32 *, s32, s32 *, s32, ...);
+void *func_1502B6BC(u32 *, s32, s32 *, s32, ...);
 void *func_1516A7B0(s32, s32, s32, void (*)(s32, s32, s32), void *, s32);
 extern u8 D_800D1941;
 extern s32 D_800D1944;

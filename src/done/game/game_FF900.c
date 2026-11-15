@@ -19,7 +19,7 @@ typedef struct GameFF900State {
 
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);
-void func_1515D4D4(s32, s32, s32, s32);
+void func_1515D4D4(s32, s32, s32, u8);
 extern f32 D_800BE9A4;
 
 void func_150D2450(GameFF900State *arg0) {

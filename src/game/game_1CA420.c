@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15147D64(u8 *arg0, s32 arg1);
+void func_15147D64(u8 *arg0, u8 arg1);
 void func_1519CF70(u8 arg0);
 
 void func_1519CF70(u8 arg0) {
@@ -140,7 +140,7 @@ typedef struct Game1CA420TrailSpawn {
 struct Game1CA420Transform;
 s32 func_1519E304(struct Game1CA420Transform *, f32 *, f32, f32, f32, f32);
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 extern Game1CA420TrailSpec D_800A8B80[];
 
 s32 func_1519D030(void *arg0, s32 arg1, s16 arg2, u8 arg3, u8 arg4, s32 arg5) {

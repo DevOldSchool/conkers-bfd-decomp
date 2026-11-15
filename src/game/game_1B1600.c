@@ -151,7 +151,7 @@ typedef struct Game1B1600Command {
 void *func_1501A490(void *, s16, s32, s32, s32, s32);
 void *func_1501A680(void *);
 void *func_1502CCFC(void *, s32, s32, Game184150Matrix *, s32, s32 *, s32, s32);
-void func_1510B7B4(void *, s32);
+void *func_1510B7B4(void *, s32);
 extern s16 D_80082FA6;
 extern u8 D_8008D3E8[];
 extern u8 D_8008D448[];

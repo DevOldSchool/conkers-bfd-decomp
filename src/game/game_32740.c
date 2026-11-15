@@ -13,7 +13,7 @@
  */
 
 s32 func_10003C40(s32 size, s32 pool, s32 flags, s32 alignment);
-s32 func_1502B5C8(s32 *size, s32 count, ...);
+s32 func_1502B5C8(u32 *size, s32 count, ...);
 void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode);
 void func_1512ABF8(void);
 void func_1512D238(void);
@@ -31,12 +31,12 @@ extern u8 *D_800DC2B0;
 
 void func_15005290(s32 resource, s32 mode) {
     u32 index;
-    s32 resource_size;
+    u32 resource_size;
     s32 count;
     s32 matrix_bytes;
 
     D_800DC020 = (u8 *)func_1502B5C8(&resource_size, 3, 0xC, resource, 8);
-    D_80089550 = (u32)resource_size / 24U;
+    D_80089550 = resource_size / 24U;
     count = D_80082FA0 + 1;
     D_800DBFF0 = (struct108 *)func_10003C40(count * 0x9A0, 1, 1, 0);
     matrix_bytes = count << 6;

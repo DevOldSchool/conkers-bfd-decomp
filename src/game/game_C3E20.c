@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15096A68
- * - func_1509759C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -392,23 +391,23 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern u8 *D_800DBFF0;
 extern s32 D_80082FA0;
-extern f32 D_8009DF4C;
 extern s32 D_800DC020;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509759C CURRENT (562) */
 s32 func_1509759C(s32 arg0, s32 arg1, s32 *arg2) {
     GameC3E20View *view;
+    s32 result;
     f32 direction[3];
     f32 offset[3];
     f32 angle;
     u8 *actor;
     f32 dx;
     f32 dz;
-    s16 *point;
-    s32 result;
+    GameC3E20Pose *pose;
 
     view = (GameC3E20View *)(D_800DBFF0 + arg0 * 0x9A0);
-    if (D_80082FA0 < arg0) return 0;
+    if (D_80082FA0 < arg0) {
+        return 0;
+    }
     switch (arg1) {
     case 31:
         return (s32)(view->value390 * 65536.0f);
@@ -417,28 +416,32 @@ s32 func_1509759C(s32 arg0, s32 arg1, s32 *arg2) {
     case 29:
         return (&D_800D2DC0)[arg2[2] * 0x24];
     case 32:
-        point = (s16 *)((arg2[2] & 0xFFF) * 0x18 + D_800DC020);
-        dx = view->secondX - (f32)point[0];
-        dz = view->secondZ - (f32)point[2];
+        pose = (GameC3E20Pose *)D_800DC020;
+        pose = &pose[arg2[2] & 0xFFF];
+        dx = view->secondX - pose->x;
+        dz = view->secondZ - pose->z;
         return (s32)sqrtf(dx * dx + dz * dz);
     case 33:
         actor = func_1505EEF4(arg2[2] & 0xFFF);
         if (actor == 0) return -1;
-        angle = view->angle + D_8009DF4C;
+        angle = view->angle + 1.5707964f;
         direction[0] = func_15047D60(angle);
         direction[1] = 0.0f;
         direction[2] = func_15047C00(angle);
         func_15048F90(&view->secondX, actor + 0x14, offset);
         offset[1] = 0.0f;
-        result = 1;
-        if (func_150AD900(direction, offset) >= 0.0f) return -1;
+        if (func_150AD900(direction, offset) >= 0.0f) {
+            result = -1;
+        } else {
+            result = 1;
+        }
         return result;
     default:
-        return 0;
+        goto fail;
     }
+fail:
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509759C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_1509759C.s")
 
 
 

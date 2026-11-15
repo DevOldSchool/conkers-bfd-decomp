@@ -103,7 +103,7 @@ s32 func_151E24F0(s32 *arg0) {
 void func_15017790(void);
 void func_1509CC94();
 void func_1509CDDC(s32);
-s32 func_1509CF28(s8, s32 *);
+s32 func_1509CF28(s32, s32 *);
 void func_1509D054(void);
 u16 func_1509CA30(s32);
 s32 func_1509CA50(s32);
@@ -692,7 +692,7 @@ s8 func_151E5FAC(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E5FF4.s")
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
-s32 func_1502B5C8(s32 *, s32, ...);
+s32 func_1502B5C8(u32 *, s32, ...);
 extern u8 D_800BEAAB;
 extern s8 D_800E0BEA;
 extern s8 D_800E0BD3;
@@ -705,7 +705,7 @@ void func_151E6964(s32 kind) {
     u8 *cursor;
     u8 *end;
     s32 i;
-    s32 length;
+    u32 length;
 
     if (D_800E0BEA != D_800BEAAB) {
         D_800BEAAB = D_800E0BEA;
@@ -851,7 +851,7 @@ typedef struct Game20F9A0SpawnPosition {
 } Game20F9A0SpawnPosition;
 
 void func_15060F28(u8 *, s32);
-s32 func_15083E0C(s32);
+s32 func_15083E0C(u8);
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, u32);
 s32 func_15082A44(void *, s32, s32, s32, s32);

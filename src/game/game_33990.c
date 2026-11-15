@@ -44,7 +44,7 @@ void func_150064E0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15006590.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15006BEC.s")
 void func_10024F10(void);
-s32 func_151DD4E0(u8 *, s32, u8 *);
+s32 func_151DD4E0(u8 *, u8, u8 *);
 extern u8 D_8002AC5C;
 extern u16 D_800BE358;
 extern u8 D_800BE3D8[];

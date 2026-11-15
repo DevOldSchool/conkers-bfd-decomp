@@ -146,7 +146,7 @@ Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E89A0.s")
-s32 func_150859AC(s16, s32);
+s32 func_150859AC(s16, s16);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern s8 D_80087268;
@@ -266,7 +266,7 @@ extern s16 D_800E0AA0[];
 extern s8 D_800E0C00[];
 extern u8 D_800CC2D0[];
 extern char D_800ABAA0[], D_800ABAA4[];
-s32 func_150859AC(s16, s32);
+s32 func_150859AC(s16, s16);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
@@ -1104,7 +1104,7 @@ typedef struct {
 } Game215960Vertex;
 
 s32 func_10003C40(s32, s32, s32, s32);
-s32 func_1502B6BC(s32 *, s32, s32 *, s32, ...);
+s32 func_1502B6BC(u32 *, s32, s32 *, s32, ...);
 s32 func_1510CE60(s32, s32, s32, s32, void *);
 extern Game215960Resource *D_80090138;
 extern Game215960ResourceState *D_800E0C7C;

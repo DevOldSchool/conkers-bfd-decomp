@@ -19,7 +19,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_150859AC(s32, s32);
+s32 func_150859AC(s16, s16);
 void func_15122C5C(void *);
 void func_1512C490(void *);
 extern s32 D_80082FA0;

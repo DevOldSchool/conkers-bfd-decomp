@@ -22,10 +22,10 @@ typedef struct Game1D4140Smoke {
     u8 pad5A[2];
 } Game1D4140Smoke;
 
-void func_151A6F00(s16 *, s32, u8, s32);
+void func_151A6F00(s16 *, u8, u8, s32);
 f32 func_150ADA68(void);
 void func_151D5514(f32 *, u8, s32);
-void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void func_151D5334(f32 *, f32, f32, f32, s32, s32, s32);
 extern f32 D_800A8DB0;
 

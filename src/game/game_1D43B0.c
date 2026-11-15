@@ -226,7 +226,7 @@ s32 func_151A73EC(Game1D4140State *arg0) {
     }
     return 1;
 }
-void func_1514AB5C(f32, f32, f32, f32, s32, f32, f32, f32, f32, s32, s32, s32);
+void func_1514AB5C(f32, f32, f32, f32, s16, f32, f32, f32, f32, s16, s16, u8);
 
 s32 func_151A743C(Game1D4140State *arg0, f32 arg1, s32 arg2, f32 arg3, f32 arg4) {
     Game1D4140Entry *state;
