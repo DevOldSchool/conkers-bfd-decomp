@@ -76,7 +76,7 @@ void func_15003120(s32, s32, s32);
 void func_150034B4(void);
 void func_150039BC(s32);
 void func_150049A4(void *, s32, s32);
-void *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+void *func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 s32 func_1510CE60(s32, s32, s32, s32, void *);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 

@@ -435,7 +435,7 @@ extern s32 D_800BE5D0;
 extern s16 D_800DBE2A;
 extern s16 D_800DBE2C;
 extern s16 D_800DBE28;
-s32 func_1502B5C8(s32, s32, s32, s32);
+s32 func_1502B5C8(u32 *, s32, s32, s32);
 void func_150183D0(s16, s32, s32, s32);
 
 void func_150025FC(void) {
@@ -556,14 +556,14 @@ extern s8 D_8008FD90;
 extern void *D_800B0DF0;
 extern u8 D_800D2F3C;
 extern s32 D_800D2F40;
-s32 func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+s32 func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 void func_150AD770(void);
 void func_151EF040(s32, s32 *);
 
 void func_15002FB4(s32 arg0) {
     s32 sp3C;
     s32 sp38;
-    s32 sp34;
+    u32 sp34;
     struct {
         s32 value;
         s32 pad;

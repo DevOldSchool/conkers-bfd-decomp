@@ -805,7 +805,7 @@ void func_150C3230(u8 *arg0) {
             *(s32 *)(arg0 + 0x2E4) = timer - kind;
             if (D_800BE616 != 0) {
                 func_1508B20C(*(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18),
-                               *(f32 *)(arg0 + 0x1C), 0x44610000);
+                               *(f32 *)(arg0 + 0x1C), 900.0f);
             }
         } else {
             release.position.x = *(f32 *)(arg0 + 0x14);

@@ -124,13 +124,13 @@ typedef struct Game6A3D0Resource {
     u8 padC[4];
 } Game6A3D0Resource;
 
-Game6A3D0Resource *func_1502B5C8(s32 *, s32, ...);
+Game6A3D0Resource *func_1502B5C8(u32 *, s32, ...);
 void func_1503D45C(s32 *, s32);
 void func_1503D484(u8 *, s32);
 void func_1503D510(s32);
 
 s32 func_1503D660(s32 arg0, s32 arg1) {
-    s32 size;
+    u32 size;
     void ***slot;
     void **data;
 
@@ -162,7 +162,7 @@ s32 func_1503D660(s32 arg0, s32 arg1) {
     func_1503D510(arg0);
     return 0;
 }
-s32 *func_1502B6BC(s32 *, s32, s32, s32, s32, s32);
+s32 *func_1502B6BC(u32 *, s32, s32, s32, s32, s32);
 extern s32 D_800D1C90[];
 
 /* Semantic role: model_load_bank11_defaults.
@@ -170,7 +170,7 @@ extern s32 D_800D1C90[];
  * See docs/evidence/assets/naming/actor_representation_asset_semantics.md.
  */
 s32 func_1503D774(s32 arg0, void *arg1) {
-    s32 sp2C;
+    u32 sp2C;
     s32 *v;
 
     if (D_800D1C90[arg0] != 0) {

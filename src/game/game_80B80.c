@@ -297,7 +297,7 @@ void func_15054F74(u8 *arg0) {
         if (desired != 0) {
             if (D_800BE616 != 0) {
                 func_1508B20C(*(f32 *)(arg0 + 0x14), *(f32 *)(arg0 + 0x18),
-                    *(f32 *)(arg0 + 0x1C), 0x44610000);
+                    *(f32 *)(arg0 + 0x1C), 900.0f);
                 desired = *(s32 *)(arg0 + 0x2E4);
             }
             step = D_800BE9E4;

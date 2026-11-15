@@ -1104,7 +1104,7 @@ typedef struct {
 } Game215960Vertex;
 
 s32 func_10003C40(s32, s32, s32, s32);
-s32 func_1502B6BC(s32 *, s32, s32 *, s32, ...);
+s32 func_1502B6BC(u32 *, s32, s32 *, s32, ...);
 s32 func_1510CE60(s32, s32, s32, s32, void *);
 extern Game215960Resource *D_80090138;
 extern Game215960ResourceState *D_800E0C7C;

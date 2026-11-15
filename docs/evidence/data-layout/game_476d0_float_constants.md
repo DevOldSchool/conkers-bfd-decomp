@@ -39,7 +39,11 @@ The generated `game_476D0.o` has 0x20 bytes of `.rodata`: the five constants
 in this order and 12 zero alignment bytes, with no data relocations.
 `config/game/us-rodata.ld` maps it as an INFO section at `0x800968F4` with a
 0x20 extent assertion and a 0x14 payload; `config/data/us.json` records the
-owner. The ROM words at `0x80096908..0x8009690F` are zero. The words below the
-mapping (`0x800968E0..0x800968F3`) are read by other members through externs
-and are not part of it. No reference assembly, compiler flag or verifier
+owner. Only the 0x14 payload bytes are claimed. The informational alignment
+extent runs on to `0x80096913`: the ROM words at `0x80096908..0x8009690F` are
+zero, and `0x80096910` holds `3DCCCCCD` (`0.1f`), which belongs to the next
+unit (`func_1501B320` in `game_487D0` loads it with the HI16/LO16 pair at
+`1501B374`/`1501B378`); the game-data archive still supplies that word. The words below
+the mapping (`0x800968E0..0x800968F3`) are read by other members through
+externs and are not part of it. No reference assembly, compiler flag or verifier
 change is involved.

@@ -15,7 +15,7 @@
 
 void func_1510CE60(s32, s32, s32, s32, void *);
 void func_15168E54(s32, s32 *);
-s32 func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+s32 func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 extern u8 D_800DF7D0[];
 extern s32 D_800DF9B8[];
 extern s32 *D_800E0148[];

@@ -17,7 +17,7 @@ typedef struct {
     u8 data[1];
 } GameB3020Image;
 
-GameB3020Image *func_1502B5C8(s32, s32, s32, void *);
+GameB3020Image *func_1502B5C8(u32 *, s32, s32, void *);
 s32 func_15085BE8(void);
 extern s16 D_80087290;
 extern s16 D_80087294;

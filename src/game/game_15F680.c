@@ -719,7 +719,7 @@ void func_15133588(void *arg0, void *arg1, u8 arg2) {
         callback(arg0, arg1, arg2);
     }
 }
-s32 *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+s32 *func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 s32 func_1510CE60(s32, s32, s32, s32, void *);
 void func_15168E54(s8 *, s32);
 extern s32 D_800A3880[];
@@ -733,7 +733,7 @@ extern u8 D_800DC640[];
  * success is not checked here. No local selector bounds check is performed.
  */
 s32 func_151336A8(s32 arg0, Game15F680ListNode *arg1, void *arg2) {
-    s32 sp2C;
+    u32 sp2C;
     s32 sp28;
 
     arg1->resource = func_1502B6BC(&sp2C, 0, &sp28, 2, 9, D_800A3880[arg0]);
