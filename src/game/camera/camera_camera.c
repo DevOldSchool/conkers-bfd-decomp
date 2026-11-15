@@ -913,7 +913,7 @@ extern f32 D_800A3510;
 extern f32 D_800A3514;
 extern f32 D_800A3518;
 
-void func_15124C38(void *arg0, s32 arg1) {
+void func_15124C38(void *arg0, f32 *arg1) {
     f32 target;
     f32 factor;
     f32 height;
@@ -1008,7 +1008,7 @@ void func_15124C38(void *arg0, s32 arg1) {
                 }
             }
             if (arg1 != 0) {
-                *(f32 *)arg1 = target;
+                *arg1 = target;
                 return;
             }
             if (*((u8 *)arg0 + 0x23C) != 0) {
@@ -1565,7 +1565,7 @@ void func_15125DB4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125DB4.s")
 void func_151220D0(void *);
 void func_151247C0(void *);
-void func_15124C38(void *, s32);
+void func_15124C38(void *, f32 *);
 
 void func_15126138(u8 *arg0) {
     u8 *target;
@@ -2330,7 +2330,7 @@ void func_15127FEC(void *arg0, void *arg1, void *arg2) {
 }
 f32 func_15048720(f32, f32, f32);
 void func_15123568(u8 *);
-void func_15124C38(void *, s32);
+void func_15124C38(void *, f32 *);
 void func_15125594(void *);
 void func_151287E0(void *, void *, void *);
 
@@ -2394,7 +2394,7 @@ s32 func_15128030(u8 *arg0) {
             (*(f32 *)((u8 *)(temp_s1) + 0x28)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x374));
             (*(f32 *)((u8 *)(arg0) + 0x838)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x348));
             (*(f32 *)((u8 *)(temp_s1) + 0x10)) = (f32) (*(f32 *)((u8 *)((*(void **)((u8 *)(arg0) + 0x3D0))) + 0x14));
-            func_15124C38(arg0, (s32) (temp_s1 + 0x14));
+            func_15124C38(arg0, (f32 *) (temp_s1 + 0x14));
             temp_fv0 = (*(f32 *)((u8 *)(temp_s1) + 0x2C));
             (*(f32 *)((u8 *)(temp_s1) + 0x18)) = (f32) (*(f32 *)((u8 *)((*(void **)((u8 *)(arg0) + 0x3D0))) + 0x1C));
             if (temp_fv0 < 0.0f) {

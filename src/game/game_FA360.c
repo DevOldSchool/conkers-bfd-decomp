@@ -320,7 +320,7 @@ void func_150CD7F8(u8 *arg0) {
             if (fabsf(diff) < 0.39269912f) {
                 random = func_150ADA68();
                 particle.position.y = 1613.5835f * random + 2411.0085f + 500.0f;
-                func_1514373C(angle, random * 2026.6800000000003 + 8400.0,
+                func_1514373C(angle, random * (10426.68 - 8400.0) + 8400.0,
                               &particle.position.x, &particle.position.z);
                 particle.countBase = 15;
                 particle.countRange = 20;

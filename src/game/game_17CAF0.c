@@ -254,7 +254,7 @@ typedef struct {
 } Game17CAF0ParticleConfig;
 void func_1514FF44(void *, Game17CAF0ParticleConfig *, s32, u8, s32);
 
-void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
+void func_1514FEFC(s32 arg0, Game17CAF0ParticleConfig *arg1, s32 arg2, u8 arg3, s32 arg4) {
     u8 sp24[0x30];
 
     func_1514F640(arg0, sp24 + 4);

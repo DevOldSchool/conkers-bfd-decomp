@@ -51,8 +51,6 @@ class SpanProofTests(unittest.TestCase):
             linked_aliases.function(obj, "func_test", len(payload) - 4)
 
 
-@unittest.skipUnless(shutil.which("mips-linux-gnu-as") and shutil.which("mips-linux-gnu-ld"),
-                     "requires pinned MIPS binutils")
 class AddressNameTests(unittest.TestCase):
     def test_short_splat_names_resolve_to_the_address_they_state(self):
         for name, address in (("D_AB1950", 0x00AB1950), ("D_2D4B0", 0x0002D4B0),
@@ -64,6 +62,8 @@ class AddressNameTests(unittest.TestCase):
             self.assertIsNone(linked_aliases.ADDRESS.fullmatch(name), name)
 
 
+@unittest.skipUnless(shutil.which("mips-linux-gnu-as") and shutil.which("mips-linux-gnu-ld"),
+                     "requires pinned MIPS binutils")
 class LinkedAliasToolchainTests(unittest.TestCase):
     def assemble(self, root, name, expression, *, tail="nop", extent=16):
         path = root / (name + ".s")
