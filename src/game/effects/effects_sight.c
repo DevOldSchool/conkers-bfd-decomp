@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C756C
- * - func_151C7E98
  * - func_151C87E0
  * - func_151C8FCC
  * - func_151C9198
@@ -110,7 +109,112 @@ s32 func_151C71A0(Sight71Parameters *arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C756C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C7E98.s")
+void *func_10022EC0(void *, const void *, u32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+s32 func_15144B34(s32);
+void func_15145548(void *, void *, void *, void *, f32 *);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+
+typedef struct SightBeamVertex {
+    s16 x, y, z, flag;
+    s16 s, t;
+    u8 color[4];
+} SightBeamVertex;
+
+typedef struct SightBeamLink {
+    u8 pad0[2];
+    s16 mask;
+} SightBeamLink;
+
+typedef struct SightBeamTexture {
+    f32 s, t;
+    u8 pad8[0x7E];
+    u8 flags;
+    u8 pad87[5];
+    SightBeamLink *first;
+    SightBeamLink *second;
+} SightBeamTexture;
+
+void *func_151C7E98(void *arg0, s16 arg1) {
+    SightBeamVertex *vertices;
+    void *result;
+    Vec3f *camera;
+    Vec3f delta;
+    Vec3f point;
+    f32 nx, ny, nz;
+    f32 dx, dy, dz;
+    f32 lengthSquared;
+    f32 scale;
+    u8 fresh;
+    SightBeamTexture *texture;
+
+    texture = (SightBeamTexture *)((u8 *)arg0 + 0x110);
+    if (!(*((u8 *)arg0 + 0x196) & 2)) {
+        return NULL;
+    }
+    if (texture->flags & 4) {
+        if (!(texture->first->mask & (1 << arg1)) && !(texture->second->mask & (1 << arg1))) {
+            return NULL;
+        }
+    }
+    func_151D5D60((u8 *)arg0 + 0x100, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != NULL) {
+        if (fresh != 0) {
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg1 * 4 + 0x100), (u8 *)arg0 + 0xC0, 0x40);
+            func_10022EC0(*(u8 **)((u8 *)arg0 + arg1 * 4 + 0x100) + 0x40, (u8 *)arg0 + 0xC0, 0x40);
+        }
+    } else {
+        return NULL;
+    }
+    camera = (Vec3f *)func_15144B34(arg1);
+    delta.x = *(f32 *)((u8 *)arg0 + 0x40) - *(f32 *)((u8 *)arg0 + 0x34);
+    delta.y = *(f32 *)((u8 *)arg0 + 0x44) - *(f32 *)((u8 *)arg0 + 0x38);
+    delta.z = *(f32 *)((u8 *)arg0 + 0x48) - *(f32 *)((u8 *)arg0 + 0x3C);
+    func_15145548((u8 *)arg0 + 0x34, &delta, camera, &point, NULL);
+    dx = point.x - camera->x;
+    dy = point.y - camera->y;
+    dz = point.z - camera->z;
+    nx = delta.y * dz - dy * delta.z;
+    ny = delta.z * dx - dz * delta.x;
+    nz = delta.x * dy - dx * delta.y;
+    lengthSquared = nx * nx + ny * ny + nz * nz;
+    if (lengthSquared == 0.0f) {
+        nx = 0.0f;
+        ny = 0.0f;
+        nz = 0.0f;
+    } else {
+        scale = *(f32 *)((u8 *)arg0 + 0x30) / sqrtf(lengthSquared);
+        nx *= scale;
+        ny *= scale;
+        nz *= scale;
+    }
+    vertices->x = (s32)(*(f32 *)((u8 *)arg0 + 0x40) - nx);
+    vertices->y = (s32)(*(f32 *)((u8 *)arg0 + 0x44) - ny);
+    vertices->z = (s32)(*(f32 *)((u8 *)arg0 + 0x48) - nz);
+    vertices->s = (s32)texture->s;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = (s32)(*(f32 *)((u8 *)arg0 + 0x34) - nx);
+    vertices->y = (s32)(*(f32 *)((u8 *)arg0 + 0x38) - ny);
+    vertices->z = (s32)(*(f32 *)((u8 *)arg0 + 0x3C) - nz);
+    vertices->s = (s32)texture->t;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = (s32)(*(f32 *)((u8 *)arg0 + 0x34) + nx);
+    vertices->y = (s32)(*(f32 *)((u8 *)arg0 + 0x38) + ny);
+    vertices->z = (s32)(*(f32 *)((u8 *)arg0 + 0x3C) + nz);
+    vertices->s = (s32)texture->t;
+    vertices->flag = 0;
+    vertices++;
+    vertices->x = (s32)(*(f32 *)((u8 *)arg0 + 0x40) + nx);
+    vertices->y = (s32)(*(f32 *)((u8 *)arg0 + 0x44) + ny);
+    vertices->z = (s32)(*(f32 *)((u8 *)arg0 + 0x48) + nz);
+    vertices->s = (s32)texture->s;
+    vertices->flag = 0;
+    return result;
+}
 typedef struct SightOscillation {
     f32 x, y, centerX, centerY, radiusX, radiusY;
     f32 angleX, angleY, speedX, speedY;

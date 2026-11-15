@@ -8728,8 +8728,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1080,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C7E98",
           "vram": "0x151C7E98"
         }
@@ -10526,17 +10531,16 @@
       "symbol": "func_1506045C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2818,
-        "reason": "Best CURRENT (2818); manual budget exhausted; handle promoted to saved GPR, frame and call spill layout remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 696,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15060778",
           "vram": "0x15060778"
         }
@@ -52484,17 +52488,16 @@
       "symbol": "func_1514F808"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2199,
-        "reason": "Best CURRENT2199 retained; FP schedule and initial saved registers agree, frame/homes and hoisted pointer lifetimes differ after three comparisons.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 672,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514F8F8",
           "vram": "0x1514F8F8"
         }
@@ -70328,17 +70331,16 @@
       "symbol": "func_150F64B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 438,
-        "reason": "Best valid candidate CURRENT 438; initial 458, saved-pointer alias revision worsened to 668, final generation-load/RNG-order revision 438. Same 0xC8 frame; remaining pointer and aggregate stack homes, six register differences, four reordered load rows. Next hypothesis: group light/vector locals by their actual lifetimes, preserving six-byte descriptor and three-coordinate outputs. Two manual revisions exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 884,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F64DC",
           "vram": "0x150F64DC"
         }

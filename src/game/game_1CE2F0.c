@@ -347,11 +347,11 @@ void func_151A2A14(s32 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, s
 extern void func_151A2C24(s32, s32, s32, s32, f32, f32, f32, s32,
     f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-void func_151A2AD4(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4,
+void func_151A2AD4(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, s32 arg4,
     f32 arg5, f32 arg6, f32 arg7, f32 arg8, s16 arg9, s16 arg10,
     s16 arg11, s16 arg12, s16 arg13, s16 arg14, s8 arg15, u8 arg16,
     s32 arg17) {
-    func_151A2C24(arg0, arg1, 0, 0, 0.0f, arg2, arg3, arg4,
+    func_151A2C24((s32)arg0, (s32)arg1, 0, 0, 0.0f, arg2, arg3, arg4,
         arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13,
         arg14, arg15, arg16, arg17, 0);
 }

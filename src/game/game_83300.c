@@ -22,7 +22,6 @@
  * - func_1505E650
  * - func_1505E874
  * - func_1505F298
- * - func_15060778
  * - func_15060F28
  * - func_150611E8
  * - func_150619A8
@@ -2344,17 +2343,14 @@ typedef struct {
 
 void func_1000F85C(u16, s32, s32);
 void func_1000F91C(u16, s32, s16, s32, s32, s32, s32, s32, s32, s32);
-u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-u16 func_10010BE8(s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010E78(u16, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010BE8(u16, s32, s32, s32, s32, s32, s32);
 s32 func_1001147C(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060778 CURRENT (2818) */
-void func_15060778(s32 arg0, Game83300DispatchState *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
-    u32 handle;
+void func_15060778(s32 arg0, Game83300DispatchState *arg1, u16 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     s32 channel;
-    s32 mode;
+    u32 handle;
     u16 *slot;
-    u16 result;
 
     handle = 0;
     slot = 0;
@@ -2363,8 +2359,7 @@ void func_15060778(s32 arg0, Game83300DispatchState *arg1, s32 arg2, s32 arg3, s
     } else {
         channel = (*(u32 *)&arg1->pad_0[0x184] >> 3) & 0x30;
     }
-    mode = arg6 & 3;
-    switch (mode) {
+    switch (arg6 & 3) {
     case 1:
         slot = (u16 *)&arg1->pad_0[0x8C];
         handle = *(u16 *)&arg1->pad_0[0x8C];
@@ -2373,19 +2368,19 @@ void func_15060778(s32 arg0, Game83300DispatchState *arg1, s32 arg2, s32 arg3, s
     case 3:
         slot = (u16 *)&arg1->pad_0[0x8E];
         handle = *(u16 *)&arg1->pad_0[0x8E];
-        if (mode == 2) {
+        if ((arg6 & 3) == 2) {
             break;
         }
-        if ((func_1001147C((u16)handle) == arg0) & 0x7FFF) {
+        if ((func_1001147C(handle) == arg0) & 0x7FFF) {
             if (arg6 & 4) {
-                func_1000F91C((u16)handle, (u16)((u16)arg2 + channel * 50),
+                func_1000F91C(handle, (u16)(arg2 + channel * 50),
                               (s16)(arg1->pad_0[0x13F] * 10 + arg3), channel & 0xFF, 0,
                               (s32)*(f32 *)&arg1->pad_0[0x14],
                               (s32)*(f32 *)&arg1->pad_0[0x18],
                               (s32)*(f32 *)&arg1->pad_0[0x1C], arg4, arg5);
             } else {
-                func_1000F85C((u16)handle, 0x10, arg3);
-                func_1000F85C((u16)handle, 8, (u16)arg2 + channel * 50);
+                func_1000F85C(handle, 0x10, arg3);
+                func_1000F85C(handle, 8, arg2 + channel * 50);
             }
             return;
         }
@@ -2393,26 +2388,24 @@ void func_15060778(s32 arg0, Game83300DispatchState *arg1, s32 arg2, s32 arg3, s
         break;
     }
     if (arg6 & 4) {
-        result = func_10010E78((u16)handle, arg0, (u16)((u16)arg2 + channel * 50),
+        handle = func_10010E78(handle, arg0, (u16)(arg2 + channel * 50),
                               (s16)arg3, channel, 0,
                               (s32)*(f32 *)&arg1->pad_0[0x14],
                               (s32)*(f32 *)&arg1->pad_0[0x18],
                               (s32)*(f32 *)&arg1->pad_0[0x1C], arg4, arg5);
     } else {
-        result = func_10010BE8((u16)handle, arg0, (u16)((u16)arg2 + channel * 50),
+        handle = func_10010BE8(handle, arg0, (u16)(arg2 + channel * 50),
                               0x40, arg3, channel, 1);
     }
     if (slot != 0) {
-        *slot = result;
+        *slot = handle;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15060778 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
 
 /* Call context: func_10010344: unique active project prototype */
 s32 func_10010344(s32, s32, u32, s16, s32);
 void func_10010630(u16, Game83300DispatchState *, s32, s32, s32);
-void func_15060778(s32, Game83300DispatchState *, s32, s32, s32, s32, s32);
+void func_15060778(s32, Game83300DispatchState *, u16, s32, s32, s32, s32);
 
 void func_15060A30(s32 arg0, Game83300DispatchState *arg1) {
     if (arg1->field_318 == 0) {
