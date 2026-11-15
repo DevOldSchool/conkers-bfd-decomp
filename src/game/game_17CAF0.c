@@ -7,8 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1514F8F8
- * - func_1514FF44
- * - func_15150178
  * - func_15150400
  * - func_1515080C
  * - func_15150D1C
@@ -251,14 +249,6 @@ void func_1514FCE8(s16 *arg0, u8 arg1, s32 arg2) {
     }
 }
 void func_1514F640(s32, u8 *);
-void func_1514FF44(void *, s32, s32, s32, s32);
-
-void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
-    u8 sp24[0x30];
-
-    func_1514F640(arg0, sp24 + 4);
-    func_1514FF44(sp24 + 4, arg1, arg2, arg3, arg4);
-}
 typedef struct {
     Vec3f position;
     s16 countBase;
@@ -282,104 +272,69 @@ typedef struct {
     u8 pad39[3];
     f32 flagChance;
 } Game17CAF0ParticleConfig;
+void func_1514FF44(void *, Game17CAF0ParticleConfig *, s32, u8, s32);
+
+void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
+    u8 sp24[0x30];
+
+    func_1514F640(arg0, sp24 + 4);
+    func_1514FF44(sp24 + 4, arg1, arg2, arg3, arg4);
+}
 
 void func_1514F808(u8 *, f32, f32 *);
-void *func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
-                      f32, f32, s32, void *, s32, s32, s32, s32);
-extern f32 D_800A5FF0;
+void *func_151D9014(f32 *, f32 *, u8, f32, s16, u8, f32, u8, f32, f32, u8, void *, u8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514FF44 CURRENT (940) */
-void func_1514FF44(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    f32 randomSize;
-    f32 randomVariant;
-    f32 randomSpeed;
-    f32 constant;
-    f32 direction[3];
-    f32 randomFlag;
+void func_1514FF44(void *arg0, Game17CAF0ParticleConfig *arg1, s32 arg2, u8 arg3, s32 arg4) {
     s32 count;
-    u32 randomLife;
-    u32 randomAlpha;
-    Game17CAF0ParticleConfig *config;
+    f32 direction[3];
 
-    config = (Game17CAF0ParticleConfig *)arg1;
     if (func_1514F6E8(arg0) != 0) {
-        count = (func_150ADA20() % (u32)(config->countRange + 1)) + config->countBase;
+        count = (func_150ADA20() % (u32)(arg1->countRange + 1)) + arg1->countBase;
         if (count != 0) {
-            constant = D_800A5FF0;
             do {
                 func_1514F808(arg0,
-                    func_150ADA68() * config->directionRange + config->directionBase,
+                    func_150ADA68() * arg1->directionRange + arg1->directionBase,
                     direction);
-                randomSpeed = func_150ADA68();
-                randomLife = func_150ADA20();
-                randomAlpha = func_150ADA20();
-                randomSize = func_150ADA68();
-                randomVariant = func_150ADA68();
-                randomFlag = func_150ADA68();
-                func_151D9014(&config->position.x, direction, config->kind,
-                    randomSpeed * config->speedRange + config->speedBase,
-                    (randomLife % (u32)(config->lifeRange + 1)) + config->lifeBase,
-                    (randomAlpha % (u32)(config->alphaRange + 1)) + config->alphaBase,
-                    randomSize * config->sizeRange + config->sizeBase,
-                    randomVariant < config->variantChance,
-                    constant, constant, 1, (void *)arg2, config->flag,
-                    randomFlag < config->flagChance, arg3 & 0xFF, arg4);
+                func_151D9014(&arg1->position.x, direction, arg1->kind,
+                    func_150ADA68() * arg1->speedRange + arg1->speedBase,
+                    (func_150ADA20() % (u32)(arg1->lifeRange + 1)) + arg1->lifeBase,
+                    (func_150ADA20() % (u32)(arg1->alphaRange + 1)) + arg1->alphaBase,
+                    func_150ADA68() * arg1->sizeRange + arg1->sizeBase,
+                    func_150ADA68() < arg1->variantChance,
+                    1.4f, 1.4f, 1, (void *)arg2, arg1->flag,
+                    func_150ADA68() < arg1->flagChance, arg3, arg4);
                 count--;
             } while (count != 0);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514FF44 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514FF44.s")
+
 void func_15143794(s16, s16, f32, void *);
-extern f32 D_800A5FF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15150178 CURRENT (1119) */
-void func_15150178(s16 *arg0, f32 *arg1, s32 arg2, u8 arg3, s32 arg4) {
-    Game17CAF0ParticleConfig *config;
-    Vec3f direction;
-    f32 randomSize;
-    f32 randomVariant;
-    f32 randomSpeed;
-    f32 constant;
-    f32 randomFlag;
+void func_15150178(s16 *arg0, Game17CAF0ParticleConfig *config, s32 arg2, u8 arg3, s32 arg4) {
     s32 count;
-    u32 randomA;
-    u32 randomB;
+    Vec3f direction;
 
-    config = (Game17CAF0ParticleConfig *)arg1;
-    count = (s32)((func_150ADA20() % (u32)(config->countRange + 1)) +
-                  (u32)config->countBase);
+    count = (func_150ADA20() % (u32)(config->countRange + 1)) + config->countBase;
     if (count != 0) {
-        constant = D_800A5FF4;
         do {
-            randomA = func_150ADA20();
-            randomB = func_150ADA20();
             func_15143794(
-                (s16)((randomA % (u32)(arg0[1] + 1)) + (u32)arg0[0]),
-                (s16)((randomB % (u32)(arg0[3] + 1)) + (u32)arg0[2]),
+                (s16)(arg0[0] + (func_150ADA20() % (u32)(arg0[1] + 1))),
+                (s16)(arg0[2] + (func_150ADA20() % (u32)(arg0[3] + 1))),
                 func_150ADA68() * config->directionRange + config->directionBase,
                 &direction);
-            randomSpeed = func_150ADA68();
-            randomA = func_150ADA20();
-            randomB = func_150ADA20();
-            randomSize = func_150ADA68();
-            randomVariant = func_150ADA68();
-            randomFlag = func_150ADA68();
             func_151D9014(&config->position.x, &direction.x, config->kind,
-                randomSpeed * config->speedRange + config->speedBase,
-                (randomA % (u32)(config->lifeRange + 1)) + (u32)config->lifeBase,
-                (randomB % (u32)(config->alphaRange + 1)) + config->alphaBase,
-                randomSize * config->sizeRange + config->sizeBase,
-                randomVariant < config->variantChance,
-                constant, constant, 1, (void *)arg2, config->flag,
-                randomFlag < config->flagChance, arg3, arg4);
-            count = (s32)((u32)count - 1U);
+                func_150ADA68() * config->speedRange + config->speedBase,
+                config->lifeBase + (func_150ADA20() % (u32)(config->lifeRange + 1)),
+                config->alphaBase + (func_150ADA20() % (u32)(config->alphaRange + 1)),
+                func_150ADA68() * config->sizeRange + config->sizeBase,
+                func_150ADA68() < config->variantChance,
+                1.4f, 1.4f, 1, (void *)arg2, config->flag,
+                func_150ADA68() < config->flagChance, arg3, arg4);
+            count--;
         } while (count != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15150178 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150178.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150400.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1515080C.s")
 typedef struct Game150D1CConfig {

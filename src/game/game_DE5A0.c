@@ -5,11 +5,6 @@
 /*
  * Reviewed source unit: src/game/game_DE5A0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_table_selected_collections.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150B1484
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 /* Call context: func_1505A184: unique active project prototype */
@@ -103,20 +98,25 @@ void func_15052760(void *, s16);
 void func_150585F0(u8 *, f32);
 extern u8 *D_800D20FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B1484 CURRENT (1000) */
+/* 0x30-byte records behind D_800D20FC (y at 0x8, as in Game43B20Source). */
+typedef struct GameDE5A0Track {
+    u8 pad0[8];
+    s16 y;
+    u8 padA[0x26];
+} GameDE5A0Track;
+
 void func_150B1484(u8 *arg0) {
     u16 original;
-    f32 height;
-    f32 travelTime;
     f32 positive;
     f32 range;
-    s32 kind;
     s32 offset;
 
     original = *(u16 *)(arg0 + 0x76);
     arg0[0x80] = 10;
     if (arg0[0x104] == 0) {
-        height = (f32)*(s16 *)(D_800D20FC + arg0[0x13F] * 0x30 + 8) + 210.0f;
+        f32 height;
+
+        height = (f32)((GameDE5A0Track *)D_800D20FC)[arg0[0x13F]].y + 210.0f;
         if (!(*(u16 *)(arg0 + 0x22C) & 8)) {
             if (arg0[0x223] != 3) {
                 *(f32 *)(arg0 + 0xB8) = *(f32 *)(arg0 + 0x20) * -0.5f;
@@ -124,13 +124,13 @@ void func_150B1484(u8 *arg0) {
                 *(f32 *)(arg0 + 0xB8) = 0.0f;
             }
         }
-        kind = arg0[0x223];
-        if (kind == 14) {
-            travelTime = func_1505A6F8(&D_800CC2D0 + arg0[0x222] * 0x32C, arg0) / *(f32 *)(arg0 + 0x3C);
+        if (arg0[0x223] == 14) {
+            f32 travelTime = func_1505A6F8(&D_800CC2D0 + arg0[0x222] * 0x32C, arg0) / *(f32 *)(arg0 + 0x3C);
+
             *(f32 *)(arg0 + 0x20) = (*(f32 *)((u8 *)&D_800CC2E8 + arg0[0x222] * 0x32C) + (f32)*(s16 *)(arg0 + 0x224) - *(f32 *)(arg0 + 0x18)) / travelTime;
             *(f32 *)(arg0 + 0x24) = 0.0f;
         } else {
-            if (kind == 1) {
+            if (arg0[0x223] == 1) {
                 height = D_800CC2E8 + 210.0f;
             }
             offset = *(s16 *)(arg0 + 0x224);
@@ -138,8 +138,7 @@ void func_150B1484(u8 *arg0) {
                 if (offset == 10000) {
                     height = (f32)D_800D2104[arg0[0x13F]][arg0[0x21E] + 1].y;
                 } else {
-                    kind = arg0[4];
-                    if (kind == 0x50 || kind == 5 || kind == 0xAD || kind == 0xAE || kind == 0xAF) {
+                    if (arg0[4] == 0x50 || arg0[4] == 5 || arg0[4] == 0xAD || arg0[4] == 0xAE || arg0[4] == 0xAF) {
                         height = (f32)(offset * 8);
                     } else {
                         height = (f32)(offset * 8);
@@ -165,16 +164,13 @@ void func_150B1484(u8 *arg0) {
     }
     *(f32 *)(arg0 + 0x40) = (f32)(s16)(*(u16 *)(arg0 + 0x7A) + 0x4000) * 0.005493164f;
     func_15059140(arg0);
-    kind = arg0[4];
-    if (kind == 5 || kind == 0xAD || kind == 0xAE || kind == 0xAF || kind == 0x44) {
+    if (arg0[4] == 5 || arg0[4] == 0xAD || arg0[4] == 0xAE || arg0[4] == 0xAF || arg0[4] == 0x44) {
         func_15052760(arg0, (s16)original);
     }
     if (func_150535F4(arg0) == 0) {
         func_1502178C(arg0, 0, -1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B1484 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DE5A0/func_150B1484.s")
 /* Call context: func_15056B08: unique active declaration in the allowed source */
 /* Call context: func_1505A184: unique active declaration in the allowed source */
 /* Call context: func_1505A630: unique active declaration in the allowed source */

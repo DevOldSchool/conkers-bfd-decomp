@@ -46552,17 +46552,16 @@
       "symbol": "func_150A0D14"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1208,
-        "reason": "Best CURRENT (1208); frame/distance sequence agree, constant caching and FP call scheduling remain after three manual comparisons.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 692,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150A0D8C",
           "vram": "0x150A0D8C"
         }
@@ -50842,17 +50841,16 @@
       "symbol": "func_151D792C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 574,
-        "reason": "Best CURRENT (574): complete 28-byte trail entries, all FP schedules and spill homes recovered; 16 rows remain, chiefly frame D8 versus C8, endpoint CC versus B4, cursor 7C versus 88, loop delay slot and symmetric branch operand order. Three manual candidates exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 664,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D7A38",
           "vram": "0x151D7A38"
         }
@@ -52578,17 +52576,16 @@
       "symbol": "func_1514FEFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 940,
-        "reason": "Three manual candidates: CURRENT946,946,940. Array representation and removing explicitmask plateau; fullword arg3 removes required incoming SW, still creates S1 toS5 lifetime. FrameC8 vsB8, vectorAC vsA8 after declaration reorder, two commuted multiplies. Audited16slot ABI and12byte output; preserve candidate for new stack/lifetime hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 564,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514FF44",
           "vram": "0x1514FF44"
         }
@@ -52597,17 +52594,16 @@
       "symbol": "func_1514FF44"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1119,
-        "reason": "Best1119 retained after three manual candidates; explicit color/payload/direction snapshots and register homes worsen1765/1757. Complete12byte output and raw16argument helper reconstructed. FrameC8 vsB8, directionB8 vsA8, persistent saved-register ownership and FP/GPR scheduling remain; no shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 648,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15150178",
           "vram": "0x15150178"
         }
@@ -56696,17 +56692,16 @@
       "symbol": "func_1517A394"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Round14 2026-10-20: void *arg1 with named effect local (stops D_800DD450 address CSE), separate D_800D35E0/D_800D35E4 externs, block-scoped u8 flag around func_15142FBC, (D_800D2C9C | 0x80000) | 0x2CA0, D_800DD450 != fadeB3 order; remaining three-temp numbering offset before the final OR/DE block; ternary/switch mode and two 400 s permuter runs gave nothing. Round19 2026-10-22: randomized permuter 60 s (seed 1368083464) no exact; best CURRENT (50).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 676,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517A3A0",
           "vram": "0x1517A3A0"
         }
@@ -68916,17 +68911,16 @@
       "symbol": "func_150B12FC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1000,
-        "reason": "CURRENT (1000), frame 0x38 matches; early 210 constant and call-argument setup schedule differ, global-base allocation and address operand order differ, velocity store occupies branch delay slot instead of preceding branch. Three finishes and two bounded probe batches exhausted; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 856,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B1484",
           "vram": "0x150B1484"
         }
@@ -72020,17 +72014,16 @@
       "symbol": "func_151BC370"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 974,
-        "reason": "Manual budget exhausted: best CURRENT 974; main emitter body and phase-step homes match, but frame 120 versus 128, vector F0 versus F4, timestep 114 versus 118 and tail FP reload/control scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 656,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C4820",
           "vram": "0x151C4820"
         }
@@ -83848,17 +83841,16 @@
       "symbol": "func_151C2EF0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 570,
-        "reason": "Typed particle/light descriptor candidate570. Original pointer-derived base, scratch offsets and zero-float scheduling still differ; record-local probe614. Bounded manual hypotheses exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 852,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C2F48",
           "vram": "0x151C2F48"
         }

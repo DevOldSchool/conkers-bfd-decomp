@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150A09D0
- * - func_150A0D8C
  * - func_150A11C4
  * - func_150A1DA0
  * - func_150A24C0
@@ -19,7 +18,10 @@
  */
 
 typedef struct {
-    u8 pad0[0x14];
+    s32 active;
+    u8 model;
+    u8 kind;
+    u8 pad6[0xE];
     f32 x;
     f32 y;
     f32 z;
@@ -170,66 +172,48 @@ typedef struct { s32 active; u8 model, kind; } GameCDE80ActorHeader;
 extern u8 D_800CC2D0;
 extern u32 D_800D3094;
 extern s32 D_800D3098;
-extern f32 D_8009F5A8;
 s32 func_150AD9A0(s32, s32, s32);
 void func_15035808(s32, s32, f32, f32, f32, f32, f32, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A0D8C CURRENT (1208) */
 void func_150A0D8C(void) {
     u32 zoneIndex;
-    s32 offset, actorIndex, kind, distance, radius;
+    s32 offset;
+    s32 actorIndex;
     GameCDE80Actor *actor;
     GameCDE80Zone *zone;
-    f32 scale, value, edge;
     s16 vertical;
+    s32 distance;
+    f32 edge;
 
-    zoneIndex = 0;
-    offset = 0;
-    if (D_800D3094 != 0) {
-        scale = D_8009F5A8;
-        do {
-            zone = (GameCDE80Zone *)(D_800D3098 + offset);
-            if (zone->disabled == 0) {
-                actor = (GameCDE80Actor *)&D_800CC2D0;
-                actorIndex = 0;
-                if (((s32)zone->flags >> 2) == 6) {
-                    do {
-                        if (((GameCDE80ActorHeader *)actor)->active != 0) {
-                            kind = ((GameCDE80ActorHeader *)actor)->kind;
-                            if ((kind == 0 || kind == 1) &&
-                                func_150A1DA0(actor, D_800D3098 + offset, 1) == 0) {
-                                zone = (GameCDE80Zone *)(D_800D3098 + offset);
-                                vertical = (s32)(actor->y - (f32)zone->y);
-                                if (zone->mode == 0) {
-                                    distance = func_150AD9A0((s16)(s32)(actor->x - (f32)zone->x), vertical,
-                                                            (s16)(s32)(actor->z - (f32)zone->z));
-                                    zone = (GameCDE80Zone *)(D_800D3098 + offset);
-                                    radius = zone->radius;
-                                    if (distance < radius) {
-                                        value = (f32)radius;
-                                        edge = value * scale;
-                                        if (edge > 100.0f) edge = 100.0f;
-                                        func_15035808(2, actorIndex, (f32)zone->x, (f32)zone->y, (f32)zone->z,
-                                                     0.0f, zone->strength, value - edge, value, 255.0f);
-                                    }
-                                } else {
-                                    func_15035808(1, actorIndex, actor->x, actor->field180, actor->z,
-                                                 0.0f, 0.0f, 100.0f, 150.0f, 255.0f);
-                                }
+    for (zoneIndex = 0, offset = 0; zoneIndex < D_800D3094; zoneIndex++, offset += 0x34) {
+        zone = (GameCDE80Zone *)(D_800D3098 + offset);
+        if (zone->disabled == 0 && (zone->flags >> 2) == 6) {
+            for (actorIndex = 0; actorIndex != 25; actorIndex++) {
+                actor = (GameCDE80Actor *)&D_800CC2D0 + actorIndex;
+                if (actor->active == 0) {
+                    continue;
+                }
+                if ((actor->kind == 0 || actor->kind == 1) && func_150A1DA0(actor, offset + D_800D3098, 1) == 0) {
+                    zone = (GameCDE80Zone *)(D_800D3098 + offset);
+                    vertical = actor->y - zone->y;
+                    if (zone->mode == 0) {
+                        distance = func_150AD9A0((s16)(actor->x - zone->x), vertical, (s16)(actor->z - zone->z));
+                        zone = (GameCDE80Zone *)(D_800D3098 + offset);
+                        if (distance < zone->radius) {
+                            edge = zone->radius * 0.2f;
+                            if (edge > 100.0f) {
+                                edge = 100.0f;
                             }
+                            func_15035808(2, actorIndex, zone->x, zone->y, zone->z, 0.0f, zone->strength, zone->radius - edge, zone->radius, 255.0f);
                         }
-                        actorIndex++;
-                        actor++;
-                    } while (actorIndex != 25);
+                    } else {
+                        func_15035808(1, actorIndex, actor->x, actor->field180, actor->z, 0.0f, 0.0f, 100.0f, 150.0f, 255.0f);
+                    }
                 }
             }
-            zoneIndex++;
-            offset += 0x34;
-        } while (zoneIndex < D_800D3094);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A0D8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A0D8C.s")
 s32 func_150A1040(s32 arg0) {
     return arg0 + 0x400;
 }

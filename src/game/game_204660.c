@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D7A38
  * - func_151D7CD0
  * - func_151D80C4
  *
@@ -408,10 +407,11 @@ typedef struct Game204660Trail {
     Game204660TrailState *state;
 } Game204660Trail;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7A38 CURRENT (574) */
 s32 func_151D7A38(Game204660Trail *trail) {
+    Game204660TrailState *state;
+    Game204660TrailPoint *points;
     Vec3f endpoint;
-    Vec3f *previous;
+    Game204660TrailOwner *owner;
     f32 phase;
     f32 reciprocal;
     f32 xDifference;
@@ -419,17 +419,10 @@ s32 func_151D7A38(Game204660Trail *trail) {
     f32 zDifference;
     f32 time;
     f32 timeStep;
+    Vec3f position;
     f32 xStep;
     f32 yStep;
     f32 zStep;
-    Game204660TrailPoint *points;
-    Game204660TrailPoint *point;
-    Game204660TrailState *state;
-    Game204660TrailOwner *owner;
-    s32 start;
-    s32 end;
-    Vec3f position;
-    register Vec3f *cursor = &position;
 
     state = trail->state;
     points = trail->points;
@@ -440,12 +433,11 @@ s32 func_151D7A38(Game204660Trail *trail) {
     endpoint = owner->position;
     trail->position = endpoint;
     state->phase += 0.25f * D_800BE9A4;
-    phase = *(volatile f32 *)&state->phase;
+    phase = state->phase;
     if (phase > 1.0f) {
         reciprocal = 1.0f / phase;
-        previous = &state->previous;
         time = state->time + D_800BE9A4;
-        *cursor = *previous;
+        position = state->previous;
         xDifference = endpoint.x - state->previous.x;
         yDifference = endpoint.y - state->previous.y;
         zDifference = endpoint.z - state->previous.z;
@@ -454,8 +446,8 @@ s32 func_151D7A38(Game204660Trail *trail) {
         yStep = yDifference * reciprocal;
         zStep = zDifference * reciprocal;
         do {
-            point = &points[trail->end];
-            point->position = *cursor;
+            Game204660TrailPoint *point = &points[trail->end];
+            point->position = position;
             point->velocity = 0.0f;
             point->value10 = 0.0f;
             point->active = 0;
@@ -463,32 +455,27 @@ s32 func_151D7A38(Game204660Trail *trail) {
             func_151D8718(point, &point->velocity, time);
             trail->end++;
             time -= timeStep;
-            end = *(volatile s8 *)&trail->end;
-            if (trail->capacity == end) {
+            if (trail->end == trail->capacity) {
                 trail->end = 0;
-                end = *(volatile s8 *)&trail->end;
             }
-            start = trail->start;
             trail->count++;
-            if (start == end) {
-                trail->start = start + 1;
-                if (trail->capacity == *(volatile s8 *)&trail->start) {
+            if (trail->end == trail->start) {
+                trail->start++;
+                if (trail->start == trail->capacity) {
                     trail->start = 0;
                 }
                 trail->count--;
             }
-            cursor->x += xStep;
-            cursor->y += yStep;
-            cursor->z += zStep;
+            position.x += xStep;
+            position.y += yStep;
+            position.z += zStep;
             state->phase -= 1.0f;
-        } while (*(volatile f32 *)&state->phase > 1.0f);
-        *previous = *cursor;
+        } while (state->phase > 1.0f);
+        state->previous = position;
         state->time = time;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7A38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7A38.s")
 f32 func_15144528(f32, f32, f32);
 extern f32 D_800AB2DC, D_800AB2E0, D_800AB2E4, D_800AB2E8;
 
