@@ -1,5 +1,9 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_204660.c
@@ -7,7 +11,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151D7CD0
- * - func_151D80C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -585,7 +588,158 @@ s32 func_151D7CD0(Game204660Trail *trail) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7CD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7CD0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D80C4.s")
+
+typedef struct Game204660TrailVertex {
+    s16 x, y, z;
+    s16 flag;
+    s16 s, t;
+    u8 r, g, b, a;
+} Game204660TrailVertex;
+
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_80090CD4[];
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+extern f32 D_800DD1D8[];
+extern f32 D_800DD1E8[];
+
+Gfx *func_151D80C4(Game204660Trail *trail, Gfx *gdl, s16 arg2) {
+    Game204660TrailState *state;
+    Vec3f next;
+    Vec3f previous;
+    s32 index;
+    s32 last;
+    Game204660TrailPoint *points;
+    u8 flag;
+    u8 previousAlpha;
+    u8 alpha;
+    f32 xOffset;
+    f32 zOffset;
+    f32 previousS;
+    f32 s;
+    u8 scale;
+    Game204660TrailVertex *vtx;
+
+    if (trail->count < 2) {
+        return gdl;
+    }
+    points = trail->points;
+    state = trail->state;
+    func_151D5D60((u8 *)trail + 0x84, arg2, (trail->capacity * 2 + 10) * sizeof(Game204660TrailVertex), (void **)&vtx, NULL);
+    if (vtx == NULL) {
+        return gdl;
+    }
+    flag = 1;
+    gdl = (Gfx *)func_15142E24((s32)gdl, (s32)D_80090CD4, 0, 0, 0, 0, 0x1F, 0, 0, &flag, 0x3E);
+    gdl = func_15142B7C(gdl, 0x200005, 0x1F0600);
+    gdl = func_1513F4E4(gdl, 0x4C, &flag);
+    gdl = func_15142FBC(gdl, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[1][0] | D_800A4AC8[1][1], &flag);
+    if (*(u16 *)((u8 *)trail + 0x1E) & 2) {
+        index = trail->end - 1;
+        if (index < 0) {
+            index = trail->capacity - 1;
+        }
+        previous = trail->position;
+        previousAlpha = 0;
+        previousS = *(f32 *)((u8 *)state + 0x18);
+    } else {
+        s32 cursor;
+
+        cursor = trail->end - 1;
+        if (cursor < 0) {
+            cursor = trail->capacity - 1;
+        }
+        index = cursor - 1;
+        if (index < 0) {
+            index = trail->capacity - 1;
+        }
+        previous = points[cursor].position;
+        previousAlpha = points[cursor].active;
+        previousS = points[cursor].value18;
+    }
+    next = points[index].position;
+    xOffset = D_800DD1E8[arg2] * 5.5f;
+    zOffset = D_800DD1D8[arg2] * 5.5f;
+    alpha = points[index].active;
+    s = points[index].value18;
+    if (*(u16 *)((u8 *)trail + 0x1E) & 8) {
+        scale = (u8)(*(s16 *)((u8 *)trail + 0x1C) * 12);
+    } else {
+        scale = 0xFF;
+    }
+    previousAlpha = (previousAlpha * scale) >> 8;
+    vtx->x = previous.x + xOffset;
+    vtx->y = previous.y;
+    vtx->z = previous.z - zOffset;
+    vtx->s = previousS;
+    vtx->t = 0x800;
+    vtx->r = 0xFF;
+    vtx->g = 0xFF;
+    vtx->b = 0xFF;
+    vtx->a = previousAlpha;
+    vtx->flag = 0;
+    vtx++;
+    vtx->x = previous.x - xOffset;
+    vtx->y = previous.y;
+    vtx->z = previous.z + zOffset;
+    vtx->s = previousS;
+    vtx->t = 0;
+    vtx->r = 0xFF;
+    vtx->g = 0xFF;
+    vtx->b = 0xFF;
+    vtx->a = previousAlpha;
+    vtx->flag = 0;
+    vtx++;
+    do {
+        alpha = (alpha * scale) >> 8;
+        vtx->x = next.x + xOffset;
+        vtx->y = next.y;
+        vtx->z = next.z - zOffset;
+        vtx->s = s;
+        vtx->t = 0x800;
+        vtx->r = 0xFF;
+        vtx->g = 0xFF;
+        vtx->b = 0xFF;
+        vtx->a = alpha;
+        vtx->flag = 0;
+        vtx++;
+        vtx->x = next.x - xOffset;
+        vtx->y = next.y;
+        vtx->z = next.z + zOffset;
+        vtx->s = s;
+        vtx->t = 0;
+        vtx->r = 0xFF;
+        vtx->g = 0xFF;
+        vtx->b = 0xFF;
+        vtx->a = alpha;
+        vtx->flag = 0;
+        vtx++;
+        gSPVertex(gdl++, vtx - 4, 4, 0);
+        gSP1Triangle(gdl++, 0, 1, 2, 0);
+        gSP1Triangle(gdl++, 1, 3, 2, 0);
+        if (s < previousS) {
+            func_10022EC0(vtx, vtx - 2, 0x20);
+            vtx[-2].s -= 0x8000;
+            vtx++;
+            vtx[-2].s -= 0x8000;
+            vtx++;
+        }
+        last = index;
+        index--;
+        if (index < 0) {
+            index = trail->capacity - 1;
+        }
+        next = points[index].position;
+        alpha = points[index].active;
+        previousS = points[last].value18;
+        s = points[index].value18;
+    } while (last != trail->start);
+    return gdl;
+}
 extern f32 D_800AB2EC;
 extern f32 D_800AB2F0;
 

@@ -16,7 +16,6 @@
  * - func_1505B9C4
  * - func_1505C1E4
  * - func_1505C7D8
- * - func_1505D1C4
  * - func_1505DADC
  * - func_1505DDA8
  * - func_1505E650
@@ -1382,16 +1381,12 @@ extern f32 D_800D1368;
 extern f32 D_800D136C;
 extern s32 D_800D1510;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D1C4 CURRENT (30) */
-void func_1505D1C4(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4,
-                   u16 arg5, s32 arg6, s32 arg7) {
-    volatile struct {
-        s32 saved_state;
-        s32 pad;
-    } local;
+void func_1505D1C4(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, u16 arg5, s32 arg6, s32 arg7) {
+    s32 *obj = &D_800D121C;
+    s32 saved_state;
 
-    local.saved_state = D_800C3E78;
-    func_1505F188((u32)&D_800D121C);
+    saved_state = D_800C3E78;
+    func_1505F188((u32)obj);
     D_800D1230 = arg0;
     D_800D1234 = arg1;
     D_800D1238 = arg2;
@@ -1401,14 +1396,12 @@ void func_1505D1C4(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4,
     D_800C3E78 = 0x19;
     D_800D1510 = arg7;
     D_800D1330 = 100.0f;
-    D_800D12EC = arg3 + 1;
+    D_800D12EC = (arg3 & 0xFF) + 1;
     D_800D1368 = 0.5f;
     D_800D136C = 0.5f;
-    func_1505C7D8(&D_800D121C, 0x19);
-    D_800C3E78 = local.saved_state;
+    func_1505C7D8(obj, 0x19);
+    D_800C3E78 = saved_state;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505D1C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D1C4.s")
 u32 func_1505E7CC(s32, void *);
 void func_1505E874(u8, void *);
 extern u8 D_8009A6D8[];

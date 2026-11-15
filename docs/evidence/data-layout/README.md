@@ -100,6 +100,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_1BA670 spawn kind switch table](game_1ba670_jump_table.md)
 - [US game_1B8B60 particle constants](game_1b8b60_float_constants.md)
 - [US game_1D2B10 region emitter float constants](game_1d2b10_float_constants.md)
+- [US game_1E34C0 wave float constants](game_1e34c0_float_constants.md)
 - [US game_1E9A30 burst float constants](game_1e9a30_float_constants.md)
 - [US game_E4FF0 debris burst constants](game_e4ff0_float_constants.md)
 - [US game_B3020 range constants](game_b3020_float_constants.md)

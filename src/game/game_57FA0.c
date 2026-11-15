@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1502AC88
  * - func_1502B350
  * - func_1502B9B4
  *
@@ -57,7 +56,6 @@ void func_10004514(s32, s32, s32, s32);
 extern s32 D_800C3D60;
 extern Game2AB04Entry D_800C3E58;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AC88 CURRENT (10) */
 s32 func_1502AC88(u8 *arg0, s32 arg1, s32 *arg2) {
     union { u64 alignment; u8 bytes[64]; } transfer;
     s32 *values;
@@ -90,8 +88,6 @@ s32 func_1502AC88(u8 *arg0, s32 arg1, s32 *arg2) {
     func_1502AB04(2, values, D_800C3D60, (s32)arg0);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502AC88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AC88.s")
 
 void func_10004514(s32, s32, s32, s32);
 

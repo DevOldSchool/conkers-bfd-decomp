@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1502BEE4
  * - func_1502C408
  * - func_1502D824
  * - func_1502DB84
@@ -205,40 +204,41 @@ void func_1502F948(void *);
 void func_15030468(void);
 void func_1507C22C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502BEE4 CURRENT (4512) */
+#define GAME58F80_ACTORS (*(Game58F80Actor (*)[25])&D_800CC2D0)
 void func_1502BEE4(void) {
+    s32 i;
+    s32 j;
+    s32 active;
+    Game58F80Actor *actor;
+    Game58F80Actor *owner;
+    s16 flag;
     u8 ordered[25];
     u8 depth[25];
     s32 count;
     s32 maximum;
-    s32 i;
-    s32 j;
-    u8 flag;
-    Game58F80Actor *actor;
-    Game58F80Actor *owner;
 
     func_1503F964();
     D_800C3E90 = 0;
-    D_800C3E74 = 0;
     maximum = 0;
-    actor = (Game58F80Actor *)&D_800CC2D0;
-    do {
+    D_800C3E74 = 0;
+    for (i = 0; i < 25; i++) {
+        actor = &GAME58F80_ACTORS[i];
         flag = actor->field_274;
-        actor++;
         if (flag != 0) {
             D_800C3E74 |= 1 << (flag + 31);
         }
-    } while (actor < (Game58F80Actor *)&D_800D121C);
+    }
     func_100226F0(depth, 25);
-    actor = (Game58F80Actor *)&D_800CC2D0;
-    for (i = 0; i < 25; i++, actor++) {
-        if (actor->active != 0) {
+    for (i = 0; i < 25; i++) {
+        actor = &GAME58F80_ACTORS[i];
+        active = actor->active;
+        if (active != 0) {
             if (actor->owner65 != 0) {
                 owner = actor;
                 depth[i] = 0;
                 while (owner->owner65 != 0) {
+                    owner = &GAME58F80_ACTORS[owner->owner65 - 1];
                     depth[i]++;
-                    owner = (Game58F80Actor *)&D_800CC2D0 + owner->owner65 - 1;
                 }
                 if (maximum < depth[i]) {
                     maximum = depth[i];
@@ -258,26 +258,22 @@ void func_1502BEE4(void) {
             }
         }
         for (i = 0; i < count; i++) {
-            j = ordered[i];
-            func_1502BD84((Game58F80BD84Actor *)((Game58F80Actor *)&D_800CC2D0 + j), j);
+            func_1502BD84((Game58F80BD84Actor *)&GAME58F80_ACTORS[ordered[i]], ordered[i]);
         }
     }
     func_1502F3C8();
-    actor = (Game58F80Actor *)&D_800CC2D0;
-    do {
+    for (i = 0; i < 25; i++) {
+        actor = &GAME58F80_ACTORS[i];
         if (actor->active != 0) {
             func_1502F948(actor);
         }
-        actor++;
-    } while (actor != (Game58F80Actor *)&D_800D121C);
+    }
     func_15030468();
     if (D_800BEAC0 == 0) {
         func_1507C22C(0);
     }
     D_800C3E70 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502BEE4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502BEE4.s")
 
 
 
