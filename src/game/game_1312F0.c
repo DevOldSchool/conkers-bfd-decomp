@@ -23,7 +23,7 @@ void func_15055A2C(s32, f32, f32, f32, s32);
 f32 func_150ADA68(void);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E83AC(void *, s16, u8, s32);
-void func_151541B8(s32, f32, s32, f32, f32, u8, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void func_151D40D4(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_151D5334(void *, f32, f32, f32, u8, u8, s32);
 void func_151D5514(s32, u8, s32);
@@ -65,6 +65,6 @@ void func_15103E40(s32 arg0, s32 arg1, Vec3f *arg2, u8 arg3, s32 arg4, s32 arg5,
             func_151D40D4(arg2, 0, arg0, arg1, 0, effect0, effect1, arg4);
         }
         func_15055A2C(0, arg2->x, arg2->y, arg2->z, 1);
-        func_151541B8((s32)arg2, (func_150ADA68() * 4.0f) + 12.0f, 0x3FD20C49, (f32)((func_150ADA20() % 56U) + 0xC8), 0.0f, ((u8 *)&arg5)[3], arg6);
+        func_151541B8(arg2, (func_150ADA68() * 4.0f) + 12.0f, 1.6409999f, (f32)((func_150ADA20() % 56U) + 0xC8), 0.0f, ((u8 *)&arg5)[3], arg6);
     }
 }

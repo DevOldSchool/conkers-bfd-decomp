@@ -18,6 +18,7 @@
  * - func_151CB5FC
  * - func_151CC524
  * - func_151CC840
+ * - func_151CCF08
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -2176,6 +2177,7 @@ extern SightPanelColors D_8008FC28;
 extern f32 D_800AAD8C[];
 extern f32 D_800AADB4[];
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCF08 */
 void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
     SightPanelSpawn spawn;
     void *object;
@@ -2262,6 +2264,8 @@ void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {
         }
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CCF08 */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCF08.s")
 f32 func_151CC1D4(void *);                          /* extern */
 
 typedef struct SightUpdateFields {

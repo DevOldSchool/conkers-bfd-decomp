@@ -9475,16 +9475,16 @@
       "symbol": "func_151CCE94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-25 review: local bits reused for two flag meanings",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 796,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151CCF08",
           "vram": "0x151CCF08"
         }
@@ -82538,16 +82538,16 @@
       "symbol": "func_150F1CB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-25 review: no-op 1*scale and 0*scale arithmetic",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 992,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_150F1D10",
           "vram": "0x150F1D10"
         }
@@ -85691,16 +85691,16 @@
       "symbol": "func_1512B630"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-25 review: identical if/else branches",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 992,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1512B730",
           "vram": "0x1512B730"
         }

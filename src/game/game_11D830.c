@@ -8,6 +8,7 @@
  * TODO: Implement these source-unit functions:
  * - func_150F03F8
  * - func_150F16DC
+ * - func_150F1D10
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -821,6 +822,7 @@ extern u8 D_800A18D8[], D_800A18E0[];
 extern f32 D_800A18FC, D_800A1900, D_800A1904, D_800A1908;
 extern f32 D_800A190C, D_800A1910, D_800A1914, D_800A1918;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1D10 */
 void func_150F1D10(u8 *arg0, u8 arg1, s32 arg2) {
     Vec3f position;
     f32 scale;
@@ -884,3 +886,5 @@ void func_150F1D10(u8 *arg0, u8 arg1, s32 arg2) {
         }
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F1D10 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1D10.s")

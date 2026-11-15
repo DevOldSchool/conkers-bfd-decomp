@@ -10,6 +10,7 @@
  * - func_1512A390
  * - func_1512AD54
  * - func_1512B1B8
+ * - func_1512B730
  * - func_1512C20C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -210,6 +211,7 @@ typedef struct Game1512B730Entry {
     u8 pad31[0x1B];
 } Game1512B730Entry;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512B730 */
 s32 func_1512B730(u8 *arg0, f32 *arg1, s32 arg2) {
     Game1512B730Entry *table = (Game1512B730Entry *)&D_800DC0C0;
     s32 result;
@@ -304,6 +306,8 @@ s32 func_1512B730(u8 *arg0, f32 *arg1, s32 arg2) {
     }
     return result;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_1512B730 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512B730.s")
 
 typedef struct Game1512BB10Probe {
     s32 type;
