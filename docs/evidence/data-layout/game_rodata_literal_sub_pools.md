@@ -74,6 +74,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_DC6B0 | 0x18 | 0x4 | 0x8009F7D8 | pool (func_150B0094) | `3F333333` (0.7) |
 | game_EC420 | 0x0 | 0x14 | 0x800A0110 | pool (func_150BF21C) | `3D4CCCCD 44BB8000 3E4CCCCD 3ECCCCCD 3F8CCCCD` ([record](game_ec420_float_constants.md)) |
 | game_EC420 | 0x14 | 0x24 | 0x800A014C | pool (func_150C01DC) | nine words, 0.26200002 once ([record](game_ec420_float_constants.md); round-24) |
+| game_115F30 | 0x0 | 0xC | 0x800A1384 | pool (func_150E8B1C) | `3F85F40A 3EA25D8D 4A45C100` ([record](game_115f30_float_constants.md)) |
+| game_115F30 | 0xC | 0x10 | 0x800A13B8 | pool (func_150E9178) | `47C34FF3 3EA0C5EB 3E45E0B5 49EF4200` (99999.9, 0.31401, 0.19324, 1960000.0; round-25) |
 | game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |

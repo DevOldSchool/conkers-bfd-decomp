@@ -4,57 +4,48 @@
 /*
  * Reviewed source unit: src/game/game_1199D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150EC520
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151432BC(s32, f32 *, f32 *, f32 *, s32);
+void func_151432BC(void *, f32 *, f32 *, f32 *, f32 *);
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
-extern f32 D_800A1570;
-extern f32 D_800A1574;
 extern f32 D_800BE9A4;
 
-typedef struct Game1199D0Motion {
-    f32 value68;
-    f32 value6C;
-    s32 value70;
-    f32 value74;
-    f32 value78;
-} Game1199D0Motion;
+typedef struct Game1199D0Point {
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 w;
+} Game1199D0Point;
+typedef struct Game1199D0Spawner {
+    void *shape;
+    f32 rate;
+    s16 *owner;
+    f32 accumulator;
+} Game1199D0Spawner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EC520 CURRENT (262) */
 void func_150EC520(u8 *arg0) {
-    Game1199D0Motion motion;
-    u8 *state;
-    s32 spawned;
+    Game1199D0Spawner *state;
+    Game1199D0Point point;
+    f32 upper;
 
     if (func_151464B8(*(s16 **)(arg0 + 0x30)) == 0) {
-        state = arg0 + 0x28;
-        *(f32 *)(state + 0xC) +=
-            (D_800A1570 + func_150ADA68() * D_800A1574) *
-            *(f32 *)(state + 4) * D_800BE9A4;
-        if (*(f32 *)(state + 0xC) > 1.0f) {
-            motion.value78 = 0.0f;
+        state = (Game1199D0Spawner *)(arg0 + 0x28);
+        state->accumulator += (9.04e-08f + func_150ADA68() * 9.87e-08f) * state->rate * D_800BE9A4;
+        if (state->accumulator > 1.0f) {
+            point.w = 0.0f;
             do {
-                func_151432BC(*(s32 *)state, &motion.value6C, &motion.value74,
-                               &motion.value68, (s32)&motion.value70);
-                spawned = func_15149130((s16)((func_150ADA20() % 131U) + 0x50),
-                                         -1, 0x5A, -1, 1, 0, 0x10,
-                                         arg0[0xC], arg0[1]);
-                if (spawned != 0) {
-                    func_10022EC0((u8 *)spawned + 0x28, &motion.value6C, 0x10);
+                void *spawned;
+                func_151432BC(state->shape, &point.x, &point.z, &upper, &point.y);
+                spawned = func_15149130(func_150ADA20() % 131U + 0x50, -1, 0x5A, -1, 1, 0, 0x10, arg0[0xC], arg0[1]);
+                if (spawned != NULL) {
+                    func_10022EC0((u8 *)spawned + 0x28, &point, 0x10);
                 }
-                *(f32 *)(state + 0xC) -= 1.0f;
-            } while (*(f32 *)(state + 0xC) > 1.0f);
+                state->accumulator -= 1.0f;
+            } while (state->accumulator > 1.0f);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EC520 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1199D0/func_150EC520.s")
 typedef struct GameEC6B0Packet {
     u32 field00, field04;
     s16 field08, field0A;

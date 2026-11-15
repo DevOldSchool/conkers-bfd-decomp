@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150E8D5C
- * - func_150E9178
  * - func_150E93DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -207,74 +206,54 @@ typedef union {
     u8 bytes[0x3C];
 } Game115F30SpawnPacket;
 
-extern f32 D_800A13B8;
-extern f32 D_800A13BC;
-extern f32 D_800A13C0;
-extern f32 D_800A13C4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E9178 CURRENT (585) */
 void func_150E9178(u8 *arg0) {
     f32 *state;
     f32 *reference;
     Game115F30WeightedNode *node;
-    f32 distance_limit;
-    f32 scale;
-    f32 speed;
-    f32 phase;
-    f32 size;
-    f32 selection;
-    f32 weight;
+    s32 result;
+    Game115F30SpawnPacket packet;
     f32 dx;
     f32 dy;
     f32 dz;
-    s32 result;
-    register u32 divisor;
-    Game115F30SpawnPacket packet;
+    f32 selection;
+    f32 weight;
 
     reference = (f32 *)func_15144B34(D_800BE9E8);
     state = (f32 *)(arg0 + 0x28);
-    *(volatile f32 *)&state[2] += (state[0] + func_150ADA68() * state[1]) * D_800BE9A4 * D_800DCD90;
-    divisor = 13;
-    if (*(volatile f32 *)&state[2] > 1.0f) {
-        size = D_800A13B8;
-        speed = D_800A13BC;
-        scale = D_800A13C0;
-        phase = 0.0f;
-        distance_limit = D_800A13C4;
-        do {
-            selection = func_150ADA68() * D_800DCD90;
-            node = D_800DCDC4;
+    state[2] += (state[0] + func_150ADA68() * state[1]) * D_800BE9A4 * D_800DCD90;
+    for (; state[2] > 1.0f; state[2] -= 1.0f) {
+        selection = func_150ADA68() * D_800DCD90;
+        node = D_800DCDC4;
+        weight = node->weight;
+        while (weight < selection) {
+            node = node->next;
+            selection -= weight;
             weight = node->weight;
-            while (weight < selection) {
-                node = node->next;
-                selection -= weight;
-                weight = node->weight;
+        }
+        func_1514470C(node->region, packet.words);
+        dx = packet.words[0] - reference[0];
+        dy = packet.words[1] - reference[1];
+        dz = packet.words[2] - reference[2];
+        if (dx * dx + dy * dy + dz * dz < 1960000.0f) {
+            packet.words[3] = 0.19324f;
+            packet.words[4] = 0.31401f;
+            packet.words[5] = 0.0f;
+            packet.words[6] = 99999.9f;
+            packet.integers[12] = 0;
+            packet.bytes[0x34] = 0;
+            packet.bytes[0x35] = 0;
+            packet.integers[14] = 0;
+            result = func_15149130((s16)((func_150ADA20() % 13U) + 5),
+                                  -1, 0x37, -1, 1, 0, 0x3C,
+                                  arg0[0xC], arg0[1]);
+            if (result == 0) {
+                continue;
             }
-            func_1514470C(node->region, packet.words);
-            dx = packet.words[0] - reference[0];
-            dy = packet.words[1] - reference[1];
-            dz = packet.words[2] - reference[2];
-            if (dx * dx + dy * dy + dz * dz < distance_limit) {
-                packet.words[3] = scale;
-                packet.words[4] = speed;
-                packet.words[5] = phase;
-                packet.words[6] = size;
-                packet.integers[12] = 0;
-                packet.bytes[0x34] = 0;
-                packet.bytes[0x35] = 0;
-                packet.integers[14] = 0;
-                result = func_15149130((s16)(func_150ADA20() % divisor + 5),
-                                      -1, 0x37, -1, 1, 0, 0x3C, arg0[0xC], arg0[1]);
-                if (result != 0) {
-                    func_10022EC0(result + 0x28, &packet, 0x3C);
-                }
-            }
-            *(volatile f32 *)&state[2] -= 1.0f;
-        } while (*(volatile f32 *)&state[2] > 1.0f);
+            func_10022EC0(result + 0x28, &packet, 0x3C);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E9178 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E9178.s")
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern u8 D_800A12F0[];

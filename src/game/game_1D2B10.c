@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A5660
- * - func_151A5D58
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -62,72 +61,32 @@ typedef struct Game1D2B10Effect {
 
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5D58 CURRENT (994) */
-void *func_151A5D58(f32 arg0, s32 arg1, s32 arg2, f32 *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
+void *func_151A5D58(f32 arg0, u8 arg1, s32 arg2, f32 *arg3, s16 arg4, u8 arg5, u8 arg6, u8 arg7, s32 arg8) {
+    s32 visible;
     Game1D2B10Effect effect;
-    s32 sp4C;
-    s32 sp48;
-    s32 temp_t0;
-    s32 var_v0;
-    s32 var_v1;
 
-    if (((s16 *)&arg4)[1] <= 0) {
+    if (arg4 <= 0) {
         return 0;
     }
     effect.field22 = 0x14;
     effect.field24 = 0xC;
     effect.kind = 0x38;
     effect.field7 = 0;
-    if (((s16 *)&arg4)[1] == -1) {
-        var_v1 = 0;
-    } else {
-        var_v1 = 1;
-    }
-    var_v0 = 0;
-    if (((u8 *)&arg5)[3] != 0) {
-        var_v0 = 0x400;
-    }
-    effect.flags = var_v0 | var_v1 | 0x1300 | 0x2000 | 0x8000 | 0x20000;
-    if (((s16 *)&arg4)[1] == -1) {
-        effect.duration = 0x12C;
-    } else {
-        effect.duration = ((s16 *)&arg4)[1] + 0x14;
-    }
+    visible = (arg4 == -1) ? 0 : 1;
+    effect.flags = (arg5 ? 0x400 : 0) | visible | 0x1000 | 0x200 | 0x100 | 0x2000 | 0x8000 | 0x20000;
+    effect.duration = (arg4 == -1) ? 0x12C : arg4 + 0x14;
     effect.field8 = 0;
-    if (((s16 *)&arg4)[1] == -1) {
-        effect.step = 0;
-    } else {
-        effect.step = 0x140000 / (s32) (((s16 *)&arg4)[1] + 0x14);
-    }
+    effect.step = (arg4 == -1) ? 0 : 0x140000 / (arg4 + 0x14);
+    effect.field10 = arg1;
     effect.field11 = 0xFF;
     effect.field12 = 0xFF;
     effect.field13 = 0x83;
     effect.field14 = 0x1E;
     effect.field15 = 0xFF;
-    effect.field10 = ((u8 *)&arg1)[3];
-    if (((u8 *)&arg6)[3] != 0) {
-        var_v0 = 2;
-    } else {
-        var_v0 = 3;
-    }
-    effect.field18 = var_v0 + 0x440000;
+    effect.field18 = (arg6 ? 2 : 3) + 0x440000;
     effect.field16 = 0;
     effect.field17 = 6;
     effect.field20 = 0xFF;
-    sp48 = func_150ADA20();
-    sp4C = func_150ADA20();
-    temp_t0 = func_150ADA20();
-    if (((u8 *)&arg5)[3] != 0) {
-        var_v1 = 3;
-    } else {
-        var_v1 = 0;
-    }
-    if (((u8 *)&arg5)[3] != 0) {
-        var_v0 = 0xFF;
-    } else {
-        var_v0 = 0;
-    }
-    return func_1513C650((s32) &effect, 0U, 0U, arg2, arg3[0], arg3[1], arg3[2], arg0, arg0, (u8) (sp48 & 0xFF), (u8) (((temp_t0 & 1) * 2) + (sp4C & 1)), var_v1, var_v0, 0, (u8) (s32) ((u8 *)&arg7)[3], arg8);
+    return func_1513C650((s32)&effect, 0, 0, arg2, arg3[0], arg3[1], arg3[2], arg0, arg0, func_150ADA20() & 0xFF,
+                         (func_150ADA20() & 1) + (func_150ADA20() & 1) * 2, arg5 ? 3 : 0, arg5 ? 0xFF : 0, 0, arg7, arg8);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A5D58 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5D58.s")

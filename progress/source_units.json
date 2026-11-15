@@ -11648,7 +11648,7 @@
         "us": {
           "end": "0xED1D0",
           "start": "0xEC520",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1199D0.c"
