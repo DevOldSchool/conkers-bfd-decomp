@@ -4,14 +4,199 @@
 /*
  * Reviewed source unit: src/game/game_1D2B10.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151A5660
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5660.s")
+typedef struct {
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 radiusX;
+    s16 height;
+    s16 radiusZ;
+    u8 padC[4];
+    f32 rotation;
+    u8 state;
+    u8 flags;
+} Game1D2B10Region;
+
+typedef struct {
+    Game1D2B10Region *region;
+    f32 rate;
+    f32 scale;
+    f32 pending;
+    f32 field10;
+    f32 xScaleBase;
+    f32 xScaleRange;
+    f32 yScaleBase;
+    f32 yScaleRange;
+    s16 field24Base;
+    s16 field24Range;
+    f32 field38Base;
+    f32 field38Range;
+    f32 field40Base;
+    f32 field40Range;
+    f32 field44Base;
+    f32 field44Range;
+    u8 useGround;
+    u8 field2CBase;
+    u8 field2CRange;
+    u8 pad43[5];
+    f32 groundY;
+    u8 pad4C[0x20];
+    s16 *shape;
+} Game1D2B10Emitter;
+
+typedef struct {
+    Vec3f position;
+    f32 field0C;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    s16 field20;
+    s16 field22;
+    s16 field24;
+    u8 color26[4];
+    s16 field2A;
+    u8 field2C;
+    u8 field2D;
+    u8 field2E;
+    u8 field2F;
+    s32 field30;
+    u8 field34;
+    u8 pad35[3];
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+} Game1D2B10Particle;
+
+void *func_15149550(f32 *, u8, u8, u8, u8, s32);
+f32 func_150ADA68(void);
+s32 func_15046C80(f32 *, u16, f32, void *);
+extern f32 D_800BE9A4;
+
+void func_151A5660(u8 *arg0) {
+    Game1D2B10Emitter *emitter;
+    Game1D2B10Particle particle;
+    f32 low;
+    f32 high;
+    f32 xScale;
+    f32 yScale;
+
+    emitter = (Game1D2B10Emitter *)(arg0 + 0x28);
+    if (emitter->region == NULL) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    if (emitter->region->state == 1) {
+        return;
+    }
+    if (emitter->shape != NULL && func_151464B8(emitter->shape) != 0) {
+        return;
+    }
+    emitter->pending += emitter->scale * emitter->rate * D_800BE9A4;
+    if (emitter->pending > 1.0f) {
+        particle.field20 = 0x6231;
+        particle.field22 = 0x1A4D;
+        particle.color26[0] = 0;
+        particle.color26[1] = 0;
+        particle.color26[2] = 0;
+        particle.color26[3] = 0xFF;
+        particle.field2A = 1;
+        particle.field2D = 0xFF;
+        particle.field30 = 0;
+        particle.field2E = 0;
+        particle.field2F = 0;
+        particle.field34 = 0x10;
+        particle.field3C = emitter->field10;
+        do {
+            switch (emitter->region->flags & 3) {
+            case 2: {
+                u8 angle;
+                f32 cosine;
+                f32 sine;
+                f32 x;
+                f32 z;
+
+                angle = emitter->region->rotation * 0.7111111f;
+                cosine = func_151423D8(angle - 0x40);
+                sine = func_151423D8(angle);
+                x = func_150ADA68() * (2.0f * emitter->region->radiusX) + -emitter->region->radiusX;
+                z = func_150ADA68() * (2.0f * emitter->region->radiusZ) + -emitter->region->radiusZ;
+                particle.position.x = emitter->region->x + (x * sine + z * cosine);
+                particle.position.z = emitter->region->z + (z * sine - x * cosine);
+                high = emitter->region->y + emitter->region->height;
+                low = emitter->region->y - emitter->region->height;
+            } break;
+            case 0: {
+                u8 angle;
+                f32 cosine;
+                f32 sine;
+                f32 x;
+
+                angle = func_150ADA20() & 0xFF;
+                cosine = func_151423D8(angle - 0x40);
+                sine = func_151423D8(angle);
+                x = func_150ADA68() * emitter->region->radiusX;
+                particle.position.x = emitter->region->x + x * sine;
+                particle.position.z = emitter->region->z - x * cosine;
+                high = emitter->region->y + emitter->region->height;
+                low = emitter->region->y;
+            } break;
+            case 1: {
+                u8 angle;
+                f32 cosine;
+                f32 sine;
+                f32 x;
+
+                angle = func_150ADA20() & 0xFF;
+                cosine = func_151423D8(angle - 0x40);
+                sine = func_151423D8(angle);
+                x = func_150ADA68() * emitter->region->radiusX;
+                particle.position.x = emitter->region->x + x * sine;
+                particle.position.z = emitter->region->z - x * cosine;
+                high = emitter->region->y + emitter->region->height;
+                low = emitter->region->y - emitter->region->height;
+            } break;
+            default:
+                particle.position.x = emitter->region->x;
+                particle.position.z = emitter->region->z;
+                high = emitter->region->y + emitter->region->height;
+                low = emitter->region->y - emitter->region->height;
+                break;
+            }
+            if (emitter->useGround != 0) {
+                Vec3f probe;
+
+                probe.x = particle.position.x;
+                probe.y = high;
+                probe.z = particle.position.z;
+                if (func_15046C80(&probe.x, 0, low, &emitter->groundY) != 0) {
+                    particle.position.y = emitter->groundY;
+                } else {
+                    particle.position.y = low;
+                }
+            } else {
+                particle.position.y = low;
+            }
+            xScale = func_150ADA68() * emitter->xScaleRange + emitter->xScaleBase;
+            yScale = func_150ADA68() * emitter->yScaleRange + emitter->yScaleBase;
+            particle.field0C = 22.6f * xScale;
+            particle.field14 = 13.786f * xScale;
+            particle.field10 = 57.969f * yScale;
+            particle.field18 = 42.714f * yScale;
+            particle.field1C = 118.763f * yScale;
+            particle.field24 = func_150ADA20() % (emitter->field24Range + 1) + emitter->field24Base;
+            particle.field38 = func_150ADA68() * emitter->field38Range + emitter->field38Base;
+            particle.field40 = func_150ADA68() * emitter->field40Range + emitter->field40Base;
+            particle.field44 = func_150ADA68() * emitter->field44Range + emitter->field44Base;
+            particle.field2C = func_150ADA20() % (emitter->field2CRange + 1) + emitter->field2CBase;
+            func_15149550(&particle.position.x, 10, 0, 0, arg0[0xC], arg0[1]);
+            emitter->pending -= 1.0f;
+        } while (emitter->pending > 1.0f);
+    }
+}
 /* Call context: func_1514933C: unique active project prototype */
 
 extern void func_151A5D2C(u16 arg0, void *arg1);

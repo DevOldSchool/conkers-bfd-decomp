@@ -114,8 +114,6 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_49D30 | 0x0 | 0x4 | 0x800969C0 | pool (func_1501D044) | `4479C000` (999.0) |
 | game_49D30 | 0x4 | 0x4 | 0x800969D0 | pool (func_1501F72C) | `3C23D70A` (0.01) |
 | game_49D30 | 0x8 | 0x4 | 0x80096A14 | pool (func_15022024) | `C61C3C00` (-9999.0; round-24) |
-| game_39750 | 0x0 | 0x1C | 0x80096104 | pool (func_1500D8C8 `const u16` table) | `00760077 00780079 0053003E 003D0039 00020003 004E004F 00500051` ([record](game_39750_float_constants.md); round-23) |
-| game_39750 | 0x1C | 0x6C | 0x8009613C | pool (func_1500C8D0, func_1500CE4C, func_1500D3AC, func_1500D8C8) | 7 + 5 + 7 + 8 words ([record](game_39750_float_constants.md); round-23, grown in round-25) |
 | game_1865D0 | 0x0 | 0x20 | 0x800A63C4 | pool (func_15159C08) | 8 words ([record](game_1865d0_float_constants.md); round-23) |
 | game_1865D0 | 0x20 | 0xC | 0x800A6414 | pool (func_1515AB88) | `3DA3D70A 3DCCCCCD 3E19999A` (unchanged) |
 | game_197F20 | 0x0 | 0x8 | 0x800A6DBC | pool (func_1516CC58) | `3C23D70A 3C8EFA35` (0.01, 0.017453292; round-23) |
@@ -259,6 +257,11 @@ keep their runtime addresses.
   `func_1516D0CC`. The unit had no rodata mapping; `game_197F20.o` joined
   `GAME_SPLIT_RODATA_OBJS`. The object `.rodata` is 0x30 bytes: 0x24 of payload and 12 zero
   alignment bytes.
+- **game_39750 (round-25):** the round-23 split (`.rodata.39750_0` and
+  `.rodata.39750_1c`) is retired. Once `func_1500C2F0`, `func_1500C8D0` and
+  `func_1500DE88` use literals, the unit's object `.rodata` is the whole ROM
+  range 0x800960F0..0x800961C3 in order, so it is mapped as one INFO section
+  ([record](game_39750_float_constants.md)).
 - **game_49D30:** `func_1501F72C` scales its key time by `0.01f` once before
   its binary search loop. As an `extern` IDO reloads it inside the loop; as a
   literal it is hoisted and the function matches. The checksum-validated ROM
