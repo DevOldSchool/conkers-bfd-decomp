@@ -53,7 +53,7 @@ typedef struct GameBC510Node {
 
 void *func_10003C40(s32, s32, s32, s32);
 void func_151EFEB8(void *, s32);
-s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern u8 D_800D2456;

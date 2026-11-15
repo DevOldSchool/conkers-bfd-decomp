@@ -7,7 +7,7 @@
  */
 
 void func_100226F0(void *, s32);
-void func_15004FE0(s32);
+s32 func_15004FE0(s32);
 void func_1500AC14(void);
 void func_1500BEC0(void);
 void func_1500E5C0(void);

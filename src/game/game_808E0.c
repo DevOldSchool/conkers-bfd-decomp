@@ -80,7 +80,7 @@ s32 func_150535F4(u8 *arg0) {
     return 0;
 }
 /* Call context: func_1506160C: unique active project prototype */
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 
 void func_15053694(u8 *arg0) {
     *(s32 *)(arg0 + 0) = 8;

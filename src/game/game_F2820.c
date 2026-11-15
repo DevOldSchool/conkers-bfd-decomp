@@ -171,7 +171,7 @@ s32 func_150C5BD4(void *arg0) {
     }
     return 1;
 }
-void func_1514D3B0(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_1514D3B0(void *arg0, s16 arg1, s32 arg2, s32 arg3);
 
 void func_150C5C74(void *arg0) {
     func_1514D3B0(arg0, 0x15, 1, 0);

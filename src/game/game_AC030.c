@@ -169,7 +169,7 @@ void func_1507EFA0(s32 arg0, u8 *arg1) {
     }
 }
 s32 func_1503195C(void *, s32, s32, s32);
-s32 func_1515942C(void *, s32, s32, s32, s32, s32);
+u8 func_1515942C(void *, s16, s16, s16, s16, s16);
 s32 func_1507FFD8(void *);
 s32 func_1507F4C0(s32);
 void func_1507FF94(void *);

@@ -400,7 +400,7 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, u8, u8);
 void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
-s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+s32 func_151462C8(s32, u8 *, u8, u8 *, u8, s16, f32 *, u8, s32);
 extern s32 D_800A4AC8[][2];
 extern s32 D_800D2C9C;
 

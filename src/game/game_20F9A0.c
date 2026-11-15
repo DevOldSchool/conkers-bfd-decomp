@@ -103,7 +103,7 @@ s32 func_151E24F0(s32 *arg0) {
 void func_15017790(void);
 void func_1509CC94();
 void func_1509CDDC(s32);
-s32 func_1509CF28(s8, s32 *);
+s32 func_1509CF28(s32, s32 *);
 void func_1509D054(void);
 u16 func_1509CA30(s32);
 s32 func_1509CA50(s32);
@@ -851,7 +851,7 @@ typedef struct Game20F9A0SpawnPosition {
 } Game20F9A0SpawnPosition;
 
 void func_15060F28(u8 *, s32);
-s32 func_15083E0C(s32);
+s32 func_15083E0C(u8);
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, u32);
 s32 func_15082A44(void *, s32, s32, s32, s32);

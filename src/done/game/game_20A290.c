@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
 
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern f32 D_800AB550;
 extern f32 D_800AB554;
 

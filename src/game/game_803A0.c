@@ -33,7 +33,7 @@ void *func_15033E84(void *);
 void func_1506E5FC(void);
 s32 func_15083568(s32, s32, f32, s32);
 void func_15060F28(u8 *, s32);
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 extern s32 D_800BE9F0;
 extern u8 D_800C3E78;
 extern s32 D_800D1580;

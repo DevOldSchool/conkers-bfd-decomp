@@ -479,7 +479,7 @@ typedef struct GameEF410Emitter {
     f32 field28[4];
 } GameEF410Emitter;
 
-void *func_15149550(f32 *, s32, s32, s32, s32, s32);
+void *func_15149550(f32 *, u8, u8, u8, u8, s32);
 extern f32 D_800A02A0;
 extern f32 D_800A02A4;
 extern f32 D_800A02A8;
@@ -727,7 +727,7 @@ void func_15058898(u8 *, s32);
 void func_1505B5F8(u8 *, f32);
 void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
 void func_1507C324(void *, void *);
-void func_1508B20C(f32, f32, f32, s32);
+void func_1508B20C(f32, f32, f32, f32);
 void func_15060F28(u8 *, s32);
 void func_1506AC8C(void *, s32, void *);
 extern u8 D_800BE616;
@@ -838,7 +838,7 @@ void func_15056B08(u8 *);
 void func_150562FC(u8 *);
 void func_15059140(u8 *);
 s32 func_1505A630(f32, f32, s32);
-void func_150599C8(u8 *, s32, u16);
+u8 func_150599C8(u8 *, u8, u16);
 void func_15052490(void *, u16, f32, f32);
 void func_1506E5FC(void);
 void func_1506E8D8(void);
@@ -1026,8 +1026,7 @@ typedef struct GameEF410Light {
 void func_10004074(void *);
 void func_151EF040(s32, s32 *);
 void func_151709B4(s32, s32, s32, s32, f32, u8, s32);
-void func_15171200(s32, s32, f32, f32, f32, f32, f32, f32, f32,
-                   s32, s32, f32, s32, s32);
+void func_15171200(s32, s32, f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 extern f32 D_800A0338;

@@ -26,7 +26,7 @@ typedef struct Game1045D0Effect {
     s8 final;
 } Game1045D0Effect;
 
-void func_1514FCE8(s16 *, s32, s32);
+void func_1514FCE8(s16 *, u8, s32);
 extern f32 D_800A0AE0;
 extern f32 D_800A0AE4;
 extern f32 D_800A0AE8;

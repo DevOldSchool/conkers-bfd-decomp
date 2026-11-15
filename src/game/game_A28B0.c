@@ -83,7 +83,7 @@ extern GameA28B0State *D_800D154C;
 extern f32 D_800D1898[];
 void func_15075548(void);
 void func_15075650(void);
-void func_150836CC(GameA28B0State *arg0, u8 arg1);
+void func_150836CC(void *arg0, s32 arg1);
 
 extern u8  D_800D1890;
 extern u8  D_800D1891;
@@ -435,7 +435,7 @@ void func_15076220(void) {
     func_150761F4();
     *(u16 *)((u8 *)D_800D154C + 0x22C) = (u16) (*(u16 *)((u8 *)D_800D154C + 0x22C) | 1);
 }
-void func_15060778(s32, GameA28B0State *, s32, s32, s32, s32, s32);
+void func_15060778(s32, GameA28B0State *, u16, s32, s32, s32, s32);
 
 void func_15076250(void) {
     s32 id;
@@ -545,7 +545,7 @@ void func_15076760(void) {
 }
 
 void func_1504715C(void *, GameA28B0State *);
-void func_1514B364(f32 *, void *, s32, s32);
+void func_1514B364(f32 *, void *, u8, s32);
 void func_15197A7C();
 void func_15076768(void) {
     f32 pos[3];
@@ -1033,7 +1033,7 @@ void func_15077B80(void) {
     mask = (D_800D1890 << 8) + D_800D1891;
     *(s32 *)((u8 *)D_800D154C + 0x25C) |= mask;
 }
-void *func_1505F0AC(u8);                            /* extern */
+struct127 *func_1505F0AC(s32);
 
 void func_15077BB4(void) {
     void *temp_v0;
@@ -2042,7 +2042,7 @@ void func_1507A8EC(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-void *func_15083E90(s32);
+void *func_15083E90(u8);
 
 void func_1507A984(void) {
     void *temp_v0;

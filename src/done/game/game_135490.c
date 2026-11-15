@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
  */
 
-s32 func_150859AC(s32, s32);
+s32 func_150859AC(s16, s16);
 s32 func_1509BE40(s32, s32, s32, s32);
 
 void func_15107FE0(void *arg0) {

@@ -27,7 +27,7 @@ typedef struct GameBABE0Packet {
     u8 pad21[7];
 } GameBABE0Packet;
 u8 func_15143E94(s32, s32);
-void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, s32, u8);
+void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, s32, u8);
 f32 func_150ADA68(void);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);

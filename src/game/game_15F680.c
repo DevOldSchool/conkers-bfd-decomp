@@ -413,7 +413,7 @@ void func_15132A88(Game15F680TransformState *arg0) {
 
 s32 *func_15142B7C(s32 *, s32, s32);
 void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
-s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+s32 func_151462C8(s32, u8 *, u8, u8 *, u8, s16, f32 *, u8, s32);
 typedef s32 *(*Game15F680Draw)(s32 *, Game15F680TransformState *, s32);
 extern Game15F680Draw D_800899A4[];
 extern u8 D_80083740;
@@ -497,7 +497,7 @@ s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15132B80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15046C80(f32 *, s32, f32, void *);
+s32 func_15046C80(f32 *, u16, f32, void *);
 f32 func_150484A0(f32, f32);
 s32 func_15044380(f32, f32, f32, void *, s32, s32);
 extern f32 D_800BE9A4;
@@ -766,7 +766,7 @@ s32 func_151337C0(void *arg0) {
     return 1;
 }
 s32 func_151337C0(void *);
-s32 func_15046C80(f32 *, s32, f32, void *);
+s32 func_15046C80(f32 *, u16, f32, void *);
 typedef s32 (*Game15F680MotionCallback)(void *, f32, f32, f32, f32, void *);
 extern Game15F680MotionCallback D_80089934[];
 

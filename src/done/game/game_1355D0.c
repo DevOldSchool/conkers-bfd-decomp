@@ -8,7 +8,7 @@
 
 struct Blood36C3CActor;
 void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_150E83AC(void *, s16, u8, s32);
 extern u8 D_800A2430;
 extern u8 D_800A2434;

@@ -8,10 +8,7 @@
 
 void func_15145740(void *, void *, void *, void *, f32);
 f32 func_150ADA68(void);
-s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, s32,
-                   s32, f32, f32, f32, f32, f32, s32, void *, s32, s32,
-                   s32, s32, s32, s32, s32, s32, f32, s32, s32, s32,
-                   s32, s32);
+s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 extern f32 D_800A1F94;
 extern f32 D_800A1F98;
 extern s32 D_800BE9F0;
@@ -93,8 +90,7 @@ void func_150FDF38(void *arg0, u8 arg1, s32 arg2,
         *arg4 = locals.output;
     }
 }
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32,
-                   s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 extern s32 D_800A1F7C;
 extern f32 D_800A1F9C;
 extern f32 D_800A1FA0;
@@ -140,7 +136,7 @@ typedef struct {
     s8 field_6;
 } Game12B250EventPacket;
 
-void func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 
 void func_150FE288(void *arg0) {
     Game12B250EventPacket packet;

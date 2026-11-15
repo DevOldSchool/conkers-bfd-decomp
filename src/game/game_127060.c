@@ -172,7 +172,7 @@ void func_150FA1B8(Game127060Effect *effect) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FA1B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA1B8.s")
-void func_1515D4D4(s32, s32, s32, s32);
+void func_1515D4D4(s32, s32, s32, u8);
 
 void func_150FA468(void *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4C) {
@@ -223,7 +223,7 @@ typedef struct Game127060Emission {
 
 f32 func_150ADA68(void);
 void func_1514470C(s32, void *);
-void func_150F4570(f32 *, f32 *, u8, f32, f32, f32, s32, s32, s32, s32);
+void func_150F4570(Vec3f *, Vec3f *, u8, f32, f32, f32, u8, s32, u8, s32);
 extern u8 D_80088B2C;
 extern u8 *D_80088B30;
 extern f32 *D_80088B34;
@@ -429,7 +429,7 @@ s32 func_150FB188(Game127060State *arg0) {
     return 1;
 }
 
-void func_15157F80(s32, s32, s32, s32, s32);
+void *func_15157F80(s32, s32, s32, s32, s32);
 s32 func_151D710C(s32, s32, s32, s32, s32);
 
 void func_150FB1E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {

@@ -79,7 +79,7 @@ typedef struct Game1BB950State {
     s8 callback;
 } Game1BB950State;
 
-void *func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
 extern u8 D_800A7460;
 extern u8 D_800A749C;
 

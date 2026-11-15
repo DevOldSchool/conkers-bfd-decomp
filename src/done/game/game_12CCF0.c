@@ -28,8 +28,8 @@ void func_150FFC3C(void *);
 void func_151D5148(void *);
 void func_150FFD84(f32 *, f32 *, u8, s32);
 void func_150FFB6C(Vec3f *, void *, Game12CCF0Actor *, s32);
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32, s32, s32, s32, s32);
-s32 func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 s32 func_15081E78(void *, void *, s32);
 extern u8 D_800A213C[];
 
@@ -85,7 +85,7 @@ void func_150FF840(Game12CCF0Actor *arg0, u8 arg1, u8 arg2, u8 arg3, s32 arg4) {
     func_150FFC3C(arg0);
 }
 
-s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
+void func_1505D1C4(f32, f32, f32, s32, s32, u16, s32, s32);
 extern u8 D_800CC2D0;
 
 void func_150FFB6C(Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32 arg3) {
@@ -106,7 +106,7 @@ void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {
     func_15145EA4((s32 *) &sp1C, &sp18,
                   arg0->field1D4 + (D_80088BB0 << 6), 1);
 }
-void func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 
 void func_150FFC3C(void *arg0) {
     struct {
@@ -136,7 +136,7 @@ void func_150FFCC8(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4) {
     func_151D5A18(arg0, arg1, arg2, arg3, arg4, D_8008FC8C, *D_8008FC94);
     func_151D3E6C(arg0, arg1, arg1, 0x8003A);
 }
-void func_15081E0C(void *, s32, s32);
+void func_15081E0C(void *, u16, u8);
 
 void func_150FFD2C(s32 arg0, void *arg1, s32 arg2) {
     u8 temp_v0;

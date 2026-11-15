@@ -911,8 +911,7 @@ s32 func_15046460(Vec3f *, u16, f32, Game71820Hit *);
 void func_15143794(s16, s16, f32, void *);
 void func_151DB5D0(s32, void *, f32 *, f32, f32, f32, f32, s32, s32, s32,
                    s32, s32, u8, s32);
-void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32,
-                   f32, f32, s32, s32, s32, s32, s32, s32, u8, s32);
+void *func_151DA6F8(f32 *, f32 *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, s32, s16, s16, s32, u8, s32);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, u8, s32);
 f32 func_150ADA68(void);
@@ -2440,7 +2439,7 @@ s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
     return 1;
 }
 
-void func_151C5F44(f32 *, Vec3f *, f32, f32, s32, s32, f32, s32, void *, u8, s32);
+s32 func_151C5F44(f32 *, Vec3f *, f32, f32, u8, s16, f32, u8, void *, u8, s32);
 extern u8 D_800A41C4[];
 extern s32 D_800A41C8[];
 extern s32 D_800A41D8[];
@@ -2825,7 +2824,7 @@ typedef struct {
     f32 field_38;
 } BloodA48CConfig;
 
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern u8 D_800A4260[];
 extern u8 D_800A4264[];
 
@@ -2883,7 +2882,7 @@ typedef struct {
     f32 field_38;
 } BloodA5E0Config;
 
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern u8 D_800A4268[];
 extern u8 D_800A4270[];
 

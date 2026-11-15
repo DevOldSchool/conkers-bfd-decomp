@@ -998,7 +998,7 @@ void func_1506DDB8(void) {
 extern s32 D_800BE9F0;
 extern u8 D_800C3E78;
 extern s32 func_15178E50(s32 arg0);
-extern void func_1516EED4(u8 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3);
 
 void func_1506DDC0(void) {
     if (func_15178E50(D_800BE9F0) != 0) {
@@ -1511,14 +1511,14 @@ void func_1506EF5C(void) {
 void func_1506EFB4(void) {
     *(s16 *)(D_800D154C + 0x282) = 0;
 }
-void func_150BB760(u8 *);
+s32 func_150BB760(u8 *);
 
 void func_1506EFC8(s32 arg0) {
     if (D_800D154C[4] != 0x8C) {
         func_150BB760(D_800D154C);
     }
 }
-void func_150BCBBC(u8 *arg0);
+s32 func_150BCBBC(u8 *arg0);
 
 void func_1506F004(s32 arg0) {
     func_150BCBBC(D_800D154C);
@@ -1543,7 +1543,7 @@ void func_1506F0C4(s32 arg0) {
 void func_1506F0F0(s32 arg0) {
     func_150C1260(D_800D154C, 1);
 }
-void func_150BABE0(u8 *arg0, s32 arg1, s32 arg2);
+void func_150BABE0(u8 *arg0, u8 arg1, u8 arg2);
 
 void func_1506F11C(s32 arg0) {
     func_150BABE0(D_800D154C, 0, 0xFF);
@@ -1656,7 +1656,7 @@ typedef struct Game981E0FlameDescriptor {
     s16 field_11A; /* +0x11A */
 } Game981E0FlameDescriptor;
 
-extern void *func_151994B8(s32, Game981E0FlameDescriptor *, s32, s32);
+void *func_151994B8(s32, Game981E0FlameDescriptor *, u8, s32);
 
 void func_1506F1A8(s32 arg0) {
     Game981E0FlameDescriptor descriptor;
@@ -1924,7 +1924,7 @@ void func_150B3AB0();
 void func_1506FC9C(s32 arg0) {
     func_150B3AB0(D_800D154C, 0xFF);
 }
-void func_15196438(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3);
 
 void func_1506FCC8(s32 arg0) {
     func_15196438(D_800D154C, 6, 0xFF, 0);
@@ -2048,12 +2048,12 @@ void func_15070144(s32 arg0) {
     func_151C0698(owner, 0, &packet.flags, var_v0 & 0xFF, 0xFF, 1);
     func_151C1FB8(D_800D154C);
 }
-void func_151C5280(u8 *arg0, s32 arg1, s32 arg2);
+void func_151C5280(void *arg0, u8 arg1, s32 arg2);
 
 void func_150701C4(s32 arg0) {
     func_151C5280(D_800D154C, 0xFF, 1);
 }
-void func_151C9740(u8 *arg0, s32 arg1, s32 arg2);
+void func_151C9740(u8 *arg0, u8 arg1, s32 arg2);
 
 void func_150701F4(s32 arg0) {
     func_151C9740(D_800D154C, 0xFF, 1);
@@ -2090,8 +2090,7 @@ s32 *func_1507515C(s32);
 void func_1506CE6C(void);
 void func_15145EA4(s32 *, s32 *, s32, s32);
 void func_151C1860(void *, u8, s32);
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32,
-                   s32, s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 extern Game981E0CopiedVector D_80099B70, D_80099B7C;
 extern f32 D_80099EA4, D_80099EA8;
 extern s8 D_800E0BCE[];
@@ -2366,8 +2365,7 @@ extern Game981E0CopiedVector D_80099B88;
 extern Game981E0CopiedVector D_80099B94;
 extern f32 D_80099F2C;
 void func_15143134(f32 *, f32 *, s32);
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32,
-                   s32, s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 
 void func_15070D24(s32 arg0) {
     Game981E0CopiedVector input;
@@ -2458,7 +2456,7 @@ void func_15071278(s32 arg0) {
     func_150FC438((struct Game128D70Actor *)D_800D154C, 0, 1, D_800D154C[0x85]);
 }
 void func_150FE860(u8 *, s32, s32);
-void func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 
 void func_150712AC(s32 arg0) {
     struct {
@@ -2508,7 +2506,7 @@ void func_15071360(s32 arg0) {
         func_151D8868(&packet.field_0, 0, 0xFF, 1);
     }
 }
-void func_150FF840(u8 *, s32, s32, s32, s32);
+void func_150FF840(u8 *, u8, u8, u8, s32);
 
 void func_15071434(s32 arg0) {
     func_150FF840(D_800D154C, 1, 0, 0xFF, 1);
@@ -2519,7 +2517,7 @@ void func_15071470(s32 arg0) {
 void func_150714AC(s32 arg0) {
     func_150FF840(D_800D154C, 0, 1, 0xFF, 1);
 }
-void func_151D5714(u8 *, void *, void *, u8, f32, s32, s32);
+void func_151D5714(void *, void *, void *, u8, f32, u8, s32);
 extern u8 D_80088BB0;
 extern u8 D_800A2148;
 extern u8 D_800A2154;
@@ -2715,7 +2713,7 @@ typedef struct Game981E0SmokeConfig {
 } Game981E0SmokeConfig;
 
 void func_151DC260(f32 *, void *, u8, u8, s32);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern f32 D_80099BC8[3][3];
 extern u8 D_80099BEC[];
 extern u8 D_80099C04[];
@@ -3331,7 +3329,7 @@ void func_15072EF4(void) {
     D_800D154C[0x104] = (s8)D_800D1580;
 }
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
-void func_150E1570(u8 *, f32, f32, f32, f32, f32, f32, s32, s32);
+s32 func_150E1570(u8 *, f32, f32, f32, f32, f32, f32, s32, s32);
 extern f32 D_8009A094;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15072F10 CURRENT (261) */
@@ -3392,7 +3390,7 @@ void func_150730D0(void) {
 }
 u8 *func_1505ED34(void);
 void func_151EFEB8(void *, s32);
-s32 func_1515D480(s32);
+void *func_1515D480(s32);
 u8 *func_15158BD0(void *, u8, s32);
 extern f32 D_8009A098;
 extern u8 D_800C3E90;
@@ -3589,7 +3587,7 @@ void func_15073A28(void) {
     *(f32 *)((u8 *)D_800D154C + 0x44) = (f32) D_800D1580;
 }
 /* Call context: func_1505D024: unique active project prototype */
-s32 func_1505D024(void *, s32, s32, s32);
+s32 func_1505D024(void *, s32, u16, s32);
 extern f32 D_8009A0D8;
 
 void func_15073A50(void) {
@@ -3631,7 +3629,7 @@ void func_15073C50(void) {
     *(s16 *)((u8 *)D_800D154C + 0x224) = (s16) (s32) (*(f32 *)((u8 *) &D_800CC2E8 + (*(u8 *)((u8 *)D_800D154C + 0x222) * 0x32C)) + (f32) D_800D1580);
 }
 /* Call context: func_1505F0AC: unique active project prototype */
-void * func_1505F0AC(u8);
+struct127 *func_1505F0AC(s32);
 
 void func_15073CB8(void) {
     void *temp_v0;
@@ -3976,7 +3974,7 @@ typedef struct Game981E0BeamEvent {
 
 void func_151942E8(s32, s32, s32);
 f32 func_150484A0(f32, f32);
-void func_15166118(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15166118(s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 extern f32 D_8009A104;
 
 void func_15074C80(Game981E0BeamActor *arg0, Game981E0BeamEvent *arg1, s32 arg2) {
@@ -4008,7 +4006,7 @@ void func_15074DEC(u8 *arg0, s32 arg1, s32 arg2) {
     *(s32 *)(arg0 + 0x2E8) = 1;
 }
 void func_1516FE1C(s32, s32, s32, s32);
-void *func_1518D1C0(void *, s32, s32, s32, s32, s32, void *);
+void *func_1518D1C0(void *, s16, s16, u8, u8, s32, void *);
 extern u8 D_80099C1C;
 
 void func_15074E04(s32 arg0, void *arg1, s32 arg2) {

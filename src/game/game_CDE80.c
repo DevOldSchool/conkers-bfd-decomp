@@ -282,7 +282,7 @@ void func_150A23E4(void *arg0) {
         zone->state = 1;
     }
 }
-s32 func_15183290(s16, s32, s16, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+s32 func_15183290(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A24C0 CURRENT (540) */
 void func_150A24C0(void *arg0, s32 arg1) {

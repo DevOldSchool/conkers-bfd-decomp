@@ -9,7 +9,7 @@
 s32 func_150B2480(s32 arg0, s32 arg1) {
     return 0xA;
 }
-void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
+void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, s32, u8);
 
 void func_150B2494(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];

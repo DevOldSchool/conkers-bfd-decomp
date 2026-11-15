@@ -388,7 +388,7 @@ typedef struct Game1483E0SoundSet {
 
 void func_10010F30(s32, s32, s32, s32, s32);
 void func_150B2740(s32, s32);
-void func_15170F4C(u8 *, s32, s32);
+void func_15170F4C(u8 *, u8, s32);
 void D_1000EC24(void);
 extern Game1483E0SoundSet D_800A2F84;
 extern s32 D_800BE9E4;

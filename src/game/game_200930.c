@@ -27,13 +27,13 @@ u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 f32 func_150ADA68(void);
-s32 func_15102920(f32, s32, void *, void *, s32, s32, s32, s32, s32, s32);
+void *func_15102920(f32, u8, void *, f32 *, s16, u8, u8, s32, u8, s32);
 void * func_15132A4C(void *, s32, s32, s32, u8, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 void func_15145974(void *, f32 *, f32 *);
 s32 func_15145C90(s32);
 
-void func_15152B38(void *, s32, s32);
+void func_15152B38(void *, u8, s32);
 extern u8 D_1000EC24[];
 extern s32 D_80082FA0;
 extern f32 D_800AB188;
@@ -411,7 +411,7 @@ void func_151D3E04(void *arg0, f32 *arg1, f32 *arg2, u8 arg3, f32 arg4) {
     *(f32 *)((u8 *)arg1 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
 }
 extern u8 D_800CC2D0[];
-s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
+void func_1505D1C4(f32, f32, f32, s32, s32, u16, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3E6C CURRENT (740) */
 void func_151D3E6C(void *arg0, void *arg1, void *arg2, s32 arg3) {
@@ -881,7 +881,7 @@ void func_151D4D58(u8 *arg0) {
     func_151D469C(arg0, 1, 0x50, 0xFF, 1);
 }
 void func_1507DE4C(void *);
-void func_15137610(void *, void *, void *, s32, s32, s32);
+void func_15137610(void *, void *, void *, s32, u8, s32);
 s32 func_1505D024(void *, s32, s32, s32);
 void func_15138C80(void *, u8, s32);
 struct Game1C2050Owner;
@@ -1027,7 +1027,7 @@ void func_151D5334(void *arg0, f32 arg1, f32 arg2, f32 arg3, u8 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5334 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5334.s")
-u8 *func_151D8868(s8 *, s32, s32, s32);
+u8 *func_151D8868(s8 *, s32, u8, s32);
 
 typedef struct {
     s8 field0;
@@ -1143,7 +1143,7 @@ void func_151D5514(f32 *arg0, u8 arg1, s32 arg2) {
     effect.field48 = 1.5120001f;
     func_1514FCE8(&effect.field00, arg1, arg2);
 }
-void func_151541B8(f32 *, f32, f32, f32, f32, u8, s32);
+void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 f32 func_150ADA68(void);
 void func_151D5514(f32 *, u8, s32);
 
@@ -1196,7 +1196,7 @@ void func_151D5714(void *arg0, s32 arg1, s32 arg2, u8 arg3,
 }
 void func_151D5174(void *, void *, void *, void *, void *, void *, void *, void **, void **, void *);
 void func_151D5A18(void *, s32, void *, void *, void *, s32, u8);
-void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern s32 D_8008FC8C[];
 extern u8 *D_8008FC94[];

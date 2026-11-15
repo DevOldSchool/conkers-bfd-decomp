@@ -202,7 +202,7 @@ void *func_15147A80(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
     func_100226F0(allocation->storage, 0x10);
     return allocation;
 }
-extern s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+s32 func_151462C8(s32, void *, u8, s32, u8, s16, void *, u8, s32);
 extern s32 (*D_8008A2A4[])(u8 *, s32, s16);
 
 s32 func_15147C4C(s32 arg0, u8 *arg1, s16 arg2) {

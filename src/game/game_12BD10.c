@@ -21,9 +21,7 @@ void func_150FEC28(void *, s32, void *, void *, void *, s32, s32);
 void func_15145740(void *, void *, void *, void *, f32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
-void *func_151C229C(void *, void *, void *, void *, s32, s32, f32, f32,
-                   f32, f32, f32, s32, void *, s32, s32, s32, s32, s32,
-                   s32, s32, s32, f32, s32, s32, s32, s32, s32);
+void *func_151C229C(void *, void *, void *, void *, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 extern u8 D_800A200C[];
 extern u8 D_800A2018[];
 extern u8 D_800A2024[];

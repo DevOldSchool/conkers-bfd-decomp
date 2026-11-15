@@ -13,7 +13,7 @@
  */
 
 /* Raw 1502B7F0 consumes count-selected word varargs and returns its size word. */
-u32 func_1502B7F0(s32 *, s32, ...);
+s32 func_1502B7F0(s32 *, s32, ...);
 extern u8 D_800BE590;
 extern u16 D_800BE598[];
 extern s32 D_800BE5A8[];

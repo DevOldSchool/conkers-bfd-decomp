@@ -166,7 +166,7 @@ void func_150A49F4(s32);
 void func_1510F800(s32 arg0) {
     func_150A49F4(arg0);
 }
-void func_1510E388(void *, void *, f32 *, f32 *);
+s32 func_1510E388(s16 **, s16 (*arg1)[3], f32 *, f32 *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern f32 D_800A2D9C;

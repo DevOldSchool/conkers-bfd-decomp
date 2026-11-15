@@ -151,7 +151,7 @@ typedef struct Game1B9210EffectPacket {
     u8 padA5[3];
 } Game1B9210EffectPacket;
 
-void func_1516865C(void *, s32, s32, s32, s32);
+void func_1516865C(void *, u8, u8, u8, u8);
 
 typedef struct Game18C69CPosition {
     f32 x;
@@ -185,7 +185,7 @@ s32 func_1518C57C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 
 u8 func_151D8E20(void);
 f32 func_150ADA68(void);
-void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
+void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
 
 s32 func_1518C69C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                    s32 arg5) {

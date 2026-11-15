@@ -107,10 +107,10 @@ void func_15054A5C(u8 *arg0, void *arg1) {
     func_15060F28(arg0, 0);
 }
 void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
-void func_15083568(u8 *, s32, f32, s32);
+s32 func_15083568(u8 *, s32, f32, s32);
 void func_150836CC(u8 *, s32);
 void func_1507C324(void *, void *);
-void func_151026BC(void *, s32, s32, s32, s32, s32);
+s32 func_151026BC(void *, s16, u8, u8, u8, s32);
 void func_15188810(u8 *, s32, s32);
 extern u16 **D_800BE728;
 
@@ -242,7 +242,7 @@ void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_1505A630(f32, f32, s32);
-void func_1508B20C(f32, f32, f32, s32);
+void func_1508B20C(f32, f32, f32, f32);
 void func_10010154(s32, void *, s32, s32, s32);
 extern u8 D_800BE616, D_800C3E78;
 extern s32 D_800CC268, D_800BE9E4;
@@ -377,7 +377,7 @@ void func_15055BF8(u8 *arg0) {
         func_15060F28(arg0, 0);
     }
 }
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 s32 func_1506E46C(u8 *, s32 *, s32);
 void func_15060A30();
 void func_1507CD64(u8 *, s32);

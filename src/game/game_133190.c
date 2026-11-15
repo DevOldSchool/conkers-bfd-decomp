@@ -593,8 +593,7 @@ typedef struct Game133190Owner {
 } Game133190Owner;
 
 /* Pointer-leading ABI proved by raw actor dereference and independent caller. */
-void func_15081690(void *, f32, f32, f32, f32, f32, f32,
-                   void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 void func_15107A20(void *, s16, s16, void *, void *);
 void func_15107AE0(void *, void *, void *, void *);
 Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
@@ -650,7 +649,7 @@ Game133190Object *func_15107700(void *arg0, s16 arg1, s16 arg2, s16 arg3,
     return result;
 }
 
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151078E4(void *arg0, s32 arg1, u8 arg2) {
     s32 temp_a2;

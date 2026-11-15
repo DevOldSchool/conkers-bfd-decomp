@@ -6,7 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  */
 
-s32 func_1505D024(void *, s32, s32, s32);
+s32 func_1505D024(void *, s32, u16, s32);
 typedef struct GameCollisionHeightActor {
     u8 pad00[0x18];
     f32 y;
@@ -541,8 +541,8 @@ typedef struct GameDC6B0Emission {
     f32 scale, scaleRange, radius;
 } GameDC6B0Emission;
 
-void func_15153634(GameDC6B0Burst *, s32, s32, s32);
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15153634(GameDC6B0Burst *, u8, u8, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern s32 D_8009F790[5];
 extern f32 D_8009F7A4[5];
 extern f32 D_8009F7DC, D_8009F7E0, D_8009F7E4, D_8009F7E8;

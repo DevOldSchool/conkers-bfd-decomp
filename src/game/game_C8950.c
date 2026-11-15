@@ -35,7 +35,7 @@ void func_15096970(void);
 void func_1509C120(void);
 void func_1509C3A0(void);
 GameC8950Node *func_1509B5AC(s32, s32);
-s32 func_1509CBD4(u16);
+s32 func_1509CBD4(s32);
 extern s32 D_8003C8E0;
 extern u8 D_800D2F3C;
 extern u16 *D_800D2F40;

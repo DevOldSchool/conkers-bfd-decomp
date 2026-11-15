@@ -738,8 +738,7 @@ extern f32 (*D_8008F870[])(void *, s32);
 extern void (*D_8008F87C[])(void *);
 extern s16 (*D_8008F890[])(void);
 void func_15143134(f32 *, f32 *, s32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32,
-                    s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
@@ -1251,8 +1250,8 @@ typedef struct CharacterFlamethrowerCollisionActor {
 
 extern CharacterFlamethrowerCollisionActor D_800CC2D0[];
 
-s32 func_1505D024(void *, s32, s32, s32);
-s32 func_1518D1C0(void *, s32, s32, s32, s32, s32, void *);
+s32 func_1505D024(void *, s32, u16, s32);
+s32 func_1518D1C0(void *, s16, s16, u8, u8, s32, void *);
 extern u8 D_800A8A84;
 extern f32 D_800CC2E4;
 extern f32 D_800CC2E8;
@@ -2606,7 +2605,7 @@ typedef struct CharacterFlamethrowerTrailPoint {
     u8 pad20[0x8];
 } CharacterFlamethrowerTrailPoint;
 
-s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
+void func_1505D1C4(f32, f32, f32, s32, s32, u16, s32, s32);
 
 void func_1519CDB0(CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2) {
     f32 spacing;

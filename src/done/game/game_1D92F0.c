@@ -40,8 +40,8 @@ extern Game1D92F0Selection D_800A9020[];
 extern Game1D92F0Range D_800A9040[], D_800A9158[];
 extern Game1D92F0Impact D_800A925C[];
 u8 func_151D8E20(void);
-void func_1514C678(f32, f32, f32, f32, s32, s32, s32, s32, s32, f32, void *, s32);
-void func_151DBE80(u8, f32, f32, s32, void *, void *, s32, s32, s32, s32);
+void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, void *, u8);
+void func_151DBE80(u8, f32, f32, s16, void *, void *, u8, u8, u8, s32);
 
 void func_151ABE40(Vec3f *arg0, Game1D92F0Surface *arg1,
                    s32 arg2, s32 arg3, s32 arg4) {

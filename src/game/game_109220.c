@@ -130,7 +130,7 @@ typedef struct Game109220Spawn {
 } Game109220Spawn;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 void *func_15083E90(u8);
 extern u8 D_800903C8[];
 extern u8 D_80090414[];

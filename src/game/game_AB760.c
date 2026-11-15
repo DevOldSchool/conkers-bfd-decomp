@@ -334,7 +334,7 @@ u8 *func_1507E9F8(void *actor, s32 *countOut) {
     return 0;
 }
 u8 *func_1507E9F8(void *, s32 *);
-void func_15083568(void *, s32, f32, s32);
+s32 func_15083568(void *, s32, f32, s32);
 extern f32 D_8009B8A0;
 
 /* Descriptive role: actor_dispatch_expression_action.

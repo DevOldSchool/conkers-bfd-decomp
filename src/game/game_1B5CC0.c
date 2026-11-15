@@ -371,9 +371,9 @@ void func_151895A4(u8 *arg0) {
 void func_151895CC(u8 *arg0) {
     func_100043B4(*(s32 *)(arg0 + 8), 2, arg0);
 }
-s32 func_1502C974(s32, s32, s16, s32, s32);
+s32 func_1502C974(s32, s32, s32, s32, s32);
 s32 func_1503DA9C(void *, s32, s32, s32);
-s32 func_150849CC(void *, s32 *);
+u8 func_150849CC(u8 *, s32 *);
 extern u8 D_800CC2D0;
 extern s32 D_800DF7C0;
 extern s8 D_800DF7C4;

@@ -45,7 +45,7 @@ typedef struct GameAE1D0Sphere {
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_15143134(f32 *, f32 *, s32);
-s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
+void func_1505D1C4(f32, f32, f32, s32, s32, u16, s32, s32);
 extern GameAE1D0Sphere *D_80086C60[];
 extern u8 D_8009CBCC[];
 extern f32 D_8009CBD8;

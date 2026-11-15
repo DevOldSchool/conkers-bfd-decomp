@@ -78,7 +78,7 @@ typedef struct Game1CBE20ParticleConfig {
     f32 field_38;
 } Game1CBE20ParticleConfig;
 
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern f32 D_800A8CC0;
 extern f32 D_800A8CC4;
 extern f32 D_800A8CC8;

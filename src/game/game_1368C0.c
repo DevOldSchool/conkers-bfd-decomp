@@ -205,7 +205,7 @@ typedef struct Game1368C0EmitterOwner {
 } Game1368C0EmitterOwner;
 
 void *func_15130374(s32, u8, s32, u8, s32);
-void func_15152B38(void *, s32, s32);
+void func_15152B38(void *, u8, s32);
 f32 func_150ADA68();
 extern f32 D_800A2634;
 extern f32 D_800A2638;

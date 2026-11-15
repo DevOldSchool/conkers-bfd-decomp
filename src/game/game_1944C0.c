@@ -451,7 +451,7 @@ typedef struct {
 
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 void *func_15142FBC(void *, s32, s32, u8 *);
-void func_15095760(void *, s16 *);
+void *func_15095760(void *, s16 *);
 extern Game1944C0Flags D_800A4AC8[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15167C58 CURRENT (736) */

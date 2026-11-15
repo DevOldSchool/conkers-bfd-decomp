@@ -114,7 +114,7 @@ void func_151BE558(void *arg0, void *arg1, u8 arg2) {
     }
 }
 
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151BE604(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x110, arg0 + 0x114, arg0);
@@ -165,7 +165,7 @@ s32 func_151BE6CC(void *arg0) {
     state->value += (*(f32 *)((u8 *)arg0 + 0x174) - current) * D_800AA8AC;
     return 1;
 }
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151BE788(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x180, arg0 + 0x184, arg0);

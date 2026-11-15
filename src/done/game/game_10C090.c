@@ -22,7 +22,7 @@ typedef struct Game10C090LookupRecord {
 
 extern Game10C090LookupRecord D_800A0D0B[];
 extern Game10C090LookupRecord D_800A0D2B[];
-void func_151417C4(s32, s32);
+void func_151417C4(u8, u8);
 
 void func_150DEC28(u8 arg0, s32 arg1) {
     s32 temp_v0;

@@ -11,7 +11,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150A7A48(void *, void *, void *);
 void func_150A7BC0(void *);
 void func_150A8050(void *, f32, f32, f32);

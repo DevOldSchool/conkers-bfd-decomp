@@ -12,7 +12,7 @@
 
 void func_150A3444(s32, s16, s16, s16);
 void func_151C970C(s32, void *);
-void func_150A2864(s32, s32);
+void func_150A2864(u32, s32);
 void func_150A2940(s32, s32, s32);
 void func_150A3398(s32, u16, s32, s32, s32, s32);
 extern s32 D_800D3098;

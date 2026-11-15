@@ -13,7 +13,7 @@ typedef struct {
     u8 bytes[8];
 } Game10B7D0Lookup8;
 
-void func_150A2864(s32, s32);
+void func_150A2864(u32, s32);
 s32 func_150A32B4(s32, s32, s32, s32);
 extern Game10B7D0Lookup8 D_80088950;
 extern Game10B7D0Lookup8 D_80088958;

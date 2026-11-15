@@ -40,7 +40,7 @@ void func_150D2110(s16 arg0, f32 arg1, f32 arg2, u8 arg3, u8 arg4,
     }
 }
 extern f32 D_800BE9A4;
-void func_1515D4D4(s32, u8, u8, s32);
+void func_1515D4D4(s32, s32, s32, u8);
 
 void func_150D21CC(void *arg0) {
     GameFF5C0Packet *packet;

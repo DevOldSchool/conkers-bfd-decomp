@@ -29,7 +29,7 @@ s32 func_15189FF0(void *arg0, void *arg1, void *arg2, u8 arg3, u8 arg4, u8 arg5,
 }
 typedef s32 (*Game18A094Callback)(void *, u8 *);
 extern Game18A094Callback D_8008D5A0[];
-s32 func_15083E90(u8);
+void *func_15083E90(u8);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A094 CURRENT (2483) */

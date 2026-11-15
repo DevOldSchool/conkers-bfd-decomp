@@ -8,7 +8,7 @@
 
 void func_15164F0C(u8, s32, void *, u8, s32);
 void func_150FCBC0(u8);
-void func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 extern u8 D_1000EC24[];
 extern s32 D_80082FA0;
 
@@ -40,7 +40,7 @@ void func_150FCA30(void) {
     func_151D8868((s8 *)spawn, 0, 0xFF, 0);
 }
 f32 func_150ADA68(void);
-void func_1514FCE8(s16 *, s32, s32);
+void func_1514FCE8(s16 *, u8, s32);
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 extern void *D_800D9AA0;
 extern s16 D_800A1EE0[][2];

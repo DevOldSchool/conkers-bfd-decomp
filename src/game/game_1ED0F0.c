@@ -286,7 +286,7 @@ void func_151C0418(void *arg0, u8 arg1, s32 arg2) {
                    (func_150ADA20(arg0) % 121U) + 0x3C,
                    0xFF, 0xFF, 0xFF, 0xFF, 0, 0, arg1, arg2);
 }
-extern void func_151541B8(f32 *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, u8 arg5, s32 arg6);
+void *func_151541B8(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, u8 arg5, s32 arg6);
 
 f32 func_150ADA68(void);
 
@@ -387,11 +387,11 @@ typedef struct {
 } Game1ED0F0Collision;
 
 void func_15055A2C(s32, f32, f32, f32, s32);
-void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 void func_151C1654(void *, s32, s32, u8, s32);
 void func_151BFDA0(void *, f32 *, s32, u8, s32);
 void func_151BFE84(void *, void *, void *, s32, u8, s32);
-void func_151ABE40(void *, void *, s32, u8, s32);
+void func_151ABE40(void *, void *, s32, s32, s32);
 extern f32 D_800BE9A4;
 extern s32 (*D_800E0930)(void *, f32 *, f32 *);
 
@@ -687,8 +687,7 @@ s32 func_151C196C(Game1ED0F0Trace *arg0, Vec3f *arg1, Vec3f *arg2, Vec3f *arg3, 
     return 1;
 }
 
-void func_15081690(void *, f32, f32, f32, f32, f32, f32,
-                   void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 
 void func_151C1D5C(void *arg0, Vec3f *arg1, Vec3f *arg2, Game1ED0F0Trace *arg3,
                    f32 arg4, s32 arg5, s32 arg6, s32 arg7,
@@ -743,7 +742,7 @@ typedef struct {
     s8 field_6;
 } Game1ED0F0EventPacket;
 
-void func_151D8868(s8 *, s32, s32, s32);
+void *func_151D8868(s8 *, s32, u8, s32);
 
 void func_151C1FB8(void *arg0) {
     Game1ED0F0EventPacket packet;

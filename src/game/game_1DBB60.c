@@ -7,7 +7,7 @@
 
 void func_10010FFC(s32, s32, s32, s32, s32, void *);
 s32 func_15045800(f32 *, u16, f32, void *);
-void func_151ABE40(f32 *, void *, s32, u8, s32);
+void func_151ABE40(f32 *, void *, s32, s32, s32);
 extern f32 D_800A9D70;
 
 void func_151AE6B0(void *arg0) {

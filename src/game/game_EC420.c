@@ -244,7 +244,7 @@ void func_150BF21C(Game150BF21CObj *arg0) {
 }
 void func_15060F28(u8 *, s32);
 void func_150825C0(s32, s32);
-s32 func_15083E0C(s32);
+s32 func_15083E0C(u8);
 void *func_15083E90(u8);
 void func_1511B51C(void *);
 extern s32 D_800902B8;
@@ -363,7 +363,7 @@ typedef struct GameEC420Spawn {
 
 struct Blood36C3CActor;
 void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
-void func_15153634(GameEC420Spawn *, s32, s32, s32);
+void func_15153634(GameEC420Spawn *, u8, u8, s32);
 extern f32 D_800A0134;
 extern f32 D_800A0138;
 extern f32 D_800A013C;
@@ -444,7 +444,7 @@ typedef struct GameEC420Burst {
     f32 field34;
     f32 field38;
 } GameEC420Burst;
-void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 extern GameEC420Word D_800A0100;
 extern GameEC420Word D_800A0104;
 

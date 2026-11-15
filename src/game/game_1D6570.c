@@ -23,7 +23,7 @@ typedef struct {
 } Game1D6570Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_151A8B20(Game1D6570Descriptor *, s32, s32, s32, s32);
+s32 func_151A8B20(Game1D6570Descriptor *, s16, s32, u8, s32);
 extern f32 D_800A8F58;
 extern f32 D_800A8F5C;
 extern f32 D_800A8F60;
@@ -189,7 +189,7 @@ typedef struct Game1D6570LightHeader {
     u8 channel;
 } Game1D6570LightHeader;
 
-s32 func_1516284C(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_1516284C(u8 *, s32 *, s32, s32, s32, u8, u8, s32, u8, u8, s32);
 extern Game1D6570Preset D_8008F9AC[];
 
 void func_151A9390(u8 arg0, u8 arg1, void *arg2, f32 *arg3,

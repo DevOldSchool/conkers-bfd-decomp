@@ -139,7 +139,7 @@ void func_151216F8(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x190) = 25.0f;
     *(f32 *)((u8 *)arg0 + 0x99C) = 0.0f;
 }
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 void func_151C9ED4(void *);
 
 typedef struct {

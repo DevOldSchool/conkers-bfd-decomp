@@ -15,7 +15,7 @@
 
 extern s32 func_1504697C(Vec3f *, u16, f32, Game71820Hit *);
 extern void func_150E83AC(Vec3f *, s16, u8, s32);
-extern void func_151A9834(Vec3f *, f32, f32, f32 *, s32, s32, s32, s32, s32);
+void func_151A9834(Vec3f *, f32, f32, f32 *, s32, u8, s32, u8, s32);
 
 void func_150DF334(void *arg0) {
     Vec3f *position;

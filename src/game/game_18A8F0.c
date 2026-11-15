@@ -602,7 +602,7 @@ void func_1515F270(void *arg0, void *arg1) {
         }
     }
 }
-s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_1505D024(void *arg0, s32 arg1, u16 arg2, s32 arg3);
 
 void func_1515F2B8(void *arg0, s32 arg1) {
     func_1505D024(arg0, 0x6001D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
@@ -755,7 +755,7 @@ void func_1515FBC4(Game18A8F0Actor *arg0, s32 arg1) {
     }
     func_1505D024(arg0, 0x6002E, arg0->field_7A, actor_index);
 }
-s32 func_1505D024(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_1505D024(void *arg0, s32 arg1, u16 arg2, s32 arg3);
 
 void func_1515FC34(s32 arg0, s32 arg1) {
     func_1505D024((void *)arg0, 0x33, 0xC000, -1);

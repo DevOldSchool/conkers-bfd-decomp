@@ -559,7 +559,7 @@ typedef struct {
 
 extern GameAEB40EntryList D_80086CC4[];
 s32 func_15083AC8(s32, u8, u8, s32, s32, s32, s32, s32, f32);
-s32 func_15030AF4(s32, u8, u8, u8, s32, s32, s32, s32, s32, u8 *, s32, s32, s32);
+s32 func_15030AF4(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8 *, s32, s32, s32);
 
 s32 func_15083568(s32 arg0, s32 arg1, f32 arg2, s32 arg3) {
     u8 *entry;
@@ -593,7 +593,7 @@ s32 func_15083568(s32 arg0, s32 arg1, f32 arg2, s32 arg3) {
 }
 
 void func_150302F0(void *, s32);
-u8 *func_1505F0AC(u8);
+u8 *func_1505F0AC(s32);
 void func_15060F28(u8 *, s32);
 extern s32 D_800CC2D0;
 
@@ -627,7 +627,7 @@ void func_150836CC(void *arg0, s32 arg1) {
 extern u8 *D_800D1C90[];
 extern u16 D_800C5A90[];
 s32 func_1502B020(s32, s32, s32, s32);
-s8 func_15084D00(void *);
+s32 func_15084D00(void *);
 
 /* Semantic role: actor_assign_model.
  * Writes the mutable model byte at +4, handles model 0xFF, applies related
@@ -735,8 +735,8 @@ void func_150839B8(void *actor, s32 modelIndex, void *spawnRecord) {
         }
     }
 }
-void func_1503D660(s32, s32);
-void func_1503D774(s32, s32);
+s32 func_1503D660(s32, s32);
+s32 func_1503D774(s32, s32);
 u8 *func_1505ED34(void);
 void func_150615DC(void *);
 void func_150837D4(s32, s32, s32);
@@ -1089,8 +1089,8 @@ void func_150843AC(GameAEB40State *arg0, s32 arg1) {
         }
     }
 }
-void func_1503D660(s32, s32);
-void func_1503D774(s32, s32);
+s32 func_1503D660(s32, s32);
+s32 func_1503D774(s32, s32);
 extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 

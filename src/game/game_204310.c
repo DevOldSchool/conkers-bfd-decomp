@@ -70,7 +70,7 @@ s32 func_151D7000(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7000 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204310/func_151D7000.s")
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151D70CC(void *arg0, s32 arg1, u8 arg2) {
     s32 temp_a2;

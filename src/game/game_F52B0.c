@@ -35,7 +35,7 @@ typedef struct {
 } GameF52B0Camera;
 void func_151254F4(void *, s32);
 void func_15124B18(void *);
-GameF52B0Actor *func_15083E90(s32);
+void *func_15083E90(u8);
 s32 func_1509BE40(s32, s32, s32, ...);
 void func_1509BFB0(s32, s32, s32, ...);
 extern s32 D_80088800;

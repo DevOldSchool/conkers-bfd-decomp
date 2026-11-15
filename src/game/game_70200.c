@@ -300,7 +300,7 @@ s32 func_10022EEC(void *);
 void *func_150417AC(void *, f32, f32, void *, s32, s32, s32, s32, f32, f32, s32);
 void func_150428D4(void *, s32 *, s32 *, s32 *);
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
-void *func_151ED430(void *, Game70200TextureInfo *, s16, s16, s32, s32, f32, s32);
+void *func_151ED430(void *, Game70200TextureInfo *, s32, s32, s32, s32, f32, s32);
 extern s32 D_80082FA4;
 extern u8 D_800859A0[];
 /* Eight-byte HUD selector metadata at D_800859E0; scaleByte is divided by 128. */

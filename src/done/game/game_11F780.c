@@ -15,7 +15,7 @@ typedef struct {
 } Game11F780Work;
 
 s32 func_150F22D0(Game11F780Work *, void *, u8);
-void func_151C329C(Game11F780Work *, s32, s32);
+void func_151C329C(Game11F780Work *, u8, s32);
 
 void func_15143134(f32 *, f32 *, s32);
 extern f32 D_800A1920;

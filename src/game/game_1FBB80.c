@@ -44,7 +44,7 @@ typedef struct Game1FBB80Packet {
 
 s32 func_1504530C(void *, f32, void *);
 f32 func_150ADA68(void);
-s32 func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_151432BC(void *, f32 *, f32 *, f32 *, f32 *);
 extern s32 D_80082FA0;
 extern u8 D_800A4AA0[];

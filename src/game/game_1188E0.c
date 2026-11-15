@@ -22,8 +22,8 @@ void func_150EB430(Vec3f *arg0, Vec3f *arg1, void *arg2) {
     sp1C[2] = arg0->z + temp_a3->z;
     func_150EB484(arg0, sp1C, arg2);
 }
-void func_150A2864(s32, s32);
-void *func_15083E90(s32);
+void func_150A2864(u32, s32);
+void *func_15083E90(u8);
 s32 func_150A34B0();
 void func_150EBC80(void *, u8, s32);
 extern s32 D_80088AA0[];

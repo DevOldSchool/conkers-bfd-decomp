@@ -515,8 +515,7 @@ s32 func_151C2E94(void *arg0, void *arg1) {
     return 1;
 }
 void func_151D4DAC(s32, s32, s32, s32, s32, s32, void *, s32, s32);
-void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32,
-                   s32, s32, s32, s32, s32, s32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 
 void func_151C2EF0(s32 arg0, s32 arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5) {
     func_151D4DAC(arg0, arg1, arg3, arg4, arg5, *(s32 *)((u8 *)arg2 + 0x1B4), (u8 *)arg2 + 0x170, *(u8 *)((u8 *)arg2 + 0xC), *(u8 *)((u8 *)arg2 + 1));
@@ -577,7 +576,7 @@ typedef struct Game1EF500EmitterOwner {
     Game1EF500EmitterState state110;
 } Game1EF500EmitterOwner;
 
-s32 func_15102920(f32, s32, void *, void *, s32, s32, s32, s32, s32, s32);
+s32 func_15102920(f32, u8, void *, void *, s16, u8, u8, s32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15152B38(void *, u8, s32);
 f32 func_150ADA68();

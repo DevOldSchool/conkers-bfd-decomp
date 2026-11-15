@@ -22,8 +22,7 @@ void func_151C69A0(s32 arg0, s32 arg1, s32 arg2) {
     func_151C69CC(arg0, arg2, 1, arg2);
 }
 void func_15143134(f32 *, f32 *, s32);
-void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
-                   s32, s32, s32, s32, s32);
+void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 f32 func_150ADA68(void);
 extern s32 D_800AAB00[];
 extern f32 D_800AAB08[];
@@ -56,8 +55,7 @@ typedef struct Game1F3780EffectPacket {
     u8 pad5A[0xA];
 } Game1F3780EffectPacket;
 
-void func_150F7470(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32,
-                   void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150F7470(Vec3f *, Vec3f *, s32, Vec3f *, u8, s32, f32, f32, f32, u8 *, u8, u8, u8, u8, s32, s8, s32, u8, u8, s32);
 s32 func_15142A5C(void *);
 void func_15145EA4(s32 *, s32 *, s32, s32);
 s32 func_1514ECE0(void *, s16, void **);

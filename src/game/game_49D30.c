@@ -49,7 +49,7 @@ typedef struct Game1C880Task {
     OSMesg message;
 } Game1C880Task;
 void func_10024F10(void);
-s32 func_1501A39C(void);
+void func_1501A39C(void);
 s32 func_10023580(OSMesgQueue *, OSMesg, s32);
 extern u8 D_100290D0[], D_100291A0[];
 extern void *D_8002AAE8[];

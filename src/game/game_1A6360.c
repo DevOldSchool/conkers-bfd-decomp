@@ -101,7 +101,7 @@ void func_151794C8(void) {
     D_800DD438[2] = z;
     D_800DD438[1] = y;
 }
-void func_1516865C(void *, s32, s32, s32, s32);
+void func_1516865C(u8 *, u8, u8, u8, u8);
 
 void func_15179600(s32 arg0, s32 arg1) {
     s32 x;
@@ -257,8 +257,8 @@ void func_15179AB8(void) {
         } while (var_v1 >= 0);
     }
 }
-s32 func_1510F8D8(s32, s32, s32, s32);
-void func_1516865C(void *, s32, s32, s32, s32);
+s32 func_1510F8D8(s32, s32, s32, s32 *);
+void func_1516865C(u8 *, u8, u8, u8, u8);
 extern f32 D_800A7208;
 
 void func_15179B14(s32 arg0) {
