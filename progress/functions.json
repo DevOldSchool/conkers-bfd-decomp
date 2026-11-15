@@ -7683,17 +7683,16 @@
       "symbol": "func_15124B18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3092,
-        "reason": "Beta-supported true-arm scope for real retail-added float outputs improves3598 to3092; scalar identities/order and operations unchanged. Frame70vs60 remains; float homes30/34/38 vs40/44/48, halfword homes+1C, FP/control scheduling unresolved. Prior vector/else-scope probes not repeated. Best preserved in camera-completion-20261003.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1540,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15124C38",
           "vram": "0x15124C38"
         }
@@ -16735,8 +16734,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1036,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15014B60",
           "vram": "0x15014B60"
         }
@@ -74926,8 +74930,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1312,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518D1C0",
           "vram": "0x1518D1C0"
         }
@@ -86106,17 +86115,16 @@
       "symbol": "func_150E8B1C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 6055,
-        "reason": "CURRENT 6055 after two focused comparisons and two bounded probe batches. Full 0x70 descriptor and raw helper contracts preserved; ternary flags and shorter scalar lifetimes improve 8653. Frame 0x120 versus 0x108, hoisted global addresses, floating-point allocation and store scheduling remain. Explicit address lifetimes did not improve. No shared dependency changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 896,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E8D5C",
           "vram": "0x150E8D5C"
         }
