@@ -21,6 +21,8 @@ SECTIONS
     {
         *entrypoint.o(.rodata)
     }
+    /* Forty-five switch targets: docs/evidence/data-layout/game_34f20_jump_table.md. */
+    .game_rodata_34f20 0x80095A50 (INFO) : SUBALIGN(4) { *game_34F20.o(.rodata) }
     /* Dispatch table, leading and constructor literals:
        docs/evidence/data-layout/game_981e0_constructor_literal_pool.md. */
     .game_rodata_981e0_0 0x80099D54 (INFO) : SUBALIGN(4) { *game_981E0.o(.rodata.981e0_0) }
@@ -903,6 +905,8 @@ ASSERT(SIZEOF(.game_rodata_entrypoint) == 0x20, "entrypoint table extent changed
 __game_rodata_entrypoint_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_32740) == 0x10, "game_32740 constant pool extent changed")
 __game_rodata_32740_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_34f20) == 0xC0, "game_34F20 table extent changed")
+__game_rodata_34f20_payload_size = 0xB4;
 
 ASSERT(SIZEOF(.game_rodata_c98f0) == 0x20, "game_C98F0 table extent changed")
 __game_rodata_c98f0_payload_size = 0x18;

@@ -9,7 +9,6 @@
  * - func_15000AD0
  * - func_15001460
  * - func_15001A08
- * - func_15002008
  * - func_15002248
  * - func_150028BC
  *
@@ -277,62 +276,47 @@ s32 func_15049260(Game76710CallArgs);
 void func_150492CC(f32, f32, f32);
 extern s16 **D_800DBE3C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15002008 CURRENT (613) */
 void func_15002008(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 *arg4) {
-    f32 *position;
-    s16 *current;
-    s32 delta;
-    u16 count;
-    u16 index;
-    Game76710CallArgs triangle;
+    s32 i;
+    s32 count;
+    s32 index;
     s32 previous;
-    s16 **source;
-    s16 *point;
-    s16 *end;
+    s32 delta;
+    s32 j;
+    s16 **src;
+    Vec3f tri[3];
 
     previous = -1;
-    count = (u16)*arg4;
+    count = (u16)arg4[0];
     func_150492CC((f32)(arg1 - arg0), 32000.0f, (f32)(arg3 - arg2));
-    current = arg4 + 1;
-    if (count > 0) {
-        end = &arg4[count] + 1;
-        arg4 = (s16 *)(&triangle + 1);
-        do {
-            index = (u16)*current;
-            position = (f32 *)triangle.words;
-            source = (s16 **)((u8 *)D_800DBE3C + index * 12);
-            do {
-                point = *source;
-                if ((u32)point > 0x80000000U) {
-                    position[0] = (f32)(point[0] - (arg0 + arg1) / 2);
-                    position[1] = (f32)(*source)[1];
-                    position[2] = (f32)((*source)[2] - (arg2 + arg3) / 2);
-                } else {
-                    position[0] = 0.0f;
-                    position[1] = 0.0f;
-                    position[2] = 0.0f;
-                }
-                position += 3;
-                source++;
-            } while (position != (f32 *)arg4);
-            if (func_15049260(triangle) == 0) {
-                delta = index - previous;
-                if (previous == -1) {
-                    func_15001B8C((u16)(index | 0x8000));
-                } else if (delta < 0x80) {
-                    func_15001B5C((u8)delta);
-                } else {
-                    func_15001B8C((u16)(index | 0x8000));
-                }
-                previous = index;
+    for (i = 1; i <= count; i++) {
+        index = (u16)arg4[i];
+        src = (s16 **)((u8 *)D_800DBE3C + index * 12);
+        for (j = 0; j < 3; j++) {
+            if ((u32)src[j] > 0x80000000U) {
+                tri[j].x = src[j][0] - (arg0 + arg1) / 2;
+                tri[j].y = src[j][1];
+                tri[j].z = src[j][2] - (arg2 + arg3) / 2;
+            } else {
+                tri[j].x = 0.0f;
+                tri[j].y = 0.0f;
+                tri[j].z = 0.0f;
             }
-            current++;
-        } while (end != current);
+        }
+        if (func_15049260(*(Game76710CallArgs *)tri) == 0) {
+            delta = index - previous;
+            if (previous == -1) {
+                func_15001B8C(index | 0x8000);
+            } else if (delta < 0x80) {
+                func_15001B5C(delta);
+            } else {
+                func_15001B8C(index | 0x8000);
+            }
+            previous = index;
+        }
     }
     func_15001B5C(0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15002008 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002008.s")
 
 extern s32 D_80082FA0;
 extern s16 *D_800DBE44;

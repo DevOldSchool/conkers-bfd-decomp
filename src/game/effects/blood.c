@@ -11,7 +11,6 @@
  * - func_15136404
  * - func_15136F50
  * - func_151382E0
- * - func_15138424
  * - func_1513A594
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1885,7 +1884,156 @@ void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151382E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151382E0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138424.s")
+typedef struct {
+    f32 first, second, width, height;
+    Vec3f angles, scale, position, velocity;
+    f32 field40, field44, field48, field4C;
+    s32 flags;
+    s16 life;
+    u16 kind;
+    u8 byte58, pad59[3];
+    s32 word5C;
+    u8 colors[9], pad69, variant, pad6B;
+    Blood1380B4State *parent;
+    u8 parentKind, pad71;
+    s16 value72, value74;
+    u8 pad76[6];
+} Blood38424Burst;
+void func_1503F404(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15143794(s16, s16, f32, void *);
+void *func_1503195C(void *, s32, s32);
+void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern Blood1380B4Vector D_800A4018;
+extern Blood1380B4Vector D_800A4028;
+extern Blood1380B4Vector D_800A4038;
+
+typedef struct {
+    s32 value[3];
+} Blood38424Ids3;
+
+typedef struct {
+    s32 value[4];
+} Blood38424Ids4;
+
+typedef struct {
+    s32 value[2];
+} Blood38424Ids2;
+
+extern Blood38424Ids3 D_800A4118;
+extern Blood38424Ids3 D_800A4124;
+extern Blood38424Ids4 D_800A4130;
+extern Blood38424Ids4 D_800A4140;
+extern Blood38424Ids2 D_800A4150;
+extern Blood38424Ids2 D_800A4158;
+
+extern f32 D_800A4844;
+extern f32 D_800A4848;
+extern f32 D_800A484C;
+extern f32 D_800A4850;
+extern f32 D_800A4854;
+extern f32 D_800A4858;
+extern f32 D_800A485C;
+extern f32 D_800A4860;
+extern f32 D_800A4864;
+extern f32 D_800A4868;
+
+void func_15138424(Blood1380B4State *arg0, f32 *arg1, s32 arg2, void *arg3, u8 arg4, s32 arg5) {
+    Vec3f angles;
+    Blood38424Burst burst;
+    Vec3f first;
+    Vec3f second;
+
+    func_1503F404((s32)(arg0->field_1D4 + 0x300), (s32)&first.x, (s32)&first.y, (s32)&first.z,
+                  (s32)&angles.x, (s32)&angles.y, (s32)&angles.z, (s32)&second.x,
+                  (s32)&second.y, (s32)&second.z);
+    burst.scale.x = 1.0f;
+    burst.first = 20.0f;
+    burst.second = D_800A4844;
+    if (((u8 *)&D_800A3FD8[arg2])[0xE] == 1) {
+        burst.scale.y = 1.0f;
+    } else {
+        burst.scale.y = 0.0f;
+    }
+    if (((u8 *)&D_800A3FD8[arg2])[0xE] == 2) {
+        burst.scale.y = 2.0f;
+    }
+    burst.scale.z = 1.0f;
+    burst.flags = 0x39E9;
+    burst.field44 = 0.0f;
+    burst.life = (func_150ADA20() % 51U) + 0xFA;
+    burst.kind = ((u16 *)&D_800A3FD8[arg2])[6];
+    burst.height = ((*(f32 *)((u8 *)arg0 + 0x14C) + *(f32 *)((u8 *)arg0 + 0x150)) * 0.5f) *
+                   ((&D_800A40C8 == &D_800A3FD8[arg2]) ? D_800A4848 : 1.0f);
+    burst.width = burst.height;
+    burst.field4C = ((func_150ADA68() * 292.0f) + D_800A484C) * D_800A4850;
+    burst.position = *(Vec3f *)arg1;
+    func_15143794(func_150ADA20() & 0xFF, (func_150ADA20() % 21U) - 0x53,
+                  (func_150ADA68() * 8.0f) + 9.0f, &burst.velocity);
+    burst.angles = angles;
+    burst.field40 = ((func_150ADA68() * D_800A4854) + D_800A4858) * D_800A485C;
+    burst.field48 = ((func_150ADA68() * D_800A4860) + D_800A4864) * D_800A4868;
+    burst.byte58 = 0;
+    burst.word5C = 0;
+    burst.colors[0] = 0xFF;
+    burst.colors[1] = 0xD;
+    burst.colors[2] = 0;
+    burst.colors[3] = 8;
+    burst.colors[4] = 0;
+    burst.colors[5] = 0;
+    burst.colors[6] = 0;
+    burst.colors[7] = 0;
+    burst.colors[8] = 2;
+    burst.variant = 1;
+    burst.parent = arg0;
+    burst.parentKind = arg0->pad_0[0x3B];
+    burst.value72 = 0xC;
+    burst.value74 = 0x15;
+    func_1513264C(&burst, 3, 0xFF, (s32)arg3, 0, arg4, arg5);
+    if (&D_800A4018 == &D_800A3FD8[arg2]) {
+        Blood38424Ids3 checks = D_800A4118;
+        u8 i;
+        u8 found;
+
+        i = 0;
+        found = 0;
+        while (i < 3 && found == 0) {
+            if (func_1503195C(arg0, checks.value[i], 0) != NULL) {
+                found = 1;
+            } else {
+                i++;
+            }
+        }
+        if (found) {
+            Blood38424Ids3 sounds = D_800A4124;
+
+            burst.kind = sounds.value[i];
+            func_15132A4C(&burst, 3, 0xFF, 0, arg4, arg5);
+        }
+    } else if (&D_800A4028 == &D_800A3FD8[arg2]) {
+        Blood38424Ids4 masks = D_800A4130;
+        u8 i;
+        Blood38424Ids4 kinds = D_800A4140;
+
+        for (i = 0; i < 4; i++) {
+            if (!(*(s32 *)((u8 *)arg0 + 0x94) & masks.value[i])) {
+                burst.kind = kinds.value[i];
+                func_15132A4C(&burst, 3, 0xFF, 0, arg4, arg5);
+            }
+        }
+    } else if (&D_800A4038 == &D_800A3FD8[arg2]) {
+        Blood38424Ids2 masks = D_800A4150;
+        u8 i;
+        Blood38424Ids2 kinds = D_800A4158;
+
+        for (i = 0; i < 2; i++) {
+            if (!(*(s32 *)((u8 *)arg0 + 0x94) & masks.value[i])) {
+                burst.kind = kinds.value[i];
+                func_15132A4C(&burst, 3, 0xFF, 0, arg4, arg5);
+            }
+        }
+    }
+}
 typedef struct Blood39578Particle {
     u8 pad0;
     u8 color;
@@ -1960,7 +2108,7 @@ s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
 s32 func_15134070(void *);
 void func_15138120(Blood1380B4State *, s32, u8);
 void func_151382E0(f32 *, s32, void *, u8, s32);
-void func_15138424(Blood1380B4State *, f32 *, s32, void *, s32, s32);
+void func_15138424(Blood1380B4State *, f32 *, s32, void *, u8, s32);
 
 void func_15138BC0(s32 arg0, u8 arg1, s32 arg2) {
     s32 sp50[4];
