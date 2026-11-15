@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151321D0
- * - func_1513264C
  * - func_15132B80
  * - func_15133894
  *
@@ -278,39 +277,21 @@ s32 func_151336A8(s32, Game15F680ListNode *, void *);
 void *func_1515D480(s32);
 void func_15168A9C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513264C CURRENT (1255) */
 void *func_1513264C(Game15F680Source *src, s32 arg1, s32 arg2, Game15F680Params *arg3, s32 arg4, u8 arg5,
                     s32 arg6) {
     Game15F680Instance *obj;
     Game15F680ListNode *node;
     s32 i;
-    s32 type;
-    s32 mode;
-    u16 index;
 
     if (D_800DC63C >= 0x12D) {
         return NULL;
     }
-    type = 0x19;
-    if (src->flags & 0x4000) {
-        type = 0x48;
-    }
-    if (src->flags & 0x400000) {
-        mode = 2;
-    } else {
-        mode = 1;
-    }
-    obj = func_15167A68(type, arg6, arg4 + 0x170, 1, arg5, mode);
+    obj = func_15167A68((src->flags & 0x4000) ? 0x48 : 0x19, arg6, arg4 + 0x170, 1, arg5, (src->flags & 0x400000) ? 2 : 1);
     if (obj == NULL) {
         return NULL;
     }
     if (D_800DC468[src->index] == 0) {
-        if (src->flags & 0x400000) {
-            mode = 2;
-        } else {
-            mode = 1;
-        }
-        node = func_10003C40(0x10, 1, 2, mode);
+        node = func_10003C40(0x10, 1, 2, (src->flags & 0x400000) ? 2 : 1);
         if (node == NULL) {
             func_15168A9C(obj);
             func_10004074(obj);
@@ -343,17 +324,18 @@ void *func_1513264C(Game15F680Source *src, s32 arg1, s32 arg2, Game15F680Params 
             return NULL;
         }
     } else {
-        index = src->index;
+        s32 count;
+
         node = D_800DC460;
-        i = 100;
-        while (node->index != index) {
-            i--;
+        count = 100;
+        while (node->index != src->index) {
+            count--;
             node = node->next;
-            if (i <= 0) {
+            if (count <= 0) {
                 break;
             }
         }
-        if (i <= 0) {
+        if (count <= 0) {
             func_15168A9C(obj);
             func_10004074(obj);
             return NULL;
@@ -372,11 +354,11 @@ void *func_1513264C(Game15F680Source *src, s32 arg1, s32 arg2, Game15F680Params 
     if (arg3 != NULL) {
         obj->params = *arg3;
     } else {
+        obj->params.unk0 = D_800A3868;
         obj->params.unk20 = 0;
         obj->params.unk1D = 0;
         obj->params.unk1C = 0;
         obj->params.unk18 = 0;
-        obj->params.unk0 = D_800A3868;
     }
     D_800DC63C++;
     obj->unk150 = 0;
@@ -395,8 +377,6 @@ void *func_1513264C(Game15F680Source *src, s32 arg1, s32 arg2, Game15F680Params 
     obj->flags &= ~0x200000;
     return obj;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513264C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_1513264C.s")
 void *func_1513264C(Game15F680Source *, s32, s32, Game15F680Params *, s32, u8, s32);
 
 void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {

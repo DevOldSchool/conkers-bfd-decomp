@@ -51655,17 +51655,16 @@
       "symbol": "func_151325C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1255,
-        "reason": "best CURRENT 1255: residual is create-path arg register choice (a1/a2 for &D_800DC460), search index copy (move v1,a0 vs andi), and IDO hoisting copy-block setup and D_800A3868/D_80082FA0 lui above beqz arg3; frame/locals matched",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1024,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513264C",
           "vram": "0x1513264C"
         }
@@ -61335,17 +61334,16 @@
       "symbol": "func_15149104"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Three finishes and two bounded probe batches: CURRENT1658 -> 1509 -> 300; final eb8a7cd6394344dfa9a5420f78bbbeb8. Frame0x100 and all local/payload offsets match; raw callee copies descriptor0x7C and motion0x28 is retained. Residual radius store/RNG call delay slot, cosine store/angle reload order, and final random/zero FP register allocation; no shared declarations changed. Manual budget exhausted; canonical assembly restored.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 864,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F4570",
           "vram": "0x150F4570"
         }
@@ -68265,17 +68263,16 @@
       "symbol": "func_150F5310"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 775,
-        "reason": "CURRENT (775), original frame 0x110 and all stack offsets exact. Two finishes/two probe batches. Remaining 15 differing rows involve threshold/direction load order, matrix addu operand order, delta.z branch-delay store and short-circuit normalization branch scheduling. Final direct-fabs square/component probes regress to1315; best verified candidate retained. Manual budget exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 872,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FE860",
           "vram": "0x150FE860"
         }
@@ -86455,17 +86452,16 @@
       "symbol": "func_150B9D8C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 441,
-        "reason": "CURRENT (441) retained. Reordered real model/scalar homes and direct pointer arrays361; common scale snapshot361. All named homes then match top-relative but frameE8 remains versusE0, with extra8 below lowest local. Equivalent float vectors1805. No justified smaller-frame hypothesis remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 776,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C5280",
           "vram": "0x151C5280"
         }

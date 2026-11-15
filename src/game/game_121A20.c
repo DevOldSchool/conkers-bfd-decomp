@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_secondary_stream_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F4570
  * - func_150F48D0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -36,7 +35,9 @@ typedef struct {
     u8 unknown59[3];
     s32 field5C;
     u8 field60, field61, field62, field63, field64, field65;
-    u8 field66, field67, field68, field69, field6A, unknown6B;
+    u8 field66, field67, field68;
+    s8 field69;
+    u8 field6A, unknown6B;
     s32 field6C;
     u8 field70, unknown71;
     s16 field72, field74;
@@ -56,41 +57,35 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
-extern f32 D_800A1A64, D_800A1A68, D_800A1A6C, D_800A1A70;
-extern f32 D_800A1A74, D_800A1A78, D_800A1A7C, D_800A1A80;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4570 CURRENT (300) */
-void func_150F4570(Vec3f *arg0, Vec3f *arg1, s32 arg2,
-                   f32 arg3, f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+void func_150F4570(Vec3f *arg0, Vec3f *arg1, u8 arg2,
+                   f32 arg3, f32 arg4, f32 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
     Game121A20Descriptor descriptor;
     Vec3f direction;
     Vec3f delta;
     f32 length;
     f32 inverse;
     Game121A20Motion motion;
-    s32 firstFlag;
-    f32 angle;
-    s32 secondFlag;
     u8 *result;
 
     delta.x = arg1->x - arg0->x;
     delta.y = arg1->y - arg0->y;
     delta.z = arg1->z - arg0->z;
     if (func_15145128(&delta.x, &direction.x, &length, &inverse) != 0) {
-        firstFlag = ((u8 *)&arg6)[3] != 0 ? 1 : 0;
-        secondFlag = arg7 != 0 ? 2 : 0;
-        motion.flags = secondFlag | firstFlag;
+        motion.flags = (arg6 != 0 ? 1 : 0) | (arg7 != 0 ? 2 : 0);
         motion.duration = length * arg4;
         motion.position = *arg0;
-        motion.angle = func_150ADA68() * D_800A1A64;
-        motion.rate = func_150ADA68() * D_800A1A68 + D_800A1A6C;
+        motion.angle = func_150ADA68() * 6.2831855f;
+        motion.rate = func_150ADA68() * 0.2f + 0.080000006f;
         if (func_150ADA20() & 1) {
             motion.rate = -motion.rate;
         }
         motion.radius = func_150ADA68() * 21.0f + 13.0f;
-        angle = func_150ADA68() * D_800A1A70;
-        motion.cosine = func_15047C00(angle);
-        motion.sine = func_15047D60(angle);
+        {
+            f32 angle = func_150ADA68() * 6.2831855f;
+            motion.cosine = func_15047C00(angle);
+            motion.sine = func_15047D60(angle);
+        }
         descriptor.field00 = 1.0f;
         descriptor.field04 = 1.0f;
         descriptor.field0C = arg5;
@@ -105,16 +100,15 @@ void func_150F4570(Vec3f *arg0, Vec3f *arg1, s32 arg2,
         descriptor.velocity.x = direction.x * arg3;
         descriptor.velocity.y = direction.y * arg3;
         descriptor.velocity.z = direction.z * arg3;
-        descriptor.field40 = func_150ADA68() * D_800A1A74 + D_800A1A78;
+        descriptor.field40 = func_150ADA68() * 21.903002f + -10.951501f;
         descriptor.field44 = 0.0f;
-        angle = func_150ADA68() * D_800A1A7C + D_800A1A80;
+        descriptor.field48 = func_150ADA68() * 21.903002f + -10.951501f;
         descriptor.flags = 0x14900;
         descriptor.lifetime = 0x12C;
-        descriptor.kind = ((u8 *)&arg2)[3];
+        descriptor.kind = arg2;
         descriptor.field58 = 8;
         descriptor.field60 = 0xFF;
         descriptor.field61 = 0x16;
-        descriptor.field48 = angle;
         descriptor.field5C = 0;
         descriptor.field62 = 7;
         descriptor.field63 = 0;
@@ -123,7 +117,7 @@ void func_150F4570(Vec3f *arg0, Vec3f *arg1, s32 arg2,
         descriptor.field66 = 0;
         descriptor.field67 = 0;
         descriptor.field68 = 2;
-        *(s8 *)&descriptor.field69 = -1;
+        descriptor.field69 = -1;
         descriptor.field6A = 2;
         descriptor.field6C = 0;
         descriptor.field70 = 0;
@@ -131,14 +125,12 @@ void func_150F4570(Vec3f *arg0, Vec3f *arg1, s32 arg2,
         descriptor.field74 = 0xFF;
         descriptor.field4C = 0.0f;
         descriptor.field78 = arg7;
-        result = func_1513264C(&descriptor, 3, 0xFF, 0, 0x28, ((u8 *)&arg8)[3], arg9);
+        result = func_1513264C(&descriptor, 3, 0xFF, 0, 0x28, arg8, arg9);
         if (result != NULL) {
             func_10022EC0(result + 0x170, &motion, 0x28U);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F4570 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4570.s")
 /* Call context: func_1514373C: unique active project prototype */
 void func_1514373C(f32, f32, f32 *, f32 *);
 extern f32 D_800BE9A4;
@@ -272,7 +264,7 @@ typedef struct GameF4DECChoices {
     f32 *scales;
 } GameF4DECChoices;
 
-void func_150F4570(Vec3f *, Vec3f *, s32, f32, f32, f32, s32, s32, s32, s32);
+void func_150F4570(Vec3f *, Vec3f *, u8, f32, f32, f32, u8, s32, u8, s32);
 extern GameF4DECChoices D_80088B20[];
 extern s32 (*D_80088B38[])(void);
 

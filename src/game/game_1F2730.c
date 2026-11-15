@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1F2730.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151C5280
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1F2730PointPair {
@@ -26,31 +21,27 @@ s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32,
 f32 func_150ADA68(void);
 extern s32 D_800AAA90;
 extern u8 D_800AAAA8[];
-extern f32 D_800AAAB4;
-extern f32 D_800AAAB8;
 extern u8 D_800BE616;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5280 CURRENT (441) */
 void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
     Vec3f position;
     Vec3f endpoint;
     Vec3f direction;
     Vec3f side;
+    void *model;
     Game1F2730PointPair inputs;
     Game1F2730PointPair outputs;
-    f32 random2;
-    f32 random1;
-    f32 direction_x;
-    void *model;
     s32 mode;
     s32 alpha;
     u32 random;
+    f32 random2;
+    f32 random1;
 
     if (arg0 != 0) {
         func_15145740(arg0, &direction, &side, 0, 0.0f);
-        direction.x *= D_800AAAB4;
-        direction.y *= D_800AAAB4;
-        direction.z *= D_800AAAB4;
+        direction.x *= 0.001f;
+        direction.y *= 0.001f;
+        direction.z *= 0.001f;
         if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
             inputs.points[0] = &D_800AAA90;
             inputs.points[1] = D_800AAAA8;
@@ -70,12 +61,11 @@ void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
         } else {
             position.x = *(f32 *)((u8 *)arg0 + 0x14);
             position.y = *(f32 *)((u8 *)arg0 + 0x18) + 106.0f;
-            direction_x = direction.x;
             position.z = *(f32 *)((u8 *)arg0 + 0x1C);
             endpoint.x = direction.x * -82.0f + position.x;
             endpoint.y = direction.y * -82.0f + position.y;
             endpoint.z = direction.z * -82.0f + position.z;
-            position.x -= direction_x * -120.0f;
+            position.x -= direction.x * -120.0f;
             position.y -= direction.y * -120.0f;
             position.z -= direction.z * -120.0f;
         }
@@ -93,14 +83,12 @@ void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
             mode = 2;
         }
         func_151C229C((f32 *)&position, 0, (s32)&endpoint, (s32)&direction, 1, 0,
-                      300.0f, D_800AAAB8, random1 * 10.0f + 25.0f,
+                      300.0f, 0.0033333334f, random1 * 10.0f + 25.0f,
                       random2 * 150.0f + 400.0f, 80.0f, random % 56U + 0xC8,
                       arg0, 1, 1, 0, alpha, 0, 1, 0, 0x1A, 0.0f,
                       0xFF, mode, 0, arg1, arg2);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C5280 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C5280.s")
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                    s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);

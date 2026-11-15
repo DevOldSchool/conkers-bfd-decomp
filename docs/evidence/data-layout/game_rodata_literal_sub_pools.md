@@ -78,6 +78,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_115F30 | 0xC | 0x10 | 0x800A13B8 | pool (func_150E9178) | `47C34FF3 3EA0C5EB 3E45E0B5 49EF4200` (99999.9, 0.31401, 0.19324, 1960000.0; round-25) |
 | game_17CAF0 | 0x0 | 0x8 | 0x800A5FF0 | pool (func_1514FF44, func_15150178) | `3FB33333` ×2 (1.4; round-25, [record](game_17caf0_float_constants.md)) |
 | game_17CAF0 | 0x8 | 0x8 | 0x800A5FFC | pool (func_15153CCC, func_15153F18) | `3FD9999A` ×2 (1.7) |
+| game_121A20 | 0x0 | 0x20 | 0x800A1A64 | pool (func_150F4570) | eight words, 6.2831855 twice ([record](game_121a20_float_constants.md); round-25) |
+| game_121A20 | 0x20 | 0x14 | 0x800A1A98 | pool (func_150F4DEC) | `3D50E561 3E1CAC09 3F360B61 43BE8000 3D99999A` |
 | game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |
@@ -118,8 +120,9 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1865D0 | 0x20 | 0xC | 0x800A6414 | pool (func_1515AB88) | `3DA3D70A 3DCCCCCD 3E19999A` (unchanged) |
 | game_197F20 | 0x0 | 0x8 | 0x800A6DBC | pool (func_1516CC58) | `3C23D70A 3C8EFA35` (0.01, 0.017453292; round-23) |
 | game_197F20 | 0x8 | 0x1C | 0x800A6DC8 | pool (func_1516CC58) | `C0568000 00000000` (f64 -90.0), `3C8EFA35 40490FDB 3F933333 40490FDB 3F851EB8` |
-| game_1F2730 | 0x0 | 0xC | 0x800AAACC | pool (func_151C577C) | `3DCCCCCD 3E25E354 3E45A1CB` (0.1, 0.162, 0.193) |
-| game_1F2730 | 0xC | 0x14 | 0x800AAADC | pool (func_151C577C) | `3DCCCCCD 3F2E978E BED2F1AB 3F736BE3 3A83126F` (0.1, 0.682, -0.412, 0.950865, 0.001) |
+| game_1F2730 | 0x0 | 0x8 | 0x800AAAB4 | pool (func_151C5280) | `3A83126F 3B5A740E` (0.001, 0.0033333334; round-25) |
+| game_1F2730 | 0x8 | 0xC | 0x800AAACC | pool (func_151C577C) | `3DCCCCCD 3E25E354 3E45A1CB` (0.1, 0.162, 0.193) |
+| game_1F2730 | 0x14 | 0x14 | 0x800AAADC | pool (func_151C577C) | `3DCCCCCD 3F2E978E BED2F1AB 3F736BE3 3A83126F` (0.1, 0.682, -0.412, 0.950865, 0.001) |
 | game_90840 | 0x0 | 0xB8 | 0x800996D8 | table, sites 0x450 / 0x458 | 46 action targets |
 | game_90840 | 0xB8 | 0x98 | 0x800997E8 | pool (func_15064B94) | 38 words, 0x800997E8..0x8009987F |
 | game_173D40 | 0x0 | 0x14 | 0x800A56D0 | pool (func_15146970 `const s32 ids[5]`) | `0000401D`..`00004021` ([record](game_173d40_switch_table.md); round-23) |
@@ -286,6 +289,17 @@ keep their runtime addresses.
   original data archive. The object `.rodata` is exactly 0x20 bytes. The
   matched `func_151C5E74` keeps CURRENT (0) after `func_151D9014`'s local
   prototype took a `u8` 15th parameter (it already passes a `u8` there).
+  Round-25: `func_151C5280` scales a direction by `0.001f` and passes the
+  reciprocal `0.0033333334f` to `func_151C229C`. The raw function loads them
+  from 0x800AAAB4 and 0x800AAAB8 (ROM `3A83126F 3B5A740E`); with extern
+  symbols the candidate scored CURRENT 441, with literals CURRENT (0). It is
+  the first function in the unit, so its words take object offsets 0 and 4
+  and the unit gains a new first sub-pool `.rodata.1f2730_0` at 0x800AAAB4;
+  the `func_151C577C` ranges move to object offsets 0x8 and 0x14
+  (`.rodata.1f2730_8`, `.rodata.1f2730_14`) with unchanged runtime addresses.
+  The words 0x800AAABC..0x800AAAC8 stay extern reads of the matched
+  `func_151C5588`, and 0x800AAAB0 is not read by this unit. The object
+  `.rodata` is now 0x30 bytes: 0x28 of payload and 8 zero alignment bytes.
 - **game_90840:** `func_15064B94` loads 38 literals (0.4, 0.6, 2.6, 0.3,
   0.2 and 0.65, each use its own word, as IDO emits them) from
   0x800997E8..0x8009987F in first-use order; the full 0x98-byte range was

@@ -1,4 +1,4 @@
-# US game_121A20 rain streak float constants
+# US game_121A20 streak float constants
 
 `func_150F4DEC` accumulates a spawn budget, then emits pairs of streak endpoints around the camera yaw through
 `func_150F4570`. Its raw HI16/LO16 pairs in `asm/nonmatchings/game_121A20/func_150F4DEC.s` address the words
@@ -12,12 +12,19 @@ constant at compile time and loads it from rodata once, before the loop, for bot
 the multiply and the add. With extern symbols the candidate scored CURRENT 961; with the literals the function is
 `CURRENT (0)`.
 
-The generated `game_121A20.o` has 0x20 bytes of `.rodata`: the 0x14-byte payload and 12 zero alignment bytes, with
-no data relocations. `config/game/us-rodata.ld` maps it as an INFO section at `0x800A1A98` with a 0x20 extent
-assertion and a 0x14 payload; `config/data/us.json` records the owner. The preceding words 0x800A1A64..0x800A1A97
-stay extern reads of the unmatched `func_150F4570` and of the double constants `D_800A1A88`/`D_800A1A90` loaded by
-another member, so the pool starts at 0x800A1A98, which is 8-aligned. The alignment bytes cover 0x800A1AAC..0x800A1AB7;
-they do not describe ROM contents and only the payload is compared. Converting the earlier members' constants to
-literals would place them ahead of this pool and requires a literal-pool split as described in
-[game rodata literal sub-pools](game_rodata_literal_sub_pools.md). No reference assembly, compiler flag or verifier
-change is involved.
+`func_150F4570`, the streak spawner called by `func_150F4DEC`, loads eight words from `0x800A1A64..0x800A1A83` in
+first-use order: `40C90FDB 3E4CCCCD 3DA3D70B 40C90FDB 41AF3959 C12F3959 41AF3959 C12F3959`, the values of
+`6.2831855f`, `0.2f`, `0.080000006f`, `6.2831855f`, `21.903002f`, `-10.951501f`, `21.903002f` and `-10.951501f`. With
+extern symbols the candidate scored CURRENT 300; with the literals, its byte parameters typed `u8` as the raw `lbu`
+homes show (also in the local prototype used by `func_150F4DEC`, which stays `CURRENT (0)`) and the descriptor's
+`field69` typed `s8`, the function is `CURRENT (0)`.
+
+The generated `game_121A20.o` has 0x40 bytes of `.rodata`: the `func_150F4570` words at object offset 0, the
+`func_150F4DEC` words at object offset 0x20 and 12 zero alignment bytes, with no data relocations. Between the two
+ROM ranges lie a zero word at `0x800A1A84` and the doubles `D_800A1A88`/`D_800A1A90` that `func_150F4A38` still reads
+through extern symbols; as literals those doubles would be 8-aligned at object offset 0x20 rather than at the ROM's
+relative offset 0x24, so they stay extern. `scripts/split_game_rodata.py` therefore cuts the object pool into
+`.rodata.121a20_0` (0x20 bytes) and `.rodata.121a20_20` (0x14 bytes), and `config/game/us-rodata.ld` maps them as INFO
+sections at `0x800A1A64` and `0x800A1A98` with exact extent assertions and per-range base symbols, as described in
+[game rodata literal sub-pools](game_rodata_literal_sub_pools.md). `config/data/us.json` records both owners. No
+reference assembly, compiler flag or verifier change is involved.
