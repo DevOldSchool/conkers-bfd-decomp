@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_DF2D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_subranges.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150B1F90
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_1509BE40();
@@ -63,7 +58,8 @@ typedef struct GameDF2D0Descriptor {
     f32 field24, scaleY, scaleX;
     Vec3i position;
     f32 x3C, y40, z44, x48, y4C, z50, field54;
-    s32 flags, field5C;
+    u32 flags;
+    s32 field5C;
     s8 field60, field61, field62, field63, field64, field65;
     u8 pad66[10];
 } GameDF2D0Descriptor;
@@ -74,22 +70,17 @@ typedef struct GameDF2D0Extension {
 } GameDF2D0Extension;
 
 f32 func_150ADA68(void);
-extern f32 D_8009F8E0, D_8009F8E4, D_8009F8E8, D_8009F8EC;
-extern f32 D_8009F8F0, D_8009F8F4, D_8009F8F8, D_8009F8FC;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B1F90 CURRENT (1136) */
 void func_150B1F90(void *arg0) {
-    s32 firstFlip, secondFlip;
-    void *result;
-    GameDF2D0Descriptor packet;
-    GameDF2D0Extension extension;
-    f32 speedRange, speedBase, scaleRange, scaleBase;
     GameDF2D0Packet *state;
+    GameDF2D0Descriptor packet;
 
     state = (GameDF2D0Packet *)((u8 *)arg0 + 0x28);
-    state->field_C += (D_8009F8E0 + func_150ADA68() * D_8009F8E4) * D_800BE9A4;
+    state->field_C += (0.0786f + func_150ADA68() * 0.0346f) * D_800BE9A4;
     if (state->field_C > 1.0f) {
+        GameDF2D0Extension extension;
+        extension.fieldC = 0.979401f;
         packet.field1D = 0x6C;
         packet.field08 = 0x5103;
         packet.field00 = 0x200005;
@@ -116,13 +107,8 @@ void func_150B1F90(void *arg0) {
         packet.field19 = 0xB;
         packet.field1A = 0;
         packet.field1C = 0xFF;
-        extension.fieldC = D_8009F8E8;
-        packet.field24 = D_8009F8EC;
+        packet.field24 = 1.016479f;
         packet.position = *(Vec3i *)state;
-        scaleBase = D_8009F8F0;
-        scaleRange = D_8009F8F4;
-        speedBase = D_8009F8F8;
-        speedRange = D_8009F8FC;
         packet.x3C = 0.0f;
         packet.y40 = 0.0f;
         packet.z44 = 0.0f;
@@ -130,27 +116,25 @@ void func_150B1F90(void *arg0) {
         packet.y4C = 0.0f;
         packet.z50 = 0.0f;
         do {
+            void *result;
             extension.field2 = func_150ADA20() % 5U + 4;
             extension.field3 = func_150ADA20() % 5U + 4;
             extension.field4 = func_150ADA68() * 27.0f;
             extension.field8 = func_150ADA68() * 27.0f;
-            packet.field54 = func_150ADA68() * speedRange + speedBase;
+            packet.field54 = func_150ADA68() * 0.209f + 0.135f;
             packet.flags &= ~0xC0;
-            firstFlip = (func_150ADA20() & 1) ? 0x80 : 0;
-            if (func_150ADA20() & 1) secondFlip = 0x40;
-            else secondFlip = 0;
-            packet.flags = (secondFlip | firstFlip) | packet.flags;
+            packet.flags |= (func_150ADA20() & 1 ? 0x40 : 0) | (func_150ADA20() & 1 ? 0x80 : 0);
             packet.field1B = func_150ADA20() % 101U + 0x64;
             packet.field0A = func_150ADA20() % 78U + 0x7E;
-            packet.scaleY = packet.scaleX = func_150ADA68() * scaleRange + scaleBase;
+            packet.scaleY = packet.scaleX = func_150ADA68() * 503 + 405;
             result = func_15130280(&packet, 1, NULL, 0x10, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
-            if (result != NULL) func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &extension, 0x10);
+            }
             state->field_C -= 1.0f;
         } while (state->field_C > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B1F90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B1F90.s")
 
 void func_150B2340(void *arg0) {
     s32 sp24;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1508F060
  * - func_1508F0D4
  * - func_1508F9F4
  * - func_150900F0
@@ -25,7 +24,6 @@ extern s8 D_800D246D;
 extern s8 D_800D247D;
 extern s32 D_800D24C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508F060 CURRENT (20) */
 void func_1508F060(void) {
     s32 i;
 
@@ -34,8 +32,6 @@ void func_1508F060(void) {
     }
     D_800D24C0 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508F060 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1508F060.s")
 void func_1508F9F4(void);
 
 void func_1508F0A4(void) {

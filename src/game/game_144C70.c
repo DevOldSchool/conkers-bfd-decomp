@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151177C0
- * - func_151179BC
  * - func_15117F3C
  * - func_151193F4
  * - func_151196D4
@@ -106,134 +105,94 @@ extern f32 D_800A2FEC;
 extern f32 D_800A2FF0;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151179BC CURRENT (10629) */
 void func_151179BC(void *arg0) {
-    volatile s16 sp56;
-    volatile s16 sp54;
-    volatile s16 sp52;
-    volatile s16 sp50;
-    volatile s32 sp48;
-    volatile s32 sp3C;
-    volatile s32 sp38;
-    volatile f32 sp34;
-    volatile f32 sp30;
-    volatile f32 sp2C;
-    volatile f32 sp28;
-    volatile f32 sp24;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    s32 var_v1_2;
-    s32 temp_a0;
-    s32 temp_a0_2;
-    s32 temp_t1;
-    s16 temp_t3;
-    s32 temp_t6;
-    s16 temp_t7;
-    s32 temp_v0;
-    s32 temp_v0_2;
-    s32 temp_v0_3;
-    s32 var_t0;
-    s32 var_v1;
-    u8 temp_t9;
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 speed;
+    s32 cur;
+    s32 dist;
+    f32 fdist;
+    f32 m;
+    s32 state;
+    s32 delay;
+    f32 cx;
+    f32 sx;
+    f32 cy;
+    f32 sy;
+    f32 cz;
+    f32 sz;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x3C);
-    var_v1 = *(s32 *)((u8 *)arg0 + 0x80);
-    temp_t7 = temp_v0 >> 0x10;
-    temp_t6 = *(u8 *)((u8 *)arg0 + 0x73) & 3;
-    temp_t1 = temp_v0 & 0xFFFF;
-    if (var_v1 == 0) {
-        var_v1 = *(s16 *)((u8 *)arg0 + 0x14) | 0x80000000;
-        *(s32 *)((u8 *)arg0 + 0x7C) = (s32) ((*(s16 *)((u8 *)arg0 + 0x10) & 0xFFFF) | (*(s16 *)((u8 *)arg0 + 0x12) << 0x10));
-        *(s32 *)((u8 *)arg0 + 0x80) = var_v1;
+    state = *(u8 *)((u8 *)arg0 + 0x73) & 3;
+    speed = (*(s32 *)((u8 *)arg0 + 0x3C) >> 16) & 0xFFFF;
+    delay = *(s32 *)((u8 *)arg0 + 0x3C) & 0xFFFF;
+    if (*(s32 *)((u8 *)arg0 + 0x80) == 0) {
+        *(s32 *)((u8 *)arg0 + 0x7C) = (*(s16 *)((u8 *)arg0 + 0x12) << 16) | (*(s16 *)((u8 *)arg0 + 0x10) & 0xFFFF);
+        *(s32 *)((u8 *)arg0 + 0x80) = *(s16 *)((u8 *)arg0 + 0x14) | 0x80000000;
     }
-    temp_v0_2 = *(s32 *)((u8 *)arg0 + 0x7C);
-    temp_t3 = temp_v0_2 >> 0x10;
-    if (temp_t6 == 0) {
-        *(s16 *)((u8 *)arg0 + 0x10) = (s16) temp_v0_2;
-        *(s16 *)((u8 *)arg0 + 0x12) = (s16) temp_t3;
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16) var_v1;
+    x = *(s32 *)((u8 *)arg0 + 0x7C) & 0xFFFF;
+    y = *(s32 *)((u8 *)arg0 + 0x7C) >> 16;
+    z = *(s32 *)((u8 *)arg0 + 0x80) & 0xFFFF;
+    if (state == 0) {
+        *(s16 *)((u8 *)arg0 + 0x10) = x;
+        *(s16 *)((u8 *)arg0 + 0x12) = y;
+        *(s16 *)((u8 *)arg0 + 0x14) = z;
         return;
     }
-    sp52 = (s16) var_v1;
-    sp54 = (s16) temp_t3;
-    sp56 = (s16) temp_v0_2;
-    sp38 = temp_t1;
-    sp3C = temp_t6;
-    sp50 = (s16) temp_t7;
-    temp_v0_3 = func_150AD9A0((s16) temp_v0_2 - *(s16 *)((u8 *)arg0 + 0x10), (s16) temp_t3 - *(s16 *)((u8 *)arg0 + 0x12), (s16) var_v1 - *(s16 *)((u8 *)arg0 + 0x14));
-    temp_t7 = sp50;
-    temp_t1 = sp38;
-    var_t0 = sp3C;
-    if (var_t0 == 3) {
-        if ((s16) temp_t7 < 0) {
-            sp48 = (s32) -(s16) temp_t7;
+    cur = func_150AD9A0(x - *(s16 *)((u8 *)arg0 + 0x10), y - *(s16 *)((u8 *)arg0 + 0x12), z - *(s16 *)((u8 *)arg0 + 0x14));
+    if (state == 3) {
+        if (speed < 0) {
+            dist = -speed;
         } else {
-            sp48 = (s32) (s16) temp_t7;
+            dist = speed;
         }
-        if ((temp_t1 != 0) && !(*(u8 *)((u8 *)arg0 + 0x4F) & 4) && !(*(u8 *)((u8 *)arg0 + 0x73) & 4)) {
-            temp_a0 = *(s32 *)((u8 *)arg0 + 0x84);
-            if (D_800BE9E4 < temp_a0) {
-                *(s32 *)((u8 *)arg0 + 0x84) = (s32) (temp_a0 - D_800BE9E4);
+        if ((delay != 0) && !(*(u8 *)((u8 *)arg0 + 0x4F) & 4) && !(*(u8 *)((u8 *)arg0 + 0x73) & 4)) {
+            if (D_800BE9E4 < *(s32 *)((u8 *)arg0 + 0x84)) {
+                *(s32 *)((u8 *)arg0 + 0x84) -= D_800BE9E4;
             } else {
-                var_t0 = 1;
+                state = 1;
             }
         } else {
-            *(s32 *)((u8 *)arg0 + 0x84) = temp_t1;
+            *(s32 *)((u8 *)arg0 + 0x84) = delay;
         }
-    } else {
-        temp_a0_2 = temp_v0_3 + 6;
-        if (var_t0 == 2) {
-            sp48 = temp_a0_2;
-            if ((s16) temp_t7 < 0) {
-                var_v1_2 = -(s16) temp_t7;
+    } else if (state == 2) {
+        dist = cur + 6;
+        if (dist >= ((speed < 0) ? -speed : speed)) {
+            state = 3;
+            if (speed < 0) {
+                dist = -speed;
             } else {
-                var_v1_2 = (s16) temp_t7;
+                dist = speed;
             }
-            if (temp_a0_2 >= var_v1_2) {
-                var_t0 = 3;
-                if ((s16) temp_t7 < 0) {
-                    sp48 = (s32) -(s16) temp_t7;
-                } else {
-                    sp48 = (s32) (s16) temp_t7;
-                }
-                *(s32 *)((u8 *)arg0 + 0x84) = temp_t1;
-            }
-        } else if (var_t0 == 1) {
-            if (temp_v0_3 < 3) {
-                sp48 = 0;
-                var_t0 = 0;
-            } else {
-                sp48 = temp_v0_3 - 3;
-            }
+            *(s32 *)((u8 *)arg0 + 0x84) = delay;
+        }
+    } else if (state == 1) {
+        if (cur < 3) {
+            dist = 0;
+            state = 0;
+        } else {
+            dist = cur - 3;
         }
     }
-    if (temp_v0_3 != sp48) {
-        sp3C = var_t0;
-        sp50 = (s16) temp_t7;
-        sp34 = func_15047C00(*(f32 *)((u8 *)arg0 + 0) * D_800A2FDC);
-        sp30 = func_15047D60(*(f32 *)((u8 *)arg0 + 0) * D_800A2FE0);
-        sp2C = func_15047C00(*(f32 *)((u8 *)arg0 + 4) * D_800A2FE4);
-        sp28 = func_15047D60(*(f32 *)((u8 *)arg0 + 4) * D_800A2FE8);
-        sp24 = func_15047C00(*(f32 *)((u8 *)arg0 + 8) * D_800A2FEC);
-        temp_fv0 = func_15047D60(*(f32 *)((u8 *)arg0 + 8) * D_800A2FF0);
-        temp_t7 = sp50;
-        var_t0 = sp3C;
-        if ((s16) temp_t7 < 0) {
-            sp48 = -sp48;
+    if (cur != dist) {
+        cx = func_15047C00(*(f32 *)((u8 *)arg0 + 0) * D_800A2FDC);
+        sx = func_15047D60(*(f32 *)((u8 *)arg0 + 0) * D_800A2FE0);
+        cy = func_15047C00(*(f32 *)((u8 *)arg0 + 4) * D_800A2FE4);
+        sy = func_15047D60(*(f32 *)((u8 *)arg0 + 4) * D_800A2FE8);
+        cz = func_15047C00(*(f32 *)((u8 *)arg0 + 8) * D_800A2FEC);
+        sz = func_15047D60(*(f32 *)((u8 *)arg0 + 8) * D_800A2FF0);
+        if (speed < 0) {
+            dist = -dist;
         }
-        temp_fa0 = sp34 * sp28;
-        temp_fv1 = (f32) sp48;
-        *(s16 *)((u8 *)arg0 + 0x10) = (s16) (s32) ((f32) sp56 + (temp_fv1 * ((temp_fa0 * sp24) + (sp30 * temp_fv0))));
-        *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((f32) sp54 + (temp_fv1 * ((temp_fa0 * temp_fv0) - (sp30 * sp24))));
-        *(s16 *)((u8 *)arg0 + 0x14) = (s16) (s32) ((f32) sp52 + (temp_fv1 * sp34 * sp2C));
+        fdist = dist;
+        m = cx * sy;
+        *(s16 *)((u8 *)arg0 + 0x10) = x + fdist * ((m * cz) + (sx * sz));
+        *(s16 *)((u8 *)arg0 + 0x12) = y + fdist * ((m * sz) - (sx * cz));
+        *(s16 *)((u8 *)arg0 + 0x14) = z + fdist * cx * cy;
     }
-    temp_t9 = *(u8 *)((u8 *)arg0 + 0x73) & 0xFFFC;
-    *(u8 *)((u8 *)arg0 + 0x73) = temp_t9;
-    *(u8 *)((u8 *)arg0 + 0x73) = (u8) (temp_t9 | var_t0);
+    *(u8 *)((u8 *)arg0 + 0x73) &= ~3;
+    *(u8 *)((u8 *)arg0 + 0x73) |= state;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151179BC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151179BC.s")
 typedef struct Game144C70NestedState {
     u8 pad0[0x57];
     u8 enabled;

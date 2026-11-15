@@ -1818,7 +1818,7 @@
         "us": {
           "end": "0xC2A0",
           "start": "0xC1E0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_39690.c"
@@ -3602,7 +3602,7 @@
         "us": {
           "end": "0x8340",
           "start": "0x7A70",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_34F20.c"
@@ -3752,7 +3752,7 @@
         "us": {
           "end": "0xE470",
           "start": "0xC2A0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_39750.c"
@@ -8300,7 +8300,7 @@
         "us": {
           "end": "0x15BAE0",
           "start": "0x15AF90",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_188440.c"
@@ -9072,7 +9072,7 @@
         "us": {
           "end": "0xC4BF0",
           "start": "0xC4120",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_F15D0.c"
@@ -10152,7 +10152,7 @@
         "us": {
           "end": "0x1B6320",
           "start": "0x1B6010",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1E34C0.c"
@@ -11648,7 +11648,7 @@
         "us": {
           "end": "0xED1D0",
           "start": "0xEC520",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1199D0.c"
@@ -11693,7 +11693,7 @@
         "us": {
           "end": "0xFED30",
           "start": "0xFE860",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_12BD10.c"
@@ -11869,7 +11869,7 @@
         "us": {
           "end": "0xB1DB0",
           "start": "0xB10F0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_DE5A0.c"
@@ -11917,7 +11917,7 @@
         "us": {
           "end": "0xB2480",
           "start": "0xB1E20",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_DF2D0.c"
@@ -12388,7 +12388,7 @@
         "us": {
           "end": "0xF6890",
           "start": "0xF64B0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_123960.c"
@@ -13361,7 +13361,7 @@
         "us": {
           "end": "0x1C4AB0",
           "start": "0x1C4820",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1F1CD0.c"
@@ -14080,7 +14080,7 @@
         "us": {
           "end": "0x14C2F0",
           "start": "0x14BF50",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_179400.c"
@@ -15263,7 +15263,7 @@
         "us": {
           "end": "0x1A5F70",
           "start": "0x1A5660",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1D2B10.c"
@@ -16568,7 +16568,7 @@
         "us": {
           "end": "0x1C6290",
           "start": "0x1C5280",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1F2730.c"
@@ -17252,7 +17252,7 @@
         "us": {
           "end": "0x497E0",
           "start": "0x495B0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_76A60.c"
@@ -18151,7 +18151,7 @@
         "us": {
           "end": "0x104170",
           "start": "0x103E40",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1312F0.c"
@@ -18277,7 +18277,7 @@
         "us": {
           "end": "0xE0BE0",
           "start": "0xE0870",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_10DD20.c"

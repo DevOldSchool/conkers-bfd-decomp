@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150130B4
  * - func_15014094
- * - func_15014B60
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -608,8 +607,6 @@ s32 func_150144B8(u8 *arg0) {
 }
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-extern f32 D_80096690;
-extern f32 D_80096694;
 
 typedef struct Game40490PlanePoint {
     f32 x;
@@ -644,8 +641,8 @@ s32 func_1501474C(void *arg) {
     arg0[0x16] |= 4;
     x = *(s16 *)arg0;
     z = *(s16 *)(arg0 + 4);
-    s = func_15047D60(*(f32 *)(arg0 + 0x10) * D_80096690);
-    c = func_15047C00(*(f32 *)(arg0 + 0x10) * D_80096694);
+    s = func_15047D60(*(f32 *)(arg0 + 0x10) * 0.017453292f);
+    c = func_15047C00(*(f32 *)(arg0 + 0x10) * 0.017453292f);
     corners[0].x = *(s16 *)(arg0 + 0xA) * s + (*(s16 *)(arg0 + 6) * c + x);
     corners[0].z = *(s16 *)(arg0 + 0xA) * c + z - *(s16 *)(arg0 + 6) * s;
     corners[1].x = -*(s16 *)(arg0 + 0xA) * s + (*(s16 *)(arg0 + 6) * c + x);
@@ -677,7 +674,73 @@ s32 func_1501474C(void *arg) {
     }
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014B60.s")
+u32 func_10024770(void);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800A0938[][3];
+
+typedef struct Game40490LightDescriptor {
+    s8 kind;
+    s8 mode;
+    s16 lifetime;
+    u8 field4;
+} Game40490LightDescriptor;
+
+typedef struct Game4049014B60Packet {
+    f32 position[3];
+    f32 angle[3];
+    f32 scale[3];
+    void *lights[6];
+    f32 rate;
+    void *owner;
+    s8 active;
+} Game4049014B60Packet;
+
+s32 func_15014B60(u8 *arg0) {
+    Game4049014B60Packet packet;
+    void *result;
+    s32 i;
+    s32 lightPosition[3];
+
+    arg0[0x16] |= 4;
+    packet.active = 1;
+    packet.owner = arg0;
+    packet.position[0] = *(s16 *)(arg0 + 0);
+    packet.position[1] = *(s16 *)(arg0 + 2);
+    packet.position[2] = *(s16 *)(arg0 + 4);
+    packet.angle[0] = (f32)((func_10024770() * func_150ADA20()) & 0xFFFF) * 0.000015259022f * 360.0f;
+    packet.angle[1] = (f32)((func_10024770() * func_150ADA20()) & 0xFFFF) * 0.000015259022f * 360.0f;
+    packet.angle[2] = (f32)((func_10024770() * func_150ADA20()) & 0xFFFF) * 0.000015259022f * 360.0f;
+    packet.scale[0] = (f32)(*(u32 *)(arg0 + 0x18) & 0xFFFF) * 0.15258789f * 0.001f;
+    packet.scale[1] = (f32)((*(u32 *)(arg0 + 0x18) >> 16) & 0xFFFF) * 0.15258789f * 0.001f;
+    packet.scale[2] = (f32)(*(u32 *)(arg0 + 0x1C) & 0xFFFF) * 0.15258789f * 0.001f;
+    packet.rate = (f32)((*(u32 *)(arg0 + 0x1C) >> 16) & 0xFFFF) * 0.45776367f * 0.000001f;
+    lightPosition[0] = *(s16 *)(arg0 + 0);
+    lightPosition[1] = *(s16 *)(arg0 + 2);
+    lightPosition[2] = *(s16 *)(arg0 + 4);
+    for (i = 0; i < 6; i++) {
+        Game40490LightDescriptor light;
+
+        light.kind = 2;
+        light.mode = -1;
+        light.lifetime = 0x12C;
+        light.field4 = 0;
+        packet.lights[i] = (void *)func_151602C0((u8 *)&light, lightPosition, 5,
+                                                 (D_800BE9F0 == 0x40) ? 0xFF : D_800A0938[i][0],
+                                                 (D_800BE9F0 == 0x40) ? 0 : D_800A0938[i][1],
+                                                 (D_800BE9F0 == 0x40) ? 0 : D_800A0938[i][2], 0xFF, 0, 0, 0xFF, 0);
+    }
+    result = func_15149130(0x12C, -1, 0x2E, -1, 0, 0x29, 0x48, 0xFF, 0);
+    if (result != NULL) {
+        func_10022EC0((u8 *)result + 0x28, &packet, 0x48);
+    } else {
+        for (i = 0; i < 6; i++) {
+            if (packet.lights[i] != NULL) {
+                func_1516972C(packet.lights[i]);
+            }
+        }
+    }
+    return 1;
+}
 typedef struct {
     void *object;
     s32 rangeStart;

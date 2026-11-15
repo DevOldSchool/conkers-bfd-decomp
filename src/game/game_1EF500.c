@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151C2734
  * - func_151C2AD0
- * - func_151C2F48
  * - func_151C3B0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -587,19 +586,13 @@ extern f32 D_800AAA40;
 extern u8 D_800DCA20;
 extern f32 D_800DCA24;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2F48 CURRENT (570) */
 void func_151C2F48(Game1EF500EmitterOwner *arg0) {
-    Vec3f *position;
+    Game1EF500EmitterState *state;
     Game1EF500EmitterLight light;
     s32 coordinates[3];
-    Game1EF500EmitterParticle descriptor;
-    f32 random;
-    Game1EF500EmitterState *state;
 
-    random = func_150ADA68();
-    state = (Game1EF500EmitterState *)((u8 *)arg0 + 0x110);
-    position = &state->position30;
-    func_15102920(random * 30.0f + 8.0f, 0xFF, &state->vector6C, position,
+    state = &arg0->state110;
+    func_15102920(func_150ADA68() * 30.0f + 8.0f, 0xFF, &state->vector6C, &state->position30,
                  (func_150ADA20() % 46U) + 0x19, 1, 1, state->field88,
                  arg0->fieldC, arg0->field1);
     if (func_150ADA68() < D_800AAA3C * D_800DCA24) {
@@ -612,62 +605,65 @@ void func_151C2F48(Game1EF500EmitterOwner *arg0) {
         coordinates[2] = (s32)state->position30.z;
         func_151602C0((u8 *)&light, coordinates, (func_150ADA20() % 9U) + 0xC,
                      0xFF, 0xFF, 0xFF, 0xFF, 0, 0, arg0->fieldC, arg0->field1);
-        descriptor.field0 = 5 >> D_800DCA20;
-        descriptor.field4 = 4 >> D_800DCA20;
-        descriptor.position8 = *position;
-        descriptor.field14 = 8.25f;
-        descriptor.field18 = D_800AAA40;
-        descriptor.field1C = descriptor.field20 = 0.0f;
-        descriptor.field24 = 7.0f;
-        descriptor.field28 = 16.0f;
-        descriptor.field2C = 0;
-        descriptor.field2E = 0xFF;
-        descriptor.field30 = -0x3D;
-        descriptor.field32 = 0x50;
-        descriptor.field34 = 3;
-        descriptor.field38 = 1;
-        descriptor.field3C = 0xC;
-        descriptor.field3E = 0xA;
-        descriptor.field40 = 1;
-        descriptor.fields42[0] = 4;
-        descriptor.fields42[1] = 2;
-        descriptor.fields42[2] = 3;
-        descriptor.fields42[3] = 0xFF;
-        descriptor.fields42[4] = 0xFF;
-        descriptor.fields42[5] = 0xFF;
-        descriptor.fields42[6] = 0xFF;
-        descriptor.fields42[7] = 0;
-        descriptor.fields42[8] = 0;
-        descriptor.fields42[9] = 0;
-        descriptor.fields42[10] = 0;
-        descriptor.fields42[11] = 0xFF;
-        descriptor.fields42[12] = 0xFF;
-        descriptor.fields42[13] = 0xFF;
-        descriptor.fields42[14] = 0xFF;
-        descriptor.fields42[15] = 0;
-        descriptor.fields42[16] = 0;
-        descriptor.fields42[17] = 0;
-        descriptor.fields42[18] = 0;
-        descriptor.fields42[19] = 0xFF;
-        descriptor.fields42[20] = 0;
-        descriptor.fields42[21] = 3;
-        descriptor.fields42[22] = 0x24;
-        descriptor.field5C = 0x200005;
-        descriptor.field60 = 0x60600;
-        descriptor.field64 = 0xA;
-        descriptor.field66 = 0x19;
-        descriptor.field68 = 1;
-        descriptor.field6A = 0;
-        descriptor.field6C = 1.0f;
-        descriptor.fields70[0] = -1;
-        descriptor.fields70[1] = 0;
-        descriptor.fields70[2] = -1;
-        descriptor.fields70[3] = -1;
-        func_15152B38(&descriptor, arg0->fieldC, arg0->field1);
+        {
+            Game1EF500EmitterParticle descriptor;
+
+            descriptor.field0 = 5 >> D_800DCA20;
+            descriptor.field4 = 4 >> D_800DCA20;
+            descriptor.position8 = state->position30;
+            descriptor.field14 = 8.25f;
+            descriptor.field18 = D_800AAA40;
+            descriptor.field1C = 0.0f;
+            descriptor.field20 = 0.0f;
+            descriptor.field24 = 7.0f;
+            descriptor.field28 = 16.0f;
+            descriptor.field2C = 0;
+            descriptor.field2E = 0xFF;
+            descriptor.field30 = -0x3D;
+            descriptor.field32 = 0x50;
+            descriptor.field34 = 3;
+            descriptor.field38 = 1;
+            descriptor.field3C = 0xC;
+            descriptor.field3E = 0xA;
+            descriptor.field40 = 1;
+            descriptor.fields42[0] = 4;
+            descriptor.fields42[1] = 2;
+            descriptor.fields42[2] = 3;
+            descriptor.fields42[3] = 0xFF;
+            descriptor.fields42[4] = 0xFF;
+            descriptor.fields42[5] = 0xFF;
+            descriptor.fields42[6] = 0xFF;
+            descriptor.fields42[7] = 0;
+            descriptor.fields42[8] = 0;
+            descriptor.fields42[9] = 0;
+            descriptor.fields42[10] = 0;
+            descriptor.fields42[11] = 0xFF;
+            descriptor.fields42[12] = 0xFF;
+            descriptor.fields42[13] = 0xFF;
+            descriptor.fields42[14] = 0xFF;
+            descriptor.fields42[15] = 0;
+            descriptor.fields42[16] = 0;
+            descriptor.fields42[17] = 0;
+            descriptor.fields42[18] = 0;
+            descriptor.fields42[19] = 0xFF;
+            descriptor.fields42[20] = 0;
+            descriptor.fields42[21] = 3;
+            descriptor.fields42[22] = 0x24;
+            descriptor.field5C = 0x200005;
+            descriptor.field60 = 0x60600;
+            descriptor.field64 = 0xA;
+            descriptor.field66 = 0x19;
+            descriptor.field68 = 1;
+            descriptor.field6A = 0;
+            descriptor.field6C = 1.0f;
+            descriptor.fields70[0] = -1;
+            descriptor.fields70[1] = 0;
+            descriptor.fields70[2] = -1;
+            descriptor.fields70[3] = -1;
+            func_15152B38(&descriptor, arg0->fieldC, arg0->field1);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C2F48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2F48.s")
 typedef struct Game1EF500EmitterSpawn {
     s32 field0;
     s32 field4;

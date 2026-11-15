@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510DA84
  * - func_1510E120
- * - func_1510E388
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -120,20 +119,14 @@ Game13AE20Command *func_1510E120(Game13AE20Command *arg0, Game13AE20RenderState 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13AE20/func_1510E120.s")
 typedef struct { s16 x, y, z; } Game13AE20Point;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E388 CURRENT (2374) */
-s32 func_1510E388(Game13AE20Point **arg0, Game13AE20Point *arg1, f32 *volatile arg2, f32 *volatile arg3) {
-    register f32 ux, uy, uz, vx, vy, vz;
-    register f32 swap, product, slope;
-    register s32 x, y, z;
-    register s32 iteration, status, origin, next, last, forward;
-    register Game13AE20Point *vertices;
-    register Game13AE20Point **indirect;
-    register Game13AE20Point *first, *second, *third;
+s32 func_1510E388(s16 **arg0, s16 (*arg1)[3], f32 *arg2, f32 *arg3) {
+    f32 ux, uy, uz, vx, vy, vz;
+    f32 swap, cross, product, slope;
+    s32 iteration, status, origin, next, last;
+    s16 *first, *second;
 
-    vertices = arg1;
-    indirect = arg0;
     iteration = 0;
-    if (indirect == 0 && vertices == 0) {
+    if (arg0 == NULL && arg1 == NULL) {
         *arg3 = 0.0f;
         *arg2 = 0.0f;
         return 0;
@@ -145,46 +138,34 @@ s32 func_1510E388(Game13AE20Point **arg0, Game13AE20Point *arg1, f32 *volatile a
         } else {
             origin = iteration;
         }
-        forward = iteration < 3;
         if (origin != 2) {
             next = origin + 1;
         } else {
             next = 0;
         }
-        iteration++;
         if (next != 2) {
             last = next + 1;
         } else {
             last = 0;
         }
-        if (vertices != 0) {
-            second = &vertices[next];
-            first = &vertices[origin];
-            x = first->x;
-            y = first->y;
-            ux = (f32)(second->x - x);
-            uy = (f32)(second->y - y);
-            z = first->z;
-            uz = (f32)(second->z - z);
-            third = &vertices[last];
-            vx = (f32)(third->x - x);
-            vy = (f32)(third->y - y);
-            vz = (f32)(third->z - z);
+        if (arg1 != NULL) {
+            second = arg1[next]; first = arg1[origin];
+            ux = second[0] - first[0];
+            uy = second[1] - first[1];
+            uz = second[2] - first[2];
+            vx = arg1[last][0] - first[0];
+            vy = arg1[last][1] - first[1];
+            vz = arg1[last][2] - first[2];
         } else {
-            second = indirect[next];
-            first = indirect[origin];
-            y = first->y;
-            x = first->x;
-            ux = (f32)(second->x - x);
-            uy = (f32)(second->y - y);
-            z = first->z;
-            uz = (f32)(second->z - z);
-            third = indirect[last];
-            vx = (f32)(third->x - x);
-            vz = (f32)(third->z - z);
-            vy = (f32)(third->y - y);
+            second = arg0[next]; first = arg0[origin];
+            ux = second[0] - first[0];
+            uy = second[1] - first[1];
+            uz = second[2] - first[2];
+            vx = arg0[last][0] - first[0];
+            vy = arg0[last][1] - first[1];
+            vz = arg0[last][2] - first[2];
         }
-        if (forward == 0) {
+        if (iteration >= 3) {
             swap = ux;
             ux = vx;
             vx = swap;
@@ -195,14 +176,15 @@ s32 func_1510E388(Game13AE20Point **arg0, Game13AE20Point *arg1, f32 *volatile a
             uz = vz;
             vz = swap;
         }
+        cross = vx * uz;
         product = ux * vz;
-        swap = vx * uz;
-        if (product == swap) {
+        if (cross == product) {
             status = 0;
         }
         if (vx == 0.0f) {
             status = 0;
         }
+        iteration++;
         if (iteration == 6) {
             status = 2;
         }
@@ -212,13 +194,11 @@ s32 func_1510E388(Game13AE20Point **arg0, Game13AE20Point *arg1, f32 *volatile a
         *arg3 = 0.0f;
         return 0;
     }
-    slope = ((vx * uy) - (ux * vy)) / (swap - product);
+    slope = ((vx * uy) - (ux * vy)) / (cross - product);
     *arg3 = slope;
     *arg2 = (vy - (slope * vz)) / vx;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510E388 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13AE20/func_1510E388.s")
 extern s32 D_80089470;
 
 Game13AE20Command *func_1510E634(Game13AE20Command *arg0, s32 arg1, s32 arg2) {

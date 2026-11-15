@@ -9,7 +9,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1501D2C4
  * - func_1501D348
  * - func_1501E81C
  * - func_1501EA18
@@ -20,7 +19,6 @@
  * - func_1502178C
  * - func_150229E4
  * - func_15022BA4
- * - func_150234A4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -370,23 +368,15 @@ void func_1501D258(s32 arg0, s32 arg1) {
 }
 extern u8 D_800C3A64;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D2C4 CURRENT (2260) */
 s32 func_1501D2C4(s32 arg0, s32 arg1) {
-    s32 var_v0;
-    u64 temp_ret;
-
     if (D_800C3670 != 0) {
         return 1;
     }
-    temp_ret = func_100268A4(1, arg1);
-    if ((temp_ret & D_800C3A60[arg0]) ||
-        (var_v0 = 0, (((u32)temp_ret & *(u32 *)((u8 *)&D_800C3A64 + (arg0 * 8))) != 0))) {
-        var_v0 = 1;
+    if (D_800C3A60[arg0] & func_100268A4(1, arg1)) {
+        return 1;
     }
-    return var_v0;
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501D2C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D2C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D348.s")
 typedef struct Game49D30ColorEvent {
     u8 pad0[5];
@@ -1654,50 +1644,44 @@ void func_15023440(Game49D30Record *arg0, s32 arg1) {
     }
     arg0->active = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150234A4 CURRENT (954) */
 Game49D30Record *func_150234A4(s32 arg0, s32 arg1) {
-    u8 *var_t1;
-    u8 *var_t0;
-    u8 *var_a2;
-    s16 temp_v0;
+    s32 i;
+    Game49D30Record *found;
+    Game49D30Record *slot;
 
     arg0++;
-    var_t1 = 0;
-    var_t0 = 0;
-    var_a2 = &D_800C3CA0;
-    do {
-        temp_v0 = *(s16 *)var_a2;
-        if (temp_v0 == arg0) {
-            if ((arg1 != 0) && (*(u8 *)(var_a2 + 0xC) != 0)) {
-                var_t0 = &D_800C3CA0;
-                func_15023440((Game49D30Record *)var_t0, 1);
+    found = NULL;
+    slot = NULL;
+    for (i = 0; i < 3; i++) {
+        if ((((Game49D30Record *)&D_800C3CA0) + i)->active == arg0) {
+            if (arg1 != 0 && (((Game49D30Record *)&D_800C3CA0) + i)->flagC != 0) {
+                slot = (Game49D30Record *)&D_800C3CA0;
+                func_15023440(slot, 1);
             } else {
-                var_t1 = var_a2;
-            }
-            break;
-        } else if (temp_v0 == 0) {
-            var_t0 = var_a2;
-            if ((arg1 != 0) && (*(u8 *)(var_a2 + 0xC) != 0)) {
-                func_15023440((Game49D30Record *)var_a2, 1);
+                found = ((Game49D30Record *)&D_800C3CA0) + i;
             }
             break;
         }
-        var_a2 += 0x38;
-    } while (var_a2 != &D_800C3D48);
-    if (var_a2 == &D_800C3D48) {
-        var_t0 = &D_800C3CA0;
-        func_15023440((Game49D30Record *)var_t0, 1);
+        if ((((Game49D30Record *)&D_800C3CA0) + i)->active == 0) {
+            slot = ((Game49D30Record *)&D_800C3CA0) + i;
+            if (arg1 != 0 && slot->flagC != 0) {
+                func_15023440(slot, 1);
+            }
+            break;
+        }
     }
-    if (var_t1 != 0) {
-        return (Game49D30Record *)var_t1;
+    if (i == 3) {
+        slot = (Game49D30Record *)&D_800C3CA0;
+        func_15023440(slot, 1);
     }
-    if (var_t0 != 0) {
-        *(s16 *)var_t0 = (s16)arg0;
+    if (found != NULL) {
+        return found;
     }
-    return (Game49D30Record *)var_t0;
+    if (slot != NULL) {
+        slot->active = arg0;
+    }
+    return slot;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150234A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150234A4.s")
 typedef struct Game49D30Inner235DC {
     f32 field0;
     u8 pad4[0x1C];

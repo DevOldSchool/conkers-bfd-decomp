@@ -126,7 +126,7 @@ void func_150D64E8(void *arg0, f32 *arg1) {
     }
     *(s8 *)((u8 *)arg0 + 0x50) = 0;
 }
-void func_151A5D58(f32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_151A5D58(f32, u8, s32, f32 *, s16, u8, u8, u8, s32);
 
 void func_150D65F0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     struct {
@@ -139,8 +139,8 @@ void func_150D65F0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     locals.random_value = func_150ADA20();
     locals.final_random = func_150ADA20();
     func_151A5D58((locals.value * 100.0f) + 150.0f,
-                  ((locals.random_value % 71U) + 0x82) & 0xFF,
-                  arg0, arg1, (locals.final_random % 31U) + 0x32,
+                  (locals.random_value % 71U) + 0x82,
+                  arg0, (f32 *)arg1, (locals.final_random % 31U) + 0x32,
                   0, 1, (u32)arg2, arg3);
 }
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);

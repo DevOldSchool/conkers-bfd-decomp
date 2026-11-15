@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1517A1EC
- * - func_1517A3A0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -151,7 +150,6 @@ extern s16 D_800DD450;
 extern s32 D_800D2C9C;
 extern u8 D_8008CDF0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 CURRENT (50) */
 void *func_1517A3A0(u32 *gdl, void *arg1, s16 view) {
     Game1A7490Motion *effect;
     s32 mode;
@@ -189,13 +187,11 @@ void *func_1517A3A0(u32 *gdl, void *arg1, s16 view) {
         } else {
             mode = 0x504240;
         }
-        gdl = func_15142FBC(gdl, D_800D2C9C | 0x80000 | 0x2CA0, mode, &flag);
+        gdl = func_15142FBC(gdl, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, mode, &flag);
     }
     { u32 *g = gdl; gdl += 2; g[0] = 0xDE000000; g[1] = (u32)D_8008CDF0; }
     return gdl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A3A0.s")
 void func_1510E82C(s32, s32, s32, s32, s32, s32,
                    f32, f32, f32, f32, u16, s32);
 extern f32 D_800A7224;

@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_sorted_record_object_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15108850
  * - func_15108E10
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -52,15 +51,17 @@ struct GameLightDescriptor;
 void *func_1516037C(struct GameLightDescriptor *, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108850 CURRENT (886) */
+typedef struct Game135D00Object {
+    u8 pad00[0x50];
+    s32 offset;
+} Game135D00Object;
+
 void func_15108850(s32 arg0) {
-    void *saved;
+    Game135D00Object *saved;
     Game135D00SpawnWork first;
     Game135D00LightWork light;
-    Game135D00SpawnWork second;
-    void *object;
-    void *lamp;
 
+    first.parameters.values[4] = 226.0f;
     first.parameters.lifetime = 999;
     first.parameters.field18 = 0xFF;
     first.parameters.field1C = -1;
@@ -85,55 +86,60 @@ void func_15108850(s32 arg0) {
     first.descriptor.field1C = 0x80;
     first.descriptor.field20 = 0x20;
     first.descriptor.field38 = 1;
-    first.parameters.values[4] = 226.0f;
-    object = func_1513B5E0(&first.descriptor.type, 1, 0x24, 0xFF, 1);
-    if (object != 0) {
-        saved = object;
-        func_10022EC0((u8 *)object + *(s32 *)((u8 *)object + 0x50) + 0xF8,
+    saved = func_1513B5E0(&first.descriptor.type, 1, 0x24, 0xFF, 1);
+    if (saved != 0) {
+        func_10022EC0((u8 *)saved + saved->offset + 0xF8,
                       &first.parameters, 0x24);
-        light.owner = saved;
-        light.mode = 2;
-        light.intensity = 8;
-        light.lifetime = 300;
-        light.kind = 0x13;
-        lamp = func_1516037C(&light.mode, arg0, (void *)4, 0xFF, 1);
-        if (lamp != 0) {
-            func_10022EC0((u8 *)lamp + 0x18, &light.owner, 4);
+        {
+            void *lamp;
+
+            light.owner = saved;
+            light.mode = 2;
+            light.intensity = 8;
+            light.lifetime = 300;
+            light.kind = 0x13;
+            lamp = func_1516037C((struct GameLightDescriptor *)&light.mode, arg0, 4, 0xFF, 1);
+            if (lamp != 0) {
+                func_10022EC0((u8 *)lamp + 0x18, &light.owner, 4);
+            }
         }
     }
-    second.parameters.lifetime = 999;
-    second.parameters.field18 = 0xFF;
-    second.parameters.field1C = -1;
-    second.parameters.field20 = 1;
-    second.descriptor.field1 = 1;
-    second.descriptor.field2 = 4;
-    second.descriptor.lifetime = 300;
-    second.descriptor.field30 = 9;
-    second.parameters.values[0] = 0.0f;
-    second.parameters.values[1] = 0.0f;
-    second.parameters.values[2] = 0.0f;
-    second.parameters.values[3] = 0.0f;
-    second.descriptor.type = 0;
-    second.descriptor.field34 = 428;
-    second.descriptor.field8 = 1;
-    second.descriptor.fieldC = 0x220205;
-    second.descriptor.field10 = 0x40600;
-    second.descriptor.field24 = 0;
-    second.descriptor.field25 = 0;
-    second.descriptor.field14 = 1;
-    second.descriptor.field18 = 0x36;
-    second.descriptor.field1C = 0x80;
-    second.descriptor.field20 = 0x20;
-    second.descriptor.field38 = 1;
-    second.parameters.values[4] = 226.0f;
-    object = func_1513B5E0(&second.descriptor.type, 1, 0x24, 0xFF, 1);
-    if (object != 0) {
-        func_10022EC0((u8 *)object + *(s32 *)((u8 *)object + 0x50) + 0xF8,
-                      &second.parameters, 0x24);
+    {
+        Game135D00Object *object;
+        Game135D00SpawnWork second;
+
+        second.parameters.values[4] = 226.0f;
+        second.parameters.lifetime = 999;
+        second.parameters.field18 = 0xFF;
+        second.parameters.field1C = -1;
+        second.parameters.field20 = 1;
+        second.descriptor.field1 = 1;
+        second.descriptor.field2 = 4;
+        second.descriptor.lifetime = 300;
+        second.descriptor.field30 = 9;
+        second.parameters.values[0] = 0.0f;
+        second.parameters.values[1] = 0.0f;
+        second.parameters.values[2] = 0.0f;
+        second.parameters.values[3] = 0.0f;
+        second.descriptor.type = 0;
+        second.descriptor.field34 = 428;
+        second.descriptor.field8 = 1;
+        second.descriptor.fieldC = 0x220205;
+        second.descriptor.field10 = 0x40600;
+        second.descriptor.field24 = 0;
+        second.descriptor.field25 = 0;
+        second.descriptor.field14 = 1;
+        second.descriptor.field18 = 0x36;
+        second.descriptor.field1C = 0x80;
+        second.descriptor.field20 = 0x20;
+        second.descriptor.field38 = 1;
+        object = func_1513B5E0(&second.descriptor.type, 1, 0x24, 0xFF, 1);
+        if (object != 0) {
+            func_10022EC0((u8 *)object + object->offset + 0xF8,
+                          &second.parameters, 0x24);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15108850 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108850.s")
 
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);

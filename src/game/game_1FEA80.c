@@ -1,5 +1,9 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_1FEA80.c
@@ -8,7 +12,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D15D0
  * - func_151D197C
- * - func_151D1C98
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -243,7 +246,147 @@ s32 func_151D197C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D197C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D197C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D1C98.s")
+typedef struct Game1FEA80RibbonPoint {
+    Vec3f position;
+    u8 pad0C[8];
+    u8 alpha;
+    u8 pad15[3];
+    f32 texture;
+    f32 width;
+    f32 directionX;
+    f32 directionZ;
+} Game1FEA80RibbonPoint;
+
+typedef struct Game1FEA80RibbonVertex {
+    s16 x, y, z;
+    s16 flag;
+    s16 s, t;
+    u8 r, g, b, a;
+} Game1FEA80RibbonVertex;
+
+typedef struct Game1FEA80RibbonState {
+    u8 pad0[8];
+    u8 alpha;
+} Game1FEA80RibbonState;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_80091430[];
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+Gfx *func_151D1C98(u8 *arg0, Gfx *arg1, s16 arg2) {
+    Game1FEA80RibbonState *state;
+    Vec3f next;
+    Vec3f first;
+    Game1FEA80RibbonPoint *points;
+    s32 index;
+    s32 previous;
+    u8 flag;
+    u8 nextAlpha;
+    f32 firstX;
+    f32 firstZ;
+    f32 nextX;
+    f32 nextZ;
+    f32 firstTexture;
+    f32 nextTexture;
+    u16 firstAlpha;
+    Game1FEA80RibbonVertex *vtx;
+
+    if (*(s8 *)(arg0 + 0x2C) < 2) {
+        return arg1;
+    }
+    state = *(Game1FEA80RibbonState **)(arg0 + 0x98);
+    points = *(Game1FEA80RibbonPoint **)(arg0 + 0x94);
+    func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Game1FEA80RibbonVertex), (void **)&vtx, NULL);
+    if (vtx == NULL) {
+        return arg1;
+    }
+    flag = 1;
+    arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)D_80091430, 0, 0, 0, 0, 0xBC, 0, 0, &flag, 3);
+    arg1 = func_15142B7C(arg1, 0x220005, 0x1D0600);
+    arg1 = func_1513F4E4(arg1, 0x4C, &flag);
+    arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[1][0] | D_800A4AC8[1][1], &flag);
+    previous = *(s8 *)(arg0 + 0x2E) - 1;
+    if (previous < 0) {
+        previous = arg0[0x25] - 1;
+    }
+    index = previous - 1;
+    if (index < 0) {
+        index = arg0[0x25] - 1;
+    }
+    first = points[previous].position;
+    firstX = points[previous].width * points[previous].directionX;
+    firstZ = points[previous].width * points[previous].directionZ;
+    firstAlpha = (points[previous].alpha * state->alpha) >> 8;
+    firstTexture = points[previous].texture;
+    next = points[index].position;
+    nextX = points[index].width * points[index].directionX;
+    nextZ = points[index].width * points[index].directionZ;
+    nextAlpha = (points[index].alpha * state->alpha) >> 8;
+    nextTexture = points[index].texture;
+    vtx->x = first.x + firstX;
+    vtx->y = first.y;
+    vtx->z = first.z + firstZ;
+    vtx->a = firstAlpha;
+    vtx->t = firstTexture;
+    vtx->s = 0x7FF;
+    vtx->flag = 0;
+    vtx++;
+    vtx->x = first.x - firstX;
+    vtx->y = first.y;
+    vtx->z = first.z - firstZ;
+    vtx->a = firstAlpha;
+    vtx->t = firstTexture;
+    vtx->s = 0;
+    vtx->flag = 0;
+    vtx++;
+    do {
+        vtx->x = next.x + nextX;
+        vtx->y = next.y;
+        vtx->z = next.z + nextZ;
+        vtx->a = nextAlpha;
+        vtx->t = nextTexture;
+        vtx->s = 0x7FF;
+        vtx->flag = 0;
+        vtx++;
+        vtx->x = next.x - nextX;
+        vtx->y = next.y;
+        vtx->z = next.z - nextZ;
+        vtx->a = nextAlpha;
+        vtx->t = nextTexture;
+        vtx->s = 0;
+        vtx->flag = 0;
+        vtx++;
+        gSPVertex(arg1++, vtx - 4, 4, 0);
+        gSP2Triangles(arg1++, 0, 1, 2, 0, 1, 3, 2, 0);
+        if (firstTexture < nextTexture) {
+            func_10022EC0(vtx, vtx - 2, 0x20);
+            vtx[-2].t -= 0x2000;
+            vtx++;
+            vtx[-2].t -= 0x2000;
+            vtx++;
+        }
+        previous = index;
+        index--;
+        if (index < 0) {
+            index = arg0[0x25] - 1;
+        }
+        if (previous != *(s8 *)(arg0 + 0x2D)) {
+            next = points[index].position;
+            nextX = points[index].width * points[index].directionX;
+            firstTexture = points[previous].texture;
+            nextZ = points[index].width * points[index].directionZ;
+            nextTexture = points[index].texture;
+            nextAlpha = (points[index].alpha * state->alpha) >> 8;
+        }
+    } while (previous != *(s8 *)(arg0 + 0x2D));
+    return arg1;
+}
 typedef struct Game1FEA80Leaf {
     u8 pad0[0x30];
     s32 field_30;

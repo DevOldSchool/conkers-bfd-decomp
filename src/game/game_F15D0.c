@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_F15D0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_chain_resource_emitters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150C44A4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_150C4AD8(void *arg0);
@@ -133,7 +128,126 @@ void func_150C4120(u8 *arg0, s16 arg1, u8 arg2, s32 arg3) {
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C44A4.s")
+s32 func_150A29C8(u32, s32);
+void func_15143134(f32 *, f32 *, s32);
+void func_15143794(s16, s16, f32, void *);
+s32 func_1514654C(void *, void *, s32, void **, void **, s32);
+s32 func_10010154(s32, void *, s32, s32, s32);
+void *func_1503195C(void *, s32, s32);
+void func_1504715C(void *, void *);
+void func_151C36D8(Vec3f *, u8, s32);
+void *func_151D9014(f32 *, f32 *, u8, f32, s16, u8, f32, u8, f32, f32, u8, void *, u8, u8, u8, s32);
+extern Vec3f D_800A0350[];
+extern u8 D_800A0374[];
+extern Vec3f D_800A0378[];
+extern u8 D_800A03A8[];
+extern f32 D_800BE9A4;
+extern s32 D_800BE9F0;
+extern u8 D_800CC2D0[];
+
+void func_150C44A4(u8 *arg0) {
+    GameF15D0State *state;
+    u8 *owner;
+    Vec3f pos;
+    Vec3f offset;
+    f32 ratio;
+    s32 index;
+    f32 scale;
+    u32 surface[9];
+    void *offsetPtr;
+    void *posPtr;
+    void *bone;
+    s32 enabled;
+    Vec3f *wind;
+    Vec3f vel;
+
+    state = (GameF15D0State *)(arg0 + 0x28);
+    owner = state->owner;
+    if (*(s32 *)owner == 0 || state->ownerId != owner[0x3B]) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    if (*(s32 *)(owner + 0x1D4) == 0 || (state->flags & 2)) {
+        if (state->child != NULL) {
+            *((s8 *)state->child + 0x74) = 3;
+        }
+        return;
+    }
+    func_1504715C(surface, owner);
+    if (state->field18 == 0) {
+        state->field18 = func_10010154(0x96, owner, 0x36B0, 0x190, 0x4268);
+    }
+    if (state->flags & 1) {
+        bone = func_1503195C(owner, state->kind, 0);
+        if (bone == NULL) {
+            return;
+        }
+        if (*(s32 *)(owner + 0x2EC) != 0) {
+            ratio = *(f32 *)(owner + 0x2D8) * *(f32 *)(owner + 0x2DC);
+        } else {
+            ratio = 0.0f;
+        }
+        index = ratio * 4.0f;
+        if (index >= 4) {
+            index = 3;
+        }
+        scale = (ratio - index * 0.25f) * 4.0f;
+        offset.x = D_800A0378[index].x * scale;
+        offset.y = D_800A0378[index].y * scale;
+        offset.z = D_800A0378[index].z * scale;
+        offsetPtr = &offset;
+        posPtr = &pos;
+        if (func_1514654C(owner, bone, D_800A03A8[index], &offsetPtr, &posPtr, 1) == 0) {
+            pos.x = *(f32 *)(owner + 0x14);
+            pos.y = *(f32 *)(owner + 0x18) + 800.0f;
+            pos.z = *(f32 *)(owner + 0x1C);
+        }
+    } else {
+        if (*(s32 *)(owner + 0x2E8) != 0) {
+            ratio = (f32)*(s32 *)(owner + 0x2E4) / (f32)*(s32 *)(owner + 0x2E8);
+        } else {
+            ratio = 1.0f;
+        }
+        index = ratio * 3.0f;
+        if (index >= 3) {
+            index = 2;
+        }
+        scale = (ratio - index * 0.33333334f) * 3.0f;
+        offset.x = D_800A0350[index].x * scale;
+        offset.y = D_800A0350[index].y * scale;
+        offset.z = D_800A0350[index].z * scale;
+        func_15143134(&offset.x, &pos.x, *(s32 *)(owner + 0x1D4) + (D_800A0374[index] << 6));
+    }
+    if (state->child != NULL) {
+        *((s8 *)state->child + 0x74) = -1;
+        *(Vec3f *)((u8 *)state->child + 0x40) = pos;
+    }
+    enabled = 1;
+    if (D_800BE9F0 == 2 && func_150A29C8((owner - D_800CC2D0) / 812, 0x4065) == 0) {
+        enabled = 0;
+    }
+    if (enabled) {
+        state->field08 += (0.12900001f + func_150ADA68() * 0.117000006f) * D_800BE9A4;
+        while (state->field08 > 1.0f) {
+            func_151C36D8(&pos, arg0[0xC], arg0[1]);
+            state->field08 -= 1.0f;
+        }
+    }
+    state->field10 += (0.13000001f + func_150ADA68() * 0.2f) * D_800BE9A4;
+    if (state->field10 > 1.0f) {
+        if (func_1515C0F8((struct Game1890A0State *)owner, (u8 **)&wind) == 0) {
+            wind = &D_800A5480;
+        }
+        do {
+            func_15143794(func_150ADA20() & 0xFF, (func_150ADA20() % 25U) - 0x40, func_150ADA68() * 2.5970001f + 4.8700004f, &vel);
+            vel.x -= wind->x * 0.6f;
+            vel.z -= wind->z * 0.6f;
+            func_151D9014(&pos.x, &vel.x, 0xC, func_150ADA68() * 0.25800002f + (-0.60800004f), (func_150ADA20() % 41U) + 0x3C, (func_150ADA20() % 56U) + 0xC8,
+                          func_150ADA68() * 160.0f + 121.0f, func_150ADA68() < 0.70000005f, 1.0f, 1.0f, 0, surface, 1, 1, arg0[0xC], arg0[1]);
+            state->field10 -= 1.0f;
+        } while (state->field10 > 1.0f);
+    }
+}
 void func_150C4AD8(void *arg0) {
     void **field_34 = (void **)((u8 *)arg0 + 0x34);
 

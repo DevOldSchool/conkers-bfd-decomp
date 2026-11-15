@@ -10,7 +10,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15035808
- * - func_15036148
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -143,7 +142,6 @@ void *func_150356C8(void) {
     return ((u8)D_800C3F00 * 0xC) - 0xC + D_800C3F08;
 }
 s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
-extern f32 D_80097D70;
 extern s32 D_800BE628;
 extern void *D_800D1C90[];
 extern u8 D_800D9C10;
@@ -177,7 +175,7 @@ s32 func_15035714(s32 arg0, u8 *arg1, u8 *arg2, f32 arg3) {
     if (func_150A6360((void *)sp28, &D_800D9C10,
                       *(f32 *)(arg2 + 0x30), var_fv1,
                       *(f32 *)(arg2 + 0x38), temp_ft4, temp_ft5,
-                      D_80097D70) == 0) {
+                      20000.0f) == 0) {
         return 1;
     }
     return 0;
@@ -281,26 +279,21 @@ typedef struct Game623D0Actor {
 
 void func_15035808(s32, s32, f32, f32, f32, f32, f32, f32, f32, f32);
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);
-extern f32 D_80097D74;
 extern u8 D_800CC2D0[];
 extern u8 *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15036148 CURRENT (328) */
 void func_15036148(void) {
     Game623D0Actor *actor;
     s16 height;
     s16 output1;
     s16 output2;
-    f32 missingSurface;
     s32 index;
 
-    actor = (Game623D0Actor *)D_800CC2D0;
-    index = 0;
     if (!(*(s32 *)(D_800DBFF0 + 0x5F0) & 1)) {
-        missingSurface = -10000.0f;
-        do {
+        for (index = 0; index != 25; index++) {
+            actor = (Game623D0Actor *)(D_800CC2D0 + index * 0x32C);
             if (actor->active != 0 && (actor->kind == 0 || actor->kind == 1)) {
-                if (missingSurface != actor->surface && actor->surface < actor->y &&
+                if (actor->surface != -10000.0f && actor->surface < actor->y &&
                     actor->floor < actor->surface && actor->speed > 5.0f) {
                     func_1507C3E0(actor, &height, &output1, &output2);
                     if ((f32)height < actor->surface - actor->floor) {
@@ -310,10 +303,6 @@ void func_15036148(void) {
                     }
                 }
             }
-            index++;
-            actor = (Game623D0Actor *)((u8 *)actor + 0x32C);
-        } while (index != 25);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15036148 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15036148.s")

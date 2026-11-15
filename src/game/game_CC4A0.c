@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509EFF0
- * - func_1509F284
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -22,26 +21,24 @@ s32 func_1509F248(s32 arg0, s32 *arg1) {
 /* Call context: func_1509F660: unique active declaration in the allowed source */
 /* Call context: func_1509F77C: unique active declaration in the allowed source */
 void func_1509F660(s32, s32);
-void func_1509F77C(u16, s32, s16, s32, s32);
+void func_1509F77C(s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F284 CURRENT (740) */
-s32 func_1509F284(s32 arg0, s32 arg1, void *arg2) {
-    switch (arg1) {                                 /* irregular */
+s32 func_1509F284(s32 arg0, s32 arg1, s32 *arg2) {
+    switch (arg1) {
     case 1:
-        func_1509F660(*(s32 *)((u8 *)arg2 + 8) & 0xFFF, 0);
+        func_1509F660(arg2[2] & 0xFFF, 0);
         return 1;
     case 0:
-        func_1509F660(*(s32 *)((u8 *)arg2 + 8) & 0xFFF, 1);
+        func_1509F660(arg2[2] & 0xFFF, 1);
         return 1;
     case 2:
-        func_1509F77C((u16) ((u32) (*(s32 *)((u8 *)arg2 + 0) & 0xFFFF0000) >> 0x10), *(s32 *)((u8 *)arg2 + 8) & 0xFFF, (s16) *(s32 *)((u8 *)arg2 + 0xC), *(s32 *)((u8 *)arg2 + 0x10), *(s32 *)((u8 *)arg2 + 0x14));
+        func_1509F77C((u32)(arg2[0] & 0xFFFF0000) >> 16, arg2[2] & 0xFFF, arg2[3], arg2[4], arg2[5]);
         return 1;
     default:
         return 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509F284 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F284.s")
+
 s32 func_1509F33C(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
@@ -164,7 +161,7 @@ s32 func_1509F6E8(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
 }
 void func_1000F91C(u16, s32, s16, s32, s32, s32, s32, s32, s32, s32);
 
-void func_1509F77C(u16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4) {
+void func_1509F77C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 temp_a0;
     s32 temp_a1;
     s32 temp_a2;

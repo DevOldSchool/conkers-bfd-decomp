@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1F1CD0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151C4820
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1F1CD0Emission {
@@ -38,27 +33,22 @@ s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, s32, s32,
                   s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C4820 CURRENT (974) */
 void func_151C4820(Game1F1CD0Actor *arg0) {
-    f32 sineY;
-    f32 sineX;
+    Game1F1CD0Emission *emission;
+    f32 inverse;
+    f32 time;
     f32 timeStep;
-    f32 randomX;
-    f32 randomY;
     f32 speedX;
     f32 speedY;
-    f32 inverse;
-    Game1F1CD0Emission *emission;
-    Vec3f direction;
-    f32 phaseStepX;
-    f32 phaseStepY;
-    f32 time;
     f32 phaseX;
     f32 phaseY;
+    f32 phaseStepX;
+    f32 phaseStepY;
+    Vec3f direction;
 
     emission = &arg0->emission;
     arg0->emission.remaining += arg0->emission.rate * D_800BE9A4;
-    if (*(volatile f32 *)&arg0->emission.remaining > 1.0f) {
+    if (1.0f < arg0->emission.remaining) {
         inverse = 1.0f / emission->remaining;
         time = emission->time + D_800BE9A4;
         timeStep = time * inverse;
@@ -69,10 +59,18 @@ void func_151C4820(Game1F1CD0Actor *arg0) {
         phaseStepX = speedX * inverse;
         phaseStepY = speedY * inverse;
         do {
+            f32 sineX;
+            f32 sineY;
+            f32 x;
+            f32 y;
+            f32 randomX;
+            f32 randomY;
+
             sineX = func_15047D60(phaseX);
             sineY = func_15047D60(phaseY);
-            func_151436B4(emission->x + sineX * emission->amplitudeX,
-                          emission->y + sineY * emission->amplitudeY, 5.0f, &direction);
+            x = emission->x + sineX * emission->amplitudeX;
+            y = emission->y + sineY * emission->amplitudeY;
+            func_151436B4(x, y, 5.0f, &direction.x);
             randomX = func_150ADA68();
             randomY = func_150ADA68();
             func_151C229C(&emission->position, &direction, 0, 0, 0, 0,
@@ -81,14 +79,12 @@ void func_151C4820(Game1F1CD0Actor *arg0) {
                           func_150ADA20() % 56U + 0xC8, 0, 0, 0, 0, 0, 0, 0,
                           -1, 0, time, 0xFF, -1, 0, arg0->owner, arg0->kind);
             phaseX += phaseStepX;
-            emission->remaining -= 1.0f;
             phaseY += phaseStepY;
             time -= timeStep;
-        } while (*(volatile f32 *)&emission->remaining > 1.0f);
+            emission->remaining -= 1.0f;
+        } while (1.0f < emission->remaining);
         emission->phaseX = func_15144B68(phaseX);
         emission->phaseY = func_15144B68(phaseY);
         emission->time = time;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C4820 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F1CD0/func_151C4820.s")

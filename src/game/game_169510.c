@@ -19,7 +19,6 @@
  * - func_1513F114
  * - func_1513F728
  * - func_1513FAB4
- * - func_15140410
  * - func_151406AC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1391,56 +1390,49 @@ extern u8 D_800A5178;
 void func_151403DC(s32 arg0, u8 arg1) {
     func_15169260(&D_800A5178, 3, arg0, arg1);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15140410 CURRENT (730) */
 s32 func_15140410(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
     Game169510Vertex *vertices;
-    register void *result;
-    u8 fresh;
-    register f32 width, height;
+    Game169510Vertex *result;
     f32 ax, ay, az, bx, by, bz;
-    register Game169510RenderOwner *slot;
-    register void *templateData;
 
-    func_151D5D60(((Game169510RenderOwner *)arg0)->buffers, arg3, 0x40, (void **)&vertices, &fresh);
-    result = vertices;
-    if (vertices != 0) {
-        if (fresh != 0) {
-            slot = (Game169510RenderOwner *)((u8 *)arg0 + arg3 * 4);
-            templateData = ((Game169510RenderOwner *)arg0)->templateData;
-            func_10022EC0(slot->buffers[0], templateData, 0x40);
-            func_10022EC0(slot->buffers[0] + 0x40, templateData, 0x40);
+    {
+        u8 fresh;
+
+        func_151D5D60((u8 *)arg0 + 0x100, arg3, 0x40, (void **)&vertices, &fresh);
+        result = vertices;
+        if (vertices != 0) {
+            if (fresh != 0) {
+                func_10022EC0(*(u8 **)((u8 *)arg0 + arg3 * 4 + 0x100), (u8 *)arg0 + 0xC0, 0x40);
+                func_10022EC0(*(u8 **)((u8 *)arg0 + arg3 * 4 + 0x100) + 0x40, (u8 *)arg0 + 0xC0, 0x40);
+            }
+        } else {
+            return 0;
         }
-    } else {
-        return 0;
     }
-    width = ((Game169510RenderOwner *)arg0)->width;
-    ax = ((f32 *)arg1)[0] * width;
-    height = ((Game169510RenderOwner *)arg0)->height;
-    ay = ((f32 *)arg1)[1] * width;
-    az = ((f32 *)arg1)[2] * width;
-    bx = ((f32 *)arg2)[0] * height;
-    by = ((f32 *)arg2)[1] * height;
-    bz = ((f32 *)arg2)[2] * height;
+    ax = ((f32 *)arg1)[0] * ((Game169510RenderOwner *)arg0)->width;
+    ay = ((f32 *)arg1)[1] * ((Game169510RenderOwner *)arg0)->width;
+    az = ((f32 *)arg1)[2] * ((Game169510RenderOwner *)arg0)->width;
+    bx = ((f32 *)arg2)[0] * ((Game169510RenderOwner *)arg0)->height;
+    by = ((f32 *)arg2)[1] * ((Game169510RenderOwner *)arg0)->height;
+    bz = ((f32 *)arg2)[2] * ((Game169510RenderOwner *)arg0)->height;
     vertices[0].x = (s32)(((Game169510RenderOwner *)arg0)->x + ax + bx);
     vertices[0].y = (s32)(((Game169510RenderOwner *)arg0)->y + ay + by);
     vertices[0].z = (s32)(((Game169510RenderOwner *)arg0)->z + az + bz);
     vertices[0].flag = 0;
-    vertices[1].x = (s32)((((Game169510RenderOwner *)arg0)->x - ax) + bx);
-    vertices[1].y = (s32)((((Game169510RenderOwner *)arg0)->y - ay) + by);
-    vertices[1].z = (s32)((((Game169510RenderOwner *)arg0)->z - az) + bz);
+    vertices[1].x = (s32)(((Game169510RenderOwner *)arg0)->x - ax + bx);
+    vertices[1].y = (s32)(((Game169510RenderOwner *)arg0)->y - ay + by);
+    vertices[1].z = (s32)(((Game169510RenderOwner *)arg0)->z - az + bz);
     vertices[1].flag = 0;
-    vertices[2].x = (s32)((((Game169510RenderOwner *)arg0)->x - ax) - bx);
-    vertices[2].y = (s32)((((Game169510RenderOwner *)arg0)->y - ay) - by);
-    vertices[2].z = (s32)((((Game169510RenderOwner *)arg0)->z - az) - bz);
+    vertices[2].x = (s32)(((Game169510RenderOwner *)arg0)->x - ax - bx);
+    vertices[2].y = (s32)(((Game169510RenderOwner *)arg0)->y - ay - by);
+    vertices[2].z = (s32)(((Game169510RenderOwner *)arg0)->z - az - bz);
     vertices[2].flag = 0;
-    vertices[3].x = (s32)((((Game169510RenderOwner *)arg0)->x + ax) - bx);
-    vertices[3].y = (s32)((((Game169510RenderOwner *)arg0)->y + ay) - by);
-    vertices[3].z = (s32)((((Game169510RenderOwner *)arg0)->z + az) - bz);
+    vertices[3].x = (s32)(((Game169510RenderOwner *)arg0)->x + ax - bx);
+    vertices[3].y = (s32)(((Game169510RenderOwner *)arg0)->y + ay - by);
+    vertices[3].z = (s32)(((Game169510RenderOwner *)arg0)->z + az - bz);
     vertices[3].flag = 0;
     return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15140410 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_15140410.s")
 typedef struct Game169510Node {
     u8 pad00[4];
     struct Game169510Node *prev;

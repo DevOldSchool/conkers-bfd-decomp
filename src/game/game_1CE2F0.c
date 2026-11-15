@@ -11,7 +11,6 @@
  * - func_151A1998
  * - func_151A1FB4
  * - func_151A26EC
- * - func_151A2960
  * - func_151A2C24
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -300,10 +299,10 @@ void func_151A25E0(u8 *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A26EC.s")
 extern u8 D_800BE616;
-extern s32 (*D_8008F8E0[])(u8 *, s32, s32, s32);
 s32 func_1513170C(u8 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A2960 CURRENT (492) */
+extern void (*D_8008F8E0[])(u8 *);
+
 void func_151A2960(u8 *arg0, s32 arg1) {
     struct State {
         s16 threshold;
@@ -311,30 +310,18 @@ void func_151A2960(u8 *arg0, s32 arg1) {
         s16 current;
         s8 callback_index;
     } *state;
-    s32 current;
-    s32 callback_index;
 
     state = (struct State *)(arg0 + 0xB0);
-    if (*(s16 *)(arg0 + 0x1A) < *(s16 *)(arg0 + 0xB0)) {
-        *(s8 *)(arg0 + 0x2C) = (s8)(*(s16 *)(arg0 + 0xB2) *
-                                    *(s16 *)(arg0 + 0x1A));
+    if (*(s16 *)(arg0 + 0x1A) < state->threshold) {
+        *(s8 *)(arg0 + 0x2C) = state->multiplier * *(s16 *)(arg0 + 0x1A);
     }
-    if (D_800BE616 == 0) {
-        current = state->current;
-        if (current != -1) {
-            callback_index = state->callback_index;
-            if ((callback_index != -1) &&
-                (current >= *(s16 *)(arg0 + 0x1A))) {
-                D_8008F8E0[callback_index](arg0, current,
-                                               *(s16 *)(arg0 + 0x1A), -1);
-                state->current = -1;
-            }
-        }
+    if (D_800BE616 == 0 && state->current != -1 && state->callback_index != -1 &&
+        state->current >= *(s16 *)(arg0 + 0x1A)) {
+        D_8008F8E0[state->callback_index](arg0);
+        state->current = -1;
     }
     func_1513170C(arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A2960 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A2960.s")
 extern void func_151A2C24(s32, s32, s32, s32, f32, f32, f32, s32,
     f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_151A2A14(s32 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, s32 arg6,
@@ -347,11 +334,11 @@ void func_151A2A14(s32 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, f32 arg5, s
 extern void func_151A2C24(s32, s32, s32, s32, f32, f32, f32, s32,
     f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-void func_151A2AD4(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4,
+void func_151A2AD4(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, s32 arg4,
     f32 arg5, f32 arg6, f32 arg7, f32 arg8, s16 arg9, s16 arg10,
     s16 arg11, s16 arg12, s16 arg13, s16 arg14, s8 arg15, u8 arg16,
     s32 arg17) {
-    func_151A2C24(arg0, arg1, 0, 0, 0.0f, arg2, arg3, arg4,
+    func_151A2C24((s32)arg0, (s32)arg1, 0, 0, 0.0f, arg2, arg3, arg4,
         arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13,
         arg14, arg15, arg16, arg17, 0);
 }

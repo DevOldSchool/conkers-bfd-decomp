@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15075650
- * - func_15075938
  * - func_150768DC
  * - func_15077508
  * - func_15078A60
@@ -231,30 +230,19 @@ void func_15075884(void) {
     x = (f32) (u32) D_800D1891;
     *(f32 *) ((u8 *) D_800D154C + 0x44) = 2.0f * (distance / x);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15075938 CURRENT (305) */
 void func_15075938(void) {
-    GameA28B0State *state;
-    u8 *table;
     s32 position;
-    s32 matched;
-    s32 count;
     s32 desired;
+    s32 matched;
 
     matched = 0;
-    state = D_800D154C;
-    position = state->field_21E - (s8)state->pad21F[2];
+    position = D_800D154C->field_21E - (s8)D_800D154C->pad21F[2];
     if (position < 0) {
-        table = D_800D2108;
-        count = table[state->pad10F[0x30]];
-        position += count;
-        position--;
-    } else {
-        count = D_800D2108[state->pad10F[0x30]];
-        if (position >= count - 1) {
-            position = position - count + 1;
-        }
+        position += D_800D2108[D_800D154C->pad10F[0x30]] - 1;
+    } else if (position >= D_800D2108[D_800D154C->pad10F[0x30]] - 1) {
+        position -= D_800D2108[D_800D154C->pad10F[0x30]] - 1;
     }
-    desired = D_800D1891 == 0xFF ? count - 2 : D_800D1891;
+    desired = D_800D1891 == 0xFF ? D_800D2108[D_800D154C->pad10F[0x30]] - 2 : D_800D1891;
     if (D_800D1892 == 0) {
         if (desired == position) {
             matched = 1;
@@ -274,8 +262,6 @@ void func_15075938(void) {
         func_15075400(D_800D1890);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15075938 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075938.s")
 
 
 void func_15075A50(void) {

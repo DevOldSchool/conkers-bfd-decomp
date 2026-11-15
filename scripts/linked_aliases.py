@@ -24,7 +24,9 @@ from candidate_tables import Object32
 import layout_check
 import rom_span
 
-ADDRESS = re.compile(r"(?:D|func)_([0-9A-Fa-f]{8})")
+# Splat names low addresses without leading zeros (D_AB1950 is 0x00AB1950),
+# so the address may be one to eight hex digits; the name still states it.
+ADDRESS = re.compile(r"(?:D|func)_([0-9A-Fa-f]{1,8})")
 DATA_ADDRESS = re.compile(r"D_([0-9A-Fa-f]{8})")
 # Raw GAME switch dispatches name external original tables by address; the
 # integrated build provides each at exactly that address.

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1E34C0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_compact_display_resource_pairs.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151B6254
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -31,7 +26,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800AA450;
 
 void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
                    f32 arg2, Vec3f *arg3, Vec3f *arg4,
@@ -46,7 +40,7 @@ void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
     extra[0] = 0.0f;
     spawn.fieldC = arg2;
     spawn.field8 = arg2;
-    spawn.field0 = D_800AA450 * arg2;
+    spawn.field0 = 8.1f * arg2;
     spawn.field4 = arg9;
     spawn.rotation = *arg3;
     spawn.scale.x = 1.0f;
@@ -107,29 +101,21 @@ void *func_151B6010(Vec3f *arg0, Vec3f *arg1,
 }
 f32 func_15047D60(f32);
 void func_15133894(void *);
-extern f32 D_800AA454;
-extern f32 D_800AA458;
-extern f32 D_800AA45C;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6254 CURRENT (469) */
 void func_151B6254(u8 *arg0) {
-    f32 *angle;
-    f32 value;
-    f32 wave;
-    f32 wrap;
+    f32 *extra = (f32 *)(arg0 + 0x170);
 
-    wrap = D_800AA454;
-    angle = (f32 *)(arg0 + 0x170);
-    *angle += D_800AA458 * D_800BE9A4;
-    while (wrap < *angle) {
-        *angle -= wrap;
+    extra[0] += 0.55600005f * D_800BE9A4;
+    while (6.2831855f < extra[0]) {
+        extra[0] -= 6.2831855f;
     }
-    wave = func_15047D60(*angle);
-    value = angle[1];
-    value += wave * (D_800AA45C * value);
-    *(f32 *)(arg0 + 0x18) = *(f32 *)(arg0 + 0x1C) = value;
+    {
+        f32 wave = func_15047D60(extra[0]);
+        f32 value = wave * (0.061000004f * extra[1]) + extra[1];
+
+        *(f32 *)(arg0 + 0x1C) = value;
+        *(f32 *)(arg0 + 0x18) = value;
+    }
     func_15133894(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B6254 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E34C0/func_151B6254.s")

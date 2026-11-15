@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150641D8
  * - func_150642AC
  * - func_15065A5C
  *
@@ -456,35 +455,31 @@ void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
 }
 s32 func_1505DADC(void *, u16 *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150641D8 CURRENT (1340) */
 u16 func_150641D8(void *arg0, u16 arg1, u16 arg2, u16 arg3) {
     u16 selected;
+    u8 *actor = arg0;
     u16 output;
-    u16 current;
 
     output = 0;
     selected = arg1;
     if (func_150ADA20() & 1) {
         selected = arg2;
     }
-    current = *(u16 *)((u8 *)arg0 + 0x84);
-    if ((arg1 == current) || (arg2 == current)) {
-        selected = arg3;
-        if (*(u8 *)((u8 *)arg0 + 0x107) < 0x28) {
+    if ((arg1 == *(u16 *)(actor + 0x84)) || (arg2 == *(u16 *)(actor + 0x84))) {
+        if (actor[0x107] < 0x28) {
             return 0x3E7;
         }
+        selected = arg3;
     }
-    if (arg3 == current) {
+    if (arg3 == *(u16 *)(actor + 0x84)) {
         selected = 0x3E7;
     }
-    if (func_1505DADC(arg0, &output, 0, 0xFE, 0x40) != 0xFF) {
-        *(u16 *)((u8 *)arg0 + 0x76) = output;
+    if (func_1505DADC(actor, &output, 0, 0xFE, 0x40) != 0xFF) {
+        *(u16 *)(actor + 0x76) = output;
     }
-    *(u8 *)((u8 *)arg0 + 0x83) = 0xFF;
+    *(u8 *)(actor + 0x83) = 0xFF;
     return selected;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150641D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150641D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150642AC.s")
 
 void func_150649A0(u32 arg0, u32 arg1) {

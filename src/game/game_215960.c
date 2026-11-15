@@ -15,7 +15,6 @@
  * - func_151EB96C
  * - func_151EC3E8
  * - func_151EC648
- * - func_151ED90C
  * - func_151EDF4C
  * - func_151EE184
  * - func_151EEFF0
@@ -940,32 +939,26 @@ void func_10004074(s32);
 s32 func_1503F62C(s32, s32, Game215960Command ***, u8 *, void **, void **, Game1ED90CActor **);
 void func_150A7BC0(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED90C CURRENT (370) */
 Game1ED90CObject *func_151ED90C(s32 arg0, s32 arg1, s32 arg2, f32 arg3) {
     Game1ED90CObject *object;
     f32 *matrix0;
     f32 *matrix1;
-    s32 index;
-    s32 offset;
-    u8 *cursor;
+    Game215960Command *src;
+    Game215960Command *dst;
+    s32 i;
+    s32 j;
     s32 size;
-    u8 *cleanup;
-    Game215960Command *scanSource;
-    Game215960Command *source;
-    Game215960Command *destination;
-    u32 scanWord;
-    u32 word;
     u32 opcode;
 
     object = (Game1ED90CObject *)func_10003C40(0xA8, 1, 0, 1);
-    if (object == 0) {
-        return 0;
+    if (object == NULL) {
+        return NULL;
     }
     object->flags = 1;
-    if (func_1503F62C(arg0, arg1, &object->original, &object->count,
-                       &object->field1C, &object->field20, &object->actor) != 0) {
+    if (func_1503F62C(arg0, arg1, &object->original, &object->count, &object->field1C, &object->field20,
+                      &object->actor) != 0) {
         func_10004074((s32)object);
-        return 0;
+        return NULL;
     }
     matrix0 = object->matrix0;
     func_150A7BC0(matrix0);
@@ -974,69 +967,43 @@ Game1ED90CObject *func_151ED90C(s32 arg0, s32 arg1, s32 arg2, f32 arg3) {
     object->actor->matrix0 = matrix0;
     object->actor->matrix1 = matrix1;
     func_1503F5B8(object->actor, 1, arg2, arg3, 0.0f, 0);
-    index = 0;
-    offset = 0;
-    cursor = (u8 *)object;
-    if ((s32)object->count > 0) {
+    for (i = 0; i < object->count; i++) {
+        size = 0;
+        src = object->original[i];
         do {
-            size = 0;
-            scanSource = *(Game215960Command **)((u8 *)object->original + offset);
-            do {
-                scanWord = scanSource->w0;
-                scanSource++;
-                size += 8;
-            } while (((scanWord >> 24) & 0xFF) != 0xDF);
-            destination = (Game215960Command *)func_10003C40(size, 1, 1, 1);
-            *(Game215960Command **)(cursor + 4) = destination;
-            if (destination == 0) {
-                size = 0;
-                if (index > 0) {
-                    cleanup = (u8 *)object;
-                    do {
-                        func_10004074((s32)*(Game215960Command **)(cleanup + 4));
-                        size++;
-                        cleanup += 4;
-                    } while (size != index);
-                }
-                func_10004074((s32)object);
-                return 0;
+            opcode = (src->w0 >> 24) & 0xFF;
+            src++;
+            size += 8;
+        } while (opcode != 0xDF);
+        object->copies[i] = (Game215960Command *)func_10003C40(size, 1, 1, 1);
+        if (object->copies[i] == NULL) {
+            for (j = 0; j < i; j++) {
+                func_10004074((s32)object->copies[j]);
             }
-            index++;
-            offset += 4;
-            cursor += 4;
-        } while (index < (s32)object->count);
-        index = 0;
+            func_10004074((s32)object);
+            return NULL;
+        }
     }
-    if ((s32)object->count > 0) {
-        offset = 0;
-        cursor = (u8 *)object;
+    for (i = 0; i < object->count; i++) {
+        dst = object->copies[i];
+        src = object->original[i];
         do {
-            destination = *(Game215960Command **)(cursor + 4);
-            source = *(Game215960Command **)((u8 *)object->original + offset);
-            do {
-                word = source->w0;
-                source++;
-                destination->w0 = word;
-                opcode = (word >> 24) & 0xFF;
-                destination->w1 = source[-1].w1;
-                if (opcode == 0xEF) {
-                    destination->w0 = word & 0xFFFEFFFF;
-                    destination->w1 = 0x5041C8;
-                }
-                if (opcode == 0xFC) {
-                    destination->w0 = 0;
-                }
-                destination++;
-            } while (opcode != 0xDF);
-            index++;
-            offset += 4;
-            cursor += 4;
-        } while (index < (s32)object->count);
+            dst->w0 = src->w0;
+            dst->w1 = src->w1;
+            src++;
+            opcode = (dst->w0 >> 24) & 0xFF;
+            if (opcode == 0xEF) {
+                dst->w0 &= 0xFFFEFFFF;
+                dst->w1 = 0x5041C8;
+            }
+            if (opcode == 0xFC) {
+                dst->w0 = 0;
+            }
+            dst++;
+        } while (opcode != 0xDF);
     }
     return object;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ED90C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED90C.s")
 void func_100043B4(void *, s32);
 
 /* Descriptive role: ui_release_model_resources.

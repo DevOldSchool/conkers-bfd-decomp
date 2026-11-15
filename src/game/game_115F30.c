@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E8D5C
- * - func_150E9178
  * - func_150E93DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -96,9 +94,7 @@ void func_150E8B1C(u8 *arg0) {
         }
     }
 }
-void *func_15130374(s32, u8, s32, u8, s32);
-extern f32 D_800A1390, D_800A1394, D_800A1398, D_800A139C;
-extern f32 D_800A13A0, D_800A13A4, D_800A13A8, D_800A13AC;
+void *func_15130374(void *, u8, s32, u8, s32);
 
 /* The spawn helper copies the entire 0x70-byte descriptor. */
 typedef struct {
@@ -110,33 +106,27 @@ typedef struct {
     f32 size, width, height;
     f32 position[3], velocity[3];
     f32 field48, field4C, field50, field54;
-    s32 flags58, field5C;
+    u32 flags58;
+    s32 field5C;
     s8 modes[4];
     u8 pad64[0xC];
 } Game115F30Billboard;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8D5C CURRENT (6055) */
 void func_150E8D5C(u8 *arg0) {
-    s32 var_s0;
-    Game115F30Billboard descriptor;
-    u8 *temp_v0;
-    f32 sp8C;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs3;
-    f32 temp_fs4;
-    f32 *temp_s1;
-    u32 divisor;
-    s32 mask;
+    f32 *state;
 
-    temp_s1 = (f32 *)(arg0 + 0x28);
-    temp_s1[5] = (f32) (temp_s1[5] + ((temp_s1[3] + (func_150ADA68() * temp_s1[4])) * D_800BE9A4));
-    divisor = 119;
-    mask = ~0xC0;
-    if (temp_s1[5] > 1.0f) {
+    state = (f32 *)(arg0 + 0x28);
+    state[5] += (state[3] + func_150ADA68() * state[4]) * D_800BE9A4;
+    if (state[5] > 1.0f) {
+        Game115F30Billboard descriptor;
+        u8 *result;
+        f32 spin;
+        s32 flip;
+        f32 yaw;
+        f32 pitch;
+
         descriptor.color[9] = 0x16;
         descriptor.kind = 0xE01;
-        temp_fs4 = D_800A1390;
         descriptor.flags = 0x200005;
         descriptor.field04 = 0;
         descriptor.field0C = 0;
@@ -156,39 +146,36 @@ void func_150E8D5C(u8 *arg0) {
         descriptor.field20 = 8;
         descriptor.field48 = 0.0f;
         descriptor.field50 = 0.0f;
-        temp_fs3 = D_800A1394;
         do {
-            sp8C = temp_fs4;
-            descriptor.lifetime = descriptor.field22 = (func_150ADA20() & 0xF) + 0x28;
-            descriptor.color[7] = (func_150ADA20() % divisor) + 0x64;
-            descriptor.height = descriptor.width = (func_150ADA68() * 59.0f) + 80.0f;
-            descriptor.size = ((func_150ADA68() * D_800A1398) + D_800A139C) * D_800A13A0;
-            descriptor.flags58 &= mask;
-            var_s0 = (func_150ADA20() & 1) ? 0x80 : 0;
-            descriptor.flags58 |= ((func_150ADA20() & 1) ? 0x40 : 0) | var_s0;
+            spin = 0.9701f;
+            descriptor.field22 = descriptor.lifetime = (func_150ADA20() & 0xF) + 0x28;
+            descriptor.color[7] = func_150ADA20() % 119U + 100;
+            descriptor.width = descriptor.height = func_150ADA68() * 59.0f + 80.0f;
+            descriptor.size = (func_150ADA68() * 3727.0f + 99979.0f) * 0.00001f;
+            descriptor.flags58 &= ~0xC0;
+            flip = (func_150ADA20() & 1) ? 0x80 : 0;
+            descriptor.flags58 |= ((func_150ADA20() & 1) ? 0x40 : 0) | flip;
             descriptor.color[4] = 0x44;
             descriptor.color[5] = 0x3C;
             descriptor.color[6] = 0x27;
             descriptor.color[0] = 0xF;
             descriptor.color[1] = 0x11;
             descriptor.color[2] = 5;
-            temp_fs0 = func_150ADA68();
-            temp_fs1 = func_150ADA68();
-            func_151436B4(temp_fs0 * temp_fs3, temp_fs1 * temp_fs3, func_150ADA68() * 20.0f, &descriptor.position[0]);
-            descriptor.position[0] += temp_s1[0];
-            descriptor.position[1] += temp_s1[1];
-            descriptor.position[2] += temp_s1[2];
-            descriptor.field4C = ((func_150ADA68() * D_800A13A4) + D_800A13A8) * D_800A13AC;
-            temp_v0 = func_15130374((s32) &descriptor, 0U, 4, arg0[0xC], (s32) arg0[1]);
-            if (temp_v0 != NULL) {
-                func_10022EC0((u8 *) temp_v0 + 0xA8, &sp8C, 4U);
+            yaw = func_150ADA68();
+            pitch = func_150ADA68();
+            func_151436B4(yaw * 6.2831855f, pitch * 6.2831855f, func_150ADA68() * 20.0f, descriptor.position);
+            descriptor.position[0] += state[0];
+            descriptor.position[1] += state[1];
+            descriptor.position[2] += state[2];
+            descriptor.field4C = (func_150ADA68() * 471.0f + -1242.0f) * 0.01f;
+            result = func_15130374(&descriptor, 0, 4, arg0[0xC], arg0[1]);
+            if (result != NULL) {
+                func_10022EC0(result + 0xA8, &spin, 4);
             }
-            temp_s1[5] = (f32) (temp_s1[5] - 1.0f);
-        } while (temp_s1[5] > 1.0f);
+            state[5] -= 1.0f;
+        } while (state[5] > 1.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E8D5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E8D5C.s")
 void func_150E90DC(void) {
     u8 *temp_v0;
     Game115F30Packet packet;
@@ -207,74 +194,54 @@ typedef union {
     u8 bytes[0x3C];
 } Game115F30SpawnPacket;
 
-extern f32 D_800A13B8;
-extern f32 D_800A13BC;
-extern f32 D_800A13C0;
-extern f32 D_800A13C4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E9178 CURRENT (585) */
 void func_150E9178(u8 *arg0) {
     f32 *state;
     f32 *reference;
     Game115F30WeightedNode *node;
-    f32 distance_limit;
-    f32 scale;
-    f32 speed;
-    f32 phase;
-    f32 size;
-    f32 selection;
-    f32 weight;
+    s32 result;
+    Game115F30SpawnPacket packet;
     f32 dx;
     f32 dy;
     f32 dz;
-    s32 result;
-    register u32 divisor;
-    Game115F30SpawnPacket packet;
+    f32 selection;
+    f32 weight;
 
     reference = (f32 *)func_15144B34(D_800BE9E8);
     state = (f32 *)(arg0 + 0x28);
-    *(volatile f32 *)&state[2] += (state[0] + func_150ADA68() * state[1]) * D_800BE9A4 * D_800DCD90;
-    divisor = 13;
-    if (*(volatile f32 *)&state[2] > 1.0f) {
-        size = D_800A13B8;
-        speed = D_800A13BC;
-        scale = D_800A13C0;
-        phase = 0.0f;
-        distance_limit = D_800A13C4;
-        do {
-            selection = func_150ADA68() * D_800DCD90;
-            node = D_800DCDC4;
+    state[2] += (state[0] + func_150ADA68() * state[1]) * D_800BE9A4 * D_800DCD90;
+    for (; state[2] > 1.0f; state[2] -= 1.0f) {
+        selection = func_150ADA68() * D_800DCD90;
+        node = D_800DCDC4;
+        weight = node->weight;
+        while (weight < selection) {
+            node = node->next;
+            selection -= weight;
             weight = node->weight;
-            while (weight < selection) {
-                node = node->next;
-                selection -= weight;
-                weight = node->weight;
+        }
+        func_1514470C(node->region, packet.words);
+        dx = packet.words[0] - reference[0];
+        dy = packet.words[1] - reference[1];
+        dz = packet.words[2] - reference[2];
+        if (dx * dx + dy * dy + dz * dz < 1960000.0f) {
+            packet.words[3] = 0.19324f;
+            packet.words[4] = 0.31401f;
+            packet.words[5] = 0.0f;
+            packet.words[6] = 99999.9f;
+            packet.integers[12] = 0;
+            packet.bytes[0x34] = 0;
+            packet.bytes[0x35] = 0;
+            packet.integers[14] = 0;
+            result = func_15149130((s16)((func_150ADA20() % 13U) + 5),
+                                  -1, 0x37, -1, 1, 0, 0x3C,
+                                  arg0[0xC], arg0[1]);
+            if (result == 0) {
+                continue;
             }
-            func_1514470C(node->region, packet.words);
-            dx = packet.words[0] - reference[0];
-            dy = packet.words[1] - reference[1];
-            dz = packet.words[2] - reference[2];
-            if (dx * dx + dy * dy + dz * dz < distance_limit) {
-                packet.words[3] = scale;
-                packet.words[4] = speed;
-                packet.words[5] = phase;
-                packet.words[6] = size;
-                packet.integers[12] = 0;
-                packet.bytes[0x34] = 0;
-                packet.bytes[0x35] = 0;
-                packet.integers[14] = 0;
-                result = func_15149130((s16)(func_150ADA20() % divisor + 5),
-                                      -1, 0x37, -1, 1, 0, 0x3C, arg0[0xC], arg0[1]);
-                if (result != 0) {
-                    func_10022EC0(result + 0x28, &packet, 0x3C);
-                }
-            }
-            *(volatile f32 *)&state[2] -= 1.0f;
-        } while (*(volatile f32 *)&state[2] > 1.0f);
+            func_10022EC0(result + 0x28, &packet, 0x3C);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E9178 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E9178.s")
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern u8 D_800A12F0[];

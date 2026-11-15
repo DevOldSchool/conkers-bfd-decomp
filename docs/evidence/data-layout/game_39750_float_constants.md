@@ -43,3 +43,41 @@ bytes: the 0x1C table, then the `func_1500CE4C`, `func_1500D3AC` and `func_1500D
 assertion, replacing the single placement and its payload symbol. The table-like words at
 0x800960F0..0x80096103 belong to another raw member and stay unmapped; 0x800961A8.. stay extern reads
 of the raw `func_1500DE88`.
+
+## func_1500C8D0 (round-25)
+
+`func_1500C8D0` loads `2e-06f`, `0.2f`, `0.000015259022f`, `0.7f`, `3.1415927f`, `0.013f` and
+`0.0050000004f` from 0x8009613C..0x80096157, which the checksum-validated ROM holds as `360637BD
+3E4CCCCD 37800080 3F333333 40490FDB 3C54FDF4 3BA3D70B`; no other reference function reads them. The
+raw function had no C candidate; with these literals (and its packet typedefs `Game39750Spark` and
+`Game39750SparkExtra`, placed after the unit's existing shared declarations and `RANDF` macro, which
+already precede it in text order) it is `CURRENT (0)`. It precedes `func_1500CE4C` in text and its
+words sit directly before that pool in ROM (0x80096154 is its last word), so the second sub-pool
+`.rodata.39750_1c` keeps object offset 0x1C, moves to 0x8009613C and grows to 0x6C bytes. The object
+`.rodata` is now 0x90 bytes: the 0x1C table, 0x6C of literals and 4 zero alignment bytes. The words
+0x80096120..0x8009613B are read by the raw `func_1500C2F0` and stay extern reads.
+
+## func_1500C2F0 and func_1500DE88: single pool again (round-25)
+
+`func_1500C2F0` picks a particle resource from a block-scope `const u16 resources[9]` (0x48, 0x49, 0x4A, 0x4B,
+0x4C, 0x4E, 0x4F, 0x50, 0x51), which the checksum-validated ROM holds at 0x800960F0..0x80096101 as `00480049
+004A004B 004C004E 004F0050 0051` followed by a zero halfword, and loads `2e-06f`, `0.000015259022f`,
+`3.1415927f`, `0.013f`, `0.0050000004f`, `1.6f` and `1.6f` from 0x80096120..0x8009613B (`360637BD 37800080
+40490FDB 3C54FDF4 3BA3D70B 3FCCCCCD 3FCCCCCD`). The function had no C candidate; with these literals it is
+`CURRENT (0)`. Its `Game39750Particle` typedef and the shared prototypes and `fabsf` intrinsic now sit above it,
+moved up from their later position rather than duplicated.
+
+`func_1500DE88` loads `2e-06f`, `0.3f`, `0.15f`, `0.000015259022f`, `3.1415927f`, `0.010000001f` and `0.002f` from
+0x800961A8..0x800961C3 (`360637BD 3E99999A 3E19999A 37800080 40490FDB 3C23D70B 3B03126F`); it reloads the random
+scale for every use, so it uses its own `RANDF_LIT` macro instead of the hoisted `RANDF`. The function had no C
+candidate; with these literals it is `CURRENT (0)`.
+
+IDO emits the two `const` tables first in source order (the 9-entry table padded to 0x14 bytes, then the
+`func_1500D8C8` table), then every literal pool in function order. With all seven members' constants as literals
+the object `.rodata` is 0xE0 bytes: 0xD4 of payload, exactly the ROM range 0x800960F0..0x800961C3, then 12 zero
+alignment bytes. The two sub-pools are therefore merged back into one placement: `game_39750.o` leaves
+`GAME_SPLIT_RODATA_OBJS` and `scripts/split_game_rodata.py`, `config/game/us-rodata.ld` maps `.rodata` as INFO at
+0x800960F0 with a 0xE0 extent assertion and a 0xD4 payload symbol, and `config/data/us.json` records one owner
+entry. The alignment bytes 0x800961C4..0x800961CF are zero in ROM and referenced by no function; the next unit's
+table starts at 0x800961D0. All matched members (`func_1500C2A0`, `func_1500C8D0`, `func_1500CE4C`,
+`func_1500D3AC`, `func_1500D8C8`) keep `CURRENT (0)`.

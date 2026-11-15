@@ -18,7 +18,7 @@ typedef struct Game114740Event {
 f32 func_150ADA68(void);
 void func_10010F30(s32, s32, s32, s32, s32);
 void func_150E75A0(void *, f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);
-void func_150E76D0(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150E76D0(f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);
 void *func_15164F0C(u8, u8, void *, u8, s32);
 void *func_151D8868(void *, s32, u8, s32);
 extern Game114740Pair D_80088A5C;

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_12BD10.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150FE860
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game12BD10State {
@@ -32,15 +27,11 @@ void *func_151C229C(void *, void *, void *, void *, s32, s32, f32, f32,
 extern u8 D_800A200C[];
 extern u8 D_800A2018[];
 extern u8 D_800A2024[];
-extern f32 D_800A2030;
-extern f32 D_800A2034;
-extern f32 D_800A2038;
 f32 fabsf(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(fabsf)
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FE860 CURRENT (775) */
 void func_150FE860(Game12BD10State *arg0, s32 arg1, s32 arg2) {
     Vec3f position;
     Vec3f direction;
@@ -51,21 +42,14 @@ void func_150FE860(Game12BD10State *arg0, s32 arg1, s32 arg2) {
     f32 sideX;
     f32 sideZ;
     s32 matrix;
-    s32 sources[3];
-    s32 destinations[3];
-    s32 matrixBase;
-    f32 threshold;
-    f32 inverse;
-    f32 absoluteX;
-    f32 absoluteZ;
-    f32 randomB;
-    f32 randomA;
 
     func_151D5148(arg0);
-    func_15145740(arg0, &direction, &right, &up, D_800A2030);
-    matrixBase = arg0->field1D4;
-    if (matrixBase != 0) {
-        matrix = matrixBase + (D_80088BA0 << 6);
+    func_15145740(arg0, &direction, &right, &up, 0.81100005f);
+    if (arg0->field1D4 != 0) {
+        s32 sources[3];
+        s32 destinations[3];
+
+        matrix = (s32)((u8 *)arg0->field1D4 + (D_80088BA0 << 6));
         sources[0] = (s32)&D_800A2000;
         sources[1] = (s32)D_800A2018;
         sources[2] = (s32)D_800A2024;
@@ -77,13 +61,16 @@ void func_150FE860(Game12BD10State *arg0, s32 arg1, s32 arg2) {
         delta.y -= origin.y;
         delta.z -= origin.z;
     } else {
-        threshold = D_800A2034;
-        absoluteX = fabsf(direction.x);
+        f32 x = direction.x;
+        f32 z = direction.z;
+
         matrix = 0;
-        if (threshold < absoluteX || threshold < (absoluteZ = fabsf(direction.z))) {
-            inverse = 1.0f / sqrtf(direction.x * direction.x + direction.z * direction.z);
-            sideZ = direction.z * inverse;
-            sideX = -direction.x * inverse;
+        if (0.0001f < fabsf(x) || 0.0001f < fabsf(z)) {
+            f32 length = sqrtf(x * x + z * z);
+            f32 inverse = 1.0f / length;
+
+            sideZ = z * inverse;
+            sideX = -x * inverse;
         } else {
             sideZ = 1.0f;
             sideX = 0.0f;
@@ -92,10 +79,8 @@ void func_150FE860(Game12BD10State *arg0, s32 arg1, s32 arg2) {
         position.y = *(f32 *)((u8 *)arg0 + 0x18) + 49.0f;
         position.z = *(f32 *)((u8 *)arg0 + 0x1C) + 34.0f * sideZ;
     }
-    randomA = func_150ADA68();
-    randomB = func_150ADA68();
-    func_151C229C(&position, &direction, 0, 0, 0, 0, 300.0f, D_800A2038,
-                   randomA * 10.0f + 25.0f, randomB * 200.0f + 400.0f, 50.0f,
+    func_151C229C(&position, &direction, 0, 0, 0, 0, 300.0f, 0.0033333334f,
+                   func_150ADA68() * 10.0f + 25.0f, func_150ADA68() * 200.0f + 400.0f, 50.0f,
                    (u32)func_150ADA20() % 156U + 0x64, arg0, 1, 1, 0, 0, 1, 1,
                    0, 0x35, 0.0f, 0xFF, -1, 0, ((u8 *)&arg1)[3], arg2);
     if (arg0->field1D4 != 0 && (*((u8 *)arg0 + 0x74) & 0xF) != 0xF) {
@@ -107,8 +92,6 @@ void func_150FE860(Game12BD10State *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FE860 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12BD10/func_150FE860.s")
 void func_150FEBC8(Game12BD10State *arg0, s32 arg1, s32 arg2) {
     s32 matrix;
     s32 source;

@@ -16,11 +16,9 @@
  * - func_15198110
  * - func_15198570
  * - func_1519897C
- * - func_151994B8
  * - func_15199C34
  * - func_1519A9A4
  * - func_1519B4B8
- * - func_1519C26C
  * - func_1519C56C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1802,7 +1800,6 @@ s32 func_1519C09C(s32, f32 *, u8, u8, u8, u8, u8, s32);
 extern void (*D_8008F8A4[])(void *);
 extern s16 (*D_8008F8B8[])(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151994B8 CURRENT (80) */
 void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg3) {
     CharacterFlamethrowerActor *result;
     CharacterFlamethrowerFullSpawn spawn;
@@ -1811,11 +1808,6 @@ void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg
     Vec3f *inputs[2];
     Vec3f *outputs[2];
     CharacterFlamethrowerState *state;
-    s32 flag8;
-    s32 flag4;
-    s32 flag2;
-    s32 flag32;
-    s32 flags;
 
     owner = arg1->seed.owner;
     if (*(s32 *)((u8 *)owner + 0x1D4) == 0) {
@@ -1833,51 +1825,57 @@ void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg
     outputs[1] = &initial.secondPosition;
     func_15145EA4((s32 *)inputs, (s32 *)outputs,
                    *(s32 *)((u8 *)owner + 0x1D4) + (initial.seed.joint << 6), 2);
-    initial.field128 = 0.0f;
-    spawn.position.vector = initial.firstPosition;
-    initial.field12C = 0.0f;
-    initial.size = (f32)(u32)initial.seed.size;
-    initial.minimum = -16384.0f;
-    initial.first = arg1->first;
-    initial.field134 = 0.0f;
-    initial.second = arg1->second;
-    initial.field138 = 0.0f;
-    initial.third = arg1->third;
-    initial.field13C = 0.0f;
-    initial.field14C = 0.0f;
-    flags = arg1->flags;
-    flag8 = (flags & 8) ? 8 : 0;
-    flag4 = (flags & 4) ? 4 : 0;
-    flag2 = (flags & 2) ? 2 : 0;
-    flag32 = (flags & 0x10) ? 0x20 : 0;
-    initial.flags = flag32 | flag2 | flag4 | flag8;
-    initial.field152 = 0;
-    initial.field151 = 0;
-    result = func_15147A80(&spawn, (void *)(arg0 + 0x158), 0x28,
-                           0xC, 0xC, 0xC, 0, 0, 0, arg2, arg3);
-    if (result != NULL) {
-        state = result->state;
-        func_10022EC0(state, &initial, 0x154);
-        if (initial.seed.sound != -1) {
-            state->unk130 = D_8008F8B8[initial.seed.sound]();
-        } else {
-            state->unk130 = 0;
-        }
-        if (initial.seed.initialize != -1) {
-            D_8008F8A4[initial.seed.initialize](result);
-        }
-        if (arg1->flags & 1) {
-            state->unk148 = (void *)func_1519C09C((s32)result, spawn.position.values,
-                               arg1->red, arg1->green, arg1->blue, arg1->alpha,
-                               arg2, arg3);
-        } else {
-            state->unk148 = NULL;
+    {
+        s32 flag8;
+        s32 flag4;
+        s32 flag2;
+        s32 flag32;
+        s32 flags;
+
+        spawn.position.vector = initial.firstPosition;
+        initial.field128 = 0.0f;
+        initial.field12C = 0.0f;
+        initial.size = (f32)(u32)initial.seed.size;
+        initial.minimum = -16384.0f;
+        initial.first = arg1->first;
+        initial.field134 = 0.0f;
+        initial.second = arg1->second;
+        initial.field138 = 0.0f;
+        initial.third = arg1->third;
+        initial.field13C = 0.0f;
+        initial.field14C = 0.0f;
+        flags = arg1->flags;
+        flag8 = (flags & 8) ? 8 : 0;
+        flag4 = (flags & 4) ? 4 : 0;
+        flag2 = (flags & 2) ? 2 : 0;
+        flag32 = (flags & 0x10) ? 0x20 : 0;
+        initial.flags = flag32 | flag2 | flag4 | flag8;
+        initial.field152 = 0;
+        initial.field151 = 0;
+        result = func_15147A80(&spawn, (void *)(arg0 + 0x158), 0x28,
+                               0xC, 0xC, 0xC, 0, 0, 0, arg2, arg3);
+        if (result != NULL) {
+            state = result->state;
+            func_10022EC0(state, &initial, 0x154);
+            if (initial.seed.sound != -1) {
+                state->unk130 = D_8008F8B8[initial.seed.sound]();
+            } else {
+                state->unk130 = 0;
+            }
+            if (initial.seed.initialize != -1) {
+                D_8008F8A4[initial.seed.initialize](result);
+            }
+            if (arg1->flags & 1) {
+                state->unk148 = (void *)func_1519C09C((s32)result, spawn.position.values,
+                                   arg1->red, arg1->green, arg1->blue, arg1->alpha,
+                                   arg2, arg3);
+            } else {
+                state->unk148 = NULL;
+            }
         }
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151994B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151994B8.s")
 void func_15199834(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerLocal sp18;
 
@@ -2179,14 +2177,12 @@ typedef struct CharacterFlamethrowerMotion {
 extern f32 D_800BE9A8;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C26C CURRENT (400) */
 s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     f32 time_squared;
     Vec3f first;
     Vec3f second;
     Vec3f first_acceleration;
     Vec3f second_acceleration;
-    s32 steps;
     CharacterFlamethrowerVelocity *velocity;
 
     velocity = &arg0->motion;
@@ -2195,17 +2191,17 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     second = arg0->motion.second;
     arg0->motion.first.y += arg0->motion.gravity * D_800BE9A4;
     arg0->motion.second.y += arg0->motion.gravity * D_800BE9A4;
-    steps = D_800BE9E4;
-    if (steps > 0) {
-        do {
-            steps--;
+    {
+        s32 steps;
+
+        for (steps = D_800BE9E4; steps > 0; steps--) {
             velocity->first.x *= velocity->damping;
             velocity->first.y *= velocity->damping;
             velocity->first.z *= velocity->damping;
             velocity->second.x *= velocity->second_damping;
             velocity->second.y *= velocity->second_damping;
             velocity->second.z *= velocity->second_damping;
-        } while (steps > 0);
+        }
     }
     first_acceleration.x = (velocity->first.x - first.x) * D_800BE9A8;
     first_acceleration.y = (velocity->first.y - first.y) * D_800BE9A8;
@@ -2221,8 +2217,6 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     arg0->second_position.z += second.z * D_800BE9A4 + 0.5f * second_acceleration.z * time_squared;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519C26C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C26C.s")
 extern s32 D_800BE9E4;
 
 s32 func_1519C4E4(u8 *arg0) {

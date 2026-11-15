@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151108C4
  * - func_15110CFC
- * - func_15111858
  * - func_15111AF4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -323,50 +322,42 @@ void func_1511172C(s32 arg0) {
 void * func_10003C40(s32, s32, s32, s32);
 f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
-extern f32 D_800A2F24;
-extern f32 D_800A2F28;
-extern f32 D_800A2F2C;
 extern void *D_800DBE80;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15111858 CURRENT (320) */
 void func_15111858(void) {
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fv1;
-    f32 var_fa0;
-    s32 temp_ft3;
     s32 var_s1;
     struct { u16 x, y, z; u8 kind, alpha; } *var_s0;
-    union { f32 value; u16 half[2]; } sp78;
 
     D_800DBE80 = func_10003C40(0xFA00, 1, 0, 0);
-    var_s1 = 0;
     var_s0 = D_800DBE80;
-    do {
-        temp_fs1 = (f32) (func_150ADA20() % 36000U) * 0.000174532920937053859f;
+    for (var_s1 = 0; var_s1 < 8000; var_s1++) {
+        f32 temp_fs0;
+        f32 temp_fs1;
+        f32 temp_fv1;
+        f32 var_fa0;
+        s32 temp_ft3;
+        union { f32 value; u16 half[2]; } sp78;
+
+        temp_fs1 = (f32) (func_150ADA20() % 36000U) * 0.00017453292f;
         temp_fv1 = (f32) (s32) ((func_150ADA20() % 1584400U) - 0xC1624) * 0.01f;
         if (temp_fv1 >= 0.0f) {
             var_fa0 = 89.0f - sqrtf(temp_fv1);
         } else {
             var_fa0 = sqrtf(-temp_fv1) + -89.0f;
         }
-        var_fa0 *= 0.0174532923847436905f;
+        var_fa0 *= 0.017453292f;
         temp_ft3 = (s32) (func_150AD78C(var_fa0) * 256.0f);
         sp78.value = (f32) temp_ft3;
-        var_s0->y = sp78.half[0];
+        var_s0[var_s1].y = sp78.half[0];
         temp_fs0 = sqrtf((f32) (0x10000 - (temp_ft3 * temp_ft3)));
         sp78.value = (f32) (s32) (func_150AD78C(temp_fs1) * temp_fs0);
-        var_s0->x = sp78.half[0];
+        var_s0[var_s1].x = sp78.half[0];
         sp78.value = (f32) (s32) (func_150AD780(temp_fs1) * temp_fs0);
-        var_s0->z = sp78.half[0];
-        var_s0->alpha = (s8) ((func_150ADA20() % 191U) + 0x40);
-        var_s0->kind = (s8) (func_150ADA20() % 5U);
-        var_s1 += 1;
-        var_s0++;
-    } while (var_s1 != 0x1F40);
+        var_s0[var_s1].z = sp78.half[0];
+        var_s0[var_s1].alpha = (s8) ((func_150ADA20() % 191U) + 0x40);
+        var_s0[var_s1].kind = (s8) (func_150ADA20() % 5U);
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15111858 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15111858.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15111AF4.s")
