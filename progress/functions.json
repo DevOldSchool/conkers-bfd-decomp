@@ -16116,8 +16116,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1404,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500C8D0",
           "vram": "0x1500C8D0"
         }
@@ -45523,17 +45528,16 @@
       "symbol": "func_1511172C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 320,
-        "reason": "Improved authoritative full13690 to320 in10manual revisions. Correct float-halfword union, signed conversion, redundant correction removal, exact frame98/union78 and FP sequence. Two final loop/type scheduling probes nonimproving. Remaining GPR globaladdress and init/end-store schedule; ROM-confirmed three constants require future12B payload mapping excluding adjacent jumptable. Best saved deferred-broad-manual-20260930.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 668,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15111858",
           "vram": "0x15111858"
         }
@@ -62720,17 +62724,16 @@
       "symbol": "func_1510E120"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2374,
-        "reason": "Best valid CURRENT 2374 retained after initial and two manual revisions; input pointer allocation, product register order, frame and output homes remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 684,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510E388",
           "vram": "0x1510E388"
         }
@@ -81319,8 +81322,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1380,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BD828",
           "vram": "0x151BD828"
         }

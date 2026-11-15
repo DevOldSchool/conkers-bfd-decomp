@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1500C2F0
- * - func_1500C8D0
  * - func_1500DE88
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -31,7 +30,6 @@ void func_1500C2A0(void) {
     D_800DC63C = 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_39750/func_1500C2F0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_39750/func_1500C8D0.s")
 typedef struct Game39750Effect {
     u8 kind;
     u8 mode;
@@ -66,6 +64,146 @@ f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
 #define RANDF() ((f32)((func_10024770() * func_150ADA20()) & 0xFFFF) * inv)
+
+typedef struct Game39750Spark {
+    s32 flags0;
+    s32 word4;
+    s16 kind;
+    s16 life;
+    s32 wordC;
+    s32 word10;
+    u8 bytes14[4];
+    u8 bytes18[3];
+    u8 alpha;
+    u8 byte1C;
+    u8 byte1D;
+    s16 half1E;
+    s16 half20;
+    s16 half22;
+    f32 scale;
+    f32 sizeX;
+    f32 sizeY;
+    Vec3f position;
+    Vec3f velocity;
+    f32 angle;
+    f32 height;
+    f32 speed;
+    f32 radius;
+    u32 flags;
+    void *surface;
+    s8 bytes60[6];
+    u8 pad66[0xA];
+} Game39750Spark;
+
+typedef struct Game39750SparkExtra {
+    f32 size;
+    u8 bytes4[4];
+    f32 rangeX;
+    f32 rangeZ;
+    f32 scaleX;
+    f32 scaleZ;
+    f32 unused;
+} Game39750SparkExtra;
+
+void func_1500C8D0(void *arg0, f32 arg1) {
+    f32 count;
+    f32 inv;
+
+    count = func_1514462C(arg0) * arg1 * 2e-06f;
+    if (count > 1.0f) {
+        Game39750Spark packet;
+        Game39750SparkExtra extra;
+        f32 size;
+        f32 top;
+        f32 bottom;
+
+        packet.kind = 0x4403;
+        packet.flags0 = 0x200005;
+        packet.bytes14[3] = 0xFF;
+        packet.word4 = 0;
+        packet.wordC = 0;
+        packet.word10 = 0;
+        packet.bytes14[0] = 0;
+        packet.bytes14[1] = 0;
+        packet.bytes14[2] = 0;
+        packet.bytes18[0] = 0;
+        packet.bytes18[1] = 0;
+        packet.bytes18[2] = 0;
+        packet.byte1C = 0xFF;
+        packet.velocity.x = 0.0f;
+        packet.velocity.y = 0.0f;
+        packet.velocity.z = 0.0f;
+        packet.half22 = 1;
+        packet.scale = 1.0f;
+        packet.life = 300;
+        packet.half1E = 1;
+        packet.half20 = 0xFF;
+        packet.bytes60[0] = 6;
+        packet.bytes60[1] = 8;
+        packet.bytes60[2] = 0x17;
+        packet.bytes60[3] = -1;
+        packet.bytes60[4] = -1;
+        packet.bytes60[5] = 0;
+        extra.bytes4[0] = 0;
+        extra.bytes4[1] = 0;
+        extra.scaleX = 1.0f;
+        extra.scaleZ = 1.0f;
+        inv = 0.000015259022f;
+        do {
+            void *result;
+            f32 y;
+
+            {
+                f32 above;
+                f32 below;
+                f32 dist;
+
+                {
+                    f32 range;
+                    u32 bit40;
+
+                    size = RANDF() * 350.0f + 50.0f;
+                    if (func_150ADA20() & 1) {
+                        packet.byte1D = 0x58;
+                        packet.sizeY = size;
+                        packet.sizeX = size;
+                        extra.size = size;
+                    } else {
+                        packet.byte1D = 0x40;
+                        packet.sizeY = size * 0.7f;
+                        packet.sizeX = size * 0.7f;
+                        extra.size = size * 0.7f;
+                    }
+                    packet.alpha = (func_10024770() * func_150ADA20()) % 101 + 50;
+                    extra.bytes4[2] = ((func_10024770() * func_150ADA20()) & 3) + 2;
+                    extra.bytes4[3] = ((func_10024770() * func_150ADA20()) & 3) + 2;
+                    extra.rangeX = (RANDF() * 0.25f + 0.2f) * extra.size;
+                    extra.rangeZ = (RANDF() * 0.25f + 0.2f) * extra.size;
+                    bit40 = (func_150ADA20() & 1) ? 0x40 : 0;
+                    packet.flags = bit40 | ((func_150ADA20() & 1) ? 0x80 : 0) | 0x4000 | 0x8000 | 0x10000 | 0x20000;
+                    func_15008340(arg0, &packet.position.x, &packet.position.z, &top, &bottom);
+                    range = top - bottom;
+                    y = RANDF() * (range * 0.5f) + (bottom + range * 0.25f);
+                    packet.height = y;
+                }
+                above = fabsf(y - top);
+                packet.position.y = y;
+                below = fabsf(y - bottom);
+                dist = (below < above) ? below : above;
+                packet.radius = (RANDF() * 0.75f + 0.25f) * dist;
+            }
+            packet.angle = 2.0f * RANDF() * 3.1415927f;
+            packet.speed = RANDF() * 0.013f + 0.0050000004f;
+            func_1510F800(0);
+            packet.surface = func_1510FD20((s32)packet.position.x, (s32)packet.position.z);
+            result = func_15130280(&packet, 2, NULL, 0x1C, 0xFF, 1);
+            if (result != NULL) {
+                func_10022EC0((u8 *)result + 0xA8, &extra, 0x1C);
+            }
+            count -= 1.0f;
+        } while (count > 1.0f);
+    }
+}
 
 void func_1500CE4C(void *arg0, f32 arg1) {
     f32 count;
