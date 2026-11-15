@@ -1,4 +1,4 @@
-# US switch table for game_C3E20
+# US switch tables for game_C3E20
 
 `func_15096D78` dispatches its script-command selector 2 through 27 through
 twenty-six word-sized jump targets. The raw HI16/LO16 address pair
@@ -24,20 +24,32 @@ table at `0x8009DED0` in the separately loaded US game-data archive.
 All twenty-six words were read from the checksum-validated US ROM (normalized
 SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`) using `rom_game_data` from
 `scripts/verify_game_rodata.py` (game-data base `0x80082B20`); every target lies
-inside `func_15096D78`. The object contains a 112-byte `.rodata` section with
-twenty-six word relocations against `.text`, 104 payload bytes and eight zero
-alignment bytes. The preceding unit's pool (`game_C2350`, `0x8009DEC0` to
+inside `func_15096D78`. The preceding unit's pool (`game_C2350`, `0x8009DEC0` to
 `0x8009DED0`) ends where this table begins.
 
-The mapping in `config/game/us-rodata.ld` places this section at `0x8009DED0`
-as informational data with `SUBALIGN(4)`, an exact 112-byte size assertion and
-a 104-byte payload-size symbol. The existing verifier compares every relocated
-payload byte with the ROM and checks that the alignment bytes are zero. No
-padding is added and no verification rule is changed.
+`func_1509759C` dispatches its selector 29 through 33 through five word-sized
+jump targets. Its raw HI16/LO16 pair (`jtbl_8009DF38_game`, code offsets
+`0x975F4` and `0x975FC`) identifies the table directly after the first one, and
+its pair at `0x976FC`/`0x97700` loads the constant that follows it:
 
-`func_1509759C` is still `GLOBAL_ASM`; its five-entry table `jtbl_8009DF38`
-(0x8009DF38 to 0x8009DF4C) and the `D_8009DF4C` constant (`3FC90FDB`, pi/2)
-stay external references and are not owned by this mapping. When that function
-is matched in C, they follow this table in the unit's `.rodata`, so the extent
-assertion must grow. Focused matching, source-unit integration and clean batch
-verification remain separate required checks.
+| Address | Word | Meaning |
+| --- | --- | --- |
+| `0x8009DF38` | `15097648` | selector 29 |
+| `0x8009DF3C` | `15097628` | selector 30 |
+| `0x8009DF40` | `15097608` | selector 31 |
+| `0x8009DF44` | `15097668` | selector 32 |
+| `0x8009DF48` | `150976D4` | selector 33 |
+| `0x8009DF4C` | `3FC90FDB` | `1.5707964f` (pi / 2) |
+
+These six words come from the same ROM; every target lies inside
+`func_1509759C`, and no other reference function addresses them. The C source
+writes the natural `switch` and the literal `1.5707964f`.
+
+The object contains a 128-byte `.rodata` section: thirty-one word relocations
+against `.text` (the two tables in ROM order) followed by the constant, with
+no alignment bytes. The mapping in `config/game/us-rodata.ld` places this
+section at `0x8009DED0` as informational data with `SUBALIGN(4)`, an exact
+128-byte size assertion and a 128-byte payload-size symbol. The existing
+verifier compares every relocated payload byte with the ROM. No padding is
+added and no verification rule is changed. Focused matching, source-unit
+integration and clean batch verification remain separate required checks.

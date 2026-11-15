@@ -4,12 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_57FA0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1502B350
- * - func_1502B9B4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_1502AAF0(void) {
@@ -202,8 +196,7 @@ s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return size;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (330) */
-s32 func_1502B350(u8 *arg0, s32 arg1, s32 *arg2) {
+s32 func_1502B350(u8 *arg0, s32 arg1, u32 *arg2) {
     u32 size;
     s32 input;
     s32 result;
@@ -219,7 +212,7 @@ s32 func_1502B350(u8 *arg0, s32 arg1, s32 *arg2) {
         *arg2 = *(s32 *)input & 0x7FFFFFFF;
         if (*arg2 != 0) {
             result = 0;
-            if ((u32)*arg2 < 0xF4240U) {
+            if (*arg2 < 1000000) {
                 result = func_10003C40(*arg2, 1, 2, 2);
                 if (result != 0) {
                     size = func_10006240(input, result, D_8003809C);
@@ -238,8 +231,6 @@ s32 func_1502B350(u8 *arg0, s32 arg1, s32 *arg2) {
     *arg2 = size;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502B350 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B350.s")
 typedef struct {
     s32 offset;
     u32 flags;
@@ -262,13 +253,13 @@ s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
     }
     return arg1;
 }
-s32 func_1502B350(u8 *, s32, s32 *);
+s32 func_1502B350(u8 *, s32, u32 *);
 
-s32 func_1502B5C8(s32 *arg0, s32 arg1, ...) {
+s32 func_1502B5C8(u32 *arg0, s32 arg1, ...) {
     u8 *output;
     va_list cursor;
-    s32 *state;
-    s32 status;
+    u32 *state;
+    u32 status;
     s32 argument;
     s32 component;
     s32 result;
@@ -299,11 +290,11 @@ s32 func_1502B5C8(s32 *arg0, s32 arg1, ...) {
 }
 s32 func_1502B4A8(Game57FA0Reloc *, s32);
 
-s32 func_1502B6BC(s32 *arg0, s32 arg1, s32 *arg2, s32 arg3, ...) {
+s32 func_1502B6BC(u32 *arg0, s32 arg1, s32 *arg2, s32 arg3, ...) {
     u8 *output;
     va_list cursor;
-    s32 status;
-    s32 *state;
+    u32 status;
+    u32 *state;
     s32 argument;
     s32 component;
     s32 result;
@@ -345,7 +336,7 @@ s32 func_1502B7F0(s32 *arg0, s32 arg1, ...) {
     va_list cursor;
     u8 *output;
     s32 value;
-    s32 state;
+    u32 state;
     s32 component;
 
     state = 1;
@@ -393,7 +384,6 @@ s32 func_1502B8E0(s32 arg0, s32 arg1, s32 arg2, ...) {
     }
     return result;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B9B4 CURRENT (200) */
 s32 func_1502B9B4(s32 arg0, ...) {
     u8 *output;
     va_list cursor;
@@ -427,5 +417,3 @@ s32 func_1502B9B4(s32 arg0, ...) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502B9B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B9B4.s")
