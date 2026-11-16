@@ -13,7 +13,6 @@
  * - func_151B65D4
  * - func_151B7328
  * - func_151B7998
- * - func_151B7C38
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -896,7 +895,140 @@ s32 func_151B7998(Game1E37D0RingObject *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B7998 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7998.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7C38.s")
+extern u8 D_80091100[];
+
+Gfx *func_151B7C38(Game1E37D0RingObject *arg0, Gfx *arg1, s16 arg2) {
+    Vec3f next;
+    Vec3f cur;
+    s32 index;
+    s32 previous;
+    Vec3f *camera;
+    Game1E37D0RingEntry *entries;
+    Vec3f toCamera;
+    Vec3f delta;
+    Vec3f normal;
+    f32 lengthSquared;
+    u8 flag;
+    u8 curAlpha;
+    u8 nextAlpha;
+    Game1E37D0TrailVertex *vtx;
+
+    if (arg0->count < 2) {
+        return arg1;
+    }
+    entries = arg0->entries;
+    func_151D5D60((u8 *)arg0 + 0x84, arg2, (arg0->capacity * 2 + 10) * sizeof(Game1E37D0TrailVertex), (void **)&vtx, NULL);
+    if (vtx == NULL) {
+        return arg1;
+    }
+    camera = (Vec3f *)func_15144B34(arg2);
+    flag = 1;
+    arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)D_80091100, 0, 0, 0, 0, 0x78, 0, 0, &flag, 3);
+    arg1 = func_15142B7C(arg1, 0x200005, 0x1F0600);
+    arg1 = func_1513F4E4(arg1, 0x56, &flag);
+    arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[3][0] | D_800A4AC8[3][1], &flag);
+    previous = arg0->head - 1;
+    if (previous < 0) {
+        previous = arg0->capacity - 1;
+    }
+    index = previous - 1;
+    if (index < 0) {
+        index = arg0->capacity - 1;
+    }
+    cur = entries[previous].position;
+    curAlpha = entries[previous].state;
+    next = entries[index].position;
+    nextAlpha = entries[index].state;
+    delta.x = cur.x - next.x;
+    delta.y = cur.y - next.y;
+    delta.z = cur.z - next.z;
+    toCamera.x = cur.x - camera->x;
+    toCamera.y = cur.y - camera->y;
+    toCamera.z = cur.z - camera->z;
+    normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+    normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+    normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+    lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+    if (lengthSquared != 0.0f) {
+        f32 scale = 29.0f / sqrtf(lengthSquared);
+
+        normal.x *= scale;
+        normal.y *= scale;
+        normal.z *= scale;
+    } else {
+        normal.x = 0.0f;
+        normal.y = 0.0f;
+        normal.z = 0.0f;
+    }
+    vtx->x = cur.x + normal.x;
+    vtx->y = cur.y + normal.y;
+    vtx->z = cur.z + normal.z;
+    vtx->s = 5;
+    vtx->t = 0;
+    vtx->a = curAlpha;
+    vtx->flag = 0;
+    vtx++;
+    vtx->x = cur.x - normal.x;
+    vtx->y = cur.y - normal.y;
+    vtx->z = cur.z - normal.z;
+    vtx->s = 0x1FA4;
+    vtx->t = 0;
+    vtx->a = curAlpha;
+    vtx->flag = 0;
+    vtx++;
+    do {
+        delta.x = cur.x - next.x;
+        delta.y = cur.y - next.y;
+        delta.z = cur.z - next.z;
+        toCamera.x = next.x - camera->x;
+        toCamera.y = next.y - camera->y;
+        toCamera.z = next.z - camera->z;
+        normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+        normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+        normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+        lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+        if (lengthSquared != 0.0f) {
+            f32 scale = 29.0f / sqrtf(lengthSquared);
+
+            normal.x *= scale;
+            normal.y *= scale;
+            normal.z *= scale;
+        } else {
+            normal.x = 0.0f;
+            normal.y = 0.0f;
+            normal.z = 0.0f;
+        }
+        vtx->x = next.x + normal.x;
+        vtx->y = next.y + normal.y;
+        vtx->z = next.z + normal.z;
+        vtx->s = 5;
+        vtx->t = 0;
+        vtx->a = nextAlpha;
+        vtx->flag = 0;
+        vtx++;
+        vtx->x = next.x - normal.x;
+        vtx->y = next.y - normal.y;
+        vtx->z = next.z - normal.z;
+        vtx->s = 0x1FA4;
+        vtx->t = 0;
+        vtx->a = nextAlpha;
+        vtx->flag = 0;
+        vtx++;
+        gSPVertex(arg1++, vtx - 4, 4, 0);
+        gSP2Triangles(arg1++, 0, 1, 2, 0, 1, 3, 2, 0);
+        previous = index;
+        index--;
+        if (index < 0) {
+            index = arg0->capacity - 1;
+        }
+        if (previous != arg0->tail) {
+            cur = entries[previous].position;
+            next = entries[index].position;
+            nextAlpha = entries[index].state;
+        }
+    } while (previous != arg0->tail);
+    return arg1;
+}
 extern void (*D_8008FB98[])(void *, s32, u8);
 
 void func_151B82CC(void *arg0, s32 arg1, u8 arg2) {

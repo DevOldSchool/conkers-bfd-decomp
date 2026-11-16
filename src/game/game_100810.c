@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_owner_audio_effect.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D3360
  * - func_150D3A68
  * - func_150D3FD4
  * - func_150D4300
@@ -17,7 +16,250 @@
 
 void func_150D4C2C(void *arg0);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3360.s")
+void *func_1503195C(void *, s32, s32);
+s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3);
+s32 func_150D5124(u8 *, s32, u32 *, s32, s32 *, s32, u16 *);
+extern s8 D_8008FD8C;
+extern s32 D_800A09C0[];
+
+typedef struct Game100810Link {
+    u8 *id;
+    u8 slot;
+    u8 active;
+    u8 pad6[2];
+    void *handle;
+    s32 effects[2];
+    f32 field14;
+    f32 field18;
+} Game100810Link;
+
+typedef struct Game100810Spawn {
+    Vec3f position;
+    s16 life;
+    u16 flags;
+    s32 mode;
+    u8 kind;
+    u8 rate;
+    s32 field18;
+} Game100810Spawn;
+
+typedef struct Game100810EffectDescriptor {
+    u8 kind, mode;
+    u16 flags;
+    s16 lifetime;
+    u8 pad6[2];
+    s32 callback0, callback1;
+    u8 colors[4];
+    f32 field14, field18;
+    Vec3f position, direction;
+    f32 scales[3];
+    u32 options;
+    u8 channels[4];
+    s32 parameter;
+    u8 field4C;
+    u8 pad4D[0xB];
+} Game100810EffectDescriptor;
+
+typedef struct Game100810EffectParameters {
+    f32 values[9];
+    s32 handles[4];
+    s32 links[4];
+    s32 count;
+    f32 multiplier;
+    s16 angles[4];
+    u8 colors[4];
+    u8 state;
+    s8 mode;
+} Game100810EffectParameters;
+
+typedef struct Game100810EffectLink {
+    s16 timer;
+    f32 scale;
+} Game100810EffectLink;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_1503195C(void *, s32, s32);
+s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
+s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
+s32 func_150D5124(u8 *, s32, u32 *, s32, s32 *, s32, u16 *);
+extern s8 D_8008FD8C;
+extern s32 D_800A09C0[];
+
+void func_150D3360(void *arg0, u8 arg1, s32 arg2) {
+    Game100810Spawn spawn;
+    Game100810Link owner;
+    void *object;
+    Vec3f direction;
+    Game100810Link *link;
+
+    spawn.rate = 0x19;
+    spawn.life = 0x12C;
+    spawn.flags = 0x12;
+    spawn.mode = 0xF;
+    spawn.kind = 1;
+    owner.field18 = 20.0f;
+    owner.field14 = 20.0f;
+    owner.active = 1;
+    owner.effects[0] = 0;
+    owner.effects[1] = 0;
+    owner.id = arg0;
+    owner.slot = *(u8 *)((u8 *)arg0 + 0x3B);
+    owner.handle = func_1503195C(arg0, (*(u8 *)((u8 *)arg0 + 4) == 0x48) ? 0x7A : 0x79, 0);
+    if (owner.handle == NULL) {
+        return;
+    }
+    if (func_150D4AE0(&spawn.position.x, &direction.x, arg0, (s32)owner.handle) != 0) {
+        spawn.flags |= 4;
+    } else {
+        spawn.position.x = 0.0f;
+        spawn.position.y = 0.0f;
+        spawn.position.z = 0.0f;
+        direction.x = 0.0f;
+        direction.z = 0.0f;
+        direction.y = 500.0f;
+    }
+    object = func_15147A80(&spawn, (void *)0x20, 0x14, 0, 0xD, 0xD, 0, 0, 0, arg1, arg2);
+    if (object == NULL) {
+        return;
+    }
+    link = *(Game100810Link **)((u8 *)object + 0x98);
+    func_10022EC0(link, &owner, 0x1C);
+    if (D_8008FD8C < 5) {
+        func_1000FA64(0x5B3, *(f32 *)(link->id + 0x14), *(f32 *)(link->id + 0x18),
+                      *(f32 *)(link->id + 0x1C), 1000, 1000, 200, func_150D5124, (s32)link, 0x5B3, 0xC, 0);
+    }
+    func_1000FA64(0x5B4, *(f32 *)(link->id + 0x14), *(f32 *)(link->id + 0x18),
+                  *(f32 *)(link->id + 0x1C), 1000, 1000, 200, func_150D5124, (s32)link, 0x5B4, 0xC, 0);
+    if (D_8008FD8C < 7 || *(s32 *)((u8 *)arg0 + 0x318) != 0) {
+        func_1000FA64(0x5BC, *(f32 *)(link->id + 0x14), *(f32 *)(link->id + 0x18),
+                      *(f32 *)(link->id + 0x1C), 1000, 1000, 200, func_150D5124, (s32)link, 0x5BC, 0xC, 0);
+    }
+    {
+        Game100810EffectParameters glowParameters;
+        Game100810EffectDescriptor glow;
+
+        glowParameters.values[0] = 200.0f;
+        glowParameters.values[1] = 40.0f;
+        glowParameters.values[2] = 40.0f;
+        glowParameters.values[3] = 40.0f;
+        glowParameters.values[4] = 0.05f;
+        glowParameters.values[5] = 0.05f;
+        glowParameters.values[6] = 0.45f;
+        glowParameters.values[7] = 0.3f;
+        glowParameters.values[8] = 0.000001f;
+        glowParameters.handles[0] = -1;
+        glowParameters.links[0] = -1;
+        glowParameters.handles[1] = -1;
+        glowParameters.links[1] = -1;
+        glowParameters.handles[2] = -1;
+        glowParameters.links[2] = -1;
+        glowParameters.handles[3] = -1;
+        glowParameters.links[3] = -1;
+        glowParameters.count = 0;
+        glowParameters.multiplier = 1.0f;
+        glowParameters.angles[0] = 0;
+        glowParameters.angles[1] = 0;
+        glowParameters.angles[2] = 0;
+        glowParameters.angles[3] = 0;
+        glowParameters.colors[0] = 0;
+        glowParameters.colors[1] = 0;
+        glowParameters.colors[2] = 0;
+        glowParameters.colors[3] = 0;
+        glowParameters.state = 0;
+        glowParameters.mode = -1;
+        glow.kind = 0x15;
+        glow.mode = 3;
+        glow.flags = 0x5503;
+        glow.lifetime = 0x12C;
+        glow.callback0 = 0;
+        glow.callback1 = 0;
+        glow.colors[0] = 0xFF;
+        glow.colors[1] = 0xFF;
+        glow.colors[2] = 0xFF;
+        glow.colors[3] = 0xFF;
+        glow.field14 = 100.0f;
+        glow.field18 = 100.0f;
+        glow.position = spawn.position;
+        glow.direction = direction;
+        glow.scales[0] = 1.0f;
+        glow.scales[1] = 1.0f;
+        glow.scales[2] = 1.0f;
+        glow.options = 0xCD2006;
+        glow.channels[0] = 0xFF;
+        glow.channels[1] = 0xFF;
+        glow.channels[2] = 0;
+        glow.channels[3] = 6;
+        glow.parameter = 0;
+        glow.field4C = 0xFF;
+        link->effects[0] = func_151407D0(&glowParameters, 0x60, &glow, 0, 0, 0, 0, -1, arg1, arg2);
+    }
+    {
+        Game100810EffectParameters sparkParameters;
+        Game100810EffectDescriptor spark;
+        Game100810EffectLink sparkLink;
+
+        sparkLink.timer = 0;
+        sparkLink.scale = 1.0f;
+        sparkParameters.values[1] = 45.0f;
+        sparkParameters.values[0] = 45.0f;
+        sparkParameters.values[3] = 25.5f;
+        sparkParameters.values[2] = 25.5f;
+        sparkParameters.values[4] = 0.1f;
+        sparkParameters.values[5] = 0.1f;
+        sparkParameters.values[6] = 1.0f;
+        sparkParameters.handles[0] = -1;
+        sparkParameters.links[0] = -1;
+        sparkParameters.handles[1] = -1;
+        sparkParameters.links[1] = -1;
+        sparkParameters.handles[2] = -1;
+        sparkParameters.links[2] = -1;
+        sparkParameters.handles[3] = -1;
+        sparkParameters.links[3] = -1;
+        sparkParameters.count = 0;
+        sparkParameters.multiplier = 1.0f;
+        sparkParameters.angles[0] = 0;
+        sparkParameters.angles[1] = 0;
+        sparkParameters.angles[2] = 0;
+        sparkParameters.angles[3] = 0;
+        sparkParameters.colors[0] = 0;
+        sparkParameters.colors[1] = 0;
+        sparkParameters.colors[2] = 0;
+        sparkParameters.colors[3] = 0;
+        sparkParameters.state = 0;
+        sparkParameters.mode = -1;
+        sparkParameters.values[7] = 0.8f;
+        sparkParameters.values[8] = 0.000001f;
+        spark.kind = D_800A09C0[func_150ADA20() & 3];
+        spark.mode = 3;
+        spark.flags = 0x2203;
+        spark.lifetime = 0x12C;
+        spark.callback0 = 0;
+        spark.callback1 = 0;
+        spark.colors[0] = 0xFF;
+        spark.colors[1] = 0xFF;
+        spark.colors[2] = 0xFF;
+        spark.colors[3] = 0xFF;
+        spark.field14 = 100.0f;
+        spark.field18 = 100.0f;
+        spark.position = spawn.position;
+        spark.direction = direction;
+        spark.options = 0xCD2006;
+        spark.channels[0] = 0xFF;
+        spark.channels[1] = 0xFF;
+        spark.channels[2] = 0;
+        spark.channels[3] = 7;
+        spark.parameter = 0;
+        spark.field4C = 0xFF;
+        spark.scales[0] = 1.0f;
+        spark.scales[1] = 1.0f;
+        spark.scales[2] = 1.0f;
+        link->effects[1] = func_151407D0(&sparkParameters, 0x68, &spark, 0, 0x27, 0, 0, -1, arg1, arg2);
+        if (link->effects[1] != 0) {
+            func_10022EC0((void *)(link->effects[1] + 0x170), &sparkLink, 8);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3A68.s")
 extern f32 D_800A0A10;
 extern u8 D_800C35EA;
@@ -147,14 +389,6 @@ s32 func_150D3FD4(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D3FD4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3FD4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D4300.s")
-void *func_1503195C(void *, s32, s32);
-
-typedef struct Game100810Link {
-    u8 *id;
-    u8 slot;
-    u8 pad5[3];
-    void *handle;
-} Game100810Link;
 
 typedef struct { u8 *a; u8 *b; u8 c8; u8 c9; } Game100810Msg;
 void func_150D49C0(u8 *arg0, Game100810Msg *arg1, u8 arg2) {
@@ -214,8 +448,6 @@ void func_150D4C00(void *arg0) {
     func_15147928(arg0);
 }
 void func_1000FD38(void *, void *, s32);
-extern s8 D_8008FD8C;
-s32 func_150D5124(u8 *, s32, u32 *, s32, s32 *, s32, u16 *);
 
 void func_150D4C2C(void *arg0) {
     void *temp_s0;
@@ -234,7 +466,6 @@ void func_150D4C2C(void *arg0) {
     }
 }
 extern s32 D_800BE9E4;
-extern s32 D_800A09C0[];
 extern f32 D_800A0A14;
 
 s32 func_150D4CC4(void *arg0) {

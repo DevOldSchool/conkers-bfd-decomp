@@ -12097,15 +12097,15 @@
         "func_151B2F04",
         "func_151B2FA0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1B2FD0",
           "start": "0x1B2950",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1DFE00.c"
+      "source": "src/done/game/game_1DFE00.c"
     },
     {
       "boundary_evidence": {
@@ -12246,7 +12246,7 @@
         "us": {
           "end": "0xDDED0",
           "start": "0xDCEA0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_10A350.c"

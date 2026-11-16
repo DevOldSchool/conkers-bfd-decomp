@@ -305,6 +305,8 @@ SECTIONS
     {
         *game_FFBA0.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_100810_float_constants.md. */
+    .game_rodata_100810 0x800A09E8 (INFO) : SUBALIGN(4) { *game_100810.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_1cc440_float_constant.md. */
     .game_rodata_1cc440 0x800A8CF0 (INFO) : SUBALIGN(4)
     {
@@ -653,6 +655,8 @@ SECTIONS
     .game_rodata_108320 0x800A0BE4 (INFO) : SUBALIGN(4) { *game_108320.o(.rodata) }
     /* Switch table and constants: docs/evidence/data-layout/game_109220_rodata.md. */
     .game_rodata_109220 0x800A0C40 (INFO) : SUBALIGN(4) { *game_109220.o(.rodata) }
+    /* ROM-verified constant: docs/evidence/data-layout/game_10a350_float_constant.md. */
+    .game_rodata_10a350 0x800A0CF4 (INFO) : SUBALIGN(4) { *game_10A350.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_ec420_float_constants.md. */
     .game_rodata_ec420_0 0x800A0110 (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_0) }
     .game_rodata_ec420_14 0x800A014C (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_14) }
@@ -934,6 +938,8 @@ __game_rodata_10e510_payload_size = 0x14;
 
 ASSERT(SIZEOF(.game_rodata_109220) == 0xB0, "game_109220 table and literal extent changed")
 __game_rodata_109220_payload_size = 0xB0;
+ASSERT(SIZEOF(.game_rodata_10a350) == 0x10, "game_10A350 literal extent changed")
+__game_rodata_10a350_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_108320) == 0x10, "game_108320 constant pool extent changed")
 __game_rodata_108320_payload_size = 0xC;
 
@@ -1034,6 +1040,8 @@ ASSERT(SIZEOF(.game_rodata_1a7260) == 0x10, "game_1A7260 index table extent chan
 __game_rodata_1a7260_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_ffba0) == 0x20, "game_FFBA0 colour table and literal extent changed")
 __game_rodata_ffba0_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_100810) == 0x20, "game_100810 literal extent changed")
+__game_rodata_100810_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_holtenrope_0) == 0xC, "holtenrope func_151B3A7C literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_c) == 0xC, "holtenrope func_151B3CF0 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_18) == 0xC, "holtenrope func_151B42A4 literal extent changed")
