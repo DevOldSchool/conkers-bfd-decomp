@@ -76,8 +76,8 @@ u8 func_151C43E0(void *, u8 *, f32);
 void func_151C4510(void *, void *, f32);
 s32 func_151C455C(s32, u8 *, f32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, s32, s32, Vec3f *, u8 *, s32, f32,
-                  u8 *, s32, s32, s32, s32, s32);
+s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, u8, s32, Vec3f *, u8 *, u8, f32,
+                  u8 *, s8, u8, u8, s32, u8);
 s32 func_151D5B6C(void *, void *, void *, s32, s32);
 extern u8 D_800A4AA0[];
 

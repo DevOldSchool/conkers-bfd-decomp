@@ -13,8 +13,8 @@
  */
 
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, s32, s32, Vec3f *, u8 *, s32, f32,
-                  u8 *, s32, s32, s32, s32, s32);
+s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, u8, s32, Vec3f *, u8 *, u8, f32,
+                  u8 *, s8, u8, u8, s32, u8);
 s32 func_15146078(void *, void *, void *);
 void func_15145974(void *, f32 *, f32 *);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);

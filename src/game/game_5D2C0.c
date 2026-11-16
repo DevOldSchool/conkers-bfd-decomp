@@ -480,9 +480,6 @@ s32 func_15031070(void *arg0, void *arg1, s32 *arg2, s32 *arg3) {
     }
     return 1;
 }
-/* Requires (see best_full.c): move the Game5D2C0Command typedef above the func_150311C4 prototype (line ~385),
- * change that prototype to s32 func_150311C4(Game5D2C0Command *, u8 *, u8 *, s32, s32), and cast arg0 to
- * (Game5D2C0Command *) in the two callers func_15030E08/func_15030F94 (both stay CURRENT 0). */
 #define SHL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 void func_1502CC34(u8 *, s32, s32, s32 *, s32 *, s32 *, s32 *, s32 *, s32 *, s32 *, s32 *, s32 *, s32 *, s32 *);
 void func_1502D54C(s32, void *);

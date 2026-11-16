@@ -292,7 +292,6 @@ Gfx *func_15157420(Gfx *arg0, Game1844C0RenderActor *arg1, s16 arg2) {
     }
     return arg0;
 }
-extern u8 D_800BE9C0;
 
 s32 func_15157860(s32 arg0) {
     func_150A7BC0((s32)((u8 *)arg0 + (D_800BE9C0 << 6) + 0x7C), arg0);

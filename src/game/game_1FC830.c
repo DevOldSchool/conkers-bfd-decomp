@@ -18,7 +18,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-
 typedef struct Game1FC830RibbonOffset {
     f32 x;
     f32 z;

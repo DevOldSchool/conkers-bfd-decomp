@@ -151,7 +151,7 @@ typedef struct Game10EF60Owner {
     void *output;
 } Game10EF60Owner;
 
-s32 func_15094F70();
+s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 extern u8 D_800BE9C0;
 extern s32 D_800D2C9C;
@@ -228,7 +228,7 @@ Gfx *func_150E28DC(Gfx *arg0, Game10EF60Effect *arg1, s16 arg2) {
                 arg1->quads[D_800BE9C0][i].pos[j] = corners[i][j];
             }
         }
-        arg0 = (Gfx *)func_15094F70(arg0, D_8008CA4C[arg1->material], 0, &owner, 0, 0, 0, 2, 3);
+        arg0 = (Gfx *)func_15094F70((s32)arg0, D_8008CA4C[arg1->material], 0, &owner, 0, 0, 0, 2, 3);
         flag = 0;
         arg0 = func_15142FBC(arg0, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, 0x504A50, &flag);
         gSPVertex(arg0++, arg1->quads[D_800BE9C0], 4, 0);

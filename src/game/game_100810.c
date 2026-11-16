@@ -78,13 +78,8 @@ typedef struct Game100810EffectLink {
 } Game100810EffectLink;
 
 void *func_10022EC0(void *, const void *, u32);
-void *func_1503195C(void *, s32, s32);
-s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
-s32 func_150D5124(u8 *, s32, u32 *, s32, s32 *, s32, u16 *);
-extern s8 D_8008FD8C;
-extern s32 D_800A09C0[];
 
 void func_150D3360(void *arg0, u8 arg1, s32 arg2) {
     Game100810Spawn spawn;
