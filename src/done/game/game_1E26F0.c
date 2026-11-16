@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "game_view.h"
 
 /*
  * Reviewed source unit: src/game/game_1E26F0.c
@@ -43,14 +44,7 @@ typedef struct {
 } Game1E26F0Pair;
 
 typedef struct {
-    s16 x, y, z;
-    s16 flag;
-    s16 s, t;
-    u8 r, g, b, a;
-} Game1E26F0Vertex;
-
-typedef struct {
-    Game1E26F0Vertex vertices[2][44];
+    Vtx_t vertices[2][44];
     s32 first;
     u8 firstFlag;
     u8 pad585[3];
@@ -81,14 +75,13 @@ extern f32 D_800AA400[];
 extern f32 D_800AA40C[];
 extern u8 D_800BE9C0;
 extern s32 D_800D2C9C;
-extern u8 *D_800DBFF0;
 
 Gfx *func_151B5328(Gfx *gdl, u8 *arg1, s16 arg2) {
     Game1E26F0State *state;
     u8 failed;
     u8 changed;
     s32 i;
-    Game1E26F0Vertex *vtx;
+    Vtx_t *vtx;
     Vec3f *pos;
     f32 lenSq;
     f32 inv;
@@ -121,7 +114,7 @@ Gfx *func_151B5328(Gfx *gdl, u8 *arg1, s16 arg2) {
         func_15143134(D_800AA40C, &end.x, *(s32 *)(state->second + 0x1D4) + (D_8008FB84 << 6));
         changed = 1;
         vtx = state->vertices[D_800BE9C0];
-        pos = (Vec3f *)(D_800DBFF0 + arg2 * 0x9A0 + 0x2F8);
+        pos = (Vec3f *)&D_800DBFF0[arg2].unk2F8;
         gdl = func_15142B7C(gdl, 0x200005, 0x60600);
         gdl = (Gfx *)func_15142E24((s32)gdl, (s32)D_80090F68, 0, 0, 0, 0, 0x56, 0, 0, &changed, 3);
         gdl = func_15142C10(gdl, 0xFF, 0xFF, 0xFF, 0xFF, &changed);
@@ -168,45 +161,45 @@ Gfx *func_151B5328(Gfx *gdl, u8 *arg1, s16 arg2) {
         do {
             wave = func_15047D60(angle);
             w = 1.0f - wave * fade;
-            vtx[0].x = perp.x * w + cur.x;
-            vtx[0].y = perp.y * w + cur.y;
-            vtx[0].z = perp.z * w + cur.z;
-            vtx[0].r = 0xFF;
-            vtx[0].g = 0;
-            vtx[0].b = 0;
-            vtx[0].a = 0xFF;
-            vtx[0].s = 0;
-            vtx[0].t = t;
-            vtx[1].x = cur.x - perp.x * w;
-            vtx[1].y = cur.y - perp.y * w;
-            vtx[1].z = cur.z - perp.z * w;
-            vtx[1].r = 0xFF;
-            vtx[1].g = 0;
-            vtx[1].b = 0;
-            vtx[1].a = 0xFF;
-            vtx[1].s = 0x7C0;
-            vtx[1].t = t;
+            vtx[0].ob[0] = perp.x * w + cur.x;
+            vtx[0].ob[1] = perp.y * w + cur.y;
+            vtx[0].ob[2] = perp.z * w + cur.z;
+            vtx[0].cn[0] = 0xFF;
+            vtx[0].cn[1] = 0;
+            vtx[0].cn[2] = 0;
+            vtx[0].cn[3] = 0xFF;
+            vtx[0].tc[0] = 0;
+            vtx[0].tc[1] = t;
+            vtx[1].ob[0] = cur.x - perp.x * w;
+            vtx[1].ob[1] = cur.y - perp.y * w;
+            vtx[1].ob[2] = cur.z - perp.z * w;
+            vtx[1].cn[0] = 0xFF;
+            vtx[1].cn[1] = 0;
+            vtx[1].cn[2] = 0;
+            vtx[1].cn[3] = 0xFF;
+            vtx[1].tc[0] = 0x7C0;
+            vtx[1].tc[1] = t;
             vtx += 2;
             wave = func_15047D60(angle + 0.31415927f);
             w = 1.0f - wave * fade;
-            vtx[0].x = cur.x + stepX - perp.x * w;
-            vtx[0].y = cur.y + stepY - perp.y * w;
-            vtx[0].z = cur.z + stepZ - perp.z * w;
-            vtx[0].r = 0xFF;
-            vtx[0].g = 0;
-            vtx[0].b = 0;
-            vtx[0].a = 0xFF;
-            vtx[0].s = 0x7C0;
-            vtx[0].t = t + 204.8f;
-            vtx[1].x = cur.x + stepX + perp.x * w;
-            vtx[1].y = cur.y + stepY + perp.y * w;
-            vtx[1].z = cur.z + stepZ + perp.z * w;
-            vtx[1].r = 0xFF;
-            vtx[1].g = 0;
-            vtx[1].b = 0;
-            vtx[1].a = 0xFF;
-            vtx[1].s = 0;
-            vtx[1].t = t + 204.8f;
+            vtx[0].ob[0] = cur.x + stepX - perp.x * w;
+            vtx[0].ob[1] = cur.y + stepY - perp.y * w;
+            vtx[0].ob[2] = cur.z + stepZ - perp.z * w;
+            vtx[0].cn[0] = 0xFF;
+            vtx[0].cn[1] = 0;
+            vtx[0].cn[2] = 0;
+            vtx[0].cn[3] = 0xFF;
+            vtx[0].tc[0] = 0x7C0;
+            vtx[0].tc[1] = t + 204.8f;
+            vtx[1].ob[0] = cur.x + stepX + perp.x * w;
+            vtx[1].ob[1] = cur.y + stepY + perp.y * w;
+            vtx[1].ob[2] = cur.z + stepZ + perp.z * w;
+            vtx[1].cn[0] = 0xFF;
+            vtx[1].cn[1] = 0;
+            vtx[1].cn[2] = 0;
+            vtx[1].cn[3] = 0xFF;
+            vtx[1].tc[0] = 0;
+            vtx[1].tc[1] = t + 204.8f;
             vtx += 2;
             gSPVertex(gdl++, vtx - 4, 4, 0);
             gSP1Triangle(gdl++, 0, 1, 2, 0);

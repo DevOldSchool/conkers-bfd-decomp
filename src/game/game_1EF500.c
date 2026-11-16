@@ -76,8 +76,9 @@ u8 func_151C43E0(void *, u8 *, f32);
 void func_151C4510(void *, void *, f32);
 s32 func_151C455C(s32, u8 *, f32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, u8, s32, Vec3f *, u8 *, u8, f32,
-                  u8 *, s8, u8, u8, s32, u8);
+struct Game1F1F60Hit;
+s32 func_151C4B0C(struct Game1F1F60Hit *, struct Game1F1F60Hit *, Vec3f *, Vec3f *, f32 *, f32, u8, Vec3f *,
+                  Vec3f *, u8 *, u8, f32, void *, s8, u8, u8, s32, u8);
 s32 func_151D5B6C(void *, void *, void *, s32, s32);
 extern u8 D_800A4AA0[];
 
@@ -183,9 +184,10 @@ void *func_151C229C(Vec3f *arg0, Vec3f *arg1, s32 arg2, Vec3f *arg3, u8 arg4, s3
         dir = &sourceDir;
     }
     ext.handle = arg14 ? func_151D5B6C(from, dir, arg12, arg23, 0) : -1;
-    if (func_151C4B0C(arg5, ext.path, arg0, useSource ? &sourceDir : NULL, ext.extra, arg7, arg13,
-                      arg2, useTarget ? &targetDir : NULL, &ext.flags, 3, arg10, arg12, arg23,
-                      arg14, arg15, ext.handle, 0) == 0) {
+    if (func_151C4B0C((struct Game1F1F60Hit *)arg5, (struct Game1F1F60Hit *)ext.path, arg0,
+                      useSource ? &sourceDir : NULL, (f32 *)ext.extra, arg7, arg13, (Vec3f *)arg2,
+                      useTarget ? &targetDir : NULL, &ext.flags, 3, arg10, arg12, arg23, arg14, arg15,
+                      ext.handle, 0) == 0) {
         return NULL;
     }
     ext.velocity[0] = ext.direction[0] * arg6;

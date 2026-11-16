@@ -208,13 +208,6 @@ s32 func_151BC794(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC794.s")
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-typedef struct Game1E9A30TrailVertex {
-    s16 x, y, z;
-    s16 flag;
-    s16 s, t;
-    u8 r, g, b, a;
-} Game1E9A30TrailVertex;
-
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 s32 func_15144B34(s32);
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
@@ -227,7 +220,7 @@ extern s32 D_800A4AC8[][2];
 extern s32 D_800D2C9C;
 
 Gfx *func_151BCA90(u8 *arg0, Gfx *arg1, s16 arg2) {
-    Game1E9A30TrailVertex *vtx;
+    Vtx_t *vtx;
     Game1E9A30Trail *records;
     Vec3f *camera;
     u8 flag;
@@ -246,7 +239,7 @@ Gfx *func_151BCA90(u8 *arg0, Gfx *arg1, s16 arg2) {
     s32 nextAlpha;
 
     if (*(s8 *)(arg0 + 0x2C) >= 2) {
-        func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Game1E9A30TrailVertex), (void **)&vtx, NULL);
+        func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Vtx_t), (void **)&vtx, NULL);
         if (vtx != NULL) {
             records = *(Game1E9A30Trail **)(arg0 + 0x94);
             camera = (Vec3f *)func_15144B34(arg2);
@@ -300,26 +293,26 @@ Gfx *func_151BCA90(u8 *arg0, Gfx *arg1, s16 arg2) {
                 normal.y *= scale;
                 normal.z *= scale;
             }
-            vtx->x = cur.x + normal.x;
-            vtx->y = cur.y + normal.y;
-            vtx->z = cur.z + normal.z;
-            vtx->s = curTexture;
-            vtx->t = 0;
-            vtx->r = 0xFF;
-            vtx->g = 0xFF;
-            vtx->b = 0xFF;
-            vtx->a = curAlpha;
+            vtx->ob[0] = cur.x + normal.x;
+            vtx->ob[1] = cur.y + normal.y;
+            vtx->ob[2] = cur.z + normal.z;
+            vtx->tc[0] = curTexture;
+            vtx->tc[1] = 0;
+            vtx->cn[0] = 0xFF;
+            vtx->cn[1] = 0xFF;
+            vtx->cn[2] = 0xFF;
+            vtx->cn[3] = curAlpha;
             vtx->flag = 0;
             vtx++;
-            vtx->x = cur.x - normal.x;
-            vtx->y = cur.y - normal.y;
-            vtx->z = cur.z - normal.z;
-            vtx->s = curTexture;
-            vtx->t = 0x7FF;
-            vtx->r = 0xFF;
-            vtx->g = 0xFF;
-            vtx->b = 0xFF;
-            vtx->a = curAlpha;
+            vtx->ob[0] = cur.x - normal.x;
+            vtx->ob[1] = cur.y - normal.y;
+            vtx->ob[2] = cur.z - normal.z;
+            vtx->tc[0] = curTexture;
+            vtx->tc[1] = 0x7FF;
+            vtx->cn[0] = 0xFF;
+            vtx->cn[1] = 0xFF;
+            vtx->cn[2] = 0xFF;
+            vtx->cn[3] = curAlpha;
             vtx->flag = 0;
             vtx++;
             do {
@@ -343,26 +336,26 @@ Gfx *func_151BCA90(u8 *arg0, Gfx *arg1, s16 arg2) {
                     normal.y *= scale;
                     normal.z *= scale;
                 }
-                vtx->x = next.x + normal.x;
-                vtx->y = next.y + normal.y;
-                vtx->z = next.z + normal.z;
-                vtx->s = nextTexture;
-                vtx->t = 0;
-                vtx->r = 0xFF;
-                vtx->g = 0xFF;
-                vtx->b = 0xFF;
-                vtx->a = nextAlpha;
+                vtx->ob[0] = next.x + normal.x;
+                vtx->ob[1] = next.y + normal.y;
+                vtx->ob[2] = next.z + normal.z;
+                vtx->tc[0] = nextTexture;
+                vtx->tc[1] = 0;
+                vtx->cn[0] = 0xFF;
+                vtx->cn[1] = 0xFF;
+                vtx->cn[2] = 0xFF;
+                vtx->cn[3] = nextAlpha;
                 vtx->flag = 0;
                 vtx++;
-                vtx->x = next.x - normal.x;
-                vtx->y = next.y - normal.y;
-                vtx->z = next.z - normal.z;
-                vtx->s = nextTexture;
-                vtx->t = 0x7FF;
-                vtx->r = 0xFF;
-                vtx->g = 0xFF;
-                vtx->b = 0xFF;
-                vtx->a = nextAlpha;
+                vtx->ob[0] = next.x - normal.x;
+                vtx->ob[1] = next.y - normal.y;
+                vtx->ob[2] = next.z - normal.z;
+                vtx->tc[0] = nextTexture;
+                vtx->tc[1] = 0x7FF;
+                vtx->cn[0] = 0xFF;
+                vtx->cn[1] = 0xFF;
+                vtx->cn[2] = 0xFF;
+                vtx->cn[3] = nextAlpha;
                 vtx->flag = 0;
                 vtx++;
                 gSPVertex(arg1++, vtx - 4, 4, 0);

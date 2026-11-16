@@ -10,6 +10,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_151CF380
  * - func_151CFA4C
  * - func_151D014C
  * - func_151D09A8
@@ -32,13 +33,6 @@ typedef struct Game1FC830RibbonPoint {
     f32 directionZ;
 } Game1FC830RibbonPoint;
 
-typedef struct Game1FC830RibbonVertex {
-    s16 x, y, z;
-    s16 flag;
-    s16 s, t;
-    u8 r, g, b, a;
-} Game1FC830RibbonVertex;
-
 typedef struct Game1FC830RibbonTarget {
     u8 pad0[0x1D4];
     s32 active;
@@ -52,6 +46,7 @@ Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 extern s32 D_800A4AC8[][2];
 extern s32 D_800D2C9C;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF380 */
 Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
     Game1FC830RibbonTarget **state;
     Vec3f next;
@@ -68,7 +63,7 @@ Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
     f32 nextWidth;
     Game1FC830RibbonOffset nextOffset;
     Game1FC830RibbonOffset firstOffset;
-    Game1FC830RibbonVertex *vtx;
+    Vtx_t *vtx;
 
     if (*(s8 *)(arg0 + 0x2C) < 2) {
         return arg1;
@@ -78,7 +73,7 @@ Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
     if (*state != NULL && (*state)->active == 0) {
         return arg1;
     }
-    func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Game1FC830RibbonVertex), (void **)&vtx, NULL);
+    func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Vtx_t), (void **)&vtx, NULL);
     flag = 1;
     arg1 = func_15142C10(arg1, 0xED, 0xD2, 0x85, 0xC8, &flag);
     arg1 = func_15142B7C(arg1, 0x200005, 0x1F0600);
@@ -102,25 +97,25 @@ Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
     nextX = nextWidth * points[index].directionX;
     nextZ = nextWidth * points[index].directionZ;
     nextOffset = points[index].offset;
-    vtx->x = first.x + firstOffset.x + firstX;
-    vtx->y = first.y;
-    vtx->z = first.z + firstOffset.z + firstZ;
+    vtx->ob[0] = first.x + firstOffset.x + firstX;
+    vtx->ob[1] = first.y;
+    vtx->ob[2] = first.z + firstOffset.z + firstZ;
     vtx->flag = 0;
     vtx++;
-    vtx->x = first.x - firstOffset.x + firstX;
-    vtx->y = first.y;
-    vtx->z = first.z - firstOffset.z + firstZ;
+    vtx->ob[0] = first.x - firstOffset.x + firstX;
+    vtx->ob[1] = first.y;
+    vtx->ob[2] = first.z - firstOffset.z + firstZ;
     vtx->flag = 0;
     vtx++;
     do {
-        vtx->x = next.x + nextOffset.x + nextX;
-        vtx->y = next.y;
-        vtx->z = next.z + nextOffset.z + nextZ;
+        vtx->ob[0] = next.x + nextOffset.x + nextX;
+        vtx->ob[1] = next.y;
+        vtx->ob[2] = next.z + nextOffset.z + nextZ;
         vtx->flag = 0;
         vtx++;
-        vtx->x = next.x - nextOffset.x + nextX;
-        vtx->y = next.y;
-        vtx->z = next.z - nextOffset.z + nextZ;
+        vtx->ob[0] = next.x - nextOffset.x + nextX;
+        vtx->ob[1] = next.y;
+        vtx->ob[2] = next.z - nextOffset.z + nextZ;
         vtx->flag = 0;
         vtx++;
         gSPVertex(arg1++, vtx - 4, 4, 0);
@@ -132,9 +127,6 @@ Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
         }
         if (previous != *(s8 *)(arg0 + 0x2D)) {
             first = points[previous].position;
-            firstWidth = points[previous].width;
-            firstX = firstWidth * points[previous].directionX;
-            firstZ = firstWidth * points[previous].directionZ;
             next = points[index].position;
             nextWidth = points[index].width;
             nextX = nextWidth * points[index].directionX;
@@ -145,6 +137,8 @@ Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
     } while (previous != *(s8 *)(arg0 + 0x2D));
     return arg1;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CF380 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF380.s")
 void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151CF844(void *arg0, s32 arg1, u8 arg2) {

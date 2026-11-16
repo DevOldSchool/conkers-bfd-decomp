@@ -13,8 +13,9 @@
  */
 
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-s32 func_151C4B0C(s32, void *, Vec3f *, Vec3f *, void *, f32, u8, s32, Vec3f *, u8 *, u8, f32,
-                  u8 *, s8, u8, u8, s32, u8);
+struct Game1F1F60Hit;
+s32 func_151C4B0C(struct Game1F1F60Hit *, struct Game1F1F60Hit *, Vec3f *, Vec3f *, f32 *, f32, u8, Vec3f *,
+                  Vec3f *, u8 *, u8, f32, void *, s8, u8, u8, s32, u8);
 s32 func_15146078(void *, void *, void *);
 void func_15145974(void *, f32 *, f32 *);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -54,8 +55,8 @@ void func_150F7470(Vec3f *arg0, Vec3f *arg1, s32 arg2, Vec3f *arg3, u8 arg4, s32
         }
         useSource = 1;
     }
-    if (func_151C4B0C(arg5, packet + 0x7C, arg0, useSource ? &sourceDir : NULL,
-                      packet + 0x7C + 0x68, arg7, arg10, arg2,
+    if (func_151C4B0C((struct Game1F1F60Hit *)arg5, (struct Game1F1F60Hit *)(packet + 0x7C), arg0,
+                      useSource ? &sourceDir : NULL, (f32 *)(packet + 0x7C + 0x68), arg7, arg10, (Vec3f *)arg2,
                       useTarget ? &targetDir : NULL, packet + 0x7C + 0x70, 1, arg8, arg9,
                       arg15, arg12, arg13, 0, arg17) == 0) {
         return;

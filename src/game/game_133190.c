@@ -384,13 +384,6 @@ void func_15106610(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15106610 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106610.s")
-typedef struct Game133190TrailVertex {
-    s16 x, y, z;
-    s16 flag;
-    s16 s, t;
-    u8 r, g, b, a;
-} Game133190TrailVertex;
-
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 void func_151D5D60(void *, s16, s32, void **, u8 *);
@@ -407,7 +400,7 @@ extern s32 D_800D2C9C;
 Gfx *func_151067B8(Gfx *gdl, u8 *arg1, s16 arg2) {
     Vec3f *camera;
     Game133190CurveObject *curve = (Game133190CurveObject *)arg1;
-    Game133190TrailVertex *vtx;
+    Vtx_t *vtx;
     Vec3f delta;
     Vec3f toCamera;
     Vec3f normal;
@@ -450,23 +443,23 @@ Gfx *func_151067B8(Gfx *gdl, u8 *arg1, s16 arg2) {
         normal.y = 0.0f;
         normal.z = 0.0f;
     }
-    vtx->x = points[0].x + normal.x;
-    vtx->y = points[0].y + normal.y;
-    vtx->z = points[0].z + normal.z;
-    vtx->s = 0;
-    vtx->t = 0;
+    vtx->ob[0] = points[0].x + normal.x;
+    vtx->ob[1] = points[0].y + normal.y;
+    vtx->ob[2] = points[0].z + normal.z;
+    vtx->tc[0] = 0;
+    vtx->tc[1] = 0;
     vtx++;
-    vtx->x = points[0].x;
-    vtx->y = points[0].y;
-    vtx->z = points[0].z;
-    vtx->s = 0x200;
-    vtx->t = 0;
+    vtx->ob[0] = points[0].x;
+    vtx->ob[1] = points[0].y;
+    vtx->ob[2] = points[0].z;
+    vtx->tc[0] = 0x200;
+    vtx->tc[1] = 0;
     vtx++;
-    vtx->x = points[0].x - normal.x;
-    vtx->y = points[0].y - normal.y;
-    vtx->z = points[0].z - normal.z;
-    vtx->s = 0x400;
-    vtx->t = 0;
+    vtx->ob[0] = points[0].x - normal.x;
+    vtx->ob[1] = points[0].y - normal.y;
+    vtx->ob[2] = points[0].z - normal.z;
+    vtx->tc[0] = 0x400;
+    vtx->tc[1] = 0;
     vtx++;
     previous = points[0];
     for (i = 1; i < curve->count + 2; i++) {
@@ -493,23 +486,23 @@ Gfx *func_151067B8(Gfx *gdl, u8 *arg1, s16 arg2) {
             normal.y = 0.0f;
             normal.z = 0.0f;
         }
-        vtx->x = point->x - normal.x;
-        vtx->y = point->y - normal.y;
-        vtx->z = point->z - normal.z;
-        vtx->s = 0;
-        vtx->t = 0;
+        vtx->ob[0] = point->x - normal.x;
+        vtx->ob[1] = point->y - normal.y;
+        vtx->ob[2] = point->z - normal.z;
+        vtx->tc[0] = 0;
+        vtx->tc[1] = 0;
         vtx++;
-        vtx->x = point->x;
-        vtx->y = point->y;
-        vtx->z = point->z;
-        vtx->s = 0x200;
-        vtx->t = 0;
+        vtx->ob[0] = point->x;
+        vtx->ob[1] = point->y;
+        vtx->ob[2] = point->z;
+        vtx->tc[0] = 0x200;
+        vtx->tc[1] = 0;
         vtx++;
-        vtx->x = point->x + normal.x;
-        vtx->y = point->y + normal.y;
-        vtx->z = point->z + normal.z;
-        vtx->s = 0x400;
-        vtx->t = 0;
+        vtx->ob[0] = point->x + normal.x;
+        vtx->ob[1] = point->y + normal.y;
+        vtx->ob[2] = point->z + normal.z;
+        vtx->tc[0] = 0x400;
+        vtx->tc[1] = 0;
         vtx++;
         gSPVertex(gdl++, vtx - 6, 6, 0);
         gSP1Triangle(gdl++, 0, 1, 3, 0);

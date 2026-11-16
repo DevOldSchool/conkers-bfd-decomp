@@ -190,7 +190,7 @@ s32 func_150DCEA0(Game10A350Actor *arg0) {
                         ok = 1;
                         packet.frame_rate = state->frameRate;
                         packet.texture = state->texture;
-                        packet.position[1] = (s16)(s32)arg0->y;
+                        packet.position[1] = (s16)arg0->y;
                         packet.lifetime = state->lifetime;
                         do {
                             speed = func_150ADA68() * state->speedRange + state->speedBase;
@@ -200,12 +200,12 @@ s32 func_150DCEA0(Game10A350Actor *arg0) {
                             angle2 = ((func_150ADA20() % (u32)(state->pitchRange + 1)) + state->pitchBase);
                             sine2 = func_151423D8(angle2);
                             cosine2 = func_151423D8((u8)(angle2 - 0x40));
-                            packet.position[0] = (s16)(s32)(arg0->x + state->radius * cosine1);
-                            packet.position[2] = (s16)(s32)(arg0->z + state->radius * sine1);
-                            packet.velocity_x = (s16)(s32)(speed * sine2 * cosine1);
-                            packet.velocity_y = (s16)(s32)(-speed * cosine2);
-                            packet.velocity_z = (s16)(s32)(speed * sine2 * sine1);
-                            packet.acceleration = (s16)(s32)(func_150ADA68() * state->accelRange + state->accelBase);
+                            packet.position[0] = (s16)(arg0->x + state->radius * cosine1);
+                            packet.position[2] = (s16)(arg0->z + state->radius * sine1);
+                            packet.velocity_x = (s16)(speed * sine2 * cosine1);
+                            packet.velocity_y = (s16)(-speed * cosine2);
+                            packet.velocity_z = (s16)(speed * sine2 * sine1);
+                            packet.acceleration = (s16)(func_150ADA68() * state->accelRange + state->accelBase);
                             packet.fade = (func_150ADA20() % (u32)(state->fadeRange + 1)) + state->fadeBase;
                             packet.width = packet.height = (s32)(func_150ADA68() * state->sizeRange + state->sizeBase);
                             if (func_15167D84(&packet, 0, 0, -1, arg0->fieldC, arg0->field1) == NULL) {

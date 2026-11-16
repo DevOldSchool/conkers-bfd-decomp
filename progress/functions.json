@@ -81519,16 +81519,16 @@
       "symbol": "func_151BE1E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "review: 0 only with dead in-loop firstWidth/firstX/firstZ recompute the reference does not perform; natural form 1059 (frame 0x98 vs 0xa0)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 1220,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151CF380",
           "vram": "0x151CF380"
         }
@@ -88694,7 +88694,7 @@
           "vram": "0x151C4AB0"
         }
       },
-      "source": "src/game/game_1F1F60.c",
+      "source": "src/done/game/game_1F1F60.c",
       "symbol": "func_151C4AB0"
     },
     {
@@ -88712,7 +88712,7 @@
           "vram": "0x151C4B0C"
         }
       },
-      "source": "src/game/game_1F1F60.c",
+      "source": "src/done/game/game_1F1F60.c",
       "symbol": "func_151C4B0C"
     },
     {

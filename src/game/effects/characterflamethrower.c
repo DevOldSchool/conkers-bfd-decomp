@@ -2026,13 +2026,6 @@ s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519A9A4.s")
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-typedef struct CharacterFlamethrowerTrailVertex {
-    s16 x, y, z;
-    s16 flag;
-    s16 s, t;
-    u8 r, g, b, a;
-} CharacterFlamethrowerTrailVertex;
-
 s32 func_15144B34(s32);
 s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
@@ -2063,7 +2056,7 @@ Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
     u8 nextAlpha;
     f32 nextTexture;
     f32 curTexture;
-    CharacterFlamethrowerTrailVertex *vtx;
+    Vtx_t *vtx;
     u8 curAlpha;
 
     if (arg0->unk2C < 2) {
@@ -2100,7 +2093,7 @@ Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
             return arg1;
         }
     }
-    func_151D5D60((u8 *)arg0 + 0x84, arg2, (arg0->point_capacity * 2 + 10) * sizeof(CharacterFlamethrowerTrailVertex), (void **)&vtx, NULL);
+    func_151D5D60((u8 *)arg0 + 0x84, arg2, (arg0->point_capacity * 2 + 10) * sizeof(Vtx_t), (void **)&vtx, NULL);
     if (vtx == NULL) {
         return arg1;
     }
@@ -2158,26 +2151,26 @@ Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
         normal.y = 0.0f;
         normal.z = 0.0f;
     }
-    vtx->x = cur.x + normal.x;
-    vtx->y = cur.y + normal.y;
-    vtx->z = cur.z + normal.z;
-    vtx->s = curTexture;
-    vtx->t = 0x47C0;
-    vtx->r = 0xFF;
-    vtx->g = 0xFF;
-    vtx->b = 0xFF;
-    vtx->a = curAlpha;
+    vtx->ob[0] = cur.x + normal.x;
+    vtx->ob[1] = cur.y + normal.y;
+    vtx->ob[2] = cur.z + normal.z;
+    vtx->tc[0] = curTexture;
+    vtx->tc[1] = 0x47C0;
+    vtx->cn[0] = 0xFF;
+    vtx->cn[1] = 0xFF;
+    vtx->cn[2] = 0xFF;
+    vtx->cn[3] = curAlpha;
     vtx->flag = 0;
     vtx++;
-    vtx->x = cur.x - normal.x;
-    vtx->y = cur.y - normal.y;
-    vtx->z = cur.z - normal.z;
-    vtx->s = curTexture;
-    vtx->t = 0x4000;
-    vtx->r = 0xFF;
-    vtx->g = 0xFF;
-    vtx->b = 0xFF;
-    vtx->a = curAlpha;
+    vtx->ob[0] = cur.x - normal.x;
+    vtx->ob[1] = cur.y - normal.y;
+    vtx->ob[2] = cur.z - normal.z;
+    vtx->tc[0] = curTexture;
+    vtx->tc[1] = 0x4000;
+    vtx->cn[0] = 0xFF;
+    vtx->cn[1] = 0xFF;
+    vtx->cn[2] = 0xFF;
+    vtx->cn[3] = curAlpha;
     vtx->flag = 0;
     vtx++;
     do {
@@ -2202,26 +2195,26 @@ Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
             normal.y = 0.0f;
             normal.z = 0.0f;
         }
-        vtx->x = next.x + normal.x;
-        vtx->y = next.y + normal.y;
-        vtx->z = next.z + normal.z;
-        vtx->s = nextTexture;
-        vtx->t = 0x47C0;
-        vtx->r = 0xFF;
-        vtx->g = 0xFF;
-        vtx->b = 0xFF;
-        vtx->a = nextAlpha;
+        vtx->ob[0] = next.x + normal.x;
+        vtx->ob[1] = next.y + normal.y;
+        vtx->ob[2] = next.z + normal.z;
+        vtx->tc[0] = nextTexture;
+        vtx->tc[1] = 0x47C0;
+        vtx->cn[0] = 0xFF;
+        vtx->cn[1] = 0xFF;
+        vtx->cn[2] = 0xFF;
+        vtx->cn[3] = nextAlpha;
         vtx->flag = 0;
         vtx++;
-        vtx->x = next.x - normal.x;
-        vtx->y = next.y - normal.y;
-        vtx->z = next.z - normal.z;
-        vtx->s = nextTexture;
-        vtx->t = 0x4000;
-        vtx->r = 0xFF;
-        vtx->g = 0xFF;
-        vtx->b = 0xFF;
-        vtx->a = nextAlpha;
+        vtx->ob[0] = next.x - normal.x;
+        vtx->ob[1] = next.y - normal.y;
+        vtx->ob[2] = next.z - normal.z;
+        vtx->tc[0] = nextTexture;
+        vtx->tc[1] = 0x4000;
+        vtx->cn[0] = 0xFF;
+        vtx->cn[1] = 0xFF;
+        vtx->cn[2] = 0xFF;
+        vtx->cn[3] = nextAlpha;
         vtx->flag = 0;
         vtx++;
         gSPVertex(arg1++, vtx - 4, 4, 0);
@@ -2229,9 +2222,9 @@ Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
         gSP1Triangle(arg1++, 1, 3, 2, 0);
         if (nextTexture < curTexture) {
             func_10022EC0(vtx, vtx - 2, 0x20);
-            vtx[-2].s -= 0x8000;
+            vtx[-2].tc[0] -= 0x8000;
             vtx++;
-            vtx[-2].s -= 0x8000;
+            vtx[-2].tc[0] -= 0x8000;
             vtx++;
         }
         previous = index;

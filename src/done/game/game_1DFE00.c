@@ -22,13 +22,6 @@ void func_151B2950(u8 *arg0) {
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-typedef struct Game1DFE00Vertex {
-    s16 x, y, z;
-    s16 flag;
-    s16 s, t;
-    u8 r, g, b, a;
-} Game1DFE00Vertex;
-
 typedef struct Game1DFE00Target {
     s32 active;
     u8 pad4[0x37];
@@ -71,7 +64,7 @@ Gfx *func_151B2974(Gfx *arg0, Game1DFE00Beam *arg1, s16 arg2) {
     Game1DFE00Link *link;
     u8 done;
     u8 flag;
-    Game1DFE00Vertex *vtx;
+    Vtx_t *vtx;
     Vec3f *camera;
     Vec3f delta;
     Vec3f toCamera;
@@ -88,7 +81,7 @@ Gfx *func_151B2974(Gfx *arg0, Game1DFE00Beam *arg1, s16 arg2) {
         done = 1;
     }
     if (!done && link->target->matrices != 0) {
-        func_151D5D60(arg1->buffers, arg2, 4 * sizeof(Game1DFE00Vertex), (void **)&vtx, NULL);
+        func_151D5D60(arg1->buffers, arg2, 4 * sizeof(Vtx_t), (void **)&vtx, NULL);
         if (vtx == NULL) {
             return arg0;
         }
@@ -123,29 +116,29 @@ Gfx *func_151B2974(Gfx *arg0, Game1DFE00Beam *arg1, s16 arg2) {
             normal.y *= scale;
             normal.z *= scale;
         }
-        vtx->x = end.x + normal.x;
-        vtx->y = end.y + normal.y;
-        vtx->z = end.z + normal.z;
-        vtx->s = 0;
-        vtx->t = 0;
+        vtx->ob[0] = end.x + normal.x;
+        vtx->ob[1] = end.y + normal.y;
+        vtx->ob[2] = end.z + normal.z;
+        vtx->tc[0] = 0;
+        vtx->tc[1] = 0;
         vtx++;
-        vtx->x = end.x - normal.x;
-        vtx->y = end.y - normal.y;
-        vtx->z = end.z - normal.z;
-        vtx->s = 0x3C0;
-        vtx->t = 0;
+        vtx->ob[0] = end.x - normal.x;
+        vtx->ob[1] = end.y - normal.y;
+        vtx->ob[2] = end.z - normal.z;
+        vtx->tc[0] = 0x3C0;
+        vtx->tc[1] = 0;
         vtx++;
-        vtx->x = start.x - normal.x;
-        vtx->y = start.y - normal.y;
-        vtx->z = start.z - normal.z;
-        vtx->s = 0x3C0;
-        vtx->t = 0x3C0;
+        vtx->ob[0] = start.x - normal.x;
+        vtx->ob[1] = start.y - normal.y;
+        vtx->ob[2] = start.z - normal.z;
+        vtx->tc[0] = 0x3C0;
+        vtx->tc[1] = 0x3C0;
         vtx++;
-        vtx->x = start.x + normal.x;
-        vtx->y = start.y + normal.y;
-        vtx->z = start.z + normal.z;
-        vtx->s = 0;
-        vtx->t = 0x3C0;
+        vtx->ob[0] = start.x + normal.x;
+        vtx->ob[1] = start.y + normal.y;
+        vtx->ob[2] = start.z + normal.z;
+        vtx->tc[0] = 0;
+        vtx->tc[1] = 0x3C0;
         vtx++;
         gSPVertex(arg0++, vtx - 4, 4, 0);
         gSP1Triangle(arg0++, 0, 1, 2, 0);

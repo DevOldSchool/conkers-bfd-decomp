@@ -1,5 +1,9 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_147C70.c
@@ -22,19 +26,11 @@ typedef struct {
 } Game147C70Output;
 
 typedef struct {
-    s16 x;
-    s16 y;
-    s16 z;
-    u16 flags;
-    u8 pad8[8];
-} Game147C70Vertex;
-
-typedef struct {
     u8 pad0[0x16];
     u16 value_count;
     u8 pad18[8];
-    Game147C70Vertex *lists[2];
-    Game147C70Vertex *vertices;
+    Vtx_t *lists[2];
+    Vtx_t *vertices;
     u8 pad2C[0x10];
     s32 packed3C;
     u8 pad40[0x33];
@@ -93,14 +89,14 @@ void func_1511A838(Game147C70State *arg0) {
     f32 *values;
     f32 *rates;
     f32 *scales;
-    Game147C70Vertex *vertices;
+    Vtx_t *vertices;
     Game147C70Output *output;
     s32 offsetY;
     f32 radius;
     f32 dist;
     u8 angle;
     s32 lane;
-    Game147C70Vertex *list;
+    Vtx_t *list;
     f32 dx;
     f32 dz;
 
@@ -122,8 +118,8 @@ void func_1511A838(Game147C70State *arg0) {
         }
         for (i = 0; i < arg0->value_count; i++) {
             bytes[i] = func_150ADA20() % 255;
-            dx = vertices[i].x;
-            dz = vertices[i].z;
+            dx = vertices[i].ob[0];
+            dz = vertices[i].ob[2];
             dx *= dx;
             dz *= dz;
             dist = sqrtf(dx + dz);
@@ -136,7 +132,7 @@ void func_1511A838(Game147C70State *arg0) {
         for (i = 0; i < arg0->value_count; i++) {
             bytes[i] = func_150ADA20();
             for (j = 0; j < arg0->value_count; j++) {
-                if (vertices[i].x == vertices[j].x && vertices[i].y == vertices[j].y && vertices[i].z == vertices[j].z) {
+                if (vertices[i].ob[0] == vertices[j].ob[0] && vertices[i].ob[1] == vertices[j].ob[1] && vertices[i].ob[2] == vertices[j].ob[2]) {
                     bytes[j] = bytes[i];
                 }
             }
@@ -189,7 +185,7 @@ void func_1511A838(Game147C70State *arg0) {
     shift[3] = (arg0->packed84 >> 24) & 0xFF;
     offsetY = 0;
     for (i = 0; i < arg0->value_count; i++, list++, vertices++) {
-        if (!(list->flags & 0x4000)) {
+        if (!(list->flag & 0x4000)) {
             lane = bytes[i] & 3;
             angle = bytes[i] + shift[lane];
             if (bytes[i] & 0x80) {
@@ -200,13 +196,13 @@ void func_1511A838(Game147C70State *arg0) {
             if (output->field_1E != 0) {
                 offsetY = values[i] * scales[i];
             }
-            func_150A7960(matrix, vertices->x + offsetX, vertices->y + offsetY, vertices->z + offsetZ, &x, &y, &z);
+            func_150A7960(matrix, vertices->ob[0] + offsetX, vertices->ob[1] + offsetY, vertices->ob[2] + offsetZ, &x, &y, &z);
         } else {
-            func_150A7960(matrix, vertices->x, vertices->y, vertices->z, &x, &y, &z);
+            func_150A7960(matrix, vertices->ob[0], vertices->ob[1], vertices->ob[2], &x, &y, &z);
         }
-        list->x = x;
-        list->y = y;
-        list->z = z;
+        list->ob[0] = x;
+        list->ob[1] = y;
+        list->ob[2] = z;
     }
     shift[0] += 1;
     shift[1] += 2;

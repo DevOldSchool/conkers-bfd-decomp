@@ -17316,15 +17316,15 @@
         "func_151C4AB0",
         "func_151C4B0C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1C5280",
           "start": "0x1C4AB0",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1F1F60.c"
+      "source": "src/done/game/game_1F1F60.c"
     },
     {
       "boundary_evidence": {
