@@ -1,5 +1,9 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_1844C0.c
@@ -7,7 +11,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151572D0
- * - func_15157420
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -158,8 +161,137 @@ void func_151572D0(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151572D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_151572D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157420.s")
+typedef struct Game1844C0Mask {
+    s16 pad0;
+    s16 bits;
+} Game1844C0Mask;
+
+typedef struct Game1844C0RenderPreset {
+    s32 first, second;
+} Game1844C0RenderPreset;
+
+typedef struct Game1844C0RenderActor {
+    u8 pad0[0x10];
+    u8 flags;
+    u8 pad11[2];
+    s8 preCallback;
+    s8 postCallback;
+    u8 pad15[0xB];
+    s32 state;
+    s32 geometry0;
+    s32 geometry1;
+    s32 presetIndex;
+    u8 pad30[3];
+    u8 combine;
+    s32 flags34;
+    s32 flags38;
+    s8 colorMode0;
+    s8 colorMode1;
+    u8 pad3E[2];
+    u8 color1[4];
+    u8 color0[4];
+    u8 pad48[4];
+    s32 owner;
+    u8 generation;
+    u8 attachmentMode;
+    u8 pad52[2];
+    u8 position[0xC];
+    Game1844C0Mask *mask;
+    u8 pad64[4];
+    u8 *textures;
+    u32 *lists;
+    u8 listCount;
+    u8 pad71[3];
+    u32 segment4;
+    u8 pad78[0x84];
+    u8 attachments[4];
+} Game1844C0RenderActor;
+
+typedef Gfx *(*Game1844C0PreCallback)(Gfx *, Game1844C0RenderActor *, s16, u8 *, u8 *);
+typedef Gfx *(*Game1844C0PostCallback)(Gfx *, Game1844C0RenderActor *, s16, u8 *);
+extern Game1844C0PreCallback D_8008ADBC[];
+extern Game1844C0PostCallback D_8008ADCC[];
+extern Game1844C0RenderPreset D_800A4AC8[];
 extern u8 D_800BE9C0;
+extern u8 D_80083740[];
+extern u8 D_800838C0[];
+extern u8 D_80083A40[];
+extern u8 D_80083BC0[];
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, u8, u8);
+void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
+s32 func_151462C8(s32, void *, u8, s32, u8, s16, void *, u8, s32);
+
+Gfx *func_15157420(Gfx *arg0, Game1844C0RenderActor *arg1, s16 arg2) {
+    s32 attached;
+    u8 sync;
+    s16 red0;
+    s16 green0;
+    s16 blue0;
+    s16 alpha0;
+    s16 red1;
+    s16 green1;
+    s16 blue1;
+    s16 alpha1;
+
+    sync = 1;
+    if (arg1->preCallback != -1) {
+        u8 proceed;
+        arg0 = D_8008ADBC[arg1->preCallback](arg0, arg1, arg2, &sync, &proceed);
+        if (proceed == 0) {
+            return arg0;
+        }
+    }
+    if ((arg1->flags & 8) && arg1->mask != NULL && !(arg1->mask->bits & (1 << arg2))) {
+        return arg0;
+    }
+    arg0 = func_15142B7C(arg0, arg1->geometry0, arg1->geometry1);
+    func_151441A4(&red0, &green0, &blue0, &alpha0,
+        arg1->color1[0], arg1->color1[1], arg1->color1[2], arg1->color1[3],
+        arg1->color0[0], arg1->color0[1], arg1->color0[2], arg1->color0[3],
+        255, arg1->colorMode0);
+    func_151442FC(&red1, &green1, &blue1, &alpha1,
+        arg1->color1[0], arg1->color1[1], arg1->color1[2], arg1->color1[3],
+        arg1->color0[0], arg1->color0[1], arg1->color0[2], arg1->color0[3],
+        255, arg1->colorMode1);
+    arg0 = func_15142C10(arg0, red1, green1, blue1, alpha1, &sync);
+    arg0 = func_15142CF0(arg0, 0, 0, red0, green0, blue0, alpha0, &sync);
+    arg0 = func_1513F4E4(arg0, arg1->combine, &sync);
+    arg0 = func_15142FBC(arg0, arg1->state | 0x80000 | 0x2000 | 0xC00 | arg1->flags34 | arg1->flags38,
+                        D_800A4AC8[arg1->presetIndex].first | D_800A4AC8[arg1->presetIndex].second, &sync);
+    if (arg1->flags & 2) {
+        if (arg1->flags & 4) {
+            attached = 1;
+        } else {
+            attached = 0;
+        }
+        arg0 = (Gfx *)func_151462C8((s32)arg0, arg1->attachments, arg1->attachmentMode,
+            arg1->owner, arg1->generation, arg2, arg1->position, attached, 0);
+    }
+    gDPPipeSync(arg0++);
+    gDPSetFogColor(arg0++, 0, 0, 0, 255);
+    gSPSegment(arg0++, 3, *(u32 *)(arg1->textures + D_800BE9C0 * 4 + 0x3E8));
+    gSPSegment(arg0++, 1, arg1->segment4);
+    if (arg1->color1[3] < 0xFF || arg1->color0[3] < 0xFF) {
+        gSPSegment(arg0++, 8, (arg1->flags & 0x40) ? D_80083A40 : D_80083740);
+    } else {
+        gSPSegment(arg0++, 8, (arg1->flags & 0x40) ? D_80083BC0 : D_800838C0);
+    }
+    {
+        s32 i;
+        for (i = 0; i < arg1->listCount; i++) {
+            gSPDisplayList(arg0++, arg1->lists[i]);
+        }
+    }
+    if (arg1->postCallback != -1) {
+        arg0 = D_8008ADCC[arg1->postCallback](arg0, arg1, arg2, &sync);
+    }
+    return arg0;
+}
 
 s32 func_15157860(s32 arg0) {
     func_150A7BC0((s32)((u8 *)arg0 + (D_800BE9C0 << 6) + 0x7C), arg0);

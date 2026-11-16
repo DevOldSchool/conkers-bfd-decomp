@@ -1,4 +1,9 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
+#include "game_view.h"
 #include "game_functions.h"
 
 /*
@@ -8,13 +13,12 @@
  * TODO: Implement these source-unit functions:
  * - func_150E1AB0
  * - func_150E1D14
- * - func_150E28DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
-    u8 pad0[6];
+    s16 pos[3];
     s16 zero;
     s16 u;
     s16 v;
@@ -23,7 +27,7 @@ typedef struct {
 
 typedef struct {
     u8 pad0[0x10];
-    Game10EF60Vertex quads[8];
+    Game10EF60Vertex quads[2][4];
     s16 lifetime;
     u8 pad92[2];
     f32 x, y, z;
@@ -115,7 +119,7 @@ void func_150E1AB0(volatile s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
             effect->fieldD6 = 1;
             effect->timeout = -1;
         }
-        quad = effect->quads;
+        quad = effect->quads[0];
         do {
             texture = D_8008CA4C[effect->material];
             quad[2].u = 0x2000;
@@ -142,7 +146,98 @@ void func_150E1AB0(volatile s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10EF60/func_150E1AB0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10EF60/func_150E1D14.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10EF60/func_150E28DC.s")
+typedef struct Game10EF60Owner {
+    u8 pad0[0x10];
+    void *output;
+} Game10EF60Owner;
+
+s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_800BE9C0;
+extern s32 D_800D2C9C;
+
+Gfx *func_150E28DC(Gfx *arg0, Game10EF60Effect *arg1, s16 arg2) {
+    Vec3f points[2];
+    f32 camera[3];
+    f32 normal[3];
+    f32 delta[3];
+    s32 i;
+    s32 j;
+    f32 corners[4][3];
+    f32 length;
+    f32 scale;
+    f32 temp;
+    f32 distances[2];
+    f32 range;
+    Game10EF60Owner owner;
+    u8 flag;
+
+    if (arg1->fieldD6 > 0) {
+        points[0].x = arg1->x;
+        points[0].y = arg1->y;
+        points[0].z = arg1->z;
+        points[1].x = arg1->x + arg1->rate * arg1->dx;
+        points[1].y = arg1->y + arg1->rate * arg1->dy;
+        points[1].z = arg1->z + arg1->rate * arg1->dz;
+        camera[0] = D_800DBFF0[arg2].unk2F8;
+        camera[1] = D_800DBFF0[arg2].unk2FC;
+        camera[2] = D_800DBFF0[arg2].unk300;
+        range = arg1->range;
+        for (i = 0; i < 2; i++) {
+            distances[i] = (points[i].x - camera[0]) * (points[i].x - camera[0]) + (points[i].y - camera[1]) * (points[i].y - camera[1]) + (points[i].z - camera[2]) * (points[i].z - camera[2]);
+        }
+        temp = points[1].x;
+        points[1].x = points[0].x;
+        points[0].x = temp;
+        temp = points[1].y;
+        points[1].y = points[0].y;
+        points[0].y = temp;
+        temp = points[1].z;
+        points[1].z = points[0].z;
+        points[0].z = temp;
+        delta[0] = camera[0] - arg1->x;
+        delta[1] = camera[1] - arg1->y;
+        delta[2] = camera[2] - arg1->z;
+        normal[0] = delta[1] * arg1->dz - delta[2] * arg1->dy;
+        normal[1] = delta[2] * arg1->dx - delta[0] * arg1->dz;
+        normal[2] = delta[0] * arg1->dy - delta[1] * arg1->dx;
+        for (i = 0; i < 2; i++) {
+            delta[0] = points[i].x - camera[0];
+            delta[1] = points[i].y - camera[1];
+            delta[2] = points[i].z - camera[2];
+            normal[0] = delta[1] * arg1->dz - delta[2] * arg1->dy;
+            normal[1] = delta[2] * arg1->dx - delta[0] * arg1->dz;
+            normal[2] = delta[0] * arg1->dy - delta[1] * arg1->dx;
+            length = sqrtf(normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]);
+            if (length == 0.0f) {
+                return arg0;
+            }
+            scale = range / length;
+            normal[0] *= scale;
+            normal[1] *= scale;
+            normal[2] *= scale;
+            corners[i * 2][0] = points[i].x + normal[0];
+            corners[i * 2][1] = points[i].y + normal[1];
+            corners[i * 2][2] = points[i].z + normal[2];
+            corners[i * 2 + 1][0] = points[i].x - normal[0];
+            corners[i * 2 + 1][1] = points[i].y - normal[1];
+            corners[i * 2 + 1][2] = points[i].z - normal[2];
+        }
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 3; j++) {
+                arg1->quads[D_800BE9C0][i].pos[j] = corners[i][j];
+            }
+        }
+        arg0 = (Gfx *)func_15094F70((s32)arg0, D_8008CA4C[arg1->material], 0, &owner, 0, 0, 0, 2, 3);
+        flag = 0;
+        arg0 = func_15142FBC(arg0, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, 0x504A50, &flag);
+        gSPVertex(arg0++, arg1->quads[D_800BE9C0], 4, 0);
+        gSP1Triangle(arg0++, 0, 1, 3, 0);
+        gSP1Triangle(arg0++, 0, 3, 2, 0);
+    }
+    arg1->fieldDB = 1;
+    return arg0;
+}
 s32 func_150E2DA4(s32 arg0, s32 arg1) {
     return arg0;
 }

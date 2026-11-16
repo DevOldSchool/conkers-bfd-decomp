@@ -1,4 +1,9 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
+#include "game_render_view.h"
 #include "game_functions.h"
 
 /*
@@ -18,7 +23,6 @@
  * - func_1519897C
  * - func_15199C34
  * - func_1519A9A4
- * - func_1519B4B8
  * - func_1519C56C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -70,20 +74,23 @@ typedef struct CharacterFlamethrowerState {
     u8 flags6;
     char pad7[0x19];
     f32 gravity;
-    char pad24[0xC];
+    char pad24[0x8];
+    f32 width;
     f32 size_rate;
     char pad34[2];
     s8 unk36;
     char pad37;
     s8 callback38;
     s8 unk39;
-    char pad3A[0xE];
+    u8 alpha3A;
+    char pad3B[0xD];
     s8 callback48;
     char pad49[0x1D];
     u16 unk66;
     char pad68[0xC8];
     u16 unk130;
-    char pad132[0x16];
+    char pad132[0x12];
+    f32 texture144;
     void *unk148;
     f32 spacing;
     u8 flags150;
@@ -1940,7 +1947,10 @@ typedef struct CharacterFlamethrowerMovingPoint {
     Vec3f position;
     Vec3f velocity;
     f32 size;
-    u8 pad1C[0xC];
+    u8 pad1C[4];
+    u8 alpha;
+    u8 pad21[3];
+    f32 texture;
 } CharacterFlamethrowerMovingPoint;
 
 typedef struct CharacterFlamethrowerShortPosition {
@@ -2014,7 +2024,223 @@ s32 func_15199A10(CharacterFlamethrowerActor *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199C34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519A9A4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519B4B8.s")
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+s32 func_15144B34(s32);
+s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_800BE616;
+extern u8 D_800D9C10[];
+extern u8 D_80091064[];
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
+    CharacterFlamethrowerState *state;
+    Vec3f next;
+    Vec3f cur;
+    s32 index;
+    CharacterFlamethrowerMovingPoint *records;
+    Vec3f *camera;
+    Vec3f toCamera;
+    Vec3f delta;
+    Vec3f normal;
+    s32 previous;
+    f32 lengthSquared;
+    u8 flag;
+    f32 nextWidth;
+    f32 curWidth;
+    u8 nextAlpha;
+    f32 nextTexture;
+    f32 curTexture;
+    Vtx_t *vtx;
+    u8 curAlpha;
+
+    if (arg0->unk2C < 2) {
+        return arg1;
+    }
+    state = arg0->state;
+    records = arg0->points;
+    if ((state->flags150 & 0x20) && (D_800BE616 == 0) && (state->flags150 & 0x10)) {
+        return arg1;
+    }
+    if (state->flags150 & 1) {
+        s32 tail;
+        CharacterFlamethrowerMovingPoint *first;
+        CharacterFlamethrowerMovingPoint *last;
+        f32 dx;
+        f32 dy;
+        f32 dz;
+
+        tail = arg0->point_end - 1;
+        index = arg0->point_index;
+        if (tail < 0) {
+            tail = arg0->point_capacity - 1;
+        }
+        last = &records[index];
+        first = &records[tail];
+        dx = first->position.x - last->position.x;
+        dy = first->position.y - last->position.y;
+        dz = first->position.z - last->position.z;
+        if (func_150A6360(&D_800BE628[arg2], D_800D9C10 + arg2 * 0x40,
+                          (last->position.x + first->position.x) * 0.5f,
+                          (last->position.y + first->position.y) * 0.5f,
+                          (last->position.z + first->position.z) * 0.5f,
+                          sqrtf(dx * dx + dz * dz), fabsf(dy) + (state->width + state->width), 20000.0f) == 0) {
+            return arg1;
+        }
+    }
+    func_151D5D60((u8 *)arg0 + 0x84, arg2, (arg0->point_capacity * 2 + 10) * sizeof(Vtx_t), (void **)&vtx, NULL);
+    if (vtx == NULL) {
+        return arg1;
+    }
+    camera = (Vec3f *)func_15144B34(arg2);
+    flag = 1;
+    arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)D_80091064, 0, 0, 0, 0, 0x6B, 0, 0, &flag, 3);
+    arg1 = func_15142B7C(arg1, 0x200005, 0x1F0600);
+    arg1 = func_1513F4E4(arg1, 0x4C, &flag);
+    arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[3][0] | D_800A4AC8[3][1], &flag);
+    if (arg0->flags1E & 2) {
+        index = arg0->point_end - 1;
+        if (index < 0) {
+            index = arg0->point_capacity - 1;
+        }
+        cur = *(Vec3f *)arg0->position;
+        curWidth = state->width;
+        curAlpha = state->alpha3A;
+        curTexture = state->texture144;
+    } else {
+        previous = arg0->point_end - 1;
+        if (previous < 0) {
+            previous = arg0->point_capacity - 1;
+        }
+        index = previous - 1;
+        if (index < 0) {
+            index = arg0->point_capacity - 1;
+        }
+        cur = records[previous].position;
+        curWidth = records[previous].size;
+        curAlpha = records[previous].alpha;
+        curTexture = records[previous].texture;
+    }
+    next = records[index].position;
+    nextWidth = records[index].size;
+    nextAlpha = records[index].alpha;
+    nextTexture = records[index].texture;
+    delta.x = cur.x - next.x;
+    delta.y = cur.y - next.y;
+    delta.z = cur.z - next.z;
+    toCamera.x = cur.x - camera->x;
+    toCamera.y = cur.y - camera->y;
+    toCamera.z = cur.z - camera->z;
+    normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+    normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+    normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+    lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+    if (lengthSquared != 0.0f) {
+        f32 scale = curWidth / sqrtf(lengthSquared);
+
+        normal.x *= scale;
+        normal.y *= scale;
+        normal.z *= scale;
+    } else {
+        normal.x = 0.0f;
+        normal.y = 0.0f;
+        normal.z = 0.0f;
+    }
+    vtx->ob[0] = cur.x + normal.x;
+    vtx->ob[1] = cur.y + normal.y;
+    vtx->ob[2] = cur.z + normal.z;
+    vtx->tc[0] = curTexture;
+    vtx->tc[1] = 0x47C0;
+    vtx->cn[0] = 0xFF;
+    vtx->cn[1] = 0xFF;
+    vtx->cn[2] = 0xFF;
+    vtx->cn[3] = curAlpha;
+    vtx->flag = 0;
+    vtx++;
+    vtx->ob[0] = cur.x - normal.x;
+    vtx->ob[1] = cur.y - normal.y;
+    vtx->ob[2] = cur.z - normal.z;
+    vtx->tc[0] = curTexture;
+    vtx->tc[1] = 0x4000;
+    vtx->cn[0] = 0xFF;
+    vtx->cn[1] = 0xFF;
+    vtx->cn[2] = 0xFF;
+    vtx->cn[3] = curAlpha;
+    vtx->flag = 0;
+    vtx++;
+    do {
+        delta.x = cur.x - next.x;
+        delta.y = cur.y - next.y;
+        delta.z = cur.z - next.z;
+        toCamera.x = next.x - camera->x;
+        toCamera.y = next.y - camera->y;
+        toCamera.z = next.z - camera->z;
+        normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+        normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+        normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+        lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+        if (lengthSquared != 0.0f) {
+            f32 scale = nextWidth / sqrtf(lengthSquared);
+
+            normal.x *= scale;
+            normal.y *= scale;
+            normal.z *= scale;
+        } else {
+            normal.x = 0.0f;
+            normal.y = 0.0f;
+            normal.z = 0.0f;
+        }
+        vtx->ob[0] = next.x + normal.x;
+        vtx->ob[1] = next.y + normal.y;
+        vtx->ob[2] = next.z + normal.z;
+        vtx->tc[0] = nextTexture;
+        vtx->tc[1] = 0x47C0;
+        vtx->cn[0] = 0xFF;
+        vtx->cn[1] = 0xFF;
+        vtx->cn[2] = 0xFF;
+        vtx->cn[3] = nextAlpha;
+        vtx->flag = 0;
+        vtx++;
+        vtx->ob[0] = next.x - normal.x;
+        vtx->ob[1] = next.y - normal.y;
+        vtx->ob[2] = next.z - normal.z;
+        vtx->tc[0] = nextTexture;
+        vtx->tc[1] = 0x4000;
+        vtx->cn[0] = 0xFF;
+        vtx->cn[1] = 0xFF;
+        vtx->cn[2] = 0xFF;
+        vtx->cn[3] = nextAlpha;
+        vtx->flag = 0;
+        vtx++;
+        gSPVertex(arg1++, vtx - 4, 4, 0);
+        gSP1Triangle(arg1++, 0, 1, 2, 0);
+        gSP1Triangle(arg1++, 1, 3, 2, 0);
+        if (nextTexture < curTexture) {
+            func_10022EC0(vtx, vtx - 2, 0x20);
+            vtx[-2].tc[0] -= 0x8000;
+            vtx++;
+            vtx[-2].tc[0] -= 0x8000;
+            vtx++;
+        }
+        previous = index;
+        index--;
+        if (index < 0) {
+            index = arg0->point_capacity - 1;
+        }
+        cur = records[previous].position;
+        next = records[index].position;
+        nextWidth = records[index].size;
+        nextAlpha = records[index].alpha;
+        curTexture = records[previous].texture;
+        nextTexture = records[index].texture;
+    } while (previous != arg0->point_index);
+    return arg1;
+}
 void func_1519BE1C(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3) {
     Vec3f temp;
 
@@ -2250,7 +2476,6 @@ typedef struct CharacterFlamethrowerVertex {
     u8 attributes[8];
 } CharacterFlamethrowerVertex;
 
-s32 func_15144B34(s32);
 void func_15145548(void *, void *, void *, void *, f32 *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 

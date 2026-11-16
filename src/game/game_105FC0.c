@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -9,7 +13,6 @@
  * - func_150D8E4C
  * - func_150D8FAC
  * - func_150D942C
- * - func_150D9C7C
  * - func_150DA67C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -219,7 +222,191 @@ s32 func_150D8E4C(Game105FC0State *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8E4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8FAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D942C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D9C7C.s")
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+typedef struct Game105FC0TrailRecord {
+    Vec3f position;
+    u8 pad0C[0x10];
+    u8 alpha;
+    u8 pad1D[3];
+    f32 texture;
+} Game105FC0TrailRecord;
+
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15144B34(s32);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_80091238[];
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+Gfx *func_150D9C7C(u8 *arg0, Gfx *arg1, s16 arg2) {
+    Game105FC0TrailRecord *records;
+    Vec3f next;
+    Vec3f cur;
+    Vec3f toCamera;
+    Vec3f delta;
+    Vec3f normal;
+    u8 *state;
+    Vec3f *camera;
+    s32 index;
+    s32 previous;
+    f32 lengthSquared;
+    u8 flag;
+    u8 alpha;
+    f32 nextTexture;
+    f32 curTexture;
+    Vtx_t *vtx;
+
+    if (*(s8 *)(arg0 + 0x2C) < 2) {
+        return arg1;
+    }
+    state = *(u8 **)(arg0 + 0x98);
+    records = *(Game105FC0TrailRecord **)(arg0 + 0x94);
+    func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Vtx_t), (void **)&vtx, NULL);
+    if (vtx == NULL) {
+        return arg1;
+    }
+    camera = (Vec3f *)func_15144B34(arg2);
+    flag = 1;
+    arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)D_80091238, 0, 0, 0, 0, 0x92, 0, 0, &flag, 3);
+    arg1 = func_15142B7C(arg1, 0x220005, 0x1D0600);
+    arg1 = func_1513F4E4(arg1, 0x4E, &flag);
+    arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[3][0] | D_800A4AC8[3][1], &flag);
+    if (*(u16 *)(arg0 + 0x1E) & 2) {
+        index = *(s8 *)(arg0 + 0x2E) - 1;
+        if (index < 0) {
+            index = arg0[0x25] - 1;
+        }
+        cur = *(Vec3f *)(arg0 + 0x10);
+        curTexture = *(f32 *)(state + 0x38);
+    } else {
+        previous = *(s8 *)(arg0 + 0x2E) - 1;
+        if (previous < 0) {
+            previous = arg0[0x25] - 1;
+        }
+        index = previous - 1;
+        if (index < 0) {
+            index = arg0[0x25] - 1;
+        }
+        cur = records[previous].position;
+        curTexture = records[previous].texture;
+    }
+    next = records[index].position;
+    alpha = records[index].alpha;
+    nextTexture = records[index].texture;
+    delta.x = cur.x - next.x;
+    delta.y = cur.y - next.y;
+    delta.z = cur.z - next.z;
+    toCamera.x = cur.x - camera->x;
+    toCamera.y = cur.y - camera->y;
+    toCamera.z = cur.z - camera->z;
+    normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+    normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+    normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+    lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+    if (lengthSquared != 0.0f) {
+        f32 scale = 4.0f / sqrtf(lengthSquared);
+
+        normal.x *= scale;
+        normal.y *= scale;
+        normal.z *= scale;
+    } else {
+        normal.x = 0.0f;
+        normal.y = 0.0f;
+        normal.z = 0.0f;
+    }
+    vtx->ob[0] = cur.x + normal.x;
+    vtx->ob[1] = cur.y + normal.y;
+    vtx->ob[2] = cur.z + normal.z;
+    vtx->tc[0] = curTexture;
+    vtx->tc[1] = 0x400;
+    vtx->cn[0] = 0xFF;
+    vtx->cn[1] = 0xFF;
+    vtx->cn[2] = 0xFF;
+    vtx->cn[3] = alpha;
+    vtx->flag = 0;
+    vtx++;
+    vtx->ob[0] = cur.x - normal.x;
+    vtx->ob[1] = cur.y - normal.y;
+    vtx->ob[2] = cur.z - normal.z;
+    vtx->tc[0] = curTexture;
+    vtx->tc[1] = 0;
+    vtx->cn[0] = 0xFF;
+    vtx->cn[1] = 0xFF;
+    vtx->cn[2] = 0xFF;
+    vtx->cn[3] = alpha;
+    vtx->flag = 0;
+    vtx++;
+    do {
+        delta.x = cur.x - next.x;
+        delta.y = cur.y - next.y;
+        delta.z = cur.z - next.z;
+        toCamera.x = next.x - camera->x;
+        toCamera.y = next.y - camera->y;
+        toCamera.z = next.z - camera->z;
+        normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+        normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+        normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+        lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+        if (lengthSquared != 0.0f) {
+            f32 scale = 4.0f / sqrtf(lengthSquared);
+
+            normal.x *= scale;
+            normal.y *= scale;
+            normal.z *= scale;
+        } else {
+            normal.x = 0.0f;
+            normal.y = 0.0f;
+            normal.z = 0.0f;
+        }
+        vtx->ob[0] = next.x + normal.x;
+        vtx->ob[1] = next.y + normal.y;
+        vtx->ob[2] = next.z + normal.z;
+        vtx->tc[0] = nextTexture;
+        vtx->tc[1] = 0x400;
+        vtx->cn[0] = 0xFF;
+        vtx->cn[1] = 0xFF;
+        vtx->cn[2] = 0xFF;
+        vtx->cn[3] = alpha;
+        vtx->flag = 0;
+        vtx++;
+        vtx->ob[0] = next.x - normal.x;
+        vtx->ob[1] = next.y - normal.y;
+        vtx->ob[2] = next.z - normal.z;
+        vtx->tc[0] = nextTexture;
+        vtx->tc[1] = 0;
+        vtx->cn[0] = 0xFF;
+        vtx->cn[1] = 0xFF;
+        vtx->cn[2] = 0xFF;
+        vtx->cn[3] = alpha;
+        vtx->flag = 0;
+        vtx++;
+        gSPVertex(arg1++, vtx - 4, 4, 0);
+        gSP1Triangle(arg1++, 0, 1, 2, 0);
+        gSP1Triangle(arg1++, 1, 3, 2, 0);
+        if (nextTexture < curTexture) {
+            func_10022EC0(vtx, vtx - 2, 0x20);
+            vtx[-2].tc[0] -= 0x8000;
+            vtx++;
+            vtx[-2].tc[0] -= 0x8000;
+            vtx++;
+        }
+        previous = index;
+        index--;
+        if (index < 0) {
+            index = arg0[0x25] - 1;
+        }
+        cur = records[previous].position;
+        next = records[index].position;
+        alpha = records[index].alpha;
+        curTexture = records[previous].texture;
+        nextTexture = records[index].texture;
+    } while (previous != *(s8 *)(arg0 + 0x2D));
+    return arg1;
+}
 void func_150DA484(void *arg0) {
     u8 *temp_v0;
     u16 temp_a1;
