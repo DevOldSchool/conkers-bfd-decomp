@@ -74,7 +74,7 @@ segments:
       - [0x49E0, c, done/main/init_49E0]
       - [0x50A0, asm]
       - [0x5570, c, done/main/init_5570]
-      - [0x57E0, asm]
+      - [0x57E0, c, done/main/init_57E0]
       - [0x5AB0, asm]
       - [0x6240, asm]
       - [0x71D0, asm]
