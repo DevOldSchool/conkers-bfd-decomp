@@ -255,10 +255,16 @@ def integrate_all_reviewed(profile: str) -> None:
         if len(member_overlays) != 1:
             raise project_state.ProjectStateError(f"source unit spans multiple overlays: {unit['source']}")
         overlay = member_overlays.pop()
-        unfinished = [member["symbol"] for member in members if not project_state.is_complete(member)]
+        unfinished = [member for member in members if not project_state.is_complete(member)]
         finalizing = not unfinished
         if not finalizing and (integration == "mixed" or overlay == "main"):
             continue
+        # Verified original assembly is retained, not awaiting C integration.
+        if unfinished and all(
+            member["regions"][profile]["state"] == "original_asm" for member in unfinished
+        ):
+            continue
+        unfinished = [member["symbol"] for member in unfinished]
         source = unit["source"]
         evidence = unit.get("boundary_evidence", {}).get(profile)
         if not isinstance(evidence, dict) or evidence.get("reviewed") is not True:
