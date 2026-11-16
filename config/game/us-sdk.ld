@@ -85,10 +85,13 @@ __libm_qnan_f = 0x8002C920;
 SECTIONS
 {
     /* The initialized seed lives in the separately preserved RZIP game-data
-     * payload at offset 0xEE50. All 16 bytes match random.o .data. NOLOAD binds
-     * its section-relative relocations without adding data to the code image.
+     * payload at offset 0xEE50. All 16 bytes match random.o .data. INFO binds
+     * its section-relative relocations and retains the linked bytes for the
+     * GAME data image (scripts/link_game_data.py) without adding data to the
+     * code image. Placements inside that image are INFO; the main-bound
+     * sections below stay NOLOAD.
      */
-    .sdk_random_data 0x80091970 (NOLOAD) :
+    .sdk_random_data 0x80091970 (INFO) :
     {
         build/game-libs/us/libultra_2_0G.a:random.o(.data);
     }
@@ -97,7 +100,7 @@ SECTIONS
     /* Complete initialized rotation data, preserved in the RZIP data payload
      * at offset 0x162A0. See game_sdk_rotation_variant.md for byte evidence.
      */
-    .sdk_rotate_data 0x80098DC0 (NOLOAD) :
+    .sdk_rotate_data 0x80098DC0 (INFO) :
     {
         build/game-libs/us/libultrare.a:rotate.o(.data);
     }
@@ -106,27 +109,27 @@ SECTIONS
     /* Entire scalar and polynomial sections of the single-precision trig
      * variants; each is byte-verified in the preserved game-data payload.
      */
-    .sdk_cosf_data 0x80085EA0 (NOLOAD) :
+    .sdk_cosf_data 0x80085EA0 (INFO) :
     {
         build/game-libs/us/libultrare.a:cosf.o(.data);
     }
     ASSERT(SIZEOF(.sdk_cosf_data) == 0x10, "unexpected cosine data size")
-    .sdk_cosf_rodata 0x80098D70 (NOLOAD) :
+    .sdk_cosf_rodata 0x80098D70 (INFO) :
     {
         build/game-libs/us/libultrare.a:cosf.o(.rodata);
     }
     ASSERT(SIZEOF(.sdk_cosf_rodata) == 0x20, "unexpected cosine rodata size")
-    .sdk_sinf_data 0x80085EB0 (NOLOAD) :
+    .sdk_sinf_data 0x80085EB0 (INFO) :
     {
         build/game-libs/us/libultrare.a:sinf.o(.data);
     }
     ASSERT(SIZEOF(.sdk_sinf_data) == 0x10, "unexpected sine data size")
-    .sdk_sinf_rodata 0x80098D90 (NOLOAD) :
+    .sdk_sinf_rodata 0x80098D90 (INFO) :
     {
         build/game-libs/us/libultrare.a:sinf.o(.rodata);
     }
     ASSERT(SIZEOF(.sdk_sinf_rodata) == 0x20, "unexpected sine rodata size")
-    .sdk_perspective_rodata 0x80098DB0 (NOLOAD) :
+    .sdk_perspective_rodata 0x80098DB0 (INFO) :
     {
         build/game-libs/us/libultrare.a:perspective.o(.rodata);
     }
@@ -178,14 +181,14 @@ var8009c6dc = 0x800E1480;
 SECTIONS
 {
     /* These complete emitted sections equal the separately compressed game
-     * data payload; NOLOAD preserves the executable-only overlay image.
+     * data payload; INFO keeps them out of the executable-only overlay image.
      */
-    .sdk_mp3_decoder_data 0x80091990 (NOLOAD) :
+    .sdk_mp3_decoder_data 0x80091990 (INFO) :
     {
         build/game-libs/us/libultrare.a:decoder.o(.data);
     }
     ASSERT(SIZEOF(.sdk_mp3_decoder_data) == 0x90, "unexpected MP3 decoder data size")
-    .sdk_mp3_decoder_rodata 0x800ABB20 (NOLOAD) :
+    .sdk_mp3_decoder_rodata 0x800ABB20 (INFO) :
     {
         build/game-libs/us/libultrare.a:decoder.o(.rodata);
     }
@@ -195,12 +198,12 @@ SECTIONS
 /* Complete Rare math constants match the separately compressed game data. */
 SECTIONS
 {
-    .sdk_expf_rodata 0x800990A0 (NOLOAD) :
+    .sdk_expf_rodata 0x800990A0 (INFO) :
     {
         build/game-libs/us/libultrare.a:expf.o(.rodata);
     }
     ASSERT(SIZEOF(.sdk_expf_rodata) == 0x10, "unexpected exponential rodata size")
-    .sdk_logf_rodata 0x800990B0 (NOLOAD) :
+    .sdk_logf_rodata 0x800990B0 (INFO) :
     {
         build/game-libs/us/libultrare.a:logf.o(.rodata);
     }
@@ -210,7 +213,7 @@ SECTIONS
 /* Whole MP3 transform constants, including the following transform's table. */
 SECTIONS
 {
-    .sdk_mp3_transform_rodata 0x800B0C50 (NOLOAD) :
+    .sdk_mp3_transform_rodata 0x800B0C50 (INFO) :
     {
         build/game-libs/us/libultrare.a:lib_46650.o(.rodata);
     }

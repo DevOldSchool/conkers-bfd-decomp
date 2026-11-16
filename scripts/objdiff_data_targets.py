@@ -388,6 +388,76 @@ def allocated_debugger_inputs(units: list[dict], output: Path) -> dict[str, str]
     return {elf.relative_to(ROOT).as_posix(): objdiff_targets.sha256(elf)}
 
 
+def integrated_game_object(unit: dict) -> Path | None:
+    """Return the actual integrated linker input for a completed GAME source owner.
+
+    Completed C without GLOBAL_ASM is compared from the object the integrated
+    game link consumes, as completed code units are. That object carries any
+    reviewed rodata split, so split tables need no separate C-only partition.
+    """
+    if unit.get('overlay') != 'game' or unit['kind'] != 'external_payload':
+        return None
+    owner = unit.get('owner') or {}
+    if 'sources' not in owner:
+        return None
+    source = data_boundaries.active_source(ROOT, owner['sources'])
+    if (not source.startswith('src/done/game/')
+            or compile_c.GLOBAL_ASM_PRAGMA.search((ROOT / source).read_text())):
+        return None
+    return ROOT / ('build/game-integrated/us/' + source.removesuffix('.c') + '.o')
+
+
+def integrated_game_data(units: list[dict], output: Path) -> dict | None:
+    """Refresh the integrated game link and read its verified data-image proof."""
+    if not any(integrated_game_object(u) is not None or (
+            u.get('overlay') == 'game' and u['kind'] == 'external_payload'
+            and 'archive' in (u.get('owner') or {})) for u in units):
+        return None
+    with (output / 'game-integrated-build.log').open('w') as log:
+        subprocess.run(['make', '--silent', '--jobs', str(job_count()), 'game-integrated',
+                        'PROFILE=us'], cwd=ROOT, stdout=log, stderr=log, check=True)
+    import link_game_data
+    manifest = link_game_data.load_manifest(ROOT)
+    manifest['by_placement'] = {(r['start'], r['output']): r for r in manifest['ranges']
+                                if r['provenance'] == 'linked'}
+    return manifest
+
+
+def game_data_completion(unit: dict, manifest: dict | None, base: Path) -> dict | None:
+    """Linked inputs proving a GAME data placement came from the integrated link.
+
+    The placement's payload must be a linked range of the verified GAME data
+    image, built from the same object or archive this report compares, with
+    the whole image equal to the ROM. Placement or ROM-equal bytes alone are
+    not enough.
+    """
+    if manifest is None or unit.get('overlay') != 'game' or unit['kind'] != 'external_payload':
+        return None
+    placed = manifest['by_placement'].get((unit['start'], unit.get('output')))
+    if (placed is None or placed['sha256'] != unit['sha256'] or placed['size'] != unit['size']
+            or placed['input_selector'] != unit['input_selector']):
+        return None
+    owner = unit.get('owner') or {}
+    proof = {manifest['elf']: manifest['elf_sha256'],
+             manifest['image']['path']: manifest['image']['sha256']}
+    if 'sources' in owner:
+        linked = integrated_game_object(unit)
+        if (linked is None or placed['kind'] != 'source'
+                or placed['object'] != linked.relative_to(ROOT).as_posix()
+                or placed['object_sha256'] != objdiff_targets.sha256(linked)
+                or objdiff_targets.sha256(base) != placed['object_sha256']):
+            return None
+        return {**proof, placed['object']: placed['object_sha256']}
+    if owner and placed['kind'] == 'sdk':
+        archive = candidate_archive(unit)
+        if (archive is None or archive[0].relative_to(ROOT).as_posix() != placed['archive']
+                or archive[1] != placed['member'] or owner.get('member') != placed['member']
+                or objdiff_targets.sha256(archive[0]) != placed['archive_sha256']):
+            return None
+        return {**proof, placed['archive']: placed['archive_sha256']}
+    return None
+
+
 def same_source_object(candidate: Path, linked: Path) -> bool:
     """Compare actual storage and relocations, ignoring only debug/file metadata."""
     left, right = Object32(candidate.read_bytes()), Object32(linked.read_bytes())
@@ -405,6 +475,7 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
     output = OUTPUT if output is None else output
     config = []
     runtime_inputs = allocated_debugger_inputs(units, output)
+    game_data = integrated_game_data(units, output)
     for unit in units:
         directory = output / unit['key']
         directory.mkdir(parents=True, exist_ok=True)
@@ -412,14 +483,22 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
         base.unlink(missing_ok=True)
         source = candidate_source(unit)
         archive = candidate_archive(unit)
+        integrated = integrated_game_object(unit)
         # These physical tables use a build-time split tied to mixed text
         # offsets. A reduced C-only object's partition has not been proved.
         # Keep their independent targets without borrowing GLOBAL_ASM tables.
-        if unit['section'].startswith('.rodata.'):
+        # A completed unit's integrated object carries the reviewed split.
+        if unit['section'].startswith('.rodata.') and integrated is None:
             unit['candidate_unavailable'] = 'split rodata requires a proved C-only table partition'
             source = None
         with (directory / 'build.log').open('w') as log:
-            if source:
+            if integrated is not None:
+                if not integrated.is_file():
+                    raise ValueError(f"{unit['key']}: missing integrated object {integrated}")
+                base.write_bytes(integrated.read_bytes())
+                unit['source'] = source.relative_to(ROOT).as_posix()
+                unit['candidate_origin'] = 'actual_build_object'
+            elif source:
                 focused = directory / 'base.c'
                 focused.write_text(diff.GLOBAL_ASM_LINE.sub('', source.read_text()))
                 result = compile_c.run_compile('us', focused, base,
@@ -469,6 +548,10 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
                     unit.update(complete=True, data_completion_verified=True,
                                 linked_inputs={**runtime_inputs,
                                     linked.relative_to(ROOT).as_posix(): objdiff_targets.sha256(linked)})
+                    item['metadata']['complete'] = True
+                elif (linked_inputs := game_data_completion(unit, game_data, base)) is not None:
+                    unit.update(complete=True, data_completion_verified=True,
+                                linked_inputs=linked_inputs)
                     item['metadata']['complete'] = True
         config.append(item)
     return config

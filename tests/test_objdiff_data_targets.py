@@ -618,5 +618,109 @@ class DataTargetTests(unittest.TestCase):
                 targets.candidate_source({'kind': 'private_section', 'key': 'test', 'sources': ['a.c', 'b.c']})
 
 
+class GameDataCompletionTests(unittest.TestCase):
+    """GAME placements earn completion only through the verified integrated data image."""
+
+    def setUp(self):
+        import hashlib
+        self.sha = lambda data: hashlib.sha256(data).hexdigest()
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.root = Path(directory.name)
+        for name, patched in (('ROOT', self.root), ('OUTPUT', self.root)):
+            patcher = patch.object(targets, name, patched)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.payload = bytes(range(16))
+        self.blob = object_file([('.text', 1, 6, bytes(8)), ('.rodata.16ee20_0', 1, 2, self.payload)])
+        self.source = self.root / 'src/done/game/game_16EE20.c'
+        self.source.parent.mkdir(parents=True)
+        self.source.write_text('void matched(void) {}\n')
+        self.object = self.root / 'build/game-integrated/us/src/done/game/game_16EE20.o'
+        self.object.parent.mkdir(parents=True)
+        self.object.write_bytes(self.blob)
+        self.unit = {'key': '80099D54', 'kind': 'external_payload', 'overlay': 'game',
+                     'start': 0x80099D54, 'output': '.game_rodata_16ee20_0',
+                     'owner': {'sources': ['src/game/game_16EE20.c', 'src/done/game/game_16EE20.c']},
+                     'input_selector': '*game_16EE20.o(.rodata.16ee20_0)',
+                     'section': '.rodata.16ee20_0', 'size': 16, 'target_path': 'target.o',
+                     'sha256': self.sha(self.payload)}
+        self.manifest = {
+            'elf': 'build/game-integrated/us/conker.game.us.integrated.elf', 'elf_sha256': 'e' * 64,
+            'image': {'path': 'build/game-integrated/us/game.data.bin', 'sha256': 'i' * 64},
+            'by_placement': {(0x80099D54, '.game_rodata_16ee20_0'): {
+                'start': 0x80099D54, 'output': '.game_rodata_16ee20_0', 'size': 16,
+                'sha256': self.sha(self.payload), 'provenance': 'linked', 'kind': 'source',
+                'input_selector': '*game_16EE20.o(.rodata.16ee20_0)',
+                'object': 'build/game-integrated/us/src/done/game/game_16EE20.o',
+                'object_sha256': self.sha(self.blob)}}}
+
+    def prepare(self, manifest):
+        with patch.object(targets, 'integrated_game_data', return_value=manifest), \
+                patch.object(targets.subprocess, 'run') as run:
+            config = targets.prepare_candidates([self.unit])
+        run.assert_not_called()
+        return config[0]
+
+    def test_completed_split_table_uses_integrated_object_and_linked_image(self):
+        item = self.prepare(self.manifest)
+        self.assertNotIn('candidate_unavailable', self.unit)
+        self.assertEqual(self.unit['candidate_origin'], 'actual_build_object')
+        self.assertEqual((self.root / item['base_path']).read_bytes(), self.blob)
+        self.assertTrue(item['metadata']['complete'])
+        self.assertTrue(self.unit['data_completion_verified'])
+        self.assertEqual(self.unit['linked_inputs'], {
+            self.manifest['elf']: 'e' * 64, self.manifest['image']['path']: 'i' * 64,
+            'build/game-integrated/us/src/done/game/game_16EE20.o': self.sha(self.blob)})
+
+    def test_missing_or_mismatched_image_proof_grants_no_completion(self):
+        placed = self.manifest['by_placement'][(0x80099D54, '.game_rodata_16ee20_0')]
+        changes = {'no manifest': None,
+                   'preserved range': {**self.manifest, 'by_placement': {}},
+                   'payload': {'sha256': '0' * 64}, 'object': {'object_sha256': '0' * 64},
+                   'selector': {'input_selector': '*other.o(.rodata)'},
+                   'sdk origin': {'kind': 'sdk'}}
+        for label, change in changes.items():
+            with self.subTest(label):
+                manifest = change if change is None or 'elf' in change else {
+                    **self.manifest, 'by_placement': {
+                        (0x80099D54, '.game_rodata_16ee20_0'): {**placed, **change}}}
+                self.unit.pop('complete', None)
+                item = self.prepare(manifest)
+                self.assertFalse(item['metadata']['complete'])
+                self.assertNotIn('data_completion_verified', self.unit)
+
+    def test_raw_or_assembly_sources_never_use_the_integrated_object(self):
+        self.source.write_text('#pragma GLOBAL_ASM("raw.s")\nvoid matched(void) {}\n')
+        self.assertIsNone(targets.integrated_game_object(self.unit))
+        raw = self.root / 'src/game/game_16EE20.c'
+        raw.parent.mkdir(parents=True)
+        self.source.rename(raw)
+        self.assertIsNone(targets.integrated_game_object(self.unit))
+        self.assertIsNone(targets.integrated_game_object({**self.unit, 'overlay': 'main'}))
+
+    def test_game_sdk_placement_requires_the_same_archive(self):
+        archive = self.root / 'build/game-libs/us/libultrare.a'
+        archive.parent.mkdir(parents=True)
+        archive.write_bytes(b'archive')
+        base = self.root / 'base.o'
+        base.write_bytes(self.blob)
+        unit = {'kind': 'external_payload', 'overlay': 'game', 'start': 0x80085EA0,
+                'output': '.sdk_cosf_data', 'size': 16, 'sha256': self.sha(self.payload),
+                'owner': {'archive': 'libultrare', 'member': 'cosf.o'}, 'section': '.data',
+                'input_selector': 'build/game-libs/us/libultrare.a:cosf.o(.data)'}
+        placed = {'start': 0x80085EA0, 'output': '.sdk_cosf_data', 'size': 16, 'kind': 'sdk',
+                  'sha256': self.sha(self.payload), 'input_selector': unit['input_selector'],
+                  'archive': 'build/game-libs/us/libultrare.a', 'member': 'cosf.o',
+                  'archive_sha256': self.sha(b'archive')}
+        manifest = {**self.manifest, 'by_placement': {(0x80085EA0, '.sdk_cosf_data'): placed}}
+        self.assertEqual(targets.game_data_completion(unit, manifest, base)[placed['archive']],
+                         self.sha(b'archive'))
+        stale = {**manifest, 'by_placement': {(0x80085EA0, '.sdk_cosf_data'):
+                                              {**placed, 'archive_sha256': '0' * 64}}}
+        self.assertIsNone(targets.game_data_completion(unit, stale, base))
+        self.assertIsNone(targets.game_data_completion({**unit, 'overlay': 'main'}, manifest, base))
+
+
 if __name__ == '__main__':
     unittest.main()
