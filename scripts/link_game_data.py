@@ -48,8 +48,8 @@ def placements(root: Path, base: int, size: int) -> list[dict]:
                 continue
             inside = base <= mapping["start"] < mapping["end"] <= base + size
             if not inside:
-                if base <= mapping["start"] < base + size:
-                    raise ValueError(f"{mapping['output']}: placement crosses the GAME data image end")
+                if mapping["start"] < base + size and mapping["end"] > base:
+                    raise ValueError(f"{mapping['output']}: placement crosses a GAME data image boundary")
                 continue  # e.g. SDK objects bound to main's initialized storage
             if mapping["linker_mode"] != "INFO":
                 raise ValueError(f"{mapping['output']}: GAME data placements must be INFO "

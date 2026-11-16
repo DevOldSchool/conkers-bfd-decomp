@@ -350,17 +350,20 @@ while every byte remains in the section and ROM checks. This avoids treating
 splat's generated padding labels as missing SDK variables. See the
 [SDK symbol evidence](evidence/data-layout/us_sdk_data_symbols.md) for remaining
 anonymous pools and incorrect SDK symbol extents.
-Native comparisons determine perfect-match credit. Every final unit must satisfy
-`complete_data <= matched_data`; category or aggregate totals cannot hide a
-violation. Units whose data is still ROM-backed need actual build integration
+Native comparisons determine perfect-match credit. Fully linked data credit
+rests on the linked-input and ROM proofs above, not on native matching, so a
+unit's `complete_data` may exceed its `matched_data`. Stock objdiff gives IDO's
+anonymous literals and jump tables no symbol credit; GAME data in particular
+matches only a few hundred bytes natively. `completion_notes` in validation lists
+every complete unit whose native data matching is lower, so the two measures stay
+separately visible and neither substitutes for the other. Units whose data is still ROM-backed need actual build integration
 before they can become complete. This includes GAME data that is preserved
 rather than linked in the GAME data image. All debugger initialized data is now allocated
 source storage and is compared natively as described above.
 
-When this report is first published, fully-linked code can decrease for two
-reasons: a grouped unit owns data still supplied by ROM, or its linked data fails
-native symbol matching. Native matched code and function inventory records are
-unchanged by this completion policy; the drop reflects a stricter whole-unit gate.
+A grouped unit is not fully linked while it owns data still supplied by ROM,
+even when all of its code is complete. Native matched code and function
+inventory records are unchanged by this completion policy.
 Rebuilt font bytes contribute to Data. The font earns completion when all 95 editable
 PGM glyphs and their manifest rebuild through the canonical Makefile rule into the exact original 5,440 bytes
 (including 13 alignment bytes). Its candidate concatenates the `.data` payloads of the 96 actual ROM link inputs:

@@ -911,7 +911,8 @@ $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin: $(GAME_INTEGRATED_BU
 
 # The GAME data image: linked placement payloads plus preserved unowned bytes,
 # verified against the ROM. Its manifest records each range's provenance.
-$(GAME_INTEGRATED_DATA): $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf scripts/link_game_data.py scripts/data_boundaries.py
+$(GAME_INTEGRATED_DATA): $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf scripts/link_game_data.py scripts/data_boundaries.py \
+		scripts/elf_sections.py scripts/rom_span.py scripts/list_integrated_sources.py
 	python3 scripts/link_game_data.py $< --output $@ --manifest $(GAME_INTEGRATED_DATA_MANIFEST)
 
 $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRATED_C_SRCS) scripts/create_bootstrap_symbols.py

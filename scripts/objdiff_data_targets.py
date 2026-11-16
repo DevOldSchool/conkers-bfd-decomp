@@ -452,6 +452,7 @@ def game_data_completion(unit: dict, manifest: dict | None, base: Path) -> dict 
         archive = candidate_archive(unit)
         if (archive is None or archive[0].relative_to(ROOT).as_posix() != placed['archive']
                 or archive[1] != placed['member'] or owner.get('member') != placed['member']
+                or owner.get('archive') != Path(placed['archive']).stem
                 or objdiff_targets.sha256(archive[0]) != placed['archive_sha256']):
             return None
         return {**proof, placed['archive']: placed['archive_sha256']}

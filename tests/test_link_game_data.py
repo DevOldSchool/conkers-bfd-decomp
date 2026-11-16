@@ -125,6 +125,8 @@ class PlacementTests(unittest.TestCase):
     def test_crossing_the_image_end_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "crosses"):
             self.placements(self.script("game_rodata_1", BASE + 0xF8, 16))
+        with self.assertRaisesRegex(ValueError, "crosses"):
+            self.placements(self.script("game_rodata_1", BASE - 8, 16))
 
     def test_overlapping_payloads_are_rejected(self):
         text = self.script("game_rodata_1", BASE + 0x10, 16) + self.script("game_rodata_2", BASE + 0x18, 16)

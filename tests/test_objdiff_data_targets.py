@@ -719,6 +719,8 @@ class GameDataCompletionTests(unittest.TestCase):
         stale = {**manifest, 'by_placement': {(0x80085EA0, '.sdk_cosf_data'):
                                               {**placed, 'archive_sha256': '0' * 64}}}
         self.assertIsNone(targets.game_data_completion(unit, stale, base))
+        other = {**unit, 'owner': {'archive': 'libultra_2_0G', 'member': 'cosf.o'}}
+        self.assertIsNone(targets.game_data_completion(other, manifest, base))
         self.assertIsNone(targets.game_data_completion({**unit, 'overlay': 'main'}, manifest, base))
 
 
