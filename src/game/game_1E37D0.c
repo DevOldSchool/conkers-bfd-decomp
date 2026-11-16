@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -7,7 +11,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B65D4
- * - func_151B6928
  * - func_151B7328
  * - func_151B7998
  * - func_151B7C38
@@ -67,12 +70,15 @@ typedef struct Game1B6420Record {
     u8 pad0[0xC];
     f32 countdown;
     u8 intensity;
-    u8 pad11[7];
+    u8 pad11[3];
+    f32 texture;
     f32 time;
 } Game1B6420Record;
 
 typedef struct Game1B6420Actor {
-    u8 pad0[0x1E];
+    u8 pad0[0x10];
+    Vec3f position;
+    u8 pad1C[2];
     u16 flags;
     u8 pad20[5];
     u8 capacity;
@@ -257,7 +263,184 @@ s32 func_151B65D4(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B65D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B65D4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6928.s")
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+typedef struct Game1E37D0TrailVertex {
+    s16 x, y, z;
+    s16 flag;
+    s16 s, t;
+    u8 r, g, b, a;
+} Game1E37D0TrailVertex;
+
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15144B34(s32);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_80090CD4[];
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+Gfx *func_151B6928(Game1B6420Actor *arg0, Gfx *arg1, s16 arg2) {
+    Game1E37D0TrailVertex *vtx;
+    Game1B6420Record *records;
+    Vec3f *camera;
+    u8 flag;
+    Vec3f next;
+    Vec3f cur;
+    Vec3f toCamera;
+    Vec3f delta;
+    Vec3f normal;
+    s32 index;
+    s32 previous;
+    f32 lengthSquared;
+    f32 scale;
+    f32 nextTexture;
+    f32 curTexture;
+    s32 curAlpha;
+    s32 nextAlpha;
+
+    if (arg0->count >= 2) {
+        func_151D5D60((u8 *)arg0 + 0x84, arg2, (arg0->capacity * 2 + 10) * sizeof(Game1E37D0TrailVertex), (void **)&vtx, NULL);
+        if (vtx != NULL) {
+            records = arg0->records;
+            camera = (Vec3f *)func_15144B34(arg2);
+            flag = 1;
+            arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)D_80090CD4, 0, 0, 0, 0, 0x1F, 0, 0, &flag, 3);
+            arg1 = func_15142C10(arg1, 0xFF, 0xFF, 0xFF, 0xFF, &flag);
+            arg1 = func_1513F4E4(arg1, 0x4E, &flag);
+            arg1 = func_15142B7C(arg1, 0x200005, 0x1F0600);
+            arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[3][0] | D_800A4AC8[3][1], &flag);
+            if (arg0->flags & 2) {
+                index = arg0->tail - 1;
+                if (index < 0) {
+                    index = arg0->capacity - 1;
+                }
+                cur = arg0->position;
+                curAlpha = 0x80;
+                curTexture = 0.0f;
+            } else {
+                previous = arg0->tail - 1;
+                if (previous < 0) {
+                    previous = arg0->capacity - 1;
+                }
+                index = previous - 1;
+                if (index < 0) {
+                    index = arg0->capacity - 1;
+                }
+                cur = *(Vec3f *)records[previous].pad0;
+                curAlpha = records[previous].intensity;
+                curTexture = records[previous].texture;
+            }
+            next = *(Vec3f *)records[index].pad0;
+            nextAlpha = records[index].intensity;
+            nextTexture = records[index].texture;
+            delta.x = cur.x - next.x;
+            delta.y = cur.y - next.y;
+            delta.z = cur.z - next.z;
+            toCamera.x = cur.x - camera->x;
+            toCamera.y = cur.y - camera->y;
+            toCamera.z = cur.z - camera->z;
+            normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+            normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+            normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+            lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+            if (lengthSquared == 0.0f) {
+                normal.x = 0.0f;
+                normal.y = 0.0f;
+                normal.z = 0.0f;
+            } else {
+                scale = 10.0f / sqrtf(lengthSquared);
+                normal.x *= scale;
+                normal.y *= scale;
+                normal.z *= scale;
+            }
+            vtx->x = cur.x + normal.x;
+            vtx->y = cur.y + normal.y;
+            vtx->z = cur.z + normal.z;
+            vtx->s = curTexture;
+            vtx->t = 0;
+            vtx->r = 0xFF;
+            vtx->g = 0xFF;
+            vtx->b = 0xFF;
+            vtx->a = curAlpha;
+            vtx->flag = 0;
+            vtx++;
+            vtx->x = cur.x - normal.x;
+            vtx->y = cur.y - normal.y;
+            vtx->z = cur.z - normal.z;
+            vtx->s = curTexture;
+            vtx->t = 0x7FF;
+            vtx->r = 0xFF;
+            vtx->g = 0xFF;
+            vtx->b = 0xFF;
+            vtx->a = curAlpha;
+            vtx->flag = 0;
+            vtx++;
+            do {
+                delta.x = cur.x - next.x;
+                delta.y = cur.y - next.y;
+                delta.z = cur.z - next.z;
+                toCamera.x = next.x - camera->x;
+                toCamera.y = next.y - camera->y;
+                toCamera.z = next.z - camera->z;
+                normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+                normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+                normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+                lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+                if (lengthSquared == 0.0f) {
+                    normal.x = 0.0f;
+                    normal.y = 0.0f;
+                    normal.z = 0.0f;
+                } else {
+                    scale = 10.0f / sqrtf(lengthSquared);
+                    normal.x *= scale;
+                    normal.y *= scale;
+                    normal.z *= scale;
+                }
+                vtx->x = next.x + normal.x;
+                vtx->y = next.y + normal.y;
+                vtx->z = next.z + normal.z;
+                vtx->s = nextTexture;
+                vtx->t = 0;
+                vtx->r = 0xFF;
+                vtx->g = 0xFF;
+                vtx->b = 0xFF;
+                vtx->a = nextAlpha;
+                vtx->flag = 0;
+                vtx++;
+                vtx->x = next.x - normal.x;
+                vtx->y = next.y - normal.y;
+                vtx->z = next.z - normal.z;
+                vtx->s = nextTexture;
+                vtx->t = 0x7FF;
+                vtx->r = 0xFF;
+                vtx->g = 0xFF;
+                vtx->b = 0xFF;
+                vtx->a = nextAlpha;
+                vtx->flag = 0;
+                vtx++;
+                gSPVertex(arg1++, vtx - 4, 4, 0);
+                gSP1Triangle(arg1++, 0, 1, 2, 0);
+                gSP1Triangle(arg1++, 1, 3, 2, 0);
+                previous = index;
+                index--;
+                if (index < 0) {
+                    index = arg0->capacity - 1;
+                }
+                if (previous != arg0->head) {
+                    cur = next;
+                    next = *(Vec3f *)records[index].pad0;
+                    nextAlpha = records[index].intensity;
+                    nextTexture = records[index].texture;
+                }
+            } while (previous != arg0->head);
+        }
+    }
+    return arg1;
+}
 void func_151B70B4(void *arg0, void *arg1, u8 arg2) {
     void *target;
     s32 current;

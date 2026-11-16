@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_3F820.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_next_compact_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150124A0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern void *D_80088750;
@@ -53,21 +48,17 @@ typedef struct Game3F820Spread {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
-extern f32 D_80096570;
 extern Game3F820Spread D_8009F920[3];
 extern Game3F820Point D_800DCA30[3][10];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150124A0 CURRENT (945) */
 void func_150124A0(void) {
     s32 row;
-    s32 i;
     s16 yaw;
     s16 pitch;
-    f32 scale;
-    void *result;
-    Vec3f hit;
     f32 yawCos;
     f32 yawSin;
+    void *result;
+    Vec3f hit;
     f32 pitchCos;
     f32 radius;
     f32 dirX;
@@ -75,15 +66,17 @@ void func_150124A0(void) {
     f32 dirZ;
     s16 timer[3];
 
-    scale = D_80096570;
     for (row = 0; row < 3; row++) {
+        s32 i;
+
         for (i = 0; i < 10; i++) {
             yaw = D_8009F920[row].baseAngle + func_150ADA20() % 13U - 0x86;
             pitch = (func_150ADA20() & 0xF) - 10;
             yawCos = func_151423D8(yaw - 0x40);
             yawSin = func_151423D8(yaw);
             pitchCos = func_151423D8(pitch - 0x40);
-            radius = 10.0f * func_151423D8(pitch);
+            radius = func_151423D8(pitch);
+            radius = 10.0f * radius;
             dirX = radius * yawCos;
             dirY = -10.0f * pitchCos;
             dirZ = radius * yawSin;
@@ -93,9 +86,9 @@ void func_150124A0(void) {
                 D_800DCA30[row][i].y = 0.0f;
                 D_800DCA30[row][i].z = 0.0f;
             } else {
-                D_800DCA30[row][i].x = hit.x * scale;
-                D_800DCA30[row][i].z = hit.z * scale;
-                D_800DCA30[row][i].y = (hit.y - 300.0f) * scale + 300.0f;
+                D_800DCA30[row][i].x = hit.x * 0.97f;
+                D_800DCA30[row][i].y = (hit.y - 300.0f) * 0.97f + 300.0f;
+                D_800DCA30[row][i].z = hit.z * 0.97f;
             }
         }
     }
@@ -107,5 +100,3 @@ void func_150124A0(void) {
         func_10022EC0((u8 *)result + 0x28, timer, 6);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150124A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3F820/func_150124A0.s")

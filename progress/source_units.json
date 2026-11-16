@@ -2865,15 +2865,15 @@
         "func_15012470",
         "func_150124A0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x12720",
           "start": "0x12370",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3F820.c"
+      "source": "src/done/game/game_3F820.c"
     },
     {
       "boundary_evidence": {

@@ -438,6 +438,16 @@
         }
       },
       {
+        "address": "0x80096570",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_3F820.c",
+            "src/done/game/game_3F820.c"
+          ]
+        }
+      },
+      {
         "address": "0x80096688",
         "section": ".rodata",
         "owner": {

@@ -17,7 +17,6 @@
  * - func_1505C1E4
  * - func_1505C7D8
  * - func_1505DADC
- * - func_1505DDA8
  * - func_1505E650
  * - func_1505E874
  * - func_1505F298
@@ -1669,7 +1668,7 @@ typedef struct {
 
 extern f32 D_80099534;
 extern f32 D_80099538;
-f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *, s32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                    f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 
@@ -1711,7 +1710,7 @@ s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
             (other->flags & 0x40) && (excludeIndex != index) &&
             (other->enabled != 0)) {
             distance = func_1505DF10(self, index & 0xFF, &angle,
-                                      &horizontalSquared, &vertical);
+                                      &horizontalSquared, &vertical, 0);
             if ((distance < bestDistance) || ((other->priority == 0) && (priority != 0))) {
                 if ((((s32)((u16)angle - self->heading) >> 8) +
                      (u8)range & 0xFF) < (u8)range * 2) {
@@ -1743,46 +1742,32 @@ s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
 extern s32 D_80082FA0;
 extern u8 D_800CC2D0[];
 
-f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DDA8 CURRENT (1964) */
-s8 func_1505DDA8(void *arg0, s32 arg1, s32 arg2, f32 arg3) {
-    s16 sp6C;
-    f32 sp68;
-    f32 temp_fs0;
-    s32 temp_s2;
-    f32 sp64;
-    u8 temp_t6;
-    u8 var_s0;
+s8 func_1505DDA8(void *arg0, s32 arg1, u16 arg2, f32 arg3) {
+    s16 i;
+    s16 angle;
+    f32 horizontal;
+    f32 vertical;
+    f32 range;
 
-    temp_s2 = arg2 & 0xFFFF;
-    var_s0 = 0;
-    if (D_80082FA0 >= 0) {
-loop_2:
-        if (*(s32 *)((u8 *)&D_800CC2D0 + (var_s0 * 0x32C)) != 0) {
-            temp_fs0 = *(f32 *)((u8 *)arg0 + 0x3C) * arg3 * 0.5f;
-            if ((func_1505DF10(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
-                return var_s0;
-            }
-            goto block_7;
+    for (i = 0; i <= D_80082FA0; i = (u8)(i + 1)) {
+        if (*(s32 *)((u8 *)&D_800CC2D0 + i * 0x32C) == 0) {
+            continue;
         }
-block_7:
-        temp_t6 = (var_s0 + 1) & 0xFF;
-        var_s0 = temp_t6;
-        if (D_80082FA0 < temp_t6) {
-            goto block_8;
+        range = *(f32 *)((u8 *)arg0 + 0x3C) * arg3 * 0.5f;
+        if (func_1505DF10(arg0, i, &angle, &horizontal, &vertical, 0) < range * range
+            && ((*(u16 *)((u8 *)arg0 + 0x76) - (u16)angle + arg2 / 2) & 0xFFFF) < arg2) {
+            return i;
         }
-        goto loop_2;
     }
-block_8:
     return -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505DDA8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DDA8.s")
+
 /* Call context: func_1505A630: unique active project prototype */
 extern u8 D_800CC2D0[];
 
-f32 func_1505DF10(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
+f32 func_1505DF10(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4, s32 arg5) {
     u8 *target;
     f32 x;
     f32 y;

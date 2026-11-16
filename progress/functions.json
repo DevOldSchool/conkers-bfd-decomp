@@ -7187,7 +7187,7 @@
           "vram": "0x15012370"
         }
       },
-      "source": "src/game/game_3F820.c",
+      "source": "src/done/game/game_3F820.c",
       "symbol": "func_15012370"
     },
     {
@@ -7205,26 +7205,25 @@
           "vram": "0x15012470"
         }
       },
-      "source": "src/game/game_3F820.c",
+      "source": "src/done/game/game_3F820.c",
       "symbol": "func_15012470"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 945,
-        "reason": "Fresh after unblock 2026-10-30: typed candidate CURRENT 1076 -> 945. Code body matches; residuals are the outer row pointer copied through v1 before s0 (raw lw v1; move s0,v1), fs4/fs5 swap between scale (D_80096570) and 300.0f, 10.0f*sin operand order, and one spill-word offset. Tried declaration orders, direction temps (frame 0x100), explicit row/spread pointers (worse).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 640,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150124A0",
           "vram": "0x150124A0"
         }
       },
-      "source": "src/game/game_3F820.c",
+      "source": "src/done/game/game_3F820.c",
       "symbol": "func_150124A0"
     },
     {
@@ -10252,17 +10251,16 @@
       "symbol": "func_1505DADC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1964,
-        "reason": "Saved candidate invalid word-scaled actor stride, signed byte index and implicit float return. Canonical local five-arg declaration/call plus byte stride/unsigned index valid1964. Output-record revision1977 regressed; restored1964 after two revisions. Frame78vs70, mask/register scheduling and unread sixth-zero home remain; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 360,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505DDA8",
           "vram": "0x1505DDA8"
         }
@@ -29621,8 +29619,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1648,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501878C",
           "vram": "0x1501878C"
         }
@@ -81189,8 +81192,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1932,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BCA90",
           "vram": "0x151BCA90"
         }
@@ -84096,8 +84104,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1932,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B6928",
           "vram": "0x151B6928"
         }

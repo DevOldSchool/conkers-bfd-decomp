@@ -348,6 +348,8 @@ SECTIONS
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_3e890_float_constants.md. */
     .game_rodata_3e890 0x800964C0 (INFO) : SUBALIGN(4) { *game_3E890.o(.rodata) }
+    /* ROM-verified constant: docs/evidence/data-layout/game_3f820_float_constant.md. */
+    .game_rodata_3f820 0x80096570 (INFO) : SUBALIGN(4) { *game_3F820.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_40490_float_constants.md. */
     .game_rodata_40490 0x80096688 (INFO) : SUBALIGN(4)
     {
@@ -1139,6 +1141,8 @@ ASSERT(SIZEOF(.game_rodata_40490) == 0x30,
 __game_rodata_40490_payload_size = 0x2C;
 ASSERT(SIZEOF(.game_rodata_3e890) == 0x50, "game_3E890 constant pool extent changed")
 __game_rodata_3e890_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_3f820) == 0x10, "game_3F820 literal extent changed")
+__game_rodata_3f820_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_a28b0) == 0x10,
        "game_A28B0 literal extent changed")
 __game_rodata_a28b0_payload_size = 0x4;
