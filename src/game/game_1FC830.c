@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -6,7 +10,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151CF380
  * - func_151CFA4C
  * - func_151D014C
  * - func_151D09A8
@@ -15,7 +18,134 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF380.s")
+
+typedef struct Game1FC830RibbonOffset {
+    f32 x;
+    f32 z;
+} Game1FC830RibbonOffset;
+
+typedef struct Game1FC830RibbonPoint {
+    Vec3f position;
+    u8 padC[8];
+    f32 width;
+    Game1FC830RibbonOffset offset;
+    f32 directionX;
+    f32 directionZ;
+} Game1FC830RibbonPoint;
+
+typedef struct Game1FC830RibbonVertex {
+    s16 x, y, z;
+    s16 flag;
+    s16 s, t;
+    u8 r, g, b, a;
+} Game1FC830RibbonVertex;
+
+typedef struct Game1FC830RibbonTarget {
+    u8 pad0[0x1D4];
+    s32 active;
+} Game1FC830RibbonTarget;
+
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
+    Game1FC830RibbonTarget **state;
+    Vec3f next;
+    Vec3f first;
+    s32 index;
+    s32 previous;
+    Game1FC830RibbonPoint *points;
+    u8 flag;
+    f32 firstX;
+    f32 firstZ;
+    f32 nextX;
+    f32 nextZ;
+    f32 firstWidth;
+    f32 nextWidth;
+    Game1FC830RibbonOffset nextOffset;
+    Game1FC830RibbonOffset firstOffset;
+    Game1FC830RibbonVertex *vtx;
+
+    if (*(s8 *)(arg0 + 0x2C) < 2) {
+        return arg1;
+    }
+    state = *(Game1FC830RibbonTarget ***)(arg0 + 0x98);
+    points = *(Game1FC830RibbonPoint **)(arg0 + 0x94);
+    if (*state != NULL && (*state)->active == 0) {
+        return arg1;
+    }
+    func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Game1FC830RibbonVertex), (void **)&vtx, NULL);
+    flag = 1;
+    arg1 = func_15142C10(arg1, 0xED, 0xD2, 0x85, 0xC8, &flag);
+    arg1 = func_15142B7C(arg1, 0x200005, 0x1F0600);
+    arg1 = func_1513F4E4(arg1, 0x54, &flag);
+    arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[1][0] | D_800A4AC8[1][1], &flag);
+    previous = *(s8 *)(arg0 + 0x2E) - 1;
+    if (previous < 0) {
+        previous = arg0[0x25] - 1;
+    }
+    index = previous - 1;
+    if (index < 0) {
+        index = arg0[0x25] - 1;
+    }
+    first = points[previous].position;
+    firstWidth = points[previous].width;
+    firstX = firstWidth * points[previous].directionX;
+    firstZ = firstWidth * points[previous].directionZ;
+    firstOffset = points[previous].offset;
+    next = points[index].position;
+    nextWidth = points[index].width;
+    nextX = nextWidth * points[index].directionX;
+    nextZ = nextWidth * points[index].directionZ;
+    nextOffset = points[index].offset;
+    vtx->x = first.x + firstOffset.x + firstX;
+    vtx->y = first.y;
+    vtx->z = first.z + firstOffset.z + firstZ;
+    vtx->flag = 0;
+    vtx++;
+    vtx->x = first.x - firstOffset.x + firstX;
+    vtx->y = first.y;
+    vtx->z = first.z - firstOffset.z + firstZ;
+    vtx->flag = 0;
+    vtx++;
+    do {
+        vtx->x = next.x + nextOffset.x + nextX;
+        vtx->y = next.y;
+        vtx->z = next.z + nextOffset.z + nextZ;
+        vtx->flag = 0;
+        vtx++;
+        vtx->x = next.x - nextOffset.x + nextX;
+        vtx->y = next.y;
+        vtx->z = next.z - nextOffset.z + nextZ;
+        vtx->flag = 0;
+        vtx++;
+        gSPVertex(arg1++, vtx - 4, 4, 0);
+        gSP2Triangles(arg1++, 0, 1, 2, 0, 1, 3, 2, 0);
+        previous = index;
+        index--;
+        if (index < 0) {
+            index = arg0[0x25] - 1;
+        }
+        if (previous != *(s8 *)(arg0 + 0x2D)) {
+            first = points[previous].position;
+            firstWidth = points[previous].width;
+            firstX = firstWidth * points[previous].directionX;
+            firstZ = firstWidth * points[previous].directionZ;
+            next = points[index].position;
+            nextWidth = points[index].width;
+            nextX = nextWidth * points[index].directionX;
+            nextZ = nextWidth * points[index].directionZ;
+            nextOffset = points[index].offset;
+            firstOffset = points[previous].offset;
+        }
+    } while (previous != *(s8 *)(arg0 + 0x2D));
+    return arg1;
+}
 void func_15169850(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151CF844(void *arg0, s32 arg1, u8 arg2) {

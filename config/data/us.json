@@ -2466,8 +2466,18 @@
         }
       },
       {
-        "address": "0x800A8AFC",
+        "address": "0x800A8AF4",
         "section": ".rodata.characterflamethrower_4",
+        "owner": {
+          "sources": [
+            "src/game/effects/characterflamethrower.c",
+            "src/done/game/effects/characterflamethrower.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A8AFC",
+        "section": ".rodata.characterflamethrower_8",
         "owner": {
           "sources": [
             "src/game/effects/characterflamethrower.c",

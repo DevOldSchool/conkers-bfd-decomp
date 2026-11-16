@@ -43,3 +43,27 @@ linker size assertion, as described in
 joins `GAME_SPLIT_RODATA_OBJS`, and `config/data/us.json` records both
 sections. The earlier string and literal words (`D_800A8A84` and the
 `D_800A8AA4..D_800A8AD8` constants) stay extern reads of other members.
+
+## func_1519B4B8 sub-pool (round-27)
+
+`func_1519B4B8` draws the flame trail as a camera-facing strip. Before drawing
+it culls the trail's bounding volume with `func_150A6360`, passing `20000.0f`
+as its last argument. Its raw HI16/LO16 pair (`0x1519B628`/`0x1519B630`)
+loads `0x800A8AF4`, which the checksum-validated archive holds as `469C4000`
+(20000.0). No other reference function loads that word. The other float
+operands (`0.5f`, `0.0f`) are built with `lui` or `$zero` and need no rodata.
+
+`func_1519B4B8` lies between `func_151987CC` and `func_1519C9C4`, so the
+object's `.rodata` is now `451c4000 469c4000 3dcccccd 3d4ccccd` (0x10 bytes,
+all payload, no data relocations). The splitter layout becomes three pools:
+`.rodata.characterflamethrower_0` (0x4 at 0x800A8ADC),
+`.rodata.characterflamethrower_4` (0x4 at 0x800A8AF4, new) and
+`.rodata.characterflamethrower_8` (0x8 at 0x800A8AFC, the preset pool formerly
+named `_4`), each with an exact linker size assertion and a matching
+`config/data/us.json` record. The words 0x800A8AE0..0x800A8AF0 and 0x800A8AF8
+stay extern reads of other members (`func_1519A9A4` reads `D_800A8AF0`).
+
+The match also names three fields that the trail reads and that were padding:
+`CharacterFlamethrowerState.width` (+0x2C), `alpha3A` (+0x3A) and `texture144`
+(+0x144), and the moving point's `alpha` (+0x20) and `texture` (+0x24). The
+record sizes do not change.
