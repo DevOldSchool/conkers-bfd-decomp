@@ -1,5 +1,9 @@
 #include "types.h"
 #include "game_functions.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 
 /*
  * Reviewed source unit: src/game/game_133190.c
@@ -8,7 +12,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15105CE0
  * - func_15106610
- * - func_151067B8
  * - func_151070F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -381,7 +384,142 @@ void func_15106610(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15106610 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106610.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151067B8.s")
+typedef struct Game133190TrailVertex {
+    s16 x, y, z;
+    s16 flag;
+    s16 s, t;
+    u8 r, g, b, a;
+} Game133190TrailVertex;
+
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15144B34(s32);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+extern u8 D_80090D70[];
+extern s32 D_800A4AC8[][2];
+extern s32 D_800D2C9C;
+
+Gfx *func_151067B8(Gfx *gdl, u8 *arg1, s16 arg2) {
+    Vec3f *camera;
+    Game133190CurveObject *curve = (Game133190CurveObject *)arg1;
+    Game133190TrailVertex *vtx;
+    Vec3f delta;
+    Vec3f toCamera;
+    Vec3f normal;
+    f32 lengthSquared;
+    u8 flag;
+    Vec3f *points;
+    s32 i;
+    Vec3f previous;
+
+    func_151D5D60(arg1 + 0x74, arg2, *(s32 *)(arg1 + 0x84), (void **)&vtx, NULL);
+    if (vtx == NULL) {
+        return gdl;
+    }
+    camera = (Vec3f *)func_15144B34(arg2);
+    flag = 1;
+    points = func_151061EC(arg1);
+    gdl = (Gfx *)func_15142E24((s32)gdl, (s32)D_80090D70, 0, 0, 0, 0, 0x2C, 0, 0, &flag, 3);
+    gdl = func_15142C10(gdl, arg1[0x58], arg1[0x59], arg1[0x5A], arg1[0x5B], &flag);
+    gdl = func_15142B7C(gdl, 0x200005, 0x1F0600);
+    gdl = func_1513F4E4(gdl, 0x44, &flag);
+    gdl = func_15142FBC(gdl, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, D_800A4AC8[1][0] | D_800A4AC8[1][1], &flag);
+    delta.x = points[1].x - points[0].x;
+    delta.y = points[1].y - points[0].y;
+    delta.z = points[1].z - points[0].z;
+    toCamera.x = points[0].x - camera->x;
+    toCamera.y = points[0].y - camera->y;
+    toCamera.z = points[0].z - camera->z;
+    normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+    normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+    normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+    lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+    if (lengthSquared > 0.0001f) {
+        f32 scale = *(f32 *)(arg1 + 0x50) / sqrtf(lengthSquared);
+
+        normal.x *= scale;
+        normal.y *= scale;
+        normal.z *= scale;
+    } else {
+        normal.x = 0.0f;
+        normal.y = 0.0f;
+        normal.z = 0.0f;
+    }
+    vtx->x = points[0].x + normal.x;
+    vtx->y = points[0].y + normal.y;
+    vtx->z = points[0].z + normal.z;
+    vtx->s = 0;
+    vtx->t = 0;
+    vtx++;
+    vtx->x = points[0].x;
+    vtx->y = points[0].y;
+    vtx->z = points[0].z;
+    vtx->s = 0x200;
+    vtx->t = 0;
+    vtx++;
+    vtx->x = points[0].x - normal.x;
+    vtx->y = points[0].y - normal.y;
+    vtx->z = points[0].z - normal.z;
+    vtx->s = 0x400;
+    vtx->t = 0;
+    vtx++;
+    previous = points[0];
+    for (i = 1; i < curve->count + 2; i++) {
+        Vec3f *point = &points[i];
+
+        delta.x = previous.x - point->x;
+        delta.y = previous.y - point->y;
+        delta.z = previous.z - point->z;
+        toCamera.x = point->x - camera->x;
+        toCamera.y = point->y - camera->y;
+        toCamera.z = point->z - camera->z;
+        normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+        normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+        normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+        lengthSquared = normal.x * normal.x + normal.y * normal.y + normal.z * normal.z;
+        if (lengthSquared > 0.0001f) {
+            f32 scale = *(f32 *)(arg1 + 0x50) / sqrtf(lengthSquared);
+
+            normal.x *= scale;
+            normal.y *= scale;
+            normal.z *= scale;
+        } else {
+            normal.x = 0.0f;
+            normal.y = 0.0f;
+            normal.z = 0.0f;
+        }
+        vtx->x = point->x - normal.x;
+        vtx->y = point->y - normal.y;
+        vtx->z = point->z - normal.z;
+        vtx->s = 0;
+        vtx->t = 0;
+        vtx++;
+        vtx->x = point->x;
+        vtx->y = point->y;
+        vtx->z = point->z;
+        vtx->s = 0x200;
+        vtx->t = 0;
+        vtx++;
+        vtx->x = point->x + normal.x;
+        vtx->y = point->y + normal.y;
+        vtx->z = point->z + normal.z;
+        vtx->s = 0x400;
+        vtx->t = 0;
+        vtx++;
+        gSPVertex(gdl++, vtx - 6, 6, 0);
+        gSP1Triangle(gdl++, 0, 1, 3, 0);
+        gSP1Triangle(gdl++, 1, 4, 3, 0);
+        gSP1Triangle(gdl++, 1, 2, 5, 0);
+        gSP1Triangle(gdl++, 1, 5, 4, 0);
+        previous = *point;
+    }
+    return gdl;
+}
 void func_15106E78(void *arg0);
 void func_1510761C(void *arg0);
 

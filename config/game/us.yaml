@@ -700,7 +700,7 @@ segments:
       - [0x1B30B0, c, game/effects/holtenrope]
       - [0x1B4CD0, c, done/game/game_1E2180]
       - [0x1B4FE0, c, done/game/game_1E2490]
-      - [0x1B5240, c, game/game_1E26F0]
+      - [0x1B5240, c, done/game/game_1E26F0]
       - [0x1B5BA0, c, done/game/game_1E3050]
       - [0x1B5BF0, c, game/game_1E30A0]
       - [0x1B6010, c, game/game_1E34C0]

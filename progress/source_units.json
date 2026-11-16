@@ -10101,15 +10101,15 @@
         "func_151B5328",
         "func_151B5A9C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1B5BA0",
           "start": "0x1B5240",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1E26F0.c"
+      "source": "src/done/game/game_1E26F0.c"
     },
     {
       "boundary_evidence": {

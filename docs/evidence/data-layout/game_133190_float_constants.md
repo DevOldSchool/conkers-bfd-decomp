@@ -24,3 +24,23 @@ completed-path alias. The original data archive supplies the runtime bytes.
 The function passed independent full-span `CURRENT (0)`, layout, progress and
 whitespace checks. Clean batch verification remains the linked integration gate.
 No reference assembly, compiler options or verifier rules changed.
+
+## func_151067B8 extension (round-27)
+
+`func_151067B8` draws the curve as a camera-facing strip of quads. It only
+normalises each segment's side vector when the squared length exceeds
+`0.0001f`, a test it makes once for the first point and once inside the point
+loop. Its raw HI16/LO16 pairs load `0x800A2418` and `0x800A241C`, which the
+checksum-validated ROM holds as `38D1B717` and `38D1B717` (0.0001f twice). No
+other reference function loads those words. The other float operand, `0.0f`,
+needs no rodata.
+
+`func_151067B8` precedes `func_15107AE0` in the unit, so the object's
+`.rodata` is now `38d1b717 38d1b717 3eaa7efa 3f2aacda`: 0x10 bytes, all
+payload, with no alignment tail and no data relocations. The mapping now starts
+at `0x800A2418` instead of `0x800A2420`. The extent assertion stays 0x10, and
+the payload-size symbol grows from 0x8 to 0x10. `config/data/us.json` records
+the new start address. The words at `0x800A2410` and `0x800A2414` stay extern
+reads of `func_15105CE0` in this unit. The earlier note that `0x800A2418` and
+`0x800A241C` belong to other code is superseded: they are this function's
+literals.

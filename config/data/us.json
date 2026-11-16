@@ -1636,7 +1636,7 @@
         }
       },
       {
-        "address": "0x800A2420",
+        "address": "0x800A2418",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -2662,6 +2662,16 @@
           "sources": [
             "src/game/game_1E2490.c",
             "src/done/game/game_1E2490.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AA41C",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1E26F0.c",
+            "src/done/game/game_1E26F0.c"
           ]
         }
       },

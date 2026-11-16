@@ -55,7 +55,7 @@ SECTIONS
         *game_1188E0.o(.rodata)
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_133190_float_constants.md. */
-    .game_rodata_133190 0x800A2420 (INFO) : SUBALIGN(4)
+    .game_rodata_133190 0x800A2418 (INFO) : SUBALIGN(4)
     {
         *game_133190.o(.rodata)
     }
@@ -514,6 +514,8 @@ SECTIONS
     {
         *game_1E2180.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1e26f0_float_constants.md. */
+    .game_rodata_1e26f0 0x800AA41C (INFO) : SUBALIGN(4) { *game_1E26F0.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_1e34c0_float_constants.md. */
     .game_rodata_1e34c0 0x800AA450 (INFO) : SUBALIGN(4) { *game_1E34C0.o(.rodata) }
     .game_rodata_75c90 0x80099000 (INFO) : SUBALIGN(4)
@@ -837,6 +839,8 @@ ASSERT(SIZEOF(.game_rodata_1e2490) == 0x10,
        "game_1E2490 external rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_1e2180) == 0x10,
        "game_1E2180 external rodata extent changed")
+ASSERT(SIZEOF(.game_rodata_1e26f0) == 0x10, "game_1E26F0 literal extent changed")
+__game_rodata_1e26f0_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_75c90) == 0x20,
        "game_75C90 external rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_70200) == 0xD0,
@@ -1258,7 +1262,7 @@ ASSERT(SIZEOF(.game_rodata_df2d0) == 0x20, "game_DF2D0 func_150B1F90 literal ext
 __game_rodata_df2d0_payload_size = 0x20;
 
 ASSERT(SIZEOF(.game_rodata_133190) == 0x10, "game_133190 constant pool extent changed")
-__game_rodata_133190_payload_size = 0x8;
+__game_rodata_133190_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_1355d0) == 0x10, "game_1355D0 constant pool extent changed")
 __game_rodata_1355d0_payload_size = 0x10;
 ASSERT(SIZEOF(.game_rodata_135780) == 0x10, "game_135780 constant pool extent changed")
