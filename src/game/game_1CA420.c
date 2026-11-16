@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -7,7 +11,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1519D454
- * - func_1519D9F4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -476,69 +479,53 @@ typedef struct Game1CA420Vertex {
     u8 r, g, b, a;
 } Game1CA420Vertex;
 
-typedef struct Game1CA420Command {
-    u32 first;
-    u32 second;
-} Game1CA420Command;
-
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
-s32 func_1513F4E4(s32, u8, u8 *);
-s32 *func_15142B7C(s32 *, s32, s32);
-void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
-void *func_15142FBC(void *, s32, s32, u8 *);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 extern u8 D_80090CD4[];
 extern s32 D_800D2C9C;
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519D9F4 CURRENT (13737) */
-void *func_1519D9F4(Game1CA420Trail *arg0, s32 arg1, s16 arg2) {
-    Game1CA420Vertex *vertex;
+Gfx *func_1519D9F4(Game1CA420Trail *arg0, Gfx *arg1, s16 arg2) {
+    Game1CA420Vertex *vtx;
     Game1CA420TrailData *data;
-    Vec3f nextPosition;
+    Game1CA420Particle *particles;
+    Vec3f next;
     Vec3f position;
     s32 index;
+    s32 previous;
     u8 shade;
     u8 previousShade;
     s16 alpha;
-    u8 state;
+    s16 previousAlpha;
+    u8 flag;
     f32 widthZ;
     f32 widthX;
     f32 previousWidthZ;
     f32 previousWidthX;
-    f32 *directionX;
-    f32 *directionZ;
-    f32 x;
-    f32 z;
-    f32 angle;
-    s16 previousAlpha;
-    s16 texture;
-    s16 remaining;
-    s32 fade;
-    s32 base;
     s32 cursor;
-    s32 last;
-    Game1CA420Particle *particle;
-    s32 commands;
-    u8 intensity;
 
-    commands = arg1;
     if (arg0->count >= 2) {
-        func_151D5D60((u8 *)arg0 + 0x84, arg2,
-                      (arg0->capacity << 5) + 0xA0, (void **)&vertex, 0);
-        if (vertex != 0) {
+        func_151D5D60((u8 *)arg0 + 0x84, arg2, (arg0->capacity * 2 + 10) * sizeof(Game1CA420Vertex), (void **)&vtx, NULL);
+        if (vtx != NULL) {
             data = arg0->data;
-            base = (s32)arg0->particles;
-            state = 1;
-            fade = 0;
+            particles = arg0->particles;
+            flag = 1;
             if (data->flags & 2) {
+                s16 remaining;
+                u8 fade;
+
+                fade = 0;
                 remaining = data->field5C;
                 cursor = arg0->head;
                 do {
-                    ((Game1CA420Particle *)(base + cursor * 0x24))->active = fade;
+                    particles[cursor].active = fade;
                     cursor++;
-                    fade = (fade + data->field5D) & 0xFF;
+                    fade += data->field5D;
                     if (cursor == arg0->capacity) {
                         cursor = 0;
                     }
@@ -546,6 +533,9 @@ void *func_1519D9F4(Game1CA420Trail *arg0, s32 arg1, s16 arg2) {
                 } while (remaining != 0 && cursor != arg0->tail);
             }
             if (data->flags & 4) {
+                s16 remaining;
+                u8 fade;
+
                 fade = 0;
                 remaining = data->field5E;
                 cursor = arg0->tail - 1;
@@ -553,162 +543,125 @@ void *func_1519D9F4(Game1CA420Trail *arg0, s32 arg1, s16 arg2) {
                     cursor = arg0->capacity - 1;
                 }
                 do {
-                    particle = (Game1CA420Particle *)(base + cursor * 0x24);
+                    particles[cursor].active = (particles[cursor].active * fade) >> 8;
                     cursor--;
-                    particle->active = (particle->active * fade) >> 8;
-                    remaining--;
-                    fade = (fade + data->field5F) & 0xFF;
+                    fade += data->field5F;
                     if (cursor < 0) {
                         cursor = arg0->capacity - 1;
                     }
+                    remaining--;
                 } while (remaining != 0 && cursor != arg0->tail);
             }
-            commands = func_15142E24(commands, (s32)D_80090CD4,
-                0, 0, 0, 0, 0x1F, 0, 0, &state, 3);
-            intensity = data->field40;
-            commands = (s32)func_15142FBC(func_15142B7C((s32 *)func_1513F4E4(
-                (s32)func_15142C10((void *)commands,
-                intensity, intensity, intensity, 0xFF, &state), 6, &state),
-                1, 0x160600), D_800D2C9C | 0x80000 | 0x2CA0, 0x5049D8, &state);
+            arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)D_80090CD4, 0, 0, 0, 0, 0x1F, 0, 0, &flag, 3);
+            arg1 = func_15142C10(arg1, data->field40, data->field40, data->field40, 0xFF, &flag);
+            arg1 = func_1513F4E4(arg1, 6, &flag);
+            arg1 = func_15142B7C(arg1, 1, 0x160600);
+            arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, 0x5049D8, &flag);
             if (arg0->flags & 2) {
                 index = arg0->tail - 1;
                 if (index < 0) {
                     index = arg0->capacity - 1;
                 }
                 position = arg0->current;
-                particle = (Game1CA420Particle *)(base + index * 0x24);
-                directionX = &D_800DD1E8[arg2];
-                x = *directionX;
-                angle = particle->angle;
-                directionZ = &D_800DD1D8[arg2];
-                z = *directionZ;
-                previousWidthX = x * angle;
-                previousShade = particle->shade;
-                previousWidthZ = z * angle;
-                previousAlpha = (particle->active * particle->fade) >> 8;
+                previousShade = particles[index].shade;
+                previousWidthX = particles[index].angle * D_800DD1E8[arg2];
+                previousWidthZ = particles[index].angle * D_800DD1D8[arg2];
+                previousAlpha = (particles[index].fade * particles[index].active) >> 8;
             } else {
-                cursor = arg0->tail - 1;
-                if (cursor < 0) {
-                    cursor = arg0->capacity - 1;
+                previous = arg0->tail - 1;
+                if (previous < 0) {
+                    previous = arg0->capacity - 1;
                 }
-                index = cursor - 1;
+                index = previous - 1;
                 if (index < 0) {
                     index = arg0->capacity - 1;
                 }
-                particle = (Game1CA420Particle *)(base + cursor * 0x24);
-                position = particle->position;
-                angle = particle->angle;
-                directionX = &D_800DD1E8[arg2];
-                x = *directionX;
-                directionZ = &D_800DD1D8[arg2];
-                z = *directionZ;
-                previousWidthX = x * angle;
-                previousShade = particle->shade;
-                previousWidthZ = z * angle;
-                previousAlpha = (particle->active * particle->fade) >> 8;
-                particle = (Game1CA420Particle *)(base + index * 0x24);
+                position = particles[previous].position;
+                previousWidthX = particles[previous].angle * D_800DD1E8[arg2];
+                previousShade = particles[previous].shade;
+                previousWidthZ = particles[previous].angle * D_800DD1D8[arg2];
+                previousAlpha = (particles[previous].fade * particles[previous].active) >> 8;
             }
-            nextPosition = particle->position;
-            angle = particle->angle;
-            shade = particle->shade;
-            texture = previousShade << 6;
-            widthX = x * angle;
-            widthZ = z * angle;
-            alpha = (particle->active * particle->fade) >> 8;
-            vertex->x = (s32)(position.x + previousWidthX);
-            vertex->y = (s32)position.y;
-            vertex->z = (s32)(position.z - previousWidthZ);
-            vertex->s = texture;
-            vertex->t = 0x7C0;
-            vertex->r = 0xFF;
-            vertex->g = 0xFF;
-            vertex->b = 0xFF;
-            vertex->a = previousAlpha;
-            vertex->flags = 0;
-            vertex++;
-            vertex->x = (s32)(position.x - previousWidthX);
-            vertex->y = (s32)position.y;
-            vertex->z = (s32)(position.z + previousWidthZ);
-            vertex->s = texture;
-            vertex->t = 0;
-            vertex->r = 0xFF;
-            vertex->g = 0xFF;
-            vertex->b = 0xFF;
-            vertex->a = previousAlpha;
-            vertex->flags = 0;
-            vertex++;
+            next = particles[index].position;
+            alpha = (particles[index].fade * particles[index].active) >> 8;
+            shade = particles[index].shade;
+            widthX = particles[index].angle * D_800DD1E8[arg2];
+            widthZ = particles[index].angle * D_800DD1D8[arg2];
+            vtx->x = position.x + previousWidthX;
+            vtx->y = position.y;
+            vtx->z = position.z - previousWidthZ;
+            vtx->s = previousShade << 6;
+            vtx->t = 0x7C0;
+            vtx->r = 0xFF;
+            vtx->g = 0xFF;
+            vtx->b = 0xFF;
+            vtx->a = previousAlpha;
+            vtx->flags = 0;
+            vtx++;
+            vtx->x = position.x - previousWidthX;
+            vtx->y = position.y;
+            vtx->z = position.z + previousWidthZ;
+            vtx->s = previousShade << 6;
+            vtx->t = 0;
+            vtx->r = 0xFF;
+            vtx->g = 0xFF;
+            vtx->b = 0xFF;
+            vtx->a = previousAlpha;
+            vtx->flags = 0;
+            vtx++;
             do {
-                texture = shade << 6;
-                vertex->x = (s32)(nextPosition.x + widthX);
-                vertex->y = (s32)nextPosition.y;
-                vertex->z = (s32)(nextPosition.z - widthZ);
-                vertex->s = texture;
-                vertex->t = 0x7C0;
-                vertex->r = 0xFF;
-                vertex->g = 0xFF;
-                vertex->b = 0xFF;
-                vertex->a = alpha;
-                vertex->flags = 0;
-                vertex++;
-                vertex->x = (s32)(nextPosition.x - widthX);
-                vertex->y = (s32)nextPosition.y;
-                vertex->z = (s32)(nextPosition.z + widthZ);
-                vertex->s = texture;
-                vertex->t = 0;
-                vertex->r = 0xFF;
-                vertex->g = 0xFF;
-                vertex->b = 0xFF;
-                vertex->a = alpha;
-                vertex->flags = 0;
-                vertex++;
-                {
-                    Game1CA420Command *command = (Game1CA420Command *)commands;
-                    commands += sizeof(Game1CA420Command);
-                    command->first = 0x01004008;
-                    command->second = (u32)(vertex - 4);
-                }
-                {
-                    Game1CA420Command *command = (Game1CA420Command *)commands;
-                    commands += sizeof(Game1CA420Command);
-                    command->first = 0x05000204;
-                    command->second = 0;
-                }
-                {
-                    Game1CA420Command *command = (Game1CA420Command *)commands;
-                    commands += sizeof(Game1CA420Command);
-                    command->first = 0x05020604;
-                    command->second = 0;
-                }
+                vtx->x = next.x + widthX;
+                vtx->y = next.y;
+                vtx->z = next.z - widthZ;
+                vtx->s = shade << 6;
+                vtx->t = 0x7C0;
+                vtx->r = 0xFF;
+                vtx->g = 0xFF;
+                vtx->b = 0xFF;
+                vtx->a = alpha;
+                vtx->flags = 0;
+                vtx++;
+                vtx->x = next.x - widthX;
+                vtx->y = next.y;
+                vtx->z = next.z + widthZ;
+                vtx->s = shade << 6;
+                vtx->t = 0;
+                vtx->r = 0xFF;
+                vtx->g = 0xFF;
+                vtx->b = 0xFF;
+                vtx->a = alpha;
+                vtx->flags = 0;
+                vtx++;
+                gSPVertex(arg1++, vtx - 4, 4, 0);
+                gSP1Triangle(arg1++, 0, 1, 2, 0);
+                gSP1Triangle(arg1++, 1, 3, 2, 0);
                 if (previousShade < shade) {
-                    func_10022EC0(vertex, vertex - 2, 0x20);
-                    vertex[-2].s -= 0x4000;
-                    vertex++;
-                    vertex[-2].s -= 0x4000;
-                    vertex++;
+                    func_10022EC0(vtx, vtx - 2, 0x20);
+                    vtx[-2].s -= 0x4000;
+                    vtx++;
+                    vtx[-2].s -= 0x4000;
+                    vtx++;
                 }
-                last = index;
+                previous = index;
                 index--;
                 if (index < 0) {
                     index = arg0->capacity - 1;
                 }
-                if (last != arg0->head) {
-                    previousShade = shade & 0xFF;
-                    position = ((Game1CA420Particle *)(base + last * 0x24))->position;
-                    particle = (Game1CA420Particle *)(base + index * 0x24);
-                    nextPosition = particle->position;
-                    angle = particle->angle;
-                    widthX = *directionX * angle;
-                    shade = particle->shade;
-                    widthZ = *directionZ * angle;
-                    alpha = (particle->active * particle->fade) >> 8;
+                if (previous != arg0->head) {
+                    previousShade = shade;
+                    position = particles[previous].position;
+                    next = particles[index].position;
+                    alpha = (particles[index].fade * particles[index].active) >> 8;
+                    widthX = particles[index].angle * D_800DD1E8[arg2];
+                    shade = particles[index].shade;
+                    widthZ = particles[index].angle * D_800DD1D8[arg2];
                 }
-            } while (last != arg0->head);
+            } while (previous != arg0->head);
         }
     }
-    return (void *)commands;
+    return arg1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519D9F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519D9F4.s")
+
 void func_1519E1F4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_v1;
     void *temp_v0;

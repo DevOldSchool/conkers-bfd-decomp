@@ -38805,17 +38805,16 @@
       "symbol": "func_1519D454"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 13737,
-        "reason": "Preserved typed manual renderer at 13737 after fixing color-call ABI and m2c vertex-offset errors; layout and register allocation remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 2048,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519D9F4",
           "vram": "0x1519D9F4"
         }
@@ -52259,8 +52258,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 2056,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D9C7C",
           "vram": "0x150D9C7C"
         }
@@ -55592,8 +55596,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 2476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A3BE4",
           "vram": "0x151A3BE4"
         }
@@ -66489,20 +66498,25 @@
           "vram": "0x1511A7C0"
         }
       },
-      "source": "src/game/game_147C70.c",
+      "source": "src/done/game/game_147C70.c",
       "symbol": "func_1511A7C0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1784,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511A838",
           "vram": "0x1511A838"
         }
       },
-      "source": "src/game/game_147C70.c",
+      "source": "src/done/game/game_147C70.c",
       "symbol": "func_1511A838"
     },
     {

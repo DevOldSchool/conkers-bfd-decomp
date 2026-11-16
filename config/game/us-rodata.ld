@@ -625,6 +625,8 @@ SECTIONS
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_147470_float_constants.md. */
     .game_rodata_147470 0x800A3170 (INFO) : SUBALIGN(4) { *game_147470.o(.rodata) }
+    /* ROM-verified constants: docs/evidence/data-layout/game_147c70_float_constants.md. */
+    .game_rodata_147c70 0x800A3180 (INFO) : SUBALIGN(4) { *game_147C70.o(.rodata) }
     /* Actor callback dispatcher: docs/evidence/data-layout/game_169510_jump_table.md. */
     .game_rodata_169510 0x800A5188 (INFO) : SUBALIGN(4) { *game_169510.o(.rodata) }
     /* Slot-type switch and scale constants: docs/evidence/data-layout/game_1b0740_jump_table_constants.md. */
@@ -892,6 +894,8 @@ ASSERT(SIZEOF(.game_rodata_1483e0) == 0xE0, "game_1483E0 table extent changed")
 __game_rodata_1483e0_payload_size = 0xD8;
 ASSERT(SIZEOF(.game_rodata_147470) == 0x10, "game_147470 constant pool extent changed")
 __game_rodata_147470_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_147c70) == 0x10, "game_147C70 literal extent changed")
+__game_rodata_147c70_payload_size = 0x8;
 
 ASSERT(SIZEOF(.game_rodata_61490) == 0xA0, "game_61490 table extent changed")
 __game_rodata_61490_payload_size = 0x94;

@@ -34,6 +34,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_3F820 impact scale constant](game_3f820_float_constant.md)
 - [US game_100810 spawn effect constants](game_100810_float_constants.md)
 - [US game_10A350 emission threshold constant](game_10a350_float_constant.md)
+- [US game_147C70 ripple constants](game_147c70_float_constants.md)
 - [US game_360A0 descriptor constants](game_360a0_float_constants.md)
 - [US game_113D60 emitter constants](game_113d60_float_constants.md)
 - [US game_FD1D0 prompt string and constant](game_fd1d0_prompt_constants.md)

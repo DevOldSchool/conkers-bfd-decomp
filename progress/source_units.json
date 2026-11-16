@@ -11185,15 +11185,15 @@
         "func_1511A7C0",
         "func_1511A838"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x11AF30",
           "start": "0x11A7C0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_147C70.c"
+      "source": "src/done/game/game_147C70.c"
     },
     {
       "boundary_evidence": {
