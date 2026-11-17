@@ -390,10 +390,8 @@ SECTIONS
         *game_124920.o(.rodata)
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_1ef500_float_constants.md. */
-    .game_rodata_1ef500 0x800AAA7C (INFO) : SUBALIGN(4)
-    {
-        *game_1EF500.o(.rodata)
-    }
+    .game_rodata_1ef500_0 0x800AAA38 (INFO) : SUBALIGN(4) { *game_1EF500.o(.rodata.1ef500_0) }
+    .game_rodata_1ef500_4 0x800AAA7C (INFO) : SUBALIGN(4) { *game_1EF500.o(.rodata.1ef500_4) }
     /* ROM-verified constants: docs/evidence/data-layout/game_e8c10_float_constants.md. */
     .game_rodata_e8c10 0x8009FEBC (INFO) : SUBALIGN(4)
     {
@@ -753,6 +751,8 @@ __game_rodata_100810_0_base = ADDR(.game_rodata_100810_0);
 __game_rodata_100810_1c_base = ADDR(.game_rodata_100810_1c) - 0x1C;
 __game_rodata_127060_0_base = ADDR(.game_rodata_127060_0);
 __game_rodata_127060_34_base = ADDR(.game_rodata_127060_34) - 0x34;
+__game_rodata_1ef500_0_base = ADDR(.game_rodata_1ef500_0);
+__game_rodata_1ef500_4_base = ADDR(.game_rodata_1ef500_4) - 0x4;
 __game_rodata_6b320_8_base = ADDR(.game_rodata_6b320_8) - 0x8;
 __game_rodata_179f30_0_base = ADDR(.game_rodata_179f30_0);
 __game_rodata_179f30_2ec_base = ADDR(.game_rodata_179f30_2ec) - 0x2EC;
@@ -1082,9 +1082,8 @@ ASSERT(SIZEOF(.game_rodata_183640) == 0x20, "game_183640 constant pool extent ch
 __game_rodata_183640_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_1865d0_0) == 0x20, "game_1865D0 func_15159C08 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_1865d0_20) == 0xC, "game_1865D0 literal extent changed")
-ASSERT(SIZEOF(.game_rodata_1ef500) == 0x10,
-       "game_1EF500 literal extent changed")
-__game_rodata_1ef500_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1ef500_0) == 0x4, "game_1EF500 func_151C2734 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_1ef500_4) == 0x4, "game_1EF500 func_151C436C literal extent changed")
 ASSERT(SIZEOF(.game_rodata_e8c10) == 0x40,
        "game_E8C10 particle literal extent changed")
 __game_rodata_e8c10_payload_size = 0x3C;
@@ -1118,7 +1117,7 @@ ASSERT(SIZEOF(.game_rodata_1dbd40) == 0x10,
 __game_rodata_1dbd40_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_200930_0) == 0x28,
        "game_200930 func_151D4408 literal extent changed")
-ASSERT(SIZEOF(.game_rodata_200930_28) == 0x24,
+ASSERT(SIZEOF(.game_rodata_200930_28) == 0x2C,
        "game_200930 effect literal extent changed")
 ASSERT(SIZEOF(.game_rodata_12ccf0) == 0x30,
        "game_12CCF0 sparkle literal extent changed")

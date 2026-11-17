@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150031EC
- * - func_150034B4
  * - func_15003570
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -165,44 +164,19 @@ void func_150031EC(s32 level) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150031EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150031EC.s")
-extern s32 D_800B0E58;
-extern s8 D_800BC448;
-extern s32 D_800B0E5C;
-extern s8 D_800BC449;
-extern s32 D_800B0E60[];
-extern s8 D_800BC44A[];
-extern s8 D_800BE29A[];
+extern s32 D_800B0E58[];
+extern s8 D_800BC448[];
 extern s32 D_800BE9F0;
 extern s32 D_800D9F58;
 extern s32 D_800D9F5C;
-extern s8 D_800D9F60;
+extern u8 D_800D9F60;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150034B4 CURRENT (1680) */
 void func_150034B4(void) {
-    s8 *flags;
-    s32 *records;
-    s8 *end;
+    s32 i;
 
-    D_800B0E58 = -1;
-    D_800BC448 = 0;
-    D_800B0E5C = -1;
-    end = D_800BE29A;
-    records = D_800B0E60;
-    flags = D_800BC44A;
-    D_800BC449 = 0;
-loop:
-    flags += 4;
-    records[1] = -1;
-    flags[-3] = 0;
-    records[2] = -1;
-    flags[-2] = 0;
-    records[3] = -1;
-    flags[-1] = 0;
-    records += 4;
-    records[-4] = -1;
-    flags[-4] = 0;
-    if ((s32)flags != (s32)end) {
-        goto loop;
+    for (i = 0; i < 0x1E52; i++) {
+        D_800B0E58[i] = -1;
+        D_800BC448[i] = 0;
     }
     D_800D9F58 = 0xFFFF;
     D_800D9F5C = -1;
@@ -212,8 +186,6 @@ loop:
     }
     D_800D9F60 = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150034B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150034B4.s")
 void func_10004074(s32);
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
@@ -358,7 +330,7 @@ s32 func_1500390C(s32 cachedAddress) {
     s32 resourceIndex;
 
     for (resourceIndex = 0; resourceIndex < 0x1E52; resourceIndex++) {
-        if (cachedAddress == (&D_800B0E58)[resourceIndex]) {
+        if (cachedAddress == D_800B0E58[resourceIndex]) {
             return resourceIndex;
         }
     }

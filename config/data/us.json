@@ -2796,8 +2796,18 @@
         }
       },
       {
+        "address": "0x800AAA38",
+        "section": ".rodata.1ef500_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1EF500.c",
+            "src/done/game/game_1EF500.c"
+          ]
+        }
+      },
+      {
         "address": "0x800AAA7C",
-        "section": ".rodata",
+        "section": ".rodata.1ef500_4",
         "owner": {
           "sources": [
             "src/game/game_1EF500.c",

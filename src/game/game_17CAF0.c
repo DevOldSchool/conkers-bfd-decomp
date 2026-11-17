@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15150400
  * - func_1515080C
- * - func_15150D1C
  * - func_15152520
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -329,53 +328,36 @@ typedef struct Game150D1CConfig {
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 void func_15143794(s16, s16, f32, void *);
 s32 func_15145C90(s32);
-void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+void func_151D9B8C(u8, f32, u8, void *, f32 *, s16, u8, u8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15150D1C CURRENT (979) */
-void func_15150D1C(Game150D1CConfig *arg0, s32 arg1, s32 arg2) {
+void func_15150D1C(Game150D1CConfig *arg0, u8 arg1, s32 arg2) {
+    s32 count;
     Vec3f direction;
-    s16 triangle[3];
-    f32 point[3];
+    s16 triangle[9];
+    Vec3f point;
     f32 distance;
     s32 surface;
-    f32 randomSize;
-    s32 count;
-    u32 randomAngle;
-    u32 randomPitch;
-    f32 *point_x;
-    f32 *point_y;
-    s16 *hit;
 
-    arg1 &= 0xFF;
-    point_x = point;
-    point_y = &point[1];
-    hit = triangle;
     count = (func_150ADA20() % (u32)(arg0->countRange + 1)) + arg0->countBase;
     if (count != 0) {
         do {
-            randomAngle = func_150ADA20();
-            randomPitch = func_150ADA20();
-            func_15143794((s16)((randomAngle % (u32)(arg0->angleRange + 1)) + arg0->angleBase),
-                (s16)((randomPitch % (u32)(arg0->pitchRange + 1)) + arg0->pitchBase),
+            func_15143794((s16)((func_150ADA20() % (u32)(arg0->angleRange + 1)) + arg0->angleBase),
+                (s16)((func_150ADA20() % (u32)(arg0->pitchRange + 1)) + arg0->pitchBase),
                 100.0f, &direction);
             if (func_150AC9C0(arg0->origin.x, arg0->origin.y, arg0->origin.z,
-                direction.x, direction.y, direction.z, 0, hit,
-                point_x, point_y, &point[2], &distance, &surface, 0, 0.0f) != 0 &&
+                    direction.x, direction.y, direction.z, 0, triangle,
+                    &point.x, &point.y, &point.z, &distance, &surface, 0, 0.0f) != 0 &&
                 func_15145C90(surface) != 0 && distance < arg0->maxDistance) {
-                randomSize = func_150ADA68();
-                randomAngle = func_150ADA20();
-                randomPitch = func_150ADA20();
-                func_151D9B8C(arg0->kind, randomSize * arg0->sizeRange + arg0->sizeBase,
-                    ((randomAngle % 156U) + 0x64) & 0xFF, (s32)hit, point_x,
-                    (randomPitch % (u32)(arg0->lifeRange + 1)) + arg0->lifeBase,
+                func_151D9B8C(arg0->kind, func_150ADA68() * arg0->sizeRange + arg0->sizeBase,
+                    (func_150ADA20() % 156U) + 100, triangle, &point.x,
+                    (func_150ADA20() % (u32)(arg0->lifeRange + 1)) + arg0->lifeBase,
                     1, 1, 1, arg1, arg2);
             }
             count--;
         } while (count != 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15150D1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150D1C.s")
+
 typedef struct {
     s32 countBase, countRange;
     f32 position[3];

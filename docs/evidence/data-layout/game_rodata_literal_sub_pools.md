@@ -69,7 +69,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_114B80 | 0x0 | 0x4 | 0x800A1350 | pool (func_150E7C9C) | `3EDCEE77` (0.43150684) |
 | game_114B80 | 0x4 | 0x4 | 0x800A1374 | pool (func_150E8470) | `3A83126F` (0.001, [record](game_114b80_float_constant.md)) |
 | game_200930 | 0x0 | 0x28 | 0x800AB1D4 | pool (func_151D4408) | 10 words ([record](game_200930_float_constants.md)) |
-| game_200930 | 0x28 | 0x24 | 0x800AB21C | pool (func_151D5514, func_151D57F8) | unchanged, 9 words ([record](game_200930_float_constants.md)) |
+| game_200930 | 0x28 | 0x2C | 0x800AB21C | pool (func_151D5514, func_151D57F8, func_151D5A18) | 9 words, then `3F4F9DB3 38D1B717` (0.81100005, 0.0001; round-28, [record](game_200930_float_constants.md)) |
 | game_DC6B0 | 0x0 | 0x18 | 0x8009F7B8 | pool (func_150AF328) | `44D44000 38D1B717 3F7870B9 3F82B114 3DC8B43A 3E3020C5` |
 | game_DC6B0 | 0x18 | 0x4 | 0x8009F7D8 | pool (func_150B0094) | `3F333333` (0.7) |
 | game_EC420 | 0x0 | 0x14 | 0x800A0110 | pool (func_150BF21C) | `3D4CCCCD 44BB8000 3E4CCCCD 3ECCCCCD 3F8CCCCD` ([record](game_ec420_float_constants.md)) |
@@ -84,6 +84,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_100810 | 0x1C | 0x14 | 0x800A0A18 | pool (func_150D4D58) | `43360B61 3F4E147C 3E645A1D 3F256042 BF4B4396` (round-28) |
 | game_127060 | 0x0 | 0x34 | 0x800A1D60 | pool (func_150F9BB0) | 13 words ([record](game_127060_float_constants.md); round-28) |
 | game_127060 | 0x34 | 0x4 | 0x800A1DC0 | pool (func_150FB188) | `3E99999A` (0.3, unchanged) |
+| game_1EF500 | 0x0 | 0x4 | 0x800AAA38 | pool (func_151C2734) | `3F666666` (0.9, [record](game_1ef500_float_constants.md); round-28) |
+| game_1EF500 | 0x4 | 0x4 | 0x800AAA7C | pool (func_151C436C) | `3E6A2596` (0.228659, unchanged) |
 | game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |

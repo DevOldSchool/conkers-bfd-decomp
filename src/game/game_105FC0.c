@@ -10,7 +10,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_particle_emitter_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D8E4C
  * - func_150D8FAC
  * - func_150D942C
  * - func_150DA67C
@@ -169,57 +168,47 @@ typedef struct Game105FC0State {
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8E4C CURRENT (565) */
-s32 func_150D8E4C(Game105FC0State *arg0) {
-    s32 temp_s4;
-    s32 var_s0;
-    Game105FC0Timer *temp_s5;
-    Vec3f *temp_a0;
-    Vec3f *temp_t0;
-    Game105FC0Owner *temp_v1;
-    Game105FC0Sub *temp_v0;
-    s32 stride;
+typedef struct Game105FC0Sample {
+    Vec3f position;
+    Vec3f velocity;
+    u8 pad18[0xC];
+} Game105FC0Sample;
 
-    temp_s5 = arg0->timer;
-    temp_s4 = (s32)arg0->samples;
-    if (arg0->mode < 2 && (arg0->flags & 8)) {
+s32 func_150D8E4C(Game105FC0State *arg0) {
+    Game105FC0Timer *timer;
+    Game105FC0Sample *samples;
+
+    timer = arg0->timer;
+    samples = (Game105FC0Sample *)arg0->samples;
+    if ((arg0->mode < 2) && (arg0->flags & 8)) {
         return 0;
-    }
-    var_s0 = arg0->current;
-    if (var_s0 != arg0->stop) {
-        do {
-            var_s0 -= 1;
-            if (var_s0 < 0) {
-                var_s0 = arg0->capacity - 1;
+    } else {
+        s32 index = arg0->current;
+
+        while (index != arg0->stop) {
+            index--;
+            if (index < 0) {
+                index = arg0->capacity - 1;
             }
-            temp_a0 = (Vec3f *)(temp_s4 + var_s0 * 0x24);
-            func_150D8D84(temp_a0, temp_a0 + 1, D_800BE9A4);
-        } while (var_s0 != arg0->stop);
+            func_150D8D84(&samples[index].position, &samples[index].velocity, D_800BE9A4);
+        }
     }
-    stride = 0x24;
     if (arg0->mode > 0) {
-        temp_t0 = (Vec3f *)(temp_s4 + arg0->stop * stride);
-        arg0->position = *temp_t0;
+        arg0->position = samples[arg0->stop].position;
     } else {
         arg0->position.x = 0.0f;
         arg0->position.y = 0.0f;
         arg0->position.z = 0.0f;
     }
-    temp_s5->count += D_800BE9E4;
-    if (temp_s5->count >= 0x3D) {
-        temp_v1 = temp_s5->owner;
-        if (temp_v1 != 0) {
-            temp_v0 = temp_v1->sub;
-            if (temp_v0 != 0) {
-                temp_v0->count += 1;
-            }
+    timer->count += D_800BE9E4;
+    if (timer->count >= 0x3D) {
+        if (timer->owner != NULL && timer->owner->sub != NULL) {
+            timer->owner->sub->count += 1;
         }
-        temp_s5->count = 0;
+        timer->count = 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D8E4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8E4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8FAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D942C.s")
 f32 sqrtf(f32);
