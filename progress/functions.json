@@ -40849,17 +40849,16 @@
       "symbol": "func_1502F264"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 969,
-        "reason": "CURRENT (969), fresh baseline 984 (saved 979): two manual hypotheses; unsigned address form neutral, actual limit-before-current fixes six FPR rows. Remaining preheader base CSE creates S1 base/S3 endpoint/S2 stride instead raw S2/S1/S3, one early float store and reversed clamp load order. Prior two structural/register revisions carried forward, detailed history unavailable. No supported new lifetime hypothesis; investigate exact symbolic-address CSE and clamp load scheduling before further revision.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502F3C8",
           "vram": "0x1502F3C8"
         }
