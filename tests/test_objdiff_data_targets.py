@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 from pathlib import Path
 import os
 import struct
@@ -616,6 +617,20 @@ class DataTargetTests(unittest.TestCase):
                 (root / name).write_text('')
             with patch.object(targets, 'ROOT', root), self.assertRaisesRegex(ValueError, 'one active'):
                 targets.candidate_source({'kind': 'private_section', 'key': 'test', 'sources': ['a.c', 'b.c']})
+
+
+class RunLoggedTests(unittest.TestCase):
+    def test_failed_build_step_prints_its_log_tail(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            log = Path(temporary) / 'build.log'
+            command = [sys.executable, '-c', 'import sys; sys.exit("\\n".join(map(chr, range(65, 70))))']
+            with patch.object(targets.sys, 'stderr', new_callable=io.StringIO) as err, \
+                    self.assertRaises(subprocess.CalledProcessError):
+                targets.run_logged(command, log, tail=2)
+            shown = err.getvalue().splitlines()
+            self.assertIn('failed; last lines of', shown[0])
+            self.assertEqual(shown[1:], ['D', 'E'])
+            self.assertEqual(log.read_text().split(), ['A', 'B', 'C', 'D', 'E'])
 
 
 class GameDataCompletionTests(unittest.TestCase):
