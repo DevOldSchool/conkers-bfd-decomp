@@ -283,11 +283,13 @@ def debugger_runtime_from_data(units: list[dict]) -> dict[str, str]:
     return {path: proofs.pop()}
 
 
-def ensure_debugger_reference() -> None:
-    """Original-assembly proofs materialize snippets from the raw reference split.
+def ensure_reference() -> None:
+    """Prepare the raw reference split a fresh or cleaned checkout lacks.
 
-    A fresh or cleaned checkout has none; the report's own targets live elsewhere.
-    Prepare it once, before worker threads read it, as the registration commands do.
+    Original-assembly proofs materialize snippets from it, and the integrated
+    GAME build behind linked data completion stages retained nonmatching
+    assembly from it. Prepare it once, before the data step and before worker
+    threads read it, as the registration commands do.
     """
     if (ROOT / 'reference/us/asm/debugger/debugger.s').is_file():
         return
@@ -387,13 +389,13 @@ def prepare(*, fresh: bool = False) -> None:
         (OUTPUT / name).unlink(missing_ok=True)
     specs = plan()
     targets, target_verification = objdiff_targets.prepare(specs, OUTPUT)
+    ensure_reference()
     # Data preparation refreshes the full runtime build. Do it before copying
     # code objects: main's phony alias-preparation rules rebuild those objects.
     data_built, data_config, data_coverage = prepare_data()
     original_runtime = {}
     if any(s['kind'] == 'original_asm' for s in specs):
         original_runtime = debugger_runtime_from_data(data_built)
-        ensure_debugger_reference()
     linked = {overlay: (OUTPUT / 'targets' / overlay / 'targets.bin').read_bytes()
               for overlay in state.OVERLAYS}
     origins = {overlay: min(s['start'] for s in specs if s['overlay'] == overlay)

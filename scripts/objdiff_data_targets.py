@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 
 import binary_object
 from build_jobs import job_count
@@ -372,6 +373,18 @@ def candidate_section(unit: dict, base: Path) -> tuple[bytes, int]:
     return payload[:size], sum(section == index for section, _ in obj.relocations)
 
 
+def run_logged(command: list[str], log_path: Path, tail: int = 40) -> None:
+    """Run a build step into its log; on failure show the log tail, not just the exit status."""
+    try:
+        with log_path.open('w') as log:
+            subprocess.run(command, cwd=ROOT, stdout=log, stderr=log, check=True)
+    except subprocess.CalledProcessError:
+        lines = log_path.read_text(errors='replace').splitlines()[-tail:]
+        print(f'{" ".join(command)} failed; last lines of {log_path}:',
+              *lines, sep='\n', file=sys.stderr)
+        raise
+
+
 def allocated_debugger_inputs(units: list[dict], output: Path) -> dict[str, str]:
     """Refresh the actual runtime link before considering source-data completion."""
     mapped = [u for u in units if u['kind'] == 'source_placement']
@@ -379,9 +392,8 @@ def allocated_debugger_inputs(units: list[dict], output: Path) -> dict[str, str]
         return {}
     if any(u.get('overlay') != 'debugger' for u in mapped):
         raise ValueError('unsupported allocated source-data overlay')
-    with (output / 'debugger-runtime-build.log').open('w') as log:
-        subprocess.run(['make', '--silent', '--jobs', str(job_count()), 'build',
-                        'PROFILE=us', 'ASSETS=0'], cwd=ROOT, stdout=log, stderr=log, check=True)
+    run_logged(['make', '--silent', '--jobs', str(job_count()), 'build', 'PROFILE=us', 'ASSETS=0'],
+               output / 'debugger-runtime-build.log')
     import verify_debugger_rodata
     elf = ROOT / 'build/us/original-assets/conker.us.elf'
     verify_debugger_rodata.verify(elf)
@@ -413,9 +425,8 @@ def integrated_game_data(units: list[dict], output: Path) -> dict | None:
             u.get('overlay') == 'game' and u['kind'] == 'external_payload'
             and 'archive' in (u.get('owner') or {})) for u in units):
         return None
-    with (output / 'game-integrated-build.log').open('w') as log:
-        subprocess.run(['make', '--silent', '--jobs', str(job_count()), 'game-integrated',
-                        'PROFILE=us'], cwd=ROOT, stdout=log, stderr=log, check=True)
+    run_logged(['make', '--silent', '--jobs', str(job_count()), 'game-integrated', 'PROFILE=us'],
+               output / 'game-integrated-build.log')
     import link_game_data
     manifest = link_game_data.load_manifest(ROOT)
     manifest['by_placement'] = {(r['start'], r['output']): r for r in manifest['ranges']
