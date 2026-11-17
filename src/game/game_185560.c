@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_185560.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_descriptor_attachment_cores.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15158684
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15158A20(u8 *arg0);
@@ -240,38 +235,39 @@ typedef struct Game185560MovingActor {
 extern f32 D_800BE9A4;
 extern f32 D_800BE9A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15158684 CURRENT (2965) */
-s32 func_15158684(void *actor) {
-    f32 acceleration;
-    Vec3f previous;
-    s32 remaining;
+s32 func_15158684(Game185560MovingActor *arg0) {
     Game185560Motion *motion;
-    f32 deltaX;
-    f32 deltaZ;
+    Vec3f initialVelocity;
+    u32 remaining;
 
-    previous = ((Game185560MovingActor *)actor)->motion.velocity;
-    remaining = D_800BE9E4;
-    while (remaining != 0) {
-        motion = (Game185560Motion *)((u32)actor + 0xF8U);
-        motion->velocity.x *= motion->damping;
-        remaining--;
-        motion->velocity.z *= motion->damping;
+    motion = &arg0->motion;
+    initialVelocity = motion->velocity;
+    remaining = (u32)D_800BE9E4;
+    if (remaining != 0U) {
+        do {
+            motion->velocity.x = motion->velocity.x * motion->damping;
+            motion->velocity.z = motion->velocity.z * motion->damping;
+            remaining -= 1U;
+        } while (remaining != 0U);
     }
-    motion = (Game185560Motion *)((u32)actor + 0xF8U);
-    acceleration = motion->acceleration;
-    motion->velocity.y += acceleration * D_800BE9A4;
-    deltaX = (motion->velocity.x - previous.x) * D_800BE9A8;
-    deltaZ = (motion->velocity.z - previous.z) * D_800BE9A8;
-    ((Game185560MovingActor *)actor)->position.x += (previous.x + (0.5f * deltaX * D_800BE9A4)) * D_800BE9A4;
-    ((Game185560MovingActor *)actor)->position.y += (previous.y + (0.5f * acceleration * D_800BE9A4)) * D_800BE9A4;
-    ((Game185560MovingActor *)actor)->position.z += (previous.z + (0.5f * deltaZ * D_800BE9A4)) * D_800BE9A4;
-    ((Game185560MovingActor *)actor)->motion.angle.x += motion->angularVelocity.x * D_800BE9A4;
-    motion->angle.y += motion->angularVelocity.y * D_800BE9A4;
-    motion->angle.z += motion->angularVelocity.z * D_800BE9A4;
+    {
+        f32 accelerationX;
+        f32 accelerationY;
+        f32 accelerationZ;
+
+        motion->velocity.y = motion->velocity.y + motion->acceleration * D_800BE9A4;
+        accelerationX = (motion->velocity.x - initialVelocity.x) * D_800BE9A8;
+        accelerationY = motion->acceleration;
+        accelerationZ = (motion->velocity.z - initialVelocity.z) * D_800BE9A8;
+        arg0->position.x = arg0->position.x + (initialVelocity.x + (0.5f * accelerationX) * D_800BE9A4) * D_800BE9A4;
+        arg0->position.y = arg0->position.y + (initialVelocity.y + (0.5f * accelerationY) * D_800BE9A4) * D_800BE9A4;
+        arg0->position.z = arg0->position.z + (initialVelocity.z + (0.5f * accelerationZ) * D_800BE9A4) * D_800BE9A4;
+    }
+    motion->angle.x = motion->angle.x + motion->angularVelocity.x * D_800BE9A4;
+    motion->angle.y = motion->angle.y + motion->angularVelocity.y * D_800BE9A4;
+    motion->angle.z = motion->angle.z + motion->angularVelocity.z * D_800BE9A4;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15158684 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158684.s")
 typedef struct {
     f32 values[16];
 } Game185560Matrix;

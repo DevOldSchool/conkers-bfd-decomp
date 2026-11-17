@@ -307,7 +307,8 @@ SECTIONS
         *game_FFBA0.o(.rodata)
     }
     /* ROM-verified constants: docs/evidence/data-layout/game_100810_float_constants.md. */
-    .game_rodata_100810 0x800A09E8 (INFO) : SUBALIGN(4) { *game_100810.o(.rodata) }
+    .game_rodata_100810_0 0x800A09E8 (INFO) : SUBALIGN(4) { *game_100810.o(.rodata.100810_0) }
+    .game_rodata_100810_1c 0x800A0A18 (INFO) : SUBALIGN(4) { *game_100810.o(.rodata.100810_1c) }
     /* ROM-verified constant: docs/evidence/data-layout/game_1cc440_float_constant.md. */
     .game_rodata_1cc440 0x800A8CF0 (INFO) : SUBALIGN(4)
     {
@@ -750,6 +751,8 @@ __game_rodata_17caf0_0_base = ADDR(.game_rodata_17caf0_0);
 __game_rodata_17caf0_8_base = ADDR(.game_rodata_17caf0_8) - 0x8;
 __game_rodata_121a20_0_base = ADDR(.game_rodata_121a20_0);
 __game_rodata_121a20_20_base = ADDR(.game_rodata_121a20_20) - 0x20;
+__game_rodata_100810_0_base = ADDR(.game_rodata_100810_0);
+__game_rodata_100810_1c_base = ADDR(.game_rodata_100810_1c) - 0x1C;
 __game_rodata_6b320_8_base = ADDR(.game_rodata_6b320_8) - 0x8;
 __game_rodata_179f30_0_base = ADDR(.game_rodata_179f30_0);
 __game_rodata_179f30_2ec_base = ADDR(.game_rodata_179f30_2ec) - 0x2EC;
@@ -1050,8 +1053,8 @@ ASSERT(SIZEOF(.game_rodata_1a7260) == 0x10, "game_1A7260 index table extent chan
 __game_rodata_1a7260_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_ffba0) == 0x20, "game_FFBA0 colour table and literal extent changed")
 __game_rodata_ffba0_payload_size = 0x20;
-ASSERT(SIZEOF(.game_rodata_100810) == 0x20, "game_100810 literal extent changed")
-__game_rodata_100810_payload_size = 0x1C;
+ASSERT(SIZEOF(.game_rodata_100810_0) == 0x1C, "game_100810 func_150D3360 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_100810_1c) == 0x14, "game_100810 func_150D4D58 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_0) == 0xC, "holtenrope func_151B3A7C literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_c) == 0xC, "holtenrope func_151B3CF0 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_18) == 0xC, "holtenrope func_151B42A4 literal extent changed")

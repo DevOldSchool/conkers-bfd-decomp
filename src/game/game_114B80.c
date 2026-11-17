@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_114B80.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150E7FEC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game114B80Choices {
@@ -250,47 +245,41 @@ typedef struct GameE7FECLocals {
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32,
                      f32, u8, u8, s32, s32, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E7FEC CURRENT (1631) */
-void func_150E7FEC(f32 arg0, s32 arg1, s32 arg2, f32 *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11) {
+void *func_150E7FEC(f32 arg0, u8 arg1, s32 arg2, f32 *arg3, s16 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8,
+                    u8 arg9, u8 arg10, s32 arg11) {
+    void *result;
     GameE7FECLocals local;
-    s32 var_v1;
-    s32 var_v0;
+    s32 alphaMode;
+    s32 alpha;
 
     local.size = 0x14;
     local.count = 0xC;
     local.type = 0x4F;
     local.zero = 0;
-    var_v1 = (((s16 *)&arg4)[1] == -1) ? 0 : 1;
-    var_v0 = (((u8 *)&arg5)[3] != 0) ? 0x400 : 0;
-    local.command = var_v0 | var_v1 | 0x9300 | 0x40000;
-    if (((s16 *)&arg4)[1] == -1) {
-        local.lifetime = 0x12C;
-    } else {
-        local.lifetime = ((s16 *)&arg4)[1] + 0x14;
-    }
+    local.command = (arg4 == -1 ? 0 : 1) | 0x100 | 0x200 | (arg5 ? 0x400 : 0) | 0x1000 | 0x8000 | 0x40000;
+    local.lifetime = (arg4 == -1) ? 0x12C : arg4 + 0x14;
     local.clear0 = 0;
     local.clear1 = 0;
+    local.color[0] = arg1;
     local.color[1] = 0xFF;
+    local.color[2] = arg7;
+    local.color[3] = arg8;
+    local.color[4] = arg9;
     local.color[5] = 0xFF;
-    local.color[0] = ((u8 *)&arg1)[3];
-    local.color[2] = ((u8 *)&arg7)[3];
-    local.color[3] = ((u8 *)&arg8)[3];
-    local.color[4] = ((u8 *)&arg9)[3];
-    var_v0 = (((u8 *)&arg6)[3] != 0) ? 2 : 1;
-    local.style = var_v0 + 0x480000;
+    local.style = (arg6 ? 2 : 1) + 0x480000;
     local.zero2 = 0;
     local.six = 6;
-    if (((u8 *)&arg5)[3] != 0) {
-        var_v1 = 3;
-        var_v0 = 0xFF;
+    if (arg5) {
+        alphaMode = 3;
+        alpha = 0xFF;
     } else {
-        var_v1 = 0;
-        var_v0 = 0;
+        alphaMode = 0;
+        alpha = 0;
     }
-    func_1513C650((s32)&local, 0, 0, arg2, arg3[0], arg3[1], arg3[2], arg0, arg0, func_150ADA20() & 0xFF, ((func_150ADA20() & 1) * 2) + (func_150ADA20() & 1), var_v1, var_v0, 0, ((u8 *)&arg10)[3], arg11);
+    result = func_1513C650((s32)&local, 0, 0, arg2, arg3[0], arg3[1], arg3[2], arg0, arg0, func_150ADA20() & 0xFF,
+                           (func_150ADA20() & 1) + ((func_150ADA20() & 1) * 2), alphaMode, alpha, 0, arg10, arg11);
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E7FEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7FEC.s")
 
 typedef struct GameE81A8Effect {
     s16 field00, field02, field04, field06;

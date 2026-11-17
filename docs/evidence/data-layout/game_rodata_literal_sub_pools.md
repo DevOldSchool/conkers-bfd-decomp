@@ -80,6 +80,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_17CAF0 | 0x8 | 0x8 | 0x800A5FFC | pool (func_15153CCC, func_15153F18) | `3FD9999A` ×2 (1.7) |
 | game_121A20 | 0x0 | 0x20 | 0x800A1A64 | pool (func_150F4570) | eight words, 6.2831855 twice ([record](game_121a20_float_constants.md); round-25) |
 | game_121A20 | 0x20 | 0x14 | 0x800A1A98 | pool (func_150F4DEC) | `3D50E561 3E1CAC09 3F360B61 43BE8000 3D99999A` |
+| game_100810 | 0x0 | 0x1C | 0x800A09E8 | pool (func_150D3360) | seven words ([record](game_100810_float_constants.md); round-27) |
+| game_100810 | 0x1C | 0x14 | 0x800A0A18 | pool (func_150D4D58) | `43360B61 3F4E147C 3E645A1D 3F256042 BF4B4396` (round-28) |
 | game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |

@@ -20,18 +20,39 @@ other reference function loads these addresses. The remaining float operands
 (200.0f, 40.0f, 20.0f, 500.0f, 100.0f, 45.0f, 25.5f, 1.0f) are built with
 `lui` and need no rodata.
 
-The generated `game_100810.o` has a 0x20-byte `.rodata` section: these 28
-payload bytes in this order followed by four zero alignment bytes, with no data
-relocations. `config/game/us-rodata.ld` maps it as an INFO section at
-`0x800A09E8` with a 0x20 extent assertion and a 0x1C payload;
-`config/data/us.json` records the owner. The alignment bytes span
-`0x800A0A04..0x800A0A07` informationally; that word (`40066666`, 2.1f) and the
-following `0x800A0A08`/`0x800A0A0C` stay externs of the raw `func_150D3A68`,
-and `D_800A0A10`/`D_800A0A14` are externs of other members. The game-data
-archive still supplies them. Matching `func_150D3A68` with literals would grow
-this pool. The words before `0x800A09E8` (`D_800A09C0` and the two vectors at
-`D_800A09D0`/`D_800A09DC`) are read by matched members through externs and are
-not owned by this mapping.
+`func_150D4D58` emits a burst of particles around a yaw. Its raw HI16/LO16
+pairs in `asm/nonmatchings/game_100810/func_150D4D58.s` address five words in
+first-use order:
+
+| Address | Word | Literal |
+| --- | --- | --- |
+| `0x800A0A18` | `43360B61` | 182.04445f (yaw scale) |
+| `0x800A0A1C` | `3F4E147C` | 0.80500007f (speed base) |
+| `0x800A0A20` | `3E645A1D` | 0.223f (speed range) |
+| `0x800A0A24` | `3F256042` | 0.646f |
+| `0x800A0A28` | `BF4B4396` | -0.794f |
+
+With extern symbols its deferred candidate scored CURRENT 2653; with these
+literals and `arg3` typed `u8` (the raw passes the low byte on), the function
+is `CURRENT (0)`. `233.0f`, `199.0f`, `10.0f`, `5.0f` and `1.0f` are built
+with `lui`.
+
+The generated `game_100810.o` has a 0x30-byte `.rodata` section with no data
+relocations: the seven `func_150D3360` words at object offset 0 and the five
+`func_150D4D58` words at object offset 0x1C. Between the two ROM ranges lie
+`0x800A0A04..0x800A0A17`: `40066666 3E4CCCCD 3EB33334` (2.1f, 0.2f,
+0.35000002f), externs of the raw `func_150D3A68`, and `D_800A0A10`
+(`3C888889`) and `D_800A0A14` (`3F266667`), externs of matched members. The
+game-data archive still supplies them. `scripts/split_game_rodata.py`
+therefore cuts the object pool into `.rodata.100810_0` (0x1C bytes) and
+`.rodata.100810_1c` (0x14 bytes), and `config/game/us-rodata.ld` maps them as
+INFO sections at `0x800A09E8` and `0x800A0A18` with exact extent assertions
+and per-range base symbols, as described in
+[game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
+`config/data/us.json` records both owners. The word after the second range,
+`0x800A0A2C`, is zero. The words before `0x800A09E8` (`D_800A09C0` and the
+two vectors at `D_800A09D0`/`D_800A09DC`) are read by matched members through
+externs and are not owned by this mapping.
 
 The match also corrects two local record shapes. The spawn record passed to
 `func_15147A80` is 0x1C bytes: that callee reads `+0xE` and `+0x15` of its
