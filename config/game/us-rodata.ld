@@ -1051,8 +1051,8 @@ ASSERT(SIZEOF(.game_rodata_fc5f0) == 0x20, "game_FC5F0 particle literal extent c
 __game_rodata_fc5f0_payload_size = 0x18;
 ASSERT(SIZEOF(.game_rodata_1a7260) == 0x10, "game_1A7260 index table extent changed")
 __game_rodata_1a7260_payload_size = 0xC;
-ASSERT(SIZEOF(.game_rodata_ffba0) == 0x20, "game_FFBA0 colour table and literal extent changed")
-__game_rodata_ffba0_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_ffba0) == 0x30, "game_FFBA0 colour table and literal extent changed")
+__game_rodata_ffba0_payload_size = 0x28;
 ASSERT(SIZEOF(.game_rodata_100810_0) == 0x1C, "game_100810 func_150D3360 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_100810_1c) == 0x14, "game_100810 func_150D4D58 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_0) == 0xC, "holtenrope func_151B3A7C literal extent changed")

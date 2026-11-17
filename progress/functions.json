@@ -62383,8 +62383,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1096,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D2924",
           "vram": "0x150D2924"
         }
@@ -62393,22 +62398,16 @@
       "symbol": "func_150D2924"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "layout_failure": {
-          "focused_current_differences": 0,
-          "object_sha256": "bbc0bf03b979b52822079afe696ede289504e3f4becea22e97ec65c4e84b829e",
-          "reason": "func_150D317C offset 0xA48, expected 0xA8C (delta -68); func_150D32FC offset 0xBC8, expected 0xC0C (delta -68); source-unit text extent 0xC30 (aligned 0xC30), expected 0xC70 (aligned 0xC70)",
-          "source_sha256": "73126bcfce25a253f021da9a5ba0563a74062161286859a63250f9906dcf175e"
-        },
-        "reason": "round-24 s062: probe CURRENT 0 but in-file compile is 68 bytes shorter (layout delta -68 for later members); investigate file-context difference",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1040,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D2D6C",
           "vram": "0x150D2D6C"
         }
