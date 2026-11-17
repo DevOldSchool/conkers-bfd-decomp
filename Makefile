@@ -172,6 +172,8 @@ GAME_REFERENCE_BUILD_DIR := build/game-reference/$(GAME_REFERENCE_PROFILE)
 GAME_REFERENCE_CODE := $(GAME_REFERENCE_BUILD_DIR)/game.code.bin
 GAME_INTEGRATED_BUILD_DIR := build/game-integrated/$(GAME_PROFILE)
 GAME_INTEGRATED_CODE := $(GAME_INTEGRATED_BUILD_DIR)/game.code.bin
+GAME_INTEGRATED_DATA := $(GAME_INTEGRATED_BUILD_DIR)/game.data.bin
+GAME_INTEGRATED_DATA_MANIFEST := $(GAME_INTEGRATED_BUILD_DIR)/game.data.json
 GAME_INTEGRATED_PREPARED := $(GAME_INTEGRATED_BUILD_DIR)/.prepared
 GAME_INTEGRATED_LD_SCRIPT := $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld
 GAME_INTEGRATED_PREPARE_INPUTS := Makefile Dockerfile config/game/us.yaml config/symbols/game-us.txt config/relocs/game-us.txt config/overlays.json \
@@ -897,7 +899,7 @@ $(GAME_INTEGRATED_PREPARED): $(GAME_INTEGRATED_PREPARE_INPUTS)
 	@printf '%s\n' "Integrated game split generated; details: $(GAME_INTEGRATED_BUILD_DIR)/splat.log"
 	@touch "$(GAME_INTEGRATED_PREPARED)"
 
-game-integrated-raw: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin
+game-integrated-raw: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin $(GAME_INTEGRATED_DATA)
 	python3 scripts/verify_game_rodata.py "$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf"
 	@cmp -s "$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin" "$(GAME_INTEGRATED_CODE)" || { \
 		printf '%s\n' "integrated game mismatch: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin" >&2; exit 1; \
@@ -906,6 +908,12 @@ game-integrated-raw: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin
 
 $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf
 	$(OBJCOPY) -O binary $< $@
+
+# The GAME data image: linked placement payloads plus preserved unowned bytes,
+# verified against the ROM. Its manifest records each range's provenance.
+$(GAME_INTEGRATED_DATA): $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf scripts/link_game_data.py scripts/data_boundaries.py \
+		scripts/elf_sections.py scripts/rom_span.py scripts/list_integrated_sources.py
+	python3 scripts/link_game_data.py $< --output $@ --manifest $(GAME_INTEGRATED_DATA_MANIFEST)
 
 $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRATED_C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/game_integrated/$(GAME_PROFILE) $(GAME_INTEGRATED_C_SRCS)

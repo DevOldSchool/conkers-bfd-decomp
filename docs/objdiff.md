@@ -273,6 +273,33 @@ only when its code and every owned data range qualify through the actual build
 inputs and independent ROM checks. ROM-identical, relocation-free main SDK data
 linked through canonical archive placements is eligible. Debugger source data
 requires candidate/linked-object equivalence and a full runtime-image ROM proof.
+GAME placements qualify through the [linked GAME data image](#linked-game-data-image).
+
+### Linked GAME data image
+
+The integrated game build writes `build/game-integrated/us/game.data.bin`
+beside `game.code.bin`, with [`link_game_data.py`](../scripts/link_game_data.py).
+Every reviewed INFO placement in `config/game/us-rodata.ld` and
+`config/game/us-sdk.ld` inside the GAME data image contributes its linked
+section payload: bytes the integrated link took from the actual C object or
+SDK archive member, with relocations resolved against the integrated game
+code. Only bytes no placement owns are preserved from the checksum-validated
+ROM, as `GLOBAL_ASM` still supplies unmatched code. The build fails unless the
+whole image equals the decoded ROM GAME data. Placements inside the image must
+be INFO (NOLOAD keeps no bytes) and may not overlap; compiler padding beyond a
+payload must be zero. `game.data.json` records each range as `linked` or
+`preserved`, with the link input and its hash and the hashes of the ELF and
+image. The ROM itself still ships the preserved compressed streams, for code and
+data alike: the bounded DEFLATE encoder does not reproduce the original game
+streams.
+
+A GAME data range is complete when its owner is a completed source under
+`src/done/game/` without `GLOBAL_ASM` or a canonical SDK archive member, the
+manifest is current, the range is `linked` with the expected bytes and selector,
+and the report's candidate is that same linked input. Completed sources use the
+integrated object as their data candidate, as completed code does, so reviewed
+rodata splits need no separate C-only partition. Mixed and raw sources keep
+their existing candidates and remain incomplete.
 
 Completion and native matching are independent measures. Generation passes the
 verified eligibility through `metadata.complete` to stock objdiff, which computes
@@ -292,7 +319,7 @@ ROM streams remains incomplete, even when its C owner has integrated code.
 A selector such as `*foo.o(.rodata)` alone does not establish that the ROM uses
 that object's bytes. Source-owned INFO/NOLOAD placements retain raw ROM or
 original GAME-data archive backing, which must be replaced and verified before
-completion. Both debugger C units have allocated `.data` and `.rodata` placements in the
+completion; for GAME data the linked image above is that replacement. Both debugger C units have allocated `.data` and `.rodata` placements in the
 canonical profile, with actual runtime-input and whole-image verification.
 Native percentages come directly from the unmodified release. Stock objdiff
 bounds a data comparison by the last named symbol and compares REL words byte
@@ -323,16 +350,20 @@ while every byte remains in the section and ROM checks. This avoids treating
 splat's generated padding labels as missing SDK variables. See the
 [SDK symbol evidence](evidence/data-layout/us_sdk_data_symbols.md) for remaining
 anonymous pools and incorrect SDK symbol extents.
-Native comparisons determine perfect-match credit. Every final unit must satisfy
-`complete_data <= matched_data`; category or aggregate totals cannot hide a
-violation. Units whose data is still ROM-backed need actual build integration
-before they can become complete. This includes preserved GAME data. All debugger initialized data is now allocated
+Native comparisons determine perfect-match credit. Fully linked data credit
+rests on the linked-input and ROM proofs above, not on native matching, so a
+unit's `complete_data` may exceed its `matched_data`. Stock objdiff gives IDO's
+anonymous literals and jump tables no symbol credit; GAME data in particular
+matches only a few hundred bytes natively. `completion_notes` in validation lists
+every complete unit whose native data matching is lower, so the two measures stay
+separately visible and neither substitutes for the other. Units whose data is still ROM-backed need actual build integration
+before they can become complete. This includes GAME data that is preserved
+rather than linked in the GAME data image. All debugger initialized data is now allocated
 source storage and is compared natively as described above.
 
-When this report is first published, fully-linked code can decrease for two
-reasons: a grouped unit owns data still supplied by ROM, or its linked data fails
-native symbol matching. Native matched code and function inventory records are
-unchanged by this completion policy; the drop reflects a stricter whole-unit gate.
+A grouped unit is not fully linked while it owns data still supplied by ROM,
+even when all of its code is complete. Native matched code and function
+inventory records are unchanged by this completion policy.
 Rebuilt font bytes contribute to Data. The font earns completion when all 95 editable
 PGM glyphs and their manifest rebuild through the canonical Makefile rule into the exact original 5,440 bytes
 (including 13 alignment bytes). Its candidate concatenates the `.data` payloads of the 96 actual ROM link inputs:

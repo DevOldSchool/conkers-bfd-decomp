@@ -305,6 +305,24 @@ class IntegrationTests(unittest.TestCase):
         self.assertTrue((self.root / debugger_source).is_file())
         self.assertEqual(2, run.call_count)
 
+    @mock.patch.object(integrate.subprocess, "run")
+    def test_all_reviewed_leaves_retained_original_assembly_raw(self, run: mock.Mock) -> None:
+        debugger_source = self.add_profile_unit("debugger", "func_tlb", 0x58, incomplete=True)
+        functions = project_state.load_json(project_state.FUNCTIONS_FILE)
+        retained = next(f for f in functions["functions"] if f["symbol"] == "func_tlb_raw")
+        retained["original_asm"] = {"reason": "privileged CP0 sequence", "reference": "docs/tlb.md",
+                                    "recorded_revision": "working-tree"}
+        retained["regions"]["us"].update(state="original_asm", evidence={
+            "assembly_sha256": "a" * 64, "rom_sha1": "b" * 40, "span_sha256": "c" * 64,
+            "verified_revision": "working-tree"})
+        project_state.write_json(project_state.FUNCTIONS_FILE, functions)
+        profile = (self.root / "config/profiles/us.yaml").read_text()
+        integrate.integrate_all_reviewed("us")
+        units = {unit["source"]: unit for unit in project_state.load_json(project_state.SOURCE_UNITS_FILE)["source_units"]}
+        self.assertEqual("raw_asm", units[debugger_source]["integration"])
+        self.assertEqual(profile, (self.root / "config/profiles/us.yaml").read_text())
+        self.assertNotIn("build", [call.args[0][4] for call in run.call_args_list])
+
     def test_map_range_ending_at_library_preserves_library_boundary(self) -> None:
         game_map = self.root / "config/game/us.yaml"
         game_map.write_text(

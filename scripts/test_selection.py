@@ -56,6 +56,7 @@ MATCHING_SCRIPTS = frozenset({
     "frame_plan",
     "integrate",
     "layout_check",
+    "link_game_data",
     "linked_aliases",
     "list_integrated_sources",
     "m2c",
