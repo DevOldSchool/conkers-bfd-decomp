@@ -168,18 +168,21 @@ typedef struct Game105FC0State {
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
-typedef struct Game105FC0Sample {
+typedef struct Game105FC0TrailRecord {
     Vec3f position;
     Vec3f velocity;
-    u8 pad18[0xC];
-} Game105FC0Sample;
+    u8 pad18[4];
+    u8 alpha;
+    u8 pad1D[3];
+    f32 texture;
+} Game105FC0TrailRecord;
 
 s32 func_150D8E4C(Game105FC0State *arg0) {
     Game105FC0Timer *timer;
-    Game105FC0Sample *samples;
+    Game105FC0TrailRecord *samples;
 
     timer = arg0->timer;
-    samples = (Game105FC0Sample *)arg0->samples;
+    samples = (Game105FC0TrailRecord *)arg0->samples;
     if ((arg0->mode < 2) && (arg0->flags & 8)) {
         return 0;
     } else {
@@ -213,14 +216,6 @@ s32 func_150D8E4C(Game105FC0State *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D942C.s")
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-typedef struct Game105FC0TrailRecord {
-    Vec3f position;
-    u8 pad0C[0x10];
-    u8 alpha;
-    u8 pad1D[3];
-    f32 texture;
-} Game105FC0TrailRecord;
-
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 s32 func_15144B34(s32);
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);

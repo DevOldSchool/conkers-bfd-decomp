@@ -1154,9 +1154,6 @@ typedef struct CharacterFlamethrowerBeam {
 } CharacterFlamethrowerBeam;
 
 
-void func_151D5D60(void *, s16, s32, void **, u8 *);
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 
 void *func_15197C10(CharacterFlamethrowerBeam *arg0, s16 arg1) {
     CharacterFlamethrowerBeamVertex *vertices;
