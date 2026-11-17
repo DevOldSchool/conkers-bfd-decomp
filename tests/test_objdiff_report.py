@@ -85,7 +85,10 @@ class CoveragePlanTests(unittest.TestCase):
                                 'sha256': 'checked', 'text_bytes': 4}
             symbols = {'f': {'address': 0, 'size': 4, 'hidden': False}}
             with ExitStack() as stack:
-                data_prepared = stack.enter_context(patch.object(report, 'prepare_data', return_value=([], [], {})))
+                reference = stack.enter_context(patch.object(report, 'ensure_reference'))
+                data_prepared = stack.enter_context(patch.object(
+                    report, 'prepare_data', side_effect=lambda: (
+                        self.assertTrue(reference.called), ([], [], {}))[1]))
                 for context in (
                     patch.object(report, 'ROOT', Path(tmp)), patch.object(report, 'OUTPUT', output),
                     patch.object(report, 'plan', return_value=specs),
@@ -639,7 +642,7 @@ class DebuggerReferencePreparationTests(unittest.TestCase):
                     split.parent.mkdir(parents=True, exist_ok=True)
                     split.write_text('glabel x\n')
             run.side_effect = prepare
-            report.ensure_debugger_reference()
+            report.ensure_reference()
             return run.call_args_list
 
     def test_existing_reference_is_reused(self):
