@@ -10717,7 +10717,7 @@
         "us": {
           "end": "0x344A0",
           "start": "0x33FE0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_61490.c"

@@ -3381,7 +3381,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15197148",
           "vram": "0x15197148"
         }
@@ -4114,21 +4119,15 @@
       "symbol": "func_1519C4E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "layout_failure": {
-          "focused_current_differences": 0,
-          "object_sha256": "aa3bf9d817e0ee55366e959db7a7652932d600386c93d30df5bdb4585f3c8329",
-          "reason": "func_1519C910 offset 0x7150, expected 0x7160 (delta -16); func_1519C948 offset 0x7188, expected 0x7198 (delta -16); func_1519C970 offset 0x71B0, expected 0x71C0 (delta -16); func_1519C998 offset 0x71D8, expected 0x71E8 (delta -16); func_1519C9C4 offset 0x7204, expected 0x7214 (delta -16); func_1519CD64 offset 0x75A4, expected 0x75B4 (delta -16); func_1519CDB0 offset 0x75F0, expected 0x7600 (delta -16); source-unit text extent 0x77B0 (aligned 0x77B0), expected 0x77C0 (aligned 0x77C0)",
-          "source_sha256": "4c7981fab7416052ed9369e1e3339bb1290a67e867177cb81d238612f9a96939"
-        },
-        "reason": "probe/finish CURRENT 0 but source-unit layout mismatch: later members shift -16 (unit extent 0x77B0 vs 0x77C0); a064 best.c",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1519C56C",
           "vram": "0x1519C56C"
         }
@@ -49007,17 +49006,16 @@
       "symbol": "func_15194588"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 180,
-        "reason": "Manual initial1950 to180 after four revisions; full456-byte span has exactframeB0, packet offsets, operands/registers/constant symbols. Remaining firsthelper argument/position-store scheduling and angle-LH/F18-load order; no new supported hypothesis. Externalconstant best saved in deferred-broad-manual-20260930; no new mapping or shared contract.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 456,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151945CC",
           "vram": "0x151945CC"
         }
@@ -59795,17 +59793,16 @@
       "symbol": "func_150C9BDC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 991,
-        "reason": "Best CURRENT (991); FP and GPR ownership recovered, but frame and all buffers remain eight bytes high after three comparisons",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 696,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C9DC4",
           "vram": "0x150C9DC4"
         }
@@ -65577,17 +65574,16 @@
       "symbol": "func_150343B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 55,
-        "reason": "CURRENT55 improved405 by computing actor value before opcode stores. Stored-field reuse450 regressed; inlined signed part expression55 neutral. Best retained; residual register allocation plus raw D800CC5B4 versus actorbase+2E4 relocation rows. No further useful hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15034420",
           "vram": "0x15034420"
         }
@@ -82622,8 +82618,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1544,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F9BB0",
           "vram": "0x150F9BB0"
         }

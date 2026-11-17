@@ -57,13 +57,13 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | blood | 0x504 | 0x38 | 0x800A4900 | pool (func_15139768, func_15139D74) | `3DEF9DB3 BE49BA5F 3F2624DE C175F7D0 41F5F7D0 40C3D70A 3E54FDF4 BF353F7D`, `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` (round-23) |
 | blood | 0x53C | 0x68 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0, func_1513A6E0, func_1513ABB8, func_1513B0F8) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA`, then `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` ×3 (round-23) |
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
-| game_1C1150 | 0x3C | 0xC | 0x800A8294 | pool (func_15194408) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3) |
-| game_1C1150 | 0x48 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
-| game_1C1150 | 0x5C | 0x14 | 0x800A82D0 | table, sites 0xBAC / 0xBB4 | func_15194810 switch (nov14) |
-| game_1C1150 | 0x70 | 0x174 | 0x800A82F0 | table, sites 0xF84 / 0xF8C | func_15194BF0 cases 0x58..0xB4 (nov14) |
-| game_1C1150 | 0x1E4 | 0x5C | 0x800A8464 | table, sites 0xFC0 / 0xFC8 | func_15194BF0 cases 0..0x16 (nov14) |
-| game_1C1150 | 0x240 | 0x1E8 | 0x800A84C0 | table, sites 0x139C / 0x13A4 | 0x7A targets ([func_15194FF4](game_1c1150_jump_tables.md)) |
-| game_1C1150 | 0x428 | 0x5C | 0x800A86A8 | table, sites 0x13BC / 0x13C4 | 0x17 targets |
+| game_1C1150 | 0x3C | 0x28 | 0x800A8294 | pool (func_15194408, func_151945CC) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3), then `4070E000 00000000` (f64 270.0) `40D66666 40151EB8 3F2E147B 408CCCCD 40A9999A` (round-28, [record](game_1c1150_jump_tables.md)) |
+| game_1C1150 | 0x64 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
+| game_1C1150 | 0x78 | 0x14 | 0x800A82D0 | table, sites 0xBAC / 0xBB4 | func_15194810 switch (nov14) |
+| game_1C1150 | 0x8C | 0x174 | 0x800A82F0 | table, sites 0xF84 / 0xF8C | func_15194BF0 cases 0x58..0xB4 (nov14) |
+| game_1C1150 | 0x200 | 0x5C | 0x800A8464 | table, sites 0xFC0 / 0xFC8 | func_15194BF0 cases 0..0x16 (nov14) |
+| game_1C1150 | 0x25C | 0x1E8 | 0x800A84C0 | table, sites 0x139C / 0x13A4 | 0x7A targets ([func_15194FF4](game_1c1150_jump_tables.md)) |
+| game_1C1150 | 0x444 | 0x5C | 0x800A86A8 | table, sites 0x13BC / 0x13C4 | 0x17 targets |
 | game_64120 | 0x0 | 0x4 | 0x80098648 | pool (func_15038468) | `42652EE0` (57.295776) |
 | game_64120 | 0x4 | 0x4 | 0x800986EC | pool (func_1503B708) | `C7C34F80` (-99999.0) |
 | game_114B80 | 0x0 | 0x4 | 0x800A1350 | pool (func_150E7C9C) | `3EDCEE77` (0.43150684) |
@@ -82,6 +82,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_121A20 | 0x20 | 0x14 | 0x800A1A98 | pool (func_150F4DEC) | `3D50E561 3E1CAC09 3F360B61 43BE8000 3D99999A` |
 | game_100810 | 0x0 | 0x1C | 0x800A09E8 | pool (func_150D3360) | seven words ([record](game_100810_float_constants.md); round-27) |
 | game_100810 | 0x1C | 0x14 | 0x800A0A18 | pool (func_150D4D58) | `43360B61 3F4E147C 3E645A1D 3F256042 BF4B4396` (round-28) |
+| game_127060 | 0x0 | 0x34 | 0x800A1D60 | pool (func_150F9BB0) | 13 words ([record](game_127060_float_constants.md); round-28) |
+| game_127060 | 0x34 | 0x4 | 0x800A1DC0 | pool (func_150FB188) | `3E99999A` (0.3, unchanged) |
 | game_1A20A0 | 0x0 | 0x4 | 0x800A7174 | pool (func_15174BF0) | `3C23D70A` (0.01) |
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |
