@@ -2611,7 +2611,7 @@ void func_150717E0(s32 arg0) {
         func_151494E0((void *)(s32)&sp20, 0x43);
     }
 }
-void func_150F9BB0(u8 *arg0, s32 arg1, s32 arg2);
+void func_150F9BB0(u8 *arg0, u8 arg1, s32 arg2);
 
 void func_15071830(s32 arg0) {
     func_150F9BB0(D_800D154C, 0xFF, 1);

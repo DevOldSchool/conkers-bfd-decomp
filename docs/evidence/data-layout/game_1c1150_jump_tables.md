@@ -38,3 +38,25 @@ The object rodata is now 0x490 bytes; `scripts/split_game_rodata.py` adds
 words 0x800A82E4..0x800A82EF between the first two new tables stay extern float reads of
 `func_15194810`. Every table word is a relocated `.text` pointer that the linked-payload
 verification compares against the checksum-validated US ROM.
+
+## func_151945CC literal pool growth (round-28)
+
+`func_151945CC` spawns a packet above its target. Its raw HI16/LO16 pairs in
+`asm/nonmatchings/game_1C1150/func_151945CC.s` address six constants directly after the
+`func_15194408` literals, in first-use order: the double `4070E000 00000000` (270.0) at
+0x800A82A0, then `40D66666 40151EB8 3F2E147B 408CCCCD 40A9999A` (6.7f, 2.33f, 0.68f,
+4.4f, 5.3f) at 0x800A82A8..0x800A82BB, read from the checksum-validated US ROM (SHA1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base 0x80082B20). No other function
+reads these addresses. With extern symbols and a `volatile` parameter the deferred
+candidate scored CURRENT 180; with the literals and a block-scoped scratch buffer it is
+`CURRENT (0)`. `0.5f` and `0.0f` need no rodata.
+
+The compiler emits the new words at object offsets 0x48..0x63, between the
+`func_15194408` literals and the `func_15194794` table; the double's offset 0x48 is
+8-aligned, matching its ROM spacing of 0xC after 0x800A8294. The `.rodata.1c1150_3c`
+literal range therefore grows from 0xC to 0x28 bytes and ends at 0x800A82BC, where the
+`func_15194794` table starts. Every later range keeps its runtime address and HI16/LO16
+sites but moves 0x1C bytes in the object, so the sections become `.rodata.1c1150_64`,
+`_78`, `_8c`, `_200`, `_25c` and `_444`. The object `.rodata` is 0x4A0 bytes with no
+alignment tail. `config/game/us-rodata.ld`, its base symbols and extent assertions, and
+the `config/data/us.json` section names follow the new offsets.

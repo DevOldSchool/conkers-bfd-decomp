@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151C2734
- * - func_151C2AD0
  * - func_151C3B0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -291,10 +289,9 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern s32 D_80082FA0, D_800BE9E4;
 extern Game1C2734Sound D_8008FBE8[];
-extern f32 D_800AAA38, D_800BE9A4;
+extern f32 D_800BE9A4;
 extern Game1C2734Listener *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2734 CURRENT (1884) */
 s8 func_151C2734(Game1C2734Owner *arg0) {
     s8 success;
     Game1C2734State *state;
@@ -302,17 +299,11 @@ s8 func_151C2734(Game1C2734Owner *arg0) {
     s32 sound;
     u32 random;
     s32 index;
-    Game1C2734Listener *cursor;
-    Game1C2734Sound *entry;
-    s32 range;
-    f32 originX, originY, originZ;
-    f32 directionX, directionY, directionZ;
-    s32 pan;
-    s32 attenuation;
     f32 dx, dy, dz;
     f32 dot;
     f32 distance;
-    f32 maximum;
+    s32 pan;
+    s32 attenuation;
 
     state = (Game1C2734State *)((u8 *)arg0 + 0x110);
     success = 1;
@@ -324,40 +315,30 @@ s8 func_151C2734(Game1C2734Owner *arg0) {
     if (func_151C455C((s32)arg0, (u8 *)state, D_800BE9A4) == 0) {
         success = 0;
     }
-    if (state->enabled != 0 && success == 1) {
+    if (state->enabled && success == 1) {
         sound = 0;
         selected = NULL;
         if (state->sound == 0) {
             random = func_150ADA20();
-            index = 0;
-            if (D_80082FA0 >= 0) {
-                entry = &D_8008FBE8[random & 7];
-                range = entry->range;
-                cursor = D_800DBFF0;
-                originX = arg0->position.x;
-                originY = arg0->position.y;
-                originZ = arg0->position.z;
-                directionX = state->direction.x;
-                directionY = state->direction.y;
-                directionZ = state->direction.z;
-                maximum = (f32)(u32)range * state->scale;
-                do {
-                    dx = cursor->position.x - originX;
-                    dy = cursor->position.y - originY;
-                    dz = cursor->position.z - originZ;
-                    selected = cursor;
-                    cursor++;
-                    dot = directionX * dx + dy * directionY + dz * directionZ;
-                    if (dot < maximum && (f32)(range - 10) * state->scale < dot &&
-                        (distance = sqrtf(dx * dx + dy * dy + dz * dz)) != 0.0f &&
-                        distance < state->lifetime * state->scale && D_800AAA38 < dot / distance) {
-                        sound = entry->sound;
-                        state->listener = index;
-                        break;
+            for (index = 0; index <= D_80082FA0; index++) {
+                selected = &D_800DBFF0[index];
+                dx = selected->position.x - arg0->position.x;
+                dy = selected->position.y - arg0->position.y;
+                dz = selected->position.z - arg0->position.z;
+                dot = state->direction.x * dx + dy * state->direction.y + dz * state->direction.z;
+                if (dot < (f32)(u32)D_8008FBE8[random & 7].range * state->scale &&
+                    (f32)(D_8008FBE8[random & 7].range - 10) * state->scale < dot) {
+                    distance = sqrtf(dx * dx + dy * dy + dz * dz);
+                    if (distance != 0.0f && distance < state->lifetime * state->scale) {
+                        dot /= distance;
+                        if (0.9f < dot) {
+                            sound = D_8008FBE8[random & 7].sound;
+                            state->listener = index;
+                            break;
+                        }
                     }
-                    index++;
-                    selected = NULL;
-                } while (index <= D_80082FA0);
+                }
+                selected = NULL;
             }
         } else {
             if (func_1000F3D0(state->sound) != 0) {
@@ -368,11 +349,10 @@ s8 func_151C2734(Game1C2734Owner *arg0) {
         }
         if (selected != NULL) {
             pan = 0x40;
-            range = (s32)(arg0->position.x - selected->position.x);
-            index = (s32)(arg0->position.y - selected->position.y);
-            random = (s32)(arg0->position.z - selected->position.z);
-            func_1000A420(range, index, (s32)random, selected->rotation, range, index, (s32)random, 10000, 9999,
-                          &pan, &attenuation, NULL);
+            func_1000A420(arg0->position.x - selected->position.x, arg0->position.y - selected->position.y,
+                          arg0->position.z - selected->position.z, selected->rotation,
+                          arg0->position.x - selected->position.x, arg0->position.y - selected->position.y,
+                          arg0->position.z - selected->position.z, 10000, 9999, &pan, &attenuation, NULL);
             if (sound != 0) {
                 state->sound = func_10010F30(sound, 0x6590, pan & 0x7F, 0, pan & 0x80);
             } else {
@@ -383,8 +363,6 @@ s8 func_151C2734(Game1C2734Owner *arg0) {
     }
     return success;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C2734 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2734.s")
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15144B34(s32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
@@ -413,7 +391,6 @@ typedef struct Game1C2AD0Vertex {
     u8 alpha;
 } Game1C2AD0Vertex;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */
 void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     Vec3f start;
     Vec3f end;
@@ -469,17 +446,20 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     vertices->y = (s32)(start.y - offset.y);
     vertices->z = (s32)(start.z - offset.z);
     vertices->alpha = arg0->alpha;
-    vertices++->flag = 0;
+    vertices->flag = 0;
+    vertices++;
     vertices->x = (s32)(end.x - offset.x);
     vertices->y = (s32)(end.y - offset.y);
     vertices->z = (s32)(end.z - offset.z);
     vertices->alpha = 0;
-    vertices++->flag = 0;
+    vertices->flag = 0;
+    vertices++;
     vertices->alpha = 0;
     vertices->flag = 0;
     vertices->x = (s32)(end.x + offset.x);
     vertices->y = (s32)(end.y + offset.y);
-    vertices++->z = (s32)(end.z + offset.z);
+    vertices->z = (s32)(end.z + offset.z);
+    vertices++;
     vertices->x = (s32)(start.x + offset.x);
     vertices->y = (s32)(start.y + offset.y);
     vertices->z = (s32)(start.z + offset.z);
@@ -487,8 +467,6 @@ void *func_151C2AD0(Game1C2AD0Strip *arg0, s16 arg1) {
     vertices->flag = 0;
     return base;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C2AD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2AD0.s")
 s32 func_151C2E4C(void *arg0, void *arg1) {
     if (arg0 == arg1) {
         return 0;

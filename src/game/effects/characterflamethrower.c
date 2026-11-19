@@ -17,13 +17,11 @@
  * - func_15195FF0
  * - func_15196748
  * - func_15196B4C
- * - func_15197148
  * - func_15198110
  * - func_15198570
  * - func_1519897C
  * - func_15199C34
  * - func_1519A9A4
- * - func_1519C56C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -838,7 +836,242 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196748.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196B4C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197148.s")
+typedef struct CharacterFlamethrowerBeamCamera {
+    u8 unknown0[0x2F8];
+    Vec3f position;
+    u8 unknown304[0x69C];
+} CharacterFlamethrowerBeamCamera;
+extern CharacterFlamethrowerBeamCamera *D_800DBFF0;
+typedef struct CharacterFlamethrowerRibbonNode {
+    Vec3f position;
+    u8 padC[0xC];
+    f32 width;
+    s16 intensity;
+    u8 pad1E;
+    u8 alpha;
+    u8 texture;
+    u8 pad21[3];
+} CharacterFlamethrowerRibbonNode;
+
+typedef struct CharacterFlamethrowerRibbonStyle {
+    u8 pad0[0x51];
+    u8 shade;
+    u8 pad52[0xA];
+    f32 width;
+} CharacterFlamethrowerRibbonStyle;
+
+typedef struct CharacterFlamethrowerTexel {
+    s32 texel;
+    u16 width;
+    u16 height;
+    u8 field8;
+    u8 field9;
+    u8 format;
+} CharacterFlamethrowerTexel;
+
+typedef struct CharacterFlamethrowerTexture {
+    s32 *image;
+    u8 format;
+    u16 width;
+    u16 height;
+    u8 field8;
+    u8 field9;
+} CharacterFlamethrowerTexture;
+
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
+Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
+Gfx *func_1513F4E4(Gfx *, u8, u8 *);
+Gfx *func_15142B7C(Gfx *, s32, s32);
+Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern CharacterFlamethrowerTexel D_800915B0;
+extern s32 D_800D2C9C;
+
+Gfx *func_15197148(u8 *arg0, Gfx *arg1, s16 arg2) {
+    Vtx_t *vtx;
+    CharacterFlamethrowerRibbonNode *records;
+    Vec3f next;
+    Vec3f cur;
+    Vec3f toCamera;
+    Vec3f delta;
+    CharacterFlamethrowerRibbonStyle *settings;
+    Vec3f *camera;
+    f32 length;
+    s32 tc;
+    Vec3f normal;
+    s32 index;
+    u8 curTexture;
+    u8 nextTexture;
+    u8 flag;
+    u8 alpha;
+    f32 width;
+    s32 previous;
+
+    if (*(s8 *)(arg0 + 0x2C) >= 2) {
+        func_151D5D60(arg0 + 0x84, arg2, (arg0[0x25] * 2 + 10) * sizeof(Vtx_t), (void **)&vtx, NULL);
+        if (vtx != NULL) {
+            camera = &D_800DBFF0[arg2].position;
+            settings = *(CharacterFlamethrowerRibbonStyle **)(arg0 + 0x98);
+            records = *(CharacterFlamethrowerRibbonNode **)(arg0 + 0x94);
+            flag = 1;
+            {
+                CharacterFlamethrowerTexture texture;
+                s32 texel;
+
+                texel = D_800915B0.texel;
+                texture.image = &texel;
+                texture.format = D_800915B0.format;
+                texture.width = D_800915B0.width;
+                texture.height = D_800915B0.height;
+                texture.field8 = D_800915B0.field8;
+                texture.field9 = D_800915B0.field9;
+                arg1 = (Gfx *)func_15142E24((s32)arg1, (s32)&texture, 0, 0, 0x100, 0x100, 0, 4, 0, &flag, 3);
+            }
+            arg1 = func_15142C10(arg1, settings->shade, settings->shade, settings->shade, 0xFF, &flag);
+            arg1 = func_15142B7C(arg1, 1, 0x160600);
+            arg1 = func_1513F4E4(arg1, 0xB, &flag);
+            arg1 = func_15142FBC(arg1, D_800D2C9C | 0x80000 | 0x2000 | 0xC00 | 0x80 | 0x20, 0x5049D8, &flag);
+            if (*(u16 *)(arg0 + 0x1E) & 2) {
+                index = *(s8 *)(arg0 + 0x2E) - 1;
+                if (index < 0) {
+                    index = arg0[0x25] - 1;
+                }
+                cur = *(Vec3f *)(arg0 + 0x10);
+                next = records[index].position;
+                curTexture = nextTexture = records[index].texture;
+                width = settings->width;
+            } else {
+                previous = *(s8 *)(arg0 + 0x2E) - 1;
+                if (previous < 0) {
+                    previous = arg0[0x25] - 1;
+                }
+                index = previous - 1;
+                if (index < 0) {
+                    index = arg0[0x25] - 1;
+                }
+                cur = records[previous].position;
+                next = records[index].position;
+                curTexture = records[previous].texture;
+                nextTexture = records[index].texture;
+                width = records[index].width;
+            }
+            delta.x = cur.x - next.x;
+            delta.y = cur.y - next.y;
+            delta.z = cur.z - next.z;
+            toCamera.x = cur.x - camera->x;
+            toCamera.y = cur.y - camera->y;
+            toCamera.z = cur.z - camera->z;
+            normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+            normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+            normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+            length = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
+            if (length == 0.0f) {
+                normal.x = 0.0f;
+                normal.y = 0.0f;
+                normal.z = 0.0f;
+            } else {
+                f32 scale = width / length;
+
+                normal.x *= scale;
+                normal.y *= scale;
+                normal.z *= scale;
+            }
+            tc = (curTexture + 0x100) << 6;
+            alpha = (records[index].intensity * records[index].alpha) >> 8;
+            vtx->ob[0] = cur.x + normal.x;
+            vtx->ob[1] = cur.y + normal.y;
+            vtx->ob[2] = cur.z + normal.z;
+            vtx->tc[0] = tc;
+            vtx->tc[1] = 0x47C0;
+            vtx->cn[0] = 0xFF;
+            vtx->cn[1] = 0xFF;
+            vtx->cn[2] = 0xFF;
+            vtx->cn[3] = alpha;
+            vtx->flag = 0;
+            vtx++;
+            vtx->ob[0] = cur.x - normal.x;
+            vtx->ob[1] = cur.y - normal.y;
+            vtx->ob[2] = cur.z - normal.z;
+            vtx->tc[0] = tc;
+            vtx->tc[1] = 0x4000;
+            vtx->cn[0] = 0xFF;
+            vtx->cn[1] = 0xFF;
+            vtx->cn[2] = 0xFF;
+            vtx->cn[3] = alpha;
+            vtx->flag = 0;
+            vtx++;
+            do {
+                delta.x = cur.x - next.x;
+                delta.y = cur.y - next.y;
+                delta.z = cur.z - next.z;
+                toCamera.x = next.x - camera->x;
+                toCamera.y = next.y - camera->y;
+                toCamera.z = next.z - camera->z;
+                normal.x = delta.y * toCamera.z - toCamera.y * delta.z;
+                normal.y = delta.z * toCamera.x - toCamera.z * delta.x;
+                normal.z = delta.x * toCamera.y - toCamera.x * delta.y;
+                length = sqrtf(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
+                if (length == 0.0f) {
+                    normal.x = 0.0f;
+                    normal.y = 0.0f;
+                    normal.z = 0.0f;
+                } else {
+                    f32 scale = records[index].width / length;
+
+                    normal.x *= scale;
+                    normal.y *= scale;
+                    normal.z *= scale;
+                }
+                tc = (nextTexture + 0x100) << 6;
+                alpha = (records[index].intensity * records[index].alpha) >> 8;
+                vtx->ob[0] = next.x + normal.x;
+                vtx->ob[1] = next.y + normal.y;
+                vtx->ob[2] = next.z + normal.z;
+                vtx->tc[0] = tc;
+                vtx->tc[1] = 0x47C0;
+                vtx->cn[0] = 0xFF;
+                vtx->cn[1] = 0xFF;
+                vtx->cn[2] = 0xFF;
+                vtx->cn[3] = alpha;
+                vtx->flag = 0;
+                vtx++;
+                vtx->ob[0] = next.x - normal.x;
+                vtx->ob[1] = next.y - normal.y;
+                vtx->ob[2] = next.z - normal.z;
+                vtx->tc[0] = tc;
+                vtx->tc[1] = 0x4000;
+                vtx->cn[0] = 0xFF;
+                vtx->cn[1] = 0xFF;
+                vtx->cn[2] = 0xFF;
+                vtx->cn[3] = alpha;
+                vtx->flag = 0;
+                vtx++;
+                gSPVertex(arg1++, vtx - 4, 4, 0);
+                gSP1Triangle(arg1++, 0, 1, 2, 0);
+                gSP1Triangle(arg1++, 1, 3, 2, 0);
+                if (curTexture < nextTexture) {
+                    func_10022EC0(vtx, vtx - 2, 0x20);
+                    vtx[-2].tc[0] -= 0x4000;
+                    vtx++;
+                    vtx[-2].tc[0] -= 0x4000;
+                    vtx++;
+                }
+                curTexture = nextTexture;
+                previous = index;
+                index--;
+                if (index < 0) {
+                    index = arg0[0x25] - 1;
+                }
+                cur = records[previous].position;
+                next = records[index].position;
+                nextTexture = records[index].texture;
+            } while (previous != *(s8 *)(arg0 + 0x2D));
+        }
+    }
+    return arg1;
+}
 f32 func_151979F8(s32 arg0) {
     return D_800A8AA4;
 }
@@ -920,16 +1153,7 @@ typedef struct CharacterFlamethrowerBeam {
     u8 *buffers[1];
 } CharacterFlamethrowerBeam;
 
-typedef struct CharacterFlamethrowerBeamCamera {
-    u8 unknown0[0x2F8];
-    Vec3f position;
-    u8 unknown304[0x69C];
-} CharacterFlamethrowerBeamCamera;
 
-void func_151D5D60(void *, s16, s32, void **, u8 *);
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
-extern CharacterFlamethrowerBeamCamera *D_800DBFF0;
 
 void *func_15197C10(CharacterFlamethrowerBeam *arg0, s16 arg1) {
     CharacterFlamethrowerBeamVertex *vertices;
@@ -2479,7 +2703,6 @@ typedef struct CharacterFlamethrowerVertex {
 void func_15145548(void *, void *, void *, void *, f32 *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519C56C */
 void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
     CharacterFlamethrowerVertex *output;
     void *result;
@@ -2533,29 +2756,27 @@ void *func_1519C56C(CharacterFlamethrowerRibbon *arg0, s16 arg1) {
         crossY = 0.0f;
         crossZ = 0.0f;
     }
-    output->x = (s16)(s32)(arg0->start.x + crossX);
-    output->y = (s16)(s32)(arg0->start.y + crossY);
-    output->z = (s16)(s32)(arg0->start.z + crossZ);
+    output->x = (s32)(arg0->start.x + crossX);
+    output->y = (s32)(arg0->start.y + crossY);
+    output->z = (s32)(arg0->start.z + crossZ);
     output->flags = 0;
     output++;
-    output->x = (s16)(s32)(arg0->start.x - crossX);
-    output->y = (s16)(s32)(arg0->start.y - crossY);
-    output->z = (s16)(s32)(arg0->start.z - crossZ);
+    output->x = (s32)(arg0->start.x - crossX);
+    output->y = (s32)(arg0->start.y - crossY);
+    output->z = (s32)(arg0->start.z - crossZ);
     output->flags = 0;
     output++;
-    output->x = (s16)(s32)(endpoint.x - crossX);
-    output->y = (s16)(s32)(endpoint.y - crossY);
-    output->z = (s16)(s32)(endpoint.z - crossZ);
+    output->x = (s32)(endpoint.x - crossX);
+    output->y = (s32)(endpoint.y - crossY);
+    output->z = (s32)(endpoint.z - crossZ);
     output->flags = 0;
     output++;
-    output->x = (s16)(s32)(endpoint.x + crossX);
-    output->y = (s16)(s32)(endpoint.y + crossY);
-    output->z = (s16)(s32)(endpoint.z + crossZ);
+    output->x = (s32)(endpoint.x + crossX);
+    output->y = (s32)(endpoint.y + crossY);
+    output->z = (s32)(endpoint.z + crossZ);
     output->flags = 0;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1519C56C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C56C.s")
 s32 func_1519C910(CharacterFlamethrowerActor *arg0) {
     register CharacterFlamethrowerState *temp_v0 = arg0->state;
     register CharacterFlamethrowerIdentity *temp_v1 = temp_v0->identity;

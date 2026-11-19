@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_61490.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_internal_call_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15034420
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game61490Actor {
@@ -146,18 +141,16 @@ GameCommand *func_150343B0(GameCommand *arg0, s32 arg1) {
 }
 extern f32 D_80097D18;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15034420 CURRENT (55) */
 GameCommand *func_15034420(GameCommand *arg0, s32 arg1) {
-    s32 value;
-    s32 part;
+    s16 part;
+    s16 value;
 
-    value = (s32)((f32)D_800CC2D0[arg1].field_2E4 * D_80097D18);
+    value = (f32)D_800CC2D0[arg1].field_2E4 * D_80097D18;
+    part = value >> 4;
+    value -= part;
+    arg0[0].value = part;
+    arg0[1].value = value;
     arg0[0].opcode = 0;
     arg0[1].opcode = 0x18;
-    part = (s16)value >> 4;
-    arg0[0].value = part;
-    arg0[1].value = (s16)value - part;
     return arg0 + 2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15034420 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_61490/func_15034420.s")

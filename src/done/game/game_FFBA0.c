@@ -4,12 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_FFBA0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_child_chain_render_lists.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D2924
- * - func_150D2D6C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 /* Call context: func_150D278C: unique active declaration in the allowed source */
@@ -66,7 +60,134 @@ void func_150D278C(s32 arg0, void *arg1, u8 arg2, s32 arg3) {
         func_10022EC0(object + 0x28, packet, 0x60);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D2924.s")
+void func_1514373C(f32, f32, f32 *, f32 *);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+extern u8 D_800A4AA0;
+extern f32 D_800BE9A4;
+
+typedef struct GameFFBA0Emitter {
+    s16 *record;
+    f32 angle;
+    f32 rate;
+    f32 fade;
+    f32 spin;
+    f32 counter;
+    f32 age;
+    u8 matrix[0x40];
+    u8 color[3];
+} GameFFBA0Emitter;
+
+typedef struct GameFFBA0Spark {
+    f32 field0;
+    f32 field4;
+    f32 field8;
+    f32 fieldC;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+} GameFFBA0Spark;
+
+typedef struct GameFFBA0Spawn {
+    u8 field0;
+    u8 field1;
+    s16 field2;
+    s16 field4;
+    s32 field8;
+    s32 fieldC;
+    u8 colors10[4];
+    f32 field14;
+    f32 field18;
+    Vec3f position1C;
+    Vec3f field28;
+    f32 field34;
+    f32 field38;
+    f32 field3C;
+    s32 field40;
+    u8 field44;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    s32 field48;
+    u8 field4C;
+    s32 field50;
+    s16 field54;
+    s16 field56;
+} GameFFBA0Spawn;
+
+void func_150D2924(u8 *arg0) {
+    GameFFBA0Emitter *emitter = (GameFFBA0Emitter *)(arg0 + 0x28);
+    GameFFBA0Spawn spawn;
+    s16 *record;
+    GameFFBA0Spark spark;
+
+    emitter->counter += emitter->rate * D_800BE9A4;
+    emitter->age += D_800BE9A4;
+    if (emitter->counter > 1.0f) {
+        f32 point[3];
+
+        record = emitter->record;
+        spark.field2C = 9.0f;
+        spark.field18 = 0.0f;
+        spark.field1C = 0.0f;
+        spawn.field0 = 0x59;
+        spawn.field1 = 0;
+        spawn.field2 = 0x5A03;
+        spawn.field4 = 0x16;
+        spawn.field8 = 0;
+        spawn.fieldC = 0;
+        spawn.colors10[0] = emitter->color[0];
+        spawn.colors10[1] = emitter->color[1];
+        spawn.colors10[2] = emitter->color[2];
+        spawn.colors10[3] = 0xFF;
+        spawn.field18 = 1.0f;
+        spawn.position1C.x = record[0];
+        spawn.position1C.y = record[1];
+        spawn.position1C.z = record[2];
+        spawn.field34 = 1.0f;
+        spawn.field38 = 1.0f;
+        spawn.field3C = 1.0f;
+        spawn.field40 = 0x26C0000;
+        spawn.field45 = 0xFF;
+        spawn.field46 = 0;
+        spawn.field47 = 6;
+        spawn.field48 = 0;
+        spawn.field4C = 0xFF;
+        do {
+            spark.field28 = 22.0f - emitter->age;
+            if (spark.field28 > 0.0f) {
+                u8 *result;
+
+                func_1514373C(emitter->angle, record[3], &point[0], &point[2]);
+                point[1] = record[4];
+                func_150A7960(emitter->matrix, point[0], point[1], point[2],
+                              &spawn.field28.x, &spawn.field28.y, &spawn.field28.z);
+                spawn.field14 = func_150ADA68() * 25.0f + 50.0f;
+                spark.field0 = spark.field8 = func_150ADA68() * 1024.0f + -2560.0f + 2048.0f;
+                spark.fieldC = func_150ADA68() * 1024.0f + 1536.0f + 2048.0f;
+                spark.field4 = spark.fieldC;
+                spark.field10 = func_150ADA68() * 768.0f + 768.0f;
+                spark.field14 = func_150ADA68() * 768.0f + 768.0f;
+                spark.field20 = (func_150ADA68() * 80.0f + 50.0f) * 0.001f;
+                spark.field24 = (func_150ADA68() * 80.0f + 50.0f) * 0.001f;
+                spawn.field44 = spark.field2C * spark.field28;
+                result = func_1513D2F0(&spawn, &D_800A4AA0, 0, 0x26, 0, 0x1F, 0, 0, 0, 0x30,
+                                       arg0[0xC], arg0[1]);
+                if (result != NULL) {
+                    func_10022EC0(result + 0x110, &spark, 0x30);
+                }
+            }
+            emitter->angle += emitter->spin;
+            emitter->age -= emitter->fade;
+            emitter->counter -= 1.0f;
+        } while (emitter->counter > 1.0f);
+    }
+}
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 typedef struct GameFFBA0BeamVertex {
@@ -95,7 +216,6 @@ typedef struct GameFFBA0Beam {
     f32 texture[2];
 } GameFFBA0Beam;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D2D6C */
 void *func_150D2D6C(GameFFBA0Beam *arg0, s16 arg1) {
     GameFFBA0BeamVertex *vertices;
     void *result;
@@ -171,12 +291,9 @@ void *func_150D2D6C(GameFFBA0Beam *arg0, s16 arg1) {
     vertices->flag = 0;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D2D6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D2D6C.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800BE9A4;
 
 s32 func_150D317C(u8 *arg0) {
     u8 *temp_s0;

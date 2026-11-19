@@ -13,7 +13,6 @@
  * - func_1502E4C4
  * - func_1502EC34
  * - func_1502F01C
- * - func_1502F3C8
  * - func_1502F9FC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1385,34 +1384,25 @@ void func_1502F490(Game58F80Actor *, f32 *, f32 *, f32 *, s32);
 extern u8 D_800CC2D0;
 extern u8 D_800D121C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F3C8 CURRENT (969) */
 void func_1502F3C8(void) {
-    Game58F80Actor *actor;
-    f32 limit;
-    f32 current;
-    u8 other_index;
+    s32 i;
 
-    actor = (Game58F80Actor *) &D_800CC2D0;
-    do {
-        if (actor->active != 0) {
-            other_index = actor->field_274;
-            if (other_index != 0) {
-                actor->field_18 = actor->field_180;
-                func_1502F490((Game58F80Actor *) ((u32) &D_800CC2D0 + (other_index * 0x32CU) - 0x32CU), &actor->field_14, &actor->field_18, &actor->field_1C, actor->field_19E);
-                limit = actor->field_180;
-                current = actor->field_18;
-                if (current < limit) {
-                    actor->field_18 = limit;
-                } else {
-                    actor->field_180 = current;
-                }
-            }
+    for (i = 0; i < 25; i++) {
+        if (GAME58F80_ACTORS[i].active == 0) {
+            continue;
         }
-        actor += 1;
-    } while (actor != (Game58F80Actor *) &D_800D121C);
+        if (GAME58F80_ACTORS[i].field_274 == 0) {
+            continue;
+        }
+        GAME58F80_ACTORS[i].field_18 = GAME58F80_ACTORS[i].field_180;
+        func_1502F490(&GAME58F80_ACTORS[GAME58F80_ACTORS[i].field_274 - 1], &GAME58F80_ACTORS[i].field_14, &GAME58F80_ACTORS[i].field_18, &GAME58F80_ACTORS[i].field_1C, GAME58F80_ACTORS[i].field_19E);
+        if (GAME58F80_ACTORS[i].field_18 < GAME58F80_ACTORS[i].field_180) {
+            GAME58F80_ACTORS[i].field_18 = GAME58F80_ACTORS[i].field_180;
+        } else {
+            GAME58F80_ACTORS[i].field_180 = GAME58F80_ACTORS[i].field_18;
+        }
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502F3C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F3C8.s")
 typedef struct {
     u32 start;
     s32 count;

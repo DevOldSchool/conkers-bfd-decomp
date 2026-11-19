@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_126BD0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150F97EC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game126BD0LookupRecord {
@@ -52,40 +47,28 @@ extern u8 D_80088B50;
 extern s32 D_800A1C48;
 extern s32 D_800A1C54;
 
-typedef struct {
-    u32 random1;
-    u32 random2;
-    s32 pad4C;
-    s32 *target;
-    s32 *source;
-    f32 dimensions[2];
-    s32 pad60;
-    s32 position[3];
-} Game126BD0_97ECLocals;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F97EC CURRENT (1245) */
 void func_150F97EC(void *arg0, u8 arg1, s32 arg2) {
-    Game126BD0_97ECLocals locals;
+    s32 position[3];
+    s32 matrix;
+    f32 dimensions[2];
+    s32 *source;
+    s32 *target;
 
-    if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
-        locals.source = &D_800A1C48;
-        locals.target = locals.position;
-        func_15145EA4((s32 *)&locals.source, (s32 *)&locals.target,
-                      *(s32 *)((u8 *)arg0 + 0x1D4) + (D_80088B50 << 6), 1);
-        locals.dimensions[1] = func_150ADA68() * 1.0f + 2.0f;
-        locals.dimensions[0] = func_150ADA68() * 14.0f + 28.0f;
-        locals.random1 = func_150ADA20();
-        locals.random2 = func_150ADA20();
-        func_15102B38((s32)arg0, D_80088B50,
-                       (s32)&D_800A1C48, (s32)&D_800A1C54,
-                       locals.dimensions, locals.random1 % 3U + 4,
-                       locals.random2 % 156U + 100,
-                       func_150ADA68() * 300.0f + 400.0f,
-                       (s32)locals.position, 0xFF, 0, -1, arg1, arg2);
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) == 0) {
+        return;
     }
+    source = &D_800A1C48;
+    target = position;
+    matrix = *(s32 *)((u8 *)arg0 + 0x1D4) + (D_80088B50 << 6);
+    func_15145EA4((s32 *)&source, (s32 *)&target, matrix, 1);
+    dimensions[1] = (func_150ADA68() * 1) + 2.0f;
+    dimensions[0] = (func_150ADA68() * 14.0f) + 28.0f;
+    func_15102B38((s32)arg0, D_80088B50, (s32)&D_800A1C48, (s32)&D_800A1C54,
+                   dimensions, (func_150ADA20() % 3U) + 4,
+                   (func_150ADA20() % 156U) + 0x64,
+                   (func_150ADA68() * 300.0f) + 400.0f,
+                   (s32)position, 0xFF, 0, -1, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F97EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_126BD0/func_150F97EC.s")
 typedef struct Game126BD0Workspace {
     f32 vectors[5][3];
     u8 unused[0x3C];
