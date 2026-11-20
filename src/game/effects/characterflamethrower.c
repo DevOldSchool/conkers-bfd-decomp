@@ -18,7 +18,6 @@
  * - func_15196748
  * - func_15196B4C
  * - func_15198110
- * - func_15198570
  * - func_1519897C
  * - func_15199C34
  * - func_1519A9A4
@@ -1472,7 +1471,9 @@ typedef struct CharacterFlamethrowerCollisionActor {
     u8 generation;
     u8 pad3C[0x29];
     u8 disabled;
-    u8 pad66[0x7E];
+    u8 pad66[0x14];
+    u16 unk7A;
+    u8 pad7C[0x68];
     s16 radius;
     s16 height;
     s16 y_offset;
@@ -1492,57 +1493,55 @@ extern s16 D_800CC3B4;
 extern s16 D_800CC3B6;
 extern s16 D_800CC3B8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15198570 CURRENT (9204) */
 s32 func_15198570(CharacterFlamethrowerActor *arg0) {
-    volatile Vec3f position;
     CharacterFlamethrowerState *state;
-    u8 *points;
+    CharacterFlamethrowerPoint *points;
     s32 index;
-    s32 ring_index;
+    CharacterFlamethrowerCollisionActor *actor;
+    Vec3f position;
     f32 radius;
     f32 height;
-    f32 x;
-    f32 z;
-    f32 y;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 ratio;
+    f32 scale;
+    f32 distance;
 
-    points = arg0->points;
     state = arg0->state;
+    points = arg0->points;
+    actor = D_800CC2D0;
     index = arg0->point_end;
-    if (index != arg0->point_index) {
-        do {
-            index -= 1;
-            if (index < 0) index = arg0->point_capacity - 1;
-            position = *(Vec3f *)(points + index * 0x24);
-            radius = D_800CC3B4;
-            height = D_800CC3B6;
-            x = position.x - D_800CC2E4;
-            z = position.z - D_800CC2EC;
-            y = (position.y - (D_800CC2E8 + (f32)D_800CC3B8)) *
-                ((1.0f + radius / height) * 0.5f);
-            if ((x * x + y * y + z * z) < radius * radius) {
-                func_1505D024(D_800CC2D0, 0x60006, D_800CC34A,
-                    ((u8 *)state->identity - (u8 *)D_800CC2D0) / 0x32C);
-                func_1518D1C0(D_800CC2D0, 0xB, 0, 1,
-                    ((u8 *)arg0)[0xC], ((u8 *)arg0)[1], &D_800A8A84);
-                ring_index = arg0->point_index;
-                if (index != ring_index) {
-                    do {
-                        *(volatile s8 *)&arg0->point_index = ring_index + 1;
-                        ring_index = *(volatile s8 *)&arg0->point_index;
-                        if (arg0->point_capacity == ring_index) {
-                            *(volatile s8 *)&arg0->point_index = 0;
-                            ring_index = *(volatile s8 *)&arg0->point_index;
-                        }
-                        arg0->unk2C -= 1;
-                    } while (index != ring_index);
+    while (index != arg0->point_index) {
+        index--;
+        if (index < 0) {
+            index = arg0->point_capacity - 1;
+        }
+        position = points[index].position;
+        radius = actor->radius;
+        height = actor->height;
+        dx = position.x - actor->x;
+        dz = position.z - actor->z;
+        ratio = radius / height;
+        scale = (1.0f + ratio) * 0.5f;
+        dy = position.y - (actor->y + (f32)actor->y_offset);
+        dy *= scale;
+        distance = dx * dx + dy * dy + dz * dz;
+        if (distance < radius * radius) {
+            func_1505D024(D_800CC2D0, 0x60006, actor->unk7A, ((s32)state->identity - (s32)D_800CC2D0) / 0x32C);
+            func_1518D1C0(D_800CC2D0, 0xB, 0, 1, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1], &D_800A8A84);
+            while (index != arg0->point_index) {
+                arg0->point_index++;
+                if (arg0->point_index == arg0->point_capacity) {
+                    arg0->point_index = 0;
                 }
+                arg0->unk2C--;
             }
-        } while (index != arg0->point_index);
+        }
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15198570 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198570.s")
+
 s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerState *state;
     CharacterFlamethrowerPoint *points;

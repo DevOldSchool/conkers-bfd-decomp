@@ -1840,13 +1840,13 @@ s32 func_15145128(Vec3f *arg0, Vec3f *arg1,
     arg1->z = *arg3 * arg0->z;
     return 1;
 }
-s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
+s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
 
 s32 func_151451F0(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, f32 *arg7, f32 *arg8) {
     f32 value;
 
-    if (func_151452C4(arg0, arg1, arg2, arg3, arg5, arg6, arg7, arg8) != 0) {
+    if (func_151452C4(arg0, arg1, (Vec3f *)arg2, arg3, (Vec3f *)arg5, (Vec3f *)arg6, arg7, arg8) != 0) {
         value = *arg7;
         if ((value < 0.0f) && (*arg8 < 0.0f)) {
             return 0;
@@ -1864,8 +1864,8 @@ s32 func_151451F0(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
 }
 f32 func_15144A74(void *, void *);
 
-s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
-                  s32 arg4, s32 arg5, f32 *arg6, f32 *arg7) {
+s32 func_151452C4(void *arg0, void *arg1, Vec3f *arg2, f32 arg3,
+                  Vec3f *arg4, Vec3f *arg5, f32 *arg6, f32 *arg7) {
     f32 dx;
     f32 dy;
     f32 dz;
@@ -1878,9 +1878,9 @@ s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
     f32 farDistance;
     f32 dot;
 
-    dx = ((Vec3f *)arg2)->x - ((Vec3f *)arg0)->x;
-    dy = ((Vec3f *)arg2)->y - ((Vec3f *)arg0)->y;
-    dz = ((Vec3f *)arg2)->z - ((Vec3f *)arg0)->z;
+    dx = arg2->x - ((Vec3f *)arg0)->x;
+    dy = arg2->y - ((Vec3f *)arg0)->y;
+    dz = arg2->z - ((Vec3f *)arg0)->z;
     direction = *(Vec3f *)arg1;
     origin = *(Vec3f *)arg0;
     projection = dx * direction.x + dy * direction.y + dz * direction.z;
@@ -1894,20 +1894,20 @@ s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
     }
     nearDistance = projection - root;
     farDistance = projection + root;
-    ((Vec3f *)arg4)->x = nearDistance * direction.x + origin.x;
-    ((Vec3f *)arg4)->y = nearDistance * direction.y + origin.y;
-    ((Vec3f *)arg4)->z = nearDistance * direction.z + origin.z;
+    arg4->x = nearDistance * direction.x + origin.x;
+    arg4->y = nearDistance * direction.y + origin.y;
+    arg4->z = nearDistance * direction.z + origin.z;
     *arg6 = nearDistance;
-    ((Vec3f *)arg5)->x = farDistance * direction.x + origin.x;
-    ((Vec3f *)arg5)->y = farDistance * direction.y + origin.y;
-    ((Vec3f *)arg5)->z = farDistance * direction.z + origin.z;
+    arg5->x = farDistance * direction.x + origin.x;
+    arg5->y = farDistance * direction.y + origin.y;
+    arg5->z = farDistance * direction.z + origin.z;
     *arg7 = farDistance;
     {
         Vec3f delta;
 
-        delta.x = ((Vec3f *)arg4)->x - ((Vec3f *)arg0)->x;
-        delta.y = ((Vec3f *)arg4)->y - ((Vec3f *)arg0)->y;
-        delta.z = ((Vec3f *)arg4)->z - ((Vec3f *)arg0)->z;
+        delta.x = arg4->x - ((Vec3f *)arg0)->x;
+        delta.y = arg4->y - ((Vec3f *)arg0)->y;
+        delta.z = arg4->z - ((Vec3f *)arg0)->z;
         dot = func_15144A74(&delta, arg1);
     }
     if (dot < 0.0f) {

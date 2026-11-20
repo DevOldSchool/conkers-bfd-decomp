@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15009334
  * - func_1500AF08
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -84,57 +83,47 @@ void *func_10003C40(s32, s32, s32, s32);
 void func_1500AB5C(s32);
 void func_1500A94C(s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15009334 CURRENT (3161) */
 void func_15009334(u32 index) {
     s32 type;
     s32 bgr[3];
+    u32 color;
+    s16 x;
+    s16 y;
+    s16 z;
+    s32 settings;
     s32 strength;
     s32 enabled;
-    s32 callback;
     s32 duration;
     void *light;
-    Game36680PointLink *link;
-    Game36680Point *point;
-    u32 packed;
-    u32 settings;
-    u32 action;
-    u32 offset;
+    s32 callback;
 
-    offset = index * sizeof(Game36680Point);
-    point = (Game36680Point *)((u8 *)D_800D3098 + offset);
-    type = point->type >> 2;
+    type = D_800D3098[index].type >> 2;
     switch (type) {
     case 9:
     case 10:
     case 16:
-        packed = point->color;
-        bgr[2] = packed & 0xFF;
-        bgr[1] = (packed >> 8) & 0xFF;
-        bgr[0] = (packed >> 16) & 0xFF;
-        point->flags |= 4;
+        color = D_800D3098[index].color;
+        bgr[2] = color & 0xFF;
+        bgr[1] = (color >> 8) & 0xFF;
+        bgr[0] = (color >> 16) & 0xFF;
+        D_800D3098[index].flags |= 4;
         switch (type) {
         case 10:
             func_1515D4D4(bgr[2], bgr[1], bgr[0], 0);
-            action = ((Game36680Point *)((u8 *)D_800D3098 + offset))->action;
-            if (action != 0) {
-                func_1500AB5C(action);
+            if (D_800D3098[index].action != 0) {
+                func_1500AB5C(D_800D3098[index].action);
             }
             break;
         case 9:
-            point = (Game36680Point *)((u8 *)D_800D3098 + offset);
-            settings = point->settings;
-            packed = point->color;
-            action = point->action;
-            settings = (settings >> 8) & 0xFF;
-            strength = packed >> 24;
-            strength &= 0x7F;
-            enabled = packed >> 31;
-            enabled &= 1;
-            callback = action & 0xFFFF;
-            duration = action >> 16;
-            duration &= 0xFFFF;
-            light = func_1515D5AC(point->position[0], point->position[1], point->position[2], settings, bgr[2], bgr[1], bgr[0],
-                                 strength, enabled, duration);
+            x = D_800D3098[index].position[0];
+            y = D_800D3098[index].position[1];
+            z = D_800D3098[index].position[2];
+            settings = (D_800D3098[index].settings >> 8) & 0xFF;
+            strength = (D_800D3098[index].color >> 24) & 0x7F;
+            enabled = (D_800D3098[index].color >> 31) & 1;
+            callback = D_800D3098[index].action & 0xFFFF;
+            duration = (D_800D3098[index].action >> 16) & 0xFFFF;
+            light = func_1515D5AC(x, y, z, settings, bgr[2], bgr[1], bgr[0], strength, enabled, duration);
             if (light != 0 && callback != 0) {
                 func_1500A94C((s32)light, callback);
             }
@@ -143,31 +132,28 @@ void func_15009334(u32 index) {
             D_800DCD24[0] = bgr[2];
             D_800DCD24[1] = bgr[1];
             D_800DCD24[2] = bgr[0];
-            point = (Game36680Point *)((u8 *)D_800D3098 + offset);
-            D_800DCD28[0] = point->settings;
-            D_800DCD28[1] = point->settings >> 8;
-            D_800DCD28[2] = point->settings >> 16;
-            D_800DCD3C = point->settings >> 24;
-            D_800DCD3D = point->color >> 24;
+            D_800DCD28[0] = D_800D3098[index].settings & 0xFF;
+            D_800DCD28[1] = (D_800D3098[index].settings >> 8) & 0xFF;
+            D_800DCD28[2] = (D_800D3098[index].settings >> 16) & 0xFF;
+            D_800DCD3C = (D_800D3098[index].settings >> 24) & 0xFF;
+            D_800DCD3D = (D_800D3098[index].color >> 24) & 0xFF;
             break;
         }
         break;
-    case 15:
-        link = func_10003C40(sizeof(Game36680PointLink), 1, 0, 0);
-        link->point = (Game36680Point *)(offset + (u8 *)D_800D3098);
+    case 15: {
+        Game36680PointLink *link = func_10003C40(sizeof(Game36680PointLink), 1, 0, 0);
+        link->point = &D_800D3098[index];
         link->next = (Game36680PointLink *)D_800DCD80;
         D_800DCD80 = (s32)link;
-        break;
-    case 24:
-        link = func_10003C40(sizeof(Game36680PointLink), 1, 0, 0);
-        link->point = (Game36680Point *)(offset + (u8 *)D_800D3098);
+    } break;
+    case 24: {
+        Game36680PointLink *link = func_10003C40(sizeof(Game36680PointLink), 1, 0, 0);
+        link->point = &D_800D3098[index];
         link->next = (Game36680PointLink *)D_800DCD84;
         D_800DCD84 = (s32)link;
-        break;
+    } break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15009334 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009334.s")
 
 void func_150095D8(s32 arg0, u8 arg1) {
     func_1516127C(arg0, 0xFF, 1);

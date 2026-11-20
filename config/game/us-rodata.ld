@@ -227,6 +227,8 @@ SECTIONS
     {
         *game_360A0.o(.rodata)
     }
+    /* Sixteen switch targets: docs/evidence/data-layout/game_36680_jump_table.md. */
+    .game_rodata_36680 0x80095B78 (INFO) : SUBALIGN(4) { *game_36680.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_113d60_float_constants.md. */
     .game_rodata_113d60 0x800A1304 (INFO) : SUBALIGN(4)
     {
@@ -1019,6 +1021,8 @@ ASSERT(SIZEOF(.game_rodata_2062d0_10) == 0x18, "game_2062D0 func_151DA368 litera
 ASSERT(SIZEOF(.game_rodata_2062d0_28) == 0x4, "game_2062D0 effect literal extent changed")
 ASSERT(SIZEOF(.game_rodata_360a0) == 0x20, "game_360A0 descriptor literal extent changed")
 __game_rodata_360a0_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_36680) == 0x40, "game_36680 table extent changed")
+__game_rodata_36680_payload_size = 0x40;
 ASSERT(SIZEOF(.game_rodata_113d60) == 0x10, "game_113D60 emitter literal extent changed")
 __game_rodata_113d60_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_fd1d0) == 0x10, "game_FD1D0 prompt literal extent changed")

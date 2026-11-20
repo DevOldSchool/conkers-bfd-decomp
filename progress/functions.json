@@ -3549,16 +3549,15 @@
       "symbol": "func_15198110"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 9204,
-        "reason": "Manual3-attempt limit; best CURRENT9204 retained. Raw callee disproves starter phantom float arguments; full12-byte position and word loop index fixed. Geometry load ordering, float saves/frameB0 and ring allocation remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15198570",
           "vram": "0x15198570"
         }
@@ -8819,17 +8818,16 @@
       "symbol": "func_151C87AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3348,
-        "reason": "Approved two-argument signature and sample/half reuse plus existing-local declaration order improved5482 to3348 over full444B. Aggregate field offsets now exact; frameC0 versus rawB0, actor savedGPR versus argument home, FP scheduling remain. Six revisions5082/5202/4078/3348/3348/3348; actor alias removal regressed, sight-direction reuse and first multiply reversal neutral. Simpler revision4 best3348 restored/reverified. No padding or shared tooling changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 444,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C87E0",
           "vram": "0x151C87E0"
         }
@@ -14647,17 +14645,16 @@
       "symbol": "func_150092DC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3161,
-        "reason": "Manual ROM-verified lighting dispatcher candidate score 3161; frame size recovered, with color spills and decode register scheduling still different.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 676,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15009334",
           "vram": "0x15009334"
         }
@@ -39913,17 +39910,16 @@
       "symbol": "func_15022998"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2640,
-        "reason": "Best valid CURRENT2640: scalar-global out-of-object pointer addition replaced with integer address arithmetic (legacy3455 invalid), recovering global A2 sequence. Widen count2640 neutral, original byte local retained; raw SLT vs compiler equality-only loop, global base CSE and branch scheduling remain. Two fresh revisions exhausted; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 292,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150229E4",
           "vram": "0x150229E4"
         }
@@ -51419,17 +51415,16 @@
       "symbol": "func_15185F24"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5197,
-        "reason": "Best 5197; three bounded candidates exhausted. Frame378 versus370, work homes, count stores, final-argument hoisting and decoder register scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 616,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518652C",
           "vram": "0x1518652C"
         }
@@ -83401,17 +83396,16 @@
       "symbol": "func_151D5A18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4088,
-        "reason": "Bounded source-only group seven independently reproduced; hypotheses and local wrapper correction evidence preserved in worker-group-7/report.json.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 500,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D5B6C",
           "vram": "0x151D5B6C"
         }
@@ -88483,17 +88477,16 @@
       "symbol": "func_150497E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1744,
-        "reason": "CURRENT (1744), improved saved5197/latest5805 via coefficient array, typed base, cached coefficients. Two revisions2969 then1744. Remaining extra coefficient stores, frame28vs20 and FPR allocation/spill; no padding or exhausted sibling split-array repeat.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 252,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150498A4",
           "vram": "0x150498A4"
         }
