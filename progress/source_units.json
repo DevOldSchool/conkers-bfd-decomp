@@ -9829,7 +9829,7 @@
         "us": {
           "end": "0x36C70",
           "start": "0x36570",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_63A20.c"
@@ -16913,7 +16913,7 @@
         "us": {
           "end": "0x1D6E60",
           "start": "0x1D6970",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_203E20.c"

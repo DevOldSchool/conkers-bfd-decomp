@@ -87,14 +87,59 @@ clear_loop:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500707C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_1500707C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007168 CURRENT (9335) */
+typedef struct Game33990Slot {
+    s8 f0;
+    s8 f1;
+    s8 f2;
+    u8 f3;
+    u8 f4;
+    u8 f5;
+    s8 f6;
+    s8 f7;
+    s8 f8;
+    s8 f9;
+} Game33990Slot;
+extern u8 D_800BE2F0[];
+extern Game33990Slot *D_80082BBC;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007168 CURRENT (10) */
 void func_15007168(void) {
+    s32 i;
+
+    for (i = 0; i < 0x68; i++) {
+        D_800BE2F0[i] = 0;
+    }
+    for (i = 0; i < 10; i++) {
+        D_80082BBC[i].f1 = 3;
+        D_80082BBC[i].f3 = 2;
+        D_80082BBC[i].f4 = 1;
+        D_80082BBC[i].f2 = 10;
+        switch (i) {
+        case 0:
+            D_80082BBC[i].f5 = 3;
+            break;
+        case 1:
+        case 2:
+            D_80082BBC[i].f5 = 5;
+            break;
+        case 7:
+            D_80082BBC[i].f5 = 0x14;
+            break;
+        case 5:
+            D_80082BBC[i].f5 = 0x14;
+            D_80082BBC[i].f2 = 0;
+            break;
+        case 8:
+        case 9:
+            D_80082BBC[i].f5 = 3;
+            break;
+        }
+        D_80082BBC[i].f9 = 0;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15007168 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007168.s")
 void func_15007168(void);
 void func_151DD3A0(u8 *, s32, s16 *, s32);
-extern u8 D_800BE2F0[];
 extern u8 D_800BE900[];
 
 void func_1500727C(void) {

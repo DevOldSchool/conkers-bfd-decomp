@@ -9,7 +9,6 @@
  * - func_151BA084
  * - func_151BA518
  * - func_151BB0E0
- * - func_151BC104
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -666,19 +665,12 @@ s32 func_15163414(u8 *, f32 *, f32 *, f32 *, s8, u8, u8, u8, u8, u8, u8, u8, s32
 extern f32 D_800AA830;
 extern f32 D_800DCA24;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC104 CURRENT (1647) */
 void func_151BC104(Game1E73B0Owner *arg0, u8 arg1, s32 arg2) {
-    void *spark_result;
-    Game1E73B0Spark spark;
-    Game1E73B0Link sparkLink;
-    void *track_result;
-    Game1E73B0Spawn spawn;
-    s32 glow_result;
-    Game1E73B0Track track;
-    Game1E73B0Link glowLink;
-    Game1E73B0Glow glow;
-
     if (D_80082FA0 < 2 && D_8008FD8C < 5) {
+        void *spark_result;
+        Game1E73B0Spark spark;
+        Game1E73B0Link sparkLink;
+
         spark.x = &arg0->x;
         spark.y = &arg0->y;
         spark.z = &arg0->z;
@@ -696,34 +688,41 @@ void func_151BC104(Game1E73B0Owner *arg0, u8 arg1, s32 arg2) {
             func_10022EC0((u8 *)spark_result + 0x40, &sparkLink, 8);
         }
     }
-    track.field14 = 0.0f;
-    track.field18 = 0.0f;
-    track.field20 = -16384.0f;
-    track.field1C = -16384.0f;
-    spawn.field15 = 0x28;
-    spawn.position.x = arg0->x;
-    spawn.position.y = arg0->y;
-    spawn.duration = 0x12C;
-    spawn.flags = 6;
-    spawn.mode = 0xC;
-    track.owner = arg0;
-    spawn.position.z = arg0->z;
-    track.id = arg0->id;
-    track.position = spawn.position;
-    track_result = func_15147A80(&spawn, (void *)0x28, 0x14, 0xA, 0xA, 0xA, 0, 0, 0, arg1, arg2);
-    if (track_result != NULL) {
-        func_10022EC0(*(void **)((u8 *)track_result + 0x98), &track, 0x24);
-    }
-    glowLink.owner = arg0;
-    glow.kind = 2;
-    glow.mode = 0xE;
-    glowLink.id = arg0->id;
-    glow.duration = 0x12C;
-    glow.field4 = 0x1F;
-    glow_result = func_15163414(&glow.kind, &arg0->x, &arg0->y, &arg0->z, 0, 0, 0x28, 0xFF, 0xFF, 0xFF, 0xFF, 0, 8, arg1, arg2);
-    if (glow_result != 0) {
-        func_10022EC0((u8 *)glow_result + 0x28, &glowLink, 8);
+    {
+        void *track_result;
+        Game1E73B0Spawn spawn;
+        s32 glow_result;
+        Game1E73B0Track track;
+        Game1E73B0Link glowLink;
+        Game1E73B0Glow glow;
+
+        spawn.field15 = 0x28;
+        spawn.position.x = arg0->x;
+        spawn.position.y = arg0->y;
+        spawn.position.z = arg0->z;
+        spawn.duration = 0x12C;
+        spawn.flags = 6;
+        spawn.mode = 0xC;
+        track.owner = arg0;
+        track.id = arg0->id;
+        track.position = spawn.position;
+        track.field14 = 0.0f;
+        track.field18 = 0.0f;
+        track.field20 = -16384.0f;
+        track.field1C = -16384.0f;
+        track_result = func_15147A80(&spawn, (void *)0x28, 0x14, 0xA, 0xA, 0xA, 0, 0, 0, arg1, arg2);
+        if (track_result != NULL) {
+            func_10022EC0(*(void **)((u8 *)track_result + 0x98), &track, 0x24);
+        }
+        glowLink.owner = arg0;
+        glowLink.id = arg0->id;
+        glow.kind = 2;
+        glow.mode = 0xE;
+        glow.duration = 0x12C;
+        glow.field4 = 0x1F;
+        glow_result = func_15163414(&glow.kind, &arg0->x, &arg0->y, &arg0->z, 0, 0, 0x28, 0xFF, 0xFF, 0xFF, 0xFF, 0, 8, arg1, arg2);
+        if (glow_result != 0) {
+            func_10022EC0((u8 *)glow_result + 0x28, &glowLink, 8);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BC104 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BC104.s")

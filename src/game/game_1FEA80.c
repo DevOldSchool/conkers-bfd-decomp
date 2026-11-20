@@ -11,7 +11,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151D15D0
- * - func_151D197C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -143,109 +142,112 @@ s32 func_151D15D0(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D15D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D15D0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D197C CURRENT (3782) */
-s32 func_151D197C(u8 *arg0) {
-    f32 savedTotal;
-    f32 savedInverse;
-    f32 total;
-    f32 inverse;
-    f32 remaining;
-    f32 widthFactor;
-    f32 alphaFactor;
-    f32 length;
-    f32 ratio;
-    f32 sourceX, sourceY, sourceZ;
-    f32 x, y, z;
-    s32 index;
-    s32 previous;
+typedef struct {
+    u8 pad00[0x1C];
+    s16 field1C;
+    u16 flags;
+    u8 pad20[5];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    s8 head;
+    s8 tail;
+    u8 pad2F[0x65];
+    Game1FEA80TrailPoint *points;
+    Game1FEA80TrailState *state;
+} Game1FEA80TrailActor;
+
+s32 func_151D197C(Game1FEA80TrailActor *arg0) {
     Game1FEA80TrailState *state;
     Game1FEA80TrailPoint *points;
-    Game1FEA80TrailPoint *point;
-    Game1FEA80TrailPoint *next;
+    f32 total;
+    f32 inverse;
+    s32 count;
 
-    state = *(Game1FEA80TrailState **)(arg0 + 0x98);
-    points = *(Game1FEA80TrailPoint **)(arg0 + 0x94);
-    if (state->owner != 0) {
-        state->ownerScale = *(f32 *)(*(u8 **)(state->owner + 0x28) + 0x14C);
+    state = arg0->state;
+    points = arg0->points;
+    if (state->owner != NULL) {
+        u8 *model = *(u8 **)(state->owner + 0x28);
+
+        state->ownerScale = *(f32 *)(model + 0x14C);
     }
-    if (*(s8 *)(arg0 + 0x2C) >= 2) {
+    count = arg0->count;
+    if (count >= 2) {
+        f32 limit;
+        s32 index;
+        s32 current;
+        Game1FEA80TrailPoint *point;
+
         total = 0.0f;
-        index = *(s8 *)(arg0 + 0x2E) - 1;
-        if (index < 0) {
-            index = arg0[0x25] - 1;
-        }
-        if (index != *(s8 *)(arg0 + 0x2D)) {
+        index = arg0->tail - 1;
+        if (index < 0) index = arg0->capacity - 1;
+        if (index != arg0->head) {
+            limit = state->limit;
             do {
-                previous = index;
+                current = index;
                 index--;
-                if (index < 0) {
-                    index = arg0[0x25] - 1;
-                }
-                point = &points[previous];
-                length = point->length;
-                total += length;
-                if (state->limit < total) {
-                    if (length != 0.0f) {
-                        ratio = (total - state->limit) / length;
-                        sourceX = point->x;
-                        sourceY = point->y;
-                        sourceZ = point->z;
+                if (index < 0) index = arg0->capacity - 1;
+                point = &points[current];
+                total += point->length;
+                if (limit < total) {
+                    if (point->length != 0) {
+                        Game1FEA80TrailPoint *next;
+                        f32 ratio;
+                        f32 nx, ny, nz;
+                        f32 dx, dy, dz;
+
+                        ratio = (total - limit) / point->length;
                         next = &points[index];
-                        x = next->x;
-                        y = next->y;
-                        z = next->z;
-                        next->x = x - (x - sourceX) * ratio;
-                        next->y = y - (y - sourceY) * ratio;
-                        next->z = z - (z - sourceZ) * ratio;
+                        nx = next->x; ny = next->y; nz = next->z;
+                        dx = nx - point->x; dy = ny - point->y; dz = nz - point->z;
+                        next->x = nx - dx * ratio;
+                        next->y = ny - dy * ratio;
+                        next->z = nz - dz * ratio;
                         point->length *= 1.0f - ratio;
                     }
-                    if (index != *(s8 *)(arg0 + 0x2D)) {
+                    if (index != arg0->head) {
                         do {
-                            (*(s8 *)(arg0 + 0x2D))++;
-                            if (arg0[0x25] == *(s8 *)(arg0 + 0x2D)) {
-                                *(s8 *)(arg0 + 0x2D) = 0;
+                            arg0->head++;
+                            if (arg0->head == arg0->capacity) {
+                                arg0->head = 0;
                             }
-                            (*(s8 *)(arg0 + 0x2C))--;
-                        } while (index != *(s8 *)(arg0 + 0x2D));
+                            arg0->count--;
+                        } while (index != arg0->head);
                     }
-                    total = state->limit;
+                    limit = state->limit;
+                    total = limit;
                 }
-            } while (index != *(s8 *)(arg0 + 0x2D));
+            } while (index != arg0->head);
+            count = arg0->count;
         }
-        if (total != 0.0f) {
-            inverse = 1.0f / total;
-        } else {
-            inverse = 0.0f;
-        }
-        savedInverse = inverse;
-        savedTotal = total;
+        inverse = total != 0 ? 1.0f / total : 0.0f;
     }
-    inverse = savedInverse;
-    total = savedTotal;
-    if (*(s8 *)(arg0 + 0x2C) >= 2) {
-        index = *(s8 *)(arg0 + 0x2E);
+    if (count >= 2) {
+        f32 remaining;
+        f32 widthFactor;
+        f32 alphaFactor;
+        s32 index;
+
+        index = arg0->tail;
         remaining = total;
         widthFactor = state->widthScale * state->ownerScale * inverse;
         alphaFactor = state->alphaScale * inverse;
         do {
+            Game1FEA80TrailPoint *point;
+
             index--;
-            if (index < 0) {
-                index = arg0[0x25] - 1;
-            }
+            if (index < 0) index = arg0->capacity - 1;
             point = &points[index];
-            point->width = state->widthBase * state->ownerScale +
-                           remaining * widthFactor;
-            point->alpha = (u32)(remaining * alphaFactor);
+            point->width = state->widthBase * state->ownerScale + remaining * widthFactor;
+            point->alpha = remaining * alphaFactor;
             remaining -= point->length;
-        } while (index != *(s8 *)(arg0 + 0x2D));
+        } while (index != arg0->head);
     }
-    if ((*(u16 *)(arg0 + 0x1E) & 1) && (*(u16 *)(arg0 + 0x1E) & 8)) {
-        *((s8 *)state + 8) = *(s16 *)(arg0 + 0x1C) * 6;
+    if ((arg0->flags & 1) && (arg0->flags & 8)) {
+        *((s8 *)state + 8) = arg0->field1C * 6;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D197C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D197C.s")
 typedef struct Game1FEA80RibbonPoint {
     Vec3f position;
     u8 pad0C[8];
