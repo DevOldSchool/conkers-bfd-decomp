@@ -6,6 +6,7 @@
 #define F3DEX_GBI_2
 #endif
 #include "PR/mbi.h"
+#include "game_render_view.h"
 
 /*
  * Reviewed source unit: src/game/game_16EE20.c
@@ -14,7 +15,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15141A7C
  * - func_1514306C
- * - func_15144CEC
  * - func_15145740
  * - func_15145AD8
  *
@@ -1713,52 +1713,41 @@ f32 func_15144C8C(f32 arg0, f32 arg1) {
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern f32 D_800A56B0;
 extern f32 D_800D9B20;
-extern u8 *D_800BE628;
 extern u8 D_800D9D10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144CEC CURRENT (3547) */
 s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
                   f32 *arg4, u8 arg5) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
-    f32 *var_t0;
-    f32 temp_fv0;
-    f32 vertical_product;
-    s32 temp_t9;
-    u8 *temp_v1;
+    f32 sx;
+    f32 sy;
 
-    if (arg2 == 0) {
+    if (arg2 == NULL) {
         arg2 = &sp44;
     }
-    if (arg3 == 0) {
+    if (arg3 == NULL) {
         arg3 = &sp40;
     }
-    var_t0 = arg4;
-    if (var_t0 == 0) {
-        var_t0 = &sp3C;
+    if (arg4 == NULL) {
+        arg4 = &sp3C;
     }
     func_150A7A00(&D_800D9D10[arg5 << 6], arg0[0], arg0[1], arg0[2],
                    arg1, arg1 + 1, arg2, arg3);
-    temp_fv0 = *arg3;
-    if ((D_800A56B0 <= temp_fv0) || (temp_fv0 <= D_800D9B20)) {
+    if ((D_800A56B0 <= *arg3) || (*arg3 <= D_800D9B20)) {
         return 0;
     }
-    if (temp_fv0 != 0.0f) {
-        *var_t0 = 1.0f / temp_fv0;
-        temp_t9 = arg5 * 0x180;
-        temp_v1 = D_800BE628 + temp_t9;
-        vertical_product = arg1[1] * (*(f32 *)(temp_v1 + 0x10) + 5.0f);
-        arg1[0] = (*var_t0 * (arg1[0] * (*(f32 *)(temp_v1 + 0xC) + 5.0f))) +
-                  *(f32 *)(temp_v1 + 0x34);
-        arg1[1] = *(f32 *)(D_800BE628 + temp_t9 + 0x38) -
-                  (*var_t0 * vertical_product);
-        return 1;
+    if (*arg3 != 0.0f) {
+        *arg4 = 1.0f / *arg3;
+    } else {
+        return 0;
     }
-    return 0;
+    sx = D_800BE628[arg5].field0C;
+    sy = D_800BE628[arg5].field10;
+    arg1[0] = D_800BE628[arg5].center_x + (arg1[0] * (sx + 5.0f) * *arg4);
+    arg1[1] = D_800BE628[arg5].center_y - (arg1[1] * (sy + 5.0f) * *arg4);
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15144CEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144CEC.s")
 
 void func_151450B4(void *, void *, void *);
 

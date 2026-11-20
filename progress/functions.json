@@ -2972,16 +2972,15 @@
       "symbol": "func_150B378C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 830,
-        "reason": "CURRENT (830), round22 state-first local order, inline RNG args, PipeExplodeEntry array indexing for both point reads (frame 0xF8 exact; residual: raw hoists li v1,0x14 / points reload / arg4 load / 0.75f before the render stores; moving the trail statements earlier 3025) (stored 1894). Earlier: Manual budget exhausted: best CURRENT 1894; float phase reuse recovers paired Y/X stores, frame100 versus F8 and packet/spill offsets plus schedule and GPR differences remain. Full packet copies audited: unwritten option fields are disabled for selected flags and callbacks; no shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_150B37C8",
           "vram": "0x150B37C8"
         }
@@ -12737,17 +12736,16 @@
       "symbol": "func_15144C8C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3547,
-        "reason": "Actual vertical-product snapshot before horizontal store restores raw alias order, CURRENT4258 to3547 and14 to10 missing/extra; frame58/raw48 and FP/control differences remain. Actual arg4 home reuse neutral3547 identical instructions; retain snapshot-only revision. Two fresh revisions exhausted; no ABI/shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 404,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15144CEC",
           "vram": "0x15144CEC"
         }
@@ -40748,17 +40746,16 @@
       "symbol": "func_1502EAFC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1680,
-        "reason": "New manual attempt: CURRENT 1710 -> 1730 -> 1680; best retained. Two targeted revisions exhausted. Remaining packed-color register lifetime, pre-call alpha extraction/spill, arithmetic operands and return scheduling; no shared changes or automated search.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 600,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502EC34",
           "vram": "0x1502EC34"
         }
@@ -84263,17 +84260,16 @@
       "symbol": "func_151B77F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3057,
-        "reason": "Best CURRENT 3057 after three manual comparisons; constant snapshots and independent color cursor recovered, FP/frame/control schedule remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 672,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B7998",
           "vram": "0x151B7998"
         }

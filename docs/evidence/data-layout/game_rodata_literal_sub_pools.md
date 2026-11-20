@@ -157,8 +157,11 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | effects_sight | 0x0 | 0x24 | 0x800AAC58 | pool (func_151C899C, func_151C8FCC) | `43F58000 3D77CED9 3D563886 3F32B021 BEE3D70B 3EE1CAC1` (491.0, 0.0605, 0.0523, 0.698, -0.44500002, 0.441; round-23) then `41F0CCCD 3E99999A 358637BD` (30.1, 0.3, 0.000001; round-29) |
 | effects_sight | 0x24 | 0xCC | 0x800AADBC | table, sites 0x2A84 / 0x2A8C | func_151C9BA0 cases 9..0x3B ([record](effects_sight_float_constant.md); round-23) |
 | effects_sight | 0xF0 | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
+| game_1E37D0 | 0x0 | 0x4 | 0x800AA470 | pool (func_151B6420) | `3EFCED92` (0.49400002; [record](game_1e37d0_float_constant.md)) |
+| game_1E37D0 | 0x4 | 0x4 | 0x800AA484 | pool (func_151B7998) | `4495C000` (1198.0; round-29) |
 | game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
 | game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
+| game_58F80 | 0x118 | 0x1C | 0x80096F1C | table, sites 0x3180 / 0x3188 | `1502EC64 1502ED04 1502ED04 1502ED3C 1502ED3C 1502EE24 1502EE24` (func_1502EC34; round-29) |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -445,6 +448,16 @@ the unit could be linked.
   (`0x80096EF8`..`0x80096F03`: 0.1, 0.1, 20000.0) are `func_1502DF38` literals
   still read through externs, so the unit is split at 0x100. The object
   `.rodata` is 0x120 bytes: 0x118 of payload and 8 zero alignment bytes.
+  In round-29 `func_1502EC34` matched as a seven-case `switch` (cases 1..7);
+  its raw dispatch (`lui`/`lw` of `jtbl_80096F1C_game` at text offsets
+  0x3180/0x3188, addresses 0x1502EC50/0x1502EC58) addresses `0x80096F1C`,
+  directly after the `func_1502EAFC` table, and its seven ROM words are the
+  case targets in the table above. The compiled table follows at object
+  offset 0x118 and becomes `.rodata.58f80_118`; the object `.rodata` is now
+  0x140 bytes (0x134 of payload and 0xC zero alignment bytes). The alignment
+  bytes would fall on `0x80096F38`..`0x80096F43` (`2.55f` and `0.024543693f`,
+  still extern reads in other members, and the following word); the split
+  sections cover only the payload, so they are not compared.
 
 ## Validation
 
