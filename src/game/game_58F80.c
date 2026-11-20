@@ -1113,8 +1113,6 @@ void func_1502EAFC(void *arg0) {
     }
 }
 f32 func_15047C00(f32);
-extern f32 D_80096F38;
-extern f32 D_80096F3C;
 
 void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
     f32 value;
@@ -1129,7 +1127,7 @@ void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
         if (packed >= 0x100U) {
             value = *(f32 *)packed;
             value = value < 0.0f ? 0.0f : (value > 255.0f ? 255.0f : value);
-            *arg4 = (s32)(value * D_80096F38);
+            *arg4 = (s32)(value * 2.55f);
             return;
         }
         *arg4 = packed;
@@ -1152,7 +1150,7 @@ void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
         *arg1 = (*(s32 *)(arg0 + 0xA0) >> 16) & 0xFF;
         *arg2 = (*(s32 *)(arg0 + 0xA0) >> 8) & 0xFF;
         *arg3 = *(u32 *)(arg0 + 0xA0) & 0xFF;
-        value = func_15047C00((f32)(u32)arg0[0xA5] * D_80096F3C);
+        value = func_15047C00((f32)(u32)arg0[0xA5] * 0.024543693f);
         *arg4 = (s32)((f32)alpha + (64.0f * ((value + 1.0f) * 0.5f)));
         *arg4 += ((0xFF - *arg4) * (0xFF - arg0[0xA7])) >> 8;
     } break;

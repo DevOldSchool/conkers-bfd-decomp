@@ -7,8 +7,8 @@
  */
 
 extern u8 D_800DD432;
-extern s8 D_800DD433;
-extern s8 D_800DD434;
+extern u8 D_800DD433;
+extern u8 D_800DD434;
 extern s16 D_800DD436;
 extern void **D_800DD440;
 extern s16 D_800DD444;
@@ -79,7 +79,7 @@ void func_15179008(s32 arg0) {
     timer = D_800DD432;
     timer -= D_800BE9E4;
     if (timer <= 0) {
-        if ((u8)D_800DD433 < 40) {
+        if (D_800DD433 < 40) {
             timer = func_150ADA20() % 31 + 20;
             D_800DD433 = (func_150ADA20() & 0xF) + 170;
         } else {
@@ -90,8 +90,8 @@ void func_15179008(s32 arg0) {
     D_800DD432 = timer;
     switch (D_800DD446) {
     case 0:
-        if ((u8)D_800DD434 != 0) {
-            if ((u8)D_800DD434 == 4 || D_800DD444 >= 600) {
+        if (D_800DD434 != 0) {
+            if (D_800DD434 == 4 || D_800DD444 >= 600) {
                 D_800DD440 = func_10003C40(count * 4, 1, 0, 0);
                 i = 0;
                 do {
@@ -126,13 +126,13 @@ void func_15179008(s32 arg0) {
         }
         break;
     case 2:
-        if ((u8)D_800DD434 == 1) {
+        if (D_800DD434 == 1) {
             D_800DD446 = 4;
             D_800DD444 = D_800DD436;
-        } else if ((u8)D_800DD434 == 0 || D_800DD444 >= 120) {
+        } else if (D_800DD434 == 0 || D_800DD444 >= 120) {
             D_800DD446 = 3;
             D_800DD444 = D_800DD436;
-        } else if ((u8)D_800DD434 == 3 && D_800C35EA[arg0] == 0) {
+        } else if (D_800DD434 == 3 && D_800C35EA[arg0] == 0) {
             D_800DD444 += D_800BE9E4;
         }
         break;
@@ -273,7 +273,7 @@ void func_151797B0(u8 *arg0) {
     }
     temp = *(u16 *)(arg0 + 0xAE);
     arg0[0xB4] = value;
-    temp += ((u32)((u8)D_800DD433 * 0x10 * ((func_150ADA20() & 0xFF) + 0x80))) >> 9;
+    temp += ((u32)(D_800DD433 * 0x10 * ((func_150ADA20() & 0xFF) + 0x80))) >> 9;
     temp = (f32)temp * D_800A7204;
     if (temp > 0x3200) {
         temp = 0x3200;

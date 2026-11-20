@@ -162,6 +162,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
 | game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
 | game_58F80 | 0x118 | 0x1C | 0x80096F1C | table, sites 0x3180 / 0x3188 | `1502EC64 1502ED04 1502ED04 1502ED3C 1502ED3C 1502EE24 1502EE24` (func_1502EC34; round-29) |
+| game_58F80 | 0x134 | 0x8 | 0x80096F38 | literals | `40233333 3CC90FDB` = 2.55f, 0.024543693f (func_1502EC34; round-29) |
 
 The blood table hashes are SHA-256
 `d321edfcf0ef657c343364be6b03428e24a84df3a377f3acee9bfa8fee19b509` and
@@ -454,10 +455,11 @@ the unit could be linked.
   directly after the `func_1502EAFC` table, and its seven ROM words are the
   case targets in the table above. The compiled table follows at object
   offset 0x118 and becomes `.rodata.58f80_118`; the object `.rodata` is now
-  0x140 bytes (0x134 of payload and 0xC zero alignment bytes). The alignment
-  bytes would fall on `0x80096F38`..`0x80096F43` (`2.55f` and `0.024543693f`,
-  still extern reads in other members, and the following word); the split
-  sections cover only the payload, so they are not compared.
+  0x140 bytes. The two words after the table, `0x80096F38` = `40233333`
+  (2.55f) and `0x80096F3C` = `3CC90FDB` (0.024543693f), are read only by
+  `func_1502EC34` in the reference asm; the C writes them as literals, which
+  compile to object offsets 0x134/0x138 and become the literal sub-pool
+  `.rodata.58f80_134` (0x13C of payload and 4 zero alignment bytes).
 
 ## Validation
 

@@ -1831,11 +1831,11 @@ s32 func_15145128(Vec3f *arg0, Vec3f *arg1,
 }
 s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
 
-s32 func_151451F0(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
-                  s32 arg5, s32 arg6, f32 *arg7, f32 *arg8) {
+s32 func_151451F0(void *arg0, void *arg1, Vec3f *arg2, f32 arg3, f32 arg4,
+                  Vec3f *arg5, Vec3f *arg6, f32 *arg7, f32 *arg8) {
     f32 value;
 
-    if (func_151452C4(arg0, arg1, (Vec3f *)arg2, arg3, (Vec3f *)arg5, (Vec3f *)arg6, arg7, arg8) != 0) {
+    if (func_151452C4(arg0, arg1, arg2, arg3, arg5, arg6, arg7, arg8) != 0) {
         value = *arg7;
         if ((value < 0.0f) && (*arg8 < 0.0f)) {
             return 0;
@@ -2144,8 +2144,8 @@ s32 func_15145AD8(Vec3f *arg0, Vec3f *arg1,
     thirdVector.x = arg7->x;
     thirdVector.y = arg7->y * scale;
     thirdVector.z = arg7->z;
-    if (func_151451F0(&first, &second, (s32)&thirdVector,
-                      *arg5, sp4C, (s32)arg3, (s32)arg4,
+    if (func_151451F0(&first, &second, &thirdVector,
+                      *arg5, sp4C, (Vec3f *)arg3, (Vec3f *)arg4,
                       &sp48, &sp44) == 0) {
         return 0;
     }

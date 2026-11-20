@@ -330,7 +330,7 @@ void func_151C8674(void *arg0, s32 arg1) {
         func_151403A8(&message.owner, 0x20, arg0);
     }
 }
-s32 func_151C87E0(s32, void *);
+s32 func_151C87E0(u8 *, void *);
 void func_151C899C();
 
 void func_151C86AC(void *arg0, void *arg1, u8 arg2) {
@@ -339,7 +339,7 @@ void func_151C86AC(void *arg0, void *arg1, u8 arg2) {
     switch (arg2) {
     case 0x20:
         if ((state[0x86] & 0x10) && *(s32 *)(state + 0x28) == *(s32 *)((u8 *)arg1 + 4) &&
-            func_151C87E0(*(s32 *)arg1, arg0) != 0) {
+            func_151C87E0(*(u8 **)arg1, arg0) != 0) {
             func_151C899C(*(s32 *)arg1, arg0);
         }
         break;
@@ -372,9 +372,9 @@ s32 func_151C87AC(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
 extern u8 *D_800D1C90[];
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-s32 func_151451F0(void *, void *, s32, f32, f32, s32, s32, f32 *, f32 *);
+s32 func_151451F0(void *, void *, Vec3f *, f32, f32, Vec3f *, Vec3f *, f32 *, f32 *);
 
-s32 func_151C87E0(s32 arg0, void *arg1) {
+s32 func_151C87E0(u8 *arg0, void *arg1) {
     f32 half;
     f32 radius;
     f32 sample;
@@ -386,29 +386,29 @@ s32 func_151C87E0(s32 arg0, void *arg1) {
     f32 endZ;
     Vec3f direction;
     f32 length;
-    f32 nearHit[3];
-    f32 farHit[3];
+    Vec3f nearHit;
+    Vec3f farHit;
     f32 nearT;
     f32 farT;
     s16 height;
     s16 width;
     s16 depth;
 
-    if ((((u8 *)arg0)[4] < 0xBB) && (((u8 *)arg0)[4] != 0xFF)) {
-        radius = *(f32 *)((u8 *)arg0 + 0x14C) * (f32)*(s16 *)(D_800D1C90[((u8 *)arg0)[4]] + 0x1A);
+    if ((arg0[4] < 0xBB) && (arg0[4] != 0xFF)) {
+        radius = *(f32 *)(arg0 + 0x14C) * (f32)*(s16 *)(D_800D1C90[arg0[4]] + 0x1A);
     } else {
         radius = 50.0f;
     }
-    func_1507C3E0((void *)arg0, &height, &width, &depth);
+    func_1507C3E0(arg0, &height, &width, &depth);
     sample = height;
     if (sample == 0.0f) {
         return 0;
     }
     half = sample * 0.5f;
     ratio = radius / half;
-    start.x = *(f32 *)((u8 *)arg0 + 0x14);
-    start.y = *(f32 *)((u8 *)arg0 + 0x18) + half;
-    start.z = *(f32 *)((u8 *)arg0 + 0x1C);
+    start.x = *(f32 *)(arg0 + 0x14);
+    start.y = *(f32 *)(arg0 + 0x18) + half;
+    start.z = *(f32 *)(arg0 + 0x1C);
     clipped.x = *(f32 *)((u8 *)arg1 + 0x34);
     clipped.y = ((*(f32 *)((u8 *)arg1 + 0x38) - start.y) * ratio) + start.y;
     clipped.z = *(f32 *)((u8 *)arg1 + 0x3C);
@@ -425,8 +425,8 @@ s32 func_151C87E0(s32 arg0, void *arg1) {
             return 0;
         }
     }
-    if (func_151451F0(&clipped, &direction, (s32)&start, radius, length,
-                      (s32)nearHit, (s32)farHit, &nearT, &farT) != 0) {
+    if (func_151451F0(&clipped, &direction, &start, radius, length,
+                      &nearHit, &farHit, &nearT, &farT) != 0) {
         return 1;
     }
     return 0;
