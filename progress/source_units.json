@@ -2733,7 +2733,7 @@
         "us": {
           "end": "0x16170",
           "start": "0x15F40",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_433F0.c"
@@ -4777,7 +4777,7 @@
         "us": {
           "end": "0x412C0",
           "start": "0x40D90",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_6E240.c"
@@ -8014,7 +8014,7 @@
         "us": {
           "end": "0x109410",
           "start": "0x108850",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_135D00.c"

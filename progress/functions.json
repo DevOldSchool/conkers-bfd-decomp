@@ -6906,17 +6906,16 @@
       "symbol": "func_15015F40"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3190,
-        "reason": "Improved15495 to3190 with explicit paired-loop backedge, safe unsigned address cursors, complete forty-halfword output view and consumed argument reuse. RightA1/leftV1 recovered; single-record structured loop regressed14525 via cleanup/fourway unroll. Remaining hoisted arg0 half-shift, threshold materialization, branch scheduling and tail GPR/MFLO order. No concrete new source-shape hypothesis; 3 revisions, deferred-exact-20261005.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 436,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15015FBC",
           "vram": "0x15015FBC"
         }
@@ -29925,17 +29924,16 @@
       "symbol": "func_15040D9C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2465,
-        "reason": "Best CURRENT (2465) retained after three manual comparisons; original frame and all pixel stores agree, register ownership and loop scheduling remain",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 720,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15040FCC",
           "vram": "0x15040FCC"
         }
@@ -30756,17 +30754,16 @@
       "symbol": "func_1507DB64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5190,
-        "reason": "Round 13: typed GameA9D90Command cursor with one-line load blocks and the final gSPTextureRectangle (E4/E1/F1) expansion on one line: 7590 -> 5190. Remaining: t-register numbering offset by one from the first gDPSetTile block and the flag-word address scheduling.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 736,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507DB6C",
           "vram": "0x1507DB6C"
         }
@@ -55437,17 +55434,16 @@
       "symbol": "func_15108D24"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 654,
-        "reason": "Round14 2026-10-20: frame-plan order base/state/height, Vec3f point, f32 matrix[4][4], difference/hit, Vec3f output plus matched-sibling state cursor idiom 889 -> 654; remaining s0/s1 swap (arg0 vs state). Permuter reached 0 only with a no-op if (!arg0 ...) {} fake (reopened, annotated invalid).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 492,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15108E10",
           "vram": "0x15108E10"
         }
@@ -84992,8 +84988,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1540,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B0B88",
           "vram": "0x151B0B88"
         }

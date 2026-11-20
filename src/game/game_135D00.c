@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_135D00.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_sorted_record_object_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15108E10
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -272,43 +267,46 @@ s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 extern f32 D_800A2494;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108E10 CURRENT (654) */
 s32 func_15108E10(u8 *arg0) {
     u8 *base;
     u8 *state;
-    f32 height;
-    Vec3f point;
-    f32 matrix[4][4];
-    f32 difference;
-    s32 hit;
-    s32 unused2;
-    Vec3f output;
+    f32 scale;
+    struct {
+        f32 matrix[16];
+        Vec3f point;
+    } work;
 
     base = *(u8 **)(arg0 + 0x18);
     state = base;
-    state += *(s32 *)(base + 0x50);
-    state += 0xF8;
-    func_150A8050(matrix, *(f32 *)(state + 0), 0.0f, *(f32 *)(state + 4));
-    matrix[3][1] = *(f32 *)(state + 0x10);
-    matrix[0][0] *= D_800A2494;
-    matrix[0][1] *= D_800A2494;
-    matrix[0][2] *= D_800A2494;
-    matrix[1][0] *= D_800A2494;
-    matrix[1][1] *= D_800A2494;
-    matrix[1][2] *= D_800A2494;
-    matrix[2][0] *= D_800A2494;
-    matrix[2][1] *= D_800A2494;
-    matrix[2][2] *= D_800A2494;
-    func_150A7960(matrix, 0.0f, -1108.0f, 0.0f, &point.x, &point.y, &point.z);
-    difference = point.y - *(f32 *)(state + 0x10);
-    hit = func_150AC9C0(0.0f, *(f32 *)(state + 0x10), 0.0f, point.x, difference, point.z, 0, 0,
-                      &output.x, &output.y, &output.z, 0, 0, 0, 0.0f);
-    if (hit == 0) {
-        output = point;
+    state += *(s32 *)(base + 0x50) + 0xF8;
+    func_150A8050(work.matrix, *(f32 *)(state + 0), 0.0f, *(f32 *)(state + 4));
+    work.matrix[13] = *(f32 *)(state + 0x10);
+    scale = D_800A2494;
+    work.matrix[0] *= scale;
+    work.matrix[1] *= scale;
+    work.matrix[2] *= scale;
+    work.matrix[4] *= scale;
+    work.matrix[5] *= scale;
+    work.matrix[6] *= scale;
+    work.matrix[8] *= scale;
+    work.matrix[9] *= scale;
+    work.matrix[10] *= scale;
+    func_150A7960(work.matrix, 0.0f, -1108.0f, 0.0f, &work.point.x, &work.point.y, &work.point.z);
+    {
+        f32 difference = work.point.y - *(f32 *)(state + 0x10);
+        f32 height = *(f32 *)(state + 0x10);
+        s32 hit;
+        Vec3f output;
+
+        hit = func_150AC9C0(0.0f, height, 0.0f, work.point.x, difference, work.point.z, NULL, NULL,
+                            &output.x, &output.y, &output.z, NULL, NULL, NULL, 0.0f);
+        if (hit == 0) {
+            output = work.point;
+        }
+        *(s16 *)(*(u8 **)(arg0 + 0x14) + 0xE) = (s32)output.x;
+        *(s16 *)(*(u8 **)(arg0 + 0x14) + 0x10) = (s32)output.y;
+        *(s16 *)(*(u8 **)(arg0 + 0x14) + 0x12) = (s32)output.z;
     }
-    *(s16 *)(*(u8 **)(arg0 + 0x14) + 0xE) = (s32)output.x;
-    *(s16 *)(*(u8 **)(arg0 + 0x14) + 0x10) = (s32)output.y;
-    *(s16 *)(*(u8 **)(arg0 + 0x14) + 0x12) = (s32)output.z;
     if (state[0x20] != 0) {
         *(*(u8 **)(arg0 + 0x14) + 9) = 0;
     } else {
@@ -316,8 +314,6 @@ s32 func_15108E10(u8 *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15108E10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108E10.s")
 typedef struct Game135D00DispatchDescriptor {
     s32 field0;
     s32 field4;
