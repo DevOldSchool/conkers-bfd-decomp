@@ -75,7 +75,7 @@ typedef struct Game176A00MotionInit {
 void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
 s32 func_1510FD20(s32, s32);
-void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 extern f32 D_800A5780;
 extern f32 D_800A5784;
 extern f32 D_800A5788;
@@ -158,7 +158,7 @@ void *func_15149550(Game176A00Emitter *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
     } else {
         flip = 0;
     }
-    result = func_1513D524((s32)&packet, arg0->kindArg, 0xE, arg0->layerArg, arg1, flip | 2,
+    result = func_1513D524(&packet, arg0->kindArg, 0xE, arg0->layerArg, arg1, flip | 2,
                            arg0->size + 0x50, arg4, arg5);
     if (result != NULL) {
         func_10022EC0((u8 *)result + 0x110, &motion, 0x50);

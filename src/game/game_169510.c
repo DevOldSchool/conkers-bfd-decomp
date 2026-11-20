@@ -663,8 +663,8 @@ void func_1513D4B8(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u8 ar
 }
 extern u8 D_800A4AA0;
 
-void *func_1513D524(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
-    return func_1513D2F0(arg0, (s32)&D_800A4AA0, arg1, arg2, arg3, arg4, arg5,
+void *func_1513D524(void *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
+    return func_1513D2F0((s32)arg0, (s32)&D_800A4AA0, arg1, arg2, arg3, arg4, arg5,
                   0, 0, arg6, arg7, arg8);
 }
 s32 func_1513D6FC(void *, s16, f32, f32, s32, s32, s32);

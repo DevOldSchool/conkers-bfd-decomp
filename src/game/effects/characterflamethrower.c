@@ -1345,7 +1345,7 @@ typedef struct CharacterFlamethrowerFlameMotion {
     s16 field5A;
 } CharacterFlamethrowerFlameMotion;
 
-void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 extern CharacterFlamethrowerFlameStyle D_800A8710[];
 extern f32 D_800A8AB0;
 extern f32 D_800A8AB4;
@@ -1445,7 +1445,7 @@ void func_15198110(CharacterFlamethrowerActor *arg0, s32 arg1) {
             packet.end.x = current->position.x + radius * sinB * cosA;
             packet.end.y = current->position.y + -radius * cosB;
             packet.end.z = current->position.z + radius * sinB * sinA;
-            result = func_1513D524((s32)&packet, 0xA, 0xB, 0, 9, ((func_150ADA20() & 1) ? 1 : 0) | 2, 0x5C, 0xFF, 0);
+            result = func_1513D524(&packet, 0xA, 0xB, 0, 9, ((func_150ADA20() & 1) ? 1 : 0) | 2, 0x5C, 0xFF, 0);
             if (result != NULL) {
                 func_10022EC0((u8 *)result + 0x110, &motion, sizeof(motion));
             }

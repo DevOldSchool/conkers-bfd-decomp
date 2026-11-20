@@ -92,7 +92,7 @@ void func_15179008(s32 arg0) {
     case 0:
         if ((u8)D_800DD434 != 0) {
             if ((u8)D_800DD434 == 4 || D_800DD444 >= 600) {
-                D_800DD440 = func_10003C40(300 * 4, 1, 0, 0);
+                D_800DD440 = func_10003C40(count * 4, 1, 0, 0);
                 i = 0;
                 do {
                     D_800DD440[i] = NULL;
@@ -109,17 +109,17 @@ void func_15179008(s32 arg0) {
         }
         break;
     case 1:
-        if (D_800DD436 == 300) {
+        if (D_800DD436 == count) {
             D_800DD446 = 2;
             D_800DD444 = 0;
         } else {
             for (i = 0; i < 4; i++) {
-                if (D_800DD436 != 300) {
+                if (D_800DD436 != count) {
                     func_15179600(1, 1);
                 }
             }
-            if (D_800DD444 > 10 && D_800DD436 < 300) {
-                func_1000F85C(D_800DD430, 8, (D_800DD436 << 14) / 300);
+            if (D_800DD444 > 10 && D_800DD436 < count) {
+                func_1000F85C(D_800DD430, 8, (D_800DD436 << 14) / count);
                 func_1000F85C(D_800DD430, 0x2000, 0);
             }
             D_800DD444 += D_800BE9E4;

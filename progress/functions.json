@@ -63597,16 +63597,16 @@
       "symbol": "func_15015A38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "round-29 review: x/y/z hold the model-space centre and then the final position (one local, two meanings); separate centre locals score 2491-4326",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 852,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15036570",
           "vram": "0x15036570"
         }

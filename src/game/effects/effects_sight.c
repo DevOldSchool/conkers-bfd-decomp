@@ -386,10 +386,10 @@ s32 func_151C87E0(s32 arg0, void *arg1) {
     f32 endZ;
     Vec3f direction;
     f32 length;
-    f32 hit60[3];
-    f32 hit54[3];
-    f32 out50;
-    f32 out4C;
+    f32 nearHit[3];
+    f32 farHit[3];
+    f32 nearT;
+    f32 farT;
     s16 height;
     s16 width;
     s16 depth;
@@ -426,7 +426,7 @@ s32 func_151C87E0(s32 arg0, void *arg1) {
         }
     }
     if (func_151451F0(&clipped, &direction, (s32)&start, radius, length,
-                      (s32)hit60, (s32)hit54, &out50, &out4C) != 0) {
+                      (s32)nearHit, (s32)farHit, &nearT, &farT) != 0) {
         return 1;
     }
     return 0;

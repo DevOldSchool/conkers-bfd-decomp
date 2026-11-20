@@ -3,6 +3,11 @@
 /*
  * Reviewed source unit: src/game/game_63A20.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
+ *
+ * TODO: Implement these source-unit functions:
+ * - func_15036570
+ *
+ * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
@@ -11,6 +16,7 @@ extern u8 D_800C3FC0[];
 extern u8 D_800C3FC4[];
 extern u8 D_800CC2D0[];
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15036570 */
 void func_15036570(s32 index, void *firstTransform, void *secondTransform) {
     f32 x;
     f32 y;
@@ -61,6 +67,8 @@ void func_15036570(s32 index, void *firstTransform, void *secondTransform) {
     *(s16 *)(model + 0x2) = y;
     *(s16 *)(model + 0x4) = z;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15036570 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_63A20/func_15036570.s")
 typedef struct Game368C4State {
     u8 pad0[0x66];
     u8 mode;

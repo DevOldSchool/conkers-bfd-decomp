@@ -9829,7 +9829,7 @@
         "us": {
           "end": "0x36C70",
           "start": "0x36570",
-          "state": "candidate"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_63A20.c"

@@ -271,37 +271,35 @@ s32 func_15108E10(u8 *arg0) {
     u8 *base;
     u8 *state;
     f32 scale;
-    struct {
-        f32 matrix[16];
-        Vec3f point;
-    } work;
+    Vec3f point;
+    f32 matrix[16];
 
     base = *(u8 **)(arg0 + 0x18);
     state = base;
     state += *(s32 *)(base + 0x50) + 0xF8;
-    func_150A8050(work.matrix, *(f32 *)(state + 0), 0.0f, *(f32 *)(state + 4));
-    work.matrix[13] = *(f32 *)(state + 0x10);
+    func_150A8050(matrix, *(f32 *)(state + 0), 0.0f, *(f32 *)(state + 4));
+    matrix[13] = *(f32 *)(state + 0x10);
     scale = D_800A2494;
-    work.matrix[0] *= scale;
-    work.matrix[1] *= scale;
-    work.matrix[2] *= scale;
-    work.matrix[4] *= scale;
-    work.matrix[5] *= scale;
-    work.matrix[6] *= scale;
-    work.matrix[8] *= scale;
-    work.matrix[9] *= scale;
-    work.matrix[10] *= scale;
-    func_150A7960(work.matrix, 0.0f, -1108.0f, 0.0f, &work.point.x, &work.point.y, &work.point.z);
+    matrix[0] *= scale;
+    matrix[1] *= scale;
+    matrix[2] *= scale;
+    matrix[4] *= scale;
+    matrix[5] *= scale;
+    matrix[6] *= scale;
+    matrix[8] *= scale;
+    matrix[9] *= scale;
+    matrix[10] *= scale;
+    func_150A7960(matrix, 0.0f, -1108.0f, 0.0f, &point.x, &point.y, &point.z);
     {
-        f32 difference = work.point.y - *(f32 *)(state + 0x10);
+        f32 difference = point.y - *(f32 *)(state + 0x10);
         f32 height = *(f32 *)(state + 0x10);
         s32 hit;
         Vec3f output;
 
-        hit = func_150AC9C0(0.0f, height, 0.0f, work.point.x, difference, work.point.z, NULL, NULL,
+        hit = func_150AC9C0(0.0f, height, 0.0f, point.x, difference, point.z, NULL, NULL,
                             &output.x, &output.y, &output.z, NULL, NULL, NULL, 0.0f);
         if (hit == 0) {
-            output = work.point;
+            output = point;
         }
         *(s16 *)(*(u8 **)(arg0 + 0x14) + 0xE) = (s32)output.x;
         *(s16 *)(*(u8 **)(arg0 + 0x14) + 0x10) = (s32)output.y;
