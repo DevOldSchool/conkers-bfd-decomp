@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_48B10.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1501B660
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game48B10Actor {
@@ -15,6 +10,8 @@ typedef struct Game48B10Actor {
     u8 type;
     u8 pad05[0x1C3];
     u8 buffer;
+    u8 pad1C9[0xC3];
+    struct Game48B10Vertex *vertices[2][2];
 } Game48B10Actor;
 typedef struct Game48B10Vertex {
     s16 position[3];
@@ -28,67 +25,56 @@ extern u8 D_80096920[];
 extern u8 D_800BE9C0;
 extern u16 D_800C57A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501B660 CURRENT (4726) */
 void func_1501B660(Game48B10Actor *arg0, f32 *arg1, s32 arg2) {
-    Game48B10Vertex *vertex;
-    Game48B10Color *colors;
+    Game48B10Vertex *vertices;
     Game48B10Color *first;
     Game48B10Color *second;
     f32 value;
     f32 interval;
     f32 fraction;
-    u32 sample;
+    u8 sample;
     u32 r, g, b;
     u8 outR, outG, outB;
     s32 previous;
     s32 group;
-    s32 offset;
-    u16 count;
+    s32 i;
+    u8 steps;
 
-    vertex = *(Game48B10Vertex **) ((u8 *) arg0 + 0x28C + arg0->buffer * 8 + D_800BE9C0 * 4);
-    if (vertex != 0) {
-        previous = -1;
-        count = D_800C57A0[arg0->type];
-        offset = 0;
-        if (count > 0) {
-            do {
-                offset += 0x10;
-                group = (vertex->flags & 0x7F00) >> 8;
-                if (group != 0) {
-                    if (group != previous) {
-                        if (group >= 6) {
-                            goto next_vertex;
-                        }
-                        previous = group;
-                        group--;
-                        if (arg2 != 0) {
-                            value = arg1[group];
-                        } else {
-                            value = *arg1;
-                        }
-                        colors = D_80084040[group];
-                        interval = 1.0f / (f32) (D_80096920[group] - 1);
-                        sample = (u32) (value / interval) & 0xFF;
-                        first = &colors[sample];
-                        second = &colors[sample] + 1;
-                        fraction = (value - (f32) sample * interval) / interval;
-                        r = first->r;
-                        outR = (u32) ((f32) ((s32) second->r - (s32) r) * fraction + (f32) r) & 0xFF;
-                        g = first->g;
-                        outG = (u32) ((f32) ((s32) second->g - (s32) g) * fraction + (f32) g) & 0xFF;
-                        b = first->b;
-                        outB = (u32) ((f32) ((s32) second->b - (s32) b) * fraction + (f32) b) & 0xFF;
-                    }
-                    vertex->r = outR;
-                    vertex->g = outG;
-                    vertex->b = outB;
-                    count = D_800C57A0[arg0->type];
+    vertices = arg0->vertices[arg0->buffer][D_800BE9C0];
+    if (vertices == NULL) {
+        return;
+    }
+    previous = -1;
+    for (i = 0; i < D_800C57A0[arg0->type]; i++) {
+        if (vertices[i].flags & 0x7F00) {
+            group = (vertices[i].flags & 0x7F00) >> 8;
+            if (group != previous) {
+                if (group >= 6) {
+                    continue;
                 }
-next_vertex:
-                vertex++;
-            } while (offset < count * 0x10);
+                previous = group;
+                group--;
+                steps = D_80096920[group];
+                interval = 1.0f / (f32) (steps - 1);
+                if (arg2 != 0) {
+                    value = arg1[group];
+                } else {
+                    value = *arg1;
+                }
+                sample = value / interval;
+                first = &D_80084040[group][sample];
+                second = &D_80084040[group][sample + 1];
+                fraction = (value - (f32) (u32) sample * interval) / interval;
+                r = first->r;
+                outR = (f32) (s32) (second->r - r) * fraction + (f32) r;
+                g = first->g;
+                outG = (f32) (s32) (second->g - g) * fraction + (f32) g;
+                b = first->b;
+                outB = (f32) (s32) (second->b - b) * fraction + (f32) b;
+            }
+            vertices[i].r = outR;
+            vertices[i].g = outG;
+            vertices[i].b = outB;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501B660 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_48B10/func_1501B660.s")

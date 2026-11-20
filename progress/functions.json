@@ -8857,17 +8857,16 @@
       "symbol": "func_151C899C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1783,
-        "reason": "Typed sight descriptor and parameter blocks; recovered pointer-first ten-argument151407D0 ABI from raw call instead of m2c spurious float arguments. First candidate1783; physical-order initializer probe11109 discarded. Remaining frame/stack offset, floating-register constant scheduling and flags-expression differences. Preserve1783, no permutations or volatility.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C8FCC",
           "vram": "0x151C8FCC"
         }
@@ -30595,17 +30594,16 @@
       "symbol": "func_1507CD0C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 640,
-        "reason": "CURRENT (640); frame 0x68 vs raw 0x60 with unexplained uopt temp; stack-heavy residual, no new hypothesis this pass",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1012,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507CD64",
           "vram": "0x1507CD64"
         }
@@ -54826,8 +54824,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15179008",
           "vram": "0x15179008"
         }
@@ -91613,17 +91616,16 @@
       "symbol": "func_150E5AE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4726,
-        "reason": "CURRENT (4726), initial candidate. Fixed m2c byte-sized pointer/count table reads and arg1 stride. Cached RGB is assigned before any store: previous starts -1, group is 1..5 before assignment and cache reuse. Remaining frame 0x58 vs 0x60, saved-register allocation, unsigned conversion scheduling and scalar homes. Next: preserve distinct palette-count/vertex-count and RGB local lifetimes from raw. No shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501B660",
           "vram": "0x1501B660"
         }

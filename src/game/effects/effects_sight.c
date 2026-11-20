@@ -9,7 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151C756C
  * - func_151C87E0
- * - func_151C8FCC
  * - func_151C9198
  * - func_151C9F38
  * - func_151CA6A0
@@ -554,9 +553,6 @@ void func_151C899C(void *arg0, void *arg1) {
     func_1516972C(arg1);
 }
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800AAC70;
-extern f32 D_800AAC74;
-extern f32 D_800AAC78;
 s32 func_151407D0();
 
 typedef struct Sight8FCCVector { s32 words[3]; } Sight8FCCVector;
@@ -584,47 +580,40 @@ typedef struct Sight8FCCParameters {
     u8 states[5];
 } Sight8FCCParameters;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C8FCC CURRENT (1783) */
 s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
                   u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7,
                   u8 arg8, s32 arg9) {
-    s32 saved;
+    s32 result;
     Sight8FCCParameters parameters;
     Sight8FCCDescriptor descriptor;
     s32 owner;
-    u32 options;
-    s32 result;
 
     descriptor.position = *arg1;
     descriptor.direction = *arg2;
     owner = arg0;
-    parameters.values[0] = D_800AAC70;
-    parameters.values[1] = D_800AAC70;
+    parameters.values[0] = 30.1f;
+    parameters.values[1] = 30.1f;
     parameters.values[2] = 40.0f;
     parameters.values[3] = 40.0f;
     parameters.values[6] = 1.0f;
     parameters.values[4] = 0.0f;
     parameters.values[5] = 0.0f;
+    parameters.values[7] = 0.3f;
     descriptor.kind = 0x15;
     descriptor.flags = 0x3403;
     descriptor.lifetime = 0x12C;
     descriptor.callback0 = 0;
     descriptor.callback1 = 0;
     descriptor.colors[0] = arg3;
+    descriptor.colors[1] = arg4;
+    descriptor.colors[2] = arg5;
     descriptor.colors[3] = 0xFF;
     descriptor.field14 = 0.0f;
     descriptor.field18 = 0.0f;
     descriptor.scales[0] = 1.0f;
     descriptor.scales[1] = 1.0f;
     descriptor.scales[2] = 1.0f;
-    parameters.values[7] = D_800AAC74;
-    descriptor.colors[1] = arg4;
-    descriptor.colors[2] = arg5;
-    options = 0;
-    if (arg7 != 0) {
-        options = 0x01000000;
-    }
-    descriptor.options = options | 0x024D2006 | 0x40000000;
+    descriptor.options = (arg7 ? 0x01000000 : 0) | 0x024D2006 | 0x40000000;
     descriptor.channels[1] = 0xFF;
     descriptor.channels[0] = 0xFF;
     descriptor.channels[2] = 0;
@@ -637,17 +626,13 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
     parameters.multiplier = 1.0f;
     parameters.states[4] = 0;
     descriptor.parameter = arg6;
-    parameters.values[8] = D_800AAC78;
+    parameters.values[8] = 0.000001f;
     result = func_151407D0(&parameters, 100, &descriptor, 0, 0, 0, 0, 1, arg8, arg9);
     if (result != 0) {
-        saved = result;
         func_10022EC0((void *)(result + 0x170), &owner, 4);
-        result = saved;
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C8FCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 s32 func_15144E80(void *, void *, void *, void *);
 void func_15145974(void *, f32 *, f32 *);

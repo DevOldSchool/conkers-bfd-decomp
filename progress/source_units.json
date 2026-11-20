@@ -7901,7 +7901,7 @@
         "us": {
           "end": "0x179DB0",
           "start": "0x178EB0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1A6360.c"
@@ -18445,7 +18445,7 @@
         "us": {
           "end": "0x1BB20",
           "start": "0x1B660",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_48B10.c"

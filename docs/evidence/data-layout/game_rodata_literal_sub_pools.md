@@ -154,9 +154,9 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_209B50 | 0x18 | 0xC | 0x800AB538 | pool (func_151DC97C) | `43C98000 3E439582 3E1A9FBF` (403.0, 0.19100001, 0.15100001) |
 | game_177B50 | 0x0 | 0x1C | 0x800A57B0 | pool (func_1514AB5C) | `3D3851EC 3F333333 41B4CCCD 415C9375 4267E042 422ADB23 42ED86A8` |
 | game_177B50 | 0x1C | 0x80 | 0x800A5808 | pool (func_1514B034, func_1514B364, func_1514B8E4) | 11 + 11 + 10 words ([record](game_177b50_float_constants.md); merged round-23) |
-| effects_sight | 0x0 | 0x18 | 0x800AAC58 | pool (func_151C899C) | `43F58000 3D77CED9 3D563886 3F32B021 BEE3D70B 3EE1CAC1` (491.0, 0.0605, 0.0523, 0.698, -0.44500002, 0.441; round-23) |
-| effects_sight | 0x18 | 0xCC | 0x800AADBC | table, sites 0x2A84 / 0x2A8C | func_151C9BA0 cases 9..0x3B ([record](effects_sight_float_constant.md); round-23) |
-| effects_sight | 0xE4 | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
+| effects_sight | 0x0 | 0x24 | 0x800AAC58 | pool (func_151C899C, func_151C8FCC) | `43F58000 3D77CED9 3D563886 3F32B021 BEE3D70B 3EE1CAC1` (491.0, 0.0605, 0.0523, 0.698, -0.44500002, 0.441; round-23) then `41F0CCCD 3E99999A 358637BD` (30.1, 0.3, 0.000001; round-29) |
+| effects_sight | 0x24 | 0xCC | 0x800AADBC | table, sites 0x2A84 / 0x2A8C | func_151C9BA0 cases 9..0x3B ([record](effects_sight_float_constant.md); round-23) |
+| effects_sight | 0xF0 | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
 | game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
 | game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
 

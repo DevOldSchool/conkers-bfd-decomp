@@ -67,3 +67,32 @@ bytes at runtime.
 
 Focused matches, source-unit integration and clean batch verification remain
 separate required checks.
+
+## func_1507CD64 table and literals (round-29)
+
+`func_1507CD64` dispatches its event selector (0 through 16) through
+`jtbl_8009B690_game` (raw HI16/LO16 pair `1507CEA8`/`1507CEB0`) and computes a
+random scale as `func_150ADA68() * 0.1f + 0.3f`. The checksum-validated US ROM
+holds the seventeen targets at `0x8009B690..0x8009B6D3`:
+
+| Selector | Target | Selector | Target |
+| --- | --- | --- | --- |
+| 0 | `0x1507CECC` | 9 | `0x1507CF94` |
+| 1 | `0x1507CED4` | 10 | `0x1507CF9C` |
+| 2 | `0x1507CEE0` | 11 | `0x1507CEBC` |
+| 3 | `0x1507CEEC` | 12 | `0x1507CEC4` |
+| 4 | `0x1507CEFC` | 13 | `0x1507CFB8` |
+| 5 | `0x1507CF10` | 14 | `0x1507CFAC` |
+| 6 | `0x1507CF24` | 15 | `0x1507CF80` |
+| 7 | `0x1507CF64` | 16 | `0x1507CFC4` |
+| 8 | `0x1507CF6C` | | |
+
+followed by `3DCCCCCD` (`0.1f`) at `0x8009B6D4` and `3E99999A` (`0.3f`) at
+`0x8009B6D8`, immediately before the `func_1507D754` table at `0x8009B6DC`. No
+other reference function reads `0x8009B690..0x8009B6DB`. The function precedes
+`func_1507D754` in text, so the compiled object's `.rodata` now begins with the
+0x44-byte table and the two literals, then the three existing tables, for 0x20C
+payload bytes and four zero alignment bytes (0x210; ROM `0x8009B89C` is also
+zero). The section start moves to `0x8009B690` with an exact 0x210 size
+assertion and a 0x20C payload-size symbol, and the `config/data/us.json` owner
+address moves with it.
