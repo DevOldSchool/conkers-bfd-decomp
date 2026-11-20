@@ -77,7 +77,7 @@ s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 struct Game1F1F60Hit;
 s32 func_151C4B0C(struct Game1F1F60Hit *, struct Game1F1F60Hit *, Vec3f *, Vec3f *, f32 *, f32, u8, Vec3f *,
                   Vec3f *, u8 *, u8, f32, void *, s8, u8, u8, s32, u8);
-s32 func_151D5B6C(void *, void *, void *, s32, s32);
+s32 func_151D5B6C(void *, void *, void *, s8, s32);
 extern u8 D_800A4AA0[];
 
 typedef struct Game1EF500TrailExt {

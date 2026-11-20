@@ -9,7 +9,6 @@
  * - func_15184150
  * - func_15184368
  * - func_15185F24
- * - func_1518652C
  * - func_15186794
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -404,99 +403,73 @@ extern u8 D_800DE041;
 extern s32 D_800D3690, D_800DBE3C;
 extern s32 D_800DF0E8, D_800DF0EC, D_800DF0F0, D_800DF0F4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518652C CURRENT (5197) */
 s32 func_1518652C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
-    struct {
-        u32 bits[187];
-        s32 count;
-        void *items[16];
-    } work;
-    volatile u32 savedMaximum;
-    u32 maximum;
-    void **cursor;
+    void *items[16];
+    s32 count;
+    u32 bits[187];
     u8 *data;
     u32 index;
-    u32 *word;
+    u32 maximum;
     u8 code;
-    u8 filter;
-    s32 end;
 
-    savedMaximum = 0;
+    maximum = 0;
     func_1510F800(0);
-    work.count = func_1510F720(arg0, arg1, arg2, work.items);
-    maximum = savedMaximum;
-    if (work.count != 0) {
-        savedMaximum = maximum;
-        func_100226F0(work.bits, 0x2EC);
-        maximum = savedMaximum;
-        if (work.count != 0) {
-            cursor = work.items + work.count;
-            filter = (u8)D_800DE041;
-            do {
-                data = (u8 *)cursor[-1];
-                index = 0;
-                cursor--;
-                data += 0xE;
-                if (filter != 0) {
-                    code = *data;
-                    if (code != 0) {
-                        do {
-                            if (code & 0x80) {
-                                index = ((code << 8) | data[1]) & 0x7FFF;
-                                data += 2;
-                            } else {
-                                index += code;
-                                data++;
-                            }
-                            if (index < 0x1760U) {
-                                word = &work.bits[index >> 5];
-                                if (D_800D3668[index] == 1) {
-                                    *word |= 1U << (index & 0x1F);
-                                    if (maximum < index) {
-                                        maximum = index;
-                                    }
-                                }
-                            }
-                            code = *data;
-                        } while (code != 0);
+    count = func_1510F720(arg0, arg1, arg2, items);
+    if (count != 0) {
+        func_100226F0(bits, 0x2EC);
+        while (count != 0) {
+            data = items[count - 1];
+            index = 0;
+            count--;
+            data += 0xE;
+            if (D_800DE041 != 0) {
+                code = *data;
+                while (code != 0) {
+                    if (*data & 0x80) {
+                        index = *data++ << 8;
+                        index |= *data++;
+                        index &= 0x7FFF;
+                    } else {
+                        index += *data++;
                     }
-                } else {
-                    code = *data;
-                    if (code != 0) {
-                        do {
-                            if (code & 0x80) {
-                                index = ((code << 8) | data[1]) & 0x7FFF;
-                                data += 2;
-                            } else {
-                                index += code;
-                                data++;
-                            }
-                            if (index < 0x1760U) {
-                                word = &work.bits[index >> 5];
-                                *word |= 1U << (index & 0x1F);
-                                if (maximum < index) {
-                                    maximum = index;
-                                }
-                            }
-                            code = *data;
-                        } while (code != 0);
+                    if (index < 0x1760 && D_800D3668[index] == 1) {
+                        bits[index >> 5] |= 1 << (index & 0x1F);
+                        if (maximum < index) {
+                            maximum = index;
+                        }
                     }
+                    code = *data;
                 }
-            } while (cursor != work.items);
+            } else {
+                code = *data;
+                while (code != 0) {
+                    if (*data & 0x80) {
+                        index = *data++ << 8;
+                        index |= *data++;
+                        index &= 0x7FFF;
+                    } else {
+                        index += *data++;
+                    }
+                    if (index < 0x1760) {
+                        bits[index >> 5] |= 1 << (index & 0x1F);
+                        if (maximum < index) {
+                            maximum = index;
+                        }
+                    }
+                    code = *data;
+                }
+            }
         }
         D_800D3690 = D_800DBE3C;
-        D_800D3694 = &work.bits[maximum >> 5] + 1;
-        D_800DF0E8 = (s32)((u32)arg0 - (u32)arg2);
-        D_800DF0EC = (s32)((u32)arg0 + (u32)arg2);
-        D_800DF0F0 = (s32)((u32)arg1 - (u32)arg2);
-        D_800DF0F4 = (s32)((u32)arg1 + (u32)arg2);
-        end = func_150A5B90(work.bits, arg3, arg4, arg5);
-        return (s32)((u32)end - (u32)arg3) / 20;
+        D_800D3694 = &bits[maximum >> 5] + 1;
+        D_800DF0E8 = arg0 - arg2;
+        D_800DF0EC = arg0 + arg2;
+        D_800DF0F0 = arg1 - arg2;
+        D_800DF0F4 = arg1 + arg2;
+        return (func_150A5B90(bits, arg3, arg4, arg5) - arg3) / 20;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518652C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_1518652C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15186794.s")
 extern s32 D_800DE01C;
 extern s32 D_800DE020;

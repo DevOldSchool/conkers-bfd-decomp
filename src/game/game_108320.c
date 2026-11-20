@@ -58,7 +58,7 @@ typedef struct Game108320Geometry {
 } Game108320Geometry;
 
 void func_15143134(f32 *, f32 *, s32);
-void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 f32 sqrtf(f32);
 f32 fabsf(f32);
 #pragma intrinsic(sqrtf, fabsf)
@@ -124,7 +124,7 @@ void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
                 work.packet.direction.y = 0.0f;
                 work.packet.direction.x = z * speed;
                 work.packet.direction.z = x * speed;
-                result = func_1513D524((s32)&work.packet, 9, 0, 0, 7, 0, 0x2C, ((u8 *)&arg2)[3], arg3);
+                result = func_1513D524(&work.packet, 9, 0, 0, 7, 0, 0x2C, ((u8 *)&arg2)[3], arg3);
                 if (result != 0) {
                     result->motion.delta = work.delta;
                     result->motion.field11C = *(f32 *)((u8 *)D_80088934 + wordOffset);
@@ -241,7 +241,7 @@ typedef struct Game108320SpawnConfig {
     u8 tail_pad[0x10];
 } Game108320SpawnConfig;
 
-void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 
 void func_150DB518(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s16 arg5, u8 arg6, s32 arg7) {
@@ -261,7 +261,7 @@ void func_150DB518(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
         config.colour[2] = 0xC8, config.colour[1] = 0xC8, config.colour[0] = 0xC8;
         config.colour[3] = 0xC8;
         config.field_02 = 0x401;
-        result = func_1513D524((s32)&config, 0, 0xA, 0, 8, 0, 0x14,
+        result = func_1513D524(&config, 0, 0xA, 0, 8, 0, 0x14,
                                arg6, arg7);
         if (result != 0) {
             *(s32 *)(result + 0x110) = arg0;

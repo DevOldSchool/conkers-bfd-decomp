@@ -11,7 +11,6 @@
  * - func_151D40D4
  * - func_151D4794
  * - func_151D5334
- * - func_151D5B6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1283,55 +1282,64 @@ void func_151D5A18(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32
         ((f32 *)arg1)[2] = ((f32 *)arg0)[7] + (34.0f * directionX);
     }
 }
-s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
-extern s32 (*D_80086C90[])(void *, s32, s32);
+s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
+extern s32 (*D_80086C90[])(void *, void *, s32);
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5B6C CURRENT (4088) */
-s32 func_151D5B6C(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
-    Vec3f position;
-    Vec3f first;
-    Vec3f second;
-    f32 near_distance;
-    f32 far_distance;
-    f32 radius;
-    s16 width;
-    s16 depth;
+s32 func_151D5B6C(void *arg0, void *arg1, void *arg2, s8 arg3, s32 arg4) {
     s32 index;
     s32 result;
     u8 *actor;
-    s32 selector;
 
-    selector = (s8)arg3;
     result = -1;
-    index = 0;
-    do {
-        actor = D_800CC2D0 + (index * 0x32C);
-        if (*(s32 *)actor != 0 && actor[5] != 3 &&
-            (D_800BE9F0 == 0x23 || actor[4] != 0xFF) &&
-            actor != (u8 *)arg2 && (*(s32 *)(actor + 0xF8) & 0x40) &&
-            (selector == -1 || D_80086C90[selector](actor, arg2, arg4) != 0)) {
+    for (index = 0; index < 25; index = (index + 1) & 0xFF) {
+        actor = D_800CC2D0 + index * 0x32C;
+        if (*(s32 *)actor == 0) {
+            continue;
+        }
+        if (actor[5] == 3) {
+            continue;
+        }
+        if (D_800BE9F0 != 0x23 && actor[4] == 0xFF) {
+            continue;
+        }
+        if (actor == arg2) {
+            continue;
+        }
+        if (!(*(s32 *)(actor + 0xF8) & 0x40)) {
+            continue;
+        }
+        if (arg3 != -1 && D_80086C90[arg3](actor, arg2, arg4) == 0) {
+            continue;
+        }
+        {
+            Vec3f position;
+            Vec3f first;
+            Vec3f second;
+            f32 near_distance;
+            f32 far_distance;
+            f32 radius;
+            s16 width;
+            s16 depth;
+
             width = *(s16 *)(actor + 0xD2);
             depth = *(s16 *)(actor + 0xD4);
             if (width < depth) {
-                radius = (f32)depth;
+                radius = depth;
             } else {
-                radius = (f32)width;
+                radius = width;
             }
             position.x = *(f32 *)(actor + 0x14);
-            position.y = *(f32 *)(actor + 0x18) + (f32)*(s16 *)(actor + 0xD6);
+            position.y = *(s16 *)(actor + 0xD6) + *(f32 *)(actor + 0x18);
             position.z = *(f32 *)(actor + 0x1C);
-            if (func_151452C4(arg0, arg1, (s32)&position, 2.0f * radius,
-                (s32)&first, (s32)&second, &near_distance, &far_distance) != 0) {
+            if (func_151452C4(arg0, arg1, &position, 2.0f * radius, &first, &second, &near_distance,
+                              &far_distance) != 0) {
                 result &= ~(1 << index);
             }
         }
-        index = (index + 1) & 0xFF;
-    } while (index < 0x19);
+    }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D5B6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5B6C.s")
 s32 func_10003C40(s32, s32, s32, s32);
 extern u8 D_800BE9C0;
 

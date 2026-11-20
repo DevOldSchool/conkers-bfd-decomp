@@ -17,7 +17,6 @@
  * - func_15020878
  * - func_15020EC4
  * - func_1502178C
- * - func_150229E4
  * - func_15022BA4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1487,60 +1486,43 @@ void func_15022998(s32 *arg0) {
 }
 extern u8 D_800CBFDF;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150229E4 CURRENT (2640) */
 s32 func_150229E4(void *arg0) {
-    s32 var_a0;
-    s32 var_v0;
-    u8 temp_a1;
-    u8 temp_a3;
-    u8 var_a2;
-    void *temp_v0;
-    u8 *var_t0;
+    s32 set;
+    s32 i;
+    s32 owner;
+    u8 team;
 
-    var_v0 = 0;
-    if (arg0 == 0) {
+    set = 0;
+    if (arg0 == NULL) {
         return 0;
     }
     if (*(s32 *)arg0 == 0) {
         return 0;
     }
-    if (*D_800C35C8 == 0) {
+    if (D_800C35C8[set] == NULL) {
         return 0;
     }
-    if (*(u8 *)((u8 *)arg0 + 5) == 4) {
-        var_v0 = 1;
+    if (((u8 *)arg0)[5] == 4) {
+        set = 1;
     }
-    temp_a1 = *(u8 *)((u8 *)arg0 + 0x65);
-    if (temp_a1 != 0) {
-        var_a2 = *(u8 *)((u32)&D_800CBFDF + (u32)temp_a1 * 0x32CU);
+    owner = ((u8 *)arg0)[0x65];
+    if (owner != 0) {
+        team = *(u8 *)((u32)&D_800CBFDF + owner * 0x32C);
     } else {
-        var_a2 = *(u8 *)((u8 *)arg0 + 0x3B);
+        team = ((u8 *)arg0)[0x3B];
     }
-    temp_a3 = D_800C363A[var_v0];
-    var_a0 = 0;
-    if ((s32)temp_a3 > 0) {
-        var_t0 = (u8 *)D_800C35C8[var_v0];
-loop_13:
-        if (*(u16 *)var_t0 != 0) {
-            temp_v0 = (void *)((u8 *)D_800C35F0[var_v0] + (var_a0 * 8));
-            if ((*(u16 *)((u8 *)temp_v0 + 0) == 2) &&
-                (var_a2 == *(u8 *)((u8 *)temp_v0 + 2))) {
-                if (temp_a1 == 0) {
-                    return 1;
-                }
-                return 2;
+    for (i = 0; i < D_800C363A[set]; i++) {
+        if ((((u16 *)D_800C35C8[set])[i] != 0) &&
+            (*(u16 *)((u8 *)D_800C35F0[set] + i * 8) == 2) &&
+            (((u8 *)D_800C35F0[set])[i * 8 + 2] == team)) {
+            if (owner == 0) {
+                return 1;
             }
-        }
-        var_a0 += 1;
-        var_t0 += 2;
-        if (var_a0 < (s32)temp_a3) {
-            goto loop_13;
+            return 2;
         }
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150229E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150229E4.s")
 extern s32 D_800DBEF4;
 
 s32 func_15022B08(s32 arg0, s32 arg1) {

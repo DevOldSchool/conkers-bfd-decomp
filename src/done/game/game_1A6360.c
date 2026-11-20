@@ -4,16 +4,11 @@
 /*
  * Reviewed source unit: src/game/game_1A6360.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_animated_emission_controllers.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15179008
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern u8 D_800DD432;
-extern s8 D_800DD433;
-extern s8 D_800DD434;
+extern u8 D_800DD433;
+extern u8 D_800DD434;
 extern s16 D_800DD436;
 extern void **D_800DD440;
 extern s16 D_800DD444;
@@ -66,7 +61,110 @@ void func_15178EFC(s32 arg0) {
     }
     D_800DD434 = arg0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15179008.s")
+void *func_10003C40(s32, s32, s32, s32);
+void func_1000F85C(u16, s32, s32);
+s32 func_10010F30(s32, s32, s32, s32, s32);
+extern u8 D_800C35EA[];
+extern s32 D_800BE9E4;
+void func_151794C8(void);
+void func_15179600(s32, s32);
+void func_15179AB8(void);
+void func_15179B14(s32);
+
+void func_15179008(s32 arg0) {
+    s32 timer;
+    s32 i;
+    s32 count = 300;
+
+    timer = D_800DD432;
+    timer -= D_800BE9E4;
+    if (timer <= 0) {
+        if (D_800DD433 < 40) {
+            timer = func_150ADA20() % 31 + 20;
+            D_800DD433 = (func_150ADA20() & 0xF) + 170;
+        } else {
+            timer = func_150ADA20() % 63 + 60;
+            D_800DD433 = (func_150ADA20() & 0xF) + 20;
+        }
+    }
+    D_800DD432 = timer;
+    switch (D_800DD446) {
+    case 0:
+        if (D_800DD434 != 0) {
+            if (D_800DD434 == 4 || D_800DD444 >= 600) {
+                D_800DD440 = func_10003C40(count * 4, 1, 0, 0);
+                i = 0;
+                do {
+                    D_800DD440[i] = NULL;
+                    i++;
+                } while (i < count);
+                if (D_800DD440 != NULL) {
+                    D_800DD446 = 1;
+                    D_800DD444 = 0;
+                    D_800DD430 = func_10010F30(0x6F, 0xC8, 0x40, 0, 0x80);
+                }
+            } else if (D_800C35EA[arg0] == 0) {
+                D_800DD444 += D_800BE9E4;
+            }
+        }
+        break;
+    case 1:
+        if (D_800DD436 == count) {
+            D_800DD446 = 2;
+            D_800DD444 = 0;
+        } else {
+            for (i = 0; i < 4; i++) {
+                if (D_800DD436 != count) {
+                    func_15179600(1, 1);
+                }
+            }
+            if (D_800DD444 > 10 && D_800DD436 < count) {
+                func_1000F85C(D_800DD430, 8, (D_800DD436 << 14) / count);
+                func_1000F85C(D_800DD430, 0x2000, 0);
+            }
+            D_800DD444 += D_800BE9E4;
+        }
+        break;
+    case 2:
+        if (D_800DD434 == 1) {
+            D_800DD446 = 4;
+            D_800DD444 = D_800DD436;
+        } else if (D_800DD434 == 0 || D_800DD444 >= 120) {
+            D_800DD446 = 3;
+            D_800DD444 = D_800DD436;
+        } else if (D_800DD434 == 3 && D_800C35EA[arg0] == 0) {
+            D_800DD444 += D_800BE9E4;
+        }
+        break;
+    case 3:
+        if (D_800DD436 == 0) {
+            D_800DD446 = 0;
+            D_800DD444 = 0;
+            func_100111C8(D_800DD430);
+            func_10004074((s32)D_800DD440);
+            D_800DD440 = NULL;
+        } else {
+            for (i = 0; i < 4; i++) {
+                func_15179AB8();
+            }
+            if (D_800DD444 != 0) {
+                func_1000F85C(D_800DD430, 8, (D_800DD436 << 13) / D_800DD444);
+            }
+        }
+        break;
+    case 4:
+        for (i = 0; i < D_800DD436; i++) {
+            func_15179AB8();
+        }
+        D_800DD446 = 3;
+        D_800DD434 = 0;
+        break;
+    }
+    if (D_800DD436 != 0) {
+        func_151794C8();
+        func_15179B14(D_800DD436 / 30);
+    }
+}
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
 extern void *D_800DBFF0;
@@ -175,7 +273,7 @@ void func_151797B0(u8 *arg0) {
     }
     temp = *(u16 *)(arg0 + 0xAE);
     arg0[0xB4] = value;
-    temp += ((u32)((u8)D_800DD433 * 0x10 * ((func_150ADA20() & 0xFF) + 0x80))) >> 9;
+    temp += ((u32)(D_800DD433 * 0x10 * ((func_150ADA20() & 0xFF) + 0x80))) >> 9;
     temp = (f32)temp * D_800A7204;
     if (temp > 0x3200) {
         temp = 0x3200;

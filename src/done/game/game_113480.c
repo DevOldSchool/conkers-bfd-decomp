@@ -36,7 +36,7 @@ typedef struct Game113480Impact {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
-void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 f32 func_15144A74(void *, void *);
 s32 func_15145C90(s32);
 
@@ -95,7 +95,7 @@ void *func_150E5FD0(Vec3f *arg0, Vec3f *arg1, f32 arg2, f32 arg3, f32 arg4, u8 a
     } else {
         flipX = 0;
     }
-    result = func_1513D524((s32)&packet, 0xF, 0x15, 0, 0xF, flipX | flipY, 0x30, arg5, arg6);
+    result = func_1513D524(&packet, 0xF, 0x15, 0, 0xF, flipX | flipY, 0x30, arg5, arg6);
     if (result != NULL) {
         func_10022EC0((u8 *)result + 0x110, &impact, 0x30);
     }

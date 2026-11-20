@@ -42,3 +42,20 @@ precedes `func_151C9BA0` in text, so its pool leads the object `.rodata` (now 0x
 bytes: 0x18 pool, 0xCC table, 0x4 constant and 4 zero alignment bytes) as
 `.rodata.effects_sight_0` at 0x800AAC58; the table and constant keep their runtime
 addresses as `.rodata.effects_sight_18` and `.rodata.effects_sight_e4`.
+
+## func_151C8FCC pool growth (round-29)
+
+`func_151C8FCC` loads `30.1f`, `0.3f` and `0.000001f` from 0x800AAC70..0x800AAC7B
+(checksum-validated ROM `41F0CCCD 3E99999A 358637BD`); its raw HI16/LO16 pairs
+at 0x151C8FD4/0x151C8FD8, 0x151C9058/0x151C905C and 0x151C90E4/0x151C90EC are the
+only reference reads of those words (`D_800AAC7C` belongs to `func_151C9198` and
+stays an extern read). It sits between `func_151C899C` and `func_151C9BA0` in text,
+so the compiled object places its three literals at `.rodata` offsets 0x18, 0x1C
+and 0x20, directly after the `func_151C899C` pool and contiguous with it in ROM.
+`.rodata.effects_sight_0` at 0x800AAC58 grows from 0x18 to 0x24; the object
+`.rodata` is now 0x100 bytes (0x24 pool, 0xCC table, 0x4 constant and 0xC zero
+alignment bytes), and the later ranges are renamed by their new offsets to
+`.rodata.effects_sight_24` (table, sites 0x2A84/0x2A8C, still 0x800AADBC) and
+`.rodata.effects_sight_f0` (constant, still 0x800AAEBC). The split layout, linker
+sections, base symbols, extent assertions and `config/data/us.json` section names
+follow; no text or reference assembly changes.

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B2740
- * - func_150B37C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -278,7 +277,6 @@ typedef struct PipeExplodeEntry {
     u8 padC[8];
 } PipeExplodeEntry;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B37C8 CURRENT (830) */
 s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
                    f32 arg4, s32 arg5) {
     u8 *state;
@@ -286,9 +284,6 @@ s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
     PipeExplodeParticle particle;
     f32 size;
     PipeExplodeKinds kinds;
-    PipeExplodeTrail trail;
-    PipeExplodeMotion motion;
-    PipeExplodeRender render;
 
     state = (u8 *)arg0->state;
     points = *(PipeExplodeEntry **)((u8 *)arg0 + 0x94);
@@ -311,35 +306,38 @@ s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
     func_1513C73C((s32)&particle, 1, 0, arg5, points[*(s8 *)((u8 *)arg0 + 0x2D)].x, arg4,
                   points[*(s8 *)((u8 *)arg0 + 0x2D)].z, size, size, func_150ADA20() & 0xFF,
                   (func_150ADA20() & 1) + (func_150ADA20() & 1), 0, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
-    render.words[0] = 0;
-    render.words[1] = 1;
-    render.words[2] = 0x160600;
-    render.words[3] = 3;
-    render.words[4] = 0x10;
-    render.words[5] = 0x80;
-    render.words[6] = 0x20;
-    render.colorMode = 0;
-    render.alphaMode = 9;
-    trail.mode = 1;
-    trail.flags = 1;
-    motion.texture = state[0x19];
-    motion.flags = 8;
-    motion.color = state[0x1A];
-    motion.alpha = state[0x1B];
-    size = arg4;
-    trail.position[0] = points[*(s8 *)((u8 *)arg0 + 0x2D)].x;
-    trail.position[1] = size;
-    trail.position[2] = points[*(s8 *)((u8 *)arg0 + 0x2D)].z;
-    trail.life = 0x3C;
-    trail.capacity = ((u8 *)arg0)[0x25];
-    motion.width = *(f32 *)state * 0.75f;
-    motion.acceleration = *(f32 *)(state + 0x10);
-    motion.velocityX = *(f32 *)(state + 4);
-    motion.velocityY = func_150ADA68() * 15.0f + 15.0f;
-    motion.velocityZ = *(f32 *)(state + 0xC);
-    func_15147DA0(&trail, &motion, 0, 1, 7, 0, 0, 0, 0, 0, 0, &render, 0,
-                  ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+    {
+        PipeExplodeTrail trail;
+        PipeExplodeMotion motion;
+        PipeExplodeRender render;
+
+        render.words[0] = 0;
+        render.words[1] = 1;
+        render.words[2] = 0x160600;
+        render.words[3] = 3;
+        render.words[4] = 0x10;
+        render.words[5] = 0x80;
+        render.words[6] = 0x20;
+        render.colorMode = 0;
+        render.alphaMode = 9;
+        trail.mode = 1;
+        trail.flags = 1;
+        motion.texture = state[0x19];
+        motion.color = state[0x1A];
+        motion.flags = 8;
+        motion.alpha = state[0x1B];
+        trail.position[0] = points[*(s8 *)((u8 *)arg0 + 0x2D)].x;
+        trail.position[1] = arg4;
+        trail.position[2] = points[*(s8 *)((u8 *)arg0 + 0x2D)].z;
+        trail.capacity = ((u8 *)arg0)[0x25];
+        trail.life = 0x3C;
+        motion.width = *(f32 *)state * 0.75f;
+        motion.acceleration = *(f32 *)(state + 0x10);
+        motion.velocityX = *(f32 *)(state + 4);
+        motion.velocityY = func_150ADA68() * 15.0f + 15.0f;
+        motion.velocityZ = *(f32 *)(state + 0xC);
+        func_15147DA0(&trail, &motion, 0, 1, 7, 0, 0, 0, 0, 0, 0, &render, 0,
+                      ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+    }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B37C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/pipeexplode/func_150B37C8.s")

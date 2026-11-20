@@ -200,7 +200,7 @@ void func_15081690(GameAEB40State *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
         }
     }
 }
-s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
+s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 
 s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
@@ -229,8 +229,8 @@ s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
         center[0] = world[0];
         center[1] = world[1] * scale;
         center[2] = world[2];
-        if (func_151452C4(origin, direction, (s32)center, (f32)arg2->radius,
-                           arg3, arg4, arg5, arg6) == 0) {
+        if (func_151452C4(origin, direction, (Vec3f *)center, (f32)arg2->radius,
+                           (Vec3f *)arg3, (Vec3f *)arg4, arg5, arg6) == 0) {
             return 0;
         }
         ((f32 *)arg3)[1] *= inverse;

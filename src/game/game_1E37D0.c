@@ -12,7 +12,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B65D4
  * - func_151B7328
- * - func_151B7998
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -796,98 +795,88 @@ s32 func_151B77F4(Game1E37D0RingObject *arg0) {
     }
     return 1;
 }
-extern f32 D_800AA484;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7998 CURRENT (3057) */
 s32 func_151B7998(Game1E37D0RingObject *arg0) {
-    f32 inverse;
-    f32 total;
-    f32 zero;
-    f32 one;
-    f32 limit;
-    f32 accumulated;
-    f32 factor;
-    f32 x, y, z;
-    f32 dx, dy, dz;
-    f32 remaining;
     Game1E37D0RingEntry *entries;
-    Game1E37D0RingEntry *entry;
-    Game1E37D0RingEntry *previous;
-    s32 index;
-    s32 oldIndex;
+    f32 total;
+    f32 inverse;
+    s32 count;
 
     entries = arg0->entries;
-    if (arg0->count >= 2) {
-        accumulated = 0.0f;
+    count = arg0->count;
+    if (count >= 2) {
+        f32 limit;
+        s32 index;
+        s32 current;
+        Game1E37D0RingEntry *entry;
+
+        total = 0.0f;
         index = arg0->head - 1;
-        if (index < 0) {
-            index = arg0->capacity - 1;
-        }
+        if (index < 0) index = arg0->capacity - 1;
         if (index != arg0->tail) {
-            zero = 0.0f;
-            one = 1.0f;
-            limit = D_800AA484;
+            limit = 1198.0f;
             do {
-                oldIndex = index;
+                current = index;
                 index--;
-                if (index < 0) {
-                    index = arg0->capacity - 1;
-                }
-                entry = &entries[oldIndex];
-                accumulated += entry->distance;
-                if (limit < accumulated) {
-                    if (entry->distance != zero) {
-                        factor = (accumulated - limit) / entry->distance;
+                if (index < 0) index = arg0->capacity - 1;
+                entry = &entries[current];
+                total += entry->distance;
+                if (limit < total) {
+                    if (entry->distance != 0) {
+                        Game1E37D0RingEntry *previous;
+                        f32 ratio;
+                        f32 px, py, pz;
+                        f32 dx, dy, dz;
+
+                        ratio = (total - limit) / entry->distance;
                         previous = &entries[index];
-                        x = previous->position.x;
-                        y = previous->position.y;
-                        z = previous->position.z;
-                        dx = x - entry->position.x;
-                        dy = y - entry->position.y;
-                        dz = z - entry->position.z;
-                        previous->position.x = x - dx * factor;
-                        previous->position.y = y - dy * factor;
-                        previous->position.z = z - dz * factor;
-                        entry->distance *= one - factor;
+                        px = previous->position.x; py = previous->position.y; pz = previous->position.z;
+                        dx = px - entry->position.x; dy = py - entry->position.y; dz = pz - entry->position.z;
+                        previous->position.x = px - dx * ratio;
+                        previous->position.y = py - dy * ratio;
+                        previous->position.z = pz - dz * ratio;
+                        entry->distance *= 1.0f - ratio;
                     }
-                    accumulated = limit;
                     if (index != arg0->tail) {
                         do {
                             arg0->tail++;
-                            if (arg0->capacity == arg0->tail) {
+                            if (arg0->tail == arg0->capacity) {
                                 arg0->tail = 0;
                             }
                             arg0->count--;
                         } while (index != arg0->tail);
                     }
+                    total = limit;
                 }
             } while (index != arg0->tail);
+            count = arg0->count;
         }
-        if (accumulated != 0.0f) {
-            inverse = 1.0f / accumulated;
+        if (total != 0) {
+            inverse = 1.0f / total;
         } else {
             inverse = 0.0f;
         }
-        total = accumulated;
     }
-    if (arg0->count >= 2) {
-        s32 colorIndex;
-        colorIndex = arg0->head;
+    if (count >= 2) {
+        f32 scale;
+        f32 remaining;
+        s32 index;
+
+        index = arg0->head;
         remaining = total;
+        scale = 255.0f * inverse;
         do {
-            colorIndex--;
-            if (colorIndex < 0) {
-                colorIndex = arg0->capacity - 1;
-            }
-            entry = &entries[colorIndex];
-            entry->state = (u32)(remaining * (255.0f * inverse));
+            Game1E37D0RingEntry *entry;
+
+            index--;
+            if (index < 0) index = arg0->capacity - 1;
+            entry = &entries[index];
+            entry->state = remaining * scale;
             remaining -= entry->distance;
-        } while (colorIndex != arg0->tail);
+        } while (index != arg0->tail);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B7998 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7998.s")
 extern u8 D_80091100[];
 
 Gfx *func_151B7C38(Game1E37D0RingObject *arg0, Gfx *arg1, s16 arg2) {

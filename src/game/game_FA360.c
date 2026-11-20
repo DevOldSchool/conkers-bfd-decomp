@@ -68,7 +68,7 @@ typedef struct GameFA360DriftInit {
 
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
-void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 
 void *func_150CCEB0(GameFA360Emitter *arg0, u8 arg1, u8 arg2) {
     void *result;
@@ -110,7 +110,7 @@ void *func_150CCEB0(GameFA360Emitter *arg0, u8 arg1, u8 arg2) {
     drift.phase = 0.0f;
     drift.phaseSpeed = func_150ADA68() * 1210.0f * 0.0001f;
     drift.phaseScale = (func_150ADA68() * 12960.0f + 15241.0f) * 0.0001f;
-    result = func_1513D524((s32)&packet, 0x13, 0x1E, 0, 0x11, 0, 0x40, arg1, arg2);
+    result = func_1513D524(&packet, 0x13, 0x1E, 0, 0x11, 0, 0x40, arg1, arg2);
     if (result != NULL) {
         func_10022EC0((u8 *)result + 0x110, &drift, 0x40);
     }

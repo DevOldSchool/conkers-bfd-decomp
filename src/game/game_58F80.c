@@ -11,7 +11,6 @@
  * - func_1502DB84
  * - func_1502DF38
  * - func_1502E4C4
- * - func_1502EC34
  * - func_1502F01C
  * - func_1502F9FC
  *
@@ -1114,16 +1113,10 @@ void func_1502EAFC(void *arg0) {
     }
 }
 f32 func_15047C00(f32);
-extern f32 D_80096F38;
-extern f32 D_80096F3C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EC34 CURRENT (1680) */
 void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
-    s32 base_alpha;
     f32 value;
-    s32 alpha;
     u32 packed;
-    u8 byte;
 
     switch (arg0[0xA4]) {
     case 1:
@@ -1134,7 +1127,7 @@ void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
         if (packed >= 0x100U) {
             value = *(f32 *)packed;
             value = value < 0.0f ? 0.0f : (value > 255.0f ? 255.0f : value);
-            *arg4 = (s32)(value * D_80096F38);
+            *arg4 = (s32)(value * 2.55f);
             return;
         }
         *arg4 = packed;
@@ -1144,36 +1137,35 @@ void func_1502EC34(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4) {
         *arg1 = 0;
         *arg2 = 0;
         *arg3 = 0;
-        byte = arg0[0xA5];
-        *arg4 = byte;
+        *arg4 = arg0[0xA5];
         if (arg0[0xA4] == 3) {
-            *arg4 = 0xFF - byte;
+            *arg4 = 0xFF - *arg4;
         }
         return;
     case 4:
-    case 5:
-        packed = *(u32 *)(arg0 + 0xA0);
-        base_alpha = ((s32)packed >> 24) & 0xFF;
-        *arg1 = ((s32)packed >> 16) & 0xFF;
+    case 5: {
+        s32 alpha;
+
+        alpha = (*(s32 *)(arg0 + 0xA0) >> 24) & 0xFF;
+        *arg1 = (*(s32 *)(arg0 + 0xA0) >> 16) & 0xFF;
         *arg2 = (*(s32 *)(arg0 + 0xA0) >> 8) & 0xFF;
         *arg3 = *(u32 *)(arg0 + 0xA0) & 0xFF;
-        value = func_15047C00((f32)(u32)arg0[0xA5] * D_80096F3C);
-        alpha = (s32)((f32)base_alpha + (64.0f * ((value + 1.0f) * 0.5f)));
-        *arg4 = alpha;
-        *arg4 = alpha + (((0xFF - alpha) * (0xFF - arg0[0xA7])) >> 8);
-        return;
+        value = func_15047C00((f32)(u32)arg0[0xA5] * 0.024543693f);
+        *arg4 = (s32)((f32)alpha + (64.0f * ((value + 1.0f) * 0.5f)));
+        *arg4 += ((0xFF - *arg4) * (0xFF - arg0[0xA7])) >> 8;
+    } break;
     case 6:
-    case 7:
-        packed = *(u32 *)(arg0 + 0xA0);
-        *arg1 = ((s32)packed >> 16) & 0xFF;
+    case 7: {
+        s32 alpha;
+
+        alpha = (*(s32 *)(arg0 + 0xA0) >> 24) & 0xFF;
+        *arg1 = (*(s32 *)(arg0 + 0xA0) >> 16) & 0xFF;
         *arg2 = (*(s32 *)(arg0 + 0xA0) >> 8) & 0xFF;
         *arg3 = *(u32 *)(arg0 + 0xA0) & 0xFF;
-        *arg4 = 0xFF - ((arg0[0xA5] * (((s32)packed >> 24) & 0xFF)) >> 8);
-        break;
+        *arg4 = 0xFF - ((arg0[0xA5] * alpha) >> 8);
+    } break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502EC34 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EC34.s")
 extern u8 D_800CC33A[];
 
 s32 func_1502EE8C(s32 arg0, s32 arg1) {

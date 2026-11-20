@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -6,8 +10,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507CD64
- * - func_1507DB6C
  * - func_1507E1D0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -235,35 +237,28 @@ extern u8 D_800D18A9;
 extern s16 D_800E0AD0[];
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507CD64 CURRENT (640) */
 void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
-    GameA9D90ActorState *state;
+    s32 slot;
     s32 sound;
     s32 flag;
     s32 mode;
     s32 restart;
-    struct { void *object; u8 kind; } descriptor;
-    void *saved;
-    s32 slot;
-    u32 random;
-    f32 scale;
 
-    state = arg0->state;
-    if (state != NULL) {
+    if (arg0->state != NULL) {
         slot = ((u8 *)arg0 - &D_800CC2D0) / 812;
         if (slot < D_8008FD8C) {
-            if (state->field_120 != 0) {
+            if (arg0->state->field_120 != 0) {
                 if (arg1 != 9) {
                     return;
                 }
-                if (arg1 == state->field_121) {
+                if (arg1 == arg0->state->field_121) {
                     return;
                 }
                 restart = 1;
             } else {
                 restart = 0;
             }
-            state->field_121 = arg1;
+            arg0->state->field_121 = arg1;
             if (D_800BE616 != 0 && restart == 0) {
                 if (slot < 0x10) {
                     D_800E0AD0[slot]++;
@@ -272,9 +267,13 @@ void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
                     func_15085710(1, 0xA, 1);
                 }
             }
-            descriptor.object = arg0;
-            descriptor.kind = arg0->field_3B;
-            func_15169040((s32)&descriptor, 3);
+            {
+                struct { void *object; u8 kind; } descriptor;
+
+                descriptor.object = arg0;
+                descriptor.kind = arg0->field_3B;
+                func_15169040((s32)&descriptor, 3);
+            }
             D_800D18A9 = 0;
             sound = -1;
             flag = 0;
@@ -366,7 +365,8 @@ void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
             arg0->field_3C = 0.0f;
             arg0->state->field_46 = 0;
             if (arg0->field_13C != 0) {
-                saved = D_800D154C;
+                void *saved = D_800D154C;
+
                 D_800D154C = arg0;
                 func_1504BAF0(arg0);
                 D_800D154C = saved;
@@ -382,6 +382,9 @@ void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
                 func_1507D4F8(slot);
             }
             if (slot == 0 && D_800BE9F0 == 4) {
+                u32 random;
+                f32 scale;
+
                 random = func_150ADA20();
                 scale = func_150ADA68() * 0.1f + 0.3f;
                 func_150E7994((random % 3) + 4, scale, 0xFF, 0);
@@ -389,8 +392,6 @@ void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507CD64 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507CD64.s")
 typedef struct GameA9D90EntityIdRecord {
     u8 field_0;
     u8 pad_1[0x32B];
@@ -736,18 +737,12 @@ extern s32 D_800BE628;
 extern u16 D_800D18A2;
 extern u8 D_800D18A4[];
 
-#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DB6C CURRENT (5190) */
 GameA9D90Command *func_1507DB6C(GameA9D90Command *arg0, s32 arg1) {
     s32 texture;
-    u8 level;
-    u8 *levelByte;
+    s32 size;
     u8 *viewport;
-    u32 flags, bit;
-    u16 *flagWord;
-    s32 centerX, centerY;
-    register s32 radius;
     s32 right, left, bottom, top;
+    s32 scale;
 
     { GameA9D90Command *command = arg0++; command->first = 0xDE000000; command->second = (u32)D_80086B80; }
     texture = func_1510D0EC((s32)&D_D0F, 0, 3, 0);
@@ -759,44 +754,33 @@ GameA9D90Command *func_1507DB6C(GameA9D90Command *arg0, s32 arg1) {
     { GameA9D90Command *command = arg0++; command->first = 0xF5181000; command->second = 0x00080200; }
     { GameA9D90Command *command = arg0++; command->first = 0xF2000000; command->second = 0x0007C07C; }
     { GameA9D90Command *command = arg0++; command->first = 0xEF002C3F; command->second = 0x0F0A4004; }
-    flagWord = (u16 *)(u32)&D_800D18A2;
-    flags = *flagWord;
-    bit = 1U << arg1;
-    if (flags & bit) {
-        levelByte = D_800D18A4 + arg1;
-        level = *levelByte;
-        if (level >= 4) {
-            *levelByte = level - 4;
-            level = (u8)(level - 4);
-            goto draw;
+    if (D_800D18A2 & (1 << arg1)) {
+        if (D_800D18A4[arg1] >= 4) {
+            D_800D18A4[arg1] -= 4;
+        } else {
+            D_800D18A2 &= ~(1 << arg1);
+            func_15181DC8(arg1);
+            func_1517EE40(0, 0, 0, 120, 0, arg1);
+            return arg0;
         }
-        *flagWord = flags & ~bit;
-        func_15181DC8(arg1);
-        func_1517EE40(0, 0, 0, 120, 0, arg1);
-        return arg0;
     } else {
-        levelByte = D_800D18A4 + arg1;
-        level = (u8)(*levelByte + 4);
-        *levelByte = level;
-        if (level >= 61) {
-            *levelByte = 60;
-            level = 60;
+        D_800D18A4[arg1] += 4;
+        if (D_800D18A4[arg1] > 60) {
+            D_800D18A4[arg1] = 60;
         }
     }
-draw:
+    size = D_800D18A4[arg1] + 4;
     viewport = (u8 *)D_800BE628 + arg1 * 0x180;
-    centerX = (s32)(*(f32 *)(viewport + 0x2C) + *(f32 *)(viewport + 0x30)) * 2;
-    centerY = (s32)(*(f32 *)(viewport + 0x24) + *(f32 *)(viewport + 0x28)) * 2;
-    radius = level + 4;
-    left = centerX - radius;
-    right = centerX + radius;
-    top = centerY - radius;
-    bottom = centerY + radius;
-    { GameA9D90Command *command = arg0++; command->first = _SHIFTL(0xE4, 24, 8) | _SHIFTL(right, 12, 12) | _SHIFTL(bottom, 0, 12); command->second = _SHIFTL(0, 24, 3) | _SHIFTL(left, 12, 12) | _SHIFTL(top, 0, 12); } { GameA9D90Command *command = arg0++; command->first = _SHIFTL(0xE1, 24, 8); command->second = _SHIFTL(0, 16, 16) | _SHIFTL(0, 0, 16); } { GameA9D90Command *command = arg0++; command->first = _SHIFTL(0xF1, 24, 8); command->second = _SHIFTL(0x20000 / (right - left), 16, 16) | _SHIFTL(0x20000 / (right - left), 0, 16); }
+    left = right = (s32)(*(f32 *)(viewport + 0x2C) + *(f32 *)(viewport + 0x30)) * 2;
+    top = bottom = (s32)(*(f32 *)(viewport + 0x24) + *(f32 *)(viewport + 0x28)) * 2;
+    left -= size;
+    right += size;
+    top -= size;
+    bottom += size;
+    scale = 0x20000 / (right - left);
+    gSPTextureRectangle(arg0++, left, top, right, bottom, 0, 0, 0, scale, scale);
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507DB6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DB6C.s")
 void func_150836CC(void *, s32);
 
 void func_1507DE4C(void *arg0) {

@@ -8,8 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C756C
- * - func_151C87E0
- * - func_151C8FCC
  * - func_151C9198
  * - func_151C9F38
  * - func_151CA6A0
@@ -332,7 +330,7 @@ void func_151C8674(void *arg0, s32 arg1) {
         func_151403A8(&message.owner, 0x20, arg0);
     }
 }
-s32 func_151C87E0(s32, void *);
+s32 func_151C87E0(u8 *, void *);
 void func_151C899C();
 
 void func_151C86AC(void *arg0, void *arg1, u8 arg2) {
@@ -341,7 +339,7 @@ void func_151C86AC(void *arg0, void *arg1, u8 arg2) {
     switch (arg2) {
     case 0x20:
         if ((state[0x86] & 0x10) && *(s32 *)(state + 0x28) == *(s32 *)((u8 *)arg1 + 4) &&
-            func_151C87E0(*(s32 *)arg1, arg0) != 0) {
+            func_151C87E0(*(u8 **)arg1, arg0) != 0) {
             func_151C899C(*(s32 *)arg1, arg0);
         }
         break;
@@ -374,69 +372,65 @@ s32 func_151C87AC(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
 extern u8 *D_800D1C90[];
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-s32 func_151451F0(void *, void *, s32, f32, f32, s32, s32, f32 *, f32 *);
+s32 func_151451F0(void *, void *, Vec3f *, f32, f32, Vec3f *, Vec3f *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C87E0 CURRENT (3348) */
-s32 func_151C87E0(s32 arg0, void *arg1) {
-    u8 *actor;
-    u8 *sight;
-    f32 ratio;
-    f32 sample;
+s32 func_151C87E0(u8 *arg0, void *arg1) {
     f32 half;
-    struct {
-        f32 inverse;
-        u8 pad44[2];
-        s16 sample3;
-        s16 sample2;
-        s16 sample;
-        f32 output1;
-        f32 output0;
-        u8 pad54[0xC];
-        u8 result60[0xC];
-        f32 length;
-        f32 direction[3];
-        u8 pad7C[0xC];
-        f32 clipped[3];
-        u8 pad94[4];
-        f32 start[3];
-        u8 padA4[4];
-        f32 radius;
-    } local;
+    f32 radius;
+    f32 sample;
+    Vec3f start;
+    f32 ratio;
+    Vec3f clipped;
+    f32 endX;
+    f32 endY;
+    f32 endZ;
+    Vec3f direction;
+    f32 length;
+    Vec3f nearHit;
+    Vec3f farHit;
+    f32 nearT;
+    f32 farT;
+    s16 height;
+    s16 width;
+    s16 depth;
 
-    actor = (u8 *)arg0;
-    sight = arg1;
-    if ((actor[4] < 0xBB) && (actor[4] != 0xFF)) {
-        local.radius = (f32)*(s16 *)(D_800D1C90[actor[4]] + 0x1A) * *(f32 *)(actor + 0x14C);
+    if ((arg0[4] < 0xBB) && (arg0[4] != 0xFF)) {
+        radius = *(f32 *)(arg0 + 0x14C) * (f32)*(s16 *)(D_800D1C90[arg0[4]] + 0x1A);
     } else {
-        local.radius = 50.0f;
+        radius = 50.0f;
     }
-    func_1507C3E0(actor, &local.sample, &local.sample2, &local.sample3);
-    sample = (f32)local.sample;
+    func_1507C3E0(arg0, &height, &width, &depth);
+    sample = height;
     if (sample == 0.0f) {
         return 0;
     }
     half = sample * 0.5f;
-    ratio = local.radius / half;
-    local.start[0] = *(f32 *)(actor + 0x14);
-    local.start[1] = *(f32 *)(actor + 0x18) + half;
-    local.start[2] = *(f32 *)(actor + 0x1C);
-    local.clipped[0] = *(f32 *)(sight + 0x34);
-    local.clipped[1] = ((*(f32 *)(sight + 0x38) - local.start[1]) * ratio) + local.start[1];
-    local.clipped[2] = *(f32 *)(sight + 0x3C);
-    local.direction[0] = *(f32 *)(sight + 0x40) - local.clipped[0];
-    local.direction[1] = (((*(f32 *)(sight + 0x44) - local.start[1]) * ratio) + local.start[1]) - local.clipped[1];
-    local.direction[2] = *(f32 *)(sight + 0x48) - local.clipped[2];
-    if (func_15145128(local.direction, local.direction, &local.length, &local.inverse) == 0) {
-        return 0;
+    ratio = radius / half;
+    start.x = *(f32 *)(arg0 + 0x14);
+    start.y = *(f32 *)(arg0 + 0x18) + half;
+    start.z = *(f32 *)(arg0 + 0x1C);
+    clipped.x = *(f32 *)((u8 *)arg1 + 0x34);
+    clipped.y = ((*(f32 *)((u8 *)arg1 + 0x38) - start.y) * ratio) + start.y;
+    clipped.z = *(f32 *)((u8 *)arg1 + 0x3C);
+    endX = *(f32 *)((u8 *)arg1 + 0x40);
+    endY = ((*(f32 *)((u8 *)arg1 + 0x44) - start.y) * ratio) + start.y;
+    endZ = *(f32 *)((u8 *)arg1 + 0x48);
+    direction.x = endX - clipped.x;
+    direction.y = endY - clipped.y;
+    direction.z = endZ - clipped.z;
+    {
+        f32 inverse;
+
+        if (func_15145128(&direction.x, &direction.x, &length, &inverse) == 0) {
+            return 0;
+        }
     }
-    if (func_151451F0(local.clipped, local.direction, (s32)local.start, local.radius, local.length,
-                      (s32)local.result60, (s32)local.pad54, &local.output0, &local.output1) != 0) {
+    if (func_151451F0(&clipped, &direction, &start, radius, length,
+                      &nearHit, &farHit, &nearT, &farT) != 0) {
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C87E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C87E0.s")
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
@@ -554,9 +548,6 @@ void func_151C899C(void *arg0, void *arg1) {
     func_1516972C(arg1);
 }
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800AAC70;
-extern f32 D_800AAC74;
-extern f32 D_800AAC78;
 s32 func_151407D0();
 
 typedef struct Sight8FCCVector { s32 words[3]; } Sight8FCCVector;
@@ -584,47 +575,40 @@ typedef struct Sight8FCCParameters {
     u8 states[5];
 } Sight8FCCParameters;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C8FCC CURRENT (1783) */
 s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
                   u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7,
                   u8 arg8, s32 arg9) {
-    s32 saved;
+    s32 result;
     Sight8FCCParameters parameters;
     Sight8FCCDescriptor descriptor;
     s32 owner;
-    u32 options;
-    s32 result;
 
     descriptor.position = *arg1;
     descriptor.direction = *arg2;
     owner = arg0;
-    parameters.values[0] = D_800AAC70;
-    parameters.values[1] = D_800AAC70;
+    parameters.values[0] = 30.1f;
+    parameters.values[1] = 30.1f;
     parameters.values[2] = 40.0f;
     parameters.values[3] = 40.0f;
     parameters.values[6] = 1.0f;
     parameters.values[4] = 0.0f;
     parameters.values[5] = 0.0f;
+    parameters.values[7] = 0.3f;
     descriptor.kind = 0x15;
     descriptor.flags = 0x3403;
     descriptor.lifetime = 0x12C;
     descriptor.callback0 = 0;
     descriptor.callback1 = 0;
     descriptor.colors[0] = arg3;
+    descriptor.colors[1] = arg4;
+    descriptor.colors[2] = arg5;
     descriptor.colors[3] = 0xFF;
     descriptor.field14 = 0.0f;
     descriptor.field18 = 0.0f;
     descriptor.scales[0] = 1.0f;
     descriptor.scales[1] = 1.0f;
     descriptor.scales[2] = 1.0f;
-    parameters.values[7] = D_800AAC74;
-    descriptor.colors[1] = arg4;
-    descriptor.colors[2] = arg5;
-    options = 0;
-    if (arg7 != 0) {
-        options = 0x01000000;
-    }
-    descriptor.options = options | 0x024D2006 | 0x40000000;
+    descriptor.options = (arg7 ? 0x01000000 : 0) | 0x024D2006 | 0x40000000;
     descriptor.channels[1] = 0xFF;
     descriptor.channels[0] = 0xFF;
     descriptor.channels[2] = 0;
@@ -637,17 +621,13 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
     parameters.multiplier = 1.0f;
     parameters.states[4] = 0;
     descriptor.parameter = arg6;
-    parameters.values[8] = D_800AAC78;
+    parameters.values[8] = 0.000001f;
     result = func_151407D0(&parameters, 100, &descriptor, 0, 0, 0, 0, 1, arg8, arg9);
     if (result != 0) {
-        saved = result;
         func_10022EC0((void *)(result + 0x170), &owner, 4);
-        result = saved;
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C8FCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 s32 func_15144E80(void *, void *, void *, void *);
 void func_15145974(void *, f32 *, f32 *);

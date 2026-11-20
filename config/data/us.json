@@ -408,6 +408,16 @@
         }
       },
       {
+        "address": "0x80095B78",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_36680.c",
+            "src/done/game/game_36680.c"
+          ]
+        }
+      },
+      {
         "address": "0x800960F0",
         "section": ".rodata",
         "owner": {
@@ -530,6 +540,26 @@
       {
         "address": "0x80096F04",
         "section": ".rodata.58f80_100",
+        "owner": {
+          "sources": [
+            "src/game/game_58F80.c",
+            "src/done/game/game_58F80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80096F1C",
+        "section": ".rodata.58f80_118",
+        "owner": {
+          "sources": [
+            "src/game/game_58F80.c",
+            "src/done/game/game_58F80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80096F38",
+        "section": ".rodata.58f80_134",
         "owner": {
           "sources": [
             "src/game/game_58F80.c",
@@ -806,7 +836,7 @@
         }
       },
       {
-        "address": "0x8009B6DC",
+        "address": "0x8009B690",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -2256,6 +2286,16 @@
         }
       },
       {
+        "address": "0x800A71F0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1A6360.c",
+            "src/done/game/game_1A6360.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A7210",
         "section": ".rodata",
         "owner": {
@@ -2707,7 +2747,17 @@
       },
       {
         "address": "0x800AA470",
-        "section": ".rodata",
+        "section": ".rodata.1e37d0_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1E37D0.c",
+            "src/done/game/game_1E37D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AA484",
+        "section": ".rodata.1e37d0_4",
         "owner": {
           "sources": [
             "src/game/game_1E37D0.c",
@@ -2857,7 +2907,7 @@
       },
       {
         "address": "0x800AADBC",
-        "section": ".rodata.effects_sight_18",
+        "section": ".rodata.effects_sight_24",
         "owner": {
           "sources": [
             "src/game/effects/effects_sight.c",
@@ -2867,7 +2917,7 @@
       },
       {
         "address": "0x800AAEBC",
-        "section": ".rodata.effects_sight_e4",
+        "section": ".rodata.effects_sight_f0",
         "owner": {
           "sources": [
             "src/game/effects/effects_sight.c",
