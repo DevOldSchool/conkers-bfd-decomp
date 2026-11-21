@@ -4902,15 +4902,15 @@
         "func_1507E114",
         "func_1507E1D0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x7E2B0",
           "start": "0x7C8E0",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_A9D90.c"
+      "source": "src/done/game/game_A9D90.c"
     },
     {
       "boundary_evidence": {
