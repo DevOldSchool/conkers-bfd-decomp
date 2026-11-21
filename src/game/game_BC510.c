@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_BC510.c
@@ -22,7 +23,6 @@
 extern u8 D_800D2460[][0x10];
 extern s8 D_800D246D;
 extern s8 D_800D247D;
-extern s32 D_800D24C0;
 
 void func_1508F060(void) {
     s32 i;
@@ -56,11 +56,7 @@ void func_151EFEB8(void *, s32);
 void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern u8 D_800D2456;
 extern GameBC510Node *D_800D245C;
-extern u8 D_800BE9C0;
-extern u8 D_800D2590[];
-extern f32 D_800D2890[];
 
 void func_1508F7BC(void) {
     f32 matrix[4][4];
@@ -91,7 +87,6 @@ void func_1508F7BC(void) {
     node->fieldB4 = 0x78;
 }
 extern f32 D_800D2410[];
-extern u8 D_800D2456;
 
 void func_1508F9C4(void) {
     D_800D2410[D_800D2456] = 0.0f;
@@ -111,7 +106,6 @@ typedef struct GameBC510Entry {
 } GameBC510Entry;
 
 extern u8 D_800CC2D0[];
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508F9F4 CURRENT (4979) */
 void func_1508F9F4(void) {
@@ -227,11 +221,11 @@ GameBC510Command *func_150911F4(GameBC510Command *);
 void *func_15094F40(void *);
 void *func_15096934(void *);
 void func_1518CA04(s32);
-extern u8 D_8008CD00, D_800BE616, D_800C35EA, D_800D2458;
-extern f32 D_8008FE1C, D_800D2428;
+extern u8 D_8008CD00;
+extern u8 D_800C35EA;
+extern f32 D_800D2428;
 extern s16 D_8009DCB4;
 extern u16 D_800D2454;
-extern s32 D_800BE9F0, D_800BEBA4, D_800D2588;
 extern GameBC510Command *D_800BE9C8[];
 extern u8 D_800D23D0[];
 
@@ -293,11 +287,6 @@ typedef struct GameBC510Sprite {
 s32 func_15095A48(s32, void *, f32, f32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 s32 func_15094F70();
-extern s32 D_800903D4;
-extern s32 D_80091840;
-extern f32 D_8009DD20;
-extern f32 D_8009DD24;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15090630 CURRENT (2940) */
 GameBC510Command *func_15090630(GameBC510Command *dl) {
@@ -392,8 +381,8 @@ GameBC510Command *func_15090630(GameBC510Command *dl) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15090630.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1509093C.s")
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-extern u8 D_80083440[], D_800835C0[], D_80084160[], D_80084190[];
-extern f32 D_8009DD40, D_8009DD44, D_8009DD48;
+extern u8 D_80084160[];
+extern u8 D_80084190[];
 
 typedef struct GameBC510DisplayState {
     u8 matrices[0x80];
@@ -488,12 +477,6 @@ GameBC510Command *func_15091534(GameBC510Command *arg0, s32 arg1, s8 *arg2) {
     }
     return arg0;
 }
-extern char D_8009DCC0[];
-extern char D_8009DCC4[];
-extern char D_8009DCCC[];
-extern char D_8009DCD4[];
-extern char D_8009DCD8[];
-extern char D_8009DCE0[];
 
 void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 seconds;
@@ -531,7 +514,6 @@ void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150918EC.s")
 /* Call context: func_15093878: unique active project prototype */
 void func_15093878(void);
-extern u8 D_800D2458;
 
 /* Descriptive role: timer_display_set_enabled.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
@@ -548,8 +530,6 @@ void func_15093818(s32 enabled) {
 }
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern s32 func_1518C900(s32 arg0);
-extern s32 D_800D2448;
-extern void *D_800D244C;
 
 /* Descriptive role: timer_display_init.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
@@ -559,8 +539,6 @@ void func_15093878(void) {
     D_800D244C = func_10003C40(0x80, 1, 1, 0);
 }
 void func_150A7D00(volatile s64 *, f32, f32, f32);
-extern u8 D_11AD;
-extern s32 D_800D2450;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150938BC */

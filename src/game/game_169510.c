@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_169510.c
@@ -26,10 +27,7 @@
 void func_1513C92C(u8 *arg0);
 void func_1513CAD4(void *arg0);
 
-extern s32 (*D_80089C70[])(u8 *);
-extern s32 (*D_80089CA8[])(u8 *);
 extern u8 D_80090B64[];
-extern s32 D_800BE9E4;
 
 void func_1513C060(u8 *arg0) {
     s32 boundary;
@@ -110,7 +108,6 @@ void func_1513FFF4(void *, u8, u8);
 void func_151400D0(void *, void *);
 s32 func_1515D480(s32);
 extern u8 D_800A4AA0;
-extern s32 D_80082FA0;
 
 void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
                      s32 arg4, s32 arg5, s32 arg6, void *arg7,
@@ -265,7 +262,6 @@ void func_1513C900(void *arg0) {
     func_15169824(arg0);
 }
 void func_100043B4(void *, s32);
-extern s32 D_80082FA0;
 
 void func_1513C92C(u8 *arg0) {
     s32 i;
@@ -279,7 +275,6 @@ void func_1513C92C(u8 *arg0) {
         func_100043B4((void *)*(s32 *)(arg0 + 0x9C), 4);
     }
 }
-extern void (*D_80089EE8[])(void);
 
 void func_1513C9B0(void *arg0) {
     u8 var_v0;
@@ -291,7 +286,6 @@ void func_1513C9B0(void *arg0) {
     }
     D_80089EE8[var_v0]();
 }
-extern void (*D_80089EF0[])(void);
 
 void func_1513C9FC(void *arg0) {
     u8 var_v0;
@@ -328,7 +322,6 @@ void func_1513CAD4(void *arg0) {
         func_100043B4((void *)*(s32 *)((u8 *)arg0 + 0xB4), 4);
     }
 }
-extern void (*D_80089EF8[])(void);
 
 void func_1513CB58(void *arg0) {
     u8 var_v0;
@@ -340,7 +333,6 @@ void func_1513CB58(void *arg0) {
     }
     D_80089EF8[var_v0]();
 }
-extern void (*D_80089F2C[])(void);
 
 void func_1513CBA4(void *arg0) {
     u8 var_v0;
@@ -401,7 +393,6 @@ void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, 
 void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
 s32 func_151462C8(s32, u8 *, u8, u8 *, u8, s16, f32 *, u8, s32);
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
@@ -467,16 +458,11 @@ Gfx *func_1513CBF0(Gfx *gdl, Game169510DrawOwner *owner, s16 viewport) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513CBF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
 
-extern void (*D_80089F60)(s32, s32, u8);
-
 void func_1513CF9C(s32 arg0, s32 arg1, u8 arg2) {
     D_80089F60(arg0, arg1, arg2);
 }
 void func_1513CFD0(s32 arg0, s32 arg1, s32 arg2) {
 }
-extern s32 (*D_80089CB8[])(void *);
-extern s32 (*D_80089D60[])(void *);
-extern s32 (*D_80089E10[])(void *);
 
 void func_1513CFE4(void *arg0) {
     s32 flags;
@@ -585,7 +571,6 @@ typedef struct Game169510Effect {
 } Game169510Effect;
 
 void func_100226F0(void *, s32);
-extern f32 D_800A5184;
 
 void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     u8 arg5, u8 arg6, s32 arg7, s32 arg8, s32 arg9, u8 arg10, s32 arg11) {
@@ -696,7 +681,6 @@ void *func_1513D668(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D6FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DB00.s")
-extern void (*D_80089F64[])(void *, s32, u8);
 
 void func_1513DF9C(void *arg0, s32 arg1, u8 arg2) {
     s32 index;
@@ -1067,8 +1051,6 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A51BC, D_800A51C0;
-extern f32 D_800BE9A8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F114 CURRENT (5472) */
 void *func_1513F114(Game169510ScaledOwner *owner, s16 arg1) {
@@ -1153,13 +1135,9 @@ void func_1513F4B0(s32 arg0, s16 arg1) {
     func_15140410(arg0, arg0 + 0x110, arg0 + 0x11C, arg1);
 }
 s16 func_15143044(u8, s32);
-extern u8 D_800A4BA8[];
-extern s16 D_800DD1BE;
 
 
 Gfx *func_1513F4E4(Gfx *gdl, u8 arg1, u8 *arg2) {
-    extern s16 D_800DD1BE;
-    extern u8 D_800A4BA8[];
     s32 v0;
     u8 *p;
 
@@ -1197,7 +1175,6 @@ s32 func_1513F6E8(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + (temp_fv0 * D_800BE9A4));
     return 1;
 }
-extern f32 D_800BE9A8;
 
 typedef struct Game169510Velocity {
     f32 x, y, z;
@@ -1385,7 +1362,6 @@ extern u8 D_800A5168;
 void func_151403A8(void *arg0, u8 arg1) {
     func_15169260(&D_800A5168, 4, (s32) arg0, arg1);
 }
-extern u8 D_800A5178;
 
 void func_151403DC(s32 arg0, u8 arg1) {
     func_15169260(&D_800A5178, 3, arg0, arg1);

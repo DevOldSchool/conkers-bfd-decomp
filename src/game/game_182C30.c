@@ -5,6 +5,7 @@
 #include <PR/mbi.h>
 #include "game_functions.h"
 #include "game_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_182C30.c
@@ -67,9 +68,7 @@ void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
 }
 void func_10010F30(s32, s32, s32, s32, s32);
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
-extern s32 D_800BE9E4;
 extern u8 D_800CC2D0[];
-extern u8 D_800D2E68;
 
 void func_1515589C(Game182C30Effect *arg0) {
     u32 index;
@@ -155,9 +154,7 @@ void func_1515589C(Game182C30Effect *arg0) {
 }
 void *func_15096934(void *);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-extern u8 D_800BE9C0;
 extern u8 D_800CC2D0[];
-extern s32 *D_800E03E0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15155CFC */
 Gfx *func_15155CFC(Gfx *gdl, Game182C30Effect *arg1, s16 arg2) {

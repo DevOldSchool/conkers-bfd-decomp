@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_5D2C0.c
@@ -16,8 +17,6 @@ void func_1510CE60(s32, s32, s32, s32, void *);
 void func_15168E54(s32, s32 *);
 s32 func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 extern u8 D_800DF7D0[];
-extern s32 D_800DF9B8[];
-extern s32 *D_800E0148[];
 
 s32 func_1502FE10(s32 arg0, void *arg1, void *arg2, void **arg3, void *arg4, s32 arg5, s32 arg6) {
     s32 *header;
@@ -451,7 +450,6 @@ s32 func_15030F94(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
     return arg0;
 }
 void *func_1503195C(void *, s32, s32);
-extern u8 D_800BE9C0;
 
 s32 func_15031070(void *arg0, void *arg1, s32 *arg2, s32 *arg3) {
     if (*(u8 **)((u8 *)arg0 + 0x48) != 0) {
@@ -489,15 +487,10 @@ s32 func_1510D0EC(s32, s32 *, s32, s32);
 s32 func_1515D914(s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 u32 *func_1515E544(u32 *, s32, u8, u8, s32);
 Game5D2C0Command *func_15035D6C(Game5D2C0Command *, u8 *, s32, s32, s32);
-extern u8 D_80082FC0[];
-extern u8 D_80083140[];
 extern u8 *D_800B0DF0;
 extern s32 D_800BE9C8[];
-extern s32 D_800BEBA4;
 extern u8 D_800CC2D0[];
 extern u8 D_800D9E28[];
-extern s32 D_800DCD7C;
-extern u8 D_800DD2E4[];
 
 s32 func_150311C4(Game5D2C0Command *dl, u8 *arg1, u8 *arg2, s32 arg3, s32 arg4) {
     s32 matrix;
@@ -682,8 +675,6 @@ void func_150D3360(void *, u8, s32);
 void func_151001B4();
 s32 func_15163BE8(void *, u8, s32);
 void func_151BD828(void *, u8, s32);
-extern s32 D_80090228;
-extern s32 D_8009022C;
 
 void func_15031A50(u8 *arg0, u8 *arg1) {
     s32 type = arg0[1];
@@ -823,8 +814,6 @@ typedef struct {
     s32 field_3C;
 } Game5D2C0State;
 
-extern s32 D_800902BC[];
-
 s32 func_15031E2C(Game5D2C0State *arg0, s32 arg1) {
     s32 var_v0;
 
@@ -839,7 +828,6 @@ s32 func_15031E2C(Game5D2C0State *arg0, s32 arg1) {
     }
     return 0;
 }
-extern f32 D_800970DC;
 
 s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     u8 *object;
@@ -928,7 +916,6 @@ s32 func_1503327C(void *arg0, s32 arg1) {
     }
     return 0;
 }
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
 
 s32 func_15033328(void *arg0, void *arg1) {
@@ -945,7 +932,6 @@ s32 func_15033328(void *arg0, void *arg1) {
     *(s32 *)((u8 *)arg0 + 0x38) = 0x1E;
     return 0;
 }
-extern f32 D_80097B68;
 
 s32 func_150333A8(void *arg0, void *arg1) {
     void *temp_v0;
@@ -967,7 +953,6 @@ s32 func_150333A8(void *arg0, void *arg1) {
     }
     return 0;
 }
-extern s32 D_800BE9E4;
 
 s32 func_15033440(void *arg0, void *arg1) {
     u8 temp_v0;
@@ -1120,8 +1105,6 @@ s32 func_1503378C(void *arg0, void *arg1) {
     }
     return 1;
 }
-extern s32 D_800BE9E4;
-extern s32 D_800902FC[];
 
 s32 func_150337E4(Game5D2C0State *arg0, s32 arg1) {
     arg0->field_38 += D_800BE9E4;
@@ -1203,7 +1186,6 @@ s32 func_150339C8(u8 *arg0, void *arg1) {
 }
 void func_1508B20C(f32, f32, f32, s32);
 s32 func_15033BDC();
-extern u8 D_800BE616;
 
 s32 func_15033AD8(void *arg0, void *arg1) {
     s32 temp_v0;

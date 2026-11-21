@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_43880.c
@@ -11,7 +12,6 @@ typedef struct {
 } Game43880Record;
 
 s32 func_1502B7F0(s32 **, s32, s32, s32, s32);
-extern s32 *D_800D18B0;
 
 void func_150163D0(s32 arg0) {
     s32 count;

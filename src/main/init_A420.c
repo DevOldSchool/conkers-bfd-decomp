@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_A420.c
@@ -17,11 +18,6 @@ f32 sqrtf(f32);
 f32 func_850487E0(f32);
 s32 func_850AD960(s32, s32, s32, s32);
 s32 func_850AD9A0(s32, s32, s32);
-extern f32 D_8002C200;
-extern f64 D_8002C208;
-extern f32 D_8002C210;
-extern f32 D_8002C214;
-extern f64 D_8002C218;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A420 CURRENT (230) */
 s32 func_8000A420(s32 x, s32 unusedY, s32 z, f32 rotation,

@@ -5,6 +5,7 @@
 #include <PR/mbi.h>
 #include "game_view.h"
 #include "game_vec.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DFE00.c
@@ -56,9 +57,7 @@ Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090DE8[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_151B2974(Gfx *arg0, Game1DFE00Beam *arg1, s16 arg2) {
     Game1DFE00Link *link;

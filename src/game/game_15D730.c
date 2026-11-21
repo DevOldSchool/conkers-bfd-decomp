@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15D730.c
@@ -109,7 +110,6 @@ typedef struct Game15D730AnimEntry {
     u8 pad1[0xB];
 } Game15D730AnimEntry;
 
-extern s32 D_800BE9E4;
 extern f32 D_800BE9A4;
 extern s32 (*D_80089760[])(Game15D730Particle *, Vec3f *);
 extern void (*D_80089800[])(Game15D730Particle *);
@@ -374,7 +374,6 @@ void func_1513173C(void *arg0) {
 void func_1513175C(void *arg0) {
     func_15169824(arg0);
 }
-extern void (*D_80089814[])(void);
 
 void func_1513177C(void *arg0) {
     u8 var_v0;
@@ -386,7 +385,6 @@ void func_1513177C(void *arg0) {
     }
     D_80089814[var_v0]();
 }
-extern void (*D_80089844[])(void);
 
 void func_151317C8(void *arg0) {
     u8 var_v0;
@@ -402,7 +400,6 @@ s32 func_15131814(s32 arg0, s32 arg1) {
     return 0;
 }
 /* Call context: func_151423D8: unique active project prototype */
-extern s32 D_800BE9E4;
 
 void func_15131828(void *arg0, void *arg1, void *arg2, void *arg3) {
     *(f32 *)((u8 *)arg0 + 0x4C) = *(f32 *)((u8 *)arg1 + 0) * func_151423D8(*(u8 *)((u8 *)arg2 + 0) - 0x40);
@@ -410,7 +407,6 @@ void func_15131828(void *arg0, void *arg1, void *arg2, void *arg3) {
     *(u8 *)((u8 *)arg2 + 0) += *(u8 *)((u8 *)arg3 + 0) * D_800BE9E4;
     *(u8 *)((u8 *)arg2 + 1) += *(u8 *)((u8 *)arg3 + 1) * D_800BE9E4;
 }
-extern s32 D_800BE9E4;
 
 void func_151318E8(void *arg0, f32 arg1) {
     s32 var_v0;
@@ -455,8 +451,6 @@ void func_151319A4(void *arg0, s32 arg1) {
 }
 s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
-extern s32 (*D_80089874[])();
-extern f32 D_800A3844;
 
 s32 func_151319C4(void *arg0, s32 arg1, void *arg2) {
     u8 result;
@@ -502,8 +496,6 @@ void func_15131B3C(u8 *arg0, s32 arg1) {
     func_15131918(arg0 + 0x58, *(f32 *)((u8 *)arg0 + 0xA8));
     func_151319C4(arg0, arg1, arg0 + 0xB0);
 }
-extern f32 D_800A3848;
-extern f32 D_800A384C;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
@@ -643,7 +635,6 @@ typedef struct Game131EE4Fade {
 } Game131EE4Fade;
 
 f32 func_150ADA68(void);
-extern f32 D_800A3850;
 extern Game15D730Args D_800A5480;
 
 void *func_15131EE4(void *arg0, f32 arg1, u8 arg2, s32 arg3) {

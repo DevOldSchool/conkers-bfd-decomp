@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_139410.c
@@ -31,13 +32,10 @@ typedef struct {
 extern Game139410Record *D_800D9E60[];
 extern u8 D_800D9E64;
 extern Game139410Buffers D_800B0E10;
-extern s32 D_800BE9E4;
-extern f32 D_800A2CC0;
 void *func_10003C40(s32, s32, s32, s32);
 u8 func_1510BF60(s32, s32, Game139410Vertex **, s32);
 extern s32 D_800B0E00;
 extern s32 D_800B0E04;
-extern s32 D_800917B8;
 
 Game139410Record *func_1510C4AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     Game139410Vertex *vertices;

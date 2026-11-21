@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1435C0.c
@@ -41,8 +42,6 @@ void func_15116110(Game1435C0State *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15116110 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1435C0/func_15116110.s")
 f32 func_1510F648(f32, f32, f32);                   /* extern */
-extern f32 D_800A2FA8;
-extern f32 D_800A2FAC;
 extern u16 D_800CC354;
 
 f32 fabsf(f32);
@@ -78,7 +77,6 @@ void func_1511617C(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x5C) = (s16) (*(s16 *)((u8 *)arg0 + 0x12) - sp1C[1]);
 }
 f32 func_15047C00(f32);                             /* extern */
-extern s32 D_800BE9E4;
 
 void func_151162D4(void *arg0) {
     f32 scale;

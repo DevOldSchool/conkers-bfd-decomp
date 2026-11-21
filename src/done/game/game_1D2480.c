@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D2480.c
@@ -37,7 +38,6 @@ Game1D2480Effect *func_151A4FD0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
     return effect;
 }
 void func_10011FA0(s32, void *);
-extern s32 D_800BE9E4;
 
 void func_151A5070(u8 *arg0) {
     s32 temp_v0;
@@ -100,9 +100,7 @@ typedef struct Game1D2480View {
 Game1D2480Command *func_1501A490(Game1D2480Command *, s16, s32, s32, s32, s32);
 Game1D2480Command *func_15142FBC(Game1D2480Command *, s32, s32, u8 *);
 extern s32 D_8002AAE8[];
-extern s32 D_800BE620;
 extern Game1D2480View *D_800BE628;
-extern u8 D_800BE9C0;
 
 void func_151A5170(Game1D2480Command *arg0, Game1D2480Effect *arg1, s32 arg2) {
     s32 y;
@@ -155,7 +153,6 @@ void func_151A5170(Game1D2480Command *arg0, Game1D2480Effect *arg1, s32 arg2) {
     { Game1D2480Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }
     func_15142FBC(arg0, 0x2C00, 0x0F0A4004, &sync);
 }
-extern void (*D_8008F904[])(void *, s32, u8);
 
 void func_151A55D4(void *arg0, s32 arg1, u8 arg2) {
     void (*temp_v0)(void *, s32, u8);

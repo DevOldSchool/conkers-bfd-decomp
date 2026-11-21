@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_11FF10.c
@@ -28,7 +29,6 @@ void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15145A50(u8 *);
 extern void **D_800BE4F0;
 extern u8 D_800CC2D0;
-extern u8 D_800CC40C;
 extern s8 D_800CC49A;
 extern void *D_800CC5EC;
 extern s32 D_800DBEF4;
@@ -178,8 +178,6 @@ void func_15145EA4(f32 **, f32 **, s32, s32);
 s32 func_15146078(void *, void *, void *);
 f32 func_150ADA68(void);
 extern u8 D_800C35EA;
-extern f32 D_800A1950;
-extern f32 D_800A195C;
 extern Vec3f D_800A5480;
 extern u8 D_800A4AA0;
 extern f32 D_800BE9A4;

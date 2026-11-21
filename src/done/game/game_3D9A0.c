@@ -1,12 +1,12 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3D9A0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
 
-extern u8 D_800D9950[];
 extern s8 D_80088980;
 
 void func_150104F0(void) {
@@ -51,8 +51,6 @@ void func_15010538(void *arg0) {
 
 extern s8 D_800D9920;
 extern s8 D_800D9921;
-extern u8 D_800D9928[];
-extern u8 D_800D9938[];
 
 void func_15010600(void) {
     s32 i;

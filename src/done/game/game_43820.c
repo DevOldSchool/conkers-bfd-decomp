@@ -1,11 +1,11 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_43820.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_single_function_units_up_to_256_bytes.md
  */
 
-extern s8 D_8008FD8C;
 extern s32 D_800CC2D0;
 
 void func_15016370(void) {

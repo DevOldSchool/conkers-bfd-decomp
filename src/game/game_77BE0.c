@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_77BE0.c
@@ -16,7 +17,6 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504A730.s")
 void func_100226F0(void *, s32);
 void func_150ED578(void *);
-extern s8 D_8008FD8C;
 extern void **D_800BE728;
 extern u8 D_800C35EA;
 extern s8 D_800C3E78;
@@ -118,8 +118,6 @@ void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504B0FC.s")
-extern s8 D_80099140[];
-extern f32 D_800991D4;
 
 void func_1504BA38(void *arg0) {
     u8 i;
@@ -143,7 +141,6 @@ void func_1504BA38(void *arg0) {
 void func_1506EBC0(void);
 void func_1507490C(void);
 extern u8 D_800CC2D0[];
-extern s32 D_800D1580;
 
 void func_1504BAF0(void *arg0) {
     s16 temp_v0;
@@ -223,9 +220,6 @@ typedef struct Game77BE0State {
     Game77BE0TimerState *field_31C;
 } Game77BE0State;
 
-extern u8 D_800BE9A0;
-extern s32 D_800BE9E4;
-
 void func_1504BC38(Game77BE0State *arg0) {
 
     if (arg0->field89 != 0 && arg0->field89 < 250) {
@@ -268,9 +262,7 @@ void func_1504BC38(Game77BE0State *arg0) {
 }
 
 f32 func_150AD78C(f32);
-extern f32 D_800991D8;
 extern u16 D_800CC2B2;
-extern f32 D_800CC2B4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BE2C CURRENT (1853) */
 void func_1504BE2C(Game77BE0State *arg0, u16 *arg1, f32 *arg2, s8 *arg3) {
@@ -338,7 +330,6 @@ s32 func_1504C078(void) {
     }
     return 0x3E7;
 }
-extern s32 D_800BE9F0;
 
 s32 func_1504C0B8(void) {
     if ((D_800BE9F0 == 0x1B) || (D_800BE9F0 == 0x1E)) {
@@ -348,20 +339,6 @@ s32 func_1504C0B8(void) {
 }
 void func_15064A14(void *);
 s32 func_15064B94(u8 *, f32, f32, s32, f32);
-extern f32 D_800991DC;
-extern f32 D_800991E0;
-extern f32 D_800991E4;
-extern f32 D_800991E8;
-extern f32 D_800991EC;
-extern f32 D_800991F0;
-extern f32 D_800991F4;
-extern f32 D_800991F8;
-extern f32 D_800991FC;
-extern f32 D_80099200;
-extern u8 D_800CC27C;
-extern u8 D_800CC2B1;
-extern s32 D_800CC2BC;
-extern f32 D_800D1550;
 
 void func_1504C0E8(u8 *arg0, s32 arg1, f32 arg2) {
     f32 blend;
@@ -487,9 +464,6 @@ void func_1504C0E8(u8 *arg0, s32 arg1, f32 arg2) {
     }
 }
 
-extern u8 D_800BE9A0;
-extern s32 D_800CC288;
-
 void func_1504C854(Game77BE0State *arg0) {
     s8 temp_v1;
     s8 temp_v1_2;
@@ -513,10 +487,6 @@ void func_1504C854(Game77BE0State *arg0) {
     temp_v0_2->field_8C = 0;
 }
 extern f32 D_800BE9A4;
-extern f32 D_800BE9A8;
-extern s32 D_800BE9E4;
-extern u8 D_800CC2B8;
-extern s16 D_800CC2BA;
 
 s32 func_1504C8BC(void *arg0) {
     void *temp_v1;

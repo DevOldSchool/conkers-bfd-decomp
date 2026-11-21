@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_118670.c
@@ -36,8 +37,6 @@ typedef struct GameEB1C0Actor {
 s32 func_1509BE40(s32, s32, s32, ...);
 s32 func_1509BFB0(s32, s32, s32, ...);
 void func_151254F4(void *, s32);
-extern s32 D_80088A90;
-extern f32 D_800A1480;
 
 void func_150EB1C0(GameEB1C0Actor *arg0) {
     s32 enabled;

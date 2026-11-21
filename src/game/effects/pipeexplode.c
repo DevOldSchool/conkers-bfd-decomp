@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/pipeexplode.c
@@ -41,7 +42,6 @@ typedef struct {
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_8009FB8C, D_8009FB90, D_8009FB94, D_8009FB98;
 
 s32 func_150B2EB4(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -106,10 +106,6 @@ s32 func_150B2EB4(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     func_15132A4C(&packet, 3, 0xFF, 0, arg14, 0);
     return 1;
 }
-extern u8 D_8009F968[], D_8009F970[], D_8009F998[], D_8009F9A4[], D_8009F9CC[], D_8009F9D8[];
-extern u8 D_8009FA00[], D_8009FA0C[], D_8009FA34[], D_8009FA44[], D_8009FA6C[], D_8009FA78[];
-extern u8 D_8009FAA0[], D_8009FAB0[], D_8009FAD8[], D_8009FAE4[], D_8009FB0C[], D_8009FB18[];
-extern f32 D_8009FB9C, D_8009FBA0, D_8009FBA4, D_8009FBA8, D_8009FBAC, D_8009FBB0;
 void *func_10022EC0(void *, const void *, u32);
 
 s32 func_150B3188(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,

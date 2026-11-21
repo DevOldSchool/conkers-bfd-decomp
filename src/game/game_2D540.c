@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_2D540.c
@@ -16,16 +17,11 @@ void func_15000090(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2D540/func_150000B0.s")
 void func_15000940(s32);
 void *func_1515D480(s32);
-extern s32 D_80082FA0;
 extern void *D_800B0DF0;
-extern f32 D_800D3670, D_800D9B1C, D_800D9B20;
-extern f32 D_800D9AC0[], D_800D9AF8[];
 extern u8 D_800D9B68[4][3], D_800D9B78[4][3];
-extern u8 D_800D9B84[], D_800D9B88[];
 extern u8 D_800D9BD0[];
-extern s32 D_800D9E10[];
-extern u8 D_800D9E20;
-extern u8 D_800D9AF0, D_800D9B18, D_800D9B8B, D_800D9B8C;
+extern u8 D_800D9AF0;
+extern u8 D_800D9B18;
 
 void func_150006E0(s32 arg0) {
     s32 i;

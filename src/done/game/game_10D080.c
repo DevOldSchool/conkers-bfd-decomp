@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10D080.c
@@ -30,11 +31,6 @@ void *func_150DFBD0(Game10D080Command *arg0) {
     }
     return arg0;
 }
-extern f32 D_800A0FA0;
-extern f32 D_800A0FA4;
-extern f32 D_800A0FA8;
-extern f32 D_800A0FAC;
-extern s32 D_800BE9E4;
 
 void func_150DFCA8(void *arg0) {
     f32 temp_fa0;
@@ -65,7 +61,6 @@ void func_150DFCA8(void *arg0) {
         }
     }
 }
-extern f32 D_800A0FB0;
 
 void func_150DFDA4(void *arg0) {
     void *temp_v0;

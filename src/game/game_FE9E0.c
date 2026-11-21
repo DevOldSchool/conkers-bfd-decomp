@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FE9E0.c
@@ -12,8 +13,6 @@
  */
 
 s32 func_1509BE40(s32, ...);
-extern f32 D_800A08D0, D_800A08D4;
-extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D1530 CURRENT (2195) */
 void func_150D1530(void *arg0) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_144C70.c
@@ -15,7 +16,6 @@
  */
 
 void func_15104A80(void *);
-extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151177C0 CURRENT (2220) */
 void func_151177C0(void *arg0) {
@@ -97,13 +97,6 @@ void func_151177C0(void *arg0) {
 f32 func_15047C00(f32);                             /* extern */
 f32 func_15047D60(f32);                             /* extern */
 s32 func_150AD9A0(s32, s32, s32);              /* extern */
-extern f32 D_800A2FDC;
-extern f32 D_800A2FE0;
-extern f32 D_800A2FE4;
-extern f32 D_800A2FE8;
-extern f32 D_800A2FEC;
-extern f32 D_800A2FF0;
-extern s32 D_800BE9E4;
 
 void func_151179BC(void *arg0) {
     s16 x;
@@ -228,10 +221,6 @@ void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
 }
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-extern f32 D_800A2FF4;
-extern f32 D_800A2FF8;
-extern f32 D_800A2FFC;
-extern s32 D_800BE9F0;
 
 void func_15117DA4(u8 *arg0, f32 arg1, f32 arg2, f32 arg3,
                    f32 *arg4) {
@@ -289,11 +278,6 @@ void func_1000E75C(s32);
 void func_15114D24(void *, s32, s32, s16, s32, s32);
 extern Game189ACSoundRow D_80089260[];
 extern Game189ACSoundRow D_80089262[];
-extern f32 D_800A3138;
-extern f32 D_800A313C;
-extern f32 D_800A3140;
-extern f32 D_800A3144;
-extern u8 D_800BE9B4;
 extern u8 D_800C35EA;
 extern s32 D_800DBEF4;
 f32 fabsf(f32);
@@ -427,12 +411,6 @@ f32 func_15048A70(f32, f32);
 void func_15173C60(s32, s32);
 void func_1518804C(s32, f32);
 void func_1511F990(void *, s32);
-extern f32 D_800A3148;
-extern f32 D_800A314C;
-extern f32 D_800A3150;
-extern f32 D_800A3154;
-extern f32 D_800A3158;
-extern u8 D_800BE9B4;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
@@ -655,7 +633,6 @@ typedef struct {
 
 void func_151194D4(void *, void *, s32, s32);
 f32 func_150484A0(f32, f32);
-extern f32 D_800A315C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151196D4 CURRENT (970) */
 void func_151196D4(Game144C70VertexState *arg0) {
@@ -756,12 +733,7 @@ sum_vertices:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151196D4.s")
 s32 func_151EF610(void);
 struct127 *func_1505EFD0(s32);
-extern f32 D_800A3160;
-extern f32 D_800A3164;
-extern f32 D_800A3168;
-extern f32 D_800A316C;
 extern f32 D_800BE9A4;
-extern u8 D_800BE9C0;
 
 void func_15119938(Game144C70VertexState *arg0) {
     f32 dist;

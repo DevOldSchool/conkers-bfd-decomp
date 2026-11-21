@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FBBF0.c
@@ -49,20 +50,9 @@ s32 func_1505A630(f32, f32, s32);
 
 f32 func_1505A5CC(void *);                          /* extern */
 void func_15063168(void *);                        /* extern */
-extern s8 D_8008FD8C;
-extern u8 D_800A080F[];                             /* unknown layout; byte-addressed storage */
-extern u8 D_800A0818[];                             /* unknown layout; byte-addressed storage */
-extern f32 D_800A0820;
-extern f32 D_800A0824;
-extern f32 D_800A0828;
-extern u8 D_800BE616;
-extern u16 D_800BE648[];
 extern u16 D_800BE710[];
 extern u8 D_800C3E78;
-extern s32 D_800CC268;
-extern s32 D_800CC280;
 extern GameFBBF0Input *D_800CC284;
-extern s32 D_800CC288;
 extern GameFBBF0Actor D_800CC2D0[];
 extern GameFBBF0Camera *D_800DBFF0;
 

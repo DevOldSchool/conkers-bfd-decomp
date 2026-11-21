@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1ED0F0.c
@@ -10,14 +11,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s32 D_80082FA0;
-extern s8 D_8008FD8C;
-extern f32 D_800AA97C;
-extern f32 D_800AA980;
-extern f32 D_800AA984;
-extern f32 D_800AA988;
-extern f32 D_800AA98C;
 
 void func_151BFC40(void *arg0, f32 *arg1) {
     s32 firstShift;
@@ -173,7 +166,6 @@ typedef struct {
 void func_1514FCE8(s16 *, u8, s32);
 void func_1504715C(Game1C0098Hit *, void *);
 s32 func_15046C80(Vec3f *, u16, f32, Game1C0098Hit *);
-extern f32 D_800AA990, D_800AA994, D_800AA998;
 
 void func_151C0098(Vec3f *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
     Game1C0098Config config;
@@ -537,8 +529,6 @@ typedef struct {
 } Game1ED0F0Object;
 
 void func_15143134(f32 *, f32 *, s32); /* extern */
-extern u8 D_800AA954[];
-extern Vec3f D_800AA958[];
 
 void func_151C1798(Game1ED0F0Object *arg0, f32 *arg1) {
     s32 index;
@@ -628,7 +618,6 @@ typedef struct {
 void func_151C1D5C(void *, Vec3f *, Vec3f *, Game1ED0F0Trace *, f32, s32, s32, s32,
                    s8, s32, Vec3f *, f32 *, Game1ED0F0TraceHit *, s32);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
-extern f32 D_800AA9C0;
 
 s32 func_151C196C(Game1ED0F0Trace *arg0, Vec3f *arg1, Vec3f *arg2, Vec3f *arg3, Vec3f *arg4,
                   void *arg5, s32 arg6, Vec3f *arg7, f32 *arg8, Game1ED0F0TraceHit *arg9, s32 arg10) {

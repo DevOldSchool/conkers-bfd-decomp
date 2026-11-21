@@ -1,18 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A6360.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_animated_emission_controllers.md
  */
-
-extern u8 D_800DD432;
-extern u8 D_800DD433;
-extern u8 D_800DD434;
-extern s16 D_800DD436;
-extern void **D_800DD440;
-extern s16 D_800DD444;
-extern s8 D_800DD446;
 
 void func_15178EB0(void) {
     D_800DD434 = 0;
@@ -25,7 +18,6 @@ void func_15178EB0(void) {
 }
 void func_10004074(s32);
 void func_100111C8(u16);
-extern u16 D_800DD430;
 
 void func_15178EFC(s32 arg0) {
     s32 i;
@@ -65,7 +57,6 @@ void *func_10003C40(s32, s32, s32, s32);
 void func_1000F85C(u16, s32, s32);
 s32 func_10010F30(s32, s32, s32, s32, s32);
 extern u8 D_800C35EA[];
-extern s32 D_800BE9E4;
 void func_151794C8(void);
 void func_15179600(s32, s32);
 void func_15179AB8(void);
@@ -168,7 +159,6 @@ void func_15179008(s32 arg0) {
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
 extern void *D_800DBFF0;
-extern s16 D_800DD438[3];
 
 void func_151794C8(void) {
     s32 x;
@@ -250,8 +240,6 @@ void func_15179600(s32 arg0, s32 arg1) {
 }
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A7204;
-extern s32 D_800BE9E4;
 
 void func_151797B0(u8 *arg0) {
     s32 value;
@@ -357,7 +345,6 @@ void func_15179AB8(void) {
 }
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 void func_1516865C(u8 *, u8, u8, u8, u8);
-extern f32 D_800A7208;
 
 void func_15179B14(s32 arg0) {
     s16 baseX;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3BA70.c
@@ -15,18 +16,10 @@ void func_15012470(void);
 void func_15008A10(void);
 void func_15012770(void);
 void func_100226F0(void *, s32);
-extern u8 D_800E0950[];
-extern u8 D_800E0964[];
 extern u8 D_800D9921;
 extern u8 D_800D9920;
-extern u8 D_800D9928[];
-extern u8 D_800D9938[];
 extern u8 D_800D9890;
-extern void *D_800D9894;
 extern s32 D_800D98D0[];
-extern s32 D_80088870;
-extern u8 D_800BE500[];
-extern u8 D_800D9950[];
 extern u8 D_80088980;
 extern s32 D_800D9AA0[];
 extern s32 D_800BE4F0;
@@ -73,12 +66,7 @@ void func_1500E70C(s32 arg0) {
         func_15011C70();
     }
 }
-extern s32 D_80082FA0;
-extern s8 D_8008FD8C;
 extern s8 D_800DCA20;
-extern f32 D_800DCA24;
-extern s8 D_800DCA28;
-extern f32 D_800DCA2C;
 
 void func_1500E738(void) {
     switch (D_80082FA0) {                           /* switch 1; irregular */
@@ -155,8 +143,8 @@ typedef struct Game3BA70Descriptor {
 void func_15189900(void *, u8);
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_1000EF40;
-extern s32 D_800B0E00, D_800B0E04, D_800902E8, D_800BE9F0;
-extern f32 D_80096210, D_80096214, D_80096218, D_8009621C;
+extern s32 D_800B0E00;
+extern s32 D_800B0E04;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E8C0 CURRENT (1600) */
 void func_1500E8C0(void) {
@@ -199,7 +187,6 @@ void func_1500E8C0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E8C0.s")
 /* Call context: func_15195AA8: unique active project prototype */
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_80090320;
 extern s32 D_800B0E00;
 extern s32 D_800B0E04;
 

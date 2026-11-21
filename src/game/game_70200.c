@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_70200.c
@@ -24,16 +25,12 @@ typedef union Game70200Command {
 } Game70200Command;
 
 s32 func_15043384(Game70200Command *dl);
-extern s32 D_800CBD64;
 void *func_10022EC0(void *, const void *, u32);
 
 void func_15042D50(void) {
     D_800CBD64 = 0;
     func_15043384(0);
 }
-extern u8 D_800CBD74;
-extern s16 D_800CBD70;
-extern s16 D_800CBD72;
 void func_15042ECC();
 
 /* hud_set_layout_flags: set raw flags for subsequently queued layout nodes. */
@@ -101,23 +98,7 @@ typedef struct Game70200TextNode {
 
 void *func_10003C40(s32, s32, s32, s32);
 s32 func_151EFF94(u8 *, const u8 *, ...);
-extern u8 D_80085CC0[];
-extern u8 D_80085CC4;
-extern s8 D_8008FD90;
-extern s32 D_80098B90;
-extern s32 D_80098B94;
 extern Game70200TextNode *D_800CBD68;
-extern u8 D_800CBD6C;
-extern u8 D_800CBD6D;
-extern u8 D_800CBD6E;
-extern u8 D_800CBD6F;
-extern u8 D_800CBD60;
-extern u8 D_800CBD61;
-extern u8 D_800CBD62;
-extern u8 D_800CBD63;
-extern s32 D_800CBD78;
-extern s16 D_800CBD7C;
-extern f32 D_800CBD80;
 
 /* hud_parse_and_queue_layout: append text or 1-based HUD sprite-selector nodes. */
 void func_15042ECC(u8 *format, s32 *argumentWords) {
@@ -255,14 +236,11 @@ void func_15042ECC(u8 *format, s32 *argumentWords) {
     }
     D_800CBD78 = 0;
 }
-extern f32 D_800CBD80;
 
 /* hud_set_layout_scale: set scale for subsequently queued layout nodes. */
 void func_150432BC(f32 scale) {
     D_800CBD80 = scale;
 }
-extern s32 D_800CBD78;
-extern s16 D_800CBD7C;
 
 /* hud_attach_layout_to_object: set the object and pre-projection vertical offset. */
 void func_150432CC(s32 attachedObject, s32 verticalOffset) {
@@ -275,10 +253,6 @@ void func_150432FC(s16 x, s16 y) {
     D_800CBD70 = x;
     D_800CBD72 = y;
 }
-extern u8 D_800CBD60;
-extern u8 D_800CBD61;
-extern u8 D_800CBD62;
-extern u8 D_800CBD63;
 
 /* hud_set_primary_rgba: set primary color bytes for subsequently queued nodes. */
 void func_1504332C(u8 red, u8 green, u8 blue, u8 alpha) {
@@ -302,7 +276,6 @@ void func_150428D4(void *, s32 *, s32 *, s32 *);
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
 void *func_151ED430(void *, Game70200TextureInfo *, s32, s32, s32, s32, f32, s32);
 extern s32 D_80082FA4;
-extern u8 D_800859A0[];
 /* Eight-byte HUD selector metadata at D_800859E0; scaleByte is divided by 128. */
 typedef struct Game70200Effect {
     u8 tileColumns;
@@ -313,11 +286,6 @@ typedef struct Game70200Effect {
 } Game70200Effect;
 extern Game70200Effect D_800859E0[];
 extern Game70200Effect D_80085AA8;
-extern s32 D_80085CD0;
-extern f32 D_8008FE1C;
-extern f32 D_8008FE20;
-extern f32 D_80098C64;
-extern s32 D_800BE9AC;
 extern Game70200TextureInfo D_80090060;
 
 #define GAME70200_COMMAND(p, first, second) do { \

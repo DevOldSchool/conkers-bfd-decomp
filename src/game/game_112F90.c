@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_112F90.c
@@ -21,9 +22,6 @@ s32 func_151EF610(void);
 void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32,
                   s16, u16, s8, s16, s16, void *, u8, u8, s32, u8, u8,
                   f32, f32, f32, f32, f32, f32);
-extern s32 D_80088A04;
-extern f32 D_800A1170, D_800A1174, D_800A1178, D_800A117C, D_800A1180, D_800A1184;
-extern s32 D_800BE9E4, D_800D9A04, D_800D9A08, D_800D9A0C, D_800D9A10, D_800D9A14;
 extern Game112F90Camera *D_800DBFF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E5AE0 CURRENT (6720) */

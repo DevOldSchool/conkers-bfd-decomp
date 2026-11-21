@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3CE80.c
@@ -41,10 +42,6 @@ typedef struct {
 
 void *func_151ACBD4(Game3CE80Descriptor *, void *);
 extern Game3CE80Bounds D_80096320, D_80096338, D_80096350, D_80096368, D_80096380;
-extern u8 D_800DCD20[], D_800DCD28[];
-extern u8 D_800DCD3C, D_800DCD3D;
-extern f32 D_800DCDA4, D_800DCDA8, D_800DCDAC, D_800DCDB0;
-extern f32 D_800DCDB4, D_800DCDB8, D_800DCDBC, D_800DCDC0;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 

@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_32740.c
@@ -18,15 +19,8 @@ void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode);
 void func_1512ABF8(void);
 void func_1512D238(void);
 
-extern s32 D_80082FA0;
-extern s32 D_800894B0;
-extern s16 D_80089550;
-extern u8 *D_800BE2B0[];
-extern s32 D_800BE620;
 extern u8 D_800DBFF4[];
-extern u8 *D_800DC010;
 extern u8 *D_800DC020;
-extern u8 *D_800DC2A0[2];
 extern u8 *D_800DC2B0;
 
 void func_15005290(s32 resource, s32 mode) {
@@ -153,9 +147,7 @@ void func_15125924(u8 *);
 void func_1512D66C(void *);
 void func_1512D6F0(void *);
 void func_151298C0(u8 *, s16, void *);
-extern s32 D_80089520, D_80089524[], D_80089534[];
 extern void *D_800B0DF0;
-extern s32 D_800BE624;
 extern s8 D_800C3671;
 extern u8 D_800CC2D0[];
 
@@ -246,8 +238,6 @@ void func_1512523C(void *);
 void func_15125330(void *);
 void func_1512D560(void *, s32, s32);
 void func_15124B18(u8 *);
-extern f32 D_800959F0;
-extern s32 D_800BE9F0;
 extern u8 D_800C35EA;
 typedef struct {
     u8 pad0[0xC];

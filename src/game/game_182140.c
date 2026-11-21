@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_182140.c
@@ -15,7 +16,6 @@
 typedef s32 (*Game182140Callback)(u8 *, s8);
 
 extern Game182140Callback D_8008ACC8[];
-extern s32 D_800BE9E4;
 
 void func_15154C90(u8 *arg0) {
     s32 index;
@@ -84,7 +84,6 @@ void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
     *(u8 *)((u8 *)arg0 + 0x68) |= arg1;
     return arg0;
 }
-extern void (*D_8008AD04[])(void *, s32, u8);
 
 void func_15155564(void *arg0, s32 arg1, u8 arg2) {
     void (*temp_v0)(void *, s32, u8);

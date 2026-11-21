@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15B200.c
@@ -88,8 +89,6 @@ typedef struct Game15B200Actor {
 f32 sqrtf(f32);
 __pragma(1, sqrtf);
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
-extern f32 D_800A3710;
-extern f32 D_800A3714;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1512DEA4 CURRENT (4583) */
 void func_1512DEA4(Game15B200Actor *actor) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FFBA0.c
@@ -8,7 +9,6 @@
 
 /* Call context: func_150D278C: unique active declaration in the allowed source */
 void func_150D278C(s32, void *, u8, s32);
-extern s32 D_800BE9E4;
 
 typedef struct GameFFBA0Timer {
     s32 arg;

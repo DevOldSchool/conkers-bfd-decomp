@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_48FD0.c
@@ -14,11 +15,7 @@
 u64 func_10026968(u64, u64);
 u64 func_10026868(u64, u64);
 s32 func_10024A40(void *, u64, u64, void *, void *);
-extern u64 D_8002BD10;
-extern u8 D_80084064;
 extern u8 D_8003B218[];
-extern u8 D_800BE6E0[];
-extern f32 D_80096960;
 void func_1501C0F0(u8, f32, f32);
 
 void func_1501BB20(void) {
@@ -54,22 +51,13 @@ void func_10024C84(Game48FD0Pad *);
 void func_1501C57C(void);
 void func_151DD8C0(void);
 extern Game48FD0Queue D_800BE900;
-extern void *D_800BE990;
-extern u8 D_80084060[4];
-extern s8 D_8008FD90;
-extern u16 D_800BE700[4];
-extern u16 D_800BE708[4];
 extern u16 D_800BE710[4];
-extern u16 D_800BE718[4];
 extern u16 D_800BE720[4];
 extern Game48FD0Pad *D_800BE730[4];
-extern u8 D_800BE740;
 extern Game48FD0Pad D_800BE748[4];
 extern Game48FD0Pad D_800BE918[4];
 extern u16 D_800BE930[4];
-extern s32 D_800BE9F0;
 extern u8 D_800E0B94;
-extern u8 D_800E0B95;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501BBB8 CURRENT (13530) */
 s32 func_1501BBB8(void) {
@@ -216,12 +204,6 @@ void func_1501C010(u8 arg0, u8 arg1) {
     }
     func_1501C0F0(arg0, first, second);
 }
-extern u8 D_800BE93C[4];
-extern u8 D_800BE944[4];
-extern f32 D_800BE950[4];
-extern f32 D_800BE960[4];
-extern f32 D_800BE970[4];
-extern f32 D_800BE980[4];
 
 void func_1501C0F0(u8 arg0, f32 arg1, f32 arg2) {
     u8 temp_v0;
@@ -265,13 +247,8 @@ s32 func_10005570(Game48FD0Pak *);
 s32 func_100056A0(Game48FD0Pak *);
 extern Game48FD0Pak D_800BE760[4];
 extern u8 D_800BE938;
-extern u8 D_800BE940[4];
-extern u8 D_800BE948[4];
 extern f32 D_800BE9A4;
-extern u8 D_800BEAC0;
 extern u8 D_800BEAC1;
-extern u8 D_800BEAC2;
-extern u8 D_800BEAC3;
 extern u8 D_800E0A00;
 
 void func_1501C1B0(void) {
@@ -359,10 +336,6 @@ void func_15007360(void);
 void func_15007440(void);
 void func_15007558(void);
 u8 func_151DD460(void *);
-extern s8 D_80082BB4;
-extern u8 D_80084068;
-extern s8 D_800BE3EC;
-extern s32 D_800BE3F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C57C CURRENT (2320) */
 void func_1501C57C(void) {

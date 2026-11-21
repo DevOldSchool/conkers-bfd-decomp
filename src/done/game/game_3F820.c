@@ -1,18 +1,15 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3F820.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_next_compact_units.md
  */
 
-extern void *D_80088750;
-
 void func_151EF954(void *, f32, f32, f32, f32, f32, f32, f32);
-extern s32 D_80082FA0;
 extern u8 *D_800BE628;
 extern u8 D_800DCC10[];
-extern f32 D_80096560;
 
 void func_15012370(void) {
     s32 i;

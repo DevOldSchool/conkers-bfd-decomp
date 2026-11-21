@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_108AE0.c
@@ -42,7 +43,6 @@ typedef struct Game108AE0Owner {
 
 void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
-extern f32 D_800A0BF0;
 
 void *func_150DB714(Game108AE0Owner *owner, s16 bufferIndex) {
     void *vertices;

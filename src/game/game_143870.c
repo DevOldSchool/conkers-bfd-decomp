@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_143870.c
@@ -12,9 +13,6 @@
  */
 
 f32 func_15047C00(f32);
-extern f32 D_800A2FB0;
-extern f32 D_800A2FB4;
-extern s32 D_800BE9E4;
 
 void func_151163C0(u8 *actor) {
     f32 heightScale;
@@ -44,8 +42,6 @@ s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_15116888(s32, s32, s32, void *);
 void func_100111C8(u16);
 void func_1511515C(void *);
-extern f64 D_800A2FB8;
-extern f32 D_800A2FC0, D_800A2FC4, D_800A2FC8, D_800A2FCC, D_800A2FD0;
 extern u8 D_800CC2D0[];
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)

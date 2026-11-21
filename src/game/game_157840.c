@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_render_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_157840.c
@@ -22,10 +23,7 @@ typedef struct Game157840Record {
 } Game157840Record;
 
 void func_100226F0(void *, s32);
-extern s32 D_80082FA0;
 extern Game157840Record D_80089590[];
-extern s32 D_800BE9F0;
-extern u8 D_800DC0C0;
 extern Game157840Record D_800DC200[4][4];
 
 void func_1512ABF8(void) {
@@ -51,7 +49,6 @@ void func_1512ABF8(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512AD54.s")
 void func_1512AD54(void);
-extern u8 D_800BEAC0;
 extern u8 D_800C3671;
 
 void func_1512B100(void *arg0) {
@@ -79,7 +76,6 @@ void func_1512B100(void *arg0) {
 }
 s32 func_1512B630(void *, u8 *, s32, s32, s32, s32);
 extern u8 D_80089630[];
-extern const f32 D_800A3678;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1512B1B8 CURRENT (5377) */
 void func_1512B1B8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -166,8 +162,6 @@ void func_1512B5FC(void *arg0, s32 arg1, s32 arg2) {
     *(s32 *)((u8 *)arg0 + 8) = arg2;
     *(s32 *)((u8 *)arg0 + 4) = arg1;
 }
-extern u8 D_800DC204[];
-extern u8 D_800DC206[];
 
 s32 func_1512B630(void *arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     s16 var_v0;
@@ -195,8 +189,6 @@ s32 func_1512B630(void *arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) 
     *(u32 *)(arg1 + 8) = 0xFFFC;
     return 0;
 }
-extern f32 D_800A367C, D_800A3680, D_800A3684;
-extern s32 D_800BE9E4;
 
 typedef struct Game1512B730Slot {
     u8 state;
@@ -334,12 +326,7 @@ void func_1510E8BC(s32, s32, f32 *, s32, s32, s32, f32, f32, f32, f32, u16, s32,
 void func_151236D0(u8 *);
 s32 func_15044380(f32, f32, f32, void *, s32, s32);
 extern u8 D_80089120[];
-extern f32 D_800A3688;
-extern f32 D_800A368C;
-extern f32 D_800A3690;
-extern u8 D_800CBDD2;
 extern u8 D_800CBDD3;
-extern u8 D_800CBDD4;
 
 void func_1512BB10(u8 *arg0) {
     s32 savedDD3;
@@ -500,8 +487,6 @@ void func_1512C068(u8 *arg0) {
     func_1512C150(arg0);
 }
 f32 func_15048A70(f32, f32);                        /* extern */
-extern f32 D_800A3694;
-extern f32 D_800A3698;
 
 void func_1512C150(void *arg0) {
     f32 temp_fv0;
@@ -553,7 +538,6 @@ void func_150491EC(void *, void *, void *);
 void func_1508EF80(f32 *, f32 *, f32, f32 *);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_800895B0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1512C20C CURRENT (2316) */
 void func_1512C20C(GameC20CActor *arg0) {

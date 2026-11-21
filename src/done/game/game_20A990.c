@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_20A990.c
@@ -12,8 +13,6 @@ s32 func_100257C0(s32, void *);
 s32 func_10023440(u8 *, s32, s32);
 s32 func_151DD710(u8 *, u16 *);
 void func_151DD65C(u8, const u8 *);
-extern u8 D_80042A50;
-extern u8 D_800E0A30[];
 
 s32 func_151DD4E0(u8 *arg0, u8 arg1, u8 *arg2) {
     typedef struct { u8 bytes[12]; } Packet12;
@@ -63,8 +62,6 @@ s32 func_151DD4E0(u8 *arg0, u8 arg1, u8 *arg2) {
     func_10025794();
     return ret;
 }
-extern u8 D_800E0A30[];
-extern u8 D_800E0A31[];
 
 void func_151DD65C(u8 arg0, const u8 *arg1) {
     typedef struct {
@@ -104,7 +101,6 @@ typedef struct Game20A990Request {
     u8 status;
     u8 dummy1;
 } Game20A990Request;
-extern u8 *D_800E0A70;
 
 s32 func_151DD710(u8 *arg0, u16 *arg1) {
     s32 result;
@@ -153,10 +149,6 @@ s32 func_151DD710(u8 *arg0, u16 *arg1) {
     return ((u8 *)arg1)[3];
 }
 extern u8 D_800BE748[];
-extern s32 D_800BE9E4;
-extern u8 *D_800E0A70;
-extern s32 D_800E0A74;
-extern s8 D_800E0BD2;
 
 void func_151DD8C0(void) {
     typedef struct { s8 x; s8 y; u16 time; u16 buttons; } Entry;

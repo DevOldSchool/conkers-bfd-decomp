@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E1280.c
@@ -134,7 +135,6 @@ typedef struct GameE1280TimedObject {
 } GameE1280TimedObject;
 
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_150B40E8(GameE1280TimedObject *arg0) {
     GameE1280TimedState *state = arg0->state;
@@ -196,7 +196,6 @@ void func_150B5060(void *arg0) {
     *(u8 *)((u8 *)temp_v0 + 0x1C) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x1C) | 1);
 }
 f32 func_150ADA68(void);
-extern u8 D_8009FBF0[];
 
 typedef struct GameE1280TrailHeader {
     Vec3f position;

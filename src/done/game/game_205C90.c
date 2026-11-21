@@ -1,13 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_205C90.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
  */
-
-extern u8 D_80084060[4];
-extern u8 D_800BE944[4];
 
 s32 func_151D87E0(u8 arg0) {
     u8 i;
@@ -30,11 +28,7 @@ s32 func_15181CC8(s32);
 s32 func_1517EF00(s32);
 void *func_10022EC0(void *, const void *, u32);
 void func_1501C010(u8, u8);
-extern s32 D_80082FA0;
-extern u8 D_800BEAC0;
 extern u8 D_800BEAC1;
-extern u8 D_800BEAC2;
-extern u8 D_800BEAC3;
 extern u8 D_800E0B94;
 
 void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
@@ -75,8 +69,6 @@ void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     return result;
 }
 void func_1501C17C(u8);
-extern void (*D_8008FCC0[])(void *);
-extern s32 D_800BE9E4;
 
 void func_151D8A24(void *arg0) {
     s32 sp24;
@@ -168,7 +160,6 @@ void func_151D8D5C(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
-extern u8 D_800AB300;
 
 void func_151D8DB4(s32 arg0, u8 arg1) {
     func_15169260(&D_800AB300, 1, arg0, arg1);

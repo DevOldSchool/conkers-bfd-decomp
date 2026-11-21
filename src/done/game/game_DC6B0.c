@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DC6B0.c
@@ -216,9 +217,6 @@ typedef struct GameDC6B0SmokeMotion {
 } GameDC6B0SmokeMotion;
 
 u8 func_151D8E6C(void);
-extern f32 D_8009F7D0;
-extern f32 D_8009F7D4;
-extern s32 D_800BE9E4;
 
 void func_150AF7C4(GameDC6B0SmokeSource *arg0) {
     u8 *result;
@@ -331,7 +329,6 @@ void func_150AFC68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     func_1516D99C(1, 0, 0, 0xD, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0, 0xFF, 0, 1, 0, 0, 0, 0, 0xAA, 0xAA, 0xAA, 0xAA, arg2, arg3, 0, arg0, 0xF0, 0x50, 0x50, 1, 4, 0, 1, 0, 0, 0, arg1, 0, (u8) (s32) arg4, arg5);
 }
 extern u8 D_800C3E78;
-extern void *D_800DCE94;
 extern s8 D_800DD190;
 extern s32 D_800DD198;
 
@@ -394,7 +391,6 @@ void func_150AFE64(s32 arg0) {
 }
 void func_15179008(s32);
 void func_150AF200(s32, s32);
-extern s32 D_800BE9F0;
 
 void func_150B003C(s32 arg0) {
     if (D_800BE9F0 == 6) {
@@ -543,11 +539,6 @@ typedef struct GameDC6B0Emission {
 
 void func_15153634(GameDC6B0Burst *, u8, u8, s32);
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
-extern s32 D_8009F790[5];
-extern f32 D_8009F7A4[5];
-extern f32 D_8009F7DC, D_8009F7E0, D_8009F7E4, D_8009F7E8;
-extern f32 D_8009F7EC, D_8009F7F0, D_8009F7F4, D_8009F7F8;
-extern f32 D_8009F7FC, D_8009F800;
 
 void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
     Vec3f position;

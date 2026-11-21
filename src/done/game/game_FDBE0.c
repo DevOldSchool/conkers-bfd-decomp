@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FDBE0.c
@@ -9,9 +10,7 @@
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_150A29C8(s32, s32);
 void func_151827D0(void);
-extern s32 D_800BE9E4;
 extern s32 D_800D3098;
-extern u8 D_800D98F0;
 
 void func_150D0730(s32 arg0) {
     s32 selected = 0;

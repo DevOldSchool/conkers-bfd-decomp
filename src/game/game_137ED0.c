@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_137ED0.c
@@ -15,8 +16,6 @@ void func_1510AA20(s32 arg0) {
 }
 /* Call context: func_15114D24: unique active declaration in the allowed source */
 void func_15114D24(s32, s32, s32, s16, s32, s32);
-extern s32 D_800BE3E4;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510AA44 CURRENT (3310) */
 void func_1510AA44(void *arg0) {
@@ -104,10 +103,6 @@ void func_1510AA44(void *arg0) {
 /* Call context: func_15114D24: unique active project prototype */
 void func_15114D24(s32, s32, s32, s16, s32, s32);
 f32 func_15047C00(f32);                             /* extern */
-extern f32 D_800A26B0;
-extern f32 D_800A26B4;
-extern f32 D_800A26B8;
-extern s32 D_800BE9E4;
 
 void func_1510ADD8(void *arg0) {
     f32 temp_fv0;

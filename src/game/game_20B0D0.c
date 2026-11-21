@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_20B0D0.c
@@ -16,14 +17,9 @@ void func_151DE6CC(void) {
 }
 void func_1501C730(s32, s32, s32, s32, s32);
 void func_151E530C(void);
-extern s32 D_80000300;
 extern u8 D_800CC2D0;
-extern s32 D_800E0A90;
-extern s16 D_800E0B9A;
-extern s8 D_8008FE28;
 extern s8 D_800E0B94;
 extern s8 D_800D2E40;
-extern u8 D_800E0B96;
 
 void func_151DE6D4(void) {
     s32 var_v0;
@@ -53,11 +49,9 @@ void func_151DE6D4(void) {
         D_800E0B96 = 0xFF;
     }
 }
-extern s32 D_800E0A90;
 extern s8 D_800E0B97;
 extern s8 D_800E0B98;
 extern s8 D_800E0A8C;
-extern s8 D_8008FE28;
 void func_151DE85C(void);
 
 void func_151DE7D4(void) {
@@ -70,8 +64,6 @@ void func_151DE7D4(void) {
 }
 void func_1500764C(void);
 extern s8 D_8008FD74;
-extern s8 D_8008FE30;
-extern u8 D_800E0B96;
 
 void func_151DE81C(void) {
     D_8008FD74 = 4;
@@ -83,7 +75,6 @@ void func_151DE81C(void) {
 /* Call context: func_1501C730: unique active project prototype */
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s8 D_8008FD80;
-extern s8 D_8008FDA4;
 extern void *D_8008FDD4;
 extern s8 D_800D2E40;
 extern s8 D_800E0B94;

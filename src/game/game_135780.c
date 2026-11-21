@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_135780.c
@@ -40,8 +41,6 @@ typedef struct Game135780SpawnPacket {
 void *func_10022EC0(void *, const void *, u32);
 void func_1514373C(f32, f32, f32 *, f32 *);
 f32 func_150ADA68(void);
-extern f32 D_800A2450, D_800A2454, D_800A245C;
-extern const f32 D_800A2458;
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151082D0 CURRENT (4162) */

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FF5C0.c
@@ -18,7 +19,6 @@ typedef struct GameFF5C0Packet {
     u8 pad16[2];
 } GameFF5C0Packet;
 
-extern u8 D_800D9900;
 void *func_10022EC0(void *, const void *, u32);
 
 void func_150D2110(s16 arg0, f32 arg1, f32 arg2, u8 arg3, u8 arg4,
@@ -108,8 +108,6 @@ typedef struct GameFF5C0Controller {
     u8 padD[0x1B];
     GameFF5C0SpawnParams params;
 } GameFF5C0Controller;
-
-extern s32 D_800BE9E4;
 
 void func_150D2374(GameFF5C0Controller *arg0) {
     s16 temp_a0;

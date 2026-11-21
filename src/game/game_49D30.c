@@ -3,6 +3,7 @@
 #include <PR/gbi.h>
 #include <PR/sptask.h>
 #include <PR/os_message.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_49D30.c
@@ -33,9 +34,6 @@ typedef struct Game49D30Record {
 } Game49D30Record;
 
 void func_1516D328(Game49D30Resource *);
-extern s32 D_800C3960[];
-extern u8 D_800C363A[];
-extern s32 D_800C3640[];
 
 typedef struct Game1C880Task {
     struct Game1C880Task *next;
@@ -50,24 +48,16 @@ typedef struct Game1C880Task {
 void func_10024F10(void);
 void func_1501A39C(void);
 s32 func_10023580(OSMesgQueue *, OSMesg, s32);
-extern u8 D_100290D0[], D_100291A0[];
 extern void *D_8002AAE8[];
 extern u64 *D_80038090, *D_80038094;
-extern u8 D_8003A5E8[];
 extern OSMesgQueue D_8003B1E8;
-extern s32 D_80082FA0;
-extern u8 D_800BE617, D_800BE9C0, D_800BEBA0;
+extern u8 D_800BE617;
 extern Gfx *D_800BE9C8[], *D_800BE9D8[];
 extern Gfx *D_800BE9D0;
 extern OSMesgQueue D_800BEA10;
 extern u8 D_800BEA68[][0x20];
-extern s16 D_800BEAA8;
 extern Game1C880Task *D_800BEAD4, D_800BEAD8[];
-extern u8 D_800CBE10[];
 extern u8 *D_800BEB9C;
-extern u8 *D_800BEAD0;
-extern u8 D_800BEBB0[];
-extern u8 D_800C1060[];
 
 void func_1501CC3C(void);
 
@@ -140,12 +130,8 @@ typedef struct Game1CC3CEntry {
 } Game1CC3CEntry;
 
 void func_10004514(s32, s32, s32, s32);
-extern u8 D_2D4B0[];
-extern s8 D_80084070;
-extern s8 D_80084074;
 extern Game1CC3CEntry D_80084078[];
 extern u8 *D_800B0DF0;
-extern s32 D_800BEB98;
 
 void func_1501CC3C(void) {
     s32 index = D_800B0DF0[0x2B];
@@ -186,11 +172,6 @@ void func_1501CDC0(s32 arg0) {
         }
     }
 }
-extern u16 *D_800C35D8[];
-extern void *D_800C35C8[];
-extern s32 D_800C35D0;
-extern u8 D_800C3688[];
-extern u8 D_800C3778[];
 
 typedef struct {
     u8 pad0[0xA];
@@ -261,40 +242,14 @@ s32 func_1501CFF8(s32 arg0) {
     }
     return sum;
 }
-extern s32 D_800C35B8[];
-extern s32 D_800C35B0[];
-extern u8 D_800C35C0[];
-extern u16 D_800C3C8E;
 extern u8 D_800C35EA[];
-extern s32 D_800C3D50;
-extern u8 D_800C35F8;
-extern f32 D_800C3648;
-extern f32 D_800C364C;
-extern f32 D_800C3650;
-extern u8 D_800C3654;
 extern u8 D_800C3656[];
 extern u8 D_800C3658[];
-extern u8 D_800C365A[];
 extern u8 D_800C365C[];
 extern u8 D_800C365E[];
-extern u8 D_800C3660[];
 extern s8 D_800C3638;
-extern u8 D_800C3662;
-extern u8 D_800C3C8C;
-extern u8 D_800C3C8D;
 extern u8 D_800C35C2;
-extern u8 D_800C3A58;
-extern f32 D_800C35A4;
-extern s8 D_800C3C8A;
-extern u8 D_800C3C8B;
-extern f32 D_800C3674;
-extern f32 D_800C3678;
-extern s32 D_800C367C;
-extern u8 D_800C3680;
 extern s8 D_800C3672;
-extern u8 D_800C3C9D;
-extern s16 D_800C3C9E;
-extern s8 D_8008FD84;
 extern u8 D_800C3670;
 void func_150233BC(void);
 
@@ -340,7 +295,6 @@ void func_1501D044(s32 arg0) {
     D_8008FD84 = 0;
     D_800C3670 = 0;
 }
-extern s32 D_800C3668[];
 s32 func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32, s32);
 
 s32 func_1501D1D4(s32 arg0, s32 arg1, s32 arg2) {
@@ -384,11 +338,8 @@ typedef struct Game49D30ColorEvent {
 } Game49D30ColorEvent;
 
 s32 func_15023BB0(u32, s32, s32, void **, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_80084110[];
 extern u8 D_800C3C99;
-extern u8 D_800C35A9;
 extern u8 D_800C3C9C;
-extern u8 D_800C35AA;
 
 void func_1501DAAC(s32 arg0) {
     s32 i;
@@ -451,8 +402,6 @@ void func_15020EC4(s32);
 void func_1501E81C(s32, s32);
 s32 func_150229E4(void *);
 void func_1502178C(void *, s32, s32);
-extern s32 D_800BEA08;
-extern s32 D_800C35B0[];
 extern s8 D_800C3E78;
 extern u8 D_800CC2D0;
 
@@ -481,14 +430,9 @@ void func_151F2BA8(void);
 void *func_15072208(void *, s32);
 void func_15060F28(u8 *, s32);
 void func_1000E17C(void);
-extern u8 D_800C35A9;
-extern u8 D_800C35C4;
-extern s8 D_800C3C8A;
-extern u8 D_800C3C8D;
 extern u8 D_800C3C99;
 extern u8 D_800D121C;
 extern s8 D_800DBFF4;
-extern s8 D_800C3663;
 extern s8 D_800C3672;
 
 void func_1501DF04(s32 arg0) {
@@ -528,13 +472,10 @@ void func_1501DF04(s32 arg0) {
     D_800DBFF4 = 4;
     D_800C3672 = 1;
 }
-extern s32 D_8000030C;
 extern u16 D_800BE710;
-extern s32 D_800BE9F0;
 extern u8 D_800C35E8;
 extern u8 D_800C3C9C;
 extern u8 D_800D2E40;
-extern s8 D_8008FD84;
 s32 func_1501D2C4(s32, s32);
 
 s32 func_1501E05C(s32 arg0) {
@@ -568,9 +509,7 @@ void func_1000E17C(void);
 void func_1501DF04(s32);
 s32 func_1501E05C(s32);
 void func_151F2D6C(s32, s32);
-extern s8 D_8008FD84;
 extern u8 D_800C3C88;
-extern u8 D_800C3C89;
 extern u8 D_800C35EA[];
 
 s32 func_151F2CDC(void);
@@ -606,7 +545,6 @@ void func_1501E1B4(s32 arg0) {
     }
 }
 void func_1501E400(s32);
-extern u8 D_800C3C8C;
 
 void func_1501E2F8(s32 arg0) {
     if ((D_800C35EA[arg0] == 1) && (D_800C35B0[arg0] >= D_800C3640[arg0])) {
@@ -628,11 +566,6 @@ void func_1501E2F8(s32 arg0) {
 void func_15080228(void);
 void func_1501E1B4(s32);
 s32 func_151F2CDC(void);
-extern u8 D_800BEAC0;
-extern s32 D_800C35B8[];
-extern u8 D_800C35C0[];
-extern u8 D_800C3A58;
-extern u16 D_800C3C8E;
 
 void func_1501E400(s32 arg0) {
     if (D_800C3A58 != 0) {
@@ -658,8 +591,6 @@ void func_1501E400(s32 arg0) {
     }
 }
 void func_10004074(s32);
-extern s32 D_800C35E0[];
-extern void *D_800C3A50[];
 extern u8 *D_800C3958[];
 
 void func_1501E540(s32 arg0) {
@@ -748,9 +679,6 @@ void func_1510B32C(s32, f32, f32, f32);
 void func_15169040(s32, u8);
 extern u8 D_800C35C3;
 extern s8 D_800C3671;
-extern s8 D_800C3683;
-extern u8 D_800C3C90;
-extern s32 D_800C3C94;
 extern void *D_800DBFF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E81C CURRENT (1278) */
@@ -815,9 +743,6 @@ typedef struct {
 } Game49D30Position;
 
 extern Game49D30Position D_800C358C;
-extern f32 D_800C3594;
-extern s16 D_800C3598[];
-extern f32 D_800C35A0;
 
 typedef struct Game49D30Event {
     s32 field0, field4;
@@ -829,7 +754,6 @@ typedef struct Game49D30Event {
 } Game49D30Event;
 
 extern Game49D30Event D_800C3600[1];
-extern f32 D_800969C4, D_800969C8;
 void func_1512D560(void *, s32, s32);
 void func_150228E4(s32);
 void func_150227BC(s32);
@@ -896,9 +820,6 @@ void func_1501EA18(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EC38.s")
 void func_15020878(s32, s32, s32);
 void func_1501FFE8(void *, void *, s32, s32);
-extern void *D_800C35C8[];
-extern u8 D_800C3868[];
-extern void *D_800C3A50[];
 
 s32 func_1501F72C(s32 arg0, f32 arg1, f32 *arg2, s32 arg3, s32 *arg4) {
     s32 key;
@@ -977,10 +898,6 @@ s32 func_1501F72C(s32 arg0, f32 arg1, f32 *arg2, s32 arg3, s32 *arg4) {
     return sample;
 }
 s32 func_1501F72C(s32, f32, f32 *, s32, s32 *);
-extern void *D_800C35C8[];
-extern u8 D_800C3868[];
-extern void *D_800C3A50[];
-extern f32 D_800969D4;
 
 void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5) {
     f32 time;
@@ -1022,11 +939,6 @@ void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5
 f32 func_150484A0(f32, f32);
 s32 func_1501F72C(s32, f32, f32 *, s32, s32 *);
 void func_1501FFE8(void *, void *, s32, s32);
-extern f32 D_800969D8;
-extern f32 D_800969DC;
-extern void *D_800C35C8[];
-extern u8 D_800C3868[];
-extern void *D_800C3A50[];
 
 void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
     f32 t;
@@ -1117,7 +1029,6 @@ typedef struct {
 extern u8 D_800C35EA[];
 extern void *D_800C35F0[];
 extern u8 *D_800C3958[];
-extern f32 D_80096A10;
 
 s32 func_15021DB8(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5) {
     s32 index;
@@ -1175,7 +1086,6 @@ s32 func_15021DB8(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5
     }
     return 0;
 }
-extern void *D_800C35C8[];
 extern u8 *D_800C3958[];
 
 s32 func_15022024(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3) {
@@ -1208,7 +1118,6 @@ s32 func_15022024(f32 *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     }
     return 0;
 }
-extern s8 D_800C3663;
 
 void func_15022190(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
     D_800C3594 = arg3;
@@ -1217,8 +1126,6 @@ void func_15022190(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
     D_800C358C.field_4 = arg2;
     D_800C3663 = 1;
 }
-extern s16 D_800C3598[];
-extern f32 D_800C35A0;
 
 void func_150221E8(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
     D_800C35A0 = arg3;
@@ -1226,17 +1133,14 @@ void func_150221E8(s16 arg0, s16 arg1, s16 arg2, f32 arg3) {
     D_800C3598[1] = arg1;
     D_800C3598[2] = arg2;
 }
-extern u8 D_800C3510[];
 
 void func_15022234(s32 arg0) {
     D_800C3510[arg0] = 0;
 }
-extern u8 D_800C354A[];
 
 void func_15022248(s32 arg0) {
     D_800C354A[arg0] = 0;
 }
-extern u8 D_800C3518[];
 
 void func_1502225C(s32 arg0, s32 arg1) {
     s32 i;
@@ -1273,7 +1177,6 @@ typedef struct Game49D30Object {
 
 void func_1507E7E4(void *, u8, u8, s32, s32);
 void *func_15083E90(u8);
-extern void *D_800C35C8[];
 extern void *D_800C35F0[];
 
 void func_150222E0(s32 arg0, s32 arg1) {
@@ -1309,7 +1212,6 @@ s32 func_15083E0C(u8);
 void func_1502225C(s32, s32);
 extern u8 D_800CC2D0;
 extern u8 *D_800D20FC;
-extern u8 D_800D2100;
 
 void func_15022398(s32 arg0, s32 arg1) {
     u8 *actor;
@@ -1347,8 +1249,6 @@ void func_15022398(s32 arg0, s32 arg1) {
 }
 void func_1502178C(void *, s32, s32);
 void *func_15083E90(u8);
-extern s32 D_800C35D0;
-extern void *D_800C35C8[];
 extern void *D_800C35F0[];
 
 void func_15022528(s32 arg0) {
@@ -1372,8 +1272,6 @@ void func_15022528(s32 arg0) {
         count = *countPtr;
     }
 }
-
-extern u8 D_800C3550[][0x1E];
 
 void func_15022640(s32 arg0, s32 arg1) {
     s32 i;
@@ -1470,7 +1368,6 @@ void func_150228E4(s32 arg0) {
         }
     }
 }
-extern void (*D_80086014[])(void);
 
 void func_15022998(s32 *arg0) {
     void (*temp_v1)(void);
@@ -1484,7 +1381,6 @@ void func_15022998(s32 *arg0) {
         }
     }
 }
-extern u8 D_800CBFDF;
 
 s32 func_150229E4(void *arg0) {
     s32 set;
@@ -1538,7 +1434,6 @@ s32 func_15022B08(s32 arg0, s32 arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022BA4.s")
 s32 func_15023BB0(u32, s32, s32, void **, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_800C3688[];
 
 s32 func_15023264(s32 arg0, s32 arg1) {
     s32 best;
@@ -1725,8 +1620,6 @@ typedef struct Game49D30Actor235DC {
 void func_1507F640(void);
 void *func_15083E90(u8);
 void *func_1508F060(void *, u8 *);
-extern f32 D_80096A1C;
-extern u8 D_800C35AA;
 extern s8 D_800C3E78;
 extern void *D_800D154C;
 
@@ -1792,7 +1685,6 @@ void func_1507E73C(s32 *);
 void func_1507FEA0(s32 *);
 void func_150627D4(void *);
 s32 func_150229E4(void *);
-extern u8 D_800C3654;
 
 void func_1502378C(void) {
     u8 *actor = (u8 *)&D_800CC2D0;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_75FC0.c
@@ -73,13 +74,6 @@ extern Game75FC0Numerator5 D_80099020;
 extern Game75FC0Denominator4 D_80099038;
 extern Game75FC0Numerator3 D_8009904C;
 extern Game75FC0Denominator3 D_8009905C;
-extern f32 D_80085FD0;
-extern f32 D_80085FD4;
-extern f32 D_80085FD8;
-extern f32 D_80085FDC;
-extern f32 D_80085FE0;
-extern f32 D_80085FE4;
-extern f32 D_80085FE8;
 f32 fabsf(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(fabsf)
@@ -175,8 +169,6 @@ void func_15048F90(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)arg0 + 8));
 }
 f32 func_15048C30(f32, f32);                        /* extern */
-extern f32 D_80099070;
-extern f32 D_80099074;
 
 
 f32 func_15048FC8(f32 *arg0) {

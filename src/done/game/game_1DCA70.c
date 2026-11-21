@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DCA70.c
@@ -9,8 +10,6 @@
 void func_15143134(f32 *, f32 *, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);
-extern f32 D_800AA0F0;
-extern f32 D_800AA0FC;
 
 s32 func_151AF5C0(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
     f32 position[3];
@@ -75,9 +74,6 @@ void func_150CCD90(f32, f32 *, f32 *, f32 *);
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
-extern f32 D_800AA108;
-extern f32 D_800AA10C;
-extern s32 D_800BE9F0;
 
 void func_151AF6D4(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
@@ -232,7 +228,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 f32 func_150ADA68(void);
-extern f32 D_800AA110, D_800AA114, D_800AA118, D_800AA11C;
 
 s32 func_151AFC88(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -292,8 +287,6 @@ s32 func_151AFC88(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
     return 1;
 }
-
-extern s32 D_800BE9E4;
 
 s32 func_151AFEA4(void *arg0, s32 arg1) {
     f32 *factor;

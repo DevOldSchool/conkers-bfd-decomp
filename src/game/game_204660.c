@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_204660.c
@@ -43,7 +44,6 @@ s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, f32 arg3,
     }
     return (s32)result;
 }
-extern s32 (*D_8008FCA0[])(void *);
 void func_151D7830(void *);
 void func_151D77C8();
 
@@ -87,7 +87,6 @@ void func_151D7264(void *arg0) {
         func_151D77C8(arg0);
     }
 }
-extern void (*D_8008FCA4[])(void *, s32, u8);
 
 void func_151D73A8(void *arg0, s32 arg1, u8 arg2) {
     u8 *selector;
@@ -166,9 +165,6 @@ void func_151D7538(void *arg0, void *arg1, u8 arg2) {
     }
 }
 void func_15143134(f32 *, f32 *, s32);
-extern s32 (*D_8008FCA8[])(void *);
-extern f32 D_800AB280[];
-extern u8 D_800AB2D4[];
 
 typedef struct {
     u8 *object;
@@ -479,7 +475,6 @@ s32 func_151D7A38(Game204660Trail *trail) {
     return 1;
 }
 f32 func_15144528(f32, f32, f32);
-extern f32 D_800AB2DC, D_800AB2E0, D_800AB2E4, D_800AB2E8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7CD0 CURRENT (1565) */
 s32 func_151D7CD0(Game204660Trail *trail) {
@@ -600,9 +595,7 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090CD4[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
@@ -739,8 +732,6 @@ Gfx *func_151D80C4(Game204660Trail *trail, Gfx *gdl, s16 arg2) {
     } while (last != trail->start);
     return gdl;
 }
-extern f32 D_800AB2EC;
-extern f32 D_800AB2F0;
 
 void func_151D8718(void *arg0, f32 *arg1, f32 arg2) {
     f32 temp_fv1;

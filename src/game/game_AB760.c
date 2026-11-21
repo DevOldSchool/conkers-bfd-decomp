@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_AB760.c
@@ -14,7 +15,6 @@
 
 struct GameAB760State;
 extern u8 D_800C35EA;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E2B0 CURRENT (230) */
 void func_1507E2B0(struct GameAB760State *arg0) {
@@ -217,7 +217,6 @@ typedef struct GameAB760State {
 } GameAB760State;
 
 void func_1507E2B0(GameAB760State *);
-extern s32 D_800BE9E4;
 
 void func_1507E73C(GameAB760State *arg0) {
     s32 t;
@@ -316,7 +315,6 @@ s32 func_1507E968(void *actor) {
 }
 void func_1507E9E8(s32 arg0, s32 arg1) {
 }
-extern u8 D_8009D910[];
 
 /* Descriptive role: actor_get_expression_action_table.
  * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.
@@ -335,7 +333,6 @@ u8 *func_1507E9F8(void *actor, s32 *countOut) {
 }
 u8 *func_1507E9F8(void *, s32 *);
 s32 func_15083568(void *, s32, f32, s32);
-extern f32 D_8009B8A0;
 
 /* Descriptive role: actor_dispatch_expression_action.
  * Evidence: docs/evidence/assets/naming/character_expression_semantics.md.

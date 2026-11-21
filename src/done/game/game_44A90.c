@@ -1,14 +1,12 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_44A90.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
 
-extern u8 D_800BE616;
-extern u8 D_800D2456;
-extern u8 D_800D2457;
 extern void *D_800D2E4C;
 
 void func_150175E0(void) {
@@ -22,23 +20,16 @@ void func_150175E0(void) {
 void func_100226F0(void *arg0, s32 arg1, void *arg2);
 void func_15048134(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
 
-extern f32 D_800968B0;
-
 extern s16 D_8009DCB4[3];
 extern u8 D_800D23D0;
 extern f32 D_800D2410;
 extern Vec3f D_800D2428;
-extern Vec3f D_800D2438;
-extern s32 D_800D2444;
 extern u8 D_800D2454;
-extern u8 D_800D2458;
 extern s32 D_800D245C;
 extern u8 D_800D2460;
 extern u8 D_800D246D;
 extern u8 D_800D247D;
-extern s32 D_800D24C0;
 extern u8 D_800D24C8;
-extern s32 D_800D2588;
 
 void func_15017640(void) {
     f32 *value;

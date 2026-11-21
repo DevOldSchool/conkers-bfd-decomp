@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_108320.c
@@ -62,14 +63,6 @@ void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 f32 sqrtf(f32);
 f32 fabsf(f32);
 #pragma intrinsic(sqrtf, fabsf)
-extern f32 D_80088910[][3], D_8008891C[][3];
-extern s32 D_80088928[];
-extern f32 D_8008892C[];
-extern s16 D_80088930[];
-extern f32 D_80088934[], D_80088938[], D_8008893C[];
-extern u8 D_80088940[];
-extern f32 D_80088944[], D_80088948[];
-extern f32 D_800A0BE0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DAE70 CURRENT (4146) */
 void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {

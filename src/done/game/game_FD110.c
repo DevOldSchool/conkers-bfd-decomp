@@ -1,12 +1,11 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FD110.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_singletons_final.md
  */
 
-extern f32 D_800A0878;
-extern f32 D_800A087C;
 extern f32 D_800BE9A4;
 
 f32 fabsf(f32);

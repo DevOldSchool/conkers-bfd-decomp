@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B0740.c
@@ -16,7 +17,6 @@ void func_15183974(s32);
 void func_151839F0(s32, s32);
 void func_15183ACC(s32);
 s32 func_15184118(void *);
-extern u8 D_800DDF5C[];
 extern u8 D_800CC2E4[];
 extern struct108 *D_800DBFF0;
 
@@ -110,7 +110,6 @@ typedef struct {
 extern Game1B0740Slot D_800DDE80[];
 void func_15183ACC(s32); /* extern */
 void *func_1502B6BC(u32 *, s32, s32, s32, s32, s32);
-extern u8 D_800DDF69[];
 
 /* Keep slot reads inline: a named pointer local changes IDO stack layout. */
 void func_151838B0(s32 arg0) {
@@ -165,7 +164,6 @@ void func_151839F0(s32 arg0, s32 arg1) {
     }
 }
 void func_1510CE60(s32, s32, s32, s32, void *);
-extern s32 D_800DDF78[];
 
 void func_15183ACC(s32 arg0) {
     u8 *allocated;
@@ -183,7 +181,6 @@ void func_15183ACC(s32 arg0) {
         }
     }
 }
-extern u8 D_800A72D0[];
 
 typedef struct Game1B0740Command {
     u32 w0;
@@ -206,10 +203,6 @@ Game1B0740Command *func_15183BA4(Game1B0740Command *arg0, s32 arg1, s32 arg2, s3
     return arg0;
 }
 void func_10004074(s32);
-extern void *D_800DDF20;
-extern s8 D_800DDF70;
-extern s8 D_800DDF71;
-extern s32 D_800DDF98;
 
 void func_15183C28(s32 arg0) {
     if (D_800DDE80[arg0].field10 != 0) {
@@ -252,10 +245,6 @@ void func_1517725C(u8);
 void func_15179DB0(u8);
 extern Game1B0740Wave D_8008D0B0[];
 extern Game1B0740Wave D_8008D318[];
-extern u8 *D_8008D3C0[];
-extern u8 D_800A72E8[];
-extern u8 D_800DDF60[];
-extern s32 D_800BE9E4;
 
 void func_15183D28(void) {
     s32 i;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_120860.c
@@ -20,7 +21,6 @@ void func_150F33B0(Game120860Flags *arg0) {
     }
     arg0->flag = 1;
 }
-extern f32 D_800A1970;
 extern s16 *D_800D9A40;
 
 void func_150F33F8(s32 arg0) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B6DB0.c
@@ -94,8 +95,6 @@ typedef struct Game1B6DB0RouteObject {
 u8 func_151D8E20(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 f32 func_150ADA68(void);
-extern f64 D_800A73A8;
-extern f32 D_800A73B0;
 
 s32 func_15189EBC(Game1B6DB0RouteObject *arg0) {
     f64 chance;

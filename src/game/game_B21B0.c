@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_B21B0.c
@@ -23,9 +24,6 @@ typedef struct GameB21B0Object {
     u8 pad5[0x317];
     GameB21B0Inner *inner;
 } GameB21B0Object;
-
-extern u8 *D_80087240[];
-extern u8 D_8009D954[];
 
 /* Semantic role: actor_get_animation_model_representative.
  * Scans seven model-sharing groups, returning the first member of the first

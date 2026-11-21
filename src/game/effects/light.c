@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/light.c
@@ -23,13 +24,7 @@ typedef struct GameLightDescriptor {
 
 void *func_1516037C(GameLightDescriptor *, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A6AE4;
-extern f32 D_800A6AE8;
-extern f32 D_800A6AEC;
 f32 func_150ADA68();
-extern f32 D_800A6AD8;
-extern f32 D_800A6ADC;
-extern f32 D_800A6AE0;
 
 void func_15163CF8(s32 arg0, s32 arg1);
 void func_1516944C(s32 arg0, s8 *arg1, u8 arg2);
@@ -82,7 +77,6 @@ void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, s32 arg2, u8 arg3, s32 
 typedef s32 (*LightCallback)(void *);
 
 extern LightCallback D_8008B0F0[];
-extern s32 D_800BE9E4;
 
 void func_151603FC(void *arg0) {
     u8 *ptr = arg0;
@@ -101,7 +95,6 @@ void func_151603FC(void *arg0) {
         func_1516972C(arg0);
     }
 }
-extern void (*D_8008B150[])(void *);
 void func_151618BC(u16, s16, u8, s32, void *, s16, s16);
 
 void func_151604A0(void *arg0, u8 *arg1, u8 arg2) {
@@ -150,8 +143,6 @@ void func_151604A0(void *arg0, u8 *arg1, u8 arg2) {
         break;
     }
 }
-extern u8 D_800A6690;
-extern u8 D_800A6698;
 
 s32 func_15160600(void *arg0) {
     *(s8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x2F) =
@@ -169,7 +160,6 @@ s32 func_15160684(s32 arg0) {
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(void *, f32, f32, f32);
-extern f32 D_800A66B4[];
 
 s32 func_151606A8(void *arg0) {
     void **source;
@@ -200,7 +190,6 @@ s32 func_151606A8(void *arg0) {
 }
 void func_15160954(f32 *, f32 *, f32 *, f32 *, void *);
 extern f32 D_800BE9A4;
-extern f32 D_800A6AD4;
 
 s32 func_151607A4(void *arg0) {
     u8 *actor = arg0;
@@ -310,7 +299,6 @@ struct225 *func_15160A58(struct127 *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4
     return v0;
 }
 void func_15143134(f32 *, f32 *, s32);
-extern u8 (*D_8008B1F8[])(void *);
 
 u8 func_15160B74(void *arg0) {
     u8 result;
@@ -513,7 +501,6 @@ void *func_15161540(s32 arg0, u8 arg1, s32 arg2) {
     }
     return result;
 }
-extern f32 D_800A66C0[];
 
 void *func_151615F8(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
                     s32 arg5) {
@@ -584,7 +571,6 @@ void func_151617C4(void *arg0) {
 void func_151617E4(void *arg0) {
     func_15169824(arg0);
 }
-extern void (*D_8008B208[])(void *);
 
 void func_15161804(void *arg0) {
     void *temp_a1;
@@ -595,7 +581,6 @@ void func_15161804(void *arg0) {
     }
     D_8008B208[*(u8 *)((u8 *)temp_a1 + 0x12)](temp_a1);
 }
-extern void (*D_8008B2B0[])(void *);
 
 void func_15161860(void *arg0) {
     if (*(u8 *)((u8 *)arg0 + 0xE) & 2) {
@@ -726,7 +711,6 @@ s32 func_15163F50();
 void func_15161F2C(s32 arg0) {
     func_15163F50(arg0, arg0 + 0x18);
 }
-extern void (*D_8008B358[])(void *, void *, u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15161F4C */
 void func_15161F4C(void *arg0, void *arg1, u8 arg2) {
@@ -762,8 +746,6 @@ void func_15161F4C(void *arg0, void *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15161F4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161F4C.s")
 
-extern f32 D_800A6AF0;
-
 void *func_15162034(s32 arg0, u8 arg1, s32 arg2) {
     void *result;
     GameLightDescriptor descriptor;
@@ -787,7 +769,6 @@ void *func_15162034(s32 arg0, u8 arg1, s32 arg2) {
     }
     return result;
 }
-extern f32 D_800A6AF4;
 
 void func_15162110(s32 arg0) {
     u8 *temp_v0;
@@ -824,9 +805,6 @@ void func_151621B8(void *arg0) {
     v1->unk18 += v1->unk1C * D_800BE9A4;
     v1->unk18 = func_15144B68(v1->unk18);
 }
-extern s32 D_800A670C[];
-extern s32 D_800A6730[];
-extern f32 D_800A6754[];
 
 void *func_151623F4(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s8 arg4,
                     s16 arg5, u8 arg6, s32 arg7) {
@@ -869,10 +847,6 @@ s32 func_15162510(struct237 *arg0) {
     v1->unk18 = func_15144B68(v1->unk18);
     return 1;
 }
-extern f32 D_800A6760[];
-extern f32 D_800A67C0[];
-extern f32 D_800A6820[];
-extern f32 D_800A6AF8;
 
 void *func_15162740(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
                     s8 arg5, u8 arg6, s32 arg7) {
@@ -903,7 +877,6 @@ void *func_15162740(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
     return result;
 }
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A6AFC;
 
 s32 func_1516284C(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
                    u8 arg5, u8 arg6, s32 arg7, u8 arg8, u8 arg9,
@@ -930,12 +903,6 @@ s32 func_1516284C(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
     }
     return result;
 }
-extern f32 D_800A6880[];
-extern f32 D_800A6894[];
-extern f32 D_800A68A8[];
-extern f32 D_800A68BC[];
-extern f32 D_800A68D0[];
-extern f32 D_800A68E4[];
 
 typedef struct Light6295CPayload {
     f32 values[9];
@@ -999,7 +966,6 @@ void *func_1516295C(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516295C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516295C.s")
-extern void (*D_8008B364[])(void *);
 
 s32 func_15162B28(u8 *arg0) {
     u8 previous;
@@ -1065,15 +1031,6 @@ void func_15162F50(void *arg0) {
     sp1C[0] = *(u8 *)((u8 *)arg0 + 0x12) - 0x15;
     func_151403A8(sp1C, 0x25);
 }
-extern f32 D_800A68F8[];
-extern f32 D_800A6904[];
-extern f32 D_800A6910[];
-extern s32 D_800A691C[];
-extern s32 D_800A6928[];
-extern f32 D_800A6934[];
-extern f32 D_800A6940[];
-extern f32 D_800A694C[];
-extern f32 D_800A6958[];
 
 typedef struct Light62FACPayload {
     f32 field_0;
@@ -1212,7 +1169,6 @@ s32 func_15163504(void *arg0) {
     }
     return result;
 }
-extern void (*D_8008B370[])(void *, void *, u8);
 
 void func_151635A8(void *arg0, void *arg1, u8 arg2) {
     u8 *handler;
@@ -1222,10 +1178,6 @@ void func_151635A8(void *arg0, void *arg1, u8 arg2) {
         D_8008B370[*handler](arg0, arg1, arg2);
     }
 }
-extern f32 D_800A6964[];
-extern f32 D_800A699C[];
-extern f32 D_800A69D4[];
-extern f32 D_800A6B00;
 
 void *func_15163604(s32 arg0, u8 arg1, u8 arg2, s16 arg3, u8 arg4,
                     s32 arg5, u8 arg6, s32 arg7) {
@@ -1256,7 +1208,6 @@ void *func_15163604(s32 arg0, u8 arg1, u8 arg2, s16 arg3, u8 arg4,
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);
 extern f32 D_800BE9A4;
-extern f32 D_800A6B04;
 
 s32 func_15163704(void *arg0) {
     f32 *state = (f32 *)((u8 *)arg0 + 0x18);
@@ -1324,7 +1275,6 @@ void func_15163A18(void *arg0, s32 arg1, u8 arg2) {
         *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 1;
     }
 }
-extern f32 D_800A697C, D_800A69B4, D_800A69EC, D_800A6B08;
 
 s32 func_15163A60(u8 arg0, u8 arg1, s32 arg2) {
     s32 sp64;
@@ -1379,8 +1329,6 @@ s32 func_15163B98(s32 arg0) {
     }
     return 1;
 }
-extern u8 D_800A6A0C;
-extern f32 D_800A6B0C;
 
 s32 func_15163BE8(void *arg0, u8 arg1, s32 arg2) {
     s32 var_v1;
@@ -1477,7 +1425,6 @@ s32 func_15163F50(void *arg0, void *arg1) {
     *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) = (s16) *(f32 *)((u8 *)temp_v1 + 0x1C);
     return 1;
 }
-extern void (*D_8008B374[])(void *, void *, u8);
 
 typedef struct {
     s32 owner;
@@ -1578,7 +1525,6 @@ void func_151640C0(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
-extern void (*D_8008B37C[])(void *, void *, u8);
 
 void func_15164134(void *arg0, void *arg1, u8 arg2) {
     void (*callback)(void *, void *, u8);
@@ -1632,7 +1578,6 @@ void *func_15164208(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
     }
     return result;
 }
-extern f32 D_800A6B10;
 
 s32 func_1516429C(void *arg0) {
     f32 value;
@@ -1713,12 +1658,7 @@ void func_151644F4(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4) {
     *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)locals.output[1];
     *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)locals.output[2];
 }
-extern u8 D_800886F0[3];
-extern u8 D_800886F4[3];
-extern u8 D_800886F8[3];
 extern u8 *D_800B0DF0;
-extern s32 D_800BE9F0;
-extern u8 D_800DCD20[3];
 extern s8 D_800DCDD0;
 void func_1511172C(s32);
 

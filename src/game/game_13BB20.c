@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_13BB20.c
@@ -47,10 +48,6 @@ s32 func_1510E670(s32 arg0) {
     return 0;
 }
 void func_1510E950(s32, s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, s32, s32, f32, f32, s32);
-extern f32 D_800A2D50;
-extern f32 D_800A2D54;
-extern f32 D_800A2D58;
-extern f32 D_800A2D5C;
 
 void func_1510E7A4(
     s32 arg0,
@@ -97,7 +94,6 @@ s32 func_150A43E0(s32, s32, s32, void *);
 void func_150A44F0(s32, void *, s32);
 void func_150A64C8(s16, s16, void *, s32);
 void func_1510F800(s32);
-extern f32 D_800A2D98;
 extern u8 D_800D3830;
 extern s32 D_800D3300;
 
@@ -169,7 +165,6 @@ void func_1510F800(s32 arg0) {
 s32 func_1510E388(s16 **, s16 (*arg1)[3], f32 *, f32 *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A2D9C;
 
 void func_1510F820(void *arg0, void *arg1, f32 *arg2, f32 *arg3, s32 arg4,
                    f32 *arg5, f32 *arg6) {
@@ -231,12 +226,7 @@ Game13BB20Node *func_1510FD20(s32, s32);
 s32 func_1510FE30(Game13BB20Node *);
 void func_150A6760(s32);
 void func_150F33F8(s32);
-extern s32 D_800BE9F0;
-extern s32 D_800DBDC0;
-extern s32 D_800DBDC4;
 extern Game13BB20Node *D_800DBDC8;
-extern f32 D_800DBDCC;
-extern f32 D_800DBDD0;
 extern s16 D_800DBE30[];
 extern u8 *D_800DBFF0;
 

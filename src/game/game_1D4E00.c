@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D4E00.c
@@ -60,7 +61,6 @@ void func_151450B4(void *, void *, void *);
 extern s32 (*D_8008F940[])(Game1D4E00Curve *);
 extern s32 (*D_8008F948[])(Game1D4E00Curve *);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7A90 CURRENT (1970) */
 void func_1516972C(s32);
@@ -138,9 +138,7 @@ Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090D70[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 typedef struct {
     u8 pad0[0xC];
@@ -324,7 +322,6 @@ typedef struct {
 } Game1D4E00State;
 
 void func_151A8560(s32);
-extern void (*D_8008F94C[])(s32);
 
 void func_151A8584(s32 arg0) {
     Game1D4E00State *state = (Game1D4E00State *)arg0;
@@ -335,7 +332,6 @@ void func_151A8584(s32 arg0) {
     func_151A8560(arg0);
     func_15169804((void *)arg0);
 }
-extern void (*D_8008F958[])(s32);
 
 void func_151A85D4(s32 arg0) {
     Game1D4E00State *state = (Game1D4E00State *)arg0;
@@ -378,7 +374,6 @@ typedef struct {
     u8 pad26[2];
 } Game1D4E00OwnerData;
 
-extern f32 D_800A8DE0;
 void *func_151A7950(u8 *, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8624 CURRENT (1828) */

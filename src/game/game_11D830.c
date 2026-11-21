@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_11D830.c
@@ -80,9 +81,6 @@ void func_15145EA4(f32 **, f32 **, s32, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 void *func_151C229C(Vec3f *, Vec3f *, s32, Vec3f *, u8, s32, f32, f32, f32, f32, f32, u8, u8 *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
-extern u8 D_800A1640[], D_800A1658[], D_800A1670[];
-extern f32 D_800A1838, D_800A183C, D_800A1840, D_800A1844;
-extern f32 D_800A1848, D_800A184C, D_800A1850;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F03F8 CURRENT (5437) */
 s32 func_150F03F8(Game11D830BurstActor *arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -193,8 +191,6 @@ void func_150F088C(void *arg0, u8 *arg1, u8 arg2) {
     }
 }
 struct225 *func_15160A58();
-extern u8 D_800A1674;
-extern u8 D_800A1680;
 
 void func_150F0938(s32 arg0) {
     func_15160A58(arg0, 0x25, &D_800A1674, 2, 0x12C, 4, 0, 0xFF,
@@ -239,9 +235,6 @@ typedef struct Game11D830EffectPacket {
 } Game11D830EffectPacket;
 
 void func_15152B38(void *, s32, s32, void *);
-extern f32 D_800A1854;
-extern f32 D_800A1858;
-extern f32 D_800A185C;
 
 void func_150F0A24(void *arg0) {
     Game11D830EffectPacket packet;
@@ -338,10 +331,6 @@ typedef struct Game11D830SpawnTail {
 } Game11D830SpawnTail;
 
 f32 func_150ADA68(void);
-extern f32 D_800A1860;
-extern f32 D_800A1864;
-extern f32 D_800A1868;
-extern f32 D_800A186C;
 extern Vec3f D_800A5480;
 void *func_10022EC0(void *, const void *, u32);
 
@@ -414,8 +403,6 @@ void func_150F0BEC(u8 *arg0) {
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800A1870;
-extern f32 D_800A1874;
 extern f32 D_800BE9A4;
 
 s32 func_150F0E48(u8 *arg0, s32 arg1) {
@@ -492,7 +479,6 @@ void func_150F10D4(void *arg0) {
         func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x18);
     }
 }
-extern f32 D_800BE9A8;
 
 typedef struct Game11D830SparkTail {
     u8 field_0;
@@ -635,11 +621,8 @@ void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_800A168C[], D_800A174C[], D_800A180C[];
 typedef union { u16 word; u8 bytes[2]; } Game11D830Flags;
 extern Game11D830Flags D_800A1810;
-extern f32 D_800A1898, D_800A189C, D_800A18A0, D_800A18A4;
-extern f32 D_800A18A8, D_800A18AC, D_800A18B0, D_800A18B4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F16DC CURRENT (9645) */
 void func_150F16DC(void *volatile arg0, u8 volatile arg1, u8 volatile arg2, u8 volatile arg3, s32 arg4) {
@@ -701,11 +684,6 @@ typedef struct Game11D830Weights {
 
 f32 func_15047C00(f32);
 extern Game11D830Weights D_80088B00;
-extern f32 D_800A18E8;
-extern f32 D_800A18EC;
-extern f32 D_800A18F0;
-extern s32 D_800BE9E4;
-extern u8 D_800CC298[];
 
 void func_150F1A00(void *arg0) {
     s32 i;
@@ -741,8 +719,6 @@ void func_150F1A00(void *arg0) {
     }
 }
 extern u8 D_800CC354[];
-extern f32 D_800A18F4;
-extern f32 D_800A18F8;
 
 GameCommand *func_150F1B48(GameCommand *arg0, s32 arg1) {
     s32 matched;
@@ -814,11 +790,6 @@ void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void func_151D5334(void *, f32, f32, f32, u8, u8, s32);
 void func_151D5514(void *, u8, s32);
-extern s32 D_800A18C0[];
-extern f32 D_800A18CC[];
-extern u8 D_800A18D8[], D_800A18E0[];
-extern f32 D_800A18FC, D_800A1900, D_800A1904, D_800A1908;
-extern f32 D_800A190C, D_800A1910, D_800A1914, D_800A1918;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1D10 */
 void func_150F1D10(u8 *arg0, u8 arg1, s32 arg2) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_128D70.c
@@ -73,9 +74,6 @@ typedef struct Game128D70Effect {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15164780(u8 *, s32, u8, s32);
-extern f32 D_800A1EB0, D_800A1EB4, D_800A1EB8;
-extern f32 D_800A1EBC, D_800A1EC0, D_800A1EC4;
-extern f32 D_800A1EC8, D_800A1ECC, D_800A1ED0;
 
 void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, u8 arg2, u8 arg3) {
     Game128D70Owner owner;
@@ -133,7 +131,6 @@ f32 func_150ADA68(void);
 void func_150FB8C0(void *, s32, f32, s32, s32, s32);
 void *func_151D8868(s8 *, s32, u8, s32);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
 
 void func_150FC614(u8 *arg0) {

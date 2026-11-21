@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_11F890.c
@@ -45,7 +46,6 @@ s32 func_150F2480(u8 *arg0) {
 }
 void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
-extern u8 D_800BE9C0;
 
 s32 func_150F2518(u8 *arg0, s32 arg1) {
     f32 matrix[4][4];

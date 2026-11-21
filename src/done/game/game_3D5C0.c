@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3D5C0.c
@@ -21,8 +22,6 @@ void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
 void func_151ACBD4(Game3D5C0Request *, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern s32 D_80090298[];
-extern s32 D_800963A0[];
 extern s32 D_800B0E00[];
 
 void func_15010110(void) {

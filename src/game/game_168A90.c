@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_168A90.c
@@ -21,7 +22,6 @@ typedef struct Game168A90Allocated {
     void *second;
 } Game168A90Allocated;
 
-extern s32 D_80082FA0;
 s32 *func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 void func_1510CE60(s32, s32, s32, s32, void *);
 void *func_10022EC0(void *, const void *, u32);
@@ -89,7 +89,6 @@ void *func_1513B5E0(s8 *arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
 typedef s32 (*Game168A90Callback)(void);
 
 extern Game168A90Callback D_80089C18[];
-extern s32 D_800BE9E4;
 
 void func_1513B798(void *arg0) {
     typedef struct {
@@ -132,7 +131,6 @@ typedef struct {
 } Game168A90Command;
 
 extern Game168A90RenderCallback D_80089C28[];
-extern u8 D_800BE9C0;
 
 Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState *arg1, s16 arg2) {
     if ((arg1->flags & 2) && !(*((u8 *)arg1 + 0x49) & (1 << arg2))) {
@@ -147,7 +145,6 @@ Game168A90Command *func_1513B83C(Game168A90Command *arg0, Game168A90RenderState 
     return arg0;
 }
 void func_150A7B80(void *);
-extern u8 D_800BE9C0;
 
 s32 func_1513B968(s32 arg0, s16 arg1) {
     func_150A7B80(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x78);
@@ -262,9 +259,7 @@ void *func_1513BAE8(void) {
 }
 typedef struct { s32 first, count; } Game168A90Range;
 typedef struct { s16 x, y, z, flag, u, v; u8 color[4]; } Game168A90Vertex;
-extern Vec3f D_800A49C0[9];
 extern Game168A90Range D_800A4A2C[9];
-extern f32 D_800A4A74, D_800A4A78, D_800A4A7C, D_800A4A80;
 f32 func_15047D60(f32);
 s32 func_15144B34(s32);
 f32 sqrtf(f32);
@@ -317,11 +312,6 @@ s32 func_1513BBFC(Game168A90Allocated *owner, s16 arg1) {
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800A4A84;
-extern f32 D_800A4A88;
-extern f32 D_800A4A8C;
-extern f32 D_800A4A90;
-extern f32 D_800A4A94;
 extern f32 D_800BE9A4;
 
 s32 func_1513BEB0(u8 *arg0) {

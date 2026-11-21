@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_68C70.c
@@ -47,9 +48,6 @@ typedef struct Game68C70Status {
     u8 field_2FB;
 } Game68C70Status;
 
-extern u16 D_8009877C[90];
-extern u16 D_80098830[3];
-
 void func_1503B840(Game68C70Status *arg0) {
     s32 i;
 
@@ -68,7 +66,6 @@ void func_1503B840(Game68C70Status *arg0) {
         }
     }
 }
-extern u8 D_800CC5CB;
 
 s32 func_1503B95C(s32 arg0, void *arg1) {
     s32 temp_v0;
