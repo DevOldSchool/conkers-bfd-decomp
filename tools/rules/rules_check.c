@@ -27,7 +27,7 @@
  * conservative filter, not a compiler: macros are not expanded.
  *
  * Usage: rules_check [--findings] [--advisory] [--pending] [--strict-padding]
- *                    [--fail-on-pending] [--max-lines N] [path...]
+ *                    [--fail-on-pending] [--max-lines N] [--list-globals] [path...]
  * Paths are files or directories; the default is `include src`, and include/
  * is always read.  Only .c and .h files are read.  Headers contribute
  * declarations and types; functions are graded only in .c files.  R1 compares
@@ -138,6 +138,7 @@ typedef struct unit_s {
     name_list_t  volatileMembers;   /* struct members declared volatile */
     name_list_t  padMembers;        /* struct members named pad* */
     name_list_t  disabledBlocks;    /* `#if 0` blocks outside the parking form */
+    int         *ppDepth;           /* --list-globals: #if nesting before each token */
 } unit_t;
 
 typedef struct type_def_s {
@@ -160,6 +161,7 @@ static int optPending;
 static int optStrictPadding;
 static int optFailOnPending;
 static int optMaxLines = -1;
+static int optListGlobals;
 
 /*
 ================
@@ -932,8 +934,13 @@ static int IsPrototype( const unit_t *unit, int first, int last, const char **na
         if ( unit->tokens[i].kind == TOK_IDENT && next <= last && Is( &unit->tokens[next], "(" ) ) {
             int prev = PrevCode( unit, i );
 
+            int after = NextCode( unit, next );
+
             if ( prev >= 0 && Is( &unit->tokens[prev], "(" ) ) {
                 return 0;           // (name)(...) is a function-pointer variable
+            }
+            if ( after <= last && Is( &unit->tokens[after], "*" ) ) {
+                return 0;           // type (*name)(...) is a function-pointer variable
             }
             *name = unit->tokens[i].text;
             return 1;
@@ -965,6 +972,259 @@ static void AddFunction( unit_t *unit, int nameIndex, int paramStart, int open, 
     func->paramStart = paramStart;
     func->bodyStart = open;
     func->bodyEnd = close;
+}
+
+/*
+===============================================================================
+
+GLOBAL LISTING (--list-globals)
+
+One tab-separated row per declaration, for tools that edit declarations:
+
+  E  path  first-line  last-line  scope  clean  conditional  name  declaration  comment
+  D  path  line  static  name  declaration
+  T  path  type-name
+  P  path  function-name
+  M  path  macro-name
+
+E rows are `extern` variable declarations (scope `file` or `block`).  `clean`
+is 1 when the declaration's lines hold nothing else but an optional trailing
+comment, `conditional` when it sits inside an #if.  The declaration is the
+normalized token text without `extern` and the final ';'.  D rows are
+file-scope variable definitions, T rows the type names a file defines, P rows
+functions it declares or defines, M rows the identifiers a macro definition
+names (the macro and its replacement).
+
+===============================================================================
+*/
+
+/*
+================
+ComputeConditionalDepth
+================
+*/
+static void ComputeConditionalDepth( unit_t *unit ) {
+    int depth = 0;
+    int i;
+
+    unit->ppDepth = calloc( (size_t)unit->numTokens + 1, sizeof( *unit->ppDepth ) );
+    if ( !unit->ppDepth ) {
+        Error( "out of memory" );
+    }
+    for ( i = 0; i < unit->numTokens; i++ ) {
+        const token_t *token = &unit->tokens[i];
+
+        unit->ppDepth[i] = depth;
+        if ( token->kind != TOK_PP ) {
+            continue;
+        }
+        if ( DirectiveIs( token->text, "if" ) || DirectiveIs( token->text, "ifdef" )
+            || DirectiveIs( token->text, "ifndef" ) ) {
+            depth++;
+        } else if ( DirectiveIs( token->text, "endif" ) && depth > 0 ) {
+            depth--;
+        }
+    }
+}
+
+/*
+================
+TokenEndLine
+
+The line a token ends on (comments may span lines).
+================
+*/
+static int TokenEndLine( const token_t *token ) {
+    const char *p;
+    int         line = token->line;
+
+    for ( p = token->text; *p; p++ ) {
+        if ( *p == '\n' ) {
+            line++;
+        }
+    }
+    return line;
+}
+
+/*
+================
+PrintField
+
+Prints a field with tabs and newlines flattened to spaces.
+================
+*/
+static void PrintField( const char *text ) {
+    const char *p;
+
+    putchar( '\t' );
+    for ( p = text; *p; p++ ) {
+        putchar( *p == '\t' || *p == '\n' || *p == '\r' ? ' ' : *p );
+    }
+}
+
+/*
+================
+ListExtern
+
+Prints the E rows for the extern declaration first .. semicolon: one row per
+declarator, each with the shared specifiers, so `extern f32 a, b;` gives
+`f32 a` and `f32 b`.
+================
+*/
+static void ListExtern( const unit_t *unit, int first, int semicolon, const char *scope ) {
+    const char *comment = "";
+    int         firstLine = unit->tokens[first].line;
+    int         lastLine = unit->tokens[semicolon].line;
+    int         clean = 1;
+    int         specifierEnd;           /* first token of the first declarator */
+    int         pieceStart;
+    int         i;
+
+    // the declaration's lines must hold nothing else but a trailing comment
+    for ( i = 0; i < unit->numTokens; i++ ) {
+        const token_t *token = &unit->tokens[i];
+
+        if ( TokenEndLine( token ) < firstLine || token->line > lastLine ) {
+            continue;
+        }
+        if ( i >= first && i <= semicolon && token->kind != TOK_COMMENT ) {
+            continue;
+        }
+        if ( token->kind == TOK_COMMENT && i > semicolon && token->line == lastLine
+            && TokenEndLine( token ) == lastLine && !comment[0] ) {
+            comment = token->text;
+            continue;
+        }
+        clean = 0;
+    }
+
+    // specifiers run up to the first '*', '(' or the identifier that names the variable
+    specifierEnd = NextCode( unit, first );
+    for ( i = specifierEnd; i < semicolon; i = NextCode( unit, i ) ) {
+        int next;
+
+        if ( Is( &unit->tokens[i], "{" ) ) {
+            i = MatchClose( unit, i );      // an aggregate body is part of the specifiers
+            continue;
+        }
+        next = NextCode( unit, i );
+        if ( Is( &unit->tokens[i], "*" ) || Is( &unit->tokens[i], "(" ) ) {
+            break;
+        }
+        if ( unit->tokens[i].kind == TOK_IDENT && ( Is( &unit->tokens[next], "[" ) || Is( &unit->tokens[next], ";" )
+            || Is( &unit->tokens[next], "," ) ) ) {
+            break;
+        }
+    }
+    specifierEnd = i;
+
+    pieceStart = specifierEnd;
+    for ( i = specifierEnd; i <= semicolon; i = NextCode( unit, i ) ) {
+        int   pieceEnd;
+        int   name;
+        int   k;
+        char *specifiers;
+        char *declarator;
+
+        if ( Is( &unit->tokens[i], "(" ) || Is( &unit->tokens[i], "[" ) || Is( &unit->tokens[i], "{" ) ) {
+            i = MatchClose( unit, i );
+            continue;
+        }
+        if ( !Is( &unit->tokens[i], "," ) && !Is( &unit->tokens[i], ";" ) ) {
+            continue;
+        }
+        pieceEnd = PrevCode( unit, i );
+
+        // the declarator's name: the last identifier before '[' or the end, or inside '(*name)'
+        name = -1;
+        for ( k = pieceStart; k <= pieceEnd; k = NextCode( unit, k ) ) {
+            int next = NextCode( unit, k );
+
+            if ( unit->tokens[k].kind != TOK_IDENT ) {
+                continue;
+            }
+            if ( next > pieceEnd || Is( &unit->tokens[next], "[" ) || Is( &unit->tokens[next], ")" ) ) {
+                name = k;
+                break;
+            }
+        }
+        specifiers = specifierEnd > NextCode( unit, first )
+            ? JoinTokens( unit, NextCode( unit, first ), PrevCode( unit, specifierEnd ) ) : CopyString( "", 0 );
+        declarator = JoinTokens( unit, pieceStart, pieceEnd );
+        if ( declarator[0] ) {
+            declarator[strlen( declarator ) - 1] = '\0';
+        }
+        printf( "E\t%s\t%d\t%d\t%s\t%d\t%d", unit->path, firstLine, lastLine, scope, clean,
+            unit->ppDepth[first] > ( unit->isHeader ? 1 : 0 ) );
+        PrintField( name >= 0 ? unit->tokens[name].text : "" );
+        putchar( '\t' );
+        fputs( specifiers, stdout );
+        fputs( declarator, stdout );
+        PrintField( comment );
+        putchar( '\n' );
+        free( specifiers );
+        free( declarator );
+        pieceStart = NextCode( unit, i );
+    }
+}
+
+/*
+================
+ListDefinition
+
+Prints the D row for a file-scope variable definition first .. last, if the
+declaration defines a variable.
+================
+*/
+static void ListDefinition( const unit_t *unit, int first, int last ) {
+    int isStatic = 0;
+    int i;
+
+    for ( i = first; i <= last; i = NextCode( unit, i ) ) {
+        const token_t *token = &unit->tokens[i];
+        int            next = NextCode( unit, i );
+
+        if ( Is( token, "static" ) ) {
+            isStatic = 1;
+            continue;
+        }
+        if ( Is( token, "{" ) || Is( token, "=" ) ) {
+            return;                 // an aggregate body or initializer before any name
+        }
+        if ( token->kind != TOK_IDENT || next > last + 1 ) {
+            continue;
+        }
+        if ( i > first && ( Is( &unit->tokens[PrevCode( unit, i )], "struct" )
+            || Is( &unit->tokens[PrevCode( unit, i )], "union" ) || Is( &unit->tokens[PrevCode( unit, i )], "enum" ) ) ) {
+            continue;               // a tag, not a variable (`struct Foo;`)
+        }
+        if ( Is( &unit->tokens[next], "=" ) || Is( &unit->tokens[next], "[" ) || Is( &unit->tokens[next], ";" )
+            || Is( &unit->tokens[next], "," )
+            || ( Is( &unit->tokens[next], ")" ) && Is( &unit->tokens[PrevCode( unit, i )], "*" ) ) ) {
+            int   end = i;
+            char *declaration;
+            int   start = first;
+
+            // the declarator runs to the initializer or the end of the declaration
+            while ( end < last && !Is( &unit->tokens[NextCode( unit, end )], "=" )
+                && !Is( &unit->tokens[NextCode( unit, end )], ";" ) && !Is( &unit->tokens[NextCode( unit, end )], "," ) ) {
+                end = NextCode( unit, end );
+            }
+            while ( start < i && ( Is( &unit->tokens[start], "static" ) || Is( &unit->tokens[start], "extern" ) ) ) {
+                start = NextCode( unit, start );
+            }
+            declaration = JoinTokens( unit, start, end );
+            if ( declaration[0] ) {
+                declaration[strlen( declaration ) - 1] = '\0';
+            }
+            printf( "D\t%s\t%d\t%d", unit->path, token->line, isStatic );
+            PrintField( token->text );
+            PrintField( declaration );
+            putchar( '\n' );
+            free( declaration );
+            return;
+        }
+    }
 }
 
 /*
@@ -1033,10 +1293,32 @@ static void ParseTopLevel( unit_t *unit, int unitIndex ) {
 
             if ( declStart <= last ) {
                 if ( Is( &unit->tokens[declStart], "extern" ) && !IsPrototype( unit, declStart, last, &name ) ) {
+                    if ( optListGlobals ) {
+                        ListExtern( unit, declStart, i, "file" );
+                    }
                     RecordExternNames( unit, declStart, i );
                 } else if ( !Is( &unit->tokens[declStart], "typedef" )
                     && IsPrototype( unit, declStart, last, &name ) ) {
                     NameList_Add( &unit->prototypes, name, unit->tokens[declStart].line );
+                } else if ( optListGlobals && Is( &unit->tokens[declStart], "typedef" ) ) {
+                    int k;
+
+                    // the declared type names: identifiers before ';' or ','
+                    for ( k = declStart; k <= last; k = NextCode( unit, k ) ) {
+                        int next = NextCode( unit, k );
+
+                        if ( Is( &unit->tokens[k], "{" ) ) {
+                            k = MatchClose( unit, k );
+                            continue;
+                        }
+                        if ( unit->tokens[k].kind == TOK_IDENT && next <= i
+                            && ( Is( &unit->tokens[next], ";" ) || Is( &unit->tokens[next], "," )
+                                || Is( &unit->tokens[next], "[" ) ) ) {
+                            printf( "T\t%s\t%s\n", unit->path, unit->tokens[k].text );
+                        }
+                    }
+                } else if ( optListGlobals ) {
+                    ListDefinition( unit, declStart, last );
                 }
             }
             declStart = NextCode( unit, i );
@@ -1481,10 +1763,16 @@ static void CheckStatements( unit_t *unit, function_t *func ) {
             }
             if ( IsPrototype( unit, i, PrevCode( unit, end ), &name ) ) {
                 AddFinding( func, RULE_R25, token->line, FormatString( "block-scope prototype of '%s'", name ) );
+                if ( optListGlobals ) {
+                    printf( "P\t%s\t%s\n", unit->path, name );
+                }
             } else {
                 int before = unit->externs.count;
                 int k;
 
+                if ( optListGlobals ) {
+                    ListExtern( unit, i, end, "block" );
+                }
                 RecordExternNames( unit, i, end );
                 for ( k = before; k < unit->externs.count; k++ ) {
                     AddFinding( func, RULE_R2, token->line,
@@ -1912,6 +2200,8 @@ int main( int argc, char **argv ) {
             optPending = 1;
         } else if ( !strcmp( argv[i], "--strict-padding" ) ) {
             optStrictPadding = 1;
+        } else if ( !strcmp( argv[i], "--list-globals" ) ) {
+            optListGlobals = 1;
         } else if ( !strcmp( argv[i], "--fail-on-pending" ) ) {
             optFailOnPending = 1;
         } else if ( !strcmp( argv[i], "--max-lines" ) && i + 1 < argc ) {
@@ -1944,6 +2234,9 @@ int main( int argc, char **argv ) {
     }
 
     for ( u = 0; u < numUnits; u++ ) {
+        if ( optListGlobals ) {
+            ComputeConditionalDepth( &units[u] );
+        }
         ParseTopLevel( &units[u], u );
     }
 
@@ -1955,6 +2248,45 @@ int main( int argc, char **argv ) {
         for ( i = 0; i < units[u].numFunctions; i++ ) {
             CheckStatements( &units[u], &units[u].functions[i] );
         }
+    }
+
+    if ( optListGlobals ) {
+        // aggregate type names (struct tags and typedefs with bodies)
+        for ( i = 0; i < numTypeDefs; i++ ) {
+            printf( "T\t%s\t%s\n", units[typeDefs[i].unit].path, typeDefs[i].name );
+        }
+
+        // function names (prototypes and definitions) and macro names
+        for ( u = 0; u < numUnits; u++ ) {
+            const unit_t *unit = &units[u];
+
+            for ( i = 0; i < unit->prototypes.count; i++ ) {
+                printf( "P\t%s\t%s\n", unit->path, unit->prototypes.names[i] );
+            }
+            for ( i = 0; i < unit->numFunctions; i++ ) {
+                printf( "P\t%s\t%s\n", unit->path, unit->functions[i].name );
+            }
+            for ( i = 0; i < unit->numTokens; i++ ) {
+                const char *p = unit->tokens[i].text;
+                const char *start;
+
+                if ( unit->tokens[i].kind != TOK_PP || !DirectiveIs( p, "define" ) ) {
+                    continue;
+                }
+                // the macro's name and every identifier in its replacement
+                p = strstr( p, "define" ) + 6;
+                while ( *p ) {
+                    if ( !isalpha( (unsigned char)*p ) && *p != '_' ) {
+                        p++;
+                        continue;
+                    }
+                    for ( start = p; isalnum( (unsigned char)*p ) || *p == '_'; p++ ) {
+                    }
+                    printf( "M\t%s\t%.*s\n", unit->path, (int)( p - start ), start );
+                }
+            }
+        }
+        return 0;
     }
 
     // R1: the same type name with different bodies in different files
