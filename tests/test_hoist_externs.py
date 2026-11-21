@@ -117,5 +117,47 @@ class HoistExternsTests(unittest.TestCase):
         moved = [line for line in after if "D_80000010" in line]
         self.assertEqual([line.split(":")[0] for line in moved], ["src/storage.c"])
 
+    def unify(self, *args: str) -> list[list[str]]:
+        self.hoist()                                    # writes globals.tsv only
+        out = subprocess.run(
+            [str(self.bin / "hoist_externs"), "--unify", *args, "globals.tsv"],
+            cwd=self.work, capture_output=True, text=True, check=True,
+        ).stdout
+        return [line.split("\t") for line in out.splitlines()]
+
+    def test_unify_plans_one_declaration_per_conflict(self):
+        rows = self.unify()
+        retyped = {(row[1], row[2]): row[4] for row in rows if row[0] == "U"}
+        # equal rank and equal use: the first variant seen wins
+        self.assertEqual(retyped[("src/second.c", "D_80000050")], "u8 D_80000050")
+        self.assertEqual(retyped[("src/second.c", "D_80000090")], "f32 D_80000090")
+        self.assertEqual(self.read("src/second.c"), (FIXTURES / "src/second.c").read_text())   # dry run
+
+    def test_unify_choice_picks_the_next_candidate(self):
+        rows = self.unify("--choice", "1")
+        retyped = {(row[1], row[2]): row[4] for row in rows if row[0] == "U"}
+        self.assertEqual(retyped[("src/first.c", "D_80000050")], "s8 D_80000050")
+
+    def test_unify_never_drops_information(self):
+        second = self.work / "src/second.c"
+        second.write_text(second.read_text().replace("extern s8 D_80000050;", "extern Shared D_80000050;"))
+        # the named type is the only candidate that keeps every declaration's information
+        rows = self.unify()
+        retyped = {(row[1], row[2]): row[4] for row in rows if row[0] == "U"}
+        self.assertEqual(retyped[("src/first.c", "D_80000050")], "Shared D_80000050")
+        self.assertNotIn(("src/second.c", "D_80000050"), retyped)
+        rows = self.unify("--choice", "1")
+        self.assertIn(["S", "D_80000050", "no candidate left"], rows)
+
+    def test_unify_apply_rewrites_minority_units(self):
+        (self.work / "only.txt").write_text("D_80000050\t1\n")
+        self.unify("--apply", "--only", "only.txt")
+        self.assertIn("extern s8 D_80000050;", self.read("src/first.c"))
+        self.assertIn("extern f32 D_80000020[], D_80000090;", self.read("src/first.c"))   # untouched line
+        report = self.hoist("--apply")
+        self.assertIn("applied: 6 globals declared", report)
+        self.assertIn("extern s8 D_80000050;", self.read("include/globals.h"))
+
+
 if __name__ == "__main__":
     unittest.main()

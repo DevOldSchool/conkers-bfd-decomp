@@ -127,8 +127,30 @@ takes), every type it names is visible to the header (`types.h`,
 `game_vec.h`), and no macro, function or other header uses the name. It
 removes the moved declarations from their units and adds
 `#include "globals.h"`. A global that stays is reported with its reason:
-declared with different types, or naming a unit-private type. Those need type
-recovery first. Run it after matching new functions; it needs a host `cc`.
+declared with different types, or naming a unit-private type. Run it after
+matching new functions; it needs a host `cc`.
+
+A global declared with different types can often take one declaration
+without changing any code:
+
+```sh
+./conker unify-externs               # try candidates; report what unifies
+./conker unify-externs --apply       # write them, re-check every retyped unit
+./conker hoist-externs --apply       # then move them, and run the byte gates
+```
+
+For each such global the tool proposes a variant the header can name that
+keeps every declaration's information. Named types outrank sized scalars,
+which outrank byte and `void` placeholders, so `struct OSThread_s` is never
+rewritten to `u8`. Among equals it prefers the variant most units use. It
+rewrites the other units, compiles each of them in the toolchain container
+and keeps the global only when every retyped unit's code (with relocations),
+data, rodata and section sizes are identical. Globals that share a retyped
+unit are retried apart, and failures try the next candidate. A prior
+`./conker game-build` supplies the GLOBAL_ASM inputs that game units need.
+What remains has no information-preserving candidate (a unit uses a private
+named type) or changes code under every candidate. It needs a reader's
+judgement about which type the original used.
 
 ## Clearing MATCH-PENDING functions
 
@@ -136,11 +158,11 @@ A [match] finding is a clue to the real source, not something to hide:
 
 - **R4:** declare or extend the struct the offsets belong to and use its
   members. This is the usual shape of a structural pass over one unit.
-- **R2:** run `./conker hoist-externs --apply`. A global it leaves behind is
-  declared with different types in different units (settle the one type the
-  original used, which is type recovery and goes through the byte gates), or
-  names a unit-private type (promote the type first). New `extern`s follow the
-  R2 ruling under Rule changes.
+- **R2:** run `./conker unify-externs --apply`, then
+  `./conker hoist-externs --apply`. A global left behind either changes code
+  under every candidate type (settle the type the original used, which is type
+  recovery through the byte gates) or names a unit-private type (promote the
+  type first). New `extern`s follow the R2 ruling under Rule changes.
 - **R1:** promote the shared layout to one header type under the
   [shared type rules](decompilation-workflow.md#shared-type-definitions), or
   give unit-private copies distinct names.
