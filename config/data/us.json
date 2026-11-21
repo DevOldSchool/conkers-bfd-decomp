@@ -2307,7 +2307,17 @@
       },
       {
         "address": "0x800A7280",
-        "section": ".rodata",
+        "section": ".rodata.1ac2f0_0",
+        "owner": {
+          "sources": [
+            "src/game/game_1AC2F0.c",
+            "src/done/game/game_1AC2F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A7294",
+        "section": ".rodata.1ac2f0_c",
         "owner": {
           "sources": [
             "src/game/game_1AC2F0.c",
