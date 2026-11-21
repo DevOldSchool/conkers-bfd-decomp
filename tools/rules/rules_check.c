@@ -27,10 +27,12 @@
  * conservative filter, not a compiler: macros are not expanded.
  *
  * Usage: rules_check [--findings] [--advisory] [--pending] [--strict-padding]
- *                    [--max-lines N] [path...]
- * Paths are files or directories; the default is `include src`.  Only .c and
- * .h files are read.  Headers contribute declarations and types; functions
- * are graded only in .c files.  The exit status is 0 unless an I/O error
+ *                    [--fail-on-pending] [--max-lines N] [path...]
+ * Paths are files or directories; the default is `include src`, and include/
+ * is always read.  Only .c and .h files are read.  Headers contribute
+ * declarations and types; functions are graded only in .c files.  R1 compares
+ * only the files read, so a run over part of src/ can miss a conflicting
+ * copy.  The exit status is 0 unless an I/O error
  * occurs, or --fail-on-pending is given and a function is MATCH-PENDING.
  */
 
@@ -1887,6 +1889,7 @@ int main( int argc, char **argv ) {
     name_list_t *conflictNames;
     int         *order;
     int   numPaths = 0;
+    int   loadedInclude = 0;
     int   functions = 0;
     int   pending = 0;
     int   ruleFunctions[NUM_RULES];
@@ -1922,11 +1925,21 @@ int main( int argc, char **argv ) {
         } else {
             LoadPath( argv[i] );
             numPaths++;
+            if ( !strncmp( argv[i], "include", 7 ) || !strncmp( argv[i], "./include", 9 ) ) {
+                loadedInclude = 1;
+            }
         }
     }
     if ( !numPaths ) {
         for ( i = 0; defaultPaths[i]; i++ ) {
             LoadPath( defaultPaths[i] );
+        }
+    } else if ( !loadedInclude ) {
+        struct stat info;
+
+        // shared types and declarations always come from include/
+        if ( stat( "include", &info ) == 0 && S_ISDIR( info.st_mode ) ) {
+            LoadPath( "include" );
         }
     }
 

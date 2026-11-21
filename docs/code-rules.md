@@ -72,8 +72,9 @@ These never block a match; they list open readability work.
 
 The checker is read-only and needs no ROM. It lexes C without preprocessing,
 treats every live C function definition under `src/` as bytes-matched
-(unmatched code is `GLOBAL_ASM`; parked candidates are skipped), and reads
-`include/` for shared types. It builds with the host `cc`, or inside the
+(unmatched code is `GLOBAL_ASM`; parked candidates are skipped), and always
+reads `include/` for shared types. R1 compares only the files it reads, so run
+it over all of `src/` (the default) for the full count. It builds with the host `cc`, or inside the
 toolchain image when the host has none. `--fail-on-pending` exits 1 when any
 function is `MATCH-PENDING`; nothing in CI uses it yet.
 

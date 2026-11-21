@@ -92,6 +92,15 @@ class RulesCheckTests(unittest.TestCase):
         self.assertIn(("pending.c", "(unit)", "R37"), rows)
         self.assertNotIn(("pending.c", "func_800010C0", "R33"), rows)
 
+    def test_single_file_still_reads_include(self):
+        result = subprocess.run(
+            [str(self.binary), "--pending", "src/pending.c"],
+            cwd=FIXTURES, capture_output=True, text=True, check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("MATCH-PENDING func_80001080 src/pending.c: R1 R17", result.stdout)
+        self.assertIn("functions with C bodies (bytes matched): 4", result.stdout)
+
     def test_fail_on_pending(self):
         self.assertEqual(self.run_checker("--fail-on-pending").returncode, 1)
 
