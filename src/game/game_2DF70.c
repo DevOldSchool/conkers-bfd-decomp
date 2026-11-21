@@ -21,7 +21,6 @@ typedef struct {
     s32 w1;
 } ConkerGfx;
 
-extern u8 D_800D9E64;
 s32 func_150027F8();
 
 void func_15000AC0(void) {
@@ -51,8 +50,6 @@ void func_15001970(void) {
     D_800B0DC8 = sp18 + base;
     D_800B0DC4 = temp_v0;
 }
-extern u32 D_80000308;
-extern s16 D_800DBE30[];
 void func_10023720(s32);
 void func_10023764(s32);
 s32 func_10003C40(s32, s32, s32, s32);
@@ -405,7 +402,6 @@ loop_1:
         }
     }
 }
-extern s32 D_800BE5D0;
 s32 func_1502B5C8(u32 *, s32, s32, s32);
 void func_150183D0(s16, s32, s32, s32);
 
@@ -512,9 +508,7 @@ s32 func_15002FA0(s32 arg0) {
     return arg0 ^ 0xF0F0F0F0;
 }
 
-extern s32 D_8003C8E0;
 extern void *D_800B0DF0;
-extern u16 *D_800D2F40;
 s32 func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 void func_150AD770(void);
 void func_151EF040(s32, s32 *);

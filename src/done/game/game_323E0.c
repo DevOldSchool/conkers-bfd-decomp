@@ -11,10 +11,8 @@ extern u8 D_800D19A0[];
 extern u8 D_800D1C90[];
 extern u8 D_800D2040[];
 extern u8 D_800D1588[];
-extern u16 D_800C5A90[];
 extern u8 D_800C5C08[];
 extern u8 D_800C6070[];
-extern s32 D_800C6360[];
 
 void func_15004F30(void) {
     func_100226F0(D_800D19A0, 0x2EC);

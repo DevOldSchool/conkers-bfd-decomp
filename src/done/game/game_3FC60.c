@@ -42,8 +42,6 @@ extern u32 *D_800B0E00;
 extern u8 *D_800B0E10[4];
 extern Game3FC60Group **D_800B0E30;
 extern u8 *D_800B0E34;
-extern u8 D_800B0E38;
-extern s32 D_800B0E40[4];
 extern s32 D_800BE510;
 extern u8 ***D_800BE520;
 extern Game3FC60Record *D_800DBEF4;

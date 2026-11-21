@@ -52,7 +52,6 @@ void *func_1515D480(s32 arg0) {
     func_100226F0(allocation, (arg0 * 0x60));
     return allocation;
 }
-extern u8 D_800DCD27;
 
 void func_1515D4D4(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
     if (arg3 >= D_800DCD27) {
@@ -264,7 +263,6 @@ u32 *func_1515E544(u32 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
 }
 
 void func_1515E278(s32, s32, s32, s32, u8 *, u32, s32);
-extern u8 D_800D9E28[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515E888 CURRENT (12477) */
 void func_1515E888(s32 arg0, s32 x, s32 y, s32 z, s32 mode,
@@ -376,7 +374,6 @@ Game18A8F0ColorResult *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 f32 sqrtf(f32);
 #pragma intrinsic (sqrtf)
-extern u8 D_800D9C10[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515EC78 CURRENT (6744) */
 void func_1515EC78(u8 *light, s32 slot, u8 *output, s32 x, s32 y,

@@ -51,7 +51,6 @@ s32 func_1505A630(f32, f32, s32);
 f32 func_1505A5CC(void *);                          /* extern */
 void func_15063168(void *);                        /* extern */
 extern u16 D_800BE710[];
-extern u8 D_800C3E78;
 extern GameFBBF0Input *D_800CC284;
 extern GameFBBF0Actor D_800CC2D0[];
 extern GameFBBF0Camera *D_800DBFF0;

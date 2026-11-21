@@ -8,8 +8,6 @@
 
 s32 func_150DF8C0(s32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern s32 D_80090324[];
-extern u8 D_800DD405;
 
 typedef struct { u32 w0; u32 w1; } Game10D080Command;
 void *func_150DFBD0(Game10D080Command *arg0) {

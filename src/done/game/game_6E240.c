@@ -10,7 +10,6 @@ void func_15040D90(s32 arg0) {
 
 }
 extern s32 D_8002AAE8[];
-extern s32 D_800BE9C4;
 
 void func_15040D9C(s32 arg0) {
     s32 current;

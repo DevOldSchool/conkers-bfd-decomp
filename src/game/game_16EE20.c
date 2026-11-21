@@ -409,7 +409,6 @@ s32 func_151422DC(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, void *arg5
 s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     return arg4;
 }
-extern u8 D_800C3E90;
 
 void func_15142314(void *arg0, s32 arg1, f32 *arg2) {
     u8 *p;
@@ -925,7 +924,6 @@ void func_15143874(s16 arg0, f32 arg1, f32 *arg2, f32 *arg3) {
     *arg2 = arg1 * cosine;
     *arg3 = arg1 * sp1C;
 }
-extern u32 D_800D3094;
 extern s32 D_800D3098;
 
 void func_15143D18(s32 *, s32 *, s32, s32);

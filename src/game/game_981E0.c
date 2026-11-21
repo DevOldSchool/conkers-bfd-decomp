@@ -413,9 +413,6 @@ void func_1506B984(void) {
 void func_1506B9AC(void) {
     *(s16 *)(D_800D154C + 0x244) = 0;
 }
-extern u16 D_800BE720[];
-extern u8 D_800C3E78;
-extern u8 D_800D1940;
 
 void func_1506B9C0(void) {
     u16 *temp_v0;
@@ -755,7 +752,6 @@ void func_1506D4F4(void) {
                    0.01f, 0.0f, 0.0f, 0.0f, 0);
 }
 extern u8 D_800C35EA;
-extern u8 D_800C3E78;
 
 void func_1506D538(void) {
     if (D_800C35EA != 1) {
@@ -860,7 +856,6 @@ void func_1506D934(void) {
 }
 void func_1506D950(void) {
 }
-extern s32 D_800CC5FC;
 extern s32 D_800D121C;
 
 void func_1506D958(void) {
@@ -889,7 +884,6 @@ void func_1506DA94(void) {
     func_15174690(D_800C3E78, 0, 0x18, 0, 0x199, 4, 0xAA, 0xFF, 0);
 }
 void func_15076760(void);
-extern u8 D_800D1890;
 
 void func_1506DB30(void) {
     D_800D1890 = (s8) D_800D1580;
@@ -969,7 +963,6 @@ void func_1506DD6C(void) {
 }
 void func_1506DDB8(void) {
 }
-extern u8 D_800C3E78;
 extern s32 func_15178E50(s32 arg0);
 void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3);
 
@@ -1145,7 +1138,6 @@ void func_1506E2CC(void) {
 s32 func_10010894(s32);
 s32 func_100107F8(u8 *, s32 *);
 s32 func_151F2CDC(u8 *, s32 *);
-extern s32 D_800BE5A8[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1506E46C CURRENT (3639) */
 s32 func_1506E46C(u8 *arg0, s32 *arg1, s32 arg2) {
@@ -2712,7 +2704,6 @@ void func_15071B18(s32 arg0) {
 void func_15071D08(s32 arg0) {
     func_150F2230(D_800D154C, 0xFF, 1);
 }
-extern void (*D_80086150[])(s32);
 
 void func_15071D38(void) {
     void (*temp_v0)(s32);
@@ -2849,7 +2840,6 @@ void *func_15072208(void *arg0, s32 arg1);
 void *func_150721E8(void *arg0) {
     return func_15072208(arg0, 0);
 }
-extern s32 D_800CC5FC;
 extern s32 D_800D121C;
 
 void *func_15072208(void *arg0, s32 arg1) {
@@ -3320,7 +3310,6 @@ u8 *func_1505ED34(void);
 void func_151EFEB8(void *, s32);
 void *func_1515D480(s32);
 u8 *func_15158BD0(void *, u8, s32);
-extern u8 D_800C3E90;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15073118 CURRENT (510) */
 u8 *func_15073118(u8 *arg0, s32 arg1, s32 arg2, f32 arg3, f32 arg4,
@@ -3830,7 +3819,6 @@ typedef struct Game981E0SightActor {
 
 void func_1504715C(void *, void *);
 void func_150C04C0(void *, s32, s32, u8, u8, s32);
-extern f32 D_800CC2C0;
 
 void func_15074C00(s32 arg0, Game981E0SightActor *arg1, s32 arg2) {
     f32 sp44[3];
@@ -3997,7 +3985,6 @@ void func_150750C4(Game981E0EventObject *arg0, Game981E0EventObject *arg1, s8 *a
     }
 }
 extern u8 D_800CC2D4;
-extern s32 D_800CC5FC;
 
 s32 *func_1507515C(s32 arg0) {
     u8 *p;

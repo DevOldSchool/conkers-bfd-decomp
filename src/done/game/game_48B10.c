@@ -22,7 +22,6 @@ typedef struct Game48B10Vertex {
 } Game48B10Vertex;
 typedef struct Game48B10Color { u8 r, g, b; } Game48B10Color;
 extern Game48B10Color *D_80084040[];
-extern u16 D_800C57A0[];
 
 void func_1501B660(Game48B10Actor *arg0, f32 *arg1, s32 arg2) {
     Game48B10Vertex *vertices;

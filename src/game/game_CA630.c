@@ -20,7 +20,6 @@ typedef struct GameCA630Node {
     u8 kind;
 } GameCA630Node;
 
-extern s32 D_800A6060[];
 extern u8 D_800DCE50[];
 void func_150E36BC(s32, s32 *, s32 *, s32 *);
 
@@ -35,7 +34,6 @@ void func_150C522C(void);
 void func_150E35DC(s32);
 void func_150EB8C4(void);
 void func_150F9720(u8);
-extern s8 D_800D9920;
 
 s32 func_1509D780(s32 arg0, u8 *arg1) {
     void *temp_v0;

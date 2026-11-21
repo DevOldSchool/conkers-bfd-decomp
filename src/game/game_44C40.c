@@ -16,7 +16,6 @@ void func_100226F0(void *, s32);
 void func_1509BA04(s32);
 void func_1509C120(void);
 void func_150A00F0(void);
-extern u8 D_800D2E44;
 extern void *D_800D2E4C;
 extern u8 D_800D2F48[];
 
@@ -45,7 +44,6 @@ typedef struct Game44C40Node {
 
 void func_1509B4A0(s16, s32);
 Game44C40Node *func_1509B704(s16);
-extern u16 *D_800D2F40;
 
 void func_15017868(void) {
     s32 index;
@@ -80,9 +78,7 @@ typedef struct Game44C40Entry {
 void *func_10003C40(s32, s32, s32, s32);
 void func_15017B20(s32, u32);
 s32 func_1502B7F0(s32 *, s32, ...);
-extern u32 D_800D3094;
 extern s32 D_800D3098;
-extern s32 *D_800D3270;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15017930 */
 void func_15017930(s32 arg0) {

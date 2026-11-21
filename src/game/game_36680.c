@@ -41,7 +41,6 @@ void func_150091D0(void) {
     func_100226F0(D_800DCD40, sizeof(D_800DCD40));
 }
 void func_15009334(u32);
-extern u32 D_800D3094;
 
 void func_150092DC(void) {
     u32 var_s0;
@@ -629,7 +628,6 @@ typedef struct Game36680ResourceInfo {
 /* The second argument counts variadic resource-path components. */
 void *func_1502B020(s32 *, s32, ...);
 extern Game36680ResourceInfo D_80095CE0[];
-extern s16 D_800DDB80[][2];
 
 void func_1500AC14(void) {
     s32 i;
@@ -920,7 +918,6 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
     }
     D_800DDBD0[arg2] = 0x21;
 }
-extern u32 D_800DDD0C;
 extern s32 D_800DDD10[];
 
 void func_1500BE40(s32 arg0) {
@@ -929,8 +926,6 @@ void func_1500BE40(s32 arg0) {
     D_800DDD0C = 0x6E;
 }
 /* Call context: func_1500BE40: unique active project prototype */
-extern u8 D_8008CEB0;
-extern u8 D_800DDD1C;
 
 void func_1500BE68(void) {
     D_800DDD1C = 0;
@@ -955,7 +950,6 @@ void func_1517B89C(s32, s32);
 extern Game36680Creator D_8008CEB8[];
 extern Game36680CreationChoice D_8008CF00[][8];
 extern s16 **D_800DBE3C;
-extern s32 *D_800DBE5C;
 
 void func_1500BEC0(void) {
     s32 i;

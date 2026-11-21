@@ -29,11 +29,8 @@ void func_151DD970(void);
 void func_151E50C8(void);
 void func_151EEFF0(void);
 
-extern u8 D_800BE617;
 extern u8 D_800BEA10[];
 extern s16 D_800BEA68[];
-extern u8 D_800BEAAB;
-extern u8 D_800E0B94;
 
 void func_15007830(void) {
     func_15007A20();

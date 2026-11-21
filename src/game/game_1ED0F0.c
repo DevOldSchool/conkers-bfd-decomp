@@ -385,7 +385,6 @@ void func_151BFDA0(void *, f32 *, s32, u8, s32);
 void func_151BFE84(void *, void *, void *, s32, u8, s32);
 void func_151ABE40(void *, void *, s32, s32, s32);
 extern f32 D_800BE9A4;
-extern s32 (*D_800E0930)(void *, f32 *, f32 *);
 
 s32 func_151C1180(Game1ED0F0UpdateActor *arg0) {
     Game1ED0F0UpdateState *state;
@@ -496,7 +495,6 @@ void func_151C1628(void *arg0) {
 }
 void func_151D40D4(void *, s32, s32, s32, s32, s32, s32, s32);
 void func_151D42E8(void *, s32, s32, s32, s32);
-extern void (*D_800E0934)(s32, s32, s32);
 
 void func_151C1654(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     if (D_800E0934 != 0) {

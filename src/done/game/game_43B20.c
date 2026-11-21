@@ -6,8 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
 
-extern s8 D_800D18C0;
-
 typedef struct Game43B20Target {
     s16 x;
     s16 y;

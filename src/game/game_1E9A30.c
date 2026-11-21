@@ -619,7 +619,6 @@ void func_151BD7F4(void *arg0) {
 }
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
-extern u8 D_800A4AA0[];
 extern Vec3f D_800A5480;
 
 typedef struct Game1E9A30BurstData {
@@ -876,7 +875,6 @@ void func_151BD828(u8 *arg0, u8 arg1, s32 arg2) {
     }
 }
 void func_15145EA4(s32 *, s32 *, s32, s32);
-extern u16 **D_800BE728;
 extern u8 D_800CC2D0[];
 
 typedef struct { u8 pad0[0x48]; f32 width, height; u8 pad50[8]; u8 flags; } Game1E9A30TrailEffect;

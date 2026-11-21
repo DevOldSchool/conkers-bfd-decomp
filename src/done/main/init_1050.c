@@ -62,8 +62,6 @@ s32 get_interrupt_mask(void);
 void enable_interrupts(s32);
 void start_task(void *);
 extern s32 D_8002AAE8[2];
-extern u32 D_8003809C;
-extern s32 D_80082B20;
 extern u8 D_800E9D10;
 extern u8 bss_start;
 extern u8 task_stack;

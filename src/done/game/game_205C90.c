@@ -28,8 +28,6 @@ s32 func_15181CC8(s32);
 s32 func_1517EF00(s32);
 void *func_10022EC0(void *, const void *, u32);
 void func_1501C010(u8, u8);
-extern u8 D_800BEAC1;
-extern u8 D_800E0B94;
 
 void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     u8 i;
@@ -165,7 +163,6 @@ void func_151D8DB4(s32 arg0, u8 arg1) {
     func_15169260(&D_800AB300, 1, arg0, arg1);
 }
 void func_151D8DB4(s32 arg0, u8 arg1);
-extern u8 D_800E0A00;
 
 void func_151D8DE8(void) {
     D_800E0A00 = 1;

@@ -239,7 +239,6 @@ typedef struct GameF81BCMotion {
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 s32 func_15146078(void *, void *, void *);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F81BC CURRENT (5790) */
 s32 func_150F81BC(void *arg0) {

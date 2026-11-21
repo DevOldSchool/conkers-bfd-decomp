@@ -1057,7 +1057,6 @@ void func_151C9BA0(u8 *arg0, s32 arg1) {
 }
 void func_150BDE90(s32, u8, s32);
 void func_151CCF08(s32, u8, s8, u8);
-extern u8 D_8008CD00;
 
 void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
     func_151C9F38(arg0, 4, arg1, arg2, arg3);
@@ -1072,7 +1071,6 @@ void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
 }
 void func_15160274(void *, u8);
 void func_1515572C();
-extern u8 D_8008CD00;
 
 void func_151C9ED4(void *arg0) {
     void *sp24;
@@ -1359,7 +1357,6 @@ typedef struct SightWarpState {
 f32 func_15145A0C(f32, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern u8 D_800BEAC1;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB110 CURRENT (8774) */
 void func_151CB110(u8 *arg0, u16 *arg1) {

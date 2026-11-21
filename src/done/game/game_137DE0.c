@@ -37,8 +37,6 @@ typedef struct {
     s8 field_39;
 } Game137DE0Descriptor;
 
-extern u8 D_800917EC[];
-
 void func_1510A930(s32 arg0, s32 arg1, s32 arg2) {
     Game137DE0Descriptor descriptor;
     s32 total;

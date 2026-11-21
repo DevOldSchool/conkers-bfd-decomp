@@ -28,7 +28,6 @@ extern Game131F30Choices D_800A238C;
 extern Game131F30Choices D_800A2398;
 extern u8 D_800CC2D0[];
 extern u8 *D_800DBEF4;
-extern u32 *D_800DBF94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15104A80 CURRENT (4055) */
 void func_15104A80(void *arg0) {
@@ -494,7 +493,6 @@ void func_15105BC8(void *arg0) {
                        (f32)*(s16 *)((u8 *)temp_v0 + 4), 0x43FA0000);
     }
 }
-extern s32 D_800A5770[];
 extern u8 D_800DCE50[];
 
 void *func_15105C24(s32 arg0) {

@@ -564,7 +564,6 @@ s32 func_1514B8B0(void *arg0) {
 }
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[];
 
 typedef struct {
     s8 kind, mode;

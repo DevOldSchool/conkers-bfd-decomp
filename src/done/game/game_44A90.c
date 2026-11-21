@@ -21,15 +21,10 @@ void func_100226F0(void *arg0, s32 arg1, void *arg2);
 void func_15048134(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6);
 
 extern s16 D_8009DCB4[3];
-extern u8 D_800D23D0[];
 extern f32 D_800D2410;
 extern Vec3f D_800D2428;
-extern u16 D_800D2454;
 extern s32 D_800D245C;
 extern u8 D_800D2460;
-extern u8 D_800D246D;
-extern u8 D_800D247D;
-extern u8 D_800D24C8;
 
 void func_15017640(void) {
     f32 *value;

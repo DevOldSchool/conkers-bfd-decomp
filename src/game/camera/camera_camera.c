@@ -77,7 +77,6 @@ void func_151284C4();
 void func_1512317C(u8 *);
 void func_15123568(u8 *);
 void func_15125924(u8 *);
-extern u16 **D_800BE728;
 extern u8 D_800DBFF4[];
 extern u16 D_800BE710[];
 
@@ -460,8 +459,6 @@ void func_15049688(void *, f32, void *, f32, f32, f32);
 void func_150AD8B0(f32 *, f32 *, f32 *);
 f32 func_150AD900(f32 *, f32 *);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
-extern u8 D_800C3671;
-extern u8 D_800BEA0C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15123A54 CURRENT (5742) */
 void func_15123A54(u8 *arg0) {
@@ -881,7 +878,6 @@ void func_15124B18(u8 *arg0) {
 }
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);
 void func_1507E1D0(void *, f32 *, f32 *, f32 *);
-extern u8 D_800C3671;
 
 void func_15124C38(void *arg0, f32 *arg1) {
     f32 target;
@@ -1390,7 +1386,6 @@ typedef struct CameraCameraTransition {
 } CameraCameraTransition;
 
 void func_1509BFB0(s32, s32, s32, s32, ...);
-extern u8 D_800D1940;
 
 void func_15125C40(CameraCameraTransition *arg0) {
     s32 isSpecial;
@@ -1424,7 +1419,6 @@ void func_15125C40(CameraCameraTransition *arg0) {
     }
 }
 extern u16 D_800BE710[];
-extern u8 D_800C3671;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15125DB4 CURRENT (2680) */
 void func_15125DB4(void *arg0) {

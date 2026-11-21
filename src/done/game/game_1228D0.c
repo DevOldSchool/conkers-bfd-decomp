@@ -37,8 +37,6 @@ typedef struct Game1228D0Spawn {
     u8 byte5D;
 } Game1228D0Spawn;
 
-extern u8 D_800917F8[];
-
 void func_150F5420(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     Game1228D0Spawn spawn;
     s32 total;

@@ -43,7 +43,6 @@ void *func_151D8868(void *, s32, u8, s32);
 struct225 *func_15160A58(struct127 *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 argA, s8 argB, s32 argC, u8 argD, u8 argE, s32 argF);
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
-extern u8 D_800A4AA0[];
 extern Vec3f D_800A5480;
 
 typedef struct Game127060BurstData {
@@ -472,7 +471,6 @@ void func_150FA468(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
-extern u8 D_80088B60;
 extern u8 *D_800D3098;
 
 void func_150FAA40(u8 arg0, s32 arg1) {

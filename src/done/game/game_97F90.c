@@ -8,8 +8,6 @@
 
 void func_15137610(void *, void *, void *, s32, u8, s32);
 extern u8 D_800CC2D0;
-extern f32 D_800D1560[];
-extern f32 D_800D1570[];
 
 void func_1506AAE0(s32 arg0, s32 arg1) {
     u8 *temp_s1;

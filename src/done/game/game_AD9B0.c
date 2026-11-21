@@ -8,7 +8,6 @@
  */
 
 s32 func_15080738(s32);
-extern u8 D_800D1940;
 extern s32 D_800D3098;
 
 void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
@@ -102,9 +101,6 @@ s32 func_15080738(s32 arg0) {
     return 0;
 }
 void func_1001263C(s32, s32, s32);
-extern u8 D_800D1994;
-extern u8 D_800D1995;
-extern u16 *D_800D1998;
 
 void func_15080784(void) {
     s32 value;
@@ -147,11 +143,7 @@ void func_10023A10(void *, void *, s32);
 void *func_10003C40(s32, s32, s32, s32);
 void *func_1502B6BC(u32 *, s32, s32 *, s32, ...);
 void *func_1516A7B0(s32, s32, s32, void (*)(s32, s32, s32), void *, s32);
-extern u8 D_800D1941;
 extern void *D_800D1948;
-extern s32 D_800D1950;
-extern u8 D_800BEAAB;
-extern u8 D_800D2E40;
 extern GameAD9B0TextDescriptor D_800D1958;
 
 void func_15080828(s32 arg0) {

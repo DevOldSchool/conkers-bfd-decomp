@@ -9,7 +9,6 @@
 void *func_10003C40(s32, s32, s32, s32);
 void func_10023A10(void *, void *, s32);
 extern void *D_800C3FC0;
-extern void *D_800C3FC4[];
 
 void func_15004D50(void) {
     void **var_s1;

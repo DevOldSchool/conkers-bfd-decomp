@@ -140,7 +140,6 @@ void func_15183974(s32 arg0) {
         (&D_800DDE80[arg0])[1].fieldC = D_800DDE80[arg0].fieldC;
     }
 }
-extern s8 D_800DDF68[];
 void func_151839F0(s32 arg0, s32 arg1) {
     Game1B0740Slot *second;
 

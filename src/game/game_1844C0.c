@@ -208,8 +208,6 @@ typedef Gfx *(*Game1844C0PostCallback)(Gfx *, Game1844C0RenderActor *, s16, u8 *
 extern Game1844C0PreCallback D_8008ADBC[];
 extern Game1844C0PostCallback D_8008ADCC[];
 extern Game1844C0RenderPreset D_800A4AC8[];
-extern u8 D_80083740[];
-extern u8 D_800838C0[];
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
 Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
@@ -291,7 +289,6 @@ s32 func_15157860(s32 arg0) {
     return 1;
 }
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
-extern s32 D_800A6060[];
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 

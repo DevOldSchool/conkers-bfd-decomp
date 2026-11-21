@@ -34,7 +34,6 @@ s32 func_15145C90(s32);
 
 void func_15152B38(void *, u8, s32);
 extern u8 D_1000EC24[];
-extern u8 D_800DCA20;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3480 CURRENT (17614) */
 void func_151D3480(void *arg0, f32 *arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5) {
@@ -1251,7 +1250,6 @@ void func_151D5A18(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32
     }
 }
 s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
-extern s32 (*D_80086C90[])(void *, void *, s32);
 
 s32 func_151D5B6C(void *arg0, void *arg1, void *arg2, s8 arg3, s32 arg4) {
     s32 index;

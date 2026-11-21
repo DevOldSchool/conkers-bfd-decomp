@@ -48,7 +48,6 @@ void func_10010154(s32, void *, s32, s32, s32);
 u8 *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32, s32, s32, s32);
 s32 func_1508855C(s32);
 void func_150885EC(s32, s32);
-extern u8 D_800C3E78;
 
 void func_150D7790(u8 *arg0, s32 arg1) {
     s32 new_id;

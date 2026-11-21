@@ -15,7 +15,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s32 D_800DF7C8;
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
 void func_100226F0(void *, s32);
@@ -118,7 +117,6 @@ void func_15188A58(void *arg0, void **arg1) {
     }
     *arg1 = arg0;
 }
-extern s32 D_800DF7C8;
 
 void func_15188A9C(s32 arg0) {
     void *var_v0;
@@ -298,7 +296,6 @@ void func_15188E48(u8 *arg0) {
         arg0[2]++;
     }
 }
-extern s32 *D_80089250[];
 extern u8 *D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15188F84 CURRENT (3198) */
@@ -370,7 +367,6 @@ s32 func_1502C974(s32, s32, s32, s32, s32);
 s32 func_1503DA9C(void *, s32, s32, s32);
 u8 func_150849CC(u8 *, s32 *);
 extern u8 D_800CC2D0;
-extern u8 D_800DF7C4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151895F4 CURRENT (3031) */
 s32 func_151895F4(s32 arg0, u8 *arg1, s16 arg2) {

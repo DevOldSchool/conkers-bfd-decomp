@@ -51,7 +51,6 @@ void *func_8502B020(s32 *, s32, ...);
 void func_851F2960(s32, s32);
 void func_851F2DFC(s32, s32);
 void func_851F2E4C(s32, s32);
-extern u16 D_800427F4;
 
 void func_8001263C(s32 arg0, s32 volume, s32 pan) {
     void *resource;

@@ -88,7 +88,7 @@ void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 s32 func_1516284C(u8 *, s32 *, s32, s32, s32, u8, u8, s32, u8, u8, s32);
 f32 func_150ADA68(void);
-extern u8 D_800A4AA0[], D_1000EF40[];
+extern u8 D_1000EF40[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A6068 CURRENT (5395) */
 void func_151A6068(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {

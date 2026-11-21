@@ -21,8 +21,6 @@ void func_150A7A48(void *, void *, void *);
 void func_151EFEB8(void *, s32);
 void func_1501B22C(s32);
 
-extern u8 D_800D9C10[];
-
 void func_1510B690(void) {
     s16 i;
     Game138B40Work sp4C;
@@ -56,7 +54,6 @@ Game138B40Command *func_1510B7B4(Game138B40Command *arg0, s32 arg1) {
     { Game138B40Command *command = arg0++; command->word0 = 0xEF082C3F; command->word1 = 0x552230; }
     return arg0;
 }
-extern f32 D_800D35E0;
 
 void func_1510B958(s32 arg0) {
     GameRenderView *record;
@@ -69,8 +66,6 @@ extern u8 *D_800DBFF0;
 extern u8 D_800C35EA;
 extern LookAt D_800D9B90[];
 extern u8 D_800D9BD0[][2][8];
-extern u8 D_800D9E28[];
-extern u8 D_800DBE62;
 extern Gfx *D_800B0E00;
 extern Gfx *D_800B0E04;
 extern Gfx *D_800B0E08;

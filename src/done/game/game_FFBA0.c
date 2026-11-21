@@ -63,7 +63,6 @@ void func_150D278C(s32 arg0, void *arg1, u8 arg2, s32 arg3) {
 void func_1514373C(f32, f32, f32 *, f32 *);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[0x28];
 extern f32 D_800BE9A4;
 
 typedef struct GameFFBA0Emitter {

@@ -12,9 +12,6 @@ s32 func_10003C40(s32, s32, s32, s32);
 void func_150006E0(s32);
 void func_1501A8C0(s32, s32, s32, s16);
 void func_1510B070(s32);
-extern u8 D_800BE614;
-extern u8 D_800BE617;
-extern u8 D_800BE635;
 
 void func_1501A220(s32 arg0, s32 arg1) {
     f32 temp_fv0;
@@ -57,7 +54,6 @@ void func_1501A220(s32 arg0, s32 arg1) {
     D_800BE635 = 0;
     func_1510B070(arg1);
 }
-extern s32 D_800BE9C4;
 typedef union Game476D0DisplayCommand {
     struct {
         u32 word0;
@@ -170,8 +166,6 @@ void func_1501B0A0(s32, s32);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1510B32C(s32, f32, f32, f32);
-extern s32 D_800BE638[];
-extern u8 D_800BE630[];
 extern s16 D_800BE668[][5][2];
 
 void func_1501A8C0(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
@@ -323,7 +317,6 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 f32 func_150484A0(f32, f32);
 void func_1510B128(s32, f32, f32, f32, f32);
-extern s32 D_800BE638[];
 
 void func_1501B0A0(s32 arg0, s32 arg1) {
     f32 angleX;

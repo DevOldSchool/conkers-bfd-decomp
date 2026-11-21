@@ -39,7 +39,6 @@ typedef struct Game184DF0Actor {
 } Game184DF0Actor;
 
 extern Game184DF0Actor D_800CC2D0[];
-extern u8 D_800C3E90;
 extern u8 *D_800D1C90[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15184150 CURRENT (1794) */

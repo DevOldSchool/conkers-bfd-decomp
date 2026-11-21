@@ -14,7 +14,6 @@ void func_1507CD64(void *, s32);
 void func_151951E0(u8 *);
 extern u8 D_800CC2D0[];
 extern u8 *D_800DBEF4;
-extern u32 *D_800DBF94;
 
 void func_150D0E90(s32 arg0) {
     s32 i;

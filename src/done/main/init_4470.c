@@ -133,7 +133,6 @@ typedef union {
     u16 half[2];
 } TransferWord;
 
-extern u32 D_80000308;
 extern TransferThread D_80035910;
 void func_80022A60(TransferThread *);
 

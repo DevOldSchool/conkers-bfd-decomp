@@ -17,7 +17,6 @@ void func_15008A10(void) {
 }
 extern f32 D_800DDDC8[4];
 extern f32 D_800DDDD8[4];
-extern u8 D_800DDE38;
 extern s8 D_800DDE3C[4];
 
 void func_15008A60(void) {

@@ -222,7 +222,6 @@ typedef struct Game1CBE20SpawnPacket {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[0x28];
 
 void func_1519ED84(f32 *arg0, s32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     Game1CBE20SpawnPacket packet;

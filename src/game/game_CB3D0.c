@@ -60,8 +60,6 @@ s32 func_150882E4(s32, s32);
 s32 func_150887F8(void);
 s16 func_1508B194(s32);
 void *func_15083E90(u8);
-extern s8 D_800E0BE0[];
-extern u16 D_8008FDBC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E3DC CURRENT (200) */
 s32 func_1509E3DC(s32 arg0, u32 arg1, GameCB3D0Query *arg2) {

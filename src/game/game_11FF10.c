@@ -27,12 +27,9 @@ void *func_15083E90(u8);
 struct Blood36C3CActor;
 void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15145A50(u8 *);
-extern s32 *D_800BE4F0;
 extern u8 D_800CC2D0;
-extern s8 D_800CC49A;
 extern void *D_800CC5EC;
 extern s32 D_800DBEF4;
-extern u32 *D_800DBF94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F2A60 CURRENT (3125) */
 void func_150F2A60(s32 arg0) {
@@ -179,7 +176,6 @@ s32 func_15146078(void *, void *, void *);
 f32 func_150ADA68(void);
 extern u8 D_800C35EA;
 extern Vec3f D_800A5480;
-extern u8 D_800A4AA0[0x28];
 extern f32 D_800BE9A4;
 
 void func_150F2D14(Game11FF10Owner *arg0) {

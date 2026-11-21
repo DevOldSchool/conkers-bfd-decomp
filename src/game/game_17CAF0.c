@@ -477,7 +477,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[];
 
 void func_151511FC(Game1511FCConfig *arg0, u8 arg1, s32 arg2) {
     void *result;

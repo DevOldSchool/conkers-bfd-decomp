@@ -142,7 +142,6 @@ void *func_150356C8(void) {
 s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
 extern s32 D_800BE628;
 extern void *D_800D1C90[];
-extern u8 D_800D9C10[];
 
 s32 func_15035714(s32 arg0, u8 *arg1, u8 *arg2, f32 arg3) {
     f32 temp_fa0;

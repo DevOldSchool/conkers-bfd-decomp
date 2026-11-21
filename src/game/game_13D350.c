@@ -34,10 +34,7 @@ s32 func_151108C4(f32, f32, f32, f32, f32);
 void *func_1501A490(void *, s16, s32, s32, s32, s32);
 extern u8 D_800D9B68;
 extern u8 D_800D9B78;
-extern u8 D_800BE635;
 extern u8 D_800C35EA;
-extern u8 D_800C3681;
-extern u8 D_800C3682;
 extern s32 D_80082FA4;
 extern void *D_800DBFF0;
 extern struct Game13D350Record *D_800BE628;
@@ -212,7 +209,6 @@ void * func_1501A490(void *, s16, s32, s32, s32, s32);
 void *func_1501A680(void *);                        /* extern */
 void *func_1501A6CC(void *, s32, s32, s32, s32);    /* extern */
 extern s32 D_80082FA4;
-extern s32 D_800BE9C4;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game13D350Command *func_151106A8(Game13D350Command *arg0) {

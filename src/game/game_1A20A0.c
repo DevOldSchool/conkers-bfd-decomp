@@ -39,7 +39,6 @@ typedef struct Game174BF0Actor {
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 extern s32 D_800DBE3C;
-extern s32 *D_800DBE5C;
 extern u8 *D_800DBFF0;
 
 void func_15174BF0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7, s32 arg8) {
@@ -337,7 +336,6 @@ typedef struct {
     f32 x, y, z;
 } Game17685CPosition;
 extern Game17685CPosition D_800CC2D0;
-extern s8 D_800DDF68[];
 s32 func_150AD960(s32, s32, s32, s32);
 void func_15175958(void *);
 
@@ -567,8 +565,6 @@ void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
 void *func_15176DF0(u32 *, u8 *, s16);
-extern f32 D_800D35E0;
-extern u8 D_800D9C10[];
 extern u8 D_800DDE80[];
 
 void *func_151770C8(u32 *gdl, u8 *arg1, s16 arg2) {

@@ -394,7 +394,6 @@ void func_15087FEC(s32 arg0, s32 arg1) {
 }
 s32 func_1507BB28(s32, s32);
 extern u8 D_800CC2D0;
-extern u8 D_800C3E78;
 extern void *D_800D154C;
 
 s32 func_1508802C(u8 *arg0, u8 *arg1, s32 arg2) {
@@ -2130,7 +2129,6 @@ void func_1508EC5C(s32 arg0, s32 arg1) {
     temp_v0 = D_800CC40F[arg0].field_0;
     func_1509BFB0(1, temp_v0 | 0x2000, 0x61, arg1);
 }
-extern s32 D_80087380;
 
 typedef struct GameB4080Group {
     u16 unk0;
@@ -2160,7 +2158,6 @@ s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
     }
     return -1;
 }
-extern s32 D_80087380;
 
 void func_1508EDBC(u32 arg0) {
     s32 temp_v0;

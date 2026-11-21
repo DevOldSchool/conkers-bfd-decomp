@@ -77,7 +77,6 @@ struct Game1F1F60Hit;
 s32 func_151C4B0C(struct Game1F1F60Hit *, struct Game1F1F60Hit *, Vec3f *, Vec3f *, f32 *, f32, u8, Vec3f *,
                   Vec3f *, u8 *, u8, f32, void *, s8, u8, u8, s32, u8);
 s32 func_151D5B6C(void *, void *, void *, s8, s32);
-extern u8 D_800A4AA0[];
 
 typedef struct Game1EF500TrailExt {
     u8 flags;
@@ -558,7 +557,6 @@ s32 func_15102920(f32, u8, void *, void *, s16, u8, u8, s32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15152B38(void *, u8, s32);
 f32 func_150ADA68();
-extern u8 D_800DCA20;
 
 void func_151C2F48(Game1EF500EmitterOwner *arg0) {
     Game1EF500EmitterState *state;
@@ -945,7 +943,6 @@ typedef void (*Game1EF500TimerCallback)(void *, s32);
 typedef void (*Game1EF500DoneCallback)(s32);
 extern Game1EF500DoneCallback D_8008FBD0[];
 extern s32 D_800DBEF4;
-extern void (*D_800E0940)(s32, s32);
 
 s32 func_151C455C(s32 arg0, u8 *arg1, f32 arg2) {
     s32 temp_v1;

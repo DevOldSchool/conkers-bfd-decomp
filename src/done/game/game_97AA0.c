@@ -75,8 +75,6 @@ void func_1506A6FC(void *arg0, u8 arg1) {
     func_150E0348(arg0, 0xFF, 1);
 }
 void func_151BB61C(void *, void *, void *, u8, s32);
-extern f32 D_800D1560[];
-extern f32 D_800D1570[];
 
 void func_1506A724(void *arg0, s32 arg1) {
     func_151BB61C(arg0, &D_800D1560, &D_800D1570, 0xFF, 1);

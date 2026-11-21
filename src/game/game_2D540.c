@@ -20,8 +20,6 @@ void *func_1515D480(s32);
 extern void *D_800B0DF0;
 extern u8 D_800D9B68[4][3], D_800D9B78[4][3];
 extern u8 D_800D9BD0[];
-extern u8 D_800D9AF0;
-extern u8 D_800D9B18;
 
 void func_150006E0(s32 arg0) {
     s32 i;

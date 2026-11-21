@@ -7,8 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_multi_function_units.md
  */
 
-extern u8 D_80088B40;
-
 void func_150F51A0(s32 arg0, s32 arg1) {
     D_80088B40 = 1;
 }

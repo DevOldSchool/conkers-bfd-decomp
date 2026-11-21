@@ -107,7 +107,6 @@ void *func_10022EC0(void *, const void *, u32);
 void func_1513FFF4(void *, u8, u8);
 void func_151400D0(void *, void *);
 s32 func_1515D480(s32);
-extern u8 D_800A4AA0[0x28];
 
 void *func_1513C350(s32 arg0, s32 arg1, u8 arg2, u8 arg3,
                      s32 arg4, s32 arg5, s32 arg6, void *arg7,
@@ -646,7 +645,6 @@ void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
 void func_1513D4B8(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
     func_1513D2F0(arg0, arg1, arg2, arg3, arg4, arg5, arg6, 0, 0, arg7, arg8, arg9);
 }
-extern u8 D_800A4AA0[0x28];
 
 void *func_1513D524(void *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
     return func_1513D2F0((s32)arg0, (s32)&D_800A4AA0, arg1, arg2, arg3, arg4, arg5,
@@ -1357,7 +1355,6 @@ void *func_15140190(Game169510RenderOwner *arg0, s16 arg1) {
     return result;
 }
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
-extern s32 D_800A5168[];
 
 void func_151403A8(void *arg0, u8 arg1) {
     func_15169260(&D_800A5168, 4, (s32) arg0, arg1);

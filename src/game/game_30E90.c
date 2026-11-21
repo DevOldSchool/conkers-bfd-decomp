@@ -40,7 +40,6 @@ void func_1510F800(s32);
 void func_151150B0(s32);
 void func_15116058(void *);
 void func_15116110(void *);
-extern s32 *D_80089250[];
 extern s16 D_800D37E0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150045C4 CURRENT (2577) */

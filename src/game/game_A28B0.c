@@ -85,7 +85,6 @@ void func_15075548(void);
 void func_15075650(void);
 void func_150836CC(void *arg0, s32 arg1);
 
-extern u8  D_800D1890;
 void func_15075400(s32 arg0) {
     u8 count;
     u8 temp;
@@ -981,7 +980,6 @@ void func_150779A8(void) {
     func_15075650();
     D_800D154C->pad223[0] = 0xB;
 }
-extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
 void func_150779D4(void) {
@@ -1121,7 +1119,6 @@ void func_15077F64(void) {
         func_15056A00(D_800D154C, angle, mode);
     }
 }
-extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
 void func_15078074(void) {
@@ -1294,9 +1291,7 @@ void func_15078A08(void) {
     *(f32 *)((u8 *)temp_v0 + 8) = *(f32 *)((u8 *)temp_a0 + 8);
     *(f32 *)((u8 *)temp_v0 + 0xC) = *(f32 *)((u8 *)temp_a0 + 0xC);
 }
-extern s8 D_800BE9EC;
 extern u8 D_800CC3D4[];
-extern s8 D_800CC49A;
 extern void *D_800CC5EC;
 extern u8 D_800CC2D4;
 
@@ -1412,7 +1407,6 @@ void func_15079090(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-extern u8 D_800C3E78;
 s32 func_1507BB28(s32, s32);
 
 void func_150790C4(void) {
@@ -2369,8 +2363,6 @@ void func_1507B7E8(void) {
     }
 }
 typedef void (*GameA28B0Callback)(s32);
-
-extern void (*D_80086150[])(s32);
 
 void func_1507B884(void) {
     GameA28B0State *saved_state;

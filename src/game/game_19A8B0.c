@@ -165,7 +165,6 @@ typedef struct Game19A8B0Sprite {
 } Game19A8B0Sprite;
 
 extern Game19A8B0Resource *D_8008CA4C[];
-extern s8 D_800D2DAB;
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 void *func_15142FBC(void *, s32, s32, u8 *);
 void *func_15095760(void *, Game19A8B0Sprite *, u8, u8);

@@ -9,7 +9,6 @@
 
 typedef struct { u8 bytes[5]; } Game12D7F0Copy5;
 extern Game12D7F0Copy5 D_80088BC0;
-extern u8 D_800DD405;
 
 
 void func_15100340(s32 arg0) {
@@ -47,7 +46,6 @@ typedef struct Game12D7F0Command {
 } Game12D7F0Command;
 
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern s32 D_80090324[];
 
 Game12D7F0Command *func_15100464(Game12D7F0Command *arg0) {
     s32 workspace[4];

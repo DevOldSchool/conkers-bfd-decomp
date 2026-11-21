@@ -17,7 +17,6 @@ typedef struct {
 extern s32 D_800C6660;
 extern s32 D_800C6664;
 extern s32 D_800C6668;
-extern u8 D_800C666F[];
 extern Game322B0Record D_800C6670;
 extern Game322B0Record D_800C67F0;
 

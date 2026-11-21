@@ -33,7 +33,6 @@ void func_1510D720(s32 arg0) {
     }
 }
 void func_10004074(s32);
-extern s32 D_800B0E58[];
 
 void func_1510D7AC(s32 arg0) {
     s8 value;

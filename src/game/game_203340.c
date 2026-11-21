@@ -119,7 +119,6 @@ Game203340Command *func_151D6418(Game203340Command *arg0, s32 arg1, s32 arg2, s3
     return arg0;
 }
 void func_100043B4(void *, s32);
-extern u8 D_800BE575;
 
 void func_151D66F0(s32 arg0, s32 arg1) {
     if ((D_800BE9F0 != 6) || (D_80038080 != 0)) {

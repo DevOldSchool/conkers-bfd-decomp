@@ -70,9 +70,6 @@ extern u8 D_800CC2D0[];
 void func_15044370(void) {
     D_800CBD9C = 0;
 }
-extern u8 D_80089120[];
-extern u8 D_800CBDD3;
-extern u8 D_800DBE62;
 void func_1510F800(s32);
 void func_15044660(Game71820Global *, f32, f32, f32);
 s32 func_150AB1F0(f32, f32, f32, Game71820Global *, s32);
@@ -392,7 +389,6 @@ s32 func_150A3A70(s32, s32);
 void func_1510F800(s32);
 extern Game71820Candidate D_800D3300[];
 extern u8 *D_800DBE3C;
-extern s32 *D_800DBE5C;
 s32 func_150A4FA0(s32, s32);
 
 s32 func_15044ED0(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
@@ -716,7 +712,6 @@ typedef struct Game71820Surface {
 
 s32 func_150A43E0(s32, s32, s32, void *);
 void func_150A44F0(s32, void *, s32);
-extern u8 D_800D3830[];
 extern s32 D_800DBEF4;
 
 extern u8 D_800D37E0[];

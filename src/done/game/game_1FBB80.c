@@ -47,7 +47,6 @@ s32 func_1504530C(void *, f32, void *);
 f32 func_150ADA68(void);
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_151432BC(void *, f32 *, f32 *, f32 *, f32 *);
-extern u8 D_800A4AA0[];
 extern f32 D_800BE9A4;
 
 void func_151CE6D0(Game1FBB80Object *arg0) {

@@ -12,7 +12,6 @@ void func_15080200(void) {
 void func_15080430(u8 *, s32, s32);
 s32 func_100126E8(u8 *, s32);
 extern u8 D_800CC2D0;
-extern u8 D_800D18D0;
 
 void func_15080228(void) {
     u8 buffer[0x100];

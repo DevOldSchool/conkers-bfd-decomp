@@ -58,7 +58,6 @@ void func_1507D4F8(s32);
 void func_1507E1D0(void *, f32 *, f32 *, f32 *);
 s32 func_150859AC(s32, s32);
 void func_1517F814(s32, f32, f32, f32, s32);
-extern u16 D_8008FDBC;
 extern u16 D_800BE710[];
 extern u8 D_800CC2D0;
 
@@ -407,7 +406,6 @@ void func_15082A44(s32, s32, s32, s32, s32);
 void func_15088D58(GameA9D90Object *);
 extern s32 D_800D20FC;
 extern u8 *D_800DBFF0;
-extern u8 D_800D18A8;
 
 void func_1507D1D8(GameA9D90Object *arg0) {
     s32 value;
@@ -489,11 +487,8 @@ s32 func_150859AC(s32, s32);
 void func_1509C3A0(void);
 void func_1507D1D8(GameA9D90Object *);
 void func_15085710(s32, s32, s32);
-extern u16 D_8008FDBC;
 extern s8 D_800D2E43;
 extern u8 *D_800D2E4C;
-extern u8 D_800BE3E0;
-extern u8 D_800D18A8;
 
 void func_1507D4F8(s32 arg0) {
     GameA9D90Object *actor;
@@ -812,8 +807,6 @@ void func_1501D348(s32, s32, s32, u8, s32);
 void func_15022190(s16, s16, s16, f32);
 void func_15084D70(s32, s32, s32, void *, void *, void *, void *, void *, void *, s32, s32 *);
 extern u8 D_800C35EA;
-extern u8 D_800C3670;
-extern u8 D_800C3671;
 
 void func_1507DFE4(s32 arg0, s32 arg1) {
     s32 sp64;
@@ -848,8 +841,6 @@ play:
         }
     }
 }
-extern u8 D_800BE3E0;
-extern u8 D_800D18A8;
 
 s32 func_1507E114(s32 arg0) {
     s32 sp5C;

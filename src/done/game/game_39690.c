@@ -8,7 +8,6 @@
 
 void func_100226F0(void *, s32);
 extern u8 D_800DDE80;
-extern s8 D_800DDF68[];
 
 void func_1500C1E0(void) {
     s32 i;

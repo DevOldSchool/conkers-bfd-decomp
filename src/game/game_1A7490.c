@@ -138,8 +138,6 @@ s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
 s32 func_1517A9A8(s32, s32);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void *func_15142FBC(void *, s32, s32, u8 *);
-extern u8 D_800D9C10[];
-extern f32 D_800D35E0;
 
 void *func_1517A3A0(u32 *gdl, void *arg1, s16 view) {
     Game1A7490Motion *effect;

@@ -32,7 +32,6 @@ Game1A11B0Command *func_1501A490(Game1A11B0Command *, s16, s32, s32, s32, s32);
 Game1A11B0Command *func_1501A680(Game1A11B0Command *);
 extern s32 D_8002AAE8[];
 extern Game1A11B0View *D_800BE628;
-extern s32 D_800BE9C4;
 
 Game1A11B0Command *func_15173D00(Game1A11B0Command *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 arg6) {
     { Game1A11B0Command *command = arg0++; command->w0 = 0xE7000000; command->w1 = 0; }

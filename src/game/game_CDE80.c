@@ -46,7 +46,6 @@ typedef struct {
     s32 state;
     u8 pad24[0x10];
 } GameCDE80Zone;
-extern u32 D_800D3094;
 extern s32 D_800D3098;
 extern s32 D_800DBFF0;
 extern u8 D_800CC2D0;
@@ -167,7 +166,6 @@ void func_150A0D14(void *arg0) {
 }
 typedef struct { s32 active; u8 model, kind; } GameCDE80ActorHeader;
 extern u8 D_800CC2D0;
-extern u32 D_800D3094;
 extern s32 D_800D3098;
 s32 func_150AD9A0(s32, s32, s32);
 void func_15035808(s32, s32, f32, f32, f32, f32, f32, f32, f32, f32);
@@ -403,7 +401,6 @@ void func_150A25D4(GameA25D4Event *arg0, void *arg1, s32 arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A25D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A25D4.s")
 s32 func_150A1DA0();
-extern u32 D_800D3094;
 extern s32 D_800D3098;
 
 void func_150A278C(void *arg0) {
@@ -428,7 +425,6 @@ void func_150A278C(void *arg0) {
     }
 }
 u64 func_100268A4(u64, u64);
-extern s32 *D_800D3270;
 
 void func_150A2864(u32 arg0, s32 arg1) {
     s32 i;
@@ -462,7 +458,6 @@ void func_150A2940(s32 arg0, s32 arg1, s32 arg2) {
     }
 }
 u64 func_10026800(u64, u64);
-extern u16 D_800D2340;
 extern u8 D_800CC2D0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A29C8 */
