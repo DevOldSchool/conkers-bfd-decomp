@@ -90,6 +90,9 @@ only exact results through transactional `finish`.
 - Run `./conker rules [--findings] <changed sources>` before handoff and report
   both numbers: bytes matched and matched under the rules. Do not introduce new
   [match] findings; a trick that closes a diff is a clue, not the answer.
+- Globals already in `include/globals.h` need no local `extern`. After a batch,
+  `./conker hoist-externs --apply` moves new agreeing declarations there; run
+  the byte gates afterwards.
 - When a style rule and the bytes disagree, keep the bytes and write
   `// RULE-EXCEPTION: <rule>, <reason>`. Rule changes are maintainer rulings,
   recorded in the profile with the checker change in the same commit.

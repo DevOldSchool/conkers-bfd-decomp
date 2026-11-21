@@ -80,7 +80,9 @@ Matched C must also pass the [code rules](docs/code-rules.md): no fixed-offset
 casts, unit-local `extern` globals, duplicate type definitions, fake code or
 assembly. A byte-identical function that fails one is `MATCH-PENDING`, kept and
 reported as open work. Check changed sources with `./conker rules --findings <path>`;
-the checker is report-only and does not gate CI.
+the checker is report-only and does not gate CI. Globals are declared in
+`include/globals.h`; `./conker hoist-externs --apply` moves new unit-local
+`extern`s there when every unit agrees on the type.
 
 Use the latest `finish` diagnosis; run `diagnose-diff` only if evidence is stale
 or missing. After the initial candidate, the default ceiling is two targeted

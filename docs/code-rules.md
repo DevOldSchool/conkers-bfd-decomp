@@ -58,6 +58,7 @@ These never block a match; they list open readability work.
 | Parking | Unmatched functions are `GLOBAL_ASM`. Unfinished C candidates are parked in `#if 0 /* CONKER_DEFERRED_CANDIDATE <function> CURRENT (<score>) */` blocks, which the checker skips and R37 exempts. |
 | Byte gates | `./conker build` (full ROM, main and debugger) and `./conker game-build` (game overlay); `verify-batch` for function batches. |
 | Rule checker | `./conker rules` |
+| Globals | Globals that matched C uses are declared in `include/globals.h`, maintained by `./conker hoist-externs`. Units that define storage of their own (file-scope variables or `static` locals) do not include it, because IDO's layout of a unit's own storage can shift when the unit sees thousands more declarations; their `extern`s stay local and remain R2 work. |
 | Rule changes | Padding members (`pad*`) are advisory R27 rather than R17, because they name untouched ranges, the honest form R27 allows; `--strict-padding` restores R17. R2 is not relaxed: no surviving source shows the original declared externs in units. |
 | Tooling | New standalone tools are written in C where practical (as `tools/rules/rules_check.c` is); the existing Python tooling stays. |
 
@@ -74,9 +75,26 @@ The checker is read-only and needs no ROM. It lexes C without preprocessing,
 treats every live C function definition under `src/` as bytes-matched
 (unmatched code is `GLOBAL_ASM`; parked candidates are skipped), and always
 reads `include/` for shared types. R1 compares only the files it reads, so run
-it over all of `src/` (the default) for the full count. It builds with the host `cc`, or inside the
-toolchain image when the host has none. `--fail-on-pending` exits 1 when any
-function is `MATCH-PENDING`; nothing in CI uses it yet.
+it over all of `src/` (the default) for the full count. It builds with the
+host `cc`, or inside the toolchain image when the host has none.
+`--fail-on-pending` exits 1 when any function is `MATCH-PENDING`; nothing in
+CI uses it yet.
+
+## Hoisting extern globals (R2)
+
+```sh
+./conker hoist-externs               # report what would move and why the rest stays
+./conker hoist-externs --apply       # move it, then run the byte gates
+```
+
+The tool moves a global into `include/globals.h` when every unit declares it
+alike (an unbounded array agrees with one bounded form, which the header
+takes), every type it names is visible to the header (`types.h`,
+`game_vec.h`), and no macro, function or other header uses the name. It
+removes the moved declarations from their units and adds
+`#include "globals.h"`. A global that stays is reported with its reason:
+declared with different types, or naming a unit-private type. Those need type
+recovery first. Run it after matching new functions; it needs a host `cc`.
 
 ## Clearing MATCH-PENDING functions
 
@@ -84,8 +102,10 @@ A [match] finding is a clue to the real source, not something to hide:
 
 - **R4:** declare or extend the struct the offsets belong to and use its
   members. This is the usual shape of a structural pass over one unit.
-- **R2:** move the `extern` to the header of the module that owns the global,
-  and include it.
+- **R2:** run `./conker hoist-externs --apply`. A global it leaves behind is
+  declared with different types in different units (settle the one type the
+  original used, which is type recovery and goes through the byte gates), or
+  names a unit-private type (promote the type first).
 - **R1:** promote the shared layout to one header type under the
   [shared type rules](decompilation-workflow.md#shared-type-definitions), or
   give unit-private copies distinct names.
