@@ -43,7 +43,7 @@ s32 func_150FDDA0(void *arg0, u8 arg1, s32 arg2) {
 }
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
-void func_151D3E6C(void *, void *, void *, s32);
+void func_151D3E6C(void *, Vec3f *, Vec3f *, s32);
 void func_150FE0B8(u8 *, Vec3f *, u8, s32);
 void func_150FE288(void *);
 extern s32 D_800A1F70;

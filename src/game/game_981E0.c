@@ -13,7 +13,6 @@
  * - func_1506D584
  * - func_1506E46C
  * - func_15070300
- * - func_150721A4
  * - func_15072B44
  * - func_15072F10
  * - func_15073118
@@ -315,7 +314,7 @@ void func_1506B5B4(void) {
 void func_1506B5CC(void) {
     D_800D154C[0x1CB] = 1;
 }
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 
 void func_1506B5E4(void) {
     func_1506160C(D_800D154C, 2, 7, 8, 0U);
@@ -2895,19 +2894,18 @@ void func_15071FDC(void) {
         *(s32 *)(*(u8 **)((u8 *)base + 0x318) + 0x5F0) |= 0x400;
     }
 }
-extern void func_1506160C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
+extern void func_1506160C(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150721A4 CURRENT (40) */
 void func_150721A4(void) {
-    s32 green;
     s32 red;
+    s32 green;
+    s32 blue;
 
-    green = D_800D1580 >> 8;
-    red = D_800D1580 >> 16;
-    func_1506160C(D_800D154C, red & 0xFF, D_800D1580 & 0xFF, green & 0xFF, 0U);
+    blue = D_800D1580 & 0xFF;
+    green = (D_800D1580 >> 8) & 0xFF;
+    red = (D_800D1580 >> 16) & 0xFF;
+    func_1506160C(D_800D154C, red, blue, green, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150721A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_150721A4.s")
 void *func_15072208(void *arg0, s32 arg1);
 
 void *func_150721E8(void *arg0) {
@@ -2937,13 +2935,13 @@ void *func_15072208(void *arg0, s32 arg1) {
 void func_150722F0(void) {
     u8 *actor;
     s32 hi;
-    u8 lo;
+    s32 lo;
 
     actor = func_150721E8(D_800D154C);
     if (actor != 0) {
         hi = D_800D1580 >> 8;
-        lo = D_800D1580;
-        func_1506160C(actor, 2, hi & 0xFF, lo & 0xFF, 0);
+        lo = D_800D1580 & 0xFF;
+        func_1506160C(actor, 2, hi, lo, 0);
     }
 }
 void func_1507233C(void) {

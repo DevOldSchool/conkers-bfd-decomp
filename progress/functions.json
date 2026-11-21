@@ -22966,17 +22966,16 @@
       "symbol": "func_15071FDC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Round11 2026-10-19: CURRENT 460 -> 40 with green = D_800D1580 >> 8; red = D_800D1580 >> 16 as statements (shift order) and the global read directly (a named value local gives 460 via coalescing moves). Residual: loaded word lands in v0, target loads into v1 off the v0 address. Same-line joins unchanged. permute --budget 32 best 40; randomized 90 s reached 10 only through do {} while (0) and a long long cast (fakes, rejected). Ledger build/us/manual-attempts/round11/ledger.md.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150721A4",
           "vram": "0x150721A4"
         }
@@ -30839,17 +30838,16 @@
       "symbol": "func_1507E114"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "round-24 s006: block-scoped natural C matches every instruction; CURRENT 300 is 3 unit-end alignment nops missing because the focused object omits preceding GLOBAL_ASM func_1507CD64 (mod-16 position 0xC vs authentic 0x0); retry after 1507CD64 is C",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 224,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507E1D0",
           "vram": "0x1507E1D0"
         }
@@ -82990,17 +82988,16 @@
       "symbol": "func_151D3E04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 740,
-        "reason": "Correct four incoming arguments/eight callee arguments and actual midpoint snapshots retained at CURRENT (740). Snapshotting FP before state branch removes incoming pointer spill; reusable coordinate pair snapshots regressed1410. Frame28 exact; coordinate load orientation, branch/integer scheduling and full-span shortening remain. Four finish calls including one compile repair, two targeted revisions exhausted; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D3E6C",
           "vram": "0x151D3E6C"
         }
@@ -90168,17 +90165,16 @@
       "symbol": "func_15088D58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 908,
-        "reason": "nov11 review cut: uniform link * 0x10 address math; mixing link * 0x10 and link << 4 to stop CSE reaches CURRENT 0 (hint only: build/us/manual-attempts/nov11/agF/func_15088F30/best.c)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 332,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15088F30",
           "vram": "0x15088F30"
         }

@@ -8,11 +8,6 @@
 /*
  * Reviewed source unit: src/game/game_A9D90.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1507E1D0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameA9D90Inner {
@@ -901,7 +896,6 @@ s32 func_1507E114(s32 arg0) {
 
 void func_15143134(f32 *, f32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 CURRENT (300) */
 void func_1507E1D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
         s32 var_a2;
@@ -927,5 +921,3 @@ void func_1507E1D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
         *arg3 = *(f32 *)((u8 *)arg0 + 0x1C);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507E1D0.s")

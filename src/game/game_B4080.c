@@ -10,7 +10,6 @@
  * - func_15087350
  * - func_150883B0
  * - func_150888A8
- * - func_15088F30
  * - func_1508907C
  * - func_150891E8
  * - func_1508A1BC
@@ -537,9 +536,8 @@ typedef struct GameB4080SearchEntry {
     f32 phase8;
     f32 directionC;
     f32 direction10;
-    u8 pad14[0x18];
-    u8 node2C;
-    u8 pad2D[2];
+    u8 pad14[0x17];
+    u8 nodes2B[4];
     s8 group2F;
     u8 pad30;
     s8 actor31;
@@ -942,7 +940,7 @@ s32 func_15088A08(void *arg0, f32 arg1) {
 }
 
 s32 func_15088A08(void *, f32);
-void func_15088F30(f32 *, f32 *, f32 *, f32 *);
+void func_15088F30(GameB4080SearchEntry *, f32 *, f32 *, f32 *);
 f32 func_150497E0(f32 *, s32, f32);
 f32 func_150498A4(f32 *, s32, f32, f32 *);
 f32 func_15144BC8(f32);
@@ -975,7 +973,7 @@ void func_15088D58(GameB4080SearchActor *arg0) {
         do {
             again = 0;
             i = 0;
-            cursor = D_800D2350 + entry->node2C * 0x10;
+            cursor = D_800D2350 + entry->nodes2B[1] * 0x10;
             do {
                 link = cursor[9];
                 i++;
@@ -992,7 +990,7 @@ void func_15088D58(GameB4080SearchActor *arg0) {
             }
         } while (again != 0);
         entry->phase8 = 0.0f;
-        func_15088F30((f32 *)entry, xs, ys, zs);
+        func_15088F30(entry, xs, ys, zs);
         arg0->field14 = func_150498A4(xs, 0, entry->phase8, &x_derivative);
         arg0->field18 = func_150497E0(ys, 0, entry->phase8);
         arg0->field1C = func_150498A4(zs, 0, entry->phase8, &z_derivative);
@@ -1004,37 +1002,37 @@ void func_15088D58(GameB4080SearchActor *arg0) {
         arg0->rotation76 = rotation;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088F30 CURRENT (908) */
-void func_15088F30(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
+typedef struct GameB4080PathNode {
+    /* 0x0 */ s16 pos[3];
+    /* 0x6 */ u8 unk6[3];
+    /* 0x9 */ u8 links[5];
+    /* 0xE */ u8 type;
+    /* 0xF */ u8 unkF;
+} GameB4080PathNode;
+
+void func_15088F30(GameB4080SearchEntry *entry, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 x_delta;
     f32 z_delta;
-    u8 *cursor;
     s32 j;
     s32 i;
-    s32 link;
-    u8 *node;
-    u8 *target;
-    s32 none;
+    GameB4080PathNode *node;
+    GameB4080PathNode *target;
 
-    none = 0xFF;
-    for (i = 0, cursor = (u8 *)arg0; i != 4; i++) {
-        link = cursor[0x2B];
-        cursor++;
-        if (none != link) {
-            node = (u8 *)((link * 0x10) + (s32)D_800D2350);
+    for (i = 0; i != 4; i++) {
+        if (entry->nodes2B[i] != 0xFF) {
+            node = &((GameB4080PathNode *)D_800D2350)[entry->nodes2B[i]];
             target = node;
             for (j = 0; j < 5; j++) {
-                link = (node + j)[9];
-                if ((none != link) && (*(u8 *)((s32)D_800D2350 + link * 0x10 + 0xE) == 4)) {
-                    target = (u8 *)((link * 0x10) + (s32)D_800D2350);
+                if ((node->links[j] != 0xFF) && (((GameB4080PathNode *)D_800D2350)[node->links[j]].type == 4)) {
+                    target = &((GameB4080PathNode *)D_800D2350)[node->links[j]];
                     j = 5;
                 }
             }
-            x_delta = (f32) (*(s16 *)target - *(s16 *)node);
-            z_delta = (f32) (*(s16 *)(target + 4) - *(s16 *)(node + 4));
-            arg1[i] = (x_delta * *arg0) + (f32) *(s16 *)node;
-            arg2[i] = (f32) *(s16 *)(node + 2);
-            arg3[i] = (z_delta * *arg0) + (f32) *(s16 *)(node + 4);
+            x_delta = (f32) (target->pos[0] - node->pos[0]);
+            z_delta = (f32) (target->pos[2] - node->pos[2]);
+            arg1[i] = (x_delta * entry->value0) + (f32) node->pos[0];
+            arg2[i] = (f32) node->pos[1];
+            arg3[i] = (z_delta * entry->value0) + (f32) node->pos[2];
         } else {
             arg1[i] = (f32) (i << 6);
             arg2[i] = 0.0f;
@@ -1042,8 +1040,6 @@ void func_15088F30(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15088F30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088F30.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508907C CURRENT (2936) */
 u8 func_1508907C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
     u8 *entry;

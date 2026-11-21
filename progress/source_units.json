@@ -4907,7 +4907,7 @@
         "us": {
           "end": "0x7E2B0",
           "start": "0x7C8E0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_A9D90.c"
