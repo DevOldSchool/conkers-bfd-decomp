@@ -5,6 +5,7 @@
 #include <PR/mbi.h>
 #include "game_view.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10EF60.c
@@ -153,8 +154,6 @@ typedef struct Game10EF60Owner {
 
 s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_800BE9C0;
-extern s32 D_800D2C9C;
 
 Gfx *func_150E28DC(Gfx *arg0, Game10EF60Effect *arg1, s16 arg2) {
     Vec3f points[2];

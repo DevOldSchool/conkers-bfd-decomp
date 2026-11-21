@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_36680.c
@@ -14,14 +15,6 @@
 void func_100226F0(void *, s32);
 void func_1515D4D4(s32, s32, s32, u8);
 
-extern u8 D_800DCD24[3];
-extern u8 D_800DCD28[3];
-extern u8 D_800DCD30[4][3];
-extern u8 D_800DCD3C;
-extern u8 D_800DCD3D;
-extern u8 D_800DCD40[0x38];
-extern void *D_800DCD78;
-extern s32 D_800DCD7C;
 extern s32 D_800DCD80;
 extern s32 D_800DCD84;
 
@@ -48,7 +41,6 @@ void func_150091D0(void) {
     func_100226F0(D_800DCD40, sizeof(D_800DCD40));
 }
 void func_15009334(u32);
-extern u32 D_800D3094;
 
 void func_150092DC(void) {
     u32 var_s0;
@@ -263,9 +255,6 @@ void func_15009944(s32 arg0, u8 arg1) {
 }
 void *func_10022EC0(void *, const void *, u32);
 s32 func_1516295C(s32, u8, u8, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_80095B48[];
-extern u8 D_80095B4C[];
-extern u8 D_80095B50[];
 
 void func_15009990(void *arg0, s32 arg1) {
     s32 temp_v0;
@@ -277,7 +266,6 @@ void func_15009990(void *arg0, s32 arg1) {
         func_10022EC0((u8 *)temp_v0 + 0x48, sp40, 1);
     }
 }
-extern u8 D_80095B27[];
 
 void func_15009A38(s32 arg0, s32 arg1) {
     Game36680LightDescriptor sp20;
@@ -483,7 +471,6 @@ typedef struct Game36680LightAttachment {
 
 s32 func_150B060C(u8, void *);
 extern Game36680SixIndices D_80082BEC;
-extern s32 D_800BE9F0;
 
 void func_1500A6D8(s32 arg0, s32 arg1) {
     Game36680LightDescriptor descriptor;
@@ -560,15 +547,6 @@ void func_1500A94C(s32 arg0, s32 arg1) {
     }
 }
 s32 func_10024770(void);
-extern f32 D_80095BB8;
-extern f32 D_80095BBC;
-extern f32 D_80095BC0;
-extern f32 D_80095BC4;
-extern f32 D_80095BC8;
-extern f32 D_80095BCC;
-extern f32 D_80095BD0;
-extern f32 D_80095BD4;
-extern f32 D_80095BD8;
 
 void func_1500A990(s32 arg0) {
     f32 parameters[12];
@@ -615,7 +593,6 @@ void func_1500AB5C(s32 arg0) {
 
 void func_100226F0(void *, s32);
 void func_1502B8E0(void *, s32, s32, s32, s32, s32);
-extern u8 D_800BE4A0[0x3C];
 extern u8 D_800DD478[0x618];
 extern u8 D_800DDA90[0xF0];
 
@@ -651,8 +628,6 @@ typedef struct Game36680ResourceInfo {
 /* The second argument counts variadic resource-path components. */
 void *func_1502B020(s32 *, s32, ...);
 extern Game36680ResourceInfo D_80095CE0[];
-extern u16 D_800BE478[];
-extern s16 D_800DDB80[][2];
 
 void func_1500AC14(void) {
     s32 i;
@@ -679,17 +654,6 @@ void func_1500AC14(void) {
         }
     }
 }
-extern u8 D_80095CC4[];
-extern s16 D_800BE438[][2];
-extern u8 D_800DDBC0[];
-extern u8 D_800DDBD0[];
-extern u8 D_800DDBE0[];
-extern u8 D_800DDBF0[];
-extern u8 D_800DDC20[][2];
-extern u8 D_800DDC80[];
-extern s32 D_800DDC00;
-extern s32 D_800DDC04;
-extern s32 D_800DDC08;
 
 void func_1500AD84(s32 arg0, s32 arg1, s32 arg2) {
     Game36680ResourceInfo *info;
@@ -796,7 +760,6 @@ u32 func_1500AF08(u32 arg0, s32 arg1, s32 arg2, s16 arg3, s16 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500AF08 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AF08.s")
-extern f32 D_80095C64[][2];
 u32 func_1500AF08(u32, s32, s32, s16, s16, s16, s32, u8, s32);
 
 #define LERP(a, b, t) ((a) + (t) * (f32)((b) - (a)))
@@ -830,9 +793,6 @@ typedef struct {
 } Game36680Triangle;
 
 void func_15049350(Game36680Triangle);
-extern u8 D_80082D80[];
-extern u16 D_800BE430;
-extern f32 D_800CC210, D_800CC214, D_800CC218, D_800CC21C;
 
 u32 func_1500B3B0(s16 arg0, s32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
     f32 centerX;
@@ -958,7 +918,6 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
     }
     D_800DDBD0[arg2] = 0x21;
 }
-extern s32 D_800DDD0C;
 extern s32 D_800DDD10[];
 
 void func_1500BE40(s32 arg0) {
@@ -967,12 +926,6 @@ void func_1500BE40(s32 arg0) {
     D_800DDD0C = 0x6E;
 }
 /* Call context: func_1500BE40: unique active project prototype */
-extern s8 D_8008CEB0;
-extern s32 D_800DDC00;
-extern s32 D_800DDC04;
-extern s32 D_800DDC08;
-extern s8 D_800DDD1C;
-extern s32 D_800DDD20;
 
 void func_1500BE68(void) {
     D_800DDD1C = 0;
@@ -994,15 +947,9 @@ typedef struct {
 void func_1500AD84(s32, s32, s32);
 void func_1510F800(s32);
 void func_1517B89C(s32, s32);
-extern u8 D_80038080;
-extern s32 D_8008CEB4;
 extern Game36680Creator D_8008CEB8[];
 extern Game36680CreationChoice D_8008CF00[][8];
 extern s16 **D_800DBE3C;
-extern s32 D_800DBE4C;
-extern u32 *D_800DBE5C;
-extern u8 D_800DDC10[];
-extern s16 D_800DDC90[];
 
 void func_1500BEC0(void) {
     s32 i;

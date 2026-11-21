@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FDD70.c
@@ -17,15 +18,6 @@ void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 
 s32 func_1509BE40(s32, s32, s32, ...);
 void func_1509BFB0(s32, s32, s32, ...);
-extern f32 D_800888C0;
-extern f32 D_800888C4;
-extern f32 D_800888C8;
-extern f32 D_800888CC;
-extern f32 D_800888D0;
-extern f32 D_800888D4;
-extern f32 D_800888D8;
-extern f32 D_800888DC;
-extern f32 D_800888E0;
 
 void func_150D08C0(GameFDD70Camera *arg0) {
 

@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1CA420.c
@@ -235,7 +236,6 @@ typedef struct Game1CA420Trail {
 } Game1CA420Trail;
 
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_1519D240(Game1CA420Trail *arg0) {
     s16 delay;
@@ -299,7 +299,6 @@ s32 func_1519D240(Game1CA420Trail *arg0) {
     }
     return 1;
 }
-extern f32 D_800BE9A8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519D454 CURRENT (10755) */
 s32 func_1519D454(Game1CA420Trail *arg0) {
@@ -485,8 +484,6 @@ Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
-extern u8 D_80090CD4[];
-extern s32 D_800D2C9C;
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
@@ -873,8 +870,6 @@ void func_1519E6BC(u8 *arg0) {
         }
     }
 }
-
-extern s32 D_800BE9E4;
 
 void func_1519E754(Game1CA420Effect *arg0) {
     Game1CA420OwnerLink *link;

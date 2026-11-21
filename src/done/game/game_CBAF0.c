@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_CBAF0.c
@@ -8,7 +9,6 @@
 extern void func_1001263C(s32 arg0, s32 arg1, s32 arg2);
 extern void func_151F2D6C(s32 arg0, s32 arg1);
 extern void func_151F2BA8(void);
-extern s32 D_800D3840;
 
 s32 func_1509E640(s32 arg0, s32 arg1, s32 *arg2) {
     switch (arg1) {

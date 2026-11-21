@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FEA80.c
@@ -41,8 +42,6 @@ typedef struct Game1FEA80Vec2 {
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 func_15144528(f32, f32, f32);
-extern f32 D_800AB0A8, D_800AB0AC;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D15D0 CURRENT (1558) */
 s32 func_151D15D0(u8 *arg0) {
@@ -277,9 +276,7 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80091430[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_151D1C98(u8 *arg0, Gfx *arg1, s16 arg2) {
     Game1FEA80RibbonState *state;

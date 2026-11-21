@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_139FC0.c
@@ -19,9 +20,7 @@ typedef struct Game139FC0LevelEntry {
     u8 pad5F4[0x3AC];
 } Game139FC0LevelEntry;
 extern Game139FC0LevelEntry *D_800DBFF0;
-extern s32 D_800BE9E4;
-extern u16 D_800D9E70[][3];
-extern u8 D_800D9E88[][3], D_800D9E98[][3], D_800D9EA8[][3], D_800D9EB4[], D_800D9EB8[][3];
+extern u8 D_800D9EB8[][3];
 extern u8 D_800D9B68[][3], D_800D9B78[][3];
 
 void func_1510CB10(s32 arg0) {
@@ -210,13 +209,6 @@ void func_10004514(s32, s32, s32, s32);
 void func_10006240(s32, void *, s32);
 u8 *func_1510D374(s32);
 u8 *func_10003C6C(s32, s32, s32, s32, s32);
-extern u8 D_80091D20;
-extern u16 D_800B87A0[];
-extern u8 D_800D9F68[];
-extern s32 D_800B0E58[];
-extern s8 D_800BC448[];
-extern s32 D_800D9F58, D_800D9F5C, D_8003809C;
-extern u8 D_800DBDBA;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D0EC CURRENT (2543) */
 s32 func_1510D0EC(s32 arg0, s32 *arg1, volatile s32 arg2, s32 arg3) {
@@ -307,8 +299,6 @@ ready:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510D0EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D0EC.s")
-extern u8 D_1A37E0;
-extern u8 D_80091D20;
 
 /* Descriptive role: flat_asset_rom_address.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
@@ -328,11 +318,6 @@ u8 *func_1510D374(s32 resourceIndex) {
 void func_10004074(s32);
 void func_10006240(s32, void *, s32);
 void func_150AD770(void);
-extern s32 D_8003809C, D_8003C8E0;
-extern s32 D_800B0E58[];
-extern s8 D_800BC448[];
-extern s32 D_800D9F58, D_800D9F5C, D_800DBDBC;
-extern u8 D_800D9F60, D_800DBDBA;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D404 CURRENT (3874) */
 void func_1510D404(void) {
@@ -401,7 +386,6 @@ void func_1510D404(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510D404 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D404.s")
-extern s8 D_800BC448[];
 
 /* Descriptive role: flat_asset_update_nonzero_state.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_20A3A0.c
@@ -9,14 +10,6 @@ u64 func_10026968(u64, u64);
 u64 func_10026868(u64, u64);
 s32 func_10024A40(void *, u64, u64, void *, void *);
 s32 func_151DCFD8(s32);
-extern u64 D_8002BD10;
-extern u8 D_80042A58;
-extern u8 D_80042A78;
-extern u8 D_80042A90;
-extern s32 D_800E0A20;
-extern u8 D_800E0A24;
-extern s32 D_800E0A28;
-extern s32 D_800E0A2C;
 
 s32 func_151DCEF0(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     u64 value;

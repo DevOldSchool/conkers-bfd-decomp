@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F3BA0.c
@@ -33,7 +34,6 @@ void func_150C66F0(void *arg0) {
 }
 
 f32 func_150ADA68();                                /* extern */
-extern s32 D_800BE9E4;
 
 s8 func_150C673C(u8 *arg0) {
     s8 var_a2;
@@ -78,9 +78,6 @@ void func_150C6870(void *arg0) {
         *(s32 *)((u8 *)arg0 + 0x70) = func_150C68C4((void *)temp_a2, arg0);
     }
 }
-extern f32 D_800A0450;
-extern f32 D_800A0454;
-extern f32 D_800A0458;
 s32 func_15045800(f32 *, u16, f32, void *);
 void *func_10022EC0(void *, const void *, u32);
 
@@ -177,8 +174,6 @@ typedef struct GameF3BA0BurstMotion {
 } GameF3BA0BurstMotion;
 
 void *func_151303BC(s32, u8, s32);
-extern f32 D_800A045C, D_800A0460, D_800A0464, D_800A0468;
-extern f32 D_800A046C, D_800A0470, D_800A0474, D_800A0478;
 
 void func_150C6A08(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, f32 arg5, void *arg6) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_EC420.c
@@ -42,7 +43,6 @@ void func_150BEF7C(s32 arg0) {
         var_s0 = -var_s0;
     } while (var_s1 != 2);
 }
-extern s32 D_800BE9E4;
 
 s32 func_150BF0F4(void *arg0) {
     s32 var_v1;
@@ -134,8 +134,6 @@ void func_150A7A48(void *, void *, void *);
 void func_150A7DA0(void *, f32, f32, f32);
 void func_15043F6C(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern f32 D_800BE9A4;
-extern u8 D_800BE9B4;
-extern u8 D_800BE9C0;
 extern u8 D_800C35E8, D_800C35EA;
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
@@ -247,8 +245,6 @@ void func_150825C0(s32, s32);
 s32 func_15083E0C(u8);
 void *func_15083E90(u8);
 void func_1511B51C(void *);
-extern s32 D_800902B8;
-extern f32 D_800A0124, D_800A0128, D_800A012C, D_800A0130;
 extern u8 *D_800D20FC;
 
 void func_150BF760(u8 *arg0) {
@@ -364,12 +360,6 @@ typedef struct GameEC420Spawn {
 struct Blood36C3CActor;
 void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15153634(GameEC420Spawn *, u8, u8, s32);
-extern f32 D_800A0134;
-extern f32 D_800A0138;
-extern f32 D_800A013C;
-extern f32 D_800A0140;
-extern f32 D_800A0144;
-extern f32 D_800A0148;
 
 void func_150BFFE0(void *arg0) {
     f32 position[3];
@@ -566,15 +556,6 @@ typedef struct GameEC420Packet {
 
 void func_15150400(s32 *, s16 *, u8, s32);
 extern GameEC420Head D_800A0108;
-extern f32 D_800A0170;
-extern f32 D_800A0174;
-extern f32 D_800A0178;
-extern f32 D_800A017C;
-extern f32 D_800A0180;
-extern f32 D_800A0184;
-extern f32 D_800A0188;
-extern f32 D_800A018C;
-extern f32 D_800A0190;
 
 void func_150C04C0(void *arg0, s32 arg1, s32 arg2, u8 arg3, u8 arg4, s32 arg5) {
     GameEC420Packet packet;
@@ -654,14 +635,6 @@ typedef struct GameEC420CollisionPacket {
 f32 func_150ADA68(void);
 s32 func_15133B98(void *, f32, f32, f32, f32, s32);
 extern GameEC420Head D_800A010C;
-extern f32 D_800A0194;
-extern f32 D_800A0198;
-extern f32 D_800A019C;
-extern f32 D_800A01A0;
-extern f32 D_800A01A4;
-extern f32 D_800A01A8;
-extern f32 D_800A01AC;
-extern f32 D_800A01B0;
 
 s32 func_150C0648(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     s32 enabled;

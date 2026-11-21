@@ -1,5 +1,6 @@
 #include "types.h"
 #include <PR/gbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_C2350.c
@@ -14,10 +15,7 @@
 
 void func_150A7A48(void *, void *, void *);
 void func_151EFEB8(void *, s32);
-extern u8 D_800BE9C0;
 extern s32 D_800BE628;
-extern u8 *D_800DC2A0[];
-extern u8 D_800D2CA8[];
 
 void func_15094EA0(s32 arg0) {
     u8 sp58[0x40];
@@ -27,8 +25,6 @@ void func_15094EA0(s32 arg0) {
     func_151EFEB8(sp18, (s32)((u8 *)D_800BE628 + (arg0 * 0x180) + (D_800BE9C0 << 6) + 0x100));
     func_150A7A48(sp58, sp18, D_800D2CA8 + arg0 * 0x40);
 }
-extern s32 D_800873D0;
-extern u32 D_800D2CA0;
 
 typedef struct GameC2350Command {
     u32 w0;
@@ -106,11 +102,6 @@ void func_15095060(GameC2350Input *arg0, s32 arg1, GameC2350Owner *arg2) {
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 /* Call context: func_1510D0EC: unique active project prototype */
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern u8 D_8009DEB0[];
-extern u8 D_8009DEB4[];
-extern u8 D_8009DEB8[];
-extern u8 D_8009DEBC[];
-extern s32 D_800D2C9C;
 
 s32 func_150950D4(Gfx *arg0, GameC2350Output *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
     s32 width;
@@ -185,7 +176,6 @@ s32 func_150950D4(Gfx *arg0, GameC2350Output *arg1, s32 arg2, s32 arg3, s32 arg4
 }
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern s32 D_80082FA4;
-extern f32 D_800D9B20;
 
 s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
                   f32 *arg5, f32 *arg6, f32 arg7) {
@@ -274,17 +264,8 @@ s32 func_15095A90(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, 
     }
     return arg0;
 }
-extern f32 D_800380A0;
-extern f32 D_800380A4;
 extern s32 D_80082FA4;
 extern s32 D_800BE628;
-extern f32 D_800D2C70;
-extern f32 D_800D2C74;
-extern f32 D_800D2C78;
-extern f32 D_800D2C7C;
-extern f32 D_800D2C80;
-extern f32 D_800D2C84;
-extern f32 D_800D2C88;
 
 void func_15095B08(void *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, s32 *arg5) {
     f32 scaleX;
@@ -335,8 +316,6 @@ void func_15095D0C(s32 arg0, void *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095D34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_1509629C.s")
-extern s32 D_80087408;
-extern s8 D_800D2DAB;
 
 GameC2350Command *func_15096934(GameC2350Command *arg0) {
     { GameC2350Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)&D_80087408; }

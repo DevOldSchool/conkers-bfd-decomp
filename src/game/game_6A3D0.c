@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_6A3D0.c
@@ -61,7 +62,6 @@ void func_1503D45C(s32 *arg0, s32 arg1) {
         } while (var_v0 != 0);
     }
 }
-extern u16 D_800C5A90[];
 
 /* Semantic role: animation_routes_relocate_event_offsets.
  * Eight-byte routes end at descriptor 999; optional event offsets at +4 are
@@ -82,8 +82,6 @@ void func_1503D484(u8 *routeRecord, s32 modelIndex) {
     }
     D_800C5A90[modelIndex] = (s16)(((s32)((u8 *)routeRecord - (u8 *)routeBase)) >> 3);
 }
-extern u8 *D_80084410[];
-extern u8 D_80098888[];
 extern s32 D_800D1588[];
 
 void func_1503D510(s32 arg0) {
@@ -187,8 +185,6 @@ s32 func_1503D774(s32 arg0, void *arg1) {
     return 0;
 }
 void *func_10003C40(s32, s32, s32, s32);
-extern void *D_800C4020[];
-extern void *D_800C6360[];
 extern s32 D_800D19A0[];
 
 s32 func_1503D804(s32 arg0) {
@@ -223,8 +219,6 @@ s32 func_1503D804(s32 arg0) {
     }
     return 0;
 }
-extern u32 **D_800C4488[];
-extern s16 D_800C5918[];
 
 /* Display-list layers per model; the binary keeps this loop (a1 steps by 4 to 4). */
 #define GAME6A3D0_DL_LAYERS 1
@@ -288,9 +282,7 @@ s32 func_1503DC3C(s32);
 s32 func_15084044(void *, s32);
 void func_1510CE60(s32, s32, s32, s32, void *);
 extern s32 D_800C5C08[];
-extern u16 D_800C4778[];
 extern u8 *D_800C5338[];
-extern u16 D_800C5628[];
 
 s32 func_1503DA9C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 *node;
@@ -322,7 +314,6 @@ s32 func_1503DA9C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 extern s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern void func_1510D7AC(s32 arg0);
 extern u8 *D_800C5338[];
-extern u16 D_800C5628[];
 
 /* Semantic role: model_load_descriptor_flat_textures.
  * Twelve-byte descriptors supply flat IDs at +4 and receive loaded bases at +0.

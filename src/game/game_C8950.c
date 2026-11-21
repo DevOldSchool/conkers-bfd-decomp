@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "../lib/ultralib/include/compiler/ido/stdarg.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_C8950.c
@@ -36,9 +37,6 @@ void func_1509C120(void);
 void func_1509C3A0(void);
 GameC8950Node *func_1509B5AC(s32, s32);
 s32 func_1509CBD4(s32);
-extern s32 D_8003C8E0;
-extern u8 D_800D2F3C;
-extern u16 *D_800D2F40;
 
 void func_1509B4A0(s16 arg0, s32 arg1) {
     s32 context;
@@ -192,7 +190,6 @@ typedef struct {
 
 GameC8950Data *func_1502B5C8(void *, s32, s32, s16);
 void *func_1509B950(void *);
-extern s32 D_800BE9F0;
 
 GameC8950Node *func_1509B8FC(s16 arg0) {
     GameC8950Data *temp_v0;
@@ -235,9 +232,6 @@ void *func_1509B950(void *arg) {
     return new;
 }
 void func_1509C228(void);
-extern u8 D_800D2E69;
-extern u8 D_800D2E70[];
-extern s32 D_800BE9F0;
 
 void func_1509BA04(s32 arg0) {
     GameC8950Node *node;
@@ -286,11 +280,6 @@ void func_1509BA04(s32 arg0) {
 void func_15096D08(void);
 void func_1509B4A0(s16, s32);
 s32 func_1509BE40(s32, ...);
-extern u8 D_800BE616;
-extern s16 D_800BE9F2;
-extern s32 D_800D2E48;
-extern s32 D_800D2F58;
-extern s32 D_800D3858;
 
 void func_1509BBA0(s32 mode) {
     GameC8950Node *node;
@@ -364,9 +353,6 @@ loop_tail:
     }
     D_800D3858 = 0;
 }
-extern s32 D_800D2F60[];
-extern s32 D_800D3840;
-extern s32 (*D_80088498[])(s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BE40 CURRENT (929) */
 s32 func_1509BE40(s32 count, ...) {
@@ -397,8 +383,6 @@ s32 func_1509BE40(s32 count, ...) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509BE40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BE40.s")
-
-extern s32 (*D_800884D4[])(s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BFB0 CURRENT (929) */
 void func_1509BFB0(s32 count, ...) {
@@ -465,7 +449,6 @@ typedef struct {
 } GameC8950GlobalState;
 
 void func_1509BFB0(s32, ...);
-extern u8 D_800D2E68;
 
 void func_1509C228(void) {
     if ((D_800D2E68 & 8) ||
@@ -476,19 +459,12 @@ void func_1509C228(void) {
     func_1509BFB0(2, 0x2000, 0x36, 1, 1);
 }
 
-extern s32 D_800BE9F0;
-extern u8 D_800D2E44;
-
 s32 func_1509C2A4(void) {
     if ((D_800BE9F0 == 3) || (D_800BE9F0 == 5) || (D_800BE9F0 == 9) || (D_800BE9F0 == 0xD) || (D_800BE9F0 == 0xF) || (D_800BE9F0 == 0x11) || (D_800BE9F0 == 0x15) || (D_800BE9F0 == 0x16) || (D_800BE9F0 == 0x18) || (D_800BE9F0 == 0x1A) || (D_800BE9F0 == 0x1D) || (D_800BE9F0 == 0x1F) || (D_800BE9F0 == 0x20) || (D_800BE9F0 == 0x21) || (D_800BE9F0 == 0x22) || (D_800BE9F0 == 0x24) || (D_800BE9F0 == 0x25) || (D_800BE9F0 == 0x2A) || (D_800BE9F0 == 0x2B) || (D_800BE9F0 == 0x2D) || (D_800BE9F0 == 0x30) || (D_800BE9F0 == 0x33) || (D_800BE9F0 == 0x34) || (D_800BE9F0 == 0x38) || (D_800BE9F0 == 0x3E) || (D_800BE9F0 == 0x3F) || (D_800D2E44 != 0)) {
         return 0;
     }
     return 1;
 }
-extern s8 D_8008FDA8;
-extern s8 D_800BE3DF;
-extern s32 D_800BE9F4;
-extern u8 D_800C35C4;
 extern u8 D_800D2E43;
 
 void func_1509C3A0(void) {

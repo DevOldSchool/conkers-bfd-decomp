@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1EBFD0.c
@@ -13,8 +14,6 @@
 
 /* Call context: func_150A8050: unique active project prototype */
 void func_150A8050(void *, f32, f32, f32);
-extern f32 D_800AA8E0;
-extern u8 D_800BE9C0;
 
 s32 func_151BEB20(u8 *arg0) {
     f32 scale;

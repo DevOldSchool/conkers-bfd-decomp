@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1844C0.c
@@ -23,7 +24,6 @@ void *func_10022EC0(void *, const void *, u32);
 /* Raw callee forwards full-width a0 and stores full-width a1. */
 s32 func_1503F62C(s32, s32, void *, void *, void **, void *, void *);
 void *func_1515D480(s32);
-extern s32 D_80082FA0;
 
 s32 func_15157010(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     s32 var_s0;
@@ -79,7 +79,6 @@ s32 func_15157010(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     return (s32) temp_v0;
 }
 void func_100043B4(void *, s32);
-extern s32 D_80082FA0;
 
 void func_151571C4(void *arg0) {
     s32 i;
@@ -108,9 +107,6 @@ void func_1515728C(void *arg0) {
     func_1503F7B8(*(void **)((u8 *)arg0 + 0x68));
     func_15169824(arg0);
 }
-extern s32 D_800BE9E4;
-extern s32 (*D_8008AD90[])(u8 *);
-extern s32 (*D_8008ADA0[])(u8 *);
 void func_1503F4B0(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151572D0 CURRENT (2291) */
@@ -212,11 +208,6 @@ typedef Gfx *(*Game1844C0PostCallback)(Gfx *, Game1844C0RenderActor *, s16, u8 *
 extern Game1844C0PreCallback D_8008ADBC[];
 extern Game1844C0PostCallback D_8008ADCC[];
 extern Game1844C0RenderPreset D_800A4AC8[];
-extern u8 D_800BE9C0;
-extern u8 D_80083740[];
-extern u8 D_800838C0[];
-extern u8 D_80083A40[];
-extern u8 D_80083BC0[];
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
 Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
@@ -298,7 +289,6 @@ s32 func_15157860(s32 arg0) {
     return 1;
 }
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
-extern u8 D_800A6060;
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 
@@ -369,7 +359,6 @@ typedef struct Game1844C0MotionExtension {
 } Game1844C0MotionExtension;
 
 extern f32 D_800BE9A4;
-extern f32 D_800BE9A8;
 
 s32 func_15157AA8(Game1844C0MotionOwnerPrefix *arg0) {
     Game1844C0MotionExtension *motion;
@@ -467,7 +456,6 @@ Game1844C0DisplayCommand *func_15157F80(Game1844C0DisplayCommand *arg0, s32 arg1
     return arg0;
 }
 extern s32 D_800BE628;
-extern u8 *D_800DC2A0[];
 
 Game1844C0DisplayCommand *func_15157FE8(Game1844C0DisplayCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
     { Game1844C0DisplayCommand *command = arg0++; command->word0 = 0xDA380007; command->word1 = (u8 *)D_800BE628 + (arg2 * 0x180) + (D_800BE9C0 << 6) + 0x100; }

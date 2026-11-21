@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DF510.c
@@ -197,16 +198,6 @@ typedef struct Game1DF510Request {
     u8 state;
     u8 pad35[3];
 } Game1DF510Request;
-
-extern Vec3f D_800AA320;
-extern Vec3f D_800AA32C;
-extern Vec3f D_800AA368;
-extern Vec3f D_800AA374;
-extern f32 D_800AA388;
-extern f32 D_800AA38C;
-
-extern Vec3f D_800AA338, D_800AA344, D_800AA350, D_800AA35C;
-extern f32 D_800AA380, D_800AA384;
 
 void func_151B2348(void *arg0) {
     Game1DF510Actor *actor;

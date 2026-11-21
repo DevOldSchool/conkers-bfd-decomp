@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_45880.c
@@ -13,9 +14,6 @@
 
 void *func_10003C40(s32, s32, s32, s32);
 void func_15018500(void);
-extern u8 *D_800BE5D0;
-extern u8 *D_800BE5D4;
-extern u8 *D_800BE5D8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150183D0 CURRENT (7062) */
 void func_150183D0(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4) {

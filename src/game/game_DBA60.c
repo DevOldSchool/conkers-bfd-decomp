@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DBA60.c
@@ -25,7 +26,6 @@ typedef struct GameDBA60Camera {
 s32 func_1509BE40(s32, ...);
 void func_151254F4(void *, s32);
 void func_15124B18(u8 *);
-extern u8 D_800CC335;
 extern u8 *D_800D2E4C;
 
 void func_150AE5B0(GameDBA60Camera *arg0) {
@@ -70,8 +70,6 @@ typedef struct {
 } GameDBA60Entry;
 
 void func_15001A08(void);
-extern u32 D_15001B08;
-extern s32 D_800886E0;
 extern GameDBA60Entry *D_800886E4;
 extern u8 D_800DCE50[];
 
@@ -113,7 +111,6 @@ void func_150AEB9C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AEB9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AEB9C.s")
-extern s32 D_800BE9E4;
 
 void func_150AECCC(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x96) = (s16) ((*(s16 *)((u8 *)arg0 + 0x94) * D_800BE9E4) + *(s16 *)((u8 *)arg0 + 0x96));
@@ -126,7 +123,6 @@ void func_150AECCC(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0xA4) = 0x19;
     }
 }
-extern s32 D_800BE9E4;
 
 void func_150AED4C(void *arg0) {
     s32 value;

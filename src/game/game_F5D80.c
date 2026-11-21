@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F5D80.c
@@ -18,7 +19,6 @@
 void *func_10022EC0(void *, const void *, u32);
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-extern f32 D_800A0528;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C88D0 CURRENT (2675) */
 void *func_150C88D0(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
@@ -86,12 +86,7 @@ typedef struct GameF5D80RadialEffect {
 } GameF5D80RadialEffect;
 
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 extern s32 D_80082FA4;
-extern f32 D_800A052C, D_800A0530, D_800A0534;
-extern void (*D_80088858[])(void *, f32 *, s32, f32, f32);
-extern s32 (*D_80088860[])(void *);
-extern void (*D_80088864[])(void *, f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8A68 CURRENT (2804) */
 void func_150C8A68(GameF5D80RadialEffect *arg0) {
@@ -193,7 +188,6 @@ typedef struct GameF5D80Emitter {
 f32 func_150ADA68(void);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-extern f32 D_800A0570, D_800A0574, D_800A0578, D_800A057C;
 
 void func_150C99B4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1, u8 arg2, s32 arg3) {
     GameF5D80Particle packet;
@@ -334,8 +328,6 @@ typedef struct GameF5D80Burst {
 
 void func_150CCD90(f32, f32 *, f32 *, f32 *);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A0580, D_800A0584, D_800A0588, D_800A058C;
-extern f32 D_800A0590, D_800A0594, D_800A0598, D_800A059C;
 
 void func_150C9DC4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1,
                    u8 arg2, s32 arg3) {
@@ -431,7 +423,6 @@ s32 func_150CA9D0(void *arg0) {
 
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-extern f32 D_800A05AC, D_800A05B0, D_800A05B4, D_800A05B8;
 
 s32 func_150CAA04(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -491,8 +482,6 @@ s32 func_150CAA04(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
     return 1;
 }
-
-extern s32 D_800BE9E4;
 
 s32 func_150CAC28(void *arg0, s32 arg1) {
     f32 *factor;
@@ -555,8 +544,6 @@ typedef struct GameF5D80EffectPacket {
 } GameF5D80EffectPacket;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A05BC, D_800A05C0, D_800A05C4, D_800A05C8;
-extern f32 D_800A05CC, D_800A05D0, D_800A05D4, D_800A05D8;
 
 s32 func_150CADD0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,

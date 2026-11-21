@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FC9E0.c
@@ -25,10 +26,6 @@ extern GameCollisionHeightActor D_800CC2D0[];
 void func_150CF530(s32 arg0) {
     func_151CF898(&D_800CC2D0[0], D_800CC2D0[0].y + 300.0f, -10000.0f);
 }
-extern s32 D_80088890;
-extern s32 D_80088894;
-extern s32 D_80088898;
-extern s32 D_800BE9E4;
 
 void func_150CF578(s32 arg0) {
     s32 count;
@@ -40,7 +37,6 @@ void func_150CF578(s32 arg0) {
     D_80088894 -= temp_v1;
     D_80088898 -= temp_v1;
 }
-extern s32 D_8008889C;
 
 typedef struct GameFC9E0Command {
     u32 w0;
@@ -53,7 +49,6 @@ GameFC9E0Command *func_150CF5E8(GameFC9E0Command *arg0) {
     return arg0;
 }
 void *func_10022EC0(void *, const void *, u32);
-extern s32 D_80082FA0;
 
 void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
     struct {
@@ -117,9 +112,6 @@ void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
 }
 f32 func_15047D60(f32);
 f32 func_150ADA68(void);
-extern s32 (*D_8008FCD0[])(void);
-extern f32 D_800A0860, D_800A0864, D_800A0868, D_800A086C;
-extern f32 D_800A0870, D_800A0874;
 extern f32 D_800BE9A4;
 
 typedef struct GameFC9E0Position2 {

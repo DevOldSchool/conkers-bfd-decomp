@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1BDA00.c
@@ -27,7 +28,6 @@ void func_15190550(Game1BDA00CallbackState *arg0, void *arg1, u8 arg2) {
     }
 }
 s32 func_1505D024(void *, s32, u16, s32);
-extern s32 D_800BE9E4;
 extern s32 D_800CC2D0;
 
 s32 func_151905BC(u8 *arg0) {

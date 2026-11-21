@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1897A0.c
@@ -93,7 +94,6 @@ s32 func_1515C388(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515C388 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C388.s")
-extern s32 D_800BE9E4;
 typedef s32 (*Game1897A0ActionCallback)(void *, void *);
 extern Game1897A0ActionCallback D_8008B084[];
 

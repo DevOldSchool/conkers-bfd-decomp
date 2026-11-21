@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A0E60.c
@@ -29,8 +30,6 @@ extern Game1A0E60Group **D_800B0E30;
 extern u8 *D_800B0E34;
 extern Game1A0E60Color *D_800BE510;
 extern Game1A0E60Color ***D_800BE520;
-extern u16 *D_800BE524;
-extern u8 D_800BE9C0;
 extern u8 *D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151739B0 CURRENT (2332) */

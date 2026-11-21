@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3F1F0.c
@@ -50,9 +51,6 @@ typedef struct Game3F1F0Position {
 void func_100226F0(void *arg0, s32 arg1);
 void *func_10022EC0(void *, const void *, u32);
 Game3F1F0Position *func_151438D8(s32 arg0, s32 arg1, u16 arg2, Game3F1F0Descriptor *arg3);
-
-extern u8 D_800A1C00[][8];
-extern s32 D_800D3094;
 
 s32 func_15011D60(void *arg0) {
     Game3F1F0State state;

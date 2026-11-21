@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_6EA90.c
@@ -82,8 +83,6 @@ void func_150415E0(s32 arg0, s32 *arg1, s32 *arg2, f32 *arg3, s32 *arg4, f32 *ar
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6EA90/func_150417AC.s")
 s32 func_15042C40(u8);
-extern f32 D_800380A0;
-extern f32 D_800380A4;
 extern s32 D_80085994;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150428D4 CURRENT (4150) */
@@ -193,10 +192,6 @@ void func_150428D4(u8 *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150428D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6EA90/func_150428D4.s")
-extern u8 D_80085930[0x5F];
-extern u8 D_80085931;
-extern u8 D_80085932;
-extern u8 D_80085933[];
 
 s32 func_15042C40(u8 arg0) {
     u8 c;

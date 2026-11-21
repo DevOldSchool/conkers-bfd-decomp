@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_CCD00.c
@@ -22,22 +23,9 @@ GameCCD00Node *func_1509B704(s16);
 s32 func_151E5F64(s32);
 f32 func_150ADA68(void);
 extern u8 *D_800D2E4C;
-extern s32 D_800BE9F0;
-extern s32 D_800BE9F8;
-extern s8 D_8008FD8C;
 extern s8 D_80087270[];
-extern u16 D_800D18A0;
-extern s8 D_800BE3DF;
-extern u8 D_800BE3E0;
-extern s8 D_8008FD90;
-extern s8 D_800E0BB1;
-extern u16 D_8008FDBC;
-extern u16 D_800BE930[];
 extern u8 D_800BE918[];
-extern u8 D_800E0B94;
 extern s32 D_800E9D00;
-extern s32 D_800D3840;
-extern u8 D_800D2E40;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509FE0C CURRENT (1193) */
 s32 func_1509FE0C(s32 arg0, s32 arg1, s32 *arg2) {

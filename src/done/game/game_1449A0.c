@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1449A0.c
@@ -16,7 +17,6 @@ typedef struct {
 } Game1449A0Sound;
 
 extern Game1449A0Sound D_80089260[];
-extern s32 D_800BE9E4;
 f32 func_15048A70(f32, f32);
 void func_15114D24(s32, s32, s32, s16, s32, s32);
 f32 fabsf(f32);

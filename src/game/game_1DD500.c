@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DD500.c
@@ -12,11 +13,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern f32 D_800AA28C;
-extern f32 D_800AA290;
-extern f32 D_800AA294;
-extern f32 D_800AA298;
-extern f32 D_800AA29C;
 f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void *func_151DA6F8(f32 *, f32 *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, s32, s16, s16, s32, u8, s32);
@@ -76,12 +72,6 @@ s32 func_15134070(void *);
 void func_15143134(f32 *, f32 *, s32);
 void func_15153F18(s16 *, void *, s32, s32, s32);
 extern u8 D_800A3FD8[];
-extern f32 D_800AA120;
-extern f32 D_800AA2A0;
-extern f32 D_800AA2A4;
-extern f32 D_800AA2A8;
-extern f32 D_800AA2AC;
-extern f32 D_800AA2B0;
 
 /*
  * The optional arg1 actor supplies the effect profile; arg0 supplies the
@@ -139,7 +129,6 @@ void func_151B01B8(void *arg0, void *arg1) {
 void *func_10022EC0(void *, const void *, u32);
 /* The independent wrapper preserves the allocator result in v0. */
 s32 func_15134070(void *);
-extern u8 D_800A3FE6[];
 
 typedef struct Game1DD500Owner {
     s32 active;
@@ -280,14 +269,7 @@ void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 void func_151B1918(u8 *arg0);
 extern Game1DD500Mount D_800AA12C[];
 extern Game1DD500Mount D_800AA1DC[];
-extern f32 D_800AA2E0;
-extern f32 D_800AA2E4;
-extern f32 D_800AA2E8;
-extern f32 D_800AA2EC;
-extern u8 D_800AB310[];
 extern f32 D_800BE9A4;
-extern f32 D_800BE9A8;
-extern s32 D_800BE9E4;
 
 void func_151B0B88(u8 *arg0) {
     Game1DD500Packet *list = (Game1DD500Packet *)(arg0 + 0x28);
@@ -424,9 +406,6 @@ void func_151B0B88(u8 *arg0) {
 }
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-extern f32 D_800AA2F0;
-extern f32 D_800AA2F4;
-extern f32 D_800AA2F8;
 extern f32 D_800BE9A4;
 
 typedef struct Game1B118CHorizontal { f32 x, z; } Game1B118CHorizontal;
@@ -523,7 +502,6 @@ f32 sqrtf(f32);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
-extern f32 D_800BE9A8;
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
@@ -589,7 +567,6 @@ void *func_151B14AC(u8 *arg0, s16 arg1) {
     return base;
 }
 /* Call context: func_151423D8: unique active project prototype */
-extern s32 D_800BE9E4;
 
 s32 func_151B1828(u8 *arg0) {
     u8 angle;

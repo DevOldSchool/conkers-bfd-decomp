@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_57E0.c
@@ -24,14 +25,9 @@ typedef struct PakReply {
     u8 dataCrc;
 } PakReply;
 
-extern u8 D_8003BC30[][64];
-extern u8 D_8003BD30[][64];
-
 s32 func_80025870(OSMesgQueue *, s32, u16, u8 *, s32);
 s32 func_80025C20(OSMesgQueue *, s32, u16, u8 *);
 void func_80005948(s32, u16, u8 *, u8 *);
-extern u8 D_8003BE30[32];
-extern u8 D_8003BE50[32];
 
 s32 func_800057E0(OSMesgQueue *queue, PakDevice *device, s32 channel) {
     s32 i;

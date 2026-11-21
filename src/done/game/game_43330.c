@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_43330.c
@@ -8,7 +9,6 @@
 void *func_10003C40(s32, s32, s32, s32);
 extern void *D_800B0DF0;
 extern u8 *D_800BE9C8[2];
-extern s32 D_800BEBA4;
 
 void func_15015E80(void) {
     if (*(u16 *)((u8 *)D_800B0DF0 + 0x1C) == 0) {

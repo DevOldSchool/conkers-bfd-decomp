@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_156160.c
@@ -24,8 +25,6 @@ typedef struct Game156160Record {
     u8 padC[0x18];
 } Game156160Record;
 
-extern s16 D_80089550;
-extern f32 D_800A3610;
 extern Game156160Record D_800DC028[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_156160/func_15128CB0.s")

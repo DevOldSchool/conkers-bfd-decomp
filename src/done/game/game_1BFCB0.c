@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1BFCB0.c
@@ -16,7 +17,6 @@ typedef void (*Game1BFCB0Handler)(void *arg0);
 extern s32 func_151928B0(void *arg0, s32 *arg1);
 extern s32 func_1510F8CC(s32 arg0);
 extern Game1BFCB0Handler *D_8008F860[];
-extern s32 D_800BE9F0;
 
 void func_15192800(void *arg0, s32 arg1) {
     s32 sp2C;

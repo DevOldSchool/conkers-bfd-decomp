@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_A9820.c
@@ -23,7 +24,6 @@ typedef struct GameA9820Actor {
     u8 pad320[0xC];
 } GameA9820Actor;
 
-extern s8 D_8008FD8C;
 extern GameA9820Actor D_800CC2D0[];
 
 void func_1507C3E0(GameA9820Actor *, s16 *, s16 *, s16 *);

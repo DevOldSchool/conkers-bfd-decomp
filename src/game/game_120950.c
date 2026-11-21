@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_120950.c
@@ -10,9 +11,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern f32 D_800A1980;
-extern f32 D_800A1984;
 
 f32 func_150F34A0(s32 arg0, f32 arg1) {
     f32 var_fv1;
@@ -102,45 +100,13 @@ void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
 void func_15073FA0(void);
 f32 fabsf(f32);
 #pragma intrinsic (fabsf)
-extern s32 D_80082FA0;
-extern f32 D_800A1988;
-extern f32 D_800A198C;
-extern f32 D_800A1990;
-extern f32 D_800A1994;
-extern f32 D_800A1998;
-extern f32 D_800A199C;
-extern f32 D_800A19A0;
-extern f32 D_800A19A4;
-extern f32 D_800A19A8;
-extern f32 D_800A19AC;
-extern f32 D_800A19B0;
-extern f32 D_800A19B4;
-extern f32 D_800A19B8;
-extern f32 D_800A19BC;
-extern f32 D_800A19C0;
-extern f32 D_800A19C4;
-extern f32 D_800A19C8;
-extern f32 D_800A19CC;
-extern f32 D_800A19D0;
-extern f32 D_800A19D4;
 extern u16 D_800BE710;
-extern void **D_800BE728;
-extern s32 D_800BE9F0;
-extern u8 D_800C3E78;
-extern s8 D_800CBDD3;
-extern u8 D_800CC26D;
-extern s32 D_800CC280;
 extern void *D_800CC284;
-extern s32 D_800CC288;
 extern u8 D_800CC2D0[];                             /* unknown layout; byte-addressed storage */
-extern u8 D_800CC5FC[];                             /* unknown layout; byte-addressed storage */
 extern u8 D_800D121C[];                             /* unknown layout; byte-addressed storage */
 extern void *D_800D154C;
-extern f32 D_800D1550;
-extern s32 D_800D1580;
 extern f32 D_800DDDC8[];                             /* unknown layout; byte-addressed storage */
 extern u8 D_800DDE3C[];                             /* unknown layout; byte-addressed storage */
-extern u8 D_800E0B94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F34F4 CURRENT (17895) */
 void func_150F34F4(u8 *arg0) {

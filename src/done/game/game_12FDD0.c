@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_12FDD0.c
@@ -31,8 +32,6 @@ typedef struct Game12FDD0Particle {
 s32 func_1510F8CC(s32);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32,
     u8, u8, s32, s32, s32, u8, s32);
-extern f32 D_800A2340;
-extern s32 D_800BE9F0;
 
 void *func_15102920(f32 arg0, u8 arg1, s32 arg2, f32 *arg3, s16 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
     void *result;
@@ -153,7 +152,6 @@ typedef struct Game12FDD0Effect {
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_15103254(s32, s32, f32, s32, s32, s32, s32);
-extern u8 D_800A4AA0;
 extern s32 D_800A5480[3];
 
 void *func_15102B38(Game12FDD0Object *arg0, u8 arg1, Game12FDD0Copy3 *arg2,

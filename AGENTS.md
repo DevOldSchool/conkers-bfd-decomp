@@ -81,6 +81,23 @@ only exact results through transactional `finish`.
   Use [runtime tracing](docs/runtime-tracing.md) when static evidence is insufficient;
   distinguish positive hits from bounded negative traces.
 
+## Code rules
+
+- Matched C must also read like source: follow the [code-rule profile](docs/code-rules.md).
+  A function counts as matched under the rules only when its bytes match and it
+  passes every [match] rule (R1 types, R2 externs, R4 offsets, R17 fake code,
+  R18 assembly). Byte-identical but failing is `MATCH-PENDING`: keep it, report it.
+- Run `./conker rules [--findings] <changed sources>` before handoff and report
+  both numbers: bytes matched and matched under the rules. Do not introduce new
+  [match] findings; a trick that closes a diff is a clue, not the answer.
+- Globals already in `include/globals.h` need no local `extern`. After a batch,
+  `./conker hoist-externs --apply` moves new agreeing declarations there; run
+  the byte gates afterwards.
+- When a style rule and the bytes disagree, keep the bytes and write
+  `// RULE-EXCEPTION: <rule>, <reason>`. Rule changes are maintainer rulings,
+  recorded in the profile with the checker change in the same commit.
+- Write new standalone tools in C where practical; keep existing Python tooling.
+
 ## Reporting
 
 Commit inventories and evidence, never rendered `build/progress/` reports. See

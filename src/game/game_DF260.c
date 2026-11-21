@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DF260.c
@@ -9,9 +10,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern u64 D_8009F8D0;
-extern u64 D_8009F8D8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B1DB0 CURRENT (5700) */
 void func_150B1DB0(u64 *arg0, u64 *arg1) {

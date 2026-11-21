@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_D0F20.c
@@ -25,9 +26,7 @@ void func_150A43E0(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D0F20/func_150A44F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D0F20/func_150A4B04.s")
 s32 func_150A3BAC(u8 *, u8 *);
-extern s16 D_800C5918[];
 extern u8 D_800CC2D0;
-extern u8 D_800D35DC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A4FA0 CURRENT (6700) */
 s32 func_150A4FA0(void) {

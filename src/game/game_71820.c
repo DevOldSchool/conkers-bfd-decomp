@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_71820.c
@@ -11,8 +12,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s32 D_800CBD9C;
 
 typedef struct Game71820Node {
     struct Game71820Node *next;
@@ -27,9 +26,7 @@ typedef struct Game71820Node {
 } Game71820Node;
 
 extern Game71820Node *D_800CBE00;
-extern s32 D_800BE9E4;
 extern s32 (*D_80085E80[])(Game71820Node *);
-extern void (*D_80085E8C[])(void);
 void *func_10003C40(s32, s32, s32, s32);
 void func_100043B4(void *, s32);
 f32 fabsf(f32);
@@ -73,12 +70,6 @@ extern u8 D_800CC2D0[];
 void func_15044370(void) {
     D_800CBD9C = 0;
 }
-extern u8 D_80089120;
-extern u8 D_80089123;
-extern u8 D_800CBDD3;
-extern f32 D_800CBDF4;
-extern f32 D_800CBDF8;
-extern u8 D_800DBE62;
 void func_1510F800(s32);
 void func_15044660(Game71820Global *, f32, f32, f32);
 s32 func_150AB1F0(f32, f32, f32, Game71820Global *, s32);
@@ -143,9 +134,6 @@ void func_15044658(void) {
 
 }
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);
-extern s8 D_8008FD8C;
-extern f32 D_800CBDD8;
-extern f32 D_800CBDDC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15044660 CURRENT (1370) */
 void func_15044660(Game71820Global *arg0, f32 arg1, f32 arg2, f32 arg3) {
@@ -399,17 +387,8 @@ typedef struct Game71820Candidate {
 
 s32 func_150A3A70(s32, s32);
 void func_1510F800(s32);
-extern f32 D_80098D40;
-extern f32 D_80098D44;
-extern f32 D_80098D48;
-extern f32 D_80098D4C;
 extern Game71820Candidate D_800D3300[];
 extern u8 *D_800DBE3C;
-extern s32 **D_800DBE5C;
-extern f32 D_800DBE68;
-extern f32 D_800DBE6C;
-extern f32 D_800DBE70;
-extern f32 D_800DBE74;
 s32 func_150A4FA0(s32, s32);
 
 s32 func_15044ED0(Vec3f *arg0, f32 arg1, Game71820Hit *arg2) {
@@ -733,11 +712,8 @@ typedef struct Game71820Surface {
 
 s32 func_150A43E0(s32, s32, s32, void *);
 void func_150A44F0(s32, void *, s32);
-extern f32 D_80098D58;
-extern u8 D_800D3830[];
 extern s32 D_800DBEF4;
 
-extern f32 D_80098D50;
 extern u8 D_800D37E0[];
 
 u8 func_15045880(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
@@ -812,7 +788,6 @@ u8 func_15045880(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-extern f32 D_80098D54;
 
 u8 func_15045AE4(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;
@@ -955,7 +930,6 @@ s32 func_15045D48(Vec3f *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     arg3->flags &= ~2;
     return 0;
 }
-extern f32 D_80098D5C;
 
 s32 func_15045F8C(Vec3f *arg0, f32 arg1, void *arg2, Game71820Hit *arg3) {
     s32 count;

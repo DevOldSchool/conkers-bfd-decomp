@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_64120.c
@@ -39,7 +40,6 @@ typedef struct Game64120InitState {
 
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
-extern f32 D_80098250;
 
 typedef struct Game64120OutputBlock {
     u8 pad0[0x30];
@@ -86,14 +86,8 @@ void func_15036C70(Game64120InitState *arg0) {
 }
 void func_150379DC(f32 *, s32, s32, s32, f32, s32, s32);
 void func_15038620(s32, s32, f32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_80098354;
-extern f32 D_80098358;
-extern f32 D_8009835C;
 extern u8 D_800C35EA;
-extern f32 D_800C3FE8[3];
 extern void *D_800D154C;
-extern u8 D_800C3E78;
-extern u8 D_800C3FFA;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15036CE8 CURRENT (1995) */
 void func_15036CE8(void) {
@@ -169,7 +163,6 @@ void func_15036CE8(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15036CE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036CE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036F34.s")
-extern s32 D_800CC4A4;
 void func_15038468(f32 *, f32 *, f32, f32, f32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15037698 CURRENT (3313) */
@@ -227,8 +220,6 @@ s32 func_15037698(s32 arg0, s32 arg1, s32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15037698 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15037698.s")
-extern f32 D_8009862C;
-extern s16 D_800C3FF4[];
 extern void *D_800DBFF0;
 
 s32 func_15037880(s32 arg0, f32 *arg1) {
@@ -265,10 +256,6 @@ s32 func_15037880(s32 arg0, f32 *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150379DC.s")
 s32 func_15037698(s32, s32, s32, f32, f32, f32, f32 *, f32, s32, s32);
-extern f32 D_8009863C;
-extern f32 D_80098640;
-extern f32 D_80098644;
-extern u8 D_800CC40B[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150380C0 CURRENT (5123) */
 s32 func_150380C0(f32 *output, s32 arg1, s32 arg2, s32 ownerIndex, f32 arg4,
@@ -424,7 +411,6 @@ extern Game64120Entry D_80098068[];
 Game64120Entry *func_15039A54(s32 arg0, s32 arg1) {
     return &D_80098068[arg1];
 }
-extern void * D_800CC5E8;
 
 void func_15039A78(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 arg4, f32 arg5, s32 arg6) {
     f32 *b;
@@ -475,11 +461,6 @@ typedef struct Game64120ControllerView {
     u8 pad320[4];
     Game64120InitBlock *block324;
 } Game64120ControllerView;
-
-extern u16 *D_80084380[];
-extern u8 D_80097E7C[];
-extern u8 D_80098050[];
-extern u8 D_800BE9B4;
 
 void func_15039CC8(Game64120ControllerView *object) {
     Game64120InitBlock *block;
@@ -556,7 +537,6 @@ void func_15039ED0(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3,
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A08C.s")
-extern u8 D_800C3E78;
 
 void func_1503A60C(void) {
     Game64120OutputBlock *temp_v0;
@@ -590,8 +570,6 @@ void func_150A7BC0(void *);
 void func_150A7CB0(void *, u32, u32, u32);
 void func_150A7A48(void *, void *, void *);
 void func_10023A10(void *, void *, s32);
-extern u8 D_80084404[];
-extern u8 D_800C3FFA;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503A678 CURRENT (482) */
 void func_1503A678(void) {
@@ -640,7 +618,6 @@ void func_1503A678(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A678.s")
 void func_15036F34(void);
 void func_1503A678(void);
-extern u8 D_800C3FFA;
 
 void func_1503A7F0(void) {
     s32 saved;
@@ -654,7 +631,6 @@ void func_1503A7F0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A830.s")
 s32 func_15037880(s32, f32 *);
 s32 func_150380C0(f32 *, s32, s32, s32, f32, s32, f32 *, s32, s32, s32, s32);
-extern f32 D_800C3FD0[];
 
 void func_1503B708(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
                    s32 arg5, f32 *arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {

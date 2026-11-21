@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E4FF0.c
@@ -89,7 +90,6 @@ typedef struct GameE4FF0Descriptor {
 } GameE4FF0Descriptor;
 
 void *func_15130374(s32, u8, s32, u8, s32);
-extern f32 D_8009FD88;
 
 void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
     GameE4FF0Descriptor descriptor;
@@ -139,12 +139,6 @@ void func_150B85C0(Vec3f *arg0, f32 *arg1, f32 *arg2, s32 arg3, s32 arg4) {
 }
 f32 func_150ADA68(void);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_8009FD8C;
-extern f32 D_8009FD90;
-extern f32 D_8009FD94;
-extern f32 D_8009FD98;
-extern f32 D_8009FD9C;
-extern f32 D_8009FDA0;
 
 s32 func_150B879C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,

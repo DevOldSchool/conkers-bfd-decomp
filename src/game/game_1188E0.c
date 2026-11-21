@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1188E0.c
@@ -26,8 +27,6 @@ void func_150A2864(u32, s32);
 void *func_15083E90(u8);
 s32 func_150A34B0();
 void func_150EBC80(void *, u8, s32);
-extern s32 D_80088AA0[];
-extern s32 D_80088AB0[];
 extern u8 *D_800D3098;
 
 s32 func_150EB484(Vec3f *arg0, f32 *arg1, void *arg2) {
@@ -87,8 +86,6 @@ f32 sqrtf(f32);
 f32 fabsf(f32);
 #pragma intrinsic(sqrtf, fabsf)
 extern Game1188E0OwnerB614 D_800CC2D0;
-extern f32 D_800A14DC, D_800A14E0, D_800A14E4;
-extern s32 D_800BE9E4;
 
 void func_150EB614(f32 *arg0) {
     f32 velocity;
@@ -190,10 +187,7 @@ void func_151D5514(void *, u8, s32);
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
-extern Vec3f D_800A1490, D_800A149C;
-extern Vec3f D_800A14A8[], D_800A5480;
-extern u8 D_800A14D8[], D_800BE9EB;
-extern f32 D_800A14E8, D_800A14EC, D_800A14F0, D_800A14F4, D_800A14F8;
+extern Vec3f D_800A5480;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB8C4 CURRENT (1813) */
 void func_150EB8C4(void) {

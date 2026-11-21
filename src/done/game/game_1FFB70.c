@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FFB70.c
@@ -16,7 +17,6 @@ void func_151D26C0(s16 arg0) {
     *(s8 *)((u8 *)temp_v0 + 0x16) = 1;
     *(s16 *)((u8 *)temp_v0 + 0x10) = arg0;
 }
-extern void *D_800DD0E0;
 
 void func_151D2718(s16 arg0) {
     void *var_v0;
@@ -31,7 +31,6 @@ void func_151D2718(s16 arg0) {
         } while (var_v0 != 0);
     }
 }
-extern s32 D_800BE9E4;
 
 void func_151D275C(void *arg0) {
     u8 *p = arg0;
@@ -68,7 +67,6 @@ typedef struct GameD2830State {
     s16 opacity;
 } GameD2830State;
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern u8 D_A48[];
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 void *func_151D2830(GameD2830Command *arg0, GameD2830State *arg1, s16 arg2) {

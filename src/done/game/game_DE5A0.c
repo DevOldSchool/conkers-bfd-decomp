@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_path.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DE5A0.c
@@ -14,8 +15,6 @@ void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_1505A630(f32, f32, s32);
 void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
 extern u8 D_800CC2D0;
-extern f32 D_800CC2E8;
-extern f32 D_800D1550;
 
 void func_150B10F0(u8 *arg0) {
     f32 temp_fv0;
@@ -58,8 +57,6 @@ s32 func_150535F4(u8 *);
 void func_15058EA4(void *, f32, f32, f32, f32, f32, f32);
 void func_15056B08(u8 *);
 void func_15059140(u8 *);
-extern f32 D_8009F8BC;
-extern f32 D_8009F8C0;
 
 void func_150B12FC(u8 *arg0) {
     s16 delta;
@@ -181,10 +178,6 @@ s32 func_1505A630(f32, f32, s32);
 f32 func_150AD78C(f32);
 
 void func_1505A770(void *);
-extern f32 D_8009F8C4;
-extern f32 D_8009F8C8;
-extern u8 D_800BE9A0;
-extern u8 D_800C3E78;
 
 void func_150B17DC(u8 *arg0) {
     s32 sp3C;
@@ -227,12 +220,7 @@ void func_150562FC(u8 *);
 void func_150597FC(u8 *);
 void func_1510F800(s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
-extern s32 D_8008CAE0;
-extern f32 D_8009F8CC;
-extern u8 D_800B86A4[];
-extern s32 D_800CC250;
 extern f32 D_800CC2E4;
-extern f32 D_800CC2EC;
 
 /* func_15167D84 copies the full 0x38-byte descriptor. */
 typedef struct {

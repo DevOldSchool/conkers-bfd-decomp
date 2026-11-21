@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FEFF0.c
@@ -14,8 +15,6 @@ s32 func_1509BE40(s32, ...);
 
 void func_151467A4(f32 *, f32, f32 *, f32, f32, f32, f32, f32 *);
 void func_1515D4D4(s32, s32, s32, u8);
-extern f32 D_800A08E0;
-extern u8 D_800DCD20[];
 
 void func_150D1B40(void *arg0) {
     f32 *sp28;

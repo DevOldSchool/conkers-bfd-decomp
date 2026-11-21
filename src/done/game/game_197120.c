@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_197120.c
@@ -49,7 +50,6 @@ void func_151709B4(s32, s32, s32, s32, f32, u8, s32);
 void func_15171200(s32, s32, f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, u8, s32);
 void func_151718F0(f32, f32, f32, f32, s32, f32, s32, s32, u8, s32);
 void func_1518CA04(s32);
-extern s32 D_800BE9E4;
 void func_1510F800(s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 f32 sqrtf(f32);
@@ -192,7 +192,6 @@ typedef struct Game197120SpawnPacket {
 void func_1510F800(s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 void func_15167AD8(void *, u8, s32);
-extern s32 D_8008CADC;
 
 void func_1516A3F4(void *arg0) {
     s32 current;
@@ -256,7 +255,6 @@ void func_1516A538(u8 *arg0) {
 }
 void func_1516F94C(s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
-extern s32 D_800BE9E4;
 
 s32 func_1516A648(u8 *arg0) {
     s32 value;

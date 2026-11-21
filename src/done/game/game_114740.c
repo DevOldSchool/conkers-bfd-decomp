@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_114740.c
@@ -22,7 +23,6 @@ void func_150E76D0(f32, s16, u8, u8, u8, s16, s16, s32, s32, u8, s32);
 void *func_15164F0C(u8, u8, void *, u8, s32);
 void *func_151D8868(void *, s32, u8, s32);
 extern Game114740Pair D_80088A5C;
-extern f32 D_800A1340, D_800A1344, D_800A1348, D_800A134C;
 
 void func_150E7290(s32 arg0, s32 arg1, s32 arg2) {
     Game114740Pair pair;

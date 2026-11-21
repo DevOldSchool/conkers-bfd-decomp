@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E4070.c
@@ -22,7 +23,6 @@ void func_150B765C(void);
 void func_150B768C(void);
 void func_150B77A8(void);
 void func_150B791C(void);
-extern s8 D_800D9890;
 
 void func_150B6BC0(s32 arg0) {
     switch ((u8)D_800D9890) {
@@ -56,13 +56,6 @@ void func_150B6BC0(s32 arg0) {
         return;
     }
 }
-extern s32 D_800BE9E8;
-extern void *D_800D9894;
-extern void *D_800D9898;
-extern s32 D_800D989C;
-extern s32 D_800D98A0;
-extern void *D_800D98C0;
-extern s8 D_800D9890;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6C90 CURRENT (530) */
 void func_150B6C90(void) {
@@ -90,9 +83,6 @@ clear_words:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6C90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6C90.s")
-extern void *D_800D9898;
-extern void *D_800D98A4;
-extern s8 D_800D9890;
 
 typedef struct GameE4070Slots {
     u8 pad0[0x14];
@@ -111,9 +101,6 @@ void func_150B6D34(void) {
     }
     D_800D9890 = 3;
 }
-extern void *D_800D9894;
-extern void *D_800D98C0;
-extern s8 D_800D9890;
 
 void func_150B6D78(void) {
     void **var_s0;
@@ -135,7 +122,6 @@ void func_150B6D78(void) {
     } while (var_s0 != var_s1);
     D_800D9890 = 3;
 }
-extern s32 D_800BE9E4;
 
 void func_150B6DFC(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x34) = (s16) (*(s16 *)((u8 *)arg0 + 0x34) + (D_800BE9E4 * 0x30));
@@ -165,8 +151,6 @@ typedef struct {
     u8 opacity;
     u8 unknown46[6];
 } GameE4070Effect;
-
-extern u8 D_80091918;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6E3C CURRENT (625) */
 void func_150B6E3C(GameE4070Effect *effect) {
@@ -299,9 +283,6 @@ typedef struct {
     u8 field39;
 } GameE4070Descriptor;
 
-extern u8 D_80091924;
-extern s32 D_800BE638;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B7220 CURRENT (4246) */
 void func_150B7220(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     GameE4070Descriptor descriptor;
@@ -384,8 +365,6 @@ void func_150B73F0(void *arg0) {
 }
 
 
-extern u8 D_800918DC;
-
 void func_150B7484(void) {
     GameE4070Descriptor descriptor;
 
@@ -453,7 +432,6 @@ void func_150B7560(void) {
     D_800D9890 = 3;
 }
 void func_150B76BC(s32 arg0, s32 arg1);
-extern s8 D_800D9890;
 
 void func_150B765C(void) {
     func_150B76BC(0x3C, 1);
@@ -463,7 +441,6 @@ void func_150B768C(void) {
     func_150B76BC(0xE6, 2);
     D_800D9890 = 3;
 }
-extern u8 D_800918E8;
 
 void func_150B76BC(s32 arg0, s32 arg1) {
     GameE4070Descriptor descriptor;
@@ -495,8 +472,6 @@ void func_150B76BC(s32 arg0, s32 arg1) {
     }
     (&D_800D9898)[arg1] = func_15169968(&descriptor);
 }
-extern u8 D_800918F4;
-extern u8 D_80091900;
 
 void func_150B77A8(void) {
     GameE4070Descriptor descriptor;
@@ -547,7 +522,6 @@ void func_150B77A8(void) {
     (&D_800D9898)[8] = func_15169968(&descriptor);
     D_800D9890 = 3;
 }
-extern u8 D_8009190C;
 
 void func_150B791C(void) {
     GameE4070Descriptor descriptor;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E67C0.c
@@ -32,7 +33,6 @@ s32 func_151B9310(s32 arg0, void *arg1) {
     return 1;
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-extern f32 D_800AA568;
 
 typedef struct Game1E67C0State {
     u8 *source;

@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E37D0.c
@@ -152,8 +153,6 @@ s32 func_151B6420(Game1B6420Actor *actor) {
     }
     return 1;
 }
-extern f32 D_800AA474;
-extern f32 D_800AA478;
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B65D4 CURRENT (4548) */
@@ -270,9 +269,7 @@ Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090CD4[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_151B6928(Game1B6420Actor *arg0, Gfx *arg1, s16 arg2) {
     Vtx_t *vtx;
@@ -491,7 +488,6 @@ typedef struct Game1E37D0ParticleSpawn {
 } Game1E37D0ParticleSpawn;
 
 f32 func_150ADA68(void);
-extern f32 D_800AA47C;
 
 void func_151B7144(u8 *arg0, u8 arg1, s32 arg2) {
     Game1E37D0ParticleSpawn spawn;
@@ -576,7 +572,6 @@ typedef struct Game1E37D0RingObject {
     Game1E37D0RingState *state;
 } Game1E37D0RingObject;
 
-extern s32 D_800BE9E4;
 extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Vec3f *);
 
 
@@ -593,7 +588,6 @@ typedef struct Game1E37D0FourChoices {
 
 extern Vec3f D_800A5480;
 extern Game1E37D0FourChoices D_800AA460;
-extern f32 D_800AA480;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7328 CURRENT (135) */
 Game1E37D0RingObject *func_151B7328(void *arg0, s32 arg1, u32 arg2, s32 arg3, s32 arg4) {
@@ -877,7 +871,6 @@ s32 func_151B7998(Game1E37D0RingObject *arg0) {
     }
     return 1;
 }
-extern u8 D_80091100[];
 
 Gfx *func_151B7C38(Game1E37D0RingObject *arg0, Gfx *arg1, s16 arg2) {
     Vec3f next;
@@ -1011,7 +1004,6 @@ Gfx *func_151B7C38(Game1E37D0RingObject *arg0, Gfx *arg1, s16 arg2) {
     } while (previous != arg0->tail);
     return arg1;
 }
-extern void (*D_8008FB98[])(void *, s32, u8);
 
 void func_151B82CC(void *arg0, s32 arg1, u8 arg2) {
     u8 *state;

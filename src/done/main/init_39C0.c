@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_39C0.c
@@ -6,8 +7,6 @@
  */
 
 extern u16 *D_8002AAE8[2];
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 typedef struct VideoMode VideoMode;
 s32 func_80003C40(s32, s32, s32, s32);
@@ -15,13 +14,8 @@ void func_80003ACC(s32, s32, s32);
 void func_800247C0(VideoMode *);
 void func_80024830(void *);
 void func_85015FBC(s32, s32);
-extern s32 D_80000300;
 extern VideoMode D_8002AB90;
 extern VideoMode D_8002ABE0;
-extern f32 D_800380A0;
-extern f32 D_800380A4;
-extern u8 D_800BE9C0;
-extern u16 *D_800BE9C4;
 
 void func_800039C0(void) {
     D_800BE620 = 0x124;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_128790.c
@@ -34,10 +35,6 @@ typedef struct Game128790Locals {
 void func_15145EA4(s32 *, s32 *, s32, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_150FEC28(void *, s32, void *, void *, void *, s32, s32);
-extern Vec3f D_800A1D30;
-extern Vec3f D_800A1D3C;
-extern Vec3f D_800A1D48;
-extern Vec3f D_800A1D54;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB324 CURRENT (1147) */
 void func_150FB324(u8 *arg0, s32 arg1, s32 arg2) {

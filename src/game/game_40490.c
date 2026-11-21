@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_40490.c
@@ -11,10 +12,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s32 D_800BE570;
-extern s8 D_800BE574;
-extern s8 D_800BE575;
 
 typedef s32 (*Game40490SimpleCallback)(u8 *);
 
@@ -29,9 +26,7 @@ void func_15012FE0(void) {
 }
 typedef void (*Game40490DispatchCallback)(u8 *, void *);
 extern Game40490DispatchCallback D_80082E30[];
-extern u32 D_800D3094;
 extern u8 *D_800D3098;
-extern f32 D_800DCD90;
 extern void *D_800DCDC4;
 
 void func_15013000(void) {
@@ -73,8 +68,6 @@ void *func_10022EC0(void *, const void *, u32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_150A8050(f32 *, f32, f32, f32);
 extern u8 D_1000EF40[];
-extern f32 D_80096640;
-extern f32 D_80096644;
 
 typedef struct Game40490BeamPacket {
     f32 position[3];
@@ -172,8 +165,6 @@ typedef struct Game40490EmitterPacket {
 } Game40490EmitterPacket;
 
 extern Game40490EmitterTemplate D_80095FA0[];
-extern f32 D_80096648;
-extern f32 D_8009664C;
 void func_1510F800(s32);
 s32 func_1510FD20();
 
@@ -252,8 +243,6 @@ typedef struct Game40490CallbackState {
 typedef void (*Game40490Callback)(Game40490CallbackState *, f32);
 
 extern Game40490Callback D_80082F28[];
-extern f32 D_80096650;
-extern s32 D_800BE9F0;
 extern u8 D_800C35E8;
 extern u8 D_800C35EA;
 extern u8 *D_800D2E4C;
@@ -311,16 +300,6 @@ s32 func_15013D38(Game40490DispatchState *arg0) {
     return 1;
 }
 void func_15149550(f32 *, s32, s32, s32, s32, s32);
-extern f32 D_80096654;
-extern f32 D_80096658;
-extern f32 D_8009665C;
-extern f32 D_80096660;
-extern f32 D_80096664;
-extern f32 D_80096668;
-extern f32 D_8009666C;
-extern f32 D_80096670;
-extern f32 D_80096674;
-extern f32 D_80096678;
 
 s32 func_15013DE8(u8 *arg0) {
     struct {
@@ -406,7 +385,6 @@ s32 func_15014004(void *arg0) {
     return 1;
 }
 extern void *D_800D9A20;
-extern void *D_800D9A24;
 
 s32 func_15014040(void *arg0) {
     s32 temp_v0;
@@ -420,7 +398,6 @@ s32 func_15014040(void *arg0) {
     }
     return 1;
 }
-extern s8 D_800D987C;
 
 s32 func_1501407C(s32 arg0) {
     D_800D987C = 0;
@@ -454,7 +431,6 @@ void func_15014094(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15014094 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014094.s")
 s32 func_151A9390(s32, u8, void *, s32, f32, f32, s32, s32, s32);
-extern f32 D_8009667C;
 
 s32 func_15014144(void *arg0) {
     s32 flags;
@@ -517,10 +493,6 @@ typedef struct Game40490ScaledPacket {
     f32 y;
     f32 zero;
 } Game40490ScaledPacket;
-
-extern s32 D_80082FA0;
-extern f32 D_80096680;
-extern f32 D_80096684;
 
 s32 func_150142EC(Game40490CallbackState *arg0) {
     Game40490ScaledPacket packet;
@@ -676,7 +648,6 @@ s32 func_1501474C(void *arg) {
 }
 u32 func_10024770(void);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_800A0938[][3];
 
 typedef struct Game40490LightDescriptor {
     s8 kind;
@@ -858,7 +829,6 @@ s32 func_15015104(u8 *arg0) {
     }
     return 1;
 }
-extern f32 D_800966B4;
 
 typedef struct Game40490LargeSpawnPacket {
     void *object;
@@ -907,8 +877,6 @@ typedef struct {
     u8 pad_0[0x1C];
     s32 field_1C;
 } Game40490State;
-
-extern void (*D_80082F70[])(void);
 
 s32 func_15015300(Game40490State *arg0) {
     void (*temp_v1)(void);

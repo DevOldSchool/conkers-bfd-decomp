@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_193430.c
@@ -13,7 +14,6 @@
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 void func_1517E05C(s32, s32, s32);
-extern f32 D_800A6C94;
 
 void func_15165F80(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, u8 arg7, s32 arg8) {
@@ -128,8 +128,6 @@ typedef struct {
     s16 field_9E;
 } Game193430State;
 
-extern s32 D_800BE9E4;
-
 void func_15166204(Game193430State *arg0) {
     s32 temp_v0;
 
@@ -142,7 +140,6 @@ void func_15166204(Game193430State *arg0) {
     }
     arg0->field_92 = temp_v0;
 }
-extern u8 D_800BE9C0;
 Gfx *func_15166268(Gfx *gdl, u8 *effect, s32 arg2) {
     s32 i;
     s32 x;
@@ -248,14 +245,7 @@ Gfx *func_15166268(Gfx *gdl, u8 *effect, s32 arg2) {
 }
 void *func_15142FBC(void *, s32, s32, u8 *);
 s32 func_15094F70();
-extern s32 D_800903F4;
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
-extern s16 D_800DCE40;
-extern s32 D_800DD220;
-extern s32 D_800DD224;
-extern void *D_800DD228;
-extern s32 D_800DD230;
 
 void func_151668B8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 changed;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_115F30.c
@@ -12,10 +13,6 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A137C;
-extern f32 D_800A1380;
-extern f32 D_800A13B0;
-extern f32 D_800A13B4;
 
 typedef struct Game115F30Packet {
     f32 field_0;
@@ -46,8 +43,6 @@ f32 func_150ADA68(void);
 s32 func_15144B34(s32);
 void func_1514470C(void *, f32 *);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E8;
-extern f32 D_800DCD90;
 extern Game115F30WeightedNode *D_800DCDC4;
 
 void func_150E8B1C(u8 *arg0) {
@@ -244,10 +239,6 @@ void func_150E9178(u8 *arg0) {
 }
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern u8 D_800A12F0[];
-extern f32 D_800A12F4[];
-extern f32 D_800A13C8, D_800A13CC, D_800A13D0, D_800A13D4;
-extern f32 D_800A13D8, D_800A13DC, D_800A13E0, D_800A13E4;
 
 /* The spawn helper copies the full 0x7C-byte descriptor. */
 typedef struct Game115F30Particle {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_13AE20.c
@@ -62,10 +63,6 @@ typedef struct {
 
 void func_150A7D00(volatile s64 *, f32, f32, f32);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern s32 D_80091770[];
-extern u8 D_800BE9C0;
-extern s32 D_800DD1B4;
-extern s16 D_800DD1C6;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E120 CURRENT (1814) */
 Game13AE20Command *func_1510E120(Game13AE20Command *arg0, Game13AE20RenderState *arg1, s32 arg2) {

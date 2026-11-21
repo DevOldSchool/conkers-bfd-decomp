@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_7FC10.c
@@ -9,10 +10,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern f32 D_80099348;
-extern f32 D_8009934C;
-extern s16 D_800CC264;
 
 void func_15052760(void *arg0, s16 arg1) {
     f32 temp_fv1;

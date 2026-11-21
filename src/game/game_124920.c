@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_124920.c
@@ -21,7 +22,6 @@ void func_15145974(void *, f32 *, f32 *);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A1BC0;
 extern u32 D_800A5480[3];
 
 void func_150F7470(Vec3f *arg0, Vec3f *arg1, s32 arg2, Vec3f *arg3, u8 arg4, s32 arg5, f32 arg6,
@@ -123,7 +123,6 @@ void func_150F7470(Vec3f *arg0, Vec3f *arg1, s32 arg2, Vec3f *arg3, u8 arg4, s32
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                     /* extern */
-extern f32 D_800A1BD8;
 extern f32 D_800BE9A4;
 
 s32 func_150F7E20(u8 *arg0) {
@@ -240,9 +239,6 @@ typedef struct GameF81BCMotion {
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 s32 func_15146078(void *, void *, void *);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern f32 D_800A1BE0, D_800A1BE4, D_800A1BE8, D_800A1BEC;
-extern f32 D_800A1BF0, D_800A1BF4;
-extern u8 D_800A4AA0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F81BC CURRENT (5790) */
 s32 func_150F81BC(void *arg0) {

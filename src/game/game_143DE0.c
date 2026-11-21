@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_143DE0.c
@@ -38,13 +39,10 @@ typedef struct Game143DE0Sound {
     s16 threshold;
 } Game143DE0Sound;
 
-extern s32 D_800BE9E4;
 extern Game143DE0Sound D_80089260[];
 void func_15114D24(s32, s32, s32, s16, s32, s32);
 
 void func_15116BAC(u8 *);
-extern s16 D_80089264[][6];
-extern s16 D_80089268[][6];
 
 void func_151169B4(void *arg0) {
     s32 step;
@@ -158,7 +156,6 @@ void func_15116BAC(u8 *arg0) {
         }
     }
 }
-extern s32 D_800BE9E4;
 
 void func_15116D7C(f32 *arg0) {
     f32 step = *(s32 *)((u8 *)arg0 + 0x3C) * 0.00390625f;
@@ -192,10 +189,6 @@ void func_15116D7C(f32 *arg0) {
 }
 s32 func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
-extern u8 D_8002AAD0[];
-extern u8 D_80089320[];
-extern f32 D_800A2FD4;
-extern u8 D_800BE9C0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15116EA4 CURRENT (3253) */
 void func_15116EA4(u8 *arg0) {
@@ -277,7 +270,6 @@ typedef struct Game143DE0Motion {
 
 
 extern Game143DE0Sound D_80089260[];
-extern f32 D_800A2FD8;
 f32 func_15048A70(f32, f32);
 void func_15114D24(s32, s32, s32, s16, s32, s32);
 f32 fabsf(f32);

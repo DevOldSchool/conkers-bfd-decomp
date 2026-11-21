@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_CD5A0.c
@@ -20,7 +21,6 @@ typedef struct GameCD5A0Record {
 } GameCD5A0Record;
 
 extern GameCD5A0Record D_800D3010[];
-extern s32 D_800D3014[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A00F0 CURRENT (1075) */
 void func_150A00F0(void) {
@@ -35,9 +35,6 @@ void func_150A00F0(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A00F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CD5A0/func_150A00F0.s")
 
-extern u16 D_80088510[];
-extern u16 D_8008851C[];
-extern s32 D_800BE9E4;
 extern GameCD5A0Record D_800D3088;
 
 void func_150A019C(void) {
@@ -86,7 +83,6 @@ s32 func_150A02D0(s32 arg0, s32 arg1, s32 *arg2) {
         return 0;
     }
 }
-extern s32 D_800D3014[];
 
 s32 func_150A0374(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 == 3) {

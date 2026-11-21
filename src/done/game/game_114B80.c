@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_114B80.c
@@ -118,7 +119,6 @@ f32 func_15142AC0(f32);
 f32 func_15142B04(f32);
 f32 func_15142B44(f32);
 void *func_151D8868(s8 *, s32, u8, s32);
-extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;
 
 void *func_150E7994(s16 arg0, f32 arg1, u8 arg2, s32 arg3) {
@@ -300,8 +300,6 @@ typedef struct GameE81A8Event {
 
 void func_1514FCE8(s16 *, u8, s32);
 void *func_151D8868(s8 *, s32, u8, s32);
-extern Vec3f D_800A1290[];
-extern f32 D_800A1354, D_800A1358, D_800A135C, D_800A1360, D_800A1364;
 
 void func_150E81A8(u8 arg0, u8 arg1, s32 arg2) {
     Vec3f position;
@@ -390,8 +388,6 @@ typedef struct GameE8470State {
     Vec3f position;
     f32 pending;
 } GameE8470State;
-
-extern f32 D_800A1368, D_800A136C, D_800A1370;
 
 void func_150E8470(void *arg0) {
     void *result;

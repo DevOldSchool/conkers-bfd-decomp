@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_12F400.c
@@ -169,10 +170,6 @@ typedef struct {
 } Game12F400Object;
 
 s32 func_15100600(void *, void *, void *, u8, s32, s32, s32, s32, f32, f32, f32, f32, s32, s32, s32);
-extern u8 D_800A21A0[];
-extern u8 D_800A21F4[];
-extern u8 D_800A2248[];
-extern f32 D_800A233C;
 
 s32 func_151026BC(Game12F400Object *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
     s32 offset;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_1420.c
@@ -23,10 +24,7 @@ void func_80022C90(void *, s32);
 s32 func_80022DC0(void);
 void func_80022DE0(s32);
 void func_80022E00(void *);
-extern u8 D_1002AAD0;
 extern u8 D_80031AE0;
-extern s32 D_8003BE70;
-extern s32 D_8003BE74;
 
 void clear_bootstrap_region(void) {
     s32 a = 0;

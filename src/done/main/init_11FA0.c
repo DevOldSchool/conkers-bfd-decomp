@@ -1,17 +1,14 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_11FA0.c
  * Boundary evidence: docs/evidence/boundaries/main/main_allocator_transfer_controller_boundaries.md
  */
 
-extern s32 D_80042770;
-
 void func_80011FA0(s32 arg0) {
     D_80042770 = arg0;
 }
-extern s8 D_80041FD9;
-extern s32 D_80042774;
 
 void func_80011FB0(s32 arg0) {
     s32 previous = D_80042774;
@@ -21,12 +18,10 @@ void func_80011FB0(s32 arg0) {
     }
     D_80042774 = arg0;
 }
-extern s32 D_80042778;
 
 void func_80011FDC(s32 arg0) {
     D_80042778 = arg0;
 }
-extern s32 D_8004277C;
 
 void func_80011FEC(void) {
     D_80042770 = D_80042774 = D_80042778 = D_8004277C = 0;
@@ -39,19 +34,12 @@ extern MainSelectorPair D_8002BA10;
 extern MainSelectorPair D_8002BA18;
 extern u8 *D_800DBFF0;
 extern u8 *D_800B0DF0;
-extern u8 D_800BE9B4;
 extern f32 D_800BE9A4;
-extern f32 D_80042780[2];
-extern f32 D_80042788[2];
-extern f32 D_80042790;
-extern f32 D_80042794;
-extern f32 D_80042798;
 f32 func_85047D60(f32);
 void func_80008BC0(u8, f32, f32);
 void func_80008B60(u8, u8, u8, u8, s32);
 
 void func_80012020(void) {
-    extern f32 D_80042784;
     s32 i;
     f32 volume = 0.0f;
     s32 selector;

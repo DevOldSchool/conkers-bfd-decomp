@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_332E0.c
@@ -13,7 +14,6 @@ typedef struct Game332E0State {
 } Game332E0State;
 
 void func_15124B18(void *);
-extern s32 D_800BE9F0;
 
 void func_15005E30(Game332E0State *arg0) {
     if (D_800BE9F0 == 0x32) {

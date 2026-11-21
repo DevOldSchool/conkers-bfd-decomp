@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_EC0E0.c
@@ -47,9 +48,6 @@ s32 func_150BED28(s32 arg0, s32 arg1) {
 }
 s32 func_150BEC30(f32 *, void *, void *, u8);
 void func_15141F78(s32, void *, f32, s32, f32 *, s32);
-extern f32 D_800A00D0;
-extern f32 D_800A00D4;
-extern f32 D_800A00D8;
 
 void func_150BED4C(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];

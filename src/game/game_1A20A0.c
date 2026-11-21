@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A20A0.c
@@ -37,9 +38,8 @@ typedef struct Game174BF0Actor {
 } Game174BF0Actor;
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
-extern s32 D_800DBE3C, D_800DBE5C;
+extern s32 D_800DBE3C;
 extern u8 *D_800DBFF0;
-extern u8 D_800A7170[];
 
 void func_15174BF0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7, s32 arg8) {
     f32 height;
@@ -117,7 +117,6 @@ typedef struct Game174FA4Surface {
 s32 func_150A3A70(s32, s32);
 void func_1510F800(s32);
 extern Game174FA4Surface D_800D3300[];
-extern s32 D_800DDF14;
 
 void func_15174FA4(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                    s32 arg4, s32 arg5, s32 arg6, s32 arg7,
@@ -198,7 +197,6 @@ void func_15174FA4(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
         } while (index != arg0);
     }
 }
-extern f32 D_800A7178;
 void func_15175390(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
                    s32 arg8, s32 arg9, s32 arg10, u32 arg11, s32 arg12, s32 arg13, s32 arg14,
                    f32 arg15, f32 arg16, s32 arg17) {
@@ -338,7 +336,6 @@ typedef struct {
     f32 x, y, z;
 } Game17685CPosition;
 extern Game17685CPosition D_800CC2D0;
-extern u8 D_800DDF5C[], D_800DDF68[];
 s32 func_150AD960(s32, s32, s32, s32);
 void func_15175958(void *);
 
@@ -435,8 +432,7 @@ typedef struct Game176B84Actor {
     u8 fading;
 } Game176B84Actor;
 
-extern u8 D_800DDE80[], D_800DDE84[];
-extern s32 D_800BE9E4, D_800DDF78[];
+extern u8 D_800DDE80[];
 
 void func_15176B84(Game176B84Actor *arg0) {
     s32 alpha;
@@ -494,9 +490,7 @@ void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7A48(void *, void *, void *);
 void *func_15142FBC(void *, s32, s32, u8 *);
-extern u8 D_800BE9C0, D_800DDE80[], D_800A7170[];
-extern s32 D_800BE9E4, D_800DDF78[];
-extern u32 D_800DDE8C[];
+extern u8 D_800DDE80[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15176DF0 CURRENT (2296) */
 void *func_15176DF0(u32 *gdl, u8 *state, s16 arg2) {
@@ -571,10 +565,6 @@ void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
 void *func_15176DF0(u32 *, u8 *, s16);
-extern u8 D_800BE9C0;
-extern f32 D_800D35E0, D_800D35E4;
-extern f32 D_800D9B20;
-extern u8 D_800D9C10[];
 extern u8 D_800DDE80[];
 
 void *func_151770C8(u32 *gdl, u8 *arg1, s16 arg2) {

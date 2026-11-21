@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_CA630.c
@@ -19,7 +20,6 @@ typedef struct GameCA630Node {
     u8 kind;
 } GameCA630Node;
 
-extern s32 D_800A6060[];
 extern u8 D_800DCE50[];
 void func_150E36BC(s32, s32 *, s32 *, s32 *);
 
@@ -34,7 +34,6 @@ void func_150C522C(void);
 void func_150E35DC(s32);
 void func_150EB8C4(void);
 void func_150F9720(u8);
-extern s8 D_800D9920;
 
 s32 func_1509D780(s32 arg0, u8 *arg1) {
     void *temp_v0;
@@ -108,7 +107,6 @@ void func_151403A8(void *, u8);
 void func_151645C4(s32);
 void func_1516944C(s32, s8 *, u8);
 void func_150DEC28(u8, s32);
-extern u8 D_800A0960[][16];
 
 s32 func_1509D8FC(s32 arg0, s32 arg1, GameCA630Input *arg2) {
     s32 index;

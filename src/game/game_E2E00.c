@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E2E00.c
@@ -36,8 +37,6 @@ typedef struct GameE2E00Owner5950 {
 f32 func_150ADA68(void);
 void func_150B5A3C(void *, u8, s32, void *);
 void func_150B60E0(void *, f32 *);
-extern f32 D_8009FC98;
-extern f32 D_8009FC9C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5950 CURRENT (1999) */
 void func_150B5950(GameE2E00Owner5950 *arg0) {
@@ -101,9 +100,6 @@ typedef struct GameE2E00Particle {
 void func_150B5E34(void *, u8, s32);
 void func_150B6000(void *, u8, s32);
 void func_15152B38(void *, s32, s32, void *);
-extern f32 D_8009FCA0;
-extern f32 D_8009FCA4;
-extern f32 D_8009FCA8;
 
 void func_150B5A3C(void *arg0, u8 arg1, s32 arg2, void *arg3) {
     GameE2E00Particle descriptor;
@@ -164,10 +160,6 @@ void func_150B5A3C(void *arg0, u8 arg1, s32 arg2, void *arg3) {
     func_150B5E34(arg0, arg1, arg2);
     func_150B6000(arg0, arg1, arg2);
 }
-extern f32 D_8009FCAC;
-extern f32 D_8009FCB0;
-extern f32 D_8009FCB4;
-extern f32 D_8009FCB8;
 
 void func_150B5C38(void *arg0, u8 arg1, s32 arg2, void *arg3) {
     GameE2E00Particle descriptor;
@@ -336,7 +328,6 @@ void func_150B6000(void *arg0, u8 arg1, s32 arg2) {
 }
 /* Call context: func_15143134: unique active project prototype */
 void func_15143134(f32 *, f32 *, s32);
-extern f32 D_8009FC30;
 
 void func_150B60E0(void *arg0, f32 *arg1) {
     func_15143134(&D_8009FC30, arg1, *(s32 *)((u8 *)arg0 + 0x1D4) + 0x140);

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F8590.c
@@ -14,8 +15,6 @@
 void func_15143134(f32 *, f32 *, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);
-extern f32 D_800A05E0;
-extern f32 D_800A05EC;
 
 s32 func_150CB0E0(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
     f32 position[3];
@@ -113,8 +112,6 @@ typedef struct GameF8590EffectPacket {
 } GameF8590EffectPacket;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A0604, D_800A0608, D_800A060C, D_800A0610;
-extern f32 D_800A0618, D_800A061C, D_800A0614, D_800A0620;
 
 s32 func_150CB800(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -164,7 +161,6 @@ s32 func_150CB800(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     return 1;
 }
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_150CBA30(void *arg0) {
     f32 temp_fv0;
@@ -209,7 +205,6 @@ typedef struct GameF8590Particle {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
-extern f32 D_800A0624, D_800A0628, D_800A062C, D_800A0630;
 
 s32 func_150CBABC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,

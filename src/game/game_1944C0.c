@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1944C0.c
@@ -13,8 +14,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-
-extern u8 D_8008B4A8;
 
 typedef struct Game1944C0Struct115 { void (*unk0)(void *); u8 pad4[0x14]; void (*unk18)(void); u8 pad1C[0x18]; } struct115;
 
@@ -38,8 +37,6 @@ loop:
         goto loop;
     }
 }
-extern void (*D_8008CB64)(void);
-extern void (*D_8008CB70)(void);
 
 void func_1516706C(void) {
     void (**var_s0)(void);
@@ -125,9 +122,7 @@ typedef struct Game1944C0UpdateEntry {
 
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-extern s32 D_80082FA0;
 extern void *D_800DBFF0;
-extern f32 D_800DD1D0[2];
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
@@ -181,22 +176,9 @@ typedef struct Game74F8Entry {
     u8 pad31[3];
 } Game74F8Entry;
 void func_15168F84(s32, s32 *, s32 *);
-extern s32 D_8003C8E0;
 extern u8 D_80089470[];
-extern u8 D_800BE9C0;
 extern s32 D_800BE9C8[];
-extern s32 D_800BEBA4;
-extern s8 D_800D2DAB;
 extern u32 D_800DD1B0;
-extern s32 D_800DD1B4, D_800DD1B8;
-extern s16 D_800DD1BC, D_800DD1BE;
-extern s16 D_800DD1C0, D_800DD1C2, D_800DD1C4, D_800DD1C6;
-extern s16 D_800DD1C8, D_800DD1CA, D_800DD1CC, D_800DD1CE;
-extern s16 D_800DD1F8;
-extern s32 D_800DD1FC, D_800DD200;
-extern s16 D_800DD204, D_800DD206;
-extern s32 D_800DD208, D_800DD20C, D_800DD210, D_800DD214, D_800DD218, D_800DD21C;
-extern s32 D_800DD220, D_800DD224, D_800DD228;
 
 s32 func_151674F8(s32 arg0, s32 arg1, s16 arg2, s32 arg3) {
     s32 column;
@@ -349,7 +331,6 @@ void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
     }
 }
 typedef void (*Game1944C0EffectCallback)(void);
-extern Game1944C0EffectCallback D_8008CA20[];
 
 typedef struct Game1944C0AnimatedEffect {
     u8 pad0[0x10];
@@ -502,7 +483,6 @@ void *func_15167D84(void *arg0, s32 arg1, s32 arg2, s8 arg3, u8 arg4, s32 arg5) 
     return v0;
 }
 extern Game1944C0EffectCallback D_8008C9C8[];
-extern s32 D_800BE9E4;
 
 typedef struct Game1944C0MovingEffect {
     u8 pad00[0x10];
@@ -731,7 +711,6 @@ typedef struct Game168870State {
 typedef void (*Game168870Callback)(void);
 extern Game168870Callback D_8008C9C8[];
 extern u8 *D_8008CA4C[];
-extern s32 D_800BE9E4;
 
 void func_15168870(Game168870State *arg0) {
     s32 speed;
@@ -910,7 +889,6 @@ void func_15168B44(void *arg0)
   }
 }
 typedef void (*Game1944C0Callback)(void);
-extern Game1944C0Callback D_8008CA20[];
 
 void func_15168BAC(void *arg0) {
     u8 temp_v0;
@@ -960,8 +938,6 @@ typedef struct Game1944C0RenderState {
     u8 kind, mode;
 } Game1944C0RenderState;
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-extern s16 D_800DD1C0, D_800DD1C2, D_800DD1C4, D_800DD1C6;
-extern u8 D_800BE9C0;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 void *func_15168C4C(Game1944C0Command *arg0, Game1944C0RenderState *arg1, s32 arg2) {
@@ -1187,7 +1163,6 @@ void func_1516962C(s32 arg0, void *arg1, u8 arg2) {
     descriptor.kind = *(u8 *)((u8 *)arg1 + 0x3B);
     func_1516944C(arg0, (s8 *) &descriptor, arg2);
 }
-extern s8 D_800D2DAB;
 
 s32 func_15169668(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_800D2DAB = 1;

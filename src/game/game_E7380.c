@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E7380.c
@@ -27,7 +28,6 @@ s32 func_150BA35C(GameE7380Object *arg0) {
 
     return 1;
 }
-extern f32 D_8009FE2C;
 extern f32 D_800BE9A4;
 
 s32 func_150BA37C(void *arg0) {

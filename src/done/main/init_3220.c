@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_3220.c
@@ -33,13 +34,6 @@ u32 func_800233C0(void *);
 
 SpTask *func_80003220(SpTask *arg0) {
     /* Linked pointer-field aliases within D_80036B60. */
-    extern u64 *D_80036B70;
-    extern u64 *D_80036B78;
-    extern u64 *D_80036B80;
-    extern u64 *D_80036B88;
-    extern u64 *D_80036B8C;
-    extern u64 *D_80036B90;
-    extern u64 *D_80036B98;
 
     func_80023A10(arg0, &D_80036B60, sizeof(SpTask));
     if (D_80036B70 != 0) {

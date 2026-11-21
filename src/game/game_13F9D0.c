@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_13F9D0.c
@@ -17,7 +18,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15112A80.s")
-extern s32 D_800DBEF0;
 extern u8 *D_800DBEF4;
 
 void func_15113180(void) {
@@ -101,15 +101,8 @@ void *func_151733D8(void *, s32);
 struct Game13F9D0Model;
 s32 func_151137D4(s32, struct Game13F9D0Model *, s32, s32, s32, s32);
 s32 func_1515E544(s32, s32, u8, u8, void *);
-extern u8 **D_80089240;
-extern u8 **D_80089250[];
 extern u8 D_80089470;
-extern u8 D_800BE9C0;
 extern u8 D_800D9BD0[];
-extern s32 D_800D9E10[];
-extern u8 D_800D9E20;
-extern u8 D_800D9E21;
-extern u16 D_800DBEE8[];
 
 typedef struct Game13F9D0AttachedActor {
     u8 pad0[0x14];
@@ -127,9 +120,7 @@ void func_150A7B80(void *);
 void func_150A7CB0(Game13F9D0Matrix *, f32, f32, f32);
 void func_150442C0(f32 [4][4], f32, f32, f32);
 void func_1511490C(Game13F9D0Transform *, Game13F9D0MotionArgs *);
-extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
-extern u8 D_800DBF08[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15113218 CURRENT (4727) */
 void func_15113218(void) {
@@ -280,11 +271,7 @@ s32 func_1510CDB8(s32, s32, s32, s32);
 s32 func_1510D8C0(s32, Game13F9D0Model *);
 s32 func_150CF5E8(s32);
 s32 func_150A50C0(s32, s32, u8 *, s32, s32, s32);
-extern u8 D_80083D40[];
-extern u8 D_80083EC0[];
 extern s32 D_800BE9C8[];
-extern s32 D_800BEBA4;
-extern u8 D_800D9C10[];
 
 s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     s32 alpha;
@@ -356,7 +343,6 @@ s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4,
 s32 func_15022B08(s32, s32);
 s32 func_150859AC(s16, s16);
 void *func_1510D970(s32, s32, s32, s32, s32);
-extern s32 D_80082FA0;
 extern u8 D_800C35EA;
 extern u8 D_800C3658;
 
@@ -414,9 +400,6 @@ void func_15113C88(void) {
         }
     }
 }
-extern s32 D_80087380;
-extern s32 D_800DBF98;
-extern void *D_800D23C0;
 
 typedef struct Game13F9D0Group {
     u16 unk0;
@@ -479,8 +462,6 @@ typedef struct Game13F9D0Entry {
     u8 flags;
     u8 pad50[0x50];
 } Game13F9D0Entry;
-
-extern u32 *D_800DBF94;
 
 /* Semantic role: placed_object_test_actor_mask.
  * Require flag 0x80; -1 accepts that flag without consulting the actor mask.
@@ -673,8 +654,6 @@ typedef struct Game13F9D0MovingActor {
 } Game13F9D0MovingActor;
 
 void func_15114348(s32, f32 *, f32 *, f32 *);
-extern f32 D_800A2F60;
-extern u16 D_800CBDA0[];
 extern u8 D_800CC2D0;
 
 void func_1511473C(Game13F9D0MovingActor *arg0, s32 arg1) {
@@ -753,8 +732,6 @@ void *func_151149AC(u8 objectId) {
 }
 /* Call context: func_10004074: unique active project prototype */
 void func_10004074(s32);
-extern s32 D_800DBEF8;
-extern s32 D_800DBEFC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15114A1C CURRENT (1361) */
 void func_15114A1C(void) {
@@ -805,7 +782,6 @@ void func_15114A1C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15114A1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114A1C.s")
-extern s32 D_800DBF98;
 
 void func_15114B94(u32 arg0) {
     u32 threshold;
@@ -903,8 +879,6 @@ void func_15114F04(s32 arg0, s32 arg1, s32 arg2) {
 }
 /* Call context: func_150AD770: unique active project prototype */
 void func_150AD770(void);
-extern s32 D_8003C8E0;
-extern s32 D_800BE9F0;
 typedef struct {
     s32 a;
     s32 b;
@@ -912,10 +886,6 @@ typedef struct {
 } Game13F9D0PtrTriple;
 
 extern Game13F9D0PtrTriple *D_800DBDD8[];
-extern s32 D_800DBE18[];
-extern s32 D_800DBF9C;
-extern s32 D_800DBFA0;
-extern s32 D_800DBFA4;
 
 void func_15114F44(s32 arg0, s32 arg1, s32 arg2) {
     s32 i;

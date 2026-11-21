@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D43B0.c
@@ -66,8 +67,6 @@ typedef struct Game1D43B0Emitter {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 f32 func_150ADA68();
-extern f32 D_800A8DC0;
-extern f32 D_800A8DC4;
 
 void func_151A6F00(Game1D43B0Emitter *arg0, u8 arg1, u8 arg2, s32 arg3) {
     void *result;

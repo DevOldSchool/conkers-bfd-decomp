@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D3FC0.c
@@ -47,7 +48,6 @@ void func_151A6B68(Game1D3FC0Actor *arg0, s32 arg1) {
     }
     func_1505D024(arg0, 0x60034, arg0->field_7A, actor_index);
 }
-extern s32 D_800A5770[];
 extern u8 D_800DCE50[];
 
 Game1D3FC0Node *func_151A6BD8(s32 arg0) {

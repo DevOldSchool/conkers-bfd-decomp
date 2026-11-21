@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_13D350.c
@@ -32,37 +33,9 @@ struct Game13D350Command *func_15110544(struct Game13D350Command *, s32, s32, s3
 s32 func_151108C4(f32, f32, f32, f32, f32);
 void *func_1501A490(void *, s16, s32, s32, s32, s32);
 extern u8 D_800D9B68;
-extern u8 D_800D9B69;
-extern u8 D_800D9B6A;
-extern u8 D_800D9B6B;
-extern u8 D_800D9B6C;
-extern u8 D_800D9B6D;
-extern u8 D_800D9B6E;
-extern u8 D_800D9B6F;
-extern u8 D_800D9B70;
-extern u8 D_800D9B71;
-extern u8 D_800D9B72;
-extern u8 D_800D9B73;
 extern u8 D_800D9B78;
-extern u8 D_800D9B79;
-extern u8 D_800D9B7A;
-extern u8 D_800D9B7B;
-extern u8 D_800D9B7C;
-extern u8 D_800D9B7D;
-extern u8 D_800D9B7E;
-extern u8 D_800D9B7F;
-extern u8 D_800D9B80;
-extern u8 D_800D9B81;
-extern u8 D_800D9B82;
-extern u8 D_800D9B83;
-extern u8 D_800BE635;
 extern u8 D_800C35EA;
-extern u8 D_800C3681;
-extern u8 D_800C3682;
 extern s32 D_80082FA4;
-extern s16 D_80082FA6;
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 extern void *D_800DBFF0;
 extern struct Game13D350Record *D_800BE628;
 extern Game13D350ViewAngles D_800DCDE0[];
@@ -182,11 +155,7 @@ typedef struct Game13D350Command {
 } Game13D350Command;
 
 Game13D350Command *func_15110544(Game13D350Command *, s32, s32, s32, s32, s32, s32, u8);
-extern s32 D_80082FA0;
 extern s32 D_80082FA4;
-extern s32 D_800BE620;
-extern s32 D_800BE624;
-extern u8 D_800DBEA8[];
 
 Game13D350Command *func_151103C8(Game13D350Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     Game13D350Record *record = (Game13D350Record *)((u8 *)D_800BE628 + D_80082FA4 * 0x180);
@@ -221,11 +190,7 @@ Game13D350Command *func_15110544(Game13D350Command *arg0, s32 arg1, s32 arg2, s3
     { Game13D350Command *command = arg0++; command->w0 = 0xF7000000; command->w1 = (GPACK_RGBA5551((u8)arg5, (u8)arg6, arg7, 1) << 16) | GPACK_RGBA5551((u8)arg5, (u8)arg6, arg7, 1); }
     return func_1501A6CC(arg0, arg1, arg2, arg3, arg4);
 }
-extern s32 D_800BE9F0;
-extern u8 D_800DBEA8[];
 extern void *D_800DBFF0;
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 s32 func_15110600(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 *temp_v0;
@@ -243,12 +208,7 @@ s32 func_15110600(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 void * func_1501A490(void *, s16, s32, s32, s32, s32);
 void *func_1501A680(void *);                        /* extern */
 void *func_1501A6CC(void *, s32, s32, s32, s32);    /* extern */
-extern s32 D_80082FA0;
 extern s32 D_80082FA4;
-extern s32 D_800BE620;
-extern s32 D_800BE624;
-extern s32 D_800BE9C4;
-extern u8 D_800BEAC2;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game13D350Command *func_151106A8(Game13D350Command *arg0) {
@@ -289,10 +249,7 @@ void func_10004074(s32);
 void func_1510D694(s32);
 void func_15111858(void);
 void func_1502B7F0(void **, s32, s32, u8);
-extern u8 D_80038080;
-extern s32 *D_800891BC[];
 extern Game13D350State *D_800B0DF0;
-extern void *D_800DBE80;
 
 void func_1511172C(s32 arg0) {
     s32 i;
@@ -322,7 +279,6 @@ void func_1511172C(s32 arg0) {
 void * func_10003C40(s32, s32, s32, s32);
 f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
-extern void *D_800DBE80;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 

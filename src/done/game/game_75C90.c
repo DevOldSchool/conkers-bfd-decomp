@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_75C90.c
@@ -7,8 +8,6 @@
 
 f32 fabsf(f32 arg0);
 #pragma intrinsic(fabsf)
-
-extern u16 D_80098E00[];
 
 f32 func_150487E0(f32 arg0, f32 value) {
     f32 result;

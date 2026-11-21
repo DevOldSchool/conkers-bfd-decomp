@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_122B60.c
@@ -32,12 +33,6 @@ typedef struct Game122B60ActorPrefix {
 } Game122B60ActorPrefix;
 
 /* Existing ROM symbols only. No array capacity or new alias symbol is claimed. */
-extern s32 D_80090274[];
-extern f32 D_800A1B3C;
-extern f32 D_800A1B40;
-extern f32 D_800A1B44;
-extern f32 D_800A1B48;
-extern f32 D_800A1B4C;
 
 s32 func_150F56B0(Game122B60TextureAttachment *attachment,
                   Game122B60ActorPrefix *actor) {
@@ -212,12 +207,6 @@ typedef struct Game122B60SparkPacket {
 } Game122B60SparkPacket;
 
 f32 func_150ADA68(void);
-extern u8 D_800A1B00[];
-extern u8 D_800A1B0C[];
-extern f32 D_800A1B50;
-extern f32 D_800A1B54;
-extern f32 D_800A1B58;
-extern f32 D_800A1B5C;
 extern Vec3f D_800A5480;
 extern f32 D_800BE9A4;
 void func_15145EA4(s32 *, s32 *, s32, s32);
@@ -330,8 +319,6 @@ void func_150F6138(s32 arg0, s32 arg1, u8 arg2) {
     func_15149514(arg1, arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
 }
 void func_15145EA4(s32 *, s32 *, s32, s32);
-extern u8 D_800A1B18[];
-extern u8 D_800A1B24[];
 
 typedef struct Game122B60Vec3Bits {
     u32 words[3];

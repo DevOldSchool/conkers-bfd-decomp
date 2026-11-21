@@ -1,6 +1,7 @@
 #include "types.h"
 #include <PR/gbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A8060.c
@@ -47,17 +48,11 @@ typedef struct {
 extern Game1A8060Entry **D_800DD460[];
 extern Game1A8060Actor D_800CC2D0[];
 extern s32 D_800D19A0[];
-extern s32 *D_800C4020[];
-extern u8 D_800BE9C0;
-extern s32 D_800BE9E4;
-extern u8 D_800BEAC0;
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 void func_10023D20(void *, s32);
 s32 func_1502B5C8(u32 *, s32, ...);
 
-extern u8 D_800A7230[];
-extern u16 D_800C4310[];
 void func_10004074(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517ABB0 CURRENT (2305) */

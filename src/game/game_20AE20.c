@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_20AE20.c
@@ -9,11 +10,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s8 D_8008FE54[23];
-extern s8 D_8008FE6C[23];
-extern s8 D_8008FE84[23];
-extern s8 D_800E0BE0[23];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DD970 CURRENT (1030) */
 void func_151DD970(void) {

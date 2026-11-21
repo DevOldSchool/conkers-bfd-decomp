@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FB600.c
@@ -14,7 +15,6 @@
 void *func_10022EC0(void *, const void *, u32);
 struct ColourFramebufferEffect;
 struct ColourFramebufferEffect *func_1515FF74();
-extern f32 D_800A07FC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE150 CURRENT (6081) */
 void *func_150CE150(void *arg0, s16 arg1, u8 arg2) {
@@ -93,7 +93,6 @@ typedef struct GameFB600Actor {
 void func_15143134(f32 *, f32 *, s32);
 s32 func_15144CEC(f32 *, f32 *, f32 *, f32 *, f32 *, s32);
 extern s32 D_80082FA4;
-extern f32 D_800A07F0[3];
 
 s32 func_150CE200(GameFB600Actor *arg0) {
     GameFB600Remap *remap;
@@ -149,7 +148,6 @@ s32 func_150CE200(GameFB600Actor *arg0) {
 }
 
 void *func_10022EC0(void *, const void *, u32);
-extern s32 D_800BE620;
 
 void func_150CE450(GameFB600Actor *arg0, s32 pixels) {
     s16 *columnCursor;

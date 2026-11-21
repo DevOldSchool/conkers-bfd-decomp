@@ -1,11 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F4B20.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
  */
-
-extern f32 D_800A04C0;
 
 s32 func_150C7670(void *arg0) {
     {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_EF410.c
@@ -63,16 +64,6 @@ typedef struct {
 
 void func_15150178(s16 *, f32 *, s32, u8, s32);
 void func_15151A38(f32 *, u8, s32);
-extern f32 D_800A0230;
-extern f32 D_800A0234;
-extern f32 D_800A0238;
-extern f32 D_800A023C;
-extern f32 D_800A0240;
-extern f32 D_800A0244;
-extern f32 D_800A0248;
-extern f32 D_800A024C;
-extern f32 D_800A0250;
-extern f32 D_800A0254;
 
 void func_150C1F60(u8 arg0) {
     GameC2290Packet packet;
@@ -170,10 +161,6 @@ void func_150C1F60(u8 arg0) {
 
 
 void func_15151A38(f32 *, u8, s32);
-extern f32 D_800A0258;
-extern f32 D_800A025C;
-extern f32 D_800A0260;
-extern f32 D_800A0264;
 
 void func_150C2290(u8 arg0) {
     GameC2290Packet packet;
@@ -226,8 +213,6 @@ void func_150C2290(u8 arg0) {
 }
 f32 func_150ADA68(void);
 void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, u8);
-extern f32 D_800A0268;
-extern f32 D_800A026C;
 
 void func_150C2424(u8 arg0) {
     f32 *p = &D_800A0268;
@@ -286,7 +271,6 @@ s32 func_150C251C(void *arg0) {
     }
     return 1;
 }
-extern f32 D_800A0270;
 
 s32 func_150C2558(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -343,9 +327,6 @@ s32 func_150C2558(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 
 
 void func_15150178(s16 *, f32 *, s32, u8, s32);
-extern f32 D_800A0274;
-extern f32 D_800A0278;
-extern f32 D_800A027C;
 
 s32 func_150C2700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -379,8 +360,6 @@ s32 func_150C2700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     func_15150178(&spawn.field00, spawn.position, 0, arg14, 1);
     return 1;
 }
-extern f32 D_800A0280;
-extern f32 D_800A0284;
 
 typedef struct {
     s32 field_0;
@@ -412,9 +391,6 @@ void func_150C2804(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
 }
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32, f32,
                    s32, s32, s32, s32, s32, s32);
-extern f32 D_800A0288;
-extern f32 D_800A028C;
-extern f32 D_800A0290;
 
 void func_150C2898(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, void *arg6) {
@@ -480,14 +456,6 @@ typedef struct GameEF410Emitter {
 } GameEF410Emitter;
 
 void *func_15149550(f32 *, u8, u8, u8, u8, s32);
-extern f32 D_800A02A0;
-extern f32 D_800A02A4;
-extern f32 D_800A02A8;
-extern f32 D_800A02AC;
-extern f32 D_800A02B0;
-extern f32 D_800A02B4;
-extern f32 D_800A02B8;
-extern f32 D_800A02BC;
 
 void func_150C29F0(GameEF410Emitter *arg0) {
     f32 *position;
@@ -541,26 +509,6 @@ f32 func_15144C8C(f32, f32);
 extern s32 D_80082FA4;
 void *func_10022EC0(void *, const void *, u32);
 void func_1514373C(f32, f32, f32 *, f32 *);
-extern f32 D_800A02C0;
-extern f32 D_800A02C4;
-extern f32 D_800A02C8;
-extern f32 D_800A02CC;
-extern f32 D_800A02D0;
-extern f32 D_800A02D4;
-extern f32 D_800A02D8;
-extern f32 D_800A02DC;
-extern f32 D_800A02E0;
-extern f32 D_800A02E4;
-extern f32 D_800A02E8;
-extern f32 D_800A02EC;
-extern f32 D_800A02F0;
-extern f32 D_800A02F4;
-extern f32 D_800A02F8;
-extern f32 D_800A02FC;
-extern f32 D_800A0300;
-extern f32 D_800A0304;
-extern f32 D_800A0308;
-extern f32 D_800A030C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2C00 CURRENT (5739) */
 void func_150C2C00(GameEF410Emitter *arg0) {
@@ -649,8 +597,6 @@ s32 func_150C2FCC(T150C *arg0) {
     }
     return 1;
 }
-extern f32 D_800A0310;
-extern f32 D_800A0314;
 
 s32 func_150C308C(void *arg0) {
     u8 flag;
@@ -730,10 +676,7 @@ void func_1507C324(void *, void *);
 void func_1508B20C(f32, f32, f32, f32);
 void func_15060F28(u8 *, s32);
 void func_1506AC8C(void *, s32, void *);
-extern u8 D_800BE616;
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
-extern u8 D_800CC028[];
 extern u8 D_800CC2D0[];
 
 typedef struct GameEF410Release {
@@ -847,14 +790,7 @@ s32 func_100107F8(u8 *);
 void func_1001091C(u8 *, s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A0320;
-extern f32 D_800A0324;
-extern f32 D_800A0328;
-extern f32 D_800A032C;
-extern f32 D_800A0330;
-extern f32 D_800BE9A8;
 extern u8 *D_800D154C;
-extern s32 D_800D1580;
 
 void func_150C3574(u8 *arg0) {
     f32 speed;
@@ -964,7 +900,6 @@ void func_15188810(u8 *, s32, s32);
 void func_151B9BF0(s32, s32, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s32, u8, s32);
 s32 func_10010344(s32, void *, u32, s16, s32);
 void func_10010630(u16, void *, s32, s32, s32);
-extern f32 D_800A0334;
 
 void func_150C3994(u8 *arg0) {
     if (*(s32 *)arg0 == 0x14) {
@@ -1029,7 +964,6 @@ void func_151709B4(s32, s32, s32, s32, f32, u8, s32);
 void func_15171200(s32, s32, f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, u8, s32);
-extern f32 D_800A0338;
 
 void func_150C3D5C(u8 *arg0) {
     s32 check;

@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_render_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_476D0.c
@@ -11,15 +12,6 @@ s32 func_10003C40(s32, s32, s32, s32);
 void func_150006E0(s32);
 void func_1501A8C0(s32, s32, s32, s16);
 void func_1510B070(s32);
-extern s32 D_80082FA0;
-extern s32 D_800BE62C;
-extern s32 D_800BE63C;
-extern s32 D_800BE9F0;
-extern f32 D_800968E0;
-extern f32 D_800BE6B8;
-extern s8 D_800BE614;
-extern s8 D_800BE617;
-extern s8 D_800BE635;
 
 void func_1501A220(s32 arg0, s32 arg1) {
     f32 temp_fv0;
@@ -62,8 +54,6 @@ void func_1501A220(s32 arg0, s32 arg1) {
     D_800BE635 = 0;
     func_1510B070(arg1);
 }
-extern u8 D_8002C930;
-extern s32 D_800BE9C4;
 typedef union Game476D0DisplayCommand {
     struct {
         u32 word0;
@@ -91,8 +81,6 @@ void func_1501A39C(void) {
 }
 /* Call context: func_1501AF44: unique active project prototype */
 void func_1501AF44(f32 *, f32 *, f32 *, f32 *);
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 Game476D0DisplayCommand *func_1501A490(Game476D0DisplayCommand *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
@@ -125,7 +113,6 @@ Game476D0DisplayCommand *func_1501A490(Game476D0DisplayCommand *arg0, s16 arg1, 
     return arg0;
 }
 extern s32 D_8002AAE8[];
-extern u8 D_800BE9C0;
 
 Game476D0DisplayCommand *func_1501A680(Game476D0DisplayCommand *arg0) {
     {
@@ -136,8 +123,6 @@ Game476D0DisplayCommand *func_1501A680(Game476D0DisplayCommand *arg0) {
     }
     return arg0;
 }
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 Game476D0DisplayCommand *func_1501A6CC(Game476D0DisplayCommand *arg0, s32 ulx, s32 uly, s32 lrx, s32 lry) {
     if (ulx < 3) {
@@ -156,7 +141,6 @@ Game476D0DisplayCommand *func_1501A6CC(Game476D0DisplayCommand *arg0, s32 ulx, s
     return arg0;
 }
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
-extern u8 D_800D9D10[];
 
 void func_1501A764(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4,
                    f32 *arg5, f32 *arg6) {
@@ -182,14 +166,6 @@ void func_1501B0A0(s32, s32);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1510B32C(s32, f32, f32, f32);
-extern s32 D_800BE638[];
-extern s32 D_800BE650[];
-extern f32 D_80082FA8[];
-extern f32 D_800968E4;
-extern f32 D_800968E8;
-extern f32 D_800968EC;
-extern f32 D_800968F0;
-extern s8 D_800BE630[];
 extern s16 D_800BE668[][5][2];
 
 void func_1501A8C0(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
@@ -257,8 +233,6 @@ void func_1501A8C0(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
     func_1510B32C(arg0, 0.0f, 0.0f, D_800BE628[arg0].field84);
     D_800BE630[arg0] = arg0;
 }
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 s32 func_1501AE94(s32 arg0) {
     void *temp_v0;
@@ -343,8 +317,6 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 f32 func_150484A0(f32, f32);
 void func_1510B128(s32, f32, f32, f32, f32);
-extern s32 D_800BE638[];
-extern s32 D_800BE650[];
 
 void func_1501B0A0(s32 arg0, s32 arg1) {
     f32 angleX;

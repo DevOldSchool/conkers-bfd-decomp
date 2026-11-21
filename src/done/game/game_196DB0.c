@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_196DB0.c
@@ -30,8 +31,6 @@ Game196DB0Effect *func_15169900(void *arg0, s32 arg1) {
 void *func_15169968(void *arg0) {
     return func_15169900(arg0, 0xFF);
 }
-extern void (*D_8008CA20[])(void);
-extern s32 D_800BE9E4;
 
 void func_15169988(void *arg0) {
     s32 temp_v1;
@@ -87,7 +86,6 @@ Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 s32 func_15094F70();
 Gfx *func_1509629C(Gfx *, void *, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_15169A48(Gfx *arg0, Game196DB0RenderEffect *arg1, s32 arg2) {
     Gfx *gdl;

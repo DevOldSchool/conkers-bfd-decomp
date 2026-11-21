@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_447B0.c
@@ -13,15 +14,7 @@ extern u8 D_800D2138[];
 /* Call context: func_15085710: unique active project prototype */
 void func_1501748C(s16);
 void func_15085710(s16, s32, s32);
-extern s8 D_80087260;
-extern s8 D_80087264;
-extern s8 D_8008726C;
 extern s8 D_80087270[];
-extern u8 D_800BE616;
-extern s16 D_800D2132;
-extern s16 D_800D2340;
-extern u8 D_800D2456;
-extern u8 D_800D2457;
 
 void func_15017300(s16 arg0, s16 arg1) {
     s32 i;
@@ -50,8 +43,6 @@ void func_1501748C(s16 arg0) {
 void func_15017498(void) {
     func_100226F0(D_800D2138, 0x20C);
 }
-extern u32 D_80087380;
-extern void *D_800D23C0;
 
 typedef struct Game447B0Record {
     u16 unk0;
@@ -74,9 +65,6 @@ void func_150174C0(s32 arg0) {
 }
 void *func_1502B5C8(u32 *, s32, ...);
 void func_150174C0(s32);
-extern u32 D_80087380;
-extern void *D_800D23C0;
-extern u8 D_800DBF00;
 
 void func_15017578(s32 arg0) {
     u32 sp24;

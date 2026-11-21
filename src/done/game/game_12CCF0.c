@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_12CCF0.c
@@ -12,9 +13,6 @@ typedef struct Game12CCF0State {
 } Game12CCF0State;
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
-
-extern u8 D_80088BB0;
-extern s32 D_800A2130;
 
 typedef struct Game12CCF0Actor {
     u8 pad0[0x7A];
@@ -31,7 +29,6 @@ void func_150FFB6C(Vec3f *, void *, Game12CCF0Actor *, s32);
 void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
 s32 func_15081E78(void *, void *, s32);
-extern u8 D_800A213C[];
 
 void func_150FF840(Game12CCF0Actor *arg0, u8 arg1, u8 arg2, u8 arg3, s32 arg4) {
     Vec3f position, direction, third, fourth;

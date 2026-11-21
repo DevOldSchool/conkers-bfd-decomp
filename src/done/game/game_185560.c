@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_185560.c
@@ -11,7 +12,6 @@ void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4, u8 arg5, 
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_1515D480(s32);
-extern s32 D_80082FA0;
 
 void *func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3,
                     s32 arg4, u8 arg5, s32 arg6) {
@@ -64,7 +64,6 @@ void func_151581D8(void *arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
 typedef s32 (*Game185560Callback)(void *);
 
 extern Game185560Callback D_8008AE00[];
-extern s32 D_800BE9E4;
 
 void func_15158224(void *arg0) {
     u8 *p = (u8 *)arg0;
@@ -125,9 +124,7 @@ typedef struct Game185560Command {
 
 typedef s32 (*Game185560DrawCallback)(void *, Game185560RenderActor *);
 extern Game185560DrawCallback D_8008AE0C[];
-extern u32 D_8008AFB8[];
 extern Game185560RenderPreset D_800A4AC8[];
-extern u8 D_800BE9C0;
 s32 *func_15142B7C(s32 *, s32, s32);
 void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
 void *func_15142CF0(void *, s32, s32, s32, s32, s32, s32, u8 *);
@@ -233,7 +230,6 @@ typedef struct Game185560MovingActor {
 } Game185560MovingActor;
 
 extern f32 D_800BE9A4;
-extern f32 D_800BE9A8;
 
 s32 func_15158684(Game185560MovingActor *arg0) {
     Game185560Motion *motion;
@@ -273,7 +269,6 @@ typedef struct {
 } Game185560Matrix;
 
 extern Game185560Matrix D_8008AE18;
-extern f32 D_800A6070;
 
 s32 func_15158920(s32 arg0, Game185560TransformArgs *arg1) {
     s32 node;
@@ -299,7 +294,6 @@ s32 func_15158920(s32 arg0, Game185560TransformArgs *arg1) {
     return 1;
 }
 void func_100043B4(void *, s32);
-extern s32 D_80082FA0;
 
 void func_15158A20(u8 *arg0) {
     s32 i;
