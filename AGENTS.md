@@ -94,6 +94,9 @@ only exact results through transactional `finish`.
   code-rule profile. A trick that closes a diff is a clue, not the answer.
 - Follow the profile's [naming ruling](docs/code-rules.md#naming); it is
   advisory, and renames go in their own commits through the byte gates.
+- Globals already in `include/globals.h` need no local `extern`. After a batch,
+  `./conker hoist-externs --apply` moves new agreeing declarations there; run
+  the byte gates afterwards.
 - When a style rule and the bytes disagree, keep the bytes and write
   `// RULE-EXCEPTION: <rule>, <reason>`. Rule changes are maintainer rulings,
   recorded in the profile with the checker change in the same commit.

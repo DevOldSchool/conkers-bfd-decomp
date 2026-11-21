@@ -81,8 +81,10 @@ casts, unit-local `extern` globals, conflicting definitions of one type name,
 fake code or assembly. A byte-identical function that fails one is
 `MATCH-PENDING`, kept and reported as open work. New `extern`s follow the R2
 ruling in the profile: add the declaration to the owning module's header when
-the owner is clear (a pre-approved shared change), otherwise keep it in the
-unit as R2 debt. Check changed sources with `./conker rules --findings <path>`;
+the owner is clear (a pre-approved shared change; until modules have their own
+headers that is `include/globals.h`), otherwise keep it in the unit as R2 debt.
+`./conker hoist-externs --apply` later moves agreeing unit-local `extern`s into
+`include/globals.h`. Check changed sources with `./conker rules --findings <path>`;
 the checker is report-only and does not gate CI.
 
 Use the latest `finish` diagnosis; run `diagnose-diff` only if evidence is stale
