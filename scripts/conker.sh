@@ -413,7 +413,7 @@ workspace_mount_args() {
 
     add_workspace_mount Makefile
     add_workspace_mount Dockerfile
-    for path in config docs include lib progress scripts src tests toolchain; do
+    for path in config docs include lib progress scripts src tests toolchain tools; do
         access=readonly
         if [[ "$mode" == "integrate" ]]; then
             case "$path" in
