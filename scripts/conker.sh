@@ -104,6 +104,8 @@ Getting started
         [--max-lines N] [path...]
                                  Grade matched C against the code-rule profile (docs/code-rules.md):
                                  matched under the rules vs MATCH-PENDING (read-only).
+  hoist-externs [--apply]        Move unit-local extern globals that every unit declares
+                                 alike into include/globals.h (R2); reports without --apply.
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
@@ -1015,6 +1017,21 @@ case "$command" in
                 rules "${rules_cflags[@]}" || die "cannot build the rule checker in the toolchain image"
             run_in_ephemeral_container build/tools-container/rules_check "$@"
         fi
+        ;;
+    hoist-externs)
+        # Edits src/ and include/, so both tools run on the host.
+        command -v cc >/dev/null 2>&1 || die "hoist-externs needs a host C compiler (cc)"
+        hoist_cflags=(-std=c99 -D_POSIX_C_SOURCE=200809L -O2 -Wall)
+        mkdir -p "$repo_root/build/tools"
+        for hoist_tool in rules_check hoist_externs; do
+            if [[ ! -x "$repo_root/build/tools/$hoist_tool" \
+                || "$repo_root/tools/rules/$hoist_tool.c" -nt "$repo_root/build/tools/$hoist_tool" ]]; then
+                cc "${hoist_cflags[@]}" -o "$repo_root/build/tools/$hoist_tool" "$repo_root/tools/rules/$hoist_tool.c" \
+                    || die "cannot build build/tools/$hoist_tool"
+            fi
+        done
+        (cd "$repo_root" && ./build/tools/rules_check --list-globals > build/tools/globals.tsv \
+            && ./build/tools/hoist_externs "$@" build/tools/globals.tsv)
         ;;
     automate)
         python3 scripts/automate.py "$@"
