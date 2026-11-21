@@ -1,8 +1,4 @@
 #include "types.h"
-#ifndef F3DEX_GBI_2
-#define F3DEX_GBI_2
-#endif
-#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -444,7 +440,7 @@ void func_151814FC(void) {
                 }
             }
         } else if ((u8)(&D_800DDE3C)[i] != 0) {
-            Game1AC2F0Player *player;
+            Game1AC2F0Player *actor;
             f32 x;
             f32 y;
             f32 z;
@@ -455,22 +451,22 @@ void func_151814FC(void) {
             f32 step;
             s32 sign;
 
-            player = &D_800CC2D0[i];
+            actor = &D_800CC2D0[i];
             D_800DDDC8[i] += D_800DDDD8[i] * D_800BE9E4;
-            if (player->model != NULL) {
+            if (actor->model != NULL) {
                 u8 *model;
                 f32 height;
 
-                model = player->model;
-                if (player->kind == 1) {
+                model = actor->model;
+                if (actor->kind == 1) {
                     model += 0x300;
                 }
-                height = player->height * 40.0f;
+                height = actor->height * 40.0f;
                 func_150A7960(model, 0.0f, height, 0.0f, &x, &y, &z);
             } else {
-                x = player->x;
-                y = player->y;
-                z = player->z;
+                x = actor->x;
+                y = actor->y;
+                z = actor->z;
             }
             prevX = ((f32 *)(D_800DDDE8 + i * 8))[0];
             prevY = ((f32 *)(D_800DDDE8 + i * 8))[1];
