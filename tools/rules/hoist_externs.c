@@ -52,6 +52,7 @@ typedef struct extern_row_s {
     char *declaration;          /* normalized tokens, space separated */
     char *comment;
     int   moves;                /* set when the global moves to the header */
+    char *retype;               /* --unify: the declaration this row takes, or NULL */
 } extern_row_t;
 
 typedef struct definition_row_s {
@@ -958,6 +959,431 @@ static int WriteHeader( int apply ) {
 }
 
 /*
+===============================================================================
+
+UNIFY (--unify)
+
+A global declared with different types in different units cannot move.  The
+unify mode proposes one declaration for it: the variant most units use
+(arrays that differ only in the outer bound count as one variant), provided
+the header can name its types.  It rewrites the other units' declarations to
+that variant.  A retyped unit must then compile to identical object code,
+which the caller checks unit by unit; only then can the global move.
+
+===============================================================================
+*/
+
+/*
+================
+DeclarationRank
+
+How much a declaration tells the reader: 3 for a named type (a struct,
+typedef or function pointer), 2 for a sized scalar or a pointer to one, 1 for
+byte and void placeholders (`u8`, `s8`, `u8 *`, `void *`).
+================
+*/
+static int DeclarationRank( const char *declaration, const char *name ) {
+    static const char *const qualifiers[] = { "const", "volatile", "unsigned", "signed", "struct", "union", NULL };
+    static const char *const bytes[] = { "u8", "s8", "char", "void", NULL };
+    char *copy = CopyString( declaration );
+    char *token;
+    int   rank = 2;
+    int   q;
+
+    if ( strchr( declaration, '(' ) ) {
+        free( copy );
+        return 3;
+    }
+    for ( token = strtok( copy, " " ); token; token = strtok( NULL, " " ) ) {
+        int qualifier = 0;
+        int i;
+
+        if ( !IsWord( token ) || isdigit( (unsigned char)token[0] ) || !strcmp( token, name ) ) {
+            continue;
+        }
+        for ( q = 0; qualifiers[q]; q++ ) {
+            qualifier |= !strcmp( qualifiers[q], token );
+        }
+        if ( qualifier ) {
+            continue;
+        }
+        rank = 3;
+        for ( i = 0; baseTypes[i]; i++ ) {
+            if ( !strcmp( baseTypes[i], token ) ) {
+                rank = 2;
+            }
+        }
+        for ( i = 0; bytes[i]; i++ ) {
+            if ( !strcmp( bytes[i], token ) ) {
+                rank = 1;
+            }
+        }
+        break;                      // the first type word decides
+    }
+    free( copy );
+    return rank;
+}
+
+/*
+================
+ChooseTarget
+
+Returns the declaration every unit should use for a global, or NULL with
+*why set when no safe single choice exists.  Candidates are the variants the
+header can name that rank at least as high as every variant (so no unit's
+declaration loses information), ordered by how many units use them; `choice`
+picks one, so a caller can try the next when the first changes object code.
+================
+*/
+static const char *ChooseTarget( const global_t *global, int choice, const char **why ) {
+    char       *keys[64];
+    const char *bounded[64];
+    int         units[64];
+    int         order[64];
+    int         numKeys = 0;
+    int         numCandidates = 0;
+    int         highest = 0;
+    int         best = -1;
+    int         i;
+    int         k;
+    int         usesVec;
+
+    for ( i = 0; i < numExternRows; i++ ) {
+        const extern_row_t *row = &externRows[i];
+        char               *key;
+        int                 newUnit = 1;
+
+        if ( strcmp( row->name, global->name ) ) {
+            continue;
+        }
+        if ( IsHeader( row->path ) || row->conditional || !row->clean ) {
+            *why = "a declaration sits in a header, inside #if or on a shared line";
+            goto fail;
+        }
+        key = WithoutBounds( row->declaration );
+        for ( k = 0; k < numKeys && strcmp( keys[k], key ); k++ ) {
+        }
+        if ( k == numKeys ) {
+            if ( numKeys == 64 ) {
+                free( key );
+                *why = "too many variants";
+                goto fail;
+            }
+            keys[numKeys] = key;
+            bounded[numKeys] = NULL;
+            units[numKeys] = 0;
+            numKeys++;
+        } else {
+            free( key );
+        }
+        if ( strcmp( keys[k], row->declaration ) ) {
+            if ( bounded[k] && strcmp( bounded[k], row->declaration ) ) {
+                *why = "two different array bounds";
+                goto fail;
+            }
+            bounded[k] = row->declaration;
+        }
+        // count each unit once per variant
+        {
+            int j;
+
+            for ( j = 0; j < i; j++ ) {
+                if ( !strcmp( externRows[j].name, global->name ) && !strcmp( externRows[j].path, row->path ) ) {
+                    char *otherKey = WithoutBounds( externRows[j].declaration );
+
+                    if ( !strcmp( otherKey, keys[k] ) ) {
+                        newUnit = 0;
+                    }
+                    free( otherKey );
+                }
+            }
+        }
+        units[k] += newUnit;
+    }
+    // no declaration may lose information: candidates rank at least as high as every variant
+    for ( k = 0; k < numKeys; k++ ) {
+        int rank = DeclarationRank( keys[k], global->name );
+
+        if ( rank > highest ) {
+            highest = rank;
+        }
+    }
+    for ( k = 0; k < numKeys; k++ ) {
+        if ( DeclarationRank( keys[k], global->name ) < highest
+            || !CheckTypes( bounded[k] ? bounded[k] : keys[k], global->name, &usesVec ) ) {
+            continue;
+        }
+        order[numCandidates++] = k;
+    }
+    // most units first, then the order of first appearance
+    for ( i = 1; i < numCandidates; i++ ) {
+        for ( k = i; k > 0 && units[order[k]] > units[order[k - 1]]; k-- ) {
+            int swap = order[k];
+
+            order[k] = order[k - 1];
+            order[k - 1] = swap;
+        }
+    }
+    if ( choice < 0 || choice >= numCandidates ) {
+        *why = numCandidates ? "no candidate left" : "no candidate keeps every declaration's information";
+        goto fail;
+    }
+    best = order[choice];
+    {
+        // the bounded form when the variant has one; copied, since the keys are freed
+        char *target = CopyString( bounded[best] ? bounded[best] : keys[best] );
+
+        for ( k = 0; k < numKeys; k++ ) {
+            free( keys[k] );
+        }
+        return target;
+    }
+
+fail:
+    for ( k = 0; k < numKeys; k++ ) {
+        free( keys[k] );
+    }
+    return NULL;
+}
+
+/*
+================
+EditRetype
+
+Rewrites the retyped declarations of one unit, one declaration per line for
+statements that declare several globals.  Returns the number retyped.
+================
+*/
+static int EditRetype( const char *path, int apply ) {
+    char       *text;
+    line_t     *lines;
+    char      **extra;
+    int         count;
+    int         crlf;
+    int         retyped = 0;
+    int         i;
+    int         j;
+    const char *newline;
+    size_t      size;
+    char       *out;
+    char       *p;
+
+    text = ReadFile( path );
+    if ( !text ) {
+        Error( "cannot open %s", path );
+    }
+    lines = SplitLines( text, &count, &crlf );
+    newline = crlf ? "\r\n" : "\n";
+    extra = calloc( (size_t)count + 1, sizeof( *extra ) );
+    if ( !extra ) {
+        Error( "out of memory" );
+    }
+    for ( i = 0; i < numExternRows; i++ ) {
+        extern_row_t *row = &externRows[i];
+        int           any = 0;
+        size_t        keepSize = 1;
+        char         *keep;
+        const char   *indent;
+        int           indentLength;
+
+        if ( strcmp( row->path, path ) || ( i > 0 && !strcmp( externRows[i - 1].path, path )
+            && externRows[i - 1].firstLine == row->firstLine ) ) {
+            continue;
+        }
+        for ( j = i; j < numExternRows && !strcmp( externRows[j].path, path )
+            && externRows[j].firstLine == row->firstLine; j++ ) {
+            any |= externRows[j].retype != NULL;
+            keepSize += strlen( externRows[j].retype ? externRows[j].retype : externRows[j].declaration )
+                + strlen( externRows[j].comment ) + 64;
+        }
+        if ( !any || row->firstLine < 1 || row->lastLine > count ) {
+            continue;
+        }
+        indent = lines[row->firstLine - 1].text;
+        indentLength = (int)strspn( indent, " \t" );
+        keep = malloc( keepSize + (size_t)indentLength * 16 );
+        if ( !keep ) {
+            Error( "out of memory" );
+        }
+        keep[0] = '\0';
+        for ( j = i; j < numExternRows && !strcmp( externRows[j].path, path )
+            && externRows[j].firstLine == row->firstLine; j++ ) {
+            char *declaration = Pretty( externRows[j].retype ? externRows[j].retype : externRows[j].declaration );
+
+            retyped += externRows[j].retype != NULL;
+            if ( keep[0] ) {
+                strcat( keep, newline );
+            }
+            strncat( keep, indent, (size_t)indentLength );
+            strcat( keep, "extern " );
+            strcat( keep, declaration );
+            strcat( keep, ";" );
+            if ( externRows[j].comment[0] && j == i ) {
+                strcat( keep, " " );
+                strcat( keep, externRows[j].comment );
+            }
+            free( declaration );
+        }
+        for ( j = row->firstLine; j <= row->lastLine; j++ ) {
+            lines[j - 1].removed = 1;
+        }
+        extra[row->firstLine - 1] = keep;
+    }
+    size = 64;
+    for ( i = 0; i < count; i++ ) {
+        size += strlen( lines[i].text ) + 2 + ( extra[i] ? strlen( extra[i] ) + 2 : 0 );
+    }
+    out = malloc( size );
+    if ( !out ) {
+        Error( "out of memory" );
+    }
+    p = out;
+    for ( i = 0; i < count; i++ ) {
+        if ( extra[i] ) {
+            p += sprintf( p, "%s%s", extra[i], newline );
+        }
+        if ( !lines[i].removed ) {
+            p += sprintf( p, "%s%s", lines[i].text, newline );
+        }
+    }
+    *p = '\0';
+    if ( apply && retyped ) {
+        WriteFile( path, out );
+    }
+    for ( i = 0; i < count; i++ ) {
+        free( extra[i] );
+    }
+    free( out );
+    free( extra );
+    free( lines );
+    free( text );
+    return retyped;
+}
+
+/*
+================
+Unify
+
+Plans (and with apply, writes) the retyped declarations.  With `limited`,
+only the globals in `only` are considered.  Prints one row per retyped
+declaration: U  path  name  from  to.
+================
+*/
+static int *onlyChoices;            /* per-name choice from the --only list, or -1 */
+
+static void Unify( char *const *only, int numOnly, int limited, int choice, int apply ) {
+    const char **paths = NULL;
+    int          numPaths = 0;
+    int          maxPaths = 0;
+    int          candidates = 0;
+    int          planned = 0;
+    int          i;
+    int          j;
+
+    for ( i = 0; i < numGlobals; i++ ) {
+        global_t   *global = &globals[i];
+        const char *why = NULL;
+        const char *target;
+        char       *targetKey;
+
+        if ( !global->reason || strcmp( global->reason, "declared with different types" ) ) {
+            continue;
+        }
+        int         globalChoice = choice;
+
+        if ( limited ) {
+            int k;
+
+            for ( k = 0; k < numOnly && strcmp( only[k], global->name ); k++ ) {
+            }
+            if ( k == numOnly ) {
+                continue;
+            }
+            if ( onlyChoices[k] >= 0 ) {
+                globalChoice = onlyChoices[k];     // a per-global choice from the list
+            }
+        }
+        candidates++;
+        if ( HasName( macroNames, numMacroNames, global->name ) || HasName( functionNames, numFunctionNames, global->name ) ) {
+            why = "aliased by a macro or declared as a function";
+            target = NULL;
+        } else {
+            target = ChooseTarget( global, globalChoice, &why );
+        }
+        if ( !target ) {
+            printf( "S\t%s\t%s\n", global->name, why );
+            continue;
+        }
+        planned++;
+        targetKey = WithoutBounds( target );
+        for ( j = 0; j < numExternRows; j++ ) {
+            extern_row_t *row = &externRows[j];
+            char         *key;
+
+            if ( strcmp( row->name, global->name ) ) {
+                continue;
+            }
+            key = WithoutBounds( row->declaration );
+            if ( strcmp( key, targetKey ) ) {
+                int k;
+                int seen = 0;
+
+                row->retype = (char *)target;
+                printf( "U\t%s\t%s\t%s\t%s\n", row->path, row->name, row->declaration, target );
+                for ( k = 0; k < numPaths; k++ ) {
+                    seen |= !strcmp( paths[k], row->path );
+                }
+                if ( !seen ) {
+                    paths = Grow( paths, numPaths, &maxPaths, sizeof( *paths ) );
+                    paths[numPaths++] = row->path;
+                }
+            }
+            free( key );
+        }
+        free( targetKey );
+    }
+    for ( i = 0; i < numPaths; i++ ) {
+        EditRetype( paths[i], apply );
+    }
+    fprintf( stderr, "%s: %d of %d conflicting globals get one declaration; %d units retyped\n",
+        apply ? "unified" : "unify plan", planned, candidates, numPaths );
+    free( paths );
+}
+
+/*
+================
+LoadNames
+
+Reads one name per line.
+================
+*/
+static void LoadNames( const char *path, char ***names, int *count, int *max ) {
+    char *text = ReadFile( path );
+    char *line;
+
+    if ( !text ) {
+        Error( "cannot open %s", path );
+    }
+    for ( line = strtok( text, "\r\n" ); line; line = strtok( NULL, "\r\n" ) ) {
+        char *tab = strchr( line, '\t' );
+
+        if ( !line[0] ) {
+            continue;
+        }
+        if ( tab ) {
+            *tab = '\0';
+        }
+        AddName( names, count, max, line );
+        onlyChoices = realloc( onlyChoices, (size_t)*max * sizeof( *onlyChoices ) );
+        if ( !onlyChoices ) {
+            Error( "out of memory" );
+        }
+        onlyChoices[*count - 1] = tab ? atoi( tab + 1 ) : -1;
+    }
+    free( text );
+}
+
+/*
 ================
 main
 ================
@@ -971,24 +1397,43 @@ int main( int argc, char **argv ) {
     int          sites = 0;
     int          units = 0;
     int          moved;
+    int          unify = 0;
+    int          choice = 0;
+    char       **only = NULL;
+    int          numOnly = 0;
+    int          maxOnly = 0;
+    const char  *onlyPath = NULL;
     int          i;
 
     for ( i = 1; i < argc; i++ ) {
         if ( !strcmp( argv[i], "--apply" ) ) {
             apply = 1;
+        } else if ( !strcmp( argv[i], "--unify" ) ) {
+            unify = 1;
+        } else if ( !strcmp( argv[i], "--choice" ) && i + 1 < argc ) {
+            choice = atoi( argv[++i] );
+        } else if ( !strcmp( argv[i], "--only" ) && i + 1 < argc ) {
+            onlyPath = argv[++i];
         } else if ( !strcmp( argv[i], "--header" ) && i + 1 < argc ) {
             headerPath = argv[++i];
         } else if ( argv[i][0] == '-' ) {
-            Error( "usage: hoist_externs [--apply] [--header include/globals.h] listing.tsv" );
+            Error( "usage: hoist_externs [--apply] [--unify [--only names.txt] [--choice N]] [--header include/globals.h] listing.tsv" );
         } else {
             listing = argv[i];
         }
     }
     if ( !listing ) {
-        Error( "usage: hoist_externs [--apply] [--header include/globals.h] listing.tsv" );
+        Error( "usage: hoist_externs [--apply] [--unify [--only names.txt] [--choice N]] [--header include/globals.h] listing.tsv" );
     }
     LoadListing( listing );
     Decide();
+    if ( unify ) {
+        if ( onlyPath ) {
+            LoadNames( onlyPath, &only, &numOnly, &maxOnly );
+        }
+        Unify( only, numOnly, onlyPath != NULL, choice, apply );
+        return 0;
+    }
 
     // units with at least one moved declaration, in listing order
     for ( i = 0; i < numExternRows; i++ ) {
