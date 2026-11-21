@@ -23,6 +23,8 @@ matches the work you intend to do.
 - [Decompilation workflow](decompilation-workflow.md) is the command guide for
   selecting functions, producing C candidates, running focused diffs,
   registering source units, integrating them, and verifying a batch.
+- [Code rules](code-rules.md) is the code-rule profile: what matched C must look
+  like to count as matched under the rules, and the `./conker rules` checker.
 - [Matching automation](automation.md) covers authorized bounded runs, saved outcomes,
   full scans, recovery and maintainer validation.
 - [Unattended matching rounds](automation-routines.md) covers the scheduled round driver,
