@@ -379,8 +379,8 @@ extern u8 D_800DDD70[];
 extern u8 D_800DDD74[];
 extern u16 D_800DDD80[];
 extern f32 D_800DDDD8[];
-extern s8 D_800DDE20[];
-extern s8 D_800DDE3C;
+extern u8 D_800DDE20[];
+extern u8 D_800DDE3C[];
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
@@ -389,7 +389,7 @@ void func_151814FC(void) {
     Game1AC2F0Player *player;
 
     for (i = 0; i <= D_80082FA0; i++) {
-        if ((u8)D_800DDE20[i] != 0) {
+        if (D_800DDE20[i] != 0) {
 
             player = &D_800CC2D0[i];
             D_800DDDC8[i] += D_800DDDD8[i] * D_800BE9E4;
@@ -439,7 +439,7 @@ void func_151814FC(void) {
                     player->mode->state = 9;
                 }
             }
-        } else if ((u8)(&D_800DDE3C)[i] != 0) {
+        } else if (D_800DDE3C[i] != 0) {
             Game1AC2F0Player *actor;
             f32 x;
             f32 y;
@@ -498,14 +498,14 @@ void func_151814FC(void) {
             prevY += step;
             ((f32 *)(D_800DDDE8 + i * 8))[0] = prevX;
             ((f32 *)(D_800DDDE8 + i * 8))[1] = prevY;
-            if ((u8)(&D_800DDE3C)[i] == 1) {
+            if (D_800DDE3C[i] == 1) {
                 if (D_800DDDC8[i] <= 0.9f) {
                     D_800DDD70[i] = 30;
                     D_800DDDC8[i] = 0.9f;
                     D_800DDDD8[i] = 0.0f;
-                    (&D_800DDE3C)[i] = 2;
+                    D_800DDE3C[i] = 2;
                 }
-            } else if ((u8)(&D_800DDE3C)[i] == 2) {
+            } else if (D_800DDE3C[i] == 2) {
                 if (D_800DDD70[i]) {
                     f32 scale;
 
@@ -523,18 +523,18 @@ void func_151814FC(void) {
                     D_800DDDC8[i] = func_15048A40(D_800DDD74[i]) * scale + 0.9f;
                 } else {
                     D_800DDDC8[i] = 0.9f;
-                    (&D_800DDE3C)[i] = 3;
+                    D_800DDE3C[i] = 3;
                     D_800DDD80[i] = 60;
                 }
-            } else if ((u8)(&D_800DDE3C)[i] == 3) {
+            } else if (D_800DDE3C[i] == 3) {
                 if (D_800BE9E4 < D_800DDD80[i]) {
                     D_800DDD80[i] -= D_800BE9E4;
                 } else {
-                    (&D_800DDE3C)[i] = 4;
+                    D_800DDE3C[i] = 4;
                     D_800DDDD8[i] = -0.009f;
                 }
             } else if (D_800DDDC8[i] <= 0.0f) {
-                (&D_800DDE3C)[i] = 0;
+                D_800DDE3C[i] = 0;
                 D_800DDDC8[i] = 0.0f;
             }
         } else if (D_800DDDD8[i] != 0.0f) {
@@ -590,7 +590,7 @@ extern f32 D_800A72B0;
 extern f32 D_800DDDD8[];
 extern f32 D_800DDDC8[];
 extern u8 D_800DDDE8[];
-extern s8 D_800DDE20[];
+extern u8 D_800DDE20[];
 
 void func_15181D70(s32 arg0) {
     void *temp_v1;
@@ -604,7 +604,7 @@ void func_15181D70(s32 arg0) {
 }
 extern f32 D_800DDDD8[];
 extern u8 D_800DDDE8[];
-extern s8 D_800DDE20[];
+extern u8 D_800DDE20[];
 
 void func_15181DC8(s32 arg0) {
     f32 temp_ft0;
@@ -620,7 +620,7 @@ void func_15181DC8(s32 arg0) {
 }
 extern f32 D_800A72B4;
 extern u8 D_800BE616;
-extern s8 D_800DDE3C;
+extern u8 D_800DDE3C[];
 
 void func_15181E18(s32 arg0) {
     Game1AC2F0Color *temp_v0;
@@ -637,13 +637,14 @@ void func_15181E18(s32 arg0) {
         D_800DDDC0[arg0] = 0;
         return;
     }
-    *(&D_800DDE3C + arg0) = 1;
+    D_800DDE3C[arg0] = 1;
     D_800DDDC8[arg0] = 1.0f;
     temp_v0_2 = (arg0 * 8) + D_800DDDE8;
     *(f32 *)((u8 *)temp_v0_2 + 0) = 0.0f;
     *(f32 *)((u8 *)temp_v0_2 + 4) = 0.0f;
     D_800DDDD8[arg0] = D_800A72B4;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15181EE0 CURRENT (8017) */
 typedef struct Game1AC2F0RectView {
     u8 unknown00[4];
     f32 width;
@@ -663,7 +664,6 @@ extern f32 D_800A72BC;
 extern f32 D_800A72C0;
 extern f32 *D_800DDE18;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15181EE0 CURRENT (8017) */
 Gfx *func_15181EE0(Gfx *gdl) {
     f32 topf;
     s16 left;

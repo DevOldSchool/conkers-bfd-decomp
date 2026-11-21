@@ -37350,7 +37350,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8017,
-        "reason": "CURRENT (8117) after gbi-macro rewrite and layout/clamp probes; remaining alpha f0/f2 allocation, top/30.0f float register allocation and 4-word temp-area difference; no evidence-backed next variant within manual budget",
+        "reason": "CURRENT (8017) after gbi-macro rewrite, layout/clamp probes and a 1200 s randomized permute; remaining float register allocation and temp-area layout",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
