@@ -156,7 +156,7 @@ void func_150C4E9C(u8 *arg0) {
     func_1510D874((s32)arg0, result, adjustment, 4, 5);
 }
 
-extern void *D_800D98D0;
+extern s32 D_800D98D0[];
 
 void func_150C522C(void) {
     void **var_s0;

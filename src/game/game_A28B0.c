@@ -1294,9 +1294,9 @@ void func_15078A08(void) {
     *(f32 *)((u8 *)temp_v0 + 8) = *(f32 *)((u8 *)temp_a0 + 8);
     *(f32 *)((u8 *)temp_v0 + 0xC) = *(f32 *)((u8 *)temp_a0 + 0xC);
 }
-extern u8 D_800BE9EC;
+extern s8 D_800BE9EC;
 extern u8 D_800CC3D4[];
-extern u8 D_800CC49A;
+extern s8 D_800CC49A;
 extern void *D_800CC5EC;
 extern u8 D_800CC2D4;
 
@@ -2370,7 +2370,7 @@ void func_1507B7E8(void) {
 }
 typedef void (*GameA28B0Callback)(s32);
 
-extern GameA28B0Callback D_80086150[];
+extern void (*D_80086150[])(s32);
 
 void func_1507B884(void) {
     GameA28B0State *saved_state;

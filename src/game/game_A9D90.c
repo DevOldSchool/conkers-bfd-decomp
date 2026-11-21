@@ -812,8 +812,8 @@ void func_1501D348(s32, s32, s32, u8, s32);
 void func_15022190(s16, s16, s16, f32);
 void func_15084D70(s32, s32, s32, void *, void *, void *, void *, void *, void *, s32, s32 *);
 extern u8 D_800C35EA;
-extern s8 D_800C3670;
-extern s8 D_800C3671;
+extern u8 D_800C3670;
+extern u8 D_800C3671;
 
 void func_1507DFE4(s32 arg0, s32 arg1) {
     s32 sp64;

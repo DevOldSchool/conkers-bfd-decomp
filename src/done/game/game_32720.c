@@ -6,7 +6,7 @@
  */
 
 extern s8 D_800C67F0;
-extern s8 D_800C67F1;
+extern u8 D_800C67F1;
 
 void func_15005270(void) {
     D_800C67F1 = 0;

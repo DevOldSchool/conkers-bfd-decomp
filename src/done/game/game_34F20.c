@@ -17,7 +17,7 @@ void func_150175E0(void);
 void func_150177F8(void);
 void func_1503FB08(void);
 void func_15089BB0(void);
-extern s8 D_800BE938;
+extern u8 D_800BE938;
 extern u8 D_800D18A8;
 extern s32 D_800D2138;
 extern u8 D_800DD2C0;
@@ -127,10 +127,10 @@ void func_15085710(s32, s32, s32);
 void func_150A11C4(void *);
 void func_151E81EC(void);
 extern void *D_800B0DF0;
-extern s8 D_800BE3E0;
+extern u8 D_800BE3E0;
 extern s8 D_800BE619;
 extern s8 D_800BE61A;
-extern s8 D_800BEA0C;
+extern u8 D_800BEA0C;
 typedef struct Game34F20Actor {
     s32 field_0;
     u8 pad4[0x123];
@@ -140,12 +140,12 @@ typedef struct Game34F20Actor {
 
 extern Game34F20Actor D_800CC2D0[];
 extern u8 D_800D121C[];
-extern s16 D_800D2340;
+extern u16 D_800D2340;
 extern s8 D_800D2E43;
 extern void *D_800D2E4C;
 extern u8 D_800DDE38;
 extern s32 D_800E0920;
-extern s8 D_800E0A00;
+extern u8 D_800E0A00;
 extern u8 D_800E0B94;
 extern u8 D_800E0B99;
 extern u8 D_800C35EA;
@@ -362,11 +362,11 @@ void func_15008230(void) {
     D_800C35C4 = 0;
     D_800C3C88 = 0;
 }
-extern s8 D_800C3638;
-extern s8 D_800C3670;
-extern s8 D_800C3671;
-extern s8 D_800C3681;
-extern s8 D_800C3682;
+extern u8 D_800C3638;
+extern u8 D_800C3670;
+extern u8 D_800C3671;
+extern u8 D_800C3681;
+extern u8 D_800C3682;
 typedef struct Game34F20Slot {
     s16 field_0;
     u8 pad2[0xA];

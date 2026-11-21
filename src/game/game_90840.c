@@ -137,7 +137,7 @@ typedef struct Game90840Requests {
     u8 pending;
 } Game90840Requests;
 
-extern s8 D_800CC2B0;
+extern u8 D_800CC2B0;
 extern u8 D_800C3E78;
 extern Game90840Actor *D_800D154C;
 void func_15063628(Game90840Actor *, f32);

@@ -889,7 +889,7 @@ void func_1506DA94(void) {
     func_15174690(D_800C3E78, 0, 0x18, 0, 0x199, 4, 0xAA, 0xFF, 0);
 }
 void func_15076760(void);
-extern s8 D_800D1890;
+extern u8 D_800D1890;
 
 void func_1506DB30(void) {
     D_800D1890 = (s8) D_800D1580;
@@ -1145,7 +1145,7 @@ void func_1506E2CC(void) {
 s32 func_10010894(s32);
 s32 func_100107F8(u8 *, s32 *);
 s32 func_151F2CDC(u8 *, s32 *);
-extern u8 *D_800BE5A8[];
+extern s32 D_800BE5A8[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1506E46C CURRENT (3639) */
 s32 func_1506E46C(u8 *arg0, s32 *arg1, s32 arg2) {

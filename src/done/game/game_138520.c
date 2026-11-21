@@ -67,7 +67,7 @@ void func_1510B128(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                   field_of_view, depth, arg3);
 }
 void func_1510B128(s32, f32, f32, f32, f32);
-extern s8 D_800D9AF0;
+extern u8 D_800D9AF0;
 
 void func_1510B32C(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     void *temp_v0;
@@ -91,7 +91,7 @@ void func_1510B3B0(void) {
     D_800D9AF0 = 0;
 }
 void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);
-extern s8 D_800D9B18;
+extern u8 D_800D9B18;
 
 void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
     s32 temp_v1;

@@ -168,7 +168,7 @@ s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
     return arg0;
 }
 void func_15169260(void *, s32, void *, u8);
-extern u8 D_800A5770;
+extern s32 D_800A5770[];
 
 void func_151494E0(void *arg0, u8 arg1) {
     func_15169260(&D_800A5770, 2, arg0, arg1);

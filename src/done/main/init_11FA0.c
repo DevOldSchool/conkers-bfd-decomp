@@ -9,7 +9,7 @@
 void func_80011FA0(s32 arg0) {
     D_80042770 = arg0;
 }
-extern s8 D_80041FD9;
+extern u8 D_80041FD9;
 
 void func_80011FB0(s32 arg0) {
     s32 previous = D_80042774;

@@ -172,7 +172,7 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern Game3E890Words D_800A5480;
-extern u8 D_800A4AA0;
+extern u8 D_800A4AA0[0x28];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501175C CURRENT (8185) */
 void func_1501175C(void *arg0, u8 arg1, s32 arg2) {

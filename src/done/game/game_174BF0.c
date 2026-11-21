@@ -220,7 +220,7 @@ void func_15147D1C(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 void func_15169260(void *, s32, s32, u8);
-extern u8 D_800A5760;
+extern s32 D_800A5760[];
 
 void func_15147D64(s32 arg0, u8 arg1) {
     func_15169260(&D_800A5760, 2, arg0, arg1);

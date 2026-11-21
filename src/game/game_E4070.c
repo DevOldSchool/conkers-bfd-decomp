@@ -23,7 +23,7 @@ void func_150B765C(void);
 void func_150B768C(void);
 void func_150B77A8(void);
 void func_150B791C(void);
-extern s8 D_800D9890;
+extern u8 D_800D9890;
 
 void func_150B6BC0(s32 arg0) {
     switch ((u8)D_800D9890) {
@@ -57,7 +57,7 @@ void func_150B6BC0(s32 arg0) {
         return;
     }
 }
-extern s8 D_800D9890;
+extern u8 D_800D9890;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6C90 CURRENT (530) */
 void func_150B6C90(void) {
@@ -85,7 +85,7 @@ clear_words:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6C90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6C90.s")
-extern s8 D_800D9890;
+extern u8 D_800D9890;
 
 typedef struct GameE4070Slots {
     u8 pad0[0x14];
@@ -104,7 +104,7 @@ void func_150B6D34(void) {
     }
     D_800D9890 = 3;
 }
-extern s8 D_800D9890;
+extern u8 D_800D9890;
 
 void func_150B6D78(void) {
     void **var_s0;
@@ -287,7 +287,7 @@ typedef struct {
     u8 field39;
 } GameE4070Descriptor;
 
-extern s32 D_800BE638;
+extern s32 D_800BE638[5];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B7220 CURRENT (4246) */
 void func_150B7220(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -438,7 +438,7 @@ void func_150B7560(void) {
     D_800D9890 = 3;
 }
 void func_150B76BC(s32 arg0, s32 arg1);
-extern s8 D_800D9890;
+extern u8 D_800D9890;
 
 void func_150B765C(void) {
     func_150B76BC(0x3C, 1);

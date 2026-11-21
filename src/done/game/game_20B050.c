@@ -10,9 +10,9 @@ void func_1501C730(s32, s32, s32, s32, s32);
 void func_151E557C(void);
 void func_1000E934(void);
 void func_1000F1A8(void);
-extern s8 D_800BEAC1;
-extern s8 D_800D2E40;
-extern s8 D_800E0B94;
+extern u8 D_800BEAC1;
+extern u8 D_800D2E40;
+extern u8 D_800E0B94;
 
 void func_151DDBA0(void) {
     D_800D2E40 = 0;

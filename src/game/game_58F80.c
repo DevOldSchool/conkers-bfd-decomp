@@ -27,7 +27,7 @@ typedef struct {
     u8 pad188[0x1A4];
 } Game58F80DrawActor;
 extern u8 D_800CC2D0;
-extern u32 D_8003C8E0;
+extern s32 D_8003C8E0;
 extern u32 D_80084160[], D_80084190[];
 void *func_1502C408(void *, s32);
 s32 func_1502C974(s32, s32, s32, s32, s32);
@@ -191,7 +191,7 @@ typedef struct Game58F80Actor {
 
 extern u8 D_800CC2D0;
 extern u8 D_800D121C;
-extern s8 D_800C3E90;
+extern u8 D_800C3E90;
 void func_100226F0(void *, s32);
 void func_1503F964(void);
 void func_1502BD84(Game58F80BD84Actor *, s32);
@@ -364,8 +364,8 @@ typedef struct Game58F80Sprite {
 } Game58F80Sprite;
 s32 func_15094F70();
 void *func_15095760(void *, s16 *);
-extern u8 D_800873D0[];
-extern u8 D_80087408[];
+extern s32 D_800873D0;
+extern s32 D_80087408;
 extern u8 *D_8008CA4C[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C408 CURRENT (5531) */
@@ -981,7 +981,7 @@ s32 func_1502DB20(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DB84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DF38.s")
-extern s8 D_800C3E90;
+extern u8 D_800C3E90;
 
 void func_1502E474(void) {
     if ((u16)D_800C3E7A != 0) {

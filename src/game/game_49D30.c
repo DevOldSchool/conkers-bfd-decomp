@@ -49,7 +49,8 @@ void func_10024F10(void);
 void func_1501A39C(void);
 s32 func_10023580(OSMesgQueue *, OSMesg, s32);
 extern void *D_8002AAE8[];
-extern u64 *D_80038090, *D_80038094;
+extern u32 D_80038090;
+extern u32 D_80038094;
 extern OSMesgQueue D_8003B1E8;
 extern u8 D_800BE617;
 extern Gfx *D_800BE9C8[], *D_800BE9D8[];
@@ -57,7 +58,7 @@ extern Gfx *D_800BE9D0;
 extern OSMesgQueue D_800BEA10;
 extern u8 D_800BEA68[][0x20];
 extern Game1C880Task *D_800BEAD4, D_800BEAD8[];
-extern u8 *D_800BEB9C;
+extern s32 D_800BEB9C;
 
 void func_1501CC3C(void);
 
@@ -247,9 +248,9 @@ extern u8 D_800C3656[];
 extern u8 D_800C3658[];
 extern u8 D_800C365C[];
 extern u8 D_800C365E[];
-extern s8 D_800C3638;
+extern u8 D_800C3638;
 extern u8 D_800C35C2;
-extern s8 D_800C3672;
+extern u8 D_800C3672;
 extern u8 D_800C3670;
 void func_150233BC(void);
 
@@ -319,7 +320,7 @@ void func_1501D258(s32 arg0, s32 arg1) {
         D_800C3A60[arg0] |= func_100268A4(1, arg1);
     }
 }
-extern u8 D_800C3A64;
+extern s32 D_800C3A64;
 
 s32 func_1501D2C4(s32 arg0, s32 arg1) {
     if (D_800C3670 != 0) {
@@ -402,7 +403,7 @@ void func_15020EC4(s32);
 void func_1501E81C(s32, s32);
 s32 func_150229E4(void *);
 void func_1502178C(void *, s32, s32);
-extern s8 D_800C3E78;
+extern u8 D_800C3E78;
 extern u8 D_800CC2D0;
 
 void func_1501DE18(s32 arg0) {
@@ -433,7 +434,7 @@ void func_1000E17C(void);
 extern u8 D_800C3C99;
 extern u8 D_800D121C;
 extern s8 D_800DBFF4;
-extern s8 D_800C3672;
+extern u8 D_800C3672;
 
 void func_1501DF04(s32 arg0) {
     u8 *temp_v0;
@@ -678,7 +679,7 @@ void func_150233E4(void);
 void func_1510B32C(s32, f32, f32, f32);
 void func_15169040(s32, u8);
 extern u8 D_800C35C3;
-extern s8 D_800C3671;
+extern u8 D_800C3671;
 extern void *D_800DBFF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E81C CURRENT (1278) */
@@ -1330,7 +1331,7 @@ void func_150227BC(s32 arg0) {
 }
 void func_15022398(s32, s32);
 extern u8 D_800C35EA[];
-extern s8 D_800C3638;
+extern u8 D_800C3638;
 
 void func_15022848(s32 arg0) {
     s32 var_s0;
@@ -1620,7 +1621,7 @@ typedef struct Game49D30Actor235DC {
 void func_1507F640(void);
 void *func_15083E90(u8);
 void *func_1508F060(void *, u8 *);
-extern s8 D_800C3E78;
+extern u8 D_800C3E78;
 extern void *D_800D154C;
 
 void func_150235DC(s32 arg0) {

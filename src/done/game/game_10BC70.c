@@ -67,7 +67,7 @@ void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_1514470C(s32, void *);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern Game10BC70Pair D_800A0D00;
-extern u8 D_800A4AA0;
+extern u8 D_800A4AA0[0x28];
 extern Vec3f D_800A5480;
 
 void func_150DE7C0(Game10BC70Emitter *arg0) {

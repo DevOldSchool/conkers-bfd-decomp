@@ -101,7 +101,7 @@ void *func_151733D8(void *, s32);
 struct Game13F9D0Model;
 s32 func_151137D4(s32, struct Game13F9D0Model *, s32, s32, s32, s32);
 s32 func_1515E544(s32, s32, u8, u8, void *);
-extern u8 **D_80089250[];
+extern s32 *D_80089250[];
 extern u8 D_80089470;
 extern u8 D_800D9BD0[];
 

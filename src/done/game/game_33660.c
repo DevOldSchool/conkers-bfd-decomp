@@ -54,7 +54,7 @@ s32 func_10027660(void *, Game33660Pak *, s32);
 s32 func_100057E0(void *, Game33660Pak *, s32);
 s32 func_10005570(Game33660Pak *);
 extern Game33660ControllerStatus D_800BE2C0[4];
-extern s16 D_800BE720[4];
+extern u16 D_800BE720[4];
 extern Game33660Pak D_800BE760[4];
 
 void func_15006234(void) {

@@ -52,7 +52,7 @@ extern f32 D_800BE9A4;
 extern u8 D_800BEA0C;
 extern u8 D_800C35EA[];
 extern u8 D_800C365E[];
-extern s8 D_800C3E78;
+extern u8 D_800C3E78;
 extern GameA9260Character *D_800D154C;
 extern GameA9260Character D_800CC2D0[];
 

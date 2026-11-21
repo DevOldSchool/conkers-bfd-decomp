@@ -17,10 +17,10 @@
 void func_1501D348(s32, s32, s32, u8, s32);
 void func_15022190(s16, s16, s16, f32);
 void func_150221E8(s16, s16, s16, f32);
-extern s8 D_800C35C2;
-extern s8 D_800C35C3;
-extern s8 D_800C3C99;
-extern s8 D_800C3C9C;
+extern u8 D_800C35C2;
+extern u8 D_800C35C3;
+extern u8 D_800C3C99;
+extern u8 D_800C3C9C;
 extern u8 D_800C35EA;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C440 CURRENT (3026) */

@@ -1659,7 +1659,7 @@ void func_151644F4(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4) {
     *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)locals.output[2];
 }
 extern u8 *D_800B0DF0;
-extern s8 D_800DCDD0;
+extern u8 D_800DCDD0;
 void func_1511172C(s32);
 
 void func_151645C4(u8 arg0) {

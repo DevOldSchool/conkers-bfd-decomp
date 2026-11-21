@@ -48,7 +48,7 @@ void func_100226F0(void *, s32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 s32 func_1508114C(GameAEB40State *, void *, void *, void *, void *, void *, f32 *, s32 *, s32 *, s32 *, void *);
 s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2, s32 arg3, s32 arg4, f32 *arg5, f32 *arg6);
-extern s32 (*D_80086C90[])(GameAEB40State *, void *, s32);
+extern s32 (*D_80086C90[])(void *, void *, s32);
 extern u8 *D_800DBEF4;
 extern s32 D_800CC2D0;
 
@@ -727,7 +727,7 @@ u8 *func_1505ED34(void);
 void func_150615DC(void *);
 void func_150837D4(s32, s32, s32);
 extern u8 D_800C35EA;
-extern s8 D_800C3638;
+extern u8 D_800C3638;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15083AC8 CURRENT (3475) */
 s32 func_15083AC8(s32 arg0, u8 arg1, u8 arg2, s32 arg3,
@@ -903,7 +903,7 @@ s32 func_15084000(s32 arg0) {
 }
 void func_10004074(s32);
 void func_10023A10(void *, void *, s32);
-extern u8 D_800C57A0[];
+extern u16 D_800C57A0[];
 extern void *D_800D19A0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15084044 CURRENT (1934) */

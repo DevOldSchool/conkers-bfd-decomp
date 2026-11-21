@@ -264,7 +264,7 @@ u32 *func_1515E544(u32 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
 }
 
 void func_1515E278(s32, s32, s32, s32, u8 *, u32, s32);
-extern u8 *D_800D9E28[];
+extern u8 D_800D9E28[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515E888 CURRENT (12477) */
 void func_1515E888(s32 arg0, s32 x, s32 y, s32 z, s32 mode,

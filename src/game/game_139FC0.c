@@ -210,10 +210,10 @@ void func_10004514(s32, s32, s32, s32);
 void func_10006240(s32, void *, s32);
 u8 *func_1510D374(s32);
 u8 *func_10003C6C(s32, s32, s32, s32, s32);
-extern u8 D_80091D20;
+extern u16 D_80091D20;
 extern u16 D_800B87A0[];
 extern s32 D_800B0E58[];
-extern s32 D_8003809C;
+extern u32 D_8003809C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D0EC CURRENT (2543) */
 s32 func_1510D0EC(s32 arg0, s32 *arg1, volatile s32 arg2, s32 arg3) {
@@ -304,7 +304,7 @@ ready:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510D0EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D0EC.s")
-extern u8 D_80091D20;
+extern u16 D_80091D20;
 
 /* Descriptive role: flat_asset_rom_address.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
@@ -324,7 +324,8 @@ u8 *func_1510D374(s32 resourceIndex) {
 void func_10004074(s32);
 void func_10006240(s32, void *, s32);
 void func_150AD770(void);
-extern s32 D_8003809C, D_8003C8E0;
+extern u32 D_8003809C;
+extern s32 D_8003C8E0;
 extern s32 D_800B0E58[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D404 CURRENT (3874) */

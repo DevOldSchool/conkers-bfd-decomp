@@ -165,7 +165,7 @@ void func_151D8DB4(s32 arg0, u8 arg1) {
     func_15169260(&D_800AB300, 1, arg0, arg1);
 }
 void func_151D8DB4(s32 arg0, u8 arg1);
-extern s8 D_800E0A00;
+extern u8 D_800E0A00;
 
 void func_151D8DE8(void) {
     D_800E0A00 = 1;

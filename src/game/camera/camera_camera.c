@@ -77,7 +77,7 @@ void func_151284C4();
 void func_1512317C(u8 *);
 void func_15123568(u8 *);
 void func_15125924(u8 *);
-extern s32 D_800BE728;
+extern u16 **D_800BE728;
 extern u8 D_800DBFF4[];
 extern u16 D_800BE710[];
 

@@ -15,7 +15,7 @@ extern u8 D_800D2138[];
 void func_1501748C(s16);
 void func_15085710(s16, s32, s32);
 extern s8 D_80087270[];
-extern s16 D_800D2340;
+extern u16 D_800D2340;
 
 void func_15017300(s16 arg0, s16 arg1) {
     s32 i;
@@ -44,7 +44,7 @@ void func_1501748C(s16 arg0) {
 void func_15017498(void) {
     func_100226F0(D_800D2138, 0x20C);
 }
-extern u32 D_80087380;
+extern s32 D_80087380;
 
 typedef struct Game447B0Record {
     u16 unk0;
@@ -67,7 +67,7 @@ void func_150174C0(s32 arg0) {
 }
 void *func_1502B5C8(u32 *, s32, ...);
 void func_150174C0(s32);
-extern u32 D_80087380;
+extern s32 D_80087380;
 
 void func_15017578(s32 arg0) {
     u32 sp24;

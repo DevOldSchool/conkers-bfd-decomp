@@ -19,7 +19,7 @@ void func_151E6BFC(void);
 s32 func_1501878C(void);
 s32 func_151DCFD8(s32);
 extern s32 D_800D18A4;
-extern s32 D_800BE728;
+extern u16 **D_800BE728;
 
 s32 func_1501BBB8(void);
 
@@ -244,7 +244,7 @@ void func_15085ABC(s16);
 void func_1507C370(void);
 void func_1507C8FC(void);
 extern u8 D_800C35EA;
-extern s16 D_800D2340;
+extern u16 D_800D2340;
 
 void func_15018DFC(void) {
     func_150A09D0(D_800BE9E4);
@@ -320,7 +320,7 @@ void func_15169040(s32, u8);
 extern u8 D_800BEAC1;
 extern void *D_800BE9D8[];
 extern s32 D_800BE9D0;
-extern s32 D_800BE728;
+extern u16 **D_800BE728;
 extern u8 D_800E0B94;
 
 void func_1501905C(void) {
@@ -385,7 +385,7 @@ void func_15188B74(s32);
 void func_151738C4(s32);
 void func_150242F8(s32, s32);
 void func_151749F8(s32, s32);
-extern s8 D_800DCD27;
+extern u8 D_800DCD27;
 extern u8 D_800CC2B0;
 typedef struct { s32 value, counter; } Game45B80Counter;
 extern Game45B80Counter D_80043B40[];
@@ -650,8 +650,8 @@ s32 func_15019E60(Game45B80Command *arg0) {
     return func_15043384(func_151E8620((s32)func_1501A490(arg0, 0xFF, 0, 0, 0, 0)));
 }
 void func_150A019C(void);
-extern u8 D_800BE619;
-extern u8 D_800BE61A;
+extern s8 D_800BE619;
+extern s8 D_800BE61A;
 extern f32 D_800BE9A4;
 extern u8 D_800BEA0C;
 

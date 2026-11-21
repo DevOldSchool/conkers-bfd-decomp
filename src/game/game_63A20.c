@@ -13,7 +13,7 @@
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 extern u8 D_800C3FC0[];
-extern u8 D_800C3FC4[];
+extern void *D_800C3FC4[];
 extern u8 D_800CC2D0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15036570 */
