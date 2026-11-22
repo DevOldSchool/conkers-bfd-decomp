@@ -100,6 +100,10 @@ Getting started
   struct-layouts [--out DIR] [--min-copies N] [--limit N] [--json]
                                  Cluster recurring struct layouts across game C and include/
                                  (read-only; writes build/reports/struct-layouts.*).
+  rules [--findings | --advisory] [--pending] [--strict-padding] [--fail-on-pending]
+        [--max-lines N] [path...]
+                                 Grade matched C against the code-rule profile (docs/code-rules.md):
+                                 matched under the rules vs MATCH-PENDING (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
@@ -409,7 +413,7 @@ workspace_mount_args() {
 
     add_workspace_mount Makefile
     add_workspace_mount Dockerfile
-    for path in config docs include lib progress scripts src tests toolchain; do
+    for path in config docs include lib progress scripts src tests toolchain tools; do
         access=readonly
         if [[ "$mode" == "integrate" ]]; then
             case "$path" in
@@ -981,6 +985,26 @@ case "$command" in
         ;;
     struct-layouts)
         python3 scripts/struct_layouts.py "$@"
+        ;;
+    rules)
+        # The checker is a single C file; build it on demand with the host C
+        # compiler, or inside the toolchain image when the host has none.
+        rules_source="tools/rules/rules_check.c"
+        rules_cflags=(-std=c99 -D_POSIX_C_SOURCE=200809L -O2 -Wall)
+        if command -v cc >/dev/null 2>&1; then
+            rules_binary="build/tools/rules_check"
+            if [[ ! -x "$repo_root/$rules_binary" || "$repo_root/$rules_source" -nt "$repo_root/$rules_binary" ]]; then
+                mkdir -p "$repo_root/build/tools"
+                cc "${rules_cflags[@]}" -o "$repo_root/$rules_binary" "$repo_root/$rules_source" \
+                    || die "cannot build $rules_binary"
+            fi
+            (cd "$repo_root" && "./$rules_binary" "$@")
+        else
+            run_in_ephemeral_container sh -c \
+                'mkdir -p build/tools-container && cc "$@" -o build/tools-container/rules_check tools/rules/rules_check.c' \
+                rules "${rules_cflags[@]}" || die "cannot build the rule checker in the toolchain image"
+            run_in_ephemeral_container build/tools-container/rules_check "$@"
+        fi
         ;;
     automate)
         python3 scripts/automate.py "$@"
