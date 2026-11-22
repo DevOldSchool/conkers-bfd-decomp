@@ -12173,15 +12173,15 @@
         "func_150B89E0",
         "func_150B8F44"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xB9560",
           "start": "0xB89E0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_E5E90.c"
+      "source": "src/done/game/game_E5E90.c"
     },
     {
       "boundary_evidence": {
