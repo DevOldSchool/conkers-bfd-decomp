@@ -12661,15 +12661,15 @@
         "func_151B1B34",
         "func_151B1FAC"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1B2060",
           "start": "0x1B1AB0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1DEF60.c"
+      "source": "src/done/game/game_1DEF60.c"
     },
     {
       "boundary_evidence": {

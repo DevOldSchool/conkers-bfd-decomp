@@ -41,6 +41,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_FD1D0 prompt string and constant](game_fd1d0_prompt_constants.md)
 - [US game_1A20A0 float constants](game_1a20a0_float_constants.md)
 - [US game_1199D0 emitter constants](game_1199d0_float_constants.md)
+- [US game_1DEF60 billboard emitter constants](game_1def60_float_constants.md)
 - [US game_DC6B0 particle float constants](game_dc6b0_float_constants.md)
 - [US game_155C90 camera blend constants](game_155c90_float_constants.md)
 - [US game_156160 camera follow constants](game_156160_float_constants.md)
