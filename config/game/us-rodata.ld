@@ -649,6 +649,8 @@ SECTIONS
     .game_rodata_39750 0x800960F0 (INFO) : SUBALIGN(4) { *game_39750.o(.rodata) }
     /* Sixteen ROM-proven entries: docs/evidence/data-layout/game_3ba70_jump_table.md. */
     .game_rodata_3ba70 0x800961D0 (INFO) : SUBALIGN(4) { *game_3BA70.o(.rodata) }
+    /* ROM-verified constants: docs/evidence/data-layout/game_3c740_float_constants.md. */
+    .game_rodata_3c740 0x80096250 (INFO) : SUBALIGN(4) { *game_3C740.o(.rodata) }
     /* Ten ROM-proven entries: docs/evidence/data-layout/game_20bda0_jump_table.md. */
     .game_rodata_20bda0 0x800AB9BC (INFO) : SUBALIGN(4) { *game_20BDA0.o(.rodata) }
     /* Thirty-five ROM-proven entries: docs/evidence/data-layout/game_138b40_jump_table.md. */
@@ -947,6 +949,8 @@ __game_rodata_c98f0_payload_size = 0x18;
 
 ASSERT(SIZEOF(.game_rodata_3ba70) == 0x40, "game_3BA70 table extent changed")
 __game_rodata_3ba70_payload_size = 0x40;
+ASSERT(SIZEOF(.game_rodata_3c740) == 0xD0, "game_3C740 descriptor literal extent changed")
+__game_rodata_3c740_payload_size = 0xCC;
 ASSERT(SIZEOF(.game_rodata_39750) == 0xE0, "game_39750 table and literal pool extent changed")
 __game_rodata_39750_payload_size = 0xD4;
 

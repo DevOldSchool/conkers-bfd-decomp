@@ -63075,7 +63075,7 @@
           "vram": "0x1500F290"
         }
       },
-      "source": "src/game/game_3C740.c",
+      "source": "src/done/game/game_3C740.c",
       "symbol": "func_1500F290"
     },
     {
@@ -63093,20 +63093,25 @@
           "vram": "0x1500F378"
         }
       },
-      "source": "src/game/game_3C740.c",
+      "source": "src/done/game/game_3C740.c",
       "symbol": "func_1500F378"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500F40C",
           "vram": "0x1500F40C"
         }
       },
-      "source": "src/game/game_3C740.c",
+      "source": "src/done/game/game_3C740.c",
       "symbol": "func_1500F40C"
     },
     {
