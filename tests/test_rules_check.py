@@ -48,10 +48,11 @@ class RulesCheckTests(unittest.TestCase):
     def test_summary_counts(self):
         result = self.run_checker()
         self.assertEqual(result.returncode, 0, result.stderr)
-        # fix_disabled sits in #if 0 and fix_counted_once is defined in both #ifdef branches
-        self.assertIn("functions with C bodies (bytes matched): 14", result.stdout)
-        self.assertIn("matched under the rules:                 5", result.stdout)
-        self.assertIn("MATCH-PENDING:                           9", result.stdout)
+        # fix_disabled sits in #if 0, fix_counted_once is defined in both #ifdef branches,
+        # and the *_missing functions sit in branches the conditions rule out
+        self.assertIn("functions with C bodies (bytes matched): 21", result.stdout)
+        self.assertIn("matched under the rules:                 7", result.stdout)
+        self.assertIn("MATCH-PENDING:                           14", result.stdout)
 
     def test_clean_unit_has_no_match_findings(self):
         rows = [row for row in self.findings() if row[0] == "clean.c"]
@@ -146,6 +147,37 @@ class RulesCheckTests(unittest.TestCase):
         self.assertEqual(len(r4), 2, findings)     # the indexed cast and &D_x + 4, not ((u8 *)&word)[3]
         self.assertTrue(any("indexed by a constant" in finding for finding in r4), r4)
         self.assertEqual(self.pending()["fix_offset_forms"], {"R2", "R4"})
+
+    def test_unresolved_bases_fall_back_to_the_member_name(self):
+        for function in ("fix_volatile_deref", "fix_volatile_chain"):
+            with self.subTest(function=function):
+                findings = self.match_findings(function)
+                self.assertEqual(len(findings), 1, findings)
+                self.assertIn("'VolatileOwner.flags'", findings[0])
+                self.assertIn("matched by member name", findings[0])
+
+    def test_statements_are_not_declarations(self):
+        # `else p = b;` and `return a;` must not hide the real declarations
+        for function in ("fix_declared_after_else", "fix_declared_after_return"):
+            with self.subTest(function=function):
+                findings = self.match_findings(function)
+                self.assertEqual(len(findings), 1, findings)
+                self.assertIn("'VolatileOwner.flags'", findings[0])
+                self.assertNotIn("matched by member name", findings[0])
+
+    def test_scalar_byte_views_stay_inside_the_scalar(self):
+        findings = [finding for finding in self.match_findings("fix_scalar_offsets") if "offset" in finding]
+        # word + 0x20 is past an int, and gWordPtr is a pointer; ((u8 *)&word)[3] stays exempt
+        self.assertEqual(len(findings), 2, findings)
+        self.assertEqual(self.pending()["fix_scalar_offsets"], {"R4"})
+
+    def test_header_macros_and_undef(self):
+        result = self.run_checker("--advisory")
+        self.assertNotIn("fix_header_macro_missing", result.stdout)
+        self.assertNotIn("fix_after_undef_missing", result.stdout)
+        pending = self.pending()
+        self.assertNotIn("fix_header_macro", pending)
+        self.assertNotIn("fix_after_undef", pending)
 
     def test_fail_on_pending(self):
         self.assertEqual(self.run_checker("--fail-on-pending").returncode, 1)

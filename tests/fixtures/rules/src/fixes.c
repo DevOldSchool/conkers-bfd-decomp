@@ -65,3 +65,71 @@ int fix_counted_once(void) {
 int fix_offset_forms(void *p, int word) {
     return ((unsigned char *)p)[0x58] + *((unsigned char *)&D_80002000 + 4) + ((unsigned char *)&word)[3];
 }
+
+typedef struct VolatileChain {
+    VolatileOwner *owner;
+} VolatileChain;
+
+/* A dereferenced base cannot be resolved: the member name decides. */
+int fix_volatile_deref(VolatileOwner **pp) {
+    return (*pp)->flags;
+}
+
+/* Nor can a member chain. */
+int fix_volatile_chain(VolatileChain *chain) {
+    return chain->owner->flags;
+}
+
+/* `else p = b;` is a statement, not a declaration of p. */
+int fix_declared_after_else(VolatileOwner *a, VolatileOwner *b, int c) {
+    VolatileOwner *p;
+
+    if (c) {
+        p = a;
+    } else
+        p = b;
+    return p->flags;
+}
+
+/* `return a;` is a statement, not a declaration of a. */
+int fix_declared_after_return(VolatileOwner *a) {
+    if (!a) {
+        return a;
+    }
+    return a->flags;
+}
+
+/* Offsets past a scalar's size, and byte views of a pointer, are fixed offsets. */
+int fix_scalar_offsets(int c) {
+    int word;
+
+    if (c) {
+        word = 1;
+    } else
+        word = 2;
+    return *(int *)((unsigned char *)&word + 0x20) + ((unsigned char *)&gWordPtr)[1] + ((unsigned char *)&word)[3];
+}
+
+#ifdef SHARED_FEATURE
+/* A macro from an included header selects this branch. */
+int fix_header_macro(void) {
+    return 1;
+}
+#else
+int fix_header_macro_missing(void) {
+    return 0;
+}
+#endif
+
+#define FIXTURE_LOCAL
+#undef FIXTURE_LOCAL
+#ifdef FIXTURE_LOCAL
+int fix_after_undef_missing(void) {
+    return 0;
+}
+#else
+/* #undef takes the macro away again. */
+int fix_after_undef(void) {
+    return 1;
+}
+#endif

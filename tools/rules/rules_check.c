@@ -7,7 +7,7 @@
  * in `#if 0` blocks whose comment names CONKER_DEFERRED_CANDIDATE, which this
  * tool skips.
  * Each matched function is graded against the [match] rules of the project's
- * code-rule profile (AGENTS.md, "Code rules"):
+ * code-rule profile (docs/code-rules.md):
  *
  *   R1   the same type name with conflicting definitions in two files
  *   R2   a global declared `extern` outside a header and used by the function
@@ -139,6 +139,7 @@ typedef struct unit_s {
     name_list_t  padMembers;        /* struct members named pad* */
     name_list_t  disabledBlocks;    /* `#if 0` blocks outside the parking form */
     name_list_t  defines;           /* macros the file defines in read regions */
+    name_list_t  includes;          /* basenames of the "..." headers it includes */
     name_list_t  volatileOwners;    /* the type name each volatileMembers entry belongs to */
 } unit_t;
 
@@ -265,6 +266,29 @@ static int NameList_Find( const name_list_t *list, const char *name ) {
 }
 
 /*
+================
+NameList_Remove
+
+Removes every entry with the given name.
+================
+*/
+static void NameList_Remove( name_list_t *list, const char *name ) {
+    int i;
+    int kept = 0;
+
+    for ( i = 0; i < list->count; i++ ) {
+        if ( !strcmp( list->names[i], name ) ) {
+            free( list->names[i] );
+            continue;
+        }
+        list->names[kept] = list->names[i];
+        list->lines[kept] = list->lines[i];
+        kept++;
+    }
+    list->count = kept;
+}
+
+/*
 ===============================================================================
 
 LEXER
@@ -352,11 +376,40 @@ static int MacroName( const char *text, const char *directive, char *name, size_
 ================
 IsDefined
 
-True for the macros the build defines (Makefile CFLAGS) and those the file
-has defined so far.
+True for the macros the US build defines (Makefile CFLAGS), those the file
+has defined and not #undef'd so far, and those of the include/ headers it
+has included, followed transitively.  SDK headers (lib/ultralib) are not
+read, so their macros count as undefined.
 ================
 */
+static int HeaderDefines( const char *header, const char *name, int depth ) {
+    int u;
+    int i;
+
+    if ( depth > 16 ) {
+        return 0;
+    }
+    for ( u = 0; u < numUnits; u++ ) {
+        const unit_t *unit = &units[u];
+        const char   *base = strrchr( unit->path, '/' );
+
+        if ( !unit->isHeader || strcmp( base ? base + 1 : unit->path, header ) ) {
+            continue;
+        }
+        if ( NameList_Find( &unit->defines, name ) >= 0 ) {
+            return 1;
+        }
+        for ( i = 0; i < unit->includes.count; i++ ) {
+            if ( HeaderDefines( unit->includes.names[i], name, depth + 1 ) ) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 static int IsDefined( const unit_t *unit, const char *name ) {
+    // keep in sync with CFLAGS and PROFILE_CFLAGS_us in the Makefile
     static const char *const buildDefines[] = { "_LANGUAGE_C", "_FINALROM", "_MIPS_SZLONG", "PROFILE_US", NULL };
     int i;
 
@@ -365,7 +418,15 @@ static int IsDefined( const unit_t *unit, const char *name ) {
             return 1;
         }
     }
-    return NameList_Find( &unit->defines, name ) >= 0;
+    if ( NameList_Find( &unit->defines, name ) >= 0 ) {
+        return 1;
+    }
+    for ( i = 0; i < unit->includes.count; i++ ) {
+        if ( HeaderDefines( unit->includes.names[i], name, 0 ) ) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 /*
@@ -551,11 +612,35 @@ static void Lex( unit_t *unit, const char *source ) {
                     }
                 }
             } else if ( ACTIVE ) {
-                if ( DirectiveIs( text, "define" ) ) {
-                    char name[256];
+                char name[256];
 
+                if ( DirectiveIs( text, "define" ) ) {
                     if ( MacroName( text, "define", name, sizeof( name ) ) ) {
                         NameList_Add( &unit->defines, name, startLine );
+                    }
+                } else if ( DirectiveIs( text, "undef" ) ) {
+                    if ( MacroName( text, "undef", name, sizeof( name ) ) ) {
+                        NameList_Remove( &unit->defines, name );
+                    }
+                } else if ( DirectiveIs( text, "include" ) ) {
+                    // `#include "x.h"`: the header's macros count from here on
+                    const char *quote = strchr( text, '"' );
+                    const char *end = quote ? strchr( quote + 1, '"' ) : NULL;
+
+                    if ( end ) {
+                        const char *base = quote + 1;
+                        const char *p;
+
+                        for ( p = quote + 1; p < end; p++ ) {
+                            if ( *p == '/' ) {
+                                base = p + 1;
+                            }
+                        }
+                        if ( end > base && (size_t)( end - base ) < sizeof( name ) ) {
+                            memcpy( name, base, (size_t)( end - base ) );
+                            name[end - base] = '\0';
+                            NameList_Add( &unit->includes, name, startLine );
+                        }
                     }
                 }
                 AddToken( unit, TOK_PP, startLine, text, strlen( text ) );
@@ -1472,28 +1557,54 @@ static void CollectBytePointers( const unit_t *unit, const function_t *func, nam
 }
 
 static const char *DeclaredType( const unit_t *unit, const function_t *func, const char *name, int before,
-    int *isArray );
+    int *isArray, int *isPointer );
 
 /*
 ================
-IsScalarType
+ScalarSize
 
-True for the base arithmetic types (`types.h` aliases and C keywords).
+The size in bytes of a base arithmetic type (`types.h` aliases and C
+keywords), or 0 for anything else.
 ================
 */
-static int IsScalarType( const char *type ) {
-    static const char *const scalars[] = {
-        "s8", "u8", "s16", "u16", "s32", "u32", "s64", "u64", "f32", "f64",
-        "char", "short", "int", "long", "float", "double", "unsigned", "signed", NULL
+static int ScalarSize( const char *type ) {
+    static const struct {
+        const char *name;
+        int         size;
+    } scalars[] = {
+        { "s8", 1 }, { "u8", 1 }, { "char", 1 },
+        { "s16", 2 }, { "u16", 2 }, { "short", 2 },
+        { "s32", 4 }, { "u32", 4 }, { "f32", 4 }, { "int", 4 }, { "long", 4 }, { "float", 4 },
+        { "unsigned", 4 }, { "signed", 4 },
+        { "s64", 8 }, { "u64", 8 }, { "f64", 8 }, { "double", 8 },
+        { NULL, 0 }
     };
     int i;
 
-    for ( i = 0; type && scalars[i]; i++ ) {
-        if ( !strcmp( scalars[i], type ) ) {
-            return 1;
+    for ( i = 0; type && scalars[i].name; i++ ) {
+        if ( !strcmp( scalars[i].name, type ) ) {
+            return scalars[i].size;
         }
     }
     return 0;
+}
+
+/*
+================
+WithinScalar
+
+True for a byte offset `number` (a TOK_NUM) inside a scalar of `size`
+bytes: a byte view of the scalar itself, not of a struct behind it.
+================
+*/
+static int WithinScalar( const token_t *number, int size ) {
+    long value;
+
+    if ( size <= 0 || number->kind != TOK_NUM || strpbrk( number->text, ".fF" ) ) {
+        return 0;
+    }
+    value = strtol( number->text, NULL, 0 );
+    return value >= 0 && value < size;
 }
 
 /*
@@ -1517,6 +1628,7 @@ static void CheckOffsetAccess( const unit_t *unit, function_t *func ) {
         int operand;
         int operandEnd;
         int after;
+        int scalarSize;
 
         castClose = CastEnd( unit, i, func->bodyEnd, &isByte, &isVolatile );
         if ( castClose < 0 ) {
@@ -1530,16 +1642,23 @@ static void CheckOffsetAccess( const unit_t *unit, function_t *func ) {
         if ( operandEnd < 0 ) {
             continue;
         }
+
+        // `&x` of a plain (non-pointer, non-array) scalar: offsets inside it are a
+        // byte view of the scalar (`((u8 *)&word)[3]`), with no struct behind it
+        scalarSize = 0;
         if ( Is( &unit->tokens[operand], "&" ) && operandEnd == NextCode( unit, operand ) ) {
             int isArray = 0;
+            int isPointer = 0;
+            int size = ScalarSize( DeclaredType( unit, func, unit->tokens[operandEnd].text, operandEnd,
+                &isArray, &isPointer ) );
 
-            if ( IsScalarType( DeclaredType( unit, func, unit->tokens[operandEnd].text, operandEnd, &isArray ) )
-                && !isArray ) {
-                continue;           // a byte view of a scalar (`((u8 *)&word)[3]`) has no struct behind it
-            }
+            scalarSize = isArray || isPointer ? 0 : size;
         }
         after = NextCode( unit, operandEnd );
         if ( isByte && IsConstantOffset( unit, after, func->bodyEnd ) ) {
+            if ( Is( &unit->tokens[after], "+" ) && WithinScalar( &unit->tokens[NextCode( unit, after )], scalarSize ) ) {
+                continue;
+            }
             AddFinding( func, RULE_R4, unit->tokens[i].line,
                 FormatString( "byte-pointer cast plus constant offset" ) );
             continue;
@@ -1554,6 +1673,9 @@ static void CheckOffsetAccess( const unit_t *unit, function_t *func ) {
 
             if ( open == PrevCode( unit, i ) && close < func->bodyEnd && Is( &unit->tokens[index], "[" )
                 && unit->tokens[number].kind == TOK_NUM && Is( &unit->tokens[close], "]" ) ) {
+                if ( WithinScalar( &unit->tokens[number], scalarSize ) ) {
+                    continue;
+                }
                 AddFinding( func, RULE_R4, unit->tokens[i].line,
                     FormatString( "byte-pointer cast indexed by a constant offset" ) );
                 continue;
@@ -1616,25 +1738,68 @@ DeclaredType
 The type name in the nearest declaration of `name` before token `before`:
 locals and parameters first, then file scope.  Returns NULL when none is
 found.  `Foo *name`, `struct Foo name[4]` and `Foo name =` all give "Foo".
-*isArray, when given, says whether the declaration is an array.
+*isArray and *isPointer, when given, say whether the declarator is an array
+or a pointer.
+
+Only a real declaration counts: the type token must start a declaration
+(follow `;`, `{`, `}`, `(`, `,` or the start of the file, past storage
+classes and qualifiers), so statements such as `else p = b;` or
+`return a;` are not taken for declarations of `p` or `a`.
 ================
 */
+static int IsStatementKeyword( const char *text ) {
+    static const char *const keywords[] = {
+        "return", "else", "case", "goto", "sizeof", "do", "if", "while", "for", "switch", "default", "break",
+        "continue", NULL
+    };
+    int i;
+
+    for ( i = 0; keywords[i]; i++ ) {
+        if ( !strcmp( keywords[i], text ) ) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static int IsDeclarationPrefix( const char *text ) {
+    static const char *const prefixes[] = {
+        "struct", "union", "enum", "const", "volatile", "static", "extern", "register", "unsigned", "signed", NULL
+    };
+    int i;
+
+    for ( i = 0; prefixes[i]; i++ ) {
+        if ( !strcmp( prefixes[i], text ) ) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 static const char *DeclaredType( const unit_t *unit, const function_t *func, const char *name, int before,
-    int *isArray ) {
+    int *isArray, int *isPointer ) {
     int pass;
 
     if ( isArray ) {
         *isArray = 0;
     }
+    if ( isPointer ) {
+        *isPointer = 0;
+    }
     for ( pass = 0; pass < 2; pass++ ) {
         int first = pass == 0 ? func->paramStart : 0;
         int last = pass == 0 ? before : func->paramStart;
         int found = -1;
+        int foundType = -1;
+        int foundPointer = 0;
         int k;
 
         for ( k = first; k < last; k = NextCode( unit, k ) ) {
             int prev;
             int next;
+            int type;
+            int start;
+            int pointer = 0;
 
             if ( unit->tokens[k].kind != TOK_IDENT || strcmp( unit->tokens[k].text, name ) ) {
                 continue;
@@ -1644,26 +1809,44 @@ static const char *DeclaredType( const unit_t *unit, const function_t *func, con
             if ( prev < 0 || next >= unit->numTokens ) {
                 continue;
             }
-            if ( !( Is( &unit->tokens[prev], "*" ) || unit->tokens[prev].kind == TOK_IDENT ) ) {
+            if ( !( Is( &unit->tokens[prev], "*" ) || unit->tokens[prev].kind == TOK_IDENT )
+                || IsStatementKeyword( unit->tokens[prev].text ) ) {
                 continue;
             }
             if ( !( Is( &unit->tokens[next], ";" ) || Is( &unit->tokens[next], "," ) || Is( &unit->tokens[next], "=" )
                 || Is( &unit->tokens[next], ")" ) || Is( &unit->tokens[next], "[" ) ) ) {
                 continue;
             }
+
+            // the type token, past pointers and qualifiers
+            for ( type = prev; type >= 0 && ( Is( &unit->tokens[type], "*" ) || Is( &unit->tokens[type], "const" )
+                || Is( &unit->tokens[type], "volatile" ) ); type = PrevCode( unit, type ) ) {
+                pointer |= Is( &unit->tokens[type], "*" );
+            }
+            if ( type < 0 || unit->tokens[type].kind != TOK_IDENT || IsStatementKeyword( unit->tokens[type].text ) ) {
+                continue;
+            }
+
+            // ... which must start a declaration
+            for ( start = PrevCode( unit, type ); start >= 0 && unit->tokens[start].kind == TOK_IDENT
+                && IsDeclarationPrefix( unit->tokens[start].text ); start = PrevCode( unit, start ) ) {
+            }
+            if ( start >= 0 && !Is( &unit->tokens[start], ";" ) && !Is( &unit->tokens[start], "{" )
+                && !Is( &unit->tokens[start], "}" ) && !Is( &unit->tokens[start], "(" ) && !Is( &unit->tokens[start], "," ) ) {
+                continue;
+            }
             found = k;
+            foundType = type;
+            foundPointer = pointer;
         }
         if ( found >= 0 ) {
-            int type = PrevCode( unit, found );
-
             if ( isArray ) {
                 *isArray = Is( &unit->tokens[NextCode( unit, found )], "[" );
             }
-            while ( type >= 0 && ( Is( &unit->tokens[type], "*" ) || Is( &unit->tokens[type], "const" )
-                || Is( &unit->tokens[type], "volatile" ) ) ) {
-                type = PrevCode( unit, type );
+            if ( isPointer ) {
+                *isPointer = foundPointer;
             }
-            return type >= 0 && unit->tokens[type].kind == TOK_IDENT ? unit->tokens[type].text : NULL;
+            return unit->tokens[foundType].text;
         }
     }
     return NULL;
@@ -1709,7 +1892,7 @@ static const char *BaseTypeName( const unit_t *unit, const function_t *func, int
         if ( before >= 0 && ( Is( &unit->tokens[before], "->" ) || Is( &unit->tokens[before], "." ) ) ) {
             return NULL;            // a member chain: its type is not tracked
         }
-        return DeclaredType( unit, func, unit->tokens[prev].text, prev, NULL );
+        return DeclaredType( unit, func, unit->tokens[prev].text, prev, NULL, NULL );
     }
     if ( Is( &unit->tokens[prev], ")" ) ) {
         int open = MatchOpen( unit, prev );
@@ -1788,16 +1971,21 @@ static void CheckVolatile( const unit_t *unit, function_t *func ) {
             if ( member >= func->bodyEnd || unit->tokens[member].kind != TOK_IDENT ) {
                 continue;
             }
-            // only through the struct that declares the volatile member
+            // through the struct that declares the volatile member; when the base's
+            // type cannot be resolved (`(*pp)->m`, `a->b->m`, `f()->m`), by member name
             owner = BaseTypeName( unit, func, i );
-            for ( k = 0; owner && k < unit->volatileMembers.count; k++ ) {
-                if ( !strcmp( unit->volatileMembers.names[k], unit->tokens[member].text )
-                    && !strcmp( unit->volatileOwners.names[k], owner ) ) {
-                    AddFinding( func, RULE_R17, unit->tokens[member].line,
-                        FormatString( "uses volatile member '%s.%s' declared without a 'volatile:' note",
-                            owner, unit->tokens[member].text ) );
-                    break;
+            for ( k = 0; k < unit->volatileMembers.count; k++ ) {
+                if ( strcmp( unit->volatileMembers.names[k], unit->tokens[member].text ) ) {
+                    continue;
                 }
+                if ( owner && strcmp( unit->volatileOwners.names[k], owner ) ) {
+                    continue;
+                }
+                AddFinding( func, RULE_R17, unit->tokens[member].line,
+                    FormatString( "uses volatile member '%s.%s' declared without a 'volatile:' note%s",
+                        unit->volatileOwners.names[k], unit->tokens[member].text,
+                        owner ? "" : " (base type not resolved; matched by member name)" ) );
+                break;
             }
         }
     }
@@ -2325,23 +2513,39 @@ int main( int argc, char **argv ) {
         } else if ( argv[i][0] == '-' ) {
             Error( "unknown option %s", argv[i] );
         } else {
-            LoadPath( argv[i] );
             numPaths++;
             if ( !strncmp( argv[i], "include", 7 ) || !strncmp( argv[i], "./include", 9 ) ) {
                 loadedInclude = 1;
             }
         }
     }
+
+    // include/ is read first: shared types, and the macros #if conditions may test
     if ( !numPaths ) {
         for ( i = 0; defaultPaths[i]; i++ ) {
             LoadPath( defaultPaths[i] );
         }
-    } else if ( !loadedInclude ) {
+    } else {
         struct stat info;
+        int         pass;
 
-        // shared types and declarations always come from include/
-        if ( stat( "include", &info ) == 0 && S_ISDIR( info.st_mode ) ) {
+        if ( !loadedInclude && stat( "include", &info ) == 0 && S_ISDIR( info.st_mode ) ) {
             LoadPath( "include" );
+        }
+        for ( pass = 0; pass < 2; pass++ ) {
+            for ( i = 1; i < argc; i++ ) {
+                int isInclude = !strncmp( argv[i], "include", 7 ) || !strncmp( argv[i], "./include", 9 );
+
+                if ( argv[i][0] == '-' ) {
+                    if ( !strcmp( argv[i], "--max-lines" ) ) {
+                        i++;
+                    }
+                    continue;
+                }
+                if ( isInclude == ( pass == 0 ) ) {
+                    LoadPath( argv[i] );
+                }
+            }
         }
     }
 

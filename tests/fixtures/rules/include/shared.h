@@ -6,6 +6,9 @@ typedef struct Shared {
     float scale;
 } Shared;
 
+#define SHARED_FEATURE 1
+
 extern int gSharedCount;
+extern unsigned int *gWordPtr;
 
 #endif
