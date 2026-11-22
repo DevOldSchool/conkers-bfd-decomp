@@ -102,7 +102,7 @@ Getting started
                                  (read-only; writes build/reports/struct-layouts.*).
   rules [--findings | --advisory] [--pending] [--strict-padding] [--fail-on-pending]
         [--max-lines N] [path...]
-                                 Grade matched C against the code-rule profile in AGENTS.md:
+                                 Grade matched C against the code-rule profile (docs/code-rules.md):
                                  matched under the rules vs MATCH-PENDING (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)

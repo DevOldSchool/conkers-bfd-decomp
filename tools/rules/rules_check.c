@@ -9,7 +9,7 @@
  * Each matched function is graded against the [match] rules of the project's
  * code-rule profile (AGENTS.md, "Code rules"):
  *
- *   R1   a type name defined in two files with different bodies
+ *   R1   the same type name with conflicting definitions in two files
  *   R2   a global declared `extern` outside a header and used by the function
  *   R4   fixed-offset access: a constant added to a byte-pointer cast, or a
  *        dereference cast of a byte pointer plus a constant
@@ -79,14 +79,14 @@ static const char *const ruleNames[NUM_RULES] = {
 };
 
 static const char *const ruleTitles[NUM_RULES] = {
-    "type defined in several files with different bodies",
+    "same type name with conflicting definitions",
     "global declared extern outside a header",
     "fixed-offset access through a byte pointer",
     "fake code",
     "inline assembly",
     "placeholder names",
     "prototype outside a header",
-    "padding member (name it unk_<offset>)",
+    "padding member (name it unk_<HEX>)",
     "function without a header comment",
     "body without braces",
     "#if 0 outside the parking form"
@@ -138,6 +138,8 @@ typedef struct unit_s {
     name_list_t  volatileMembers;   /* struct members declared volatile */
     name_list_t  padMembers;        /* struct members named pad* */
     name_list_t  disabledBlocks;    /* `#if 0` blocks outside the parking form */
+    name_list_t  defines;           /* macros the file defines in read regions */
+    name_list_t  volatileOwners;    /* the type name each volatileMembers entry belongs to */
 } unit_t;
 
 typedef struct type_def_s {
@@ -324,24 +326,156 @@ static int IsDisabledIf( const char *text ) {
 
 /*
 ================
+MacroName
+
+Copies the identifier after a directive (`#define NAME`, `#ifdef NAME`).
+================
+*/
+static int MacroName( const char *text, const char *directive, char *name, size_t size ) {
+    const char *p = strstr( text, directive );
+    size_t      length = 0;
+
+    if ( !p ) {
+        return 0;
+    }
+    for ( p += strlen( directive ); *p == ' ' || *p == '\t'; p++ ) {
+    }
+    while ( ( isalnum( (unsigned char)p[length] ) || p[length] == '_' ) && length + 1 < size ) {
+        name[length] = p[length];
+        length++;
+    }
+    name[length] = '\0';
+    return length > 0;
+}
+
+/*
+================
+IsDefined
+
+True for the macros the build defines (Makefile CFLAGS) and those the file
+has defined so far.
+================
+*/
+static int IsDefined( const unit_t *unit, const char *name ) {
+    static const char *const buildDefines[] = { "_LANGUAGE_C", "_FINALROM", "_MIPS_SZLONG", "PROFILE_US", NULL };
+    int i;
+
+    for ( i = 0; buildDefines[i]; i++ ) {
+        if ( !strcmp( buildDefines[i], name ) ) {
+            return 1;
+        }
+    }
+    return NameList_Find( &unit->defines, name ) >= 0;
+}
+
+/*
+================
+EvaluateCondition
+
+The value of an #if, #elif, #ifdef or #ifndef line: 0 and 1, `defined X`,
+`!defined X` and a bare macro name are evaluated; anything else counts as
+true, so exactly one branch of every chain is read.
+================
+*/
+static int EvaluateCondition( const unit_t *unit, const char *text ) {
+    char        name[256];
+    const char *p;
+    int         negate = 0;
+
+    if ( DirectiveIs( text, "ifdef" ) ) {
+        return MacroName( text, "ifdef", name, sizeof( name ) ) && IsDefined( unit, name );
+    }
+    if ( DirectiveIs( text, "ifndef" ) ) {
+        return !( MacroName( text, "ifndef", name, sizeof( name ) ) && IsDefined( unit, name ) );
+    }
+    p = strstr( text, DirectiveIs( text, "elif" ) ? "elif" : "if" ) + ( DirectiveIs( text, "elif" ) ? 4 : 2 );
+    while ( *p == ' ' || *p == '\t' ) {
+        p++;
+    }
+    if ( *p == '!' ) {
+        negate = 1;
+        for ( p++; *p == ' ' || *p == '\t'; p++ ) {
+        }
+    }
+    if ( isdigit( (unsigned char)*p ) ) {
+        const char *end = p;
+
+        while ( isalnum( (unsigned char)*end ) ) {
+            end++;
+        }
+        if ( *end && !isspace( (unsigned char)*end ) && *end != '/' ) {
+            return 1;               // an expression, not a lone number
+        }
+        return negate ^ ( strtol( p, NULL, 0 ) != 0 );
+    }
+    if ( !strncmp( p, "defined", 7 ) && !isalnum( (unsigned char)p[7] ) && p[7] != '_' ) {
+        size_t length = 0;
+
+        for ( p += 7; *p == ' ' || *p == '\t' || *p == '('; p++ ) {
+        }
+        while ( ( isalnum( (unsigned char)p[length] ) || p[length] == '_' ) && length + 1 < sizeof( name ) ) {
+            name[length] = p[length];
+            length++;
+        }
+        name[length] = '\0';
+        p += length;
+        while ( *p == ' ' || *p == '\t' || *p == ')' ) {
+            p++;
+        }
+        if ( *p && *p != '/' ) {
+            return 1;               // `defined X && ...`: not evaluated
+        }
+        return negate ^ IsDefined( unit, name );
+    }
+    if ( isalpha( (unsigned char)*p ) || *p == '_' ) {
+        size_t length = 0;
+
+        while ( ( isalnum( (unsigned char)p[length] ) || p[length] == '_' ) && length + 1 < sizeof( name ) ) {
+            name[length] = p[length];
+            length++;
+        }
+        name[length] = '\0';
+        for ( p += length; *p == ' ' || *p == '\t'; p++ ) {
+        }
+        if ( *p && *p != '/' ) {
+            return 1;
+        }
+        return negate ^ IsDefined( unit, name );
+    }
+    return 1;
+}
+
+/*
+================
 Lex
 
 Splits a file into tokens.  Comments are kept as tokens; preprocessor lines
-become single TOK_PP tokens.  `#if 0` blocks are dropped, and those that are
-not in the project's parking form are recorded for R37.
+become single TOK_PP tokens.  Conditional blocks are evaluated so that exactly
+one branch of each chain is read (EvaluateCondition); the conditional
+directives of read regions are kept as tokens.  `#if 0` blocks that are not in
+the project's parking form are recorded for R37.
 ================
 */
+#define MAX_CONDITIONS 64
+#define ACTIVE         ( numConditions == 0 || conditions[numConditions - 1].active )
+
+typedef struct condition_s {
+    int parentActive;               /* the enclosing region is read */
+    int active;                     /* this branch is read */
+    int taken;                      /* some branch of this chain was chosen */
+} condition_t;
+
 static void Lex( unit_t *unit, const char *source ) {
+    condition_t conditions[MAX_CONDITIONS];
+    int         numConditions = 0;
     const char *p;
     const char *start;
     int         line;
     int         atLineStart;
-    int         skipDepth;          /* nesting inside a dropped #if 0 block */
 
     p = source;
     line = 1;
     atLineStart = 1;
-    skipDepth = 0;
     while ( *p ) {
         if ( *p == '\n' ) {
             line++;
@@ -375,30 +509,62 @@ static void Lex( unit_t *unit, const char *source ) {
                 p++;
             }
             text = CopyString( start, (size_t)( p - start ) );
-            if ( skipDepth ) {
-                if ( DirectiveIs( text, "if" ) || DirectiveIs( text, "ifdef" )
-                    || DirectiveIs( text, "ifndef" ) ) {
-                    skipDepth++;
-                } else if ( DirectiveIs( text, "endif" ) ) {
-                    skipDepth--;
+            if ( DirectiveIs( text, "if" ) || DirectiveIs( text, "ifdef" ) || DirectiveIs( text, "ifndef" ) ) {
+                int parent = ACTIVE;
+                int value = parent ? EvaluateCondition( unit, text ) : 0;
+
+                if ( numConditions == MAX_CONDITIONS ) {
+                    Error( "%s:%d: #if nesting too deep", unit->path, startLine );
                 }
-                free( text );
-                continue;
-            }
-            if ( IsDisabledIf( text ) ) {
-                if ( !strstr( text, PARKING_MARKER ) ) {
+                if ( parent && IsDisabledIf( text ) && !strstr( text, PARKING_MARKER ) ) {
                     NameList_Add( &unit->disabledBlocks, "#if 0", startLine );
                 }
-                skipDepth = 1;
-                free( text );
-                continue;
+                conditions[numConditions].parentActive = parent;
+                conditions[numConditions].active = parent && value;
+                conditions[numConditions].taken = value;
+                numConditions++;
+                if ( parent ) {
+                    AddToken( unit, TOK_PP, startLine, text, strlen( text ) );
+                }
+            } else if ( DirectiveIs( text, "elif" ) || DirectiveIs( text, "else" ) ) {
+                condition_t *top = numConditions ? &conditions[numConditions - 1] : NULL;
+
+                if ( top ) {
+                    if ( top->taken ) {
+                        top->active = 0;
+                    } else {
+                        int value = DirectiveIs( text, "else" ) ? 1
+                            : top->parentActive ? EvaluateCondition( unit, text ) : 0;
+
+                        top->active = top->parentActive && value;
+                        top->taken = value;
+                    }
+                    if ( top->parentActive ) {
+                        AddToken( unit, TOK_PP, startLine, text, strlen( text ) );
+                    }
+                }
+            } else if ( DirectiveIs( text, "endif" ) ) {
+                if ( numConditions ) {
+                    numConditions--;
+                    if ( conditions[numConditions].parentActive ) {
+                        AddToken( unit, TOK_PP, startLine, text, strlen( text ) );
+                    }
+                }
+            } else if ( ACTIVE ) {
+                if ( DirectiveIs( text, "define" ) ) {
+                    char name[256];
+
+                    if ( MacroName( text, "define", name, sizeof( name ) ) ) {
+                        NameList_Add( &unit->defines, name, startLine );
+                    }
+                }
+                AddToken( unit, TOK_PP, startLine, text, strlen( text ) );
             }
-            AddToken( unit, TOK_PP, startLine, text, strlen( text ) );
             free( text );
             continue;
         }
         atLineStart = 0;
-        if ( skipDepth ) {
+        if ( !ACTIVE ) {
             // inside a dropped block: only track lines and comments' newlines
             if ( p[0] == '/' && p[1] == '*' ) {
                 p += 2;
@@ -685,12 +851,15 @@ static int LineHasNote( const unit_t *unit, int line, const char *note ) {
 ================
 IsPlaceholder
 
-True for names the decompiler or the project generated (R7).
+True for the placeholder names of the naming ruling (docs/code-rules.md,
+Naming): `func_`, `D_`, `B_`, `jtbl_` and the m2c names `temp_`, `var_`,
+`phi_`, `spXX`, `argN`, plus legacy `unkXX` members.  `unk_<HEX>` is the
+ruling's name for an unknown member, not a placeholder.
 ================
 */
 static int IsPlaceholder( const char *name ) {
     static const char *const prefixes[] = {
-        "func_", "D_", "B_", "jtbl_", "unk", "temp_", "var_", "phi_", "field_", "sp", "arg", NULL
+        "func_", "D_", "B_", "jtbl_", "temp_", "var_", "phi_", "sp", "arg", "unk", NULL
     };
     const char *rest;
     int         i;
@@ -702,8 +871,8 @@ static int IsPlaceholder( const char *name ) {
             continue;
         }
         rest = name + length;
-        if ( !strcmp( prefixes[i], "sp" ) || !strcmp( prefixes[i], "arg" ) ) {
-            // spXX stack slots and argN parameters: the remainder is hex or decimal
+        if ( !strcmp( prefixes[i], "sp" ) || !strcmp( prefixes[i], "arg" ) || !strcmp( prefixes[i], "unk" ) ) {
+            // spXX stack slots, argN parameters and legacy unkXX members: the remainder is hex
             if ( !*rest ) {
                 return 0;
             }
@@ -780,7 +949,7 @@ ScanAggregateBody
 Records volatile and padding members of a struct or union body.
 ================
 */
-static void ScanAggregateBody( unit_t *unit, int open, int close ) {
+static void ScanAggregateBody( unit_t *unit, int open, int close, const name_list_t *owners ) {
     int memberStart;
     int i;
 
@@ -791,7 +960,7 @@ static void ScanAggregateBody( unit_t *unit, int open, int close ) {
         if ( Is( token, "{" ) ) {
             int inner = MatchClose( unit, i );
 
-            ScanAggregateBody( unit, i, inner );
+            ScanAggregateBody( unit, i, inner, owners );
             i = inner;
             continue;
         }
@@ -828,7 +997,13 @@ static void ScanAggregateBody( unit_t *unit, int open, int close ) {
                     continue;
                 }
                 if ( isVolatile && !LineHasNote( unit, name->line, VOLATILE_NOTE ) ) {
-                    NameList_Add( &unit->volatileMembers, name->text, name->line );
+                    int k;
+
+                    // one entry per type name the member can be reached through
+                    for ( k = 0; k < owners->count; k++ ) {
+                        NameList_Add( &unit->volatileMembers, name->text, name->line );
+                        NameList_Add( &unit->volatileOwners, owners->names[k], name->line );
+                    }
                 }
                 if ( !strncmp( name->text, "pad", 3 ) || !strncmp( name->text, "_pad", 4 ) ) {
                     NameList_Add( &unit->padMembers, name->text, name->line );
@@ -849,14 +1024,17 @@ declarators after it.
 ================
 */
 static void RecordAggregate( unit_t *unit, int unitIndex, int keyword, int open, int close ) {
-    char *body;
-    int   tag;
-    int   i;
+    name_list_t owners;
+    char       *body;
+    int         tag;
+    int         i;
 
+    memset( &owners, 0, sizeof( owners ) );
     body = JoinTokens( unit, open, close );
     tag = NextCode( unit, keyword );
     if ( tag < open && unit->tokens[tag].kind == TOK_IDENT ) {
         AddTypeDef( unit->tokens[tag].text, body, unitIndex, unit->tokens[tag].line );
+        NameList_Add( &owners, unit->tokens[tag].text, unit->tokens[tag].line );
     }
     i = PrevCode( unit, keyword );
     if ( i >= 0 && Is( &unit->tokens[i], "typedef" ) ) {
@@ -864,12 +1042,18 @@ static void RecordAggregate( unit_t *unit, int unitIndex, int keyword, int open,
             i = NextCode( unit, i ) ) {
             if ( unit->tokens[i].kind == TOK_IDENT ) {
                 AddTypeDef( unit->tokens[i].text, body, unitIndex, unit->tokens[i].line );
+                NameList_Add( &owners, unit->tokens[i].text, unit->tokens[i].line );
             }
         }
     }
     if ( !Is( &unit->tokens[keyword], "enum" ) ) {
-        ScanAggregateBody( unit, open, close );
+        ScanAggregateBody( unit, open, close, &owners );
     }
+    for ( i = 0; i < owners.count; i++ ) {
+        free( owners.names[i] );
+    }
+    free( owners.names );
+    free( owners.lines );
     free( body );
 }
 
@@ -881,7 +1065,7 @@ Records the variable names an `extern` declaration (first .. last) declares.
 Function prototypes are skipped; function-pointer variables are recorded.
 ================
 */
-static void RecordExternNames( unit_t *unit, int first, int last ) {
+static void RecordExternNames( const unit_t *unit, int first, int last, name_list_t *names ) {
     int i;
 
     for ( i = first; i <= last; i = NextCode( unit, i ) ) {
@@ -904,13 +1088,13 @@ static void RecordExternNames( unit_t *unit, int first, int last ) {
             int prev = PrevCode( unit, i );
 
             if ( prev >= 0 && Is( &unit->tokens[prev], "*" ) ) {
-                NameList_Add( &unit->externs, token->text, token->line );
+                NameList_Add( names, token->text, token->line );
             }
             continue;
         }
         if ( Is( &unit->tokens[next], "[" ) || Is( &unit->tokens[next], ";" )
             || Is( &unit->tokens[next], "," ) || Is( &unit->tokens[next], "=" ) ) {
-            NameList_Add( &unit->externs, token->text, token->line );
+            NameList_Add( names, token->text, token->line );
         }
     }
 }
@@ -1033,7 +1217,7 @@ static void ParseTopLevel( unit_t *unit, int unitIndex ) {
 
             if ( declStart <= last ) {
                 if ( Is( &unit->tokens[declStart], "extern" ) && !IsPrototype( unit, declStart, last, &name ) ) {
-                    RecordExternNames( unit, declStart, i );
+                    RecordExternNames( unit, declStart, i, &unit->externs );
                 } else if ( !Is( &unit->tokens[declStart], "typedef" )
                     && IsPrototype( unit, declStart, last, &name ) ) {
                     NameList_Add( &unit->prototypes, name, unit->tokens[declStart].line );
@@ -1287,12 +1471,37 @@ static void CollectBytePointers( const unit_t *unit, const function_t *func, nam
     }
 }
 
+static const char *DeclaredType( const unit_t *unit, const function_t *func, const char *name, int before,
+    int *isArray );
+
+/*
+================
+IsScalarType
+
+True for the base arithmetic types (`types.h` aliases and C keywords).
+================
+*/
+static int IsScalarType( const char *type ) {
+    static const char *const scalars[] = {
+        "s8", "u8", "s16", "u16", "s32", "u32", "s64", "u64", "f32", "f64",
+        "char", "short", "int", "long", "float", "double", "unsigned", "signed", NULL
+    };
+    int i;
+
+    for ( i = 0; type && scalars[i]; i++ ) {
+        if ( !strcmp( scalars[i], type ) ) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 /*
 ================
 CheckOffsetAccess
 
-R4: `(u8 *)x + N`, and `*(T *)(p + N)` / `(T *)(p + N)` where p is a byte
-pointer.
+R4: `(u8 *)x + N` (also `(u8 *)&x + N`), `((u8 *)x)[N]`, and
+`*(T *)(p + N)` / `(T *)(p + N)` where p is a byte pointer.
 ================
 */
 static void CheckOffsetAccess( const unit_t *unit, function_t *func ) {
@@ -1314,15 +1523,41 @@ static void CheckOffsetAccess( const unit_t *unit, function_t *func ) {
             continue;
         }
         operand = NextCode( unit, castClose );
-        operandEnd = OperandEnd( unit, operand, func->bodyEnd );
+        // `(u8 *)&D_x + 4`: the operand may take its address
+        operandEnd = operand < func->bodyEnd && Is( &unit->tokens[operand], "&" )
+            ? OperandEnd( unit, NextCode( unit, operand ), func->bodyEnd )
+            : OperandEnd( unit, operand, func->bodyEnd );
         if ( operandEnd < 0 ) {
             continue;
+        }
+        if ( Is( &unit->tokens[operand], "&" ) && operandEnd == NextCode( unit, operand ) ) {
+            int isArray = 0;
+
+            if ( IsScalarType( DeclaredType( unit, func, unit->tokens[operandEnd].text, operandEnd, &isArray ) )
+                && !isArray ) {
+                continue;           // a byte view of a scalar (`((u8 *)&word)[3]`) has no struct behind it
+            }
         }
         after = NextCode( unit, operandEnd );
         if ( isByte && IsConstantOffset( unit, after, func->bodyEnd ) ) {
             AddFinding( func, RULE_R4, unit->tokens[i].line,
                 FormatString( "byte-pointer cast plus constant offset" ) );
             continue;
+        }
+
+        // ((u8 *)p)[N]: a byte-pointer cast indexed by a constant
+        if ( isByte && after < func->bodyEnd && Is( &unit->tokens[after], ")" ) ) {
+            int open = MatchOpen( unit, after );
+            int index = NextCode( unit, after );
+            int number = NextCode( unit, index );
+            int close = NextCode( unit, number );
+
+            if ( open == PrevCode( unit, i ) && close < func->bodyEnd && Is( &unit->tokens[index], "[" )
+                && unit->tokens[number].kind == TOK_NUM && Is( &unit->tokens[close], "]" ) ) {
+                AddFinding( func, RULE_R4, unit->tokens[i].line,
+                    FormatString( "byte-pointer cast indexed by a constant offset" ) );
+                continue;
+            }
         }
 
         // (T *)(p + N) with p a byte pointer
@@ -1344,6 +1579,160 @@ static void CheckOffsetAccess( const unit_t *unit, function_t *func ) {
 
 /*
 ================
+EnclosingCastClose
+
+When the token at i lies inside a pointer cast `( ... )`, returns the index
+of the cast's closing parenthesis; otherwise -1.
+================
+*/
+static int EnclosingCastClose( const unit_t *unit, const function_t *func, int i ) {
+    int depth = 0;
+    int k;
+
+    for ( k = PrevCode( unit, i ); k >= func->paramStart; k = PrevCode( unit, k ) ) {
+        if ( Is( &unit->tokens[k], ")" ) ) {
+            depth++;
+        } else if ( Is( &unit->tokens[k], "(" ) ) {
+            if ( depth == 0 ) {
+                int isByte = 0;
+                int isVolatile = 0;
+                int close = CastEnd( unit, k, func->bodyEnd, &isByte, &isVolatile );
+
+                return close > i ? close : -1;
+            }
+            depth--;
+        } else if ( depth == 0 && ( Is( &unit->tokens[k], ";" ) || Is( &unit->tokens[k], "{" )
+            || Is( &unit->tokens[k], "}" ) ) ) {
+            return -1;
+        }
+    }
+    return -1;
+}
+
+/*
+================
+DeclaredType
+
+The type name in the nearest declaration of `name` before token `before`:
+locals and parameters first, then file scope.  Returns NULL when none is
+found.  `Foo *name`, `struct Foo name[4]` and `Foo name =` all give "Foo".
+*isArray, when given, says whether the declaration is an array.
+================
+*/
+static const char *DeclaredType( const unit_t *unit, const function_t *func, const char *name, int before,
+    int *isArray ) {
+    int pass;
+
+    if ( isArray ) {
+        *isArray = 0;
+    }
+    for ( pass = 0; pass < 2; pass++ ) {
+        int first = pass == 0 ? func->paramStart : 0;
+        int last = pass == 0 ? before : func->paramStart;
+        int found = -1;
+        int k;
+
+        for ( k = first; k < last; k = NextCode( unit, k ) ) {
+            int prev;
+            int next;
+
+            if ( unit->tokens[k].kind != TOK_IDENT || strcmp( unit->tokens[k].text, name ) ) {
+                continue;
+            }
+            prev = PrevCode( unit, k );
+            next = NextCode( unit, k );
+            if ( prev < 0 || next >= unit->numTokens ) {
+                continue;
+            }
+            if ( !( Is( &unit->tokens[prev], "*" ) || unit->tokens[prev].kind == TOK_IDENT ) ) {
+                continue;
+            }
+            if ( !( Is( &unit->tokens[next], ";" ) || Is( &unit->tokens[next], "," ) || Is( &unit->tokens[next], "=" )
+                || Is( &unit->tokens[next], ")" ) || Is( &unit->tokens[next], "[" ) ) ) {
+                continue;
+            }
+            found = k;
+        }
+        if ( found >= 0 ) {
+            int type = PrevCode( unit, found );
+
+            if ( isArray ) {
+                *isArray = Is( &unit->tokens[NextCode( unit, found )], "[" );
+            }
+            while ( type >= 0 && ( Is( &unit->tokens[type], "*" ) || Is( &unit->tokens[type], "const" )
+                || Is( &unit->tokens[type], "volatile" ) ) ) {
+                type = PrevCode( unit, type );
+            }
+            return type >= 0 && unit->tokens[type].kind == TOK_IDENT ? unit->tokens[type].text : NULL;
+        }
+    }
+    return NULL;
+}
+
+/*
+================
+BaseTypeName
+
+The struct type of the expression before the `->` or `.` at `access`:
+a variable (`p->m`), an indexed variable (`p[i].m`) or a cast
+(`((Foo *)p)->m`).  Returns NULL for anything else.
+================
+*/
+static const char *BaseTypeName( const unit_t *unit, const function_t *func, int access ) {
+    int prev = PrevCode( unit, access );
+    int before;
+
+    if ( prev < 0 ) {
+        return NULL;
+    }
+    if ( Is( &unit->tokens[prev], "]" ) ) {
+        int depth = 0;
+        int k;
+
+        for ( k = prev; k >= 0; k = PrevCode( unit, k ) ) {
+            if ( Is( &unit->tokens[k], "]" ) ) {
+                depth++;
+            } else if ( Is( &unit->tokens[k], "[" ) && --depth == 0 ) {
+                break;
+            }
+        }
+        if ( k < 0 ) {
+            return NULL;
+        }
+        prev = PrevCode( unit, k );
+        if ( prev < 0 ) {
+            return NULL;
+        }
+    }
+    if ( unit->tokens[prev].kind == TOK_IDENT ) {
+        before = PrevCode( unit, prev );
+        if ( before >= 0 && ( Is( &unit->tokens[before], "->" ) || Is( &unit->tokens[before], "." ) ) ) {
+            return NULL;            // a member chain: its type is not tracked
+        }
+        return DeclaredType( unit, func, unit->tokens[prev].text, prev, NULL );
+    }
+    if ( Is( &unit->tokens[prev], ")" ) ) {
+        int open = MatchOpen( unit, prev );
+        int cast = open >= 0 ? NextCode( unit, open ) : -1;
+        int isByte = 0;
+        int isVolatile = 0;
+        int k;
+
+        if ( cast < 0 || CastEnd( unit, cast, prev, &isByte, &isVolatile ) < 0 ) {
+            return NULL;
+        }
+        for ( k = NextCode( unit, cast ); !Is( &unit->tokens[k], ")" ); k = NextCode( unit, k ) ) {
+            if ( unit->tokens[k].kind == TOK_IDENT && !Is( &unit->tokens[k], "const" ) && !Is( &unit->tokens[k], "volatile" )
+                && !Is( &unit->tokens[k], "struct" ) && !Is( &unit->tokens[k], "union" ) ) {
+                return unit->tokens[k].text;
+            }
+        }
+    }
+    return NULL;
+}
+
+/*
+================
 CheckVolatile
 
 R17: `volatile` in a body without a `volatile:` note, except casts of a
@@ -1353,18 +1742,16 @@ literal address (hardware registers); uses of volatile members without a note.
 static void CheckVolatile( const unit_t *unit, function_t *func ) {
     int i;
 
-    for ( i = func->bodyStart; i < func->bodyEnd; i = NextCode( unit, i ) ) {
+    // parameters too: `volatile` on a parameter is a carrier like any local
+    for ( i = func->paramStart; i < func->bodyEnd; i = NextCode( unit, i ) ) {
         const token_t *token = &unit->tokens[i];
 
         if ( Is( token, "volatile" ) ) {
-            int j;
+            int j = EnclosingCastClose( unit, func, i );
             int hardware = 0;
 
-            // a cast `( volatile T * ) 0xA4...` addresses a hardware register
-            for ( j = NextCode( unit, i ); j < func->bodyEnd && !Is( &unit->tokens[j], ")" )
-                && !Is( &unit->tokens[j], ";" ); j = NextCode( unit, j ) ) {
-            }
-            if ( j < func->bodyEnd && Is( &unit->tokens[j], ")" ) ) {
+            // only a cast `( volatile T * ) 0xA4...` addresses a hardware register
+            if ( j > i ) {
                 int next = NextCode( unit, j );
 
                 while ( next < func->bodyEnd && Is( &unit->tokens[next], "(" ) ) {
@@ -1393,14 +1780,24 @@ static void CheckVolatile( const unit_t *unit, function_t *func ) {
             }
             continue;
         }
-        if ( ( Is( token, "->" ) || Is( token, "." ) ) && unit->volatileMembers.count ) {
-            int member = NextCode( unit, i );
+        if ( ( Is( token, "->" ) || Is( token, "." ) ) && unit->volatileMembers.count && i >= func->bodyStart ) {
+            int         member = NextCode( unit, i );
+            const char *owner;
+            int         k;
 
-            if ( member < func->bodyEnd && unit->tokens[member].kind == TOK_IDENT
-                && NameList_Find( &unit->volatileMembers, unit->tokens[member].text ) >= 0 ) {
-                AddFinding( func, RULE_R17, unit->tokens[member].line,
-                    FormatString( "uses volatile member '%s' declared without a 'volatile:' note",
-                        unit->tokens[member].text ) );
+            if ( member >= func->bodyEnd || unit->tokens[member].kind != TOK_IDENT ) {
+                continue;
+            }
+            // only through the struct that declares the volatile member
+            owner = BaseTypeName( unit, func, i );
+            for ( k = 0; owner && k < unit->volatileMembers.count; k++ ) {
+                if ( !strcmp( unit->volatileMembers.names[k], unit->tokens[member].text )
+                    && !strcmp( unit->volatileOwners.names[k], owner ) ) {
+                    AddFinding( func, RULE_R17, unit->tokens[member].line,
+                        FormatString( "uses volatile member '%s.%s' declared without a 'volatile:' note",
+                            owner, unit->tokens[member].text ) );
+                    break;
+                }
             }
         }
     }
@@ -1482,14 +1879,19 @@ static void CheckStatements( unit_t *unit, function_t *func ) {
             if ( IsPrototype( unit, i, PrevCode( unit, end ), &name ) ) {
                 AddFinding( func, RULE_R25, token->line, FormatString( "block-scope prototype of '%s'", name ) );
             } else {
-                int before = unit->externs.count;
-                int k;
+                name_list_t names;
+                int         k;
 
-                RecordExternNames( unit, i, end );
-                for ( k = before; k < unit->externs.count; k++ ) {
+                // block scope: the declaration belongs to this function only
+                memset( &names, 0, sizeof( names ) );
+                RecordExternNames( unit, i, end, &names );
+                for ( k = 0; k < names.count; k++ ) {
                     AddFinding( func, RULE_R2, token->line,
-                        FormatString( "block-scope extern '%s'", unit->externs.names[k] ) );
+                        FormatString( "block-scope extern '%s'", names.names[k] ) );
+                    free( names.names[k] );
                 }
+                free( names.names );
+                free( names.lines );
             }
         }
 
@@ -1732,7 +2134,7 @@ static void CheckAdvisory( unit_t *unit, function_t *func ) {
             && ( Is( &unit->tokens[prev], "->" ) || Is( &unit->tokens[prev], "." ) )
             && NameList_Find( &unit->padMembers, unit->tokens[i].text ) >= 0 ) {
             AddFinding( func, optStrictPadding ? RULE_R17 : RULE_R27, unit->tokens[i].line,
-                FormatString( "uses padding member '%s'", unit->tokens[i].text ) );
+                FormatString( "uses padding member '%s' (name it unk_<HEX>: uppercase hex, no 0x)", unit->tokens[i].text ) );
         }
     }
 }

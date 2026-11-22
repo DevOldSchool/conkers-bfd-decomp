@@ -48,9 +48,10 @@ class RulesCheckTests(unittest.TestCase):
     def test_summary_counts(self):
         result = self.run_checker()
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("functions with C bodies (bytes matched): 6", result.stdout)
-        self.assertIn("matched under the rules:                 2", result.stdout)
-        self.assertIn("MATCH-PENDING:                           4", result.stdout)
+        # fix_disabled sits in #if 0 and fix_counted_once is defined in both #ifdef branches
+        self.assertIn("functions with C bodies (bytes matched): 14", result.stdout)
+        self.assertIn("matched under the rules:                 5", result.stdout)
+        self.assertIn("MATCH-PENDING:                           9", result.stdout)
 
     def test_clean_unit_has_no_match_findings(self):
         rows = [row for row in self.findings() if row[0] == "clean.c"]
@@ -68,14 +69,14 @@ class RulesCheckTests(unittest.TestCase):
         self.assertEqual(pending["func_80001040"], {"R4", "R17"})
         self.assertEqual(pending["func_80001080"], {"R1", "R17"})
         self.assertEqual(pending["func_800010C0"], {"R2", "R17"})
-        self.assertNotIn("Clean_Sum", pending)
-        self.assertNotIn("Parked", pending)
+        self.assertNotIn("clean_sum", pending)
+        self.assertNotIn("parked_offset", pending)
 
     def test_fake_code_forms(self):
         result = self.run_checker("--findings")
         messages = [line.split("[match] ", 1)[1] for line in result.stdout.splitlines() if " R17 [match] " in line]
         for expected in ("volatile without", "empty if block", "self-assignment", "'* 1'", "'+ 0'",
-                         "do { } while ( 0 )", "bare ';' statement", "uses volatile member 'state'"):
+                         "do { } while ( 0 )", "bare ';' statement", "uses volatile member 'Local.state'"):
             with self.subTest(expected=expected):
                 self.assertTrue(any(expected in message for message in messages), messages)
 
@@ -83,6 +84,9 @@ class RulesCheckTests(unittest.TestCase):
         self.assertIn(("pending.c", "func_80001080", "R27"), self.findings())
         strict = [row for row in self.findings("--strict-padding") if row[1] == "func_80001080"]
         self.assertNotIn("R27", {row[2] for row in strict})
+        result = self.run_checker("--findings", "--strict-padding")
+        self.assertIn("func_80001080: R17 [match] uses padding member 'pad1'", result.stdout)
+        self.assertNotIn("func_80001080: R17 [match] uses padding member", self.run_checker("--findings").stdout)
 
     def test_advisory_rules(self):
         rows = self.findings()
@@ -100,6 +104,48 @@ class RulesCheckTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("MATCH-PENDING func_80001080 src/pending.c: R1 R17", result.stdout)
         self.assertIn("functions with C bodies (bytes matched): 4", result.stdout)
+
+    def pending(self) -> dict[str, set[str]]:
+        result = self.run_checker("--pending")
+        return {
+            line.split()[1]: set(line.split(":", 1)[1].split())
+            for line in result.stdout.splitlines() if line.startswith("MATCH-PENDING ")
+        }
+
+    def match_findings(self, function: str) -> list[str]:
+        result = self.run_checker("--findings")
+        return [line.split("[match] ", 1)[1] for line in result.stdout.splitlines()
+                if f": {function}: " in line and " [match] " in line]
+
+    def test_volatile_parameters_are_checked(self):
+        self.assertEqual(self.pending()["fix_volatile_param"], {"R17"})
+
+    def test_volatile_initializer_cast_is_not_hardware(self):
+        self.assertEqual(self.pending()["fix_volatile_initializer"], {"R17"})
+
+    def test_volatile_members_follow_their_struct(self):
+        findings = self.match_findings("fix_volatile_member")
+        self.assertEqual(len(findings), 1, findings)
+        self.assertIn("'VolatileOwner.flags'", findings[0])
+
+    def test_block_scope_externs_stay_in_their_function(self):
+        pending = self.pending()
+        self.assertEqual(pending["fix_block_extern"], {"R2"})
+        self.assertNotIn("fix_after_block_extern", pending)
+
+    def test_conditional_branches_are_read_once(self):
+        result = self.run_checker("--advisory")
+        self.assertNotIn("fix_disabled", result.stdout)
+        self.assertIn("fixes.c:42: (unit): R37", result.stdout)     # the #if 0 itself, not the #else
+        self.assertNotIn("fix_live_branch", self.pending())
+        self.assertNotIn("fix_counted_once", self.pending())
+
+    def test_offset_forms(self):
+        findings = self.match_findings("fix_offset_forms")
+        r4 = [finding for finding in findings if "offset" in finding]
+        self.assertEqual(len(r4), 2, findings)     # the indexed cast and &D_x + 4, not ((u8 *)&word)[3]
+        self.assertTrue(any("indexed by a constant" in finding for finding in r4), r4)
+        self.assertEqual(self.pending()["fix_offset_forms"], {"R2", "R4"})
 
     def test_fail_on_pending(self):
         self.assertEqual(self.run_checker("--fail-on-pending").returncode, 1)
