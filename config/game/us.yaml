@@ -526,7 +526,7 @@ segments:
       - [0x11A410, c, game/game_1478C0]
       - [0x11A7C0, c, done/game/game_147C70]
       - [0x11AF30, c, game/game_1483E0]
-      - [0x11E780, c, game/game_14BC30]
+      - [0x11E780, c, done/game/game_14BC30]
       - [0x11EF40, c, game/game_14C3F0]
       - [0x11F980, c, game/game_14CE30]
       - [0x11FC20, c, done/game/game_14D0D0]
