@@ -25,8 +25,8 @@ rules** (the subset that `./conker rules` passes).
 | --- | --- | --- |
 | R1 | One type name, one definition: the same type name must not have conflicting definitions. A type used by one unit may stay at the top of that unit. | The same type name defined with different bodies in two files, used by the function. Identical copies are not flagged; they are left to the R1 cleanup pass. |
 | R2 | Each global is declared `extern` once, in a header, and defined in its owning unit. New `extern`s follow the R2 ruling under Rule changes. | A global the unit declares `extern` at file scope that the function uses, or a block-scope `extern` in the function itself. |
-| R4 | Access goes through typed members, not fixed offsets. | A constant added to a byte-pointer cast (`(u8 *)arg0 + 0x58`, `(u8 *)&D_x + 4`), a byte-pointer cast indexed by a constant (`((u8 *)arg0)[0x58]`), or a pointer cast of a byte pointer plus a constant (`*(s32 *)(arg0 + 0x2C)`). A byte view of a scalar (`((u8 *)&word)[3]`) is exempt. |
-| R17 | No fake code: nothing that exists only to steer the compiler. | `volatile` on parameters, locals, casts or members without a `// volatile: <evidence>` note on the same line (only a `volatile` inside a cast of a literal or KSEG1 hardware address is exempt; a volatile member counts where it is accessed through the struct that declares it), empty `if`/`else` blocks, bare `;` statements, `do { } while (0)` in a body, self-assignment, `+ 0` and `* 1` (zero offsets inside casts are reported as R4, and stride indexing such as `k * 3 + 0` is exempt). |
+| R4 | Access goes through typed members, not fixed offsets. | A constant added to a byte-pointer cast (`(u8 *)arg0 + 0x58`, `(u8 *)&D_x + 4`), a byte-pointer cast indexed by a constant (`((u8 *)arg0)[0x58]`), or a pointer cast of a byte pointer plus a constant (`*(s32 *)(arg0 + 0x2C)`). A byte view of a plain scalar inside its own size is exempt (`((u8 *)&word)[3]` for a 32-bit `word`); pointers, arrays and offsets past the scalar's size are not. |
+| R17 | No fake code: nothing that exists only to steer the compiler. | `volatile` on parameters, locals, casts or members without a `// volatile: <evidence>` note on the same line (only a `volatile` inside a cast of a literal or KSEG1 hardware address is exempt; a volatile member counts where it is accessed through the struct that declares it, or by member name where the access's base type cannot be resolved, as in `(*pp)->m` or `a->b->m`), empty `if`/`else` blocks, bare `;` statements, `do { } while (0)` in a body, self-assignment, `+ 0` and `* 1` (zero offsets inside casts are reported as R4, and stride indexing such as `k * 3 + 0` is exempt). |
 | R18 | No assembly bodies. | `asm`, `__asm`, `__asm__` in a C body. GLOBAL_ASM functions are unmatched, not graded. |
 
 The checks are deliberately narrow: hardware `volatile`, the stride-indexing
@@ -72,7 +72,7 @@ string keeps its exact spelling, even when it breaks the table below
 (`osSendMesg`, `OSThread`). Cite the evidence in the declaration's comment.
 
 **Placeholders stay until evidence names them.** These are `func_`, `D_`,
-`B_`, `jtbl_` and m2c names (`temp_`, `var_`, `spXX`, `argN`). Never invent a
+`B_`, `jtbl_` and m2c names (`temp_`, `var_`, `phi_`, `spXX`, `argN`). Never invent a
 confident name (R7).
 
 | Kind | Convention | Example |
@@ -101,10 +101,13 @@ A rename alone never counts as a match.
 The checker is read-only and needs no ROM. It lexes C without expanding
 macros and treats every live C function definition under `src/` as
 bytes-matched. Unmatched code is `GLOBAL_ASM`, and parked candidates are
-skipped. It reads one branch of every conditional chain: `#if 0`/`1`,
-`#ifdef`, `#ifndef` and `defined` are evaluated against the build's `-D` flags
-and the file's own `#define`s, and any other condition counts as true, so its
-`#else` is skipped. It always reads `include/` for shared types. R1 compares
+skipped. It reads one branch of every conditional chain. `#if 0`/`1`,
+`#ifdef`, `#ifndef` and `defined` are evaluated against the US build's `-D`
+flags (the Makefile's `CFLAGS` and `PROFILE_CFLAGS_us`, mirrored in the
+checker), the file's own `#define`s and `#undef`s, and the macros of the
+`include/` headers it includes, followed transitively. SDK headers under
+`lib/ultralib` are not read, so their macros count as undefined. Any other
+condition counts as true, so its `#else` is skipped. It always reads `include/` for shared types. R1 compares
 only the files it reads, so run it over all of `src/` (the default) for the
 full count. It builds with the host `cc`, or inside the toolchain image when
 the host has none. `--fail-on-pending` exits 1 when any function is
