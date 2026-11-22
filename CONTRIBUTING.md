@@ -77,9 +77,12 @@ contract and its caller family. After an approved declaration change, recheck
 affected existing matches; a same-source caller sample is not a complete impact audit.
 
 Matched C must also pass the [code rules](docs/code-rules.md): no fixed-offset
-casts, unit-local `extern` globals, duplicate type definitions, fake code or
-assembly. A byte-identical function that fails one is `MATCH-PENDING`, kept and
-reported as open work. Check changed sources with `./conker rules --findings <path>`;
+casts, unit-local `extern` globals, conflicting definitions of one type name,
+fake code or assembly. A byte-identical function that fails one is
+`MATCH-PENDING`, kept and reported as open work. New `extern`s follow the R2
+ruling in the profile: add the declaration to the owning module's header when
+the owner is clear (a pre-approved shared change), otherwise keep it in the
+unit as R2 debt. Check changed sources with `./conker rules --findings <path>`;
 the checker is report-only and does not gate CI.
 
 Use the latest `finish` diagnosis; run `diagnose-diff` only if evidence is stale
