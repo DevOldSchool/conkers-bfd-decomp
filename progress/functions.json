@@ -37213,6 +37213,12 @@
       "symbol": "func_1517F9F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 18569,
+        "reason": "CURRENT (18569) after gbi scissored-rectangle rewrite, layout/expression probes and two randomized permute runs (best natural 18569); remaining conversion hoisting and spill layout",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37226,6 +37232,12 @@
       "symbol": "func_1517FB9C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 27043,
+        "reason": "CURRENT (27043) after full gbi rewrite (nested fill-rect calls, int centre offsets, s32 centre array) and several randomized permute runs; remaining saved-register priority between bracket temporaries and crosshair loop induction variables",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

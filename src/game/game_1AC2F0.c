@@ -346,7 +346,189 @@ void *func_1517F9F4(Game1AC2F0FillCommand *arg0, s32 x1, s32 y1, s32 x2, s32 y2,
     { Game1AC2F0FillCommand *command = arg0++; command->word0 = _SHIFTL(0xF6, 24, 8) | _SHIFTL(x2, 14, 10) | _SHIFTL(clamped, 2, 10); command->word1 = _SHIFTL(x1, 14, 10) | _SHIFTL(y1, 2, 10); }
     return arg0;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517FB9C CURRENT (18569) */
+Gfx *func_1517FB9C(Gfx *gdl, s32 size, s32 texSize, f32 offsetX, f32 offsetY, s32 viewport) {
+    Game1AC2F0Viewport *view;
+    f32 *pos;
+    f32 centerX;
+    f32 centerY;
+    f32 width;
+    f32 x0;
+    f32 y0;
+    f32 x1;
+    f32 y1;
+
+    view = (Game1AC2F0Viewport *)((u8 *)D_800BE628 + viewport * 0x180);
+    pos = (f32 *)(D_800DDDE8 + viewport * 8);
+    centerX = view->halfWidth + pos[0];
+    centerY = view->halfHeight + pos[1];
+    width = size;
+    x0 = centerX + offsetX;
+    y0 = centerY + offsetY;
+    gSPScisTextureRectangle(gdl++, (s32)x0 << 2, (s32)y0 << 2, (s32)(x0 + width) << 2, (s32)(y0 + width) << 2,
+                            G_TX_RENDERTILE, ((s32)(x0 * 32.0f) & 0x1F) + (texSize << 5),
+                            ((s32)(y0 * 32.0f) & 0x1F) + (texSize << 5), -(u16)(((f32)texSize / width) * 1024.0f), -(u16)(((f32)texSize / width) * 1024.0f));
+    x1 = centerX - offsetX;
+    y1 = centerY - offsetY;
+    gSPScisTextureRectangle(gdl++, (s32)(x1 - width) << 2, (s32)(y1 - width) << 2, (s32)x1 << 2, (s32)y1 << 2,
+                            G_TX_RENDERTILE, 0x1F - ((s32)((x1 - width) * 32.0f) & 0x1F),
+                            0x1F - ((s32)((y1 - width) * 32.0f) & 0x1F), (u16)(((f32)texSize / width) * 1024.0f), (u16)(((f32)texSize / width) * 1024.0f));
+    gSPScisTextureRectangle(gdl++, (s32)x0 << 2, (s32)(y1 - width) << 2, (s32)(x0 + width) << 2, (s32)y1 << 2,
+                            G_TX_RENDERTILE, ((s32)(x0 * 32.0f) & 0x1F) + (texSize << 5),
+                            0x1F - ((s32)((y1 - width) * 32.0f) & 0x1F), -(u16)(((f32)texSize / width) * 1024.0f), (u16)(((f32)texSize / width) * 1024.0f));
+    gSPScisTextureRectangle(gdl++, (s32)(x1 - width) << 2, (s32)y0 << 2, (s32)x1 << 2, (s32)(y0 + width) << 2,
+                            G_TX_RENDERTILE, 0x1F - ((s32)((x1 - width) * 32.0f) & 0x1F),
+                            ((s32)(y0 * 32.0f) & 0x1F) + (texSize << 5), (u16)(((f32)texSize / width) * 1024.0f), -(u16)(((f32)texSize / width) * 1024.0f));
+    return gdl;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517FB9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517FB9C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15180580 CURRENT (27043) */
+typedef struct Game1AC2F0Screen {
+    u8 unknown00[4];
+    f32 width;
+    f32 height;
+    f32 centerX;
+    f32 centerY;
+    u8 unknown14[0x10];
+    f32 top;
+    f32 bottom;
+    f32 left;
+    f32 right;
+    u8 unknown34[0x14C];
+} Game1AC2F0Screen;
+
+extern Gfx D_8008D018[];
+extern s32 D_80090298[];
+extern f32 D_800A728C;
+extern f32 D_800A7290;
+extern u8 D_800C35EA;
+extern u8 D_800DDD78[];
+extern u8 D_800DDE40;
+extern f32 *D_800DDE44;
+extern f32 *D_800DDE48;
+extern f32 *D_800DDE4C;
+extern s8 D_800DDE1C[];
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+Gfx *func_1517FB9C(Gfx *, s32, s32, f32, f32, s32);
+
+Gfx *func_15180580(Gfx *gdl, s32 viewport) {
+    f32 alpha;
+
+    if (D_800DDE40 != 0) {
+        if (D_800C35EA == 1) {
+            alpha = *D_800DDE44 * D_800A728C;
+            if (alpha > 1.0f) {
+                alpha = 1.0f;
+            } else if (alpha < 0.0f) {
+                alpha = 0.0f;
+            }
+            ((f32 *)(D_800DDDE8 + viewport * 8))[0] = ((Game1AC2F0Screen *)D_800BE628)->width * (*D_800DDE48 * D_800A728C);
+            ((f32 *)(D_800DDDE8 + viewport * 8))[1] = ((Game1AC2F0Screen *)D_800BE628)->height * -(*D_800DDE4C * D_800A728C);
+        } else {
+            alpha = 1.0f;
+        }
+    } else {
+        alpha = D_800DDDC8[viewport];
+    }
+    if (alpha == 0.0f) {
+        return gdl;
+    }
+    gSPDisplayList(gdl++, D_8008D018);
+    gDPPipeSync(gdl++);
+    gDPSetFillColor(gdl++, 0x10001);
+    gDPSetPrimColor(gdl++, 0, 0, 0, 0, 0, 255);
+    gDPSetCombine(gdl++, 0xFFFFFF, 0xFFFDF6FB);
+    gDPSetOtherMode(gdl++, 0xCFF, 0x0F0A4004);
+    gSPClearGeometryMode(gdl++, G_ZBUFFER | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD);
+    gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
+    if (alpha < 1.0f) {
+        s16 left;
+        s16 top;
+        s16 right;
+        s16 bottom;
+        s16 radius;
+
+        left = ((Game1AC2F0Screen *)D_800BE628)[viewport].left;
+        bottom = ((Game1AC2F0Screen *)D_800BE628)[viewport].bottom;
+        top = ((Game1AC2F0Screen *)D_800BE628)[viewport].top;
+        right = ((Game1AC2F0Screen *)D_800BE628)[viewport].right;
+        radius = D_800A7290 * alpha + 400.0f;
+        gdl = func_1517F9F4(
+            func_1517F9F4(
+                func_1517F9F4(
+                    func_1517F9F4((Game1AC2F0FillCommand *)gdl, left, top, right, (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1] - (f32)radius), viewport),
+                    left, (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1] + (f32)radius), right, bottom, viewport),
+                left, (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1] - (f32)radius), (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerX + ((f32 *)(D_800DDDE8 + viewport * 8))[0] - (f32)radius),
+                (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1] + (f32)radius), viewport),
+            (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerX + ((f32 *)(D_800DDDE8 + viewport * 8))[0] + (f32)radius), (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1] - (f32)radius), right,
+            (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1] + (f32)radius), viewport);
+        if (D_800DDE1C[viewport] != 0) {
+            s32 i;
+
+            gDPPipeSync(gdl++);
+            gDPSetOtherMode(gdl++, 0x2C0F, 0x0F0A4004);
+            gDPSetCombine(gdl++, 0xFFFFFF, 0xFFFDF6FB);
+            gDPSetPrimColor(gdl++, 0, 0, 0, 0, 0, 255);
+            for (i = 0; i < 2; i++) {
+                gdl = func_1517F9F4(
+                    func_1517F9F4((Game1AC2F0FillCommand *)gdl, left - i, (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY - 1) - i, right + i,
+                                  (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + 1) + i, viewport),
+                    (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerX - 1) - i, top - i, (s16)(((Game1AC2F0Screen *)D_800BE628)[viewport].centerX + 1) + i, bottom + i, viewport);
+                if (D_800DDE1C[viewport] == 1) {
+                    s32 center[2];
+
+                    center[0] = ((Game1AC2F0Screen *)D_800BE628)[viewport].centerX + ((f32 *)(D_800DDDE8 + viewport * 8))[0];
+                    center[1] = ((Game1AC2F0Screen *)D_800BE628)[viewport].centerY + ((f32 *)(D_800DDDE8 + viewport * 8))[1];
+                    gdl = func_1517F9F4(func_1517F9F4(func_1517F9F4(func_1517F9F4(func_1517F9F4(func_1517F9F4(func_1517F9F4(func_1517F9F4((Game1AC2F0FillCommand *)gdl, (s16)(center[0] - 60) - i, (s16)(center[1] - 60) - i, (s16)(center[0] - 30) + i, (s16)(center[1] - 58) + i, viewport), (s16)(center[0] - 60) - i, (s16)(center[1] - 60) - i, (s16)(center[0] - 58) + i, (s16)(center[1] - 30) + i, viewport), (s16)(center[0] + 58) - i, (s16)(center[1] - 30) - i, (s16)(center[0] + 60) + i, (s16)(center[1] - 60) + i, viewport), (s16)(center[0] + 30) - i, (s16)(center[1] - 58) - i, (s16)(center[0] + 60) + i, (s16)(center[1] - 60) + i, viewport), (s16)(center[0] + 60) - i, (s16)(center[1] + 60) - i, (s16)(center[0] + 58) + i, (s16)(center[1] + 30) + i, viewport), (s16)(center[0] + 60) - i, (s16)(center[1] + 60) - i, (s16)(center[0] + 30) + i, (s16)(center[1] + 58) + i, viewport), (s16)(center[0] - 60) - i, (s16)(center[1] + 60) - i, (s16)(center[0] - 58) + i, (s16)(center[1] + 30) + i, viewport), (s16)(center[0] - 60) - i, (s16)(center[1] + 60) - i, (s16)(center[0] - 30) + i, (s16)(center[1] + 58) + i, viewport);
+                }
+                if (i == 0) {
+                    gDPPipeSync(gdl++);
+                    gDPSetOtherMode(gdl++, 0x2C0F, 0x504244);
+                    gDPSetFillColor(gdl++, 0);
+                    gDPSetPrimColor(gdl++, 0, 0, 255, 255, 255, 0);
+                }
+            }
+        }
+        gDPPipeSync(gdl++);
+        gDPSetCombine(gdl++, 0xFFFFFF, 0xFFFFF3F9);
+        gSPTexture(gdl++, 0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON);
+        gDPSetTextureImage(gdl++, G_IM_FMT_I, G_IM_SIZ_16b, 1, func_1510D0EC(D_80090298[1], NULL, 3, 0));
+        gDPSetTile(gdl++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0);
+        gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, 0x7FF, 0);
+        gDPSetTile(gdl++, G_IM_FMT_I, G_IM_SIZ_8b, 8, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_CLAMP, 6, G_TX_NOLOD);
+        gDPSetTileSize(gdl++, G_TX_RENDERTILE, 2, 2, 0xFE, 0xFE);
+        gDPSetOtherMode(gdl++, 0x2CFF, 0x5011C4);
+        gdl = func_1517FB9C(gdl, radius, 64, 0.0f, 0.0f, viewport);
+        if (D_800DDE1C[viewport] != 0) {
+            gDPPipeSync(gdl++);
+            gDPSetTextureImage(gdl++, G_IM_FMT_IA, G_IM_SIZ_16b, 1, func_1510D0EC(D_80090298[2], NULL, 3, 0));
+            gDPSetTile(gdl++, G_IM_FMT_IA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0);
+            gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, 0x7FF, 0);
+            gDPSetTile(gdl++, G_IM_FMT_IA, G_IM_SIZ_8b, 8, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, 6, G_TX_NOLOD, G_TX_CLAMP, 6, G_TX_NOLOD);
+            gdl = func_1517FB9C(gdl, radius / 2, 64, 0.0f, 0.0f, viewport);
+            if (D_800DDE1C[viewport] == 2) {
+                gDPSetCombine(gdl++, 0xFFFFFF, 0xFFFCF279);
+                gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, func_1510D0EC(D_80090298[3 + D_800DDD78[viewport]], NULL, 3, 0));
+                gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, 0, 0, 0, 0, 0, 0);
+                gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, 0x3FF, 0);
+                gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_CLAMP, 5, G_TX_NOLOD);
+                gdl = func_1517FB9C(func_1517FB9C(gdl, radius / 4, 32, 32.0f, 28.0f, viewport), radius / 4, 32, 28.0f,
+                                    32.0f, viewport);
+                if (D_800DDD78[viewport] < 2) {
+                    D_800DDD78[viewport]++;
+                } else {
+                    D_800DDD78[viewport] = 0;
+                }
+            }
+        }
+    } else {
+        gDPFillRectangle(gdl++, ((Game1AC2F0Screen *)D_800BE628)[viewport].left, ((Game1AC2F0Screen *)D_800BE628)[viewport].top, ((Game1AC2F0Screen *)D_800BE628)[viewport].right, ((Game1AC2F0Screen *)D_800BE628)[viewport].bottom);
+    }
+    gSPSetGeometryMode(gdl++, G_ZBUFFER);
+    return gdl;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15180580 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15180580.s")
 typedef struct Game1AC2F0Mode {
     u8 unknown000[0x120];
