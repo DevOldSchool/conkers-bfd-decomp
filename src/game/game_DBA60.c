@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150AE790
  * - func_150AEB9C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -62,7 +61,166 @@ void func_150AE5B0(GameDBA60Camera *arg0) {
     }
     arg0->flags84 &= 0xFFFEFFFF;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE790.s")
+typedef struct GameDBA60Owner {
+    s32 field00;
+    u8 pad04[0x37];
+    u8 field3B;
+    u8 pad3C[0x144];
+    f32 field180;
+    u32 flags184;
+    u8 pad188[0x4C];
+    s32 field1D4;
+} GameDBA60Owner;
+
+typedef struct GameDBA60Emitter {
+    u8 pad00;
+    u8 field01;
+    u8 pad02[0xA];
+    u8 field0C;
+    u8 pad0D[0x1B];
+    struct GameDBA60Link {
+        GameDBA60Owner *owner;
+        u8 ownerId;
+        u8 attachPoint;
+    } link;
+} GameDBA60Emitter;
+
+typedef struct GameDBA60Spawn {
+    f32 x, y, z;
+    s16 lifetime, field0E;
+    s32 field10;
+    u8 field14, kind;
+} GameDBA60Spawn;
+
+typedef struct GameDBA60Motion {
+    f32 size, vx, vy, vz, scale;
+    f32 field14;
+    u8 field18, field19, field1A, alpha;
+    u8 pad1C[4];
+} GameDBA60Motion;
+
+typedef struct GameDBA60Options {
+    s32 field00, field04, field08, field0C, field10, field14, field18;
+    u8 field1C, field1D;
+} GameDBA60Options;
+
+/* func_15167D84 copies the full 0x38-byte descriptor. */
+typedef struct GameDBA60Particle {
+    s32 resource;
+    s32 field04;
+    s32 field08;
+    s16 field0C, field0E;
+    s16 x, y, z;
+    s16 field16, field18, field1A;
+    u8 field1C, field1D, field1E;
+    u8 kind;
+    s16 field20, field22, field24, field26, field28;
+    u8 field2A, field2B;
+    u8 red, green, blue, alpha;
+    u8 field30, field31, field32;
+    u8 pad33;
+    s16 field34;
+    u8 pad36[2];
+} GameDBA60Particle;
+
+f32 func_150ADA68(void);
+extern s32 D_8008CB14;
+
+void func_150AE790(GameDBA60Emitter *arg0) {
+    struct GameDBA60Link *link;
+    GameDBA60Owner *owner;
+    GameDBA60Spawn spawn;
+    GameDBA60Motion motion;
+    s32 count;
+    GameDBA60Options options;
+    f32 speed;
+    f32 sinAngle, cosAngle, sinPitch, cosPitch;
+    f32 horizontal;
+    GameDBA60Particle particle;
+    u8 angle;
+    f32 duration;
+    u8 pitch;
+    f32 distance;
+
+    link = &arg0->link;
+    if (arg0->link.owner != NULL) {
+        owner = link->owner;
+        if (owner->field00 != 0) {
+            if (owner->field1D4 != 0 && owner->field3B == link->ownerId) {
+                func_15142314((void *)owner->field1D4, link->attachPoint, &spawn.x);
+                spawn.field10 = 1;
+                spawn.field0E = 1;
+                motion.field19 = 0;
+                motion.field1A = 0xFF - ((link->owner->flags184 >> 5) & 3) * 64;
+                motion.field14 = link->owner->field180;
+                motion.field18 = 8;
+                motion.alpha = 0xFF;
+                count = func_150ADA20() % 9U + 12;
+                options.field00 = 0;
+                options.field04 = 1;
+                options.field08 = 0x160600;
+                options.field0C = 3;
+                options.field10 = 0x10;
+                options.field14 = 0x80;
+                options.field18 = 0x20;
+                options.field1C = 0;
+                options.field1D = 9;
+                for (; count != 0; count--) {
+                    angle = func_150ADA20() & 0xFF;
+                    pitch = func_150ADA20() % 51U;
+                    sinAngle = func_151423D8(angle);
+                    cosAngle = func_151423D8(angle - 0x40);
+                    sinPitch = func_151423D8(pitch);
+                    cosPitch = func_151423D8(pitch - 0x40);
+                    speed = func_150ADA68() * 0.5f + 18.8f;
+                    spawn.kind = 4;
+                    spawn.lifetime = (func_150ADA20() & 0xF) + 0x23;
+                    motion.size = func_150ADA68() * 2.3f + 2.9f;
+                    motion.scale = func_150ADA68() * 0.1f + 0.7f;
+                    horizontal = speed * sinPitch;
+                    motion.vx = horizontal * cosAngle;
+                    motion.vy = -speed * cosPitch;
+                    motion.vz = horizontal * sinAngle;
+                    func_15147DA0(&spawn, &motion, 0, 1, 2, 0, 0, 0, 0, 0, 0,
+                                  &options, 0, arg0->field0C, arg0->field01);
+                }
+                duration = func_150ADA68() + 2.5f;
+                distance = func_150ADA68() * 200.0f + 600.0f;
+                particle.field1A = distance;
+                particle.field26 = 0;
+                particle.field04 = distance / duration;
+                particle.field24 = 0;
+                particle.red = 0xFF;
+                particle.green = 0xFF;
+                particle.blue = 0xFF;
+                particle.field30 = 0;
+                particle.field31 = 0;
+                particle.field32 = 0;
+                particle.field28 = 0x64;
+                particle.alpha = 0xFF;
+                particle.resource = D_8008CB14;
+                particle.field2A = 0;
+                particle.field0C = 0;
+                particle.field0E = 0;
+                particle.x = spawn.x;
+                particle.y = spawn.y;
+                particle.z = spawn.z;
+                particle.field1C = 0;
+                particle.field1E = 0;
+                particle.field1D = 0;
+                particle.field16 = 0;
+                particle.field18 = 0;
+                particle.field22 = 0;
+                particle.field20 = 0;
+                particle.kind = 0xB;
+                particle.field34 = 0;
+                particle.field2B = 0;
+                particle.field08 = 0;
+                func_15167D84(&particle, 0, 0, -1, arg0->field0C, arg0->field01);
+            }
+        }
+    }
+}
 typedef struct {
     u8 field_0;
     u8 pad_1;
