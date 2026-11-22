@@ -159,6 +159,8 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | effects_sight | 0xF0 | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
 | game_1E37D0 | 0x0 | 0x4 | 0x800AA470 | pool (func_151B6420) | `3EFCED92` (0.49400002; [record](game_1e37d0_float_constant.md)) |
 | game_1E37D0 | 0x4 | 0x4 | 0x800AA484 | pool (func_151B7998) | `4495C000` (1198.0; round-29) |
+| game_1AC2F0 | 0x0 | 0xC | 0x800A7280 | pool (func_1517F814) | `461C4000 C61C4000 C61C4000` (10000.0, -10000.0, -10000.0; [record](game_1ac2f0_float_constants.md)) |
+| game_1AC2F0 | 0xC | 0x18 | 0x800A7294 | pool (func_151814FC) | `3F666666 3C23D70A 3C1374BC 3B83126F 3D4CCCCD BC1374BC` (0.9, 0.01, 0.009, 0.004, 0.05, -0.009) |
 | game_58F80 | 0x0 | 0x100 | 0x80096DF8 | table, sites 0x2068 / 0x2070 | unchanged (func_1502DB20) |
 | game_58F80 | 0x100 | 0x18 | 0x80096F04 | table, sites 0x3040 / 0x3048 | `1502EB24 1502EB24 1502EB8C 1502EB5C 1502EBB0 1502EBFC` (func_1502EAFC) |
 | game_58F80 | 0x118 | 0x1C | 0x80096F1C | table, sites 0x3180 / 0x3188 | `1502EC64 1502ED04 1502ED04 1502ED3C 1502ED3C 1502EE24 1502EE24` (func_1502EC34; round-29) |
@@ -416,6 +418,19 @@ These units are now split objects, so `finish` compares their own rodata
 symbolically, as it already does for the other split units. The integrated
 build's ROM comparison and `verify_game_rodata.py` still cover every linked
 byte.
+
+- **game_1AC2F0:** `func_151814FC` updates per-player fade levels. It keeps
+  `0.9f` and `0.01f` in saved float registers across its loop (`$f26`/`$f24`,
+  beside `1.0f` and `0.0f`). An `extern f32` would be reloaded after each call
+  in the loop, so the C spells them as literals. It loads
+  `0.009f`, `0.004f`, `0.05f` and `-0.009f` once each. The raw HI16/LO16 pairs
+  address `0x800A7294..0x800A72A8`, and the six ROM words are those values in
+  the same order. The two words before them (`0x800A728C`, `0x800A7290`:
+  0.01, -399.0) are read only by the unmatched `func_15180580`, which keeps
+  extern symbols, so the unit's three `func_1517F814` constants and these six
+  cannot share one placement. The object `.rodata` is 0x30 bytes (0x24 of
+  payload and 12 zero alignment bytes); it is split into `.rodata.1ac2f0_0`
+  (0xC at `0x800A7280`) and `.rodata.1ac2f0_c` (0x18 at `0x800A7294`).
 
 ## Full-unit proof
 

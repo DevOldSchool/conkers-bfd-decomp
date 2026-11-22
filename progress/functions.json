@@ -37242,8 +37242,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1996,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151814FC",
           "vram": "0x151814FC"
         }
@@ -37342,6 +37347,12 @@
       "symbol": "func_15181E18"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8017,
+        "reason": "CURRENT (8017) after gbi-macro rewrite, layout/clamp probes and a 1200 s randomized permute; remaining float register allocation and temp-area layout",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
