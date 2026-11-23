@@ -10441,15 +10441,15 @@
         "func_1509DFC4",
         "func_1509E3DC"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x9E640",
           "start": "0x9DF20",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_CB3D0.c"
+      "source": "src/done/game/game_CB3D0.c"
     },
     {
       "boundary_evidence": {

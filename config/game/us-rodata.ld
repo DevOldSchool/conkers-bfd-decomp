@@ -613,6 +613,8 @@ SECTIONS
     .game_rodata_10c170 0x800A0F28 (INFO) : SUBALIGN(4) { *game_10C170.o(.rodata) }
     /* Range limits: docs/evidence/data-layout/game_b3020_float_constants.md. */
     .game_rodata_b3020 0x8009D9C0 (INFO) : SUBALIGN(4) { *game_B3020.o(.rodata) }
+    /* Format string and two query switches: docs/evidence/data-layout/game_cb3d0_jump_tables.md. */
+    .game_rodata_cb3d0 0x8009F300 (INFO) : SUBALIGN(4) { *game_CB3D0.o(.rodata) }
     /* Seven mode targets: docs/evidence/data-layout/game_cbbe0_jump_table.md. */
     .game_rodata_cbbe0 0x8009F3D0 (INFO) : SUBALIGN(4) { *game_CBBE0.o(.rodata) }
     /* Seventeen query targets: docs/evidence/data-layout/game_cbdb0_jump_table.md. */
@@ -926,6 +928,8 @@ ASSERT(SIZEOF(.game_rodata_b3020) == 0x10, "game_B3020 range literal extent chan
 __game_rodata_b3020_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_10c170) == 0x30, "game_10C170 particle literal extent changed")
 __game_rodata_10c170_payload_size = 0x2C;
+ASSERT(SIZEOF(.game_rodata_cb3d0) == 0xD0, "game_CB3D0 table extent changed")
+__game_rodata_cb3d0_payload_size = 0xC8;
 ASSERT(SIZEOF(.game_rodata_cbbe0) == 0x20, "game_CBBE0 table extent changed")
 __game_rodata_cbbe0_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_cbdb0) == 0x50, "game_CBDB0 table extent changed")

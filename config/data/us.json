@@ -986,6 +986,16 @@
         }
       },
       {
+        "address": "0x8009F300",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_CB3D0.c",
+            "src/done/game/game_CB3D0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8009F3D0",
         "section": ".rodata",
         "owner": {

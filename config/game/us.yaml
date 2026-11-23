@@ -237,7 +237,7 @@ segments:
       - [0x9CA10, c, game/game_C9EC0]
       - [0x9D180, c, game/game_CA630]
       - [0x9DD10, c, done/game/game_CB1C0]
-      - [0x9DF20, c, game/game_CB3D0]
+      - [0x9DF20, c, done/game/game_CB3D0]
       - [0x9E640, c, done/game/game_CBAF0]
       - [0x9E730, c, done/game/game_CBBE0]
       - [0x9E900, c, game/game_CBDB0]

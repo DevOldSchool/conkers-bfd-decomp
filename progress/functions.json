@@ -64997,7 +64997,7 @@
           "vram": "0x1509DF20"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509DF20"
     },
     {
@@ -65015,39 +65015,43 @@
           "vram": "0x1509DFB4"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509DFB4"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1048,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509DFC4",
           "vram": "0x1509DFC4"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509DFC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "nov11 wI: natural switch with block-scoped case locals (no volatile arg0, no label) matches every instruction; CURRENT (200) is only the trailing alignment nops of the unit's last member, provable once game_CB3D0 has no raw members (func_1509DFC4). Needs a jump-table mapping at 0x8009F370 (22 words, text base 0x1509DF20) when it lands",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 612,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509E3DC",
           "vram": "0x1509E3DC"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509E3DC"
     },
     {
