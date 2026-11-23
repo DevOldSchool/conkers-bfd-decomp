@@ -10573,15 +10573,15 @@
         "func_150A03B0",
         "func_150A04D8"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xA09D0",
           "start": "0xA03B0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_CD860.c"
+      "source": "src/done/game/game_CD860.c"
     },
     {
       "boundary_evidence": {

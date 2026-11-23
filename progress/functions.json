@@ -65255,20 +65255,25 @@
           "vram": "0x150A03B0"
         }
       },
-      "source": "src/game/game_CD860.c",
+      "source": "src/done/game/game_CD860.c",
       "symbol": "func_150A03B0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150A04D8",
           "vram": "0x150A04D8"
         }
       },
-      "source": "src/game/game_CD860.c",
+      "source": "src/done/game/game_CD860.c",
       "symbol": "func_150A04D8"
     },
     {

@@ -831,7 +831,7 @@ ASSERT(SIZEOF(.game_rodata_1c1150_200) == 0x5C, "game_1C1150 func_15194BF0 secon
 ASSERT(SIZEOF(.game_rodata_1c1150_25c) == 0x1E8, "game_1C1150 func_15194FF4 first table extent changed")
 ASSERT(SIZEOF(.game_rodata_1c1150_444) == 0x5C, "game_1C1150 func_15194FF4 second table extent changed")
 ASSERT(SIZEOF(.game_rodata_49be0) == 0x20, "game_49BE0 table extent changed")
-ASSERT(SIZEOF(.game_rodata_cd860) == 0x20, "game_CD860 table extent changed")
+ASSERT(SIZEOF(.game_rodata_cd860) == 0x50, "game_CD860 table extent changed")
 ASSERT(SIZEOF(.game_rodata_cde80) == 0x10, "game_CDE80 func_150A0D8C literal extent changed")
 __game_rodata_cde80_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_179f30_0) == 0x2EC, "game_179F30 func_1514CA80 first table extent changed")
@@ -842,7 +842,7 @@ ASSERT(SIZEOF(.game_rodata_179f30_438) == 0x10, "game_179F30 func_1514D64C liter
 ASSERT(SIZEOF(.game_rodata_179f30_448) == 0x28, "game_179F30 table extent changed")
 ASSERT(SIZEOF(.game_rodata_179f30_470) == 0x10, "game_179F30 func_1514EECC literal extent changed")
 __game_rodata_49be0_payload_size = 0x1C;
-__game_rodata_cd860_payload_size = 0x18;
+__game_rodata_cd860_payload_size = 0x4C;
 ASSERT(SIZEOF(.game_rodata_5d2c0) == 0x1A0, "game_5D2C0 table extent changed")
 ASSERT(SIZEOF(.game_rodata_1bf090) == 0x70, "game_1BF090 literal and table extent changed")
 __game_rodata_5d2c0_payload_size = 0x19C;

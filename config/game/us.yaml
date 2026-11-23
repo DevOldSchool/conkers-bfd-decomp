@@ -245,7 +245,7 @@ segments:
       - [0x9F800, c, done/game/game_CCCB0]
       - [0x9F850, c, game/game_CCD00]
       - [0xA00F0, c, game/game_CD5A0]
-      - [0xA03B0, c, game/game_CD860]
+      - [0xA03B0, c, done/game/game_CD860]
       - [0xA09D0, c, game/game_CDE80]
       - [0xA34B0, c, game/game_D0960]
       - [0xA3A70, c, game/game_D0F20]
