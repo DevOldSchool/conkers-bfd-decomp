@@ -339,7 +339,7 @@ segments:
       - [0xC8350, c, done/game/game_F5800]
       - [0xC8730, c, done/game/game_F5BE0]
       - [0xC88D0, c, game/game_F5D80]
-      - [0xCB0E0, c, game/game_F8590]
+      - [0xCB0E0, c, done/game/game_F8590]
       - [0xCBF80, c, game/game_F9430]
       - [0xCCD90, c, done/game/game_FA240]
       - [0xCCEB0, c, game/game_FA360]

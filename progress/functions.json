@@ -67811,7 +67811,7 @@
           "vram": "0x150CB0E0"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB0E0"
     },
     {
@@ -67829,20 +67829,25 @@
           "vram": "0x150CB1E0"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB1E0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CB1F4",
           "vram": "0x150CB1F4"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB1F4"
     },
     {
@@ -67860,7 +67865,7 @@
           "vram": "0x150CB7CC"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB7CC"
     },
     {
@@ -67878,7 +67883,7 @@
           "vram": "0x150CB800"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB800"
     },
     {
@@ -67896,7 +67901,7 @@
           "vram": "0x150CBA30"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBA30"
     },
     {
@@ -67914,7 +67919,7 @@
           "vram": "0x150CBABC"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBABC"
     },
     {
@@ -67932,7 +67937,7 @@
           "vram": "0x150CBCE0"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBCE0"
     },
     {
@@ -67950,7 +67955,7 @@
           "vram": "0x150CBE88"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBE88"
     },
     {
@@ -67968,7 +67973,7 @@
           "vram": "0x150CBF5C"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBF5C"
     },
     {

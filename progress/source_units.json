@@ -11524,15 +11524,15 @@
         "func_150CBE88",
         "func_150CBF5C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xCBF80",
           "start": "0xCB0E0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_F8590.c"
+      "source": "src/done/game/game_F8590.c"
     },
     {
       "boundary_evidence": {

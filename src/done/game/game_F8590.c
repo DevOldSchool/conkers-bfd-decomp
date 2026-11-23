@@ -1,14 +1,10 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_view.h"
 
 /*
  * Reviewed source unit: src/game/game_F8590.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_complete_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150CB1F4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15143134(f32 *, f32 *, s32);
@@ -48,7 +44,155 @@ s32 func_150CB0E0(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
 s32 func_150CB1E0(s32 arg0, s32 arg1) {
     return 0xB;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F8590/func_150CB1F4.s")
+typedef struct GameF8590Spray {
+    u8 field0;
+    u8 pad1;
+    s16 kind;
+    s16 duration;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 color[4];
+    f32 size0;
+    f32 size1;
+    f32 position[3];
+    f32 rotation[3];
+    f32 scale[3];
+    s32 flags;
+    u8 field44;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    u8 pad48[0x10];
+} GameF8590Spray;
+
+typedef struct GameF8590SprayTail {
+    s16 duration;
+    f32 scale;
+    u8 pad8[4];
+} GameF8590SprayTail;
+
+typedef struct GameF8590SprayEffect {
+    u8 unk_0[0x128];
+    GameF8590SprayTail tail;
+} GameF8590SprayEffect;
+
+void func_1512D748(void *, s32, s32);
+f32 func_150ADA68(void);
+void *func_10022EC0(void *, const void *, u32);
+s32 func_1518ABD0(void *, void *, u8);
+void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, u8 *, u8);
+extern s32 D_800BE9E8;
+extern void *D_800D98E0;
+extern f32 D_800A05F8;
+extern f32 D_800A05FC;
+extern f32 D_800A0600;
+
+void func_150CB1F4(struct127 *arg0, s32 arg1, s32 arg2) {
+    f32 position[3];
+    u8 buffer[0x20];
+    f32 ground;
+    f32 red;
+    f32 green;
+    f32 blue;
+    u8 r;
+    u8 g;
+    u8 b;
+    GameF8590SprayTail tail;
+    GameF8590Spray packet;
+    GameF8590SprayEffect *result;
+    s16 colors[4][5];
+    s16 count;
+    s16 sparks;
+    u8 sparkColor[4];
+
+    if (arg0->unk1D4 == NULL) {
+        return;
+    }
+    if (func_150CB0E0(position, arg0, (s32)&ground, (u8)arg1) == 0) {
+        return;
+    }
+    func_1512D748(&D_800DBFF0[D_800BE9E8], 7, 1);
+    func_151D5404(position, 1502.0f, 3000.0f, 0.00033333333f, 0xC, 0xF, 0xFF, 0);
+    {
+        void func_150CCD90(f32, f32 *, f32 *, f32 *);
+
+        func_150CCD90(position[2], &red, &green, &blue);
+        r = red;
+        g = green;
+        b = blue;
+    }
+    colors[0][0] = r;
+    colors[0][1] = g;
+    colors[0][2] = b;
+    colors[0][3] = 0xFF;
+    colors[0][4] = 0;
+    colors[1][0] = r;
+    colors[1][1] = g;
+    colors[1][2] = b;
+    colors[1][3] = 0xFF;
+    colors[1][4] = 0;
+    colors[2][0] = r;
+    colors[2][1] = g;
+    colors[2][2] = b;
+    colors[2][3] = 0xFF;
+    colors[2][4] = 0;
+    colors[3][0] = r;
+    colors[3][1] = g;
+    colors[3][2] = b;
+    colors[3][3] = 0xFF;
+    colors[3][4] = 0;
+    if (arg1 == 1) {
+        packet.field0 = 0x4C;
+    } else {
+        packet.field0 = 0x4B;
+    }
+    packet.kind = 0x2603;
+    packet.duration = 2;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.color[0] = 0xFF;
+    packet.color[1] = 0xFF;
+    packet.color[2] = 0xFF;
+    packet.color[3] = 0xFF;
+    packet.size0 = packet.size1 = ((func_150ADA68() * 50.0f) + D_800A05F8) * D_800A05FC;
+    packet.flags = 0x401C0000;
+    packet.scale[0] = 1.0f;
+    packet.scale[1] = 1.0f;
+    packet.scale[2] = 1.0f;
+    packet.position[0] = position[0];
+    packet.rotation[0] = 0.0f;
+    packet.rotation[1] = 0.0f;
+    packet.rotation[2] = 0.0f;
+    packet.position[1] = ground + 10.0f;
+    packet.position[2] = position[2];
+    packet.field44 = (func_150ADA20() % 51U) + 0xA0;
+    packet.field45 = 0xFF;
+    tail.duration = (func_150ADA20() & 3) + 7;
+    tail.scale = ((func_150ADA68() * 30.0f) + 30.0f) * packet.size0 * D_800A0600;
+    packet.field46 = 0;
+    packet.field47 = 6;
+    arg2 = (arg1 == 1) ? -8 : 8;
+    result = func_1513D668(
+        (s32)&packet, (s32)colors, 0, 0x17, 0, 0,
+        (arg0->unk7A >> 8) - arg2, 500.0f, 500.0f, 0,
+        (s32)buffer, 1, 8, 0xFF, 0);
+    if (result != NULL) {
+        func_10022EC0(&result->tail, &tail, 8);
+        if (func_1518ABD0(D_800D98E0, result, 2) == 0) {
+            func_1516972C(result);
+        }
+    }
+    count = (func_150ADA20() & 0xF) + 0xA;
+    func_1514C678(position[0], position[1], position[2], (func_150ADA68() * 59.0f) + 80.0f,
+                  0, 0xFF, count, 0xE, 0, 0.0f, NULL, 0xFF);
+    sparks = (func_150ADA20() & 0xF) + 5;
+    sparkColor[0] = r;
+    sparkColor[1] = g;
+    sparkColor[2] = b;
+    func_1514C678(position[0], position[1], position[2], (func_150ADA68() * 59.0f) + 70.0f,
+                  0, 0xFF, sparks, 0xF, 0, 0.0f, sparkColor, 0xFF);
+}
 s32 func_150CB7CC(void *arg0) {
     s16 temp_v0;
     s32 temp_v1;
