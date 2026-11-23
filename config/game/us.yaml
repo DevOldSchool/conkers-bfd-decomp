@@ -159,7 +159,7 @@ segments:
       - [0x2FE10, c, game/game_5D2C0]
       - [0x33FE0, c, done/game/game_61490]
       - [0x344A0, c, done/game/game_61950]
-      - [0x34860, c, game/game_61D10]
+      - [0x34860, c, done/game/game_61D10]
       - [0x34F20, c, game/game_623D0]
       - [0x36310, c, done/game/game_637C0]
       - [0x36570, c, game/game_63A20]

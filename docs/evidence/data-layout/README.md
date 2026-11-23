@@ -79,6 +79,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_1EF500 easing float constant](game_1ef500_float_constants.md)
 - [US game_E8C10 particle float constants](game_e8c10_float_constants.md)
 - [US game_19E040 particle float constants](game_19e040_float_constants.md)
+- [US game_61D10 display float constants](game_61d10_float_constants.md)
 - [US game_623D0 surface float constants](game_623d0_float_constants.md)
 - [US game_40490 angle and effect float constants](game_40490_float_constants.md)
 - [US game_34F20 level switch table](game_34f20_jump_table.md)

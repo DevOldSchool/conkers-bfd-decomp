@@ -598,6 +598,16 @@
         }
       },
       {
+        "address": "0x80097D40",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_61D10.c",
+            "src/done/game/game_61D10.c"
+          ]
+        }
+      },
+      {
         "address": "0x80097D70",
         "section": ".rodata",
         "owner": {

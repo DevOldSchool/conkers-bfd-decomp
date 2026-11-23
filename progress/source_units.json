@@ -10213,15 +10213,15 @@
         "func_15034860",
         "func_15034EB4"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x34F20",
           "start": "0x34860",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_61D10.c"
+      "source": "src/done/game/game_61D10.c"
     },
     {
       "boundary_evidence": {
