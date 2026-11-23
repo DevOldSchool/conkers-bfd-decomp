@@ -10235,15 +10235,15 @@
         "func_15177410",
         "func_15177A94"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x177F90",
           "start": "0x177410",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1A48C0.c"
+      "source": "src/done/game/game_1A48C0.c"
     },
     {
       "boundary_evidence": {

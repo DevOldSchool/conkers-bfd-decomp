@@ -64528,26 +64528,36 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1668,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15177410",
           "vram": "0x15177410"
         }
       },
-      "source": "src/game/game_1A48C0.c",
+      "source": "src/done/game/game_1A48C0.c",
       "symbol": "func_15177410"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1276,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15177A94",
           "vram": "0x15177A94"
         }
       },
-      "source": "src/game/game_1A48C0.c",
+      "source": "src/done/game/game_1A48C0.c",
       "symbol": "func_15177A94"
     },
     {

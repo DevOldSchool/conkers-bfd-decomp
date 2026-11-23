@@ -609,7 +609,7 @@ segments:
       - [0x174690, c, game/game_1A1B40]
       - [0x1749A0, c, done/game/game_1A1E50]
       - [0x174BF0, c, game/game_1A20A0]
-      - [0x177410, c, game/game_1A48C0]
+      - [0x177410, c, done/game/game_1A48C0]
       - [0x177F90, c, game/game_1A5440]
       - [0x178750, c, game/game_1A5C00]
       - [0x178E50, c, done/game/game_1A6300]

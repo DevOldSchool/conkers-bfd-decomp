@@ -240,6 +240,8 @@ SECTIONS
     /* ROM-verified constants: docs/evidence/data-layout/game_1a20a0_float_constants.md. */
     .game_rodata_1a20a0_0 0x800A7174 (INFO) : SUBALIGN(4) { *game_1A20A0.o(.rodata.1a20a0_0) }
     .game_rodata_1a20a0_4 0x800A71AC (INFO) : SUBALIGN(4) { *game_1A20A0.o(.rodata.1a20a0_4) }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1a48c0_float_constants.md. */
+    .game_rodata_1a48c0 0x800A71C0 (INFO) : SUBALIGN(4) { *game_1A48C0.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_1199d0_float_constants.md. */
     .game_rodata_1199d0 0x800A1570 (INFO) : SUBALIGN(4)
     {
@@ -1052,6 +1054,8 @@ ASSERT(SIZEOF(.game_rodata_fd1d0) == 0x10, "game_FD1D0 prompt literal extent cha
 __game_rodata_fd1d0_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_1a20a0_0) == 0x4, "game_1A20A0 func_15174BF0 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_1a20a0_4) == 0x10, "game_1A20A0 radian literal extent changed")
+ASSERT(SIZEOF(.game_rodata_1a48c0) == 0x20, "game_1A48C0 vertex effect literal extent changed")
+__game_rodata_1a48c0_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_1199d0) == 0x20, "game_1199D0 smoke literal extent changed")
 __game_rodata_1199d0_payload_size = 0x20;
 ASSERT(SIZEOF(.game_rodata_156160) == 0x10, "game_156160 camera literal extent changed")
