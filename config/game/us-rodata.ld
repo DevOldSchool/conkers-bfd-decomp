@@ -658,8 +658,8 @@ SECTIONS
     .game_rodata_138b40 0x800A2C2C (INFO) : SUBALIGN(4) { *game_138B40.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_10e510_float_constants.md. */
     .game_rodata_10e510 0x800A1014 (INFO) : SUBALIGN(4) { *game_10E510.o(.rodata) }
-    /* Beam scale bounds: docs/evidence/data-layout/game_108320_float_constants.md. */
-    .game_rodata_108320 0x800A0BE4 (INFO) : SUBALIGN(4) { *game_108320.o(.rodata) }
+    /* Beam constants: docs/evidence/data-layout/game_108320_float_constants.md. */
+    .game_rodata_108320 0x800A0BE0 (INFO) : SUBALIGN(4) { *game_108320.o(.rodata) }
     /* Switch table and constants: docs/evidence/data-layout/game_109220_rodata.md. */
     .game_rodata_109220 0x800A0C40 (INFO) : SUBALIGN(4) { *game_109220.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_10a350_float_constant.md. */
@@ -969,7 +969,7 @@ __game_rodata_10a350_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_dba60) == 0x20, "game_DBA60 literal extent changed")
 __game_rodata_dba60_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_108320) == 0x10, "game_108320 constant pool extent changed")
-__game_rodata_108320_payload_size = 0xC;
+__game_rodata_108320_payload_size = 0x10;
 
 ASSERT(SIZEOF(.game_rodata_ec420_0) == 0x14, "game_EC420 func_150BF21C literal extent changed")
 ASSERT(SIZEOF(.game_rodata_ec420_14) == 0x24, "game_EC420 func_150C01DC literal extent changed")

@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_108320.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150DAE70
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game108320BeamPacket {
@@ -69,79 +64,59 @@ extern s16 D_80088930[];
 extern f32 D_80088934[], D_80088938[], D_8008893C[];
 extern u8 D_80088940[];
 extern f32 D_80088944[], D_80088948[];
-extern f32 D_800A0BE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DAE70 CURRENT (4146) */
-void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    struct {
-        Game108320BeamPacket packet;
-        Vec3f delta;
-        Vec3f second;
-        Vec3f first;
-        s32 transform;
-    } work;
+void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    s32 transform;
+    Vec3f first;
+    Vec3f second;
+    Vec3f delta;
+    Game108320BeamPacket packet;
     Game108320Geometry *result;
-    s32 wordOffset;
-    s32 vectorOffset;
-    f32 speed;
-    f32 x;
-    f32 z;
     f32 squared;
+    f32 inverse;
 
-    if (arg0 != 0) {
-        if (arg0->transform != 0) {
-            work.transform = arg0->transform + (D_80088928[arg1] << 6);
-            wordOffset = arg1 * 4;
-            vectorOffset = arg1 * 12;
-            func_15143134((f32 *)((u8 *)D_80088910 + vectorOffset), &work.first.x, work.transform);
-            func_15143134((f32 *)((u8 *)D_8008891C + vectorOffset), &work.second.x, work.transform);
-            speed = *(f32 *)((u8 *)D_8008892C + wordOffset);
-            x = speed * (work.second.x - work.first.x);
-            work.delta.y = speed * (work.second.y - work.first.y);
-            z = speed * (work.second.z - work.first.z);
-            squared = x * x + z * z;
-            if (!(fabsf(squared) < D_800A0BE0)) {
-                squared = sqrtf(squared);
-                work.packet.kind = 0x17;
-                work.packet.fieldC = 0x243A;
-                work.packet.field8 = 0;
-                work.packet.mode = 0x401;
-                work.packet.field44 = 0xFF;
-                work.packet.field45 = 0xFF;
-                work.packet.color[1] = 0xC8;
-                work.packet.color[2] = 0xC8;
-                work.packet.color[0] = 0xC8;
-                work.packet.color[3] = 0xC8;
-                work.packet.flags = 0x401;
-                work.packet.life = D_80088930[arg1];
-                work.packet.position = work.first;
-                work.delta.z = z;
-                work.delta.x = x;
-                work.packet.scale.x = 1.0f;
-                work.packet.scale.y = 1.0f;
-                speed = 1.0f / squared;
-                work.packet.scale.z = 1.0f;
-                work.packet.direction.y = 0.0f;
-                work.packet.direction.x = z * speed;
-                work.packet.direction.z = x * speed;
-                result = func_1513D524(&work.packet, 9, 0, 0, 7, 0, 0x2C, ((u8 *)&arg2)[3], arg3);
-                if (result != 0) {
-                    result->motion.delta = work.delta;
-                    result->motion.field11C = *(f32 *)((u8 *)D_80088934 + wordOffset);
-                    result->motion.field120 = *(f32 *)((u8 *)D_80088938 + wordOffset);
-                    result->motion.field12C = *(f32 *)((u8 *)D_80088944 + wordOffset);
-                    result->motion.field124 = 1.0f;
-                    result->motion.field128 = 1.0f;
-                    result->motion.field130 = *(f32 *)((u8 *)D_80088948 + wordOffset);
-                    result->motion.field134 = *(f32 *)((u8 *)D_8008893C + wordOffset);
-                    result->motion.field138 = D_80088940[arg1];
-                }
+    if (arg0 != NULL && arg0->transform != 0) {
+        transform = arg0->transform + (D_80088928[arg1] << 6);
+        func_15143134(D_80088910[arg1], &first.x, transform);
+        func_15143134(D_8008891C[arg1], &second.x, transform);
+        delta.x = D_8008892C[arg1] * (second.x - first.x);
+        delta.y = D_8008892C[arg1] * (second.y - first.y);
+        delta.z = D_8008892C[arg1] * (second.z - first.z);
+        squared = delta.x * delta.x + delta.z * delta.z;
+        if (!(fabsf(squared) < 0.0001f)) {
+            packet.kind = 0x17;
+            packet.fieldC = 0x243A;
+            packet.field8 = 0;
+            packet.mode = 0x401;
+            packet.life = D_80088930[arg1];
+            packet.field44 = 0xFF;
+            packet.field45 = 0xFF;
+            packet.color[2] = 0xC8, packet.color[1] = 0xC8, packet.color[0] = 0xC8;
+            packet.color[3] = 0xC8;
+            packet.flags = 0x401;
+            packet.position = first;
+            packet.scale.x = 1.0f;
+            packet.scale.y = 1.0f;
+            packet.scale.z = 1.0f;
+            inverse = 1.0f / sqrtf(squared);
+            packet.direction.x = delta.z * inverse;
+            packet.direction.y = 0.0f;
+            packet.direction.z = delta.x * inverse;
+            result = func_1513D524(&packet, 9, 0, 0, 7, 0, 0x2C, arg2, arg3);
+            if (result != NULL) {
+                result->motion.delta = delta;
+                result->motion.field11C = D_80088934[arg1];
+                result->motion.field120 = D_80088938[arg1];
+                result->motion.field12C = D_80088944[arg1];
+                result->motion.field130 = D_80088948[arg1];
+                result->motion.field124 = 1.0f;
+                result->motion.field128 = 1.0f;
+                result->motion.field134 = D_8008893C[arg1];
+                result->motion.field138 = D_80088940[arg1];
             }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DAE70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_108320/func_150DAE70.s")
 extern f32 D_800BE9A4;
 
 s32 func_150DB114(Game108320Geometry *arg0) {

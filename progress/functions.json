@@ -3355,7 +3355,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15196748",
           "vram": "0x15196748"
         }
@@ -56089,17 +56094,16 @@
       "symbol": "func_1519277C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 445,
-        "reason": "CURRENT (445), improved from725: first zero store through field64 restores alias reload; unsigned24 allocation multiply reproduces raw shift/sub register sequence. Remaining temporary allocation/zero scheduling; prior volatile stores exhausted. Two new revisions, ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 320,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A7950",
           "vram": "0x151A7950"
         }
@@ -72658,17 +72662,16 @@
       "symbol": "func_1511F3E8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3279,
-        "reason": "Manual baseline + 2 revisions exhausted. Valid baseline 6785; actual saved-coordinate volatile homes improve to 3279. Integer temporary reuse/mask widening/operand correction regresses to 3449; restored best coordinate-only candidate. Frame 8 versus US 28, register allocation and scheduling remain. Signed DIV/trap sequence and transition logic preserved; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 664,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511F4D0",
           "vram": "0x1511F4D0"
         }
@@ -76684,17 +76687,16 @@
       "symbol": "func_151E7EF8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3521,
-        "reason": "Best3521 retained after three manual candidates; final4071 worsens. Typed8byte config/position and SDK bzero, proven motion float parameters, raw32C actor stride and unsigned addresses. Frame68 vs50; config30 vs2C, model60 vs3C, objectId64 vs4C, persistent base and GPR/scheduling remain. No shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 652,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E7F60",
           "vram": "0x151E7F60"
         }
@@ -87161,17 +87163,16 @@
       "symbol": "func_150F9950"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4146,
-        "reason": "Best CURRENT4146 restored after three manual comparisons; typed buffers retained, intrinsic spills/frame/FP schedule remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 676,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DAE70",
           "vram": "0x150DAE70"
         }

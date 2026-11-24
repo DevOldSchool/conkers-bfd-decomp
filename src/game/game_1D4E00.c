@@ -10,7 +10,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_owner_mode_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A7950
  * - func_151A7A90
  * - func_151A8624
  *
@@ -18,41 +17,58 @@
  */
 
 void *func_10022EC0(void *, const void *, u32);
-void func_100226F0(void *, s32, void *, s32);
+void func_100226F0(void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7950 CURRENT (445) */
-void *func_151A7950(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
-    u8 *result;
-    u8 *data;
+typedef struct { u8 bytes[4]; } Game1D4E00Colour;
+typedef struct {
+    s16 lifetime;
+    s16 count;
+    f32 field04;
+    f32 field08;
+    u8 timed;
+    u8 pad0D[3];
+    f32 field10;
+    Game1D4E00Colour colour;
+    f32 field18;
+    u8 mode;
+    s8 type;
+    u8 pad1E[2];
+    f32 field20[10];
+    f32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+} Game1D4E00Descriptor;
+typedef struct Game1D4E00Curve {
+    u8 unk_00[0x10];
+    Game1D4E00Descriptor descriptor;
+    void *unk_60;
+    f32 (*points)[6];
+    f32 unk_68;
+    u8 unk_6C[0x10];
+    s32 unk_7C;
+} Game1D4E00Curve;
 
-    result = func_15167A68(0x2D, arg3,
-                           *(s16 *)(arg0 + 2) * 0x18U + arg1 + 0x80,
-                           1, arg2, 1);
-    if (result == 0) {
-        return 0;
+void *func_151A7950(Game1D4E00Descriptor *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    Game1D4E00Curve *result;
+
+    result = func_15167A68(0x2D, arg3, arg0->count * sizeof(*result->points) + arg1 + sizeof(*result), 1, arg2, 1);
+    if (result == NULL) {
+        return NULL;
     }
-    func_10022EC0(result + 0x10, arg0, 0x50);
-    data = result + 0x80;
-    *(u8 **)(result + 0x64) = data;
-    *(f32 *)(result + 0x68) = 0.0f;
-    *(u8 **)(result + 0x60) = *(u8 **)(result + 0x64) +
-                              *(s16 *)(arg0 + 2) * 0x18;
-    *(f32 *)*(u8 **)(result + 0x64) = 0.0f;
-    *(f32 *)(*(u8 **)(result + 0x64) + 4) = 0.0f;
-    *(f32 *)(*(u8 **)(result + 0x64) + 8) = 0.0f;
-    *(f32 *)(*(u8 **)(result + 0x64) + *(s16 *)(arg0 + 2) * 0x18 - 0x18) = 0.0f;
-    *(f32 *)(*(u8 **)(result + 0x64) + *(s16 *)(arg0 + 2) * 0x18 - 0x14) = 0.0f;
-    *(f32 *)(*(u8 **)(result + 0x64) + *(s16 *)(arg0 + 2) * 0x18 - 0x10) = 1.0f;
-    func_100226F0(result + 0x6C, 0x10, data, 0x18);
-    *(s32 *)(result + 0x7C) = (*(s16 *)(result + 0x12) << 6) + 0x140;
+    func_10022EC0(&result->descriptor, arg0, sizeof(result->descriptor));
+    result->points = (f32 (*)[6])(result + 1);
+    result->unk_60 = &result->points[arg0->count];
+    result->unk_68 = 0.0f;
+    result->points[0][0] = 0.0f;
+    result->points[0][1] = 0.0f;
+    result->points[0][2] = 0.0f;
+    result->points[arg0->count - 1][0] = 0.0f;
+    result->points[arg0->count - 1][1] = 0.0f;
+    result->points[arg0->count - 1][2] = 1.0f;
+    func_100226F0(result->unk_6C, sizeof(result->unk_6C));
+    result->unk_7C = (result->descriptor.count << 6) + 0x140;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A7950 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7950.s")
-typedef struct {
-    u8 pad0[0x64];
-    f32 (*points)[6];
-} Game1D4E00Curve;
 
 f32 func_150ADA68(void);
 void func_151A8340(Game1D4E00Curve *, s16, s16, f32, s16);
@@ -346,25 +362,6 @@ void func_151A85D4(s32 arg0) {
     func_151A8560(arg0);
     func_15169824((void *)arg0);
 }
-typedef struct { u8 bytes[4]; } Game1D4E00Colour;
-typedef struct {
-    s16 lifetime;
-    s16 count;
-    f32 field04;
-    f32 field08;
-    u8 timed;
-    u8 pad0D[3];
-    f32 field10;
-    Game1D4E00Colour colour;
-    f32 field18;
-    u8 mode;
-    s8 type;
-    u8 pad1E[2];
-    f32 field20[10];
-    f32 field48;
-    u8 field4C;
-    u8 pad4D[3];
-} Game1D4E00Descriptor;
 typedef struct {
     void *owner;
     u8 generation;
@@ -379,7 +376,6 @@ typedef struct {
 } Game1D4E00OwnerData;
 
 extern f32 D_800A8DE0;
-void *func_151A7950(u8 *, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8624 CURRENT (1828) */
 void *func_151A8624(u8 *arg0, Vec3f *arg1, s32 arg2, s32 arg3,

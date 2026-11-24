@@ -13,7 +13,6 @@
  * - func_151E565C
  * - func_151E5FF4
  * - func_151E6C1C
- * - func_151E7F60
  * - func_151E81EC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -850,6 +849,39 @@ typedef struct Game20F9A0SpawnPosition {
     u8 angle, pad7;
 } Game20F9A0SpawnPosition;
 
+typedef struct Game20F9A0Descriptor {
+    u8 unk_00[4];
+    u8 unk_04;
+    u8 unk_05;
+    s16 unk_06;
+    s16 unk_08;
+    s16 unk_0A;
+    u8 unk_0C;
+    u8 unk_0D;
+    u8 unk_0E[0x22];
+} Game20F9A0Descriptor;
+
+typedef struct Game20F9A0Actor {
+    u8 unk_00[4];
+    u8 unk_04;
+    u8 unk_05;
+    u8 unk_06[0x62];
+    u8 unk_68;
+    u8 unk_69[0xE3];
+    f32 unk_14C;
+    f32 unk_150;
+    u8 unk_154[0x1A4];
+    u16 unk_2F8;
+    u8 unk_2FA[0x22];
+    void *unk_31C;
+    u8 unk_320[0xC];
+} Game20F9A0Actor;
+
+typedef struct Game20F9A0Menu {
+    u8 unk_00[0x2C];
+    s8 unk_2C;
+} Game20F9A0Menu;
+
 void func_15060F28(u8 *, s32);
 s32 func_15083E0C(u8);
 void *func_10003C40(s32, s32, s32, s32);
@@ -859,78 +891,60 @@ void func_15083384(void *, s32);
 void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
 extern Game20F9A0SpawnConfig D_800AB57C[];
 extern Game20F9A0SpawnPosition D_800AB940[];
-extern u8 D_800CC2C0[];
-extern u8 *D_800D20FC;
-extern s32 D_800E0BA0;
+extern Game20F9A0Descriptor *D_800D20FC;
+extern Game20F9A0Actor *D_800E0BA0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E7F60 CURRENT (3521) */
 void func_151E7F60(s32 arg0, s32 arg1) {
     s32 objectId;
+    s32 descriptorId;
+    Game20F9A0Descriptor *descriptor;
+    Game20F9A0SpawnPosition *position;
     s32 model;
-    s32 *slot;
-    Game20F9A0SpawnConfig *config;
-    register f32 scale;
-    register u8 *object;
-    register u8 *previous;
-    register s32 descriptorId;
-    register s32 positionId;
-    register Game20F9A0SpawnPosition *position;
-    register u8 *descriptor;
-    register void *buffer;
+    s32 positionId;
+    Game20F9A0Actor *actor;
 
-    slot = &D_800E0BA0 + arg0;
-    previous = (u8 *)*slot;
-    if (previous != 0) {
-        func_15060F28(previous, 1);
+    if (D_800E0BA0[arg0] != NULL) {
+        func_15060F28((u8 *)D_800E0BA0[arg0], 1);
     }
-    descriptorId = func_15083E0C((arg0 + 0x10) & 0xFF);
-    config = &D_800AB57C[arg1];
-    model = config->model;
+    descriptorId = func_15083E0C(arg0 + 0x10);
+    descriptor = &D_800D20FC[descriptorId];
+    model = D_800AB57C[arg1].model;
     positionId = arg0;
-    descriptor = (u8 *)((u32)descriptorId * 0x30U + (u32)D_800D20FC);
-    if (*(s8 *)((u8 *)D_8008FDD4 + 0x2C) == 7) {
+    if (((Game20F9A0Menu *)D_8008FDD4)->unk_2C == 7) {
         positionId = arg0 + 1;
     }
-    descriptor[4] = model;
+    descriptor->unk_04 = model;
     position = &D_800AB940[positionId];
-    *(s16 *)(descriptor + 6) = position->x;
-    *(s16 *)(descriptor + 8) = position->y;
-    *(s16 *)(descriptor + 8) += config->yOffset;
-    *(s16 *)(descriptor + 0xA) = position->z;
-    descriptor[0xC] = position->angle;
+    descriptor->unk_06 = position->x;
+    descriptor->unk_08 = position->y;
+    descriptor->unk_08 += D_800AB57C[arg1].yOffset;
+    descriptor->unk_0A = position->z;
+    descriptor->unk_0C = position->angle;
     if (model == 0x53) {
-        descriptor[0xD] = 0x24;
+        descriptor->unk_0D = 0x24;
     } else {
-        descriptor[0xD] = 0xE;
+        descriptor->unk_0D = 0xE;
     }
     objectId = func_15082A44(descriptor, descriptorId, 0, 0, 0);
     if (objectId != 0) {
-        object = (u8 *)((u32)objectId * 0x32CU + (u32)D_800CC2D0);
-        previous = object - 0x32C;
-        *slot = (s32)previous;
-        scale = config->scale;
-        object[-0x327] = 7;
-        *(u16 *)(object - 0x34) |= 3;
-        *(f32 *)(object - 0x1DC) = scale;
-        *(f32 *)(object - 0x1E0) = scale;
-        if (object[-0x328] == 0 || previous[4] == 0x80) {
-            buffer = func_10003C40(0x1C0, 1, 0, 0);
-            *(void **)(D_800CC2C0 + objectId * 0x32C) = buffer;
-            func_100226F0(buffer, 0x1C0);
+        actor = &((Game20F9A0Actor *)D_800CC2D0)[objectId - 1];
+        D_800E0BA0[arg0] = actor;
+        actor->unk_05 = 7;
+        actor->unk_2F8 |= 3;
+        actor->unk_150 = D_800AB57C[arg1].scale;
+        actor->unk_14C = D_800AB57C[arg1].scale;
+        if (actor->unk_04 == 0 || actor->unk_04 == 0x80) {
+            actor->unk_31C = func_10003C40(0x1C0, 1, 0, 0);
+            func_100226F0(actor->unk_31C, 0x1C0);
         }
-        previous = (u8 *)((u32)objectId * 0x32CU - 0x32CU + (u32)D_800CC2D0);
         if (model == 0x3B) {
-            previous[0x68] = arg0 + 1;
+            actor->unk_68 = arg0 + 1;
         }
-        slot = (s32 *)previous;
-        func_15083384(slot, config->appearance);
-        func_1505E650(slot, 0xF, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+        func_15083384(actor, D_800AB57C[arg1].appearance);
+        func_1505E650(actor, 0xF, 1.0f, 0.0f, 0.0f, 0.0f, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E7F60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7F60.s")
 extern s8 D_8008FD84;
-extern s32 D_800E0BA0;
 extern s32 D_800E0BA4;
 extern s32 D_800E0BA8;
 extern s32 D_800E0BAC;
@@ -938,7 +952,7 @@ extern s32 D_800E0BAC;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151E81EC CURRENT (400) */
 void func_151E81EC(void) {
     D_800E0BA4 = 0;
-    D_800E0BA0 = 0;
+    D_800E0BA0[0] = NULL;
     D_800E0BA8 = 0;
     D_800E0BAC = 0;
     D_8008FD84 = 0;

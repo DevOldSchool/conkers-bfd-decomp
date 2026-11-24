@@ -15,7 +15,6 @@
  * - func_15195AA8
  * - func_15195DD4
  * - func_15195FF0
- * - func_15196748
  * - func_15196B4C
  * - func_15198110
  * - func_1519897C
@@ -685,7 +684,7 @@ typedef struct CharacterFlamethrowerJet {
     void *owner;
     u8 unk4;
     u8 unk5;
-    s8 unk6;
+    u8 unk6;
     s8 unk7;
     Vec3f unk8;
     Vec3f unk14;
@@ -833,7 +832,106 @@ void *func_15196438(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     }
     return result;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196748.s")
+typedef struct CharacterFlamethrowerRibbonNode {
+    Vec3f position;
+    Vec3f velocity;
+    f32 width;
+    s16 intensity;
+    s8 delay;
+    u8 alpha;
+    u8 texture;
+    u8 emitted;
+    u8 pad22[2];
+} CharacterFlamethrowerRibbonNode;
+
+#define CHARACTER_FLAMETHROWER_NEXT_POINT(index, capacity) (index)++; if ((index) == (capacity)) (index) = 0
+#define CHARACTER_FLAMETHROWER_PREVIOUS_POINT(index, capacity) (index)--; if ((index) < 0) (index) = (capacity) - 1
+
+extern f32 D_800BE9A4;
+void func_15198110(CharacterFlamethrowerActor *, s32);
+extern void (*D_8008F894[])(CharacterFlamethrowerActor *);
+extern void (*D_8008F89C[])(CharacterFlamethrowerActor *);
+extern s32 (*D_8008F880[])(CharacterFlamethrowerActor *);
+
+s32 func_15196748(CharacterFlamethrowerActor *arg0) {
+    CharacterFlamethrowerJet *state;
+    CharacterFlamethrowerRibbonNode *points;
+    s32 index;
+
+    state = (CharacterFlamethrowerJet *)arg0->state;
+    points = arg0->points;
+    if (arg0->unk2C < 2 && (state->unk6 & 1)) {
+        return 0;
+    }
+    index = arg0->point_end;
+    while (index != arg0->point_index) {
+        CHARACTER_FLAMETHROWER_PREVIOUS_POINT(index, arg0->point_capacity);
+        points[index].velocity.y += state->unk40 * D_800BE9A4;
+        points[index].position.x += points[index].velocity.x * D_800BE9A4;
+        points[index].position.y += points[index].velocity.y * D_800BE9A4;
+        points[index].position.z += points[index].velocity.z * D_800BE9A4;
+        points[index].alpha = 0xFF;
+        if (points[index].delay > 0) {
+            points[index].delay -= D_800BE9E4;
+        } else {
+            points[index].intensity -= state->unk52 * D_800BE9E4;
+        }
+        if (points[index].intensity < state->unk6A && points[index].emitted == 0) {
+            func_15198110(arg0, index);
+        }
+        points[index].width += state->unk58 * D_800BE9A4;
+        if (points[index].intensity < 0) {
+            state->unk6 &= ~2;
+            while (index != arg0->point_index) {
+                CHARACTER_FLAMETHROWER_NEXT_POINT(arg0->point_index, arg0->point_capacity);
+                arg0->unk2C--;
+            }
+            points[arg0->point_index].intensity = 0;
+        }
+    }
+    if (state->unk6 & 2) {
+        u8 alpha = 0;
+        s16 count;
+
+        index = arg0->point_index;
+        count = state->unk8C;
+        do {
+            points[index].alpha = alpha;
+            alpha += state->unk8D;
+            CHARACTER_FLAMETHROWER_NEXT_POINT(index, arg0->point_capacity);
+        } while (--count != 0 && index != arg0->point_end);
+    }
+    if (state->unk6 & 4) {
+        u8 fade = 0;
+        s16 count;
+
+        count = state->unk8E;
+        index = arg0->point_end;
+        CHARACTER_FLAMETHROWER_PREVIOUS_POINT(index, arg0->point_capacity);
+        do {
+            points[index].alpha = (points[index].alpha * fade) >> 8;
+            fade += state->unk8F;
+            CHARACTER_FLAMETHROWER_PREVIOUS_POINT(index, arg0->point_capacity);
+        } while (--count != 0 && index != arg0->point_end);
+    }
+    if (state->unk64 != -1) {
+        D_8008F894[state->unk64](arg0);
+    }
+    if (state->unk68 != -1) {
+        D_8008F89C[state->unk68](arg0);
+    }
+    if (state->unk61 != -1 && D_8008F880[state->unk61](arg0) == 0) {
+        return 0;
+    }
+    if (arg0->unk2C > 0) {
+        arg0->last_position = points[arg0->point_index].position;
+    } else {
+        arg0->last_position.x = 0.0f;
+        arg0->last_position.y = 0.0f;
+        arg0->last_position.z = 0.0f;
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196B4C.s")
 typedef struct CharacterFlamethrowerBeamCamera {
     u8 unknown0[0x2F8];
@@ -841,17 +939,6 @@ typedef struct CharacterFlamethrowerBeamCamera {
     u8 unknown304[0x69C];
 } CharacterFlamethrowerBeamCamera;
 extern CharacterFlamethrowerBeamCamera *D_800DBFF0;
-typedef struct CharacterFlamethrowerRibbonNode {
-    Vec3f position;
-    u8 padC[0xC];
-    f32 width;
-    s16 intensity;
-    u8 pad1E;
-    u8 alpha;
-    u8 texture;
-    u8 pad21[3];
-} CharacterFlamethrowerRibbonNode;
-
 typedef struct CharacterFlamethrowerRibbonStyle {
     u8 pad0[0x51];
     u8 shade;
@@ -1097,7 +1184,6 @@ void func_15197A7C(CharacterFlamethrowerActor *arg0) {
         func_15147D64(&sp18, 8, arg0);
     }
 }
-extern f32 D_800BE9A4;
 
 s32 func_15197AB4(void *arg0) {
     f32 damp1;

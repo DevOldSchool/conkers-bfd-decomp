@@ -1326,7 +1326,7 @@
         }
       },
       {
-        "address": "0x800A0BE4",
+        "address": "0x800A0BE0",
         "section": ".rodata",
         "owner": {
           "sources": [
