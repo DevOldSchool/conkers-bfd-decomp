@@ -300,7 +300,7 @@ segments:
       - [0xB67E0, c, game/game_E3C90]
       - [0xB6BC0, c, game/game_E4070]
       - [0xB7B40, c, game/game_E4FF0]
-      - [0xB89E0, c, game/game_E5E90]
+      - [0xB89E0, c, done/game/game_E5E90]
       - [0xB9560, c, game/game_E6A10]
       - [0xB9ED0, c, done/game/game_E7380]
       - [0xBA4C0, c, done/game/game_E7970]
