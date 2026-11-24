@@ -830,7 +830,7 @@ typedef struct Game49D30Event {
 
 extern Game49D30Event D_800C3600[1];
 extern f32 D_800969C4, D_800969C8;
-void func_1512D560(void *, s32, s32);
+void func_1512D560(void *, s32, void *);
 void func_150228E4(s32);
 void func_150227BC(s32);
 

@@ -276,7 +276,7 @@
         "us": {
           "end": "0x1602C0",
           "start": "0x15FDA0",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/effects/colourframebuffer.c"
@@ -3538,7 +3538,7 @@
         "us": {
           "end": "0x5A60",
           "start": "0x5290",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_32740.c"

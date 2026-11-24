@@ -410,7 +410,20 @@ void func_151D3E04(void *arg0, f32 *arg1, f32 *arg2, u8 arg3, f32 arg4) {
 extern u8 D_800CC2D0[];
 void func_1505D1C4(f32, f32, f32, s32, s32, u16, s32, s32);
 
-void func_151D3E6C(void *arg0, Vec3f *arg1, Vec3f *arg2, s32 arg3) {
+typedef struct Game200930ActorState {
+    u8 unk_00[0x12];
+    s16 unk_12;
+} Game200930ActorState;
+
+typedef struct Game200930Actor {
+    u8 unk_00[0x76];
+    u16 unk_76;
+    u8 unk_78[0x2A4];
+    Game200930ActorState *unk_31C;
+    u8 unk_320[0xC];
+} Game200930Actor;
+
+void func_151D3E6C(Game200930Actor *arg0, Vec3f *arg1, Vec3f *arg2, s32 arg3) {
     f32 x;
     f32 y;
     f32 z;
@@ -422,10 +435,10 @@ void func_151D3E6C(void *arg0, Vec3f *arg1, Vec3f *arg2, s32 arg3) {
         s32 index = ((s32)arg0 - (s32)D_800CC2D0) / 0x32C;
         u16 value;
 
-        if (*(void **)((u8 *)arg0 + 0x31C) != NULL) {
-            value = *(u16 *)((u8 *)arg0 + 0x76) - *(s16 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x12);
+        if (arg0->unk_31C != NULL) {
+            value = arg0->unk_76 - arg0->unk_31C->unk_12;
         } else {
-            value = *(u16 *)((u8 *)arg0 + 0x76);
+            value = arg0->unk_76;
         }
         func_1505D1C4(x, y, z, arg3, index, value, 0, 0);
     }

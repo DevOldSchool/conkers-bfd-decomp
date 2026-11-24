@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "game_render_view.h"
 
 /*
  * Reviewed source unit: src/game/game_197F20.c
@@ -9,7 +10,6 @@
  * - func_1516AA70
  * - func_1516B6BC
  * - func_1516C934
- * - func_1516D0CC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -180,7 +180,9 @@ typedef struct Game197F20Camera {
     Game197F20CameraConfig *config;
     u8 pad14[0xB];
     u8 initialised;
-    u8 pad20[0x18];
+    u8 pad20[8];
+    f32 unk_28;
+    u8 pad2C[0xC];
     f32 width;
     f32 height;
     f32 outX;
@@ -201,13 +203,12 @@ typedef struct Game197F20Heading {
     u8 pad4[0x328];
 } Game197F20Heading;
 
-extern void *D_800BE628;
 extern struct108 *D_800DBFF0;
 extern Game197F20Heading D_800CC310[];
 extern u16 D_8009055C[];
 extern u16 D_8009057C[];
 void func_1501A764(s16, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_1516D0CC(void *, f32 *, f32 *, f32 *);
+void func_1516D0CC(Game197F20Camera *, f32 *, f32 *, f32 *);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 
@@ -270,79 +271,38 @@ void func_1516CC58(Game197F20Camera *arg0) {
     arg0->screenX = (s32)(func_15047C00(arg0->angle + 3.1415927f) * (arg0->width * 0.5f) * 1.15f + arg0->x - offsetX);
     arg0->screenY = func_15047D60(arg0->angle + 3.1415927f) * (arg0->height * 0.5f) * 1.04f + arg0->y - offsetY;
 }
-f32 func_15047C00(f32);                             /* extern */
 extern u16 D_80090562;
 extern u16 D_80090582;
-extern f32 D_800A6DE4;
-extern f32 D_800A6DE8;
-extern void *D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D0CC CURRENT (3528) */
-void func_1516D0CC(void *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
-    volatile f32 sp2C;
-    volatile f32 sp28;
-    volatile f32 sp24;
-    volatile f32 sp20;
-    f32 sp1C;
-    f32 temp_fa0;
-    f32 temp_fa1;
-    f32 temp_ft2;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv1;
-    f32 temp_fv0_4;
-    f32 var_ft0;
-    f32 var_ft2;
+void func_1516D0CC(Game197F20Camera *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 top;
     f32 bottom;
     f32 left;
     f32 right;
+    f32 offset;
+    f32 x;
 
-    var_ft2 = (f32)(u32) D_80090562;
-    var_ft2 = *(f32 *)((u8 *)arg0 + 0x38) / var_ft2;
-    var_ft0 = (f32)(u32) D_80090582;
-    sp1C = var_ft2 * var_ft0 * 0.25f * *(f32 *)((u8 *)arg0 + 0x28);
-    temp_ft2 = func_15047C00(*(f32 *)((u8 *)arg0 + 0x58) + D_800A6DE4);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x38) * 0.5f;
-    temp_ft5 = *(f32 *)((u8 *)arg0 + 0x3C);
-    temp_fa1 = *arg2;
-    temp_ft2 *= temp_fv1;
-    sp28 = temp_fa1;
-    sp2C = temp_fa1 - temp_ft5;
-    temp_fa0 = ((temp_ft2 * D_800A6DE8 * *(f32 *)((u8 *)arg0 + 0x28)) + *arg1) - sp1C;
-    sp24 = temp_fa0 - temp_fv1;
-    sp20 = temp_fv1 + temp_fa0;
-    if (arg0 != 0) {
-        top = sp2C;
-        bottom = sp28;
-        temp_fv0 = *(f32 *)((u8 *)D_800BE628 + 0x24);
-        if (top < temp_fv0) {
-            *arg2 = temp_fv0 + temp_ft5;
-        } else {
-            temp_fv0_2 = *(f32 *)((u8 *)D_800BE628 + 0x28);
-            if (temp_fv0_2 < bottom) {
-                *arg2 = temp_fv0_2;
-            }
+    offset = arg0->width / D_80090562 * D_80090582 * 0.25f * arg0->unk_28;
+    x = *arg1 + func_15047C00(arg0->angle + 3.1415927f) * (arg0->width * 0.5f) * 1.15f * arg0->unk_28 - offset;
+    top = *arg2 - arg0->height;
+    bottom = *arg2;
+    left = x - arg0->width * 0.5f;
+    right = arg0->width * 0.5f + x;
+    if (arg0 != NULL) {
+        if (top < D_800BE628->top) {
+            *arg2 = D_800BE628->top + arg0->height;
+        } else if (D_800BE628->bottom < bottom) {
+            *arg2 = D_800BE628->bottom;
         }
-        left = sp24;
-        right = sp20;
-        temp_fv0_3 = *(f32 *)((u8 *)D_800BE628 + 0x2C);
-        if (left < temp_fv0_3) {
-            *arg1 -= left - temp_fv0_3;
-        } else {
-            temp_fv0_4 = *(f32 *)((u8 *)D_800BE628 + 0x30);
-            if (temp_fv0_4 < right) {
-                *arg1 += temp_fv0_4 - right;
-            }
+        if (left < D_800BE628->left) {
+            *arg1 -= left - D_800BE628->left;
+        } else if (D_800BE628->right < right) {
+            *arg1 += D_800BE628->right - right;
         }
-        *arg1 = (f32) (s32) *arg1;
-        *arg2 = (f32) (s32) *arg2;
+        *arg1 = (s32)*arg1;
+        *arg2 = (s32)*arg2;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516D0CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516D0CC.s")
 void func_1516D2D8(void) {
 
 }

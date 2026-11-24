@@ -7,13 +7,13 @@
 
 extern s32 D_800DC2B0;
 
-void func_1512D560(void *arg0, s32 arg1, s32 arg2) {
+void func_1512D560(void *arg0, s32 arg1, void *arg2) {
     void *temp_v0;
 
     temp_v0 = ((u8 (*)[0xB0])D_800DC2B0)[*(u8 *)((u8 *)arg0 + 0x23D)];
     *(s32 *)(((u8 (*)[8])temp_v0)[*(s32 *)((u8 *)temp_v0 + 0xAC)]) = arg1;
     temp_v0 = ((u8 (*)[0xB0])D_800DC2B0)[*(u8 *)((u8 *)arg0 + 0x23D)];
-    *(s32 *)(((u8 (*)[8])temp_v0)[*(s32 *)((u8 *)temp_v0 + 0xAC)] + 4) = arg2;
+    *(void **)(((u8 (*)[8])temp_v0)[*(s32 *)((u8 *)temp_v0 + 0xAC)] + 4) = arg2;
     temp_v0 = ((u8 (*)[0xB0])D_800DC2B0)[*(u8 *)((u8 *)arg0 + 0x23D)];
     *(s32 *)((u8 *)temp_v0 + 0xAC) = *(s32 *)((u8 *)temp_v0 + 0xAC) + 1;
     temp_v0 = ((u8 (*)[0xB0])D_800DC2B0)[*(u8 *)((u8 *)arg0 + 0x23D)];

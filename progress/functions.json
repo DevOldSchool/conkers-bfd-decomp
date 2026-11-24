@@ -2989,16 +2989,15 @@
       "symbol": "func_150B37C8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5566,
-        "reason": "Typed effect nodes,416-byte head groups and dispatch/iteration pointer tables:5566. Structured duplicate slot reload5576; explicit callback-table/group register hints5621 discarded after two non-improvements. Global address hoisting, frame and control scheduling differ. Existing effect layout unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1515FDA0",
           "vram": "0x1515FDA0"
         }
@@ -14141,17 +14140,16 @@
       "symbol": "func_150054C4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 185,
-        "reason": "CURRENT185: frame50, all FP, branches and full length exact. Pointer CSE choosesV0/V1/A2 insteadV1/A0/V0, shifting one move; global LUI usesV0 insteadA2. Register pointer qualifier worsens251/frame58; padded global view plateaus185. Corrected starter15124B18 ABI toA0only.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 584,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15005818",
           "vram": "0x15005818"
         }
@@ -24638,17 +24636,16 @@
       "symbol": "func_15075548"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3069,
-        "reason": "Byte limit types and direct state access improve 4442 to 3069; count calculation is still delayed across RNG calls and changes spills/register allocation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 564,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15075650",
           "vram": "0x15075650"
         }
@@ -43164,8 +43161,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1064,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508114C",
           "vram": "0x1508114C"
         }
@@ -89536,17 +89538,16 @@
       "symbol": "func_1516CC58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3528,
-        "reason": "Valid manual candidate CURRENT3528; repaired post-call reads, duplicate unsigned corrections and real bound slots. Frame/homes match. Two targeted revisions exhausted; FP allocation, arithmetic/load scheduling and pointer reloads remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 524,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1516D0CC",
           "vram": "0x1516D0CC"
         }

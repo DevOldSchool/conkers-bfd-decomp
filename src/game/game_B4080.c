@@ -1135,7 +1135,7 @@ typedef struct {
 u8 func_1508907C(u8, u8, u8, u8);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-void func_1512D560(void *, s32, s32);
+void func_1512D560(void *, s32, void *);
 extern f32 D_8009DA0C;
 extern f32 D_8009DA10;
 extern s32 D_800BE9E4;
@@ -1162,8 +1162,8 @@ void func_150896EC(void *arg0, void *arg1, s32 arg2) {
     if (arg2 != 0) {
         packet->field10 = 0x78;
         packet->fieldC = D_8009DA0C;
-        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 0xA, (s32)packet);
-        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 6, model[0x23D]);
+        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 0xA, packet);
+        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 6, (void *)model[0x23D]);
         ((GameB4080RailEntry *)arg0)->active = 0;
         return;
     }
@@ -1183,7 +1183,7 @@ void func_150896EC(void *arg0, void *arg1, s32 arg2) {
         ((GameB4080RailEntry *)arg0)->y = ((GameB4080RailActor *)arg1)->y;
         ((GameB4080RailEntry *)arg0)->z = ((GameB4080RailActor *)arg1)->z;
         ((GameB4080RailEntry *)arg0)->phase = 0.0f;
-        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 5, model[0x23D]);
+        func_1512D560(((GameB4080RailActor *)arg1)->field_318, 5, (void *)model[0x23D]);
         ((GameB4080RailEntry *)arg0)->active = 1;
     }
     ((GameB4080RailEntry *)arg0)->phase += D_8009DA10 * D_800BE9E4;
@@ -1234,7 +1234,7 @@ void func_150896EC(void *arg0, void *arg1, s32 arg2) {
     packet->field30 = 30.0f;
     packet->field34 = 30.0f;
     packet->field2C = 0.0f;
-    func_1512D560(((GameB4080RailActor *)arg1)->field_318, 7, (s32)packet);
+    func_1512D560(((GameB4080RailActor *)arg1)->field_318, 7, packet);
 }
 typedef struct {
     f32 radiusSq;

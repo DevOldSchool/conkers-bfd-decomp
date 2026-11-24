@@ -124,7 +124,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1865D0 | 0x0 | 0x20 | 0x800A63C4 | pool (func_15159C08) | 8 words ([record](game_1865d0_float_constants.md); round-23) |
 | game_1865D0 | 0x20 | 0xC | 0x800A6414 | pool (func_1515AB88) | `3DA3D70A 3DCCCCCD 3E19999A` (unchanged) |
 | game_197F20 | 0x0 | 0x8 | 0x800A6DBC | pool (func_1516CC58) | `3C23D70A 3C8EFA35` (0.01, 0.017453292; round-23) |
-| game_197F20 | 0x8 | 0x1C | 0x800A6DC8 | pool (func_1516CC58) | `C0568000 00000000` (f64 -90.0), `3C8EFA35 40490FDB 3F933333 40490FDB 3F851EB8` |
+| game_197F20 | 0x8 | 0x24 | 0x800A6DC8 | pool (func_1516CC58, func_1516D0CC) | `C0568000 00000000` (f64 -90.0), `3C8EFA35 40490FDB 3F933333 40490FDB 3F851EB8`, then `40490FDB 3F933333` (3.1415927, 1.15; round-30) |
 | game_1F2730 | 0x0 | 0x8 | 0x800AAAB4 | pool (func_151C5280) | `3A83126F 3B5A740E` (0.001, 0.0033333334; round-25) |
 | game_1F2730 | 0x8 | 0xC | 0x800AAACC | pool (func_151C577C) | `3DCCCCCD 3E25E354 3E45A1CB` (0.1, 0.162, 0.193) |
 | game_1F2730 | 0x14 | 0x14 | 0x800AAADC | pool (func_151C577C) | `3DCCCCCD 3F2E978E BED2F1AB 3F736BE3 3A83126F` (0.1, 0.682, -0.412, 0.950865, 0.001) |
@@ -266,10 +266,12 @@ keep their runtime addresses.
   8-aligned 0x800A6DC8 after a zero padding word at 0x800A6DC4; no other reference function reads
   these words. In the object the double falls at 8-aligned offset 0x8 directly after the two
   floats, so the pool is split around the ROM padding word: 0x8 bytes at 0x800A6DBC and 0x1C bytes
-  at 0x800A6DC8. 0x800A6DB8 and 0x800A6DE4.. stay extern reads of the raw `func_1516B6BC` and
-  `func_1516D0CC`. The unit had no rodata mapping; `game_197F20.o` joined
-  `GAME_SPLIT_RODATA_OBJS`. The object `.rodata` is 0x30 bytes: 0x24 of payload and 12 zero
-  alignment bytes.
+  at 0x800A6DC8. 0x800A6DB8 stays an extern read of the raw `func_1516B6BC`. The unit had no
+  rodata mapping; `game_197F20.o` joined `GAME_SPLIT_RODATA_OBJS`. Round-30 matched
+  `func_1516D0CC`, which follows `func_1516CC58` in the unit and loads `3.1415927f` and `1.15f`
+  (former externs `D_800A6DE4`/`D_800A6DE8`, ROM words `40490FDB 3F933333`) as literals, so the
+  second range grew from 0x1C to 0x24 bytes (0x800A6DC8..0x800A6DEB); 0x800A6DEC is zero. The
+  object `.rodata` is 0x30 bytes: 0x2C of payload and 4 zero alignment bytes.
 - **game_39750 (round-25):** the round-23 split (`.rodata.39750_0` and
   `.rodata.39750_1c`) is retired. Once `func_1500C2F0`, `func_1500C8D0` and
   `func_1500DE88` use literals, the unit's object `.rodata` is the whole ROM

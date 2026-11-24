@@ -76,7 +76,7 @@ typedef struct GameC3E20Packet {
     f32 value20, value24, value28;
 } GameC3E20Packet;
 
-void func_1512D560(void *, s32, s32);
+void func_1512D560(void *, s32, void *);
 extern u8 *D_800DBFF0;
 extern s32 D_800DC020;
 extern s32 D_800D2E30[];
@@ -257,7 +257,7 @@ s32 func_15096D78(s32 arg0, s32 arg1, s32 *arg2) {
         packet->time = 0.0f;
         D_800C365C = 0;
         func_1512D560(actor, 5, 0);
-        func_1512D560(actor, 7, (s32)packet);
+        func_1512D560(actor, 7, packet);
         *(s32 *)(D_800CC2D0 + 0x25C) |= 0x200;
     }
         break;

@@ -1368,7 +1368,7 @@ typedef struct CameraFixedViewState {
     f32 field_28;
 } CameraFixedViewState;
 
-void func_1512D560(void *, s32, s32);
+void func_1512D560(void *, s32, void *);
 extern f32 D_800A3550;
 extern f32 D_800A3554;
 extern CameraFixedViewState D_800C3600;
@@ -1394,7 +1394,7 @@ void func_15125A6C(struct108 *arg0) {
     if (mode == 0x2A) {
         yaw = arg0->unk3D0->unk40;
         if (arg0->unk2C != 0x40000) {
-            func_1512D560(arg0, 5, 0);
+            func_1512D560(arg0, 5, NULL);
             arg0->unk7E4 = 1U;
         }
         *D_800DBFF4 = 3;
@@ -1417,11 +1417,11 @@ void func_15125A6C(struct108 *arg0) {
         ((struct168 *)&D_800C3600)->unk8 = 0.0f;
         ((struct168 *)&D_800C3600)->unk28 = yaw - 180.0f;
         D_800C365C = 0;
-        func_1512D560(arg0, 7, (s32)&D_800C3600);
+        func_1512D560(arg0, 7, &D_800C3600);
         return;
     }
     if (arg0->unk7E4 != 0) {
-        func_1512D560(arg0, 6, 0);
+        func_1512D560(arg0, 6, NULL);
         arg0->unk7E4 = 0U;
     }
 }

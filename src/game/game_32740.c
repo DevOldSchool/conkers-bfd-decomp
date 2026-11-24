@@ -5,11 +5,6 @@
 /*
  * Reviewed source unit: src/game/game_32740.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_early_callback_state_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15005818
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_10003C40(s32 size, s32 pool, s32 flags, s32 alignment);
@@ -81,22 +76,32 @@ typedef struct Game32740View {
     f32 field26C;
     u8 pad270[0x2];
     s16 field272;
-    u8 pad274[0x30];
-    f32 field2A4;
-    f32 field2A8;
-    f32 field2AC;
-    f32 field2B0;
-    f32 field2B4;
-    f32 field2B8;
-    s32 field2BC[3];
+    u8 pad274[0x8];
+    Vec3f unk_27C;
+    u8 unk_288[0x1C];
+    Vec3f field2A4;
+    Vec3f field2B0;
+    Vec3f field2BC;
     u8 pad2C8[0x18];
-    s32 field2E0[3];
-    s32 field2EC[3];
-    s32 field2F8[3];
-    u8 pad304[0x60];
+    Vec3f field2E0;
+    Vec3f field2EC;
+    Vec3f field2F8;
+    Vec3f unk_304;
+    u8 unk_310[0x38];
+    f32 unk_348;
+    f32 unk_34C;
+    u8 unk_350[0x4];
+    f32 unk_354;
+    f32 unk_358;
+    f32 unk_35C;
+    s32 unk_360;
     f32 field364;
     s16 field368;
-    u8 pad36A[0x1A];
+    u8 pad36A[0xA];
+    f32 unk_374;
+    u8 unk_378[0x4];
+    f32 unk_37C;
+    u8 unk_380[0x4];
     f32 field384;
     u8 pad388[0x18];
     f32 field3A0;
@@ -125,7 +130,11 @@ typedef struct Game32740View {
     s16 field5FA;
     s16 field5FC;
     s16 field5FE;
-    u8 pad600[0x74];
+    u8 pad600[0x40];
+    s32 unk_640;
+    s32 unk_644;
+    s32 unk_648;
+    u8 unk_64C[0x28];
     f32 field674;
     u8 pad678[0x4];
     f32 field67C;
@@ -140,8 +149,6 @@ typedef struct Game32740View {
     u8 pad870[0x4C];
     u8 * field8BC;
 } Game32740View;
-
-typedef struct { s32 words[3]; } Game32740Words3;
 
 void func_100226F0(void *, s32);
 void func_15005A60(void *, s16);
@@ -195,9 +202,9 @@ void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode) {
     state->field5FA = 1;
     state->field3E8 = 1;
     state->field67C = (f32)(u32)*(u16 *)((u8 *)D_800B0DF0 + 2);
-    state->field2B0 = state->field2A4;
-    state->field2B4 = state->field2A8;
-    state->field2B8 = state->field2AC;
+    state->field2B0.x = state->field2A4.x;
+    state->field2B0.y = state->field2A4.y;
+    state->field2B0.z = state->field2A4.z;
     state->field384 = 999.0f;
     state->field5F0 |= 0x80000000;
     func_15124AB4(view);
@@ -225,8 +232,8 @@ void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode) {
     func_15085430(state->field3D0, mode, 0);
     func_15005A60(view, resource);
     state->field364 = -10000.0f;
-    *(Game32740Words3 *)state->field2E0 = *(Game32740Words3 *)state->field2BC;
-    *(Game32740Words3 *)state->field2EC = *(Game32740Words3 *)state->field2F8;
+    state->field2E0 = state->field2BC;
+    state->field2EC = state->field2F8;
     state->field7E8 = 50.0f;
     state->field86C = 999.0f;
     state->field8BC = D_800BE2B0[state->field23D];
@@ -244,9 +251,8 @@ f32 sqrtf(f32);
 void func_1510E7A4(s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32);
 void func_1512523C(void *);
 void func_15125330(void *);
-void func_1512D560(void *, s32, s32);
+void func_1512D560(void *, s32, void *);
 void func_15124B18(u8 *);
-extern f32 D_800959F0;
 extern s32 D_800BE9F0;
 extern u8 D_800C35EA;
 typedef struct {
@@ -256,51 +262,41 @@ typedef struct {
 } Game5818FixedView;
 extern Game5818FixedView D_800C3600;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15005818 CURRENT (185) */
-void func_15005818(u8 *arg0, u8 *arg1, Vec3f *volatile arg2) {
-    f32 value;
+void func_15005818(Game32740View *view, struct127 *actor, Vec3f *position) {
+    f32 distance;
 
-    arg0[0x23C] = 1;
-    *(f32 *)(arg0 + 0x2F8) = arg2->x;
-    *(f32 *)(arg0 + 0x2FC) = arg2->y;
-    *(f32 *)(arg0 + 0x300) = arg2->z;
-    *(Vec3f *)(arg0 + 0x27C) = *(Vec3f *)(arg0 + 0x2F8);
-    *(Vec3f *)(arg0 + 0x304) = *(Vec3f *)(arg0 + 0x2F8);
-    func_1510E7A4((s32)(arg0 + 0x644), (s32)(arg0 + 0x648),
-                   (s32)(arg0 + 0x354), (s32)(arg0 + 0x360),
-                   (s32)(arg0 + 0x640), 0,
-                   *(f32 *)(arg0 + 0x2F8), *(f32 *)(arg0 + 0x2FC),
-                   *(f32 *)(arg0 + 0x300), *(f32 *)(arg0 + 0x2FC),
-                   0, 0, D_800959F0, *(f32 *)(arg0 + 0x2FC));
-    value = *(f32 *)(arg0 + 0x354);
-    *(f32 *)(arg0 + 0x358) = value;
-    *(f32 *)(arg0 + 0x35C) = value;
-    *(f32 *)(arg0 + 0x2A4) = *(f32 *)(arg1 + 0x14);
-    *(f32 *)(arg0 + 0x2A8) = *(f32 *)(arg1 + 0x18);
-    *(f32 *)(arg0 + 0x2AC) = *(f32 *)(arg1 + 0x1C);
-    *(Vec3f *)(arg0 + 0x2BC) = *(Vec3f *)(arg0 + 0x2A4);
-    value = sqrtf(
-        (*(f32 *)(arg0 + 0x2AC) - *(f32 *)(arg0 + 0x300)) *
-        (*(f32 *)(arg0 + 0x2AC) - *(f32 *)(arg0 + 0x300)) +
-        (*(f32 *)(arg0 + 0x2A4) - *(f32 *)(arg0 + 0x2F8)) *
-        (*(f32 *)(arg0 + 0x2A4) - *(f32 *)(arg0 + 0x2F8)));
-    *(Vec3f *)(arg0 + 0x2B0) = *(Vec3f *)(arg0 + 0x2A4);
-    *(f32 *)(arg0 + 0x34C) = *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
-    *(f32 *)(arg0 + 0x348) = *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
-    *(f32 *)(arg0 + 0x374) = value;
-    *(Vec3f *)(arg0 + 0x2E0) = *(Vec3f *)(arg0 + 0x2BC);
-    *(Vec3f *)(arg0 + 0x2EC) = *(Vec3f *)(arg0 + 0x2F8);
-    func_15124B18(arg0);
-    func_15125330(arg0);
-    func_1512523C(arg0);
-    func_15123070(arg0);
-    *(s32 *)(arg0 + 0x5F0) |= 4;
+    view->field23C = 1;
+    view->field2F8.x = position->x;
+    view->field2F8.y = position->y;
+    view->field2F8.z = position->z;
+    view->unk_27C = view->field2F8;
+    view->unk_304 = view->field2F8;
+    func_1510E7A4((s32)&view->unk_644, (s32)&view->unk_648, (s32)&view->unk_354, (s32)&view->unk_360,
+                  (s32)&view->unk_640, 0, view->field2F8.x, view->field2F8.y, view->field2F8.z,
+                  view->field2F8.y, 0, 0, -10000.0f, view->field2F8.y);
+    view->unk_358 = view->unk_354;
+    view->unk_35C = view->unk_354;
+    view->field2A4.x = actor->x_position;
+    view->field2A4.y = actor->y_position;
+    view->field2A4.z = actor->z_position;
+    view->field2BC = view->field2A4;
+    view->field2B0 = view->field2A4;
+    distance = sqrtf((view->field2A4.x - view->field2F8.x) * (view->field2A4.x - view->field2F8.x) +
+                     (view->field2A4.z - view->field2F8.z) * (view->field2A4.z - view->field2F8.z));
+    view->unk_34C = view->field2F8.y - view->unk_354;
+    view->unk_348 = view->field2F8.y - view->unk_354;
+    view->unk_374 = distance;
+    view->field2E0 = view->field2BC;
+    view->field2EC = view->field2F8;
+    func_15124B18((u8 *)view);
+    func_15125330(view);
+    func_1512523C(view);
+    func_15123070((struct108 *)view);
+    view->field5F0 |= 4;
     if (D_800BE9F0 != 0x21 && D_800C35EA != 1) {
-        func_1512D560(arg0, 5, 0);
-        D_800C3600.fieldC = *(f32 *)(arg0 + 0x37C);
-        func_1512D560(arg0, 8, (s32)&D_800C3600);
-        func_1512D560(arg0, 6, 0);
+        func_1512D560(view, 5, NULL);
+        D_800C3600.fieldC = view->unk_37C;
+        func_1512D560(view, 8, &D_800C3600);
+        func_1512D560(view, 6, NULL);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15005818 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_15005818.s")
