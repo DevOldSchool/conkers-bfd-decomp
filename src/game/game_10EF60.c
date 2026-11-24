@@ -11,7 +11,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_path_owner_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E1AB0
  * - func_150E1D14
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -36,10 +35,10 @@ typedef struct {
     f32 target_x, target_y, target_z;
     f32 range, rate;
     f32 dx, dy, dz;
-    volatile s8 mode;
+    s8 mode;
     u8 padD1;
     s16 fieldD2, fieldD4, fieldD6;
-    volatile s16 material;
+    s16 material;
     u8 fieldDA, fieldDB;
     s32 owner;
     s16 timeout;
@@ -59,55 +58,47 @@ f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 func_150484A0(f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E1AB0 CURRENT (5622) */
-void func_150E1AB0(volatile s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16, s32 arg17, s32 arg18, s32 arg19, s32 arg20, s32 arg21, f32 arg22, f32 arg23, f32 arg24, f32 arg25, f32 arg26, f32 arg27) {
-    f32 dx;
-    f32 dz;
+void func_150E1AB0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, s16 arg11, u16 arg12, s8 arg13, s16 arg14, s16 arg15, s32 arg16, u8 arg17, u8 arg18, s32 arg19, u8 arg20, u8 arg21, f32 arg22, f32 arg23, f32 arg24, f32 arg25, f32 arg26, f32 arg27) {
     Game10EF60Effect *effect;
-    Game10EF60Vertex *quad;
-    Game10EF60Texture *texture;
-    s16 right;
-    s16 bottom;
+    s32 width;
+    s32 height;
     s32 i;
 
     effect = func_15167A68(0xB, 0, 0x100, 1, 0xFF, 1);
-    if (effect != 0) {
+    if (effect != NULL) {
+        effect->lifetime = arg11;
         effect->x = arg1;
-        effect->lifetime = (s16)arg11;
-        effect->z = arg3;
         effect->y = arg2;
-        dz = arg6 - arg3;
-        dx = arg4 - arg1;
-        effect->yaw = func_150484A0(-dx, -dz);
-        effect->pitch = func_150484A0(arg5 - arg2, sqrtf(dx * dx + dz * dz));
+        effect->z = arg3;
+        effect->yaw = func_150484A0(-(arg4 - arg1), -(arg6 - arg3));
+        effect->pitch = func_150484A0(arg5 - arg2, sqrtf((arg4 - arg1) * (arg4 - arg1) + (arg6 - arg3) * (arg6 - arg3)));
         effect->dx = 0.0f;
         effect->dy = 0.0f;
         effect->dz = 0.0f;
         effect->target_x = arg4;
-        i = 0;
         effect->target_y = arg5;
         effect->target_z = arg6;
         effect->speed = arg8;
         effect->scale = arg7;
         effect->range = arg9;
-        effect->fieldE3 = 0;
         effect->rate = arg10;
+        effect->fieldE3 = 0;
+        effect->fieldFC = arg20;
         effect->fieldFD = 0;
-        effect->fieldFC = (u8)arg20;
+        effect->fieldFE = arg21;
         effect->owner = arg16;
-        effect->fieldFE = (u8)arg21;
-        effect->material = (u16)arg12;
-        effect->mode = (s8)arg13;
+        effect->material = arg12;
+        effect->mode = arg13;
         if (effect->mode != 0) {
             if (arg16 == 0) {
-                func_1516979C((u8 *)effect);
+                func_1516979C(effect);
                 return;
             }
-            effect->fieldD2 = (s16)arg14;
-            effect->fieldD6 = -(s16)arg15;
-            effect->fieldD4 = (s16)arg15;
-            effect->fieldDA = (u8)arg17;
-            effect->fieldE2 = (u8)arg18;
+            effect->fieldD2 = arg14;
+            effect->fieldD6 = -arg15;
+            effect->fieldD4 = arg15;
+            effect->fieldDA = arg17;
+            effect->fieldE2 = arg18;
             effect->timeout = arg19;
             effect->fieldE4 = arg22;
             effect->fieldE8 = arg23;
@@ -119,31 +110,25 @@ void func_150E1AB0(volatile s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f3
             effect->fieldD6 = 1;
             effect->timeout = -1;
         }
-        quad = effect->quads[0];
-        do {
-            texture = D_8008CA4C[effect->material];
-            quad[2].u = 0x2000;
-            right = ((texture->width - 1) << 5) + 0x2000;
-            bottom = ((texture->height - 1) << 5) + 0x2000;
-            quad[2].v = 0x2000;
-            quad[2].zero = 0;
-            quad[0].u = right;
-            quad[0].v = 0x2000;
-            quad[0].zero = 0;
-            quad[3].u = 0x2000;
-            quad[3].v = bottom;
-            quad[3].zero = 0;
-            quad[1].u = right;
-            quad[1].v = bottom;
-            quad[1].zero = 0;
-            i++;
-            quad += 4;
-        } while (i != 2);
+        for (i = 0; i < 2; i++) {
+            width = (D_8008CA4C[effect->material]->width - 1) << 5;
+            height = (D_8008CA4C[effect->material]->height - 1) << 5;
+            effect->quads[i][2].u = 0x2000;
+            effect->quads[i][2].v = 0x2000;
+            effect->quads[i][2].zero = 0;
+            effect->quads[i][0].u = width + 0x2000;
+            effect->quads[i][0].v = 0x2000;
+            effect->quads[i][0].zero = 0;
+            effect->quads[i][3].u = 0x2000;
+            effect->quads[i][3].v = height + 0x2000;
+            effect->quads[i][3].zero = 0;
+            effect->quads[i][1].u = width + 0x2000;
+            effect->quads[i][1].v = height + 0x2000;
+            effect->quads[i][1].zero = 0;
+        }
         effect->fieldDB = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E1AB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10EF60/func_150E1AB0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10EF60/func_150E1D14.s")
 typedef struct Game10EF60Owner {
@@ -242,8 +227,8 @@ s32 func_150E2DA4(s32 arg0, s32 arg1) {
     return arg0;
 }
 void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32,
-                   f32, s32, s32, s32, s32, s32, s32, s32, s32, s32,
-                   s32, s32, f32, f32, f32, f32, f32, f32);
+                   f32, s16, u16, s8, s16, s16, s32, u8, u8, s32,
+                   u8, u8, f32, f32, f32, f32, f32, f32);
 
 void func_150E2DB4(s32 arg0, u8 arg1, s16 arg2, s32 arg3,
                    f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,

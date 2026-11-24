@@ -9,7 +9,6 @@
  * - func_150A09D0
  * - func_150A11C4
  * - func_150A1DA0
- * - func_150A24C0
  * - func_150A25D4
  * - func_150A29C8
  * - func_150A2E4C
@@ -40,8 +39,23 @@ typedef struct {
     u8 pad8[8];
     f32 strength;
     u8 disabled, flags, pad16, mode;
-    s32 value;
-    u32 packed;
+    union {
+        s32 word;
+        struct {
+            s16 unk_18;
+            u8 unk_1A;
+            u8 unk_1B;
+        } part;
+    } value;
+    union {
+        u32 word;
+        struct {
+            u8 unk_1C;
+            u8 unk_1D;
+            u8 unk_1E;
+            u8 unk_1F;
+        } part;
+    } packed;
     s32 state;
     u8 pad24[0x10];
 } GameCDE80Zone;
@@ -77,8 +91,8 @@ void func_150A09D0(s32 arg0) {
                 if (1 == state) {
                     zone->state = state ^ 3;
                 } else if (2 == state) {
-                    func_1000FC18((zone->packed >> 16) & 0xFFFF,
-                                   zone->x, zone->y, zone->z, zone->value);
+                    func_1000FC18((zone->packed.word >> 16) & 0xFFFF,
+                                   zone->x, zone->y, zone->z, zone->value.word);
                     ((GameCDE80Zone *)(D_800D3098 + offset))->state = 0;
                 }
                 if (D_800C35EA == 1 &&
@@ -97,9 +111,9 @@ reload_count:
                     if (1 == state) {
                         zone->state = 2;
                     } else if (2 == state &&
-                               func_1000E46C(zone->mode, 0, zone->value, 0) != 0) {
+                               func_1000E46C(zone->mode, 0, zone->value.word, 0) != 0) {
                         zone = (GameCDE80Zone *)(D_800D3098 + offset);
-                        if (func_1000E46C(zone->mode, 100, zone->packed, 0) != 0) {
+                        if (func_1000E46C(zone->mode, 100, zone->packed.word, 0) != 0) {
                             ((GameCDE80Zone *)(D_800D3098 + offset))->state = 0;
                         }
                     }
@@ -107,7 +121,7 @@ reload_count:
                 goto reload_count;
             case 4:
                 if (zone->mode != 9) {
-                    packed = zone->packed;
+                    packed = zone->packed.word;
                     remaining = packed & 0xFF;
                     if (remaining != 0) {
                         if (zone->disabled == 0) {
@@ -115,11 +129,11 @@ reload_count:
                         } else {
                             remaining = 0;
                         }
-                        zone->packed = (packed & ~0xFF) | remaining;
+                        zone->packed.word = (packed & ~0xFF) | remaining;
                         if (remaining == 0) {
                             zone = (GameCDE80Zone *)(D_800D3098 + offset);
-                            D_800DDF5C[(zone->packed >> 8) & 0xFF] = 0;
-                            zone->packed &= 0xFFFF0000;
+                            D_800DDF5C[(zone->packed.word >> 8) & 0xFF] = 0;
+                            zone->packed.word &= 0xFFFF0000;
                         }
                     }
                 }
@@ -137,7 +151,7 @@ reload_count:
                             *(f32 *)(actor + 0x944) = ((GameCDE80Zone *)(D_800D3098 + offset))->z;
                             *(f32 *)(actor + 0x938) = ((GameCDE80Zone *)(D_800D3098 + offset))->radius;
                             *(s8 *)(actor + 0x948) = 1;
-                            *(s8 *)(actor + 0x949) = ((GameCDE80Zone *)(D_800D3098 + offset))->value;
+                            *(s8 *)(actor + 0x949) = ((GameCDE80Zone *)(D_800D3098 + offset))->value.word;
                             actorIndex++;
                             actorOffset += 0x9A0;
                         } while (D_80082FA0 >= actorIndex);
@@ -274,9 +288,9 @@ void func_150A23E4(void *arg0) {
         if ((mode >> 7) != 0) {
             flags = 0x108;
         }
-        packed = zone->packed;
+        packed = zone->packed.word;
         func_1000FA64(packed >> 16, zone->x, zone->y, zone->z, (mode & 0x7F) * 0x147,
-                      zone->value | farFlags, (u16)packed, 0, 0, 0, flags, 0);
+                      zone->value.word | farFlags, (u16)packed, 0, 0, 0, flags, 0);
         zone->state = 1;
     } else {
         zone->state = 1;
@@ -284,45 +298,41 @@ void func_150A23E4(void *arg0) {
 }
 s32 func_15183290(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A24C0 CURRENT (540) */
 void func_150A24C0(void *arg0, s32 arg1) {
-    s32 temp_a0;
-    s32 temp_a3;
-    s32 temp_t0;
-    s32 temp_t1;
-    s32 temp_t2;
-    s32 temp_t3;
-    s32 temp_v1;
-    s32 var_v0;
+    GameCDE80Zone *zone = arg0;
+    s32 mode;
+    s32 low18;
+    s32 half18;
+    s32 byte1A;
+    s32 byte1C;
+    s32 byte1D;
+    s32 state;
+    s32 result;
+    s32 count;
 
-    if (arg1 != 0xFF) {
-        temp_v1 = *(s32 *)((u8 *)arg0 + 0x1C);
-        {
-            temp_a0 = temp_v1 & 0xFF;
-        if ((temp_a0 == 0) || (*(u8 *)((u8 *)arg0 + 0x17) == 9)) {
-            var_v0 = *(u8 *)((u8 *)arg0 + 0x17);
-            temp_a3 = *(s32 *)((u8 *)arg0 + 0x18);
-            temp_v1 = *(s16 *)((u8 *)arg0 + 0x18);
-            temp_t0 = *(u8 *)((u8 *)arg0 + 0x1A);
-            temp_t1 = *(u8 *)((u8 *)arg0 + 0x1C);
-            temp_t2 = *(u8 *)((u8 *)arg0 + 0x1D);
-            temp_t3 = *(s32 *)((u8 *)arg0 + 0x20);
-            var_v0 = func_15183290(*(s16 *)((u8 *)arg0 + 0), *(s16 *)((u8 *)arg0 + 2) + temp_t2 * 0x10, *(s16 *)((u8 *)arg0 + 4), temp_a3 & 0xFF, var_v0, (s32) *(s16 *)((u8 *)arg0 + 6), arg1, temp_v1, temp_t0, temp_t1, temp_t3);
-            if ((var_v0 != -1) && (*(u8 *)((u8 *)arg0 + 0x17) != 9)) {
-                *(s32 *)((u8 *)arg0 + 0x1C) = (s32) ((var_v0 << 8) | 0xF0 | (*(s32 *)((u8 *)arg0 + 0x1C) & 0xFFFF0000));
-            }
-        } else {
-            var_v0 = temp_a0;
-            if (temp_a0 < 2) {
-                var_v0 = 2;
-            }
-            *(s32 *)((u8 *)arg0 + 0x1C) = (s32) ((temp_v1 & ~0xFF) | var_v0);
-        }
+    if (arg1 == 0xFF) {
+        return;
     }
+    if ((zone->packed.word & 0xFF) == 0 || zone->mode == 9) {
+        mode = zone->mode;
+        low18 = zone->value.word & 0xFF;
+        half18 = zone->value.part.unk_18;
+        byte1A = zone->value.part.unk_1A;
+        byte1C = zone->packed.part.unk_1C;
+        byte1D = zone->packed.part.unk_1D;
+        state = zone->state;
+        result = func_15183290(zone->x, zone->y + byte1D * 16, zone->z, low18, mode, zone->radius, arg1, half18, byte1A, byte1C, state);
+        if (result != -1 && zone->mode != 9) {
+            zone->packed.word = (result << 8) | 0xF0 | (zone->packed.word & 0xFFFF0000);
         }
+    } else {
+        count = zone->packed.word & 0xFF;
+        if (count < 2) {
+            count = 2;
+        }
+        zone->packed.word = (zone->packed.word & ~0xFF) | count;
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A24C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A24C0.s")
 typedef struct GameA25D4Event {
     u8 pad0[0x17];
     u8 type;

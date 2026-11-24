@@ -154,7 +154,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_177B50 | 0x1C | 0x80 | 0x800A5808 | pool (func_1514B034, func_1514B364, func_1514B8E4) | 11 + 11 + 10 words ([record](game_177b50_float_constants.md); merged round-23) |
 | effects_sight | 0x0 | 0x24 | 0x800AAC58 | pool (func_151C899C, func_151C8FCC) | `43F58000 3D77CED9 3D563886 3F32B021 BEE3D70B 3EE1CAC1` (491.0, 0.0605, 0.0523, 0.698, -0.44500002, 0.441; round-23) then `41F0CCCD 3E99999A 358637BD` (30.1, 0.3, 0.000001; round-29) |
 | effects_sight | 0x24 | 0xCC | 0x800AADBC | table, sites 0x2A84 / 0x2A8C | func_151C9BA0 cases 9..0x3B ([record](effects_sight_float_constant.md); round-23) |
-| effects_sight | 0xF0 | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
+| effects_sight | 0xF0 | 0x18 | 0x800AAEBC | pool (func_151CBC60, func_151CC1D4, func_151CC524) | `3CEA0EA1` (0.028571429), then `3C23D70A` (0.01, func_151CC1D4; former extern `D_800AAEC0`) and `3E4CCCCD 40866666 3E4CCCCD 40866666` (0.2, 4.2, 0.2, 4.2, func_151CC524; former externs `D_800AAEC4..D0`; round-30). The next word 0x800AAED4 stays an extern read. |
 | game_1E37D0 | 0x0 | 0x4 | 0x800AA470 | pool (func_151B6420) | `3EFCED92` (0.49400002; [record](game_1e37d0_float_constant.md)) |
 | game_1E37D0 | 0x4 | 0x4 | 0x800AA484 | pool (func_151B7998) | `4495C000` (1198.0; round-29) |
 | game_1AC2F0 | 0x0 | 0xC | 0x800A7280 | pool (func_1517F814) | `461C4000 C61C4000 C61C4000` (10000.0, -10000.0, -10000.0; [record](game_1ac2f0_float_constants.md)) |

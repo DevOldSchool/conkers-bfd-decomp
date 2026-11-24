@@ -256,6 +256,8 @@ SECTIONS
     {
         *game_156160.o(.rodata)
     }
+    /* ROM-verified constant: docs/evidence/data-layout/game_157840_float_constant.md. */
+    .game_rodata_157840 0x800A3678 (INFO) : SUBALIGN(4) { *game_157840.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_1eb6c0_float_constants.md. */
     .game_rodata_1eb6c0 0x800AA89C (INFO) : SUBALIGN(4) { *game_1EB6C0.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_1ed0f0_float_constant.md. */
@@ -1044,6 +1046,8 @@ ASSERT(SIZEOF(.game_rodata_1199d0) == 0x20, "game_1199D0 smoke literal extent ch
 __game_rodata_1199d0_payload_size = 0x20;
 ASSERT(SIZEOF(.game_rodata_156160) == 0x10, "game_156160 camera literal extent changed")
 __game_rodata_156160_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_157840) == 0x10, "game_157840 literal extent changed")
+__game_rodata_157840_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_155c90) == 0x20, "game_155C90 camera blend literal extent changed")
 __game_rodata_155c90_payload_size = 0x20;
 ASSERT(SIZEOF(.game_rodata_13d350) == 0x10, "game_13D350 func_15111858 literal extent changed")
@@ -1086,7 +1090,7 @@ ASSERT(SIZEOF(.game_rodata_characterflamethrower_8) == 0x8,
        "characterflamethrower preset literal extent changed")
 ASSERT(SIZEOF(.game_rodata_effects_sight_0) == 0x24, "effects_sight func_151C899C and func_151C8FCC literal extent changed")
 ASSERT(SIZEOF(.game_rodata_effects_sight_24) == 0xCC, "effects_sight func_151C9BA0 table extent changed")
-ASSERT(SIZEOF(.game_rodata_effects_sight_f0) == 0x4, "effects_sight interpolation constant extent changed")
+ASSERT(SIZEOF(.game_rodata_effects_sight_f0) == 0x18, "effects_sight func_151CBC60/func_151CC1D4/func_151CC524 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_e7970) == 0x30, "game_E7970 particle literal extent changed")
 __game_rodata_e7970_payload_size = 0x2C;
 ASSERT(SIZEOF(.game_rodata_1cc440) == 0x10, "game_1CC440 constant pool extent changed")

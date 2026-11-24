@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1502C408
- * - func_1502D824
  * - func_1502DB84
  * - func_1502DF38
  * - func_1502E4C4
@@ -169,7 +168,9 @@ typedef struct Game58F80Actor {
     u8 flags66;
     u8 pad67[0x5];
     u8 field6C[2];
-    u8 pad6E[0x1A];
+    u8 pad6E[0x16];
+    u16 unk_84;
+    u8 unk_86[2];
     u8 field88;
     u8 pad89[0x43];
     s16 fieldCC;
@@ -183,7 +184,8 @@ typedef struct Game58F80Actor {
     u16 field_19E;
     u8 pad1A0[0xD4];
     u8 field_274;
-    u8 pad275[0x5F];
+    u8 pad275[0x5B];
+    struct Game58F80Anim *unk_2D0;
     u8 *effect2D4;
     u8 pad2D8[0x54];
 } Game58F80Actor;
@@ -895,96 +897,118 @@ void func_1502D630(Game58F80Actor *arg0, s32 *arg1, s32 arg2) {
 void func_10004514(s32, s32, s32, s32);
 void func_1000480C(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D824 CURRENT (1975) */
-void func_1502D824(void *model, s32 actorAddress, s32 output) {
-    u8 *actor;
-    u8 *base;
-    u8 *row;
-    u8 *fields;
-    s32 passes;
+typedef struct Game58F80AnimTrack {
+    u8 unk_00[5];
+    u8 unk_05;
+    u8 unk_06[2];
+    u8 unk_08;
+    u8 unk_09[0x1C7];
+} Game58F80AnimTrack;
+
+typedef struct Game58F80Anim {
+    u8 unk_00[8];
+    f32 unk_08[2];
+    u8 unk_10[8];
+    f32 unk_18[2];
+    u8 unk_20[8];
+    s32 unk_28[2];
+    s32 unk_30[2];
+    u8 unk_38[2];
+    u8 unk_3A[2];
+    s16 unk_3C;
+    u8 unk_3E[2];
+    Game58F80AnimTrack unk_40[2];
+} Game58F80Anim;
+
+void func_1502D824(Game58F80Anim *model, Game58F80Actor *actor, s32 output) {
     s32 index;
     s32 wrap;
-    s32 width;
-    s32 frame;
-    s32 divisor;
-    s32 source;
+    u32 width;
     u32 length;
-    u8 misalignment;
-    f32 position;
-    f32 limit;
-    f32 last;
+    s32 frame;
+    s32 source;
+    u8 offset;
+    s32 passes;
 
-    actor = (u8 *)actorAddress;
-    base = model;
     passes = 1;
-    if (actor != 0) {
-        if (*(u16 *)(actor + 0x84) == 0xFFFF) func_1505DFDC(actor);
-        base = *(u8 **)(actor + 0x2D0);
+    if (actor != NULL) {
+        if (actor->unk_84 == 0xFFFF) {
+            func_1505DFDC((struct Game83300Actor *)actor);
+        }
+        model = actor->unk_2D0;
     }
-    if (base != 0) {
-        if (*(s16 *)(base + 0x3C) > 0) passes = 2;
-        index = 0;
-        if (passes > 0) {
-            row = base;
-            do {
-                width = row[0x45];
-                wrap = 0;
-                fields = base + index * 4;
-                if (width == 0) {
-                    base[index + 0x38] = 0;
+    if (model == NULL) {
+        return;
+    }
+    if (model->unk_3C > 0) {
+        passes = 2;
+    }
+    for (index = 0; index < passes; index++) {
+        width = model->unk_40[index].unk_05;
+        wrap = 0;
+        if (width == 0) {
+            model->unk_38[index] = 0;
+            continue;
+        }
+        if (model->unk_28[index] != 0) {
+            f32 position;
+            f32 limit;
+            s32 divisor;
+
+            position = model->unk_08[index];
+            limit = model->unk_18[index];
+            frame = position;
+            if (limit <= (f32)frame) {
+                frame = limit - 1.0f;
+            }
+            divisor = model->unk_40[index].unk_08 + 1;
+            if (divisor >= 2) {
+                if (limit - 1.0f <= (f32)frame) {
+                    frame = (limit - 1.0f + (f32)(divisor - 1)) / (f32)divisor;
                 } else {
-                    source = *(s32 *)(fields + 0x28);
-                    if (source != 0) {
-                        position = *(f32 *)(fields + 8);
-                        limit = *(f32 *)(fields + 0x18);
-                        output = ((u32)(output + 15) >> 4) << 4;
-                        length = width * 2;
-                        frame = (s32)position;
-                        if (limit <= (f32)frame) frame = (s32)(limit - 1.0f);
-                        divisor = row[0x48] + 1;
-                        if (divisor >= 2) {
-                            last = limit - 1.0f;
-                            if (last <= (f32)frame) {
-                                frame = (s32)((last + (f32)(divisor - 1)) / (f32)divisor);
-                            } else {
-                                frame /= divisor;
-                            }
-                        }
-                        source = (u32)source + (u32)width * (u32)frame;
-                        misalignment = source & 3;
-                        source -= misalignment;
-                        if (limit <= position + 1.0f) {
-                            wrap = 1;
-                            length = width;
-                        } else {
-                            base[index + 0x38] = width;
-                        }
-                        length += misalignment;
-                        *(s32 *)(fields + 0x30) = misalignment + output;
-                        if (length < 200U) func_1000480C(source, output, length);
-                        else func_10004514(source, output, (length + 15) & ~15U, 1);
-                        output += length;
-                        if (wrap != 0) {
-                            source = *(s32 *)(fields + 0x28);
-                            misalignment = source & 1;
-                            length = misalignment + width;
-                            output = ((u32)(output + 15) >> 4) << 4;
-                            source -= misalignment;
-                            if (length < 200U) func_1000480C(source, output, length);
-                            else func_10004514(source, output, (length + 15) & ~15U, 1);
-                            base[index + 0x38] = (output + misalignment) - *(s32 *)(fields + 0x30);
-                            output += length;
-                        }
-                    }
+                    frame /= divisor;
                 }
-                index++;
-                row += 0x1D0;
-            } while (index != passes);
+            }
+            source = model->unk_28[index] + width * frame;
+            offset = (u8)(source & 3);
+            source -= (u8)(source & 3);
+            if (limit <= position + 1) {
+                wrap = 1;
+                length = width;
+            } else {
+                length = width * 2;
+                model->unk_38[index] = width;
+            }
+            length += offset;
+            output += 15;
+            output = (u32)output >> 4;
+            output <<= 4;
+            model->unk_30[index] = offset + output;
+            if (length < 200) {
+                func_1000480C(source, output, length);
+            } else {
+                func_10004514(source, output, (length + 15) & ~15, 1);
+            }
+            output += length;
+            if (wrap) {
+                source = model->unk_28[index];
+                output += 15;
+                output = (u32)output >> 4;
+                output <<= 4;
+                offset = (u8)(source & 1);
+                source -= (u8)(source & 1);
+                length = offset + width;
+                if (length < 200) {
+                    func_1000480C(source, output, length);
+                } else {
+                    func_10004514(source, output, (length + 15) & ~15, 1);
+                }
+                model->unk_38[index] = output + offset - model->unk_30[index];
+                output += length;
+            }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502D824 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502D824.s")
 
 extern u16 D_800C4ED0[];
 
