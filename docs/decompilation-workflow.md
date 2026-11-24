@@ -567,8 +567,64 @@ matched example to compare against.
   inside the loop body opens a -g3 scope that keeps stores before the
   induction-variable increments (`func_151B1918`).
 
-Two raw patterns have no known source form yet. Record new hypotheses for them
-in the ledger:
+- **Typed members instead of offset casts.** `arg0->count` and
+  `*(s16 *)(arg0 + 2)` load the same halfword but are different expression
+  trees, and IDO orders the operands of the address arithmetic that uses the
+  value differently: with the cast `func_151A7950` kept `addu t3,t2,a2` where
+  the reference has `addu t3,a2,t2`, and `func_150A24C0` kept a four-register
+  temporary rotation; both match with a struct member (a cast to the struct
+  type on a `u8 *` parameter is enough). Convert a candidate's offset casts to
+  members of an existing or source-local struct before tuning anything else;
+  the [code rules](code-rules.md) require it anyway (R4). A word that the
+  reference reads both whole and by bytes is a union of the word and a byte
+  struct (`GameCDE80Zone.packed`).
+- **Callee declarations.** A residual next to a call is often a wrong
+  prototype rather than a wrong statement. A `void` prototype for a callee
+  that returns a value moves the caller's values between `v0` and `v1`
+  (`func_150C7E00`: `func_1509BFB0` returns `s32` like its twin
+  `func_1509BE40`). An `s32` parameter that receives `(s32)&object` builds the
+  address in a different register than a pointer parameter (`func_15005818`:
+  `lui v0; addiu a2,v0` against `lui a2; addiu a2,a2`, fixed by the
+  `void *` third parameter of `func_1512D560`). A manual `& 0xFF` on an
+  argument means the parameter is `u8` (`func_151C6A28`). Check every callee
+  against its definition, its [twin](#sibling-twins) and
+  `./conker declaration-conflicts`; a definition that changes needs every
+  caller's object compared (`probe --unit`).
+- **Statements that must share a line.** The build is `-g3`: a source-line
+  boundary is a scheduling barrier, like the end of a block that declares
+  locals. If a variant matches only with two statements on one line, the
+  original had a macro there. Write the macro when it recurs
+  (`func_15196748`: the ring-buffer advance `index++; if (index == capacity)
+  index = 0` at five sites) or the comma form a matched sibling already uses
+  (`func_150DAE70` beside `func_150DB518`).
+- **Unfolded flag constants.** `x | 0x10 | 0x80 | 0x100 | 0x200` takes one
+  temporary per constant even though the assembler merges them into a single
+  `ori`. A reference whose temporaries skip numbers around a flag expression
+  was written with the constants apart (`func_151CC524`; `probe --asm` shows
+  the separate instructions).
+- **Direct re-reads.** m2c names every loaded value. Each named local takes a
+  `-g3` home and a register for its whole scope, so a reference that reloads a
+  field or global at every use was written with the expression repeated, not
+  cached (`func_15114188`, `func_151E7F60` and `func_15084044` match once the
+  `entry`, `slot` and `count` locals of their old candidates are gone). The
+  reverse also holds: a value the reference keeps in one register across a
+  block is a named local.
+- **Block-scoped locals.** A local that is really used only inside one branch
+  or between two calls belongs in that block; the block end keeps the stores
+  before it from moving past it (`func_15075650`: `s32 current`,
+  `func_1512B1B8`: `entry` between the load and the call, `func_1515FDA0`:
+  `u8 enabled = 1;` in the `else if`). A bare block must declare a local the
+  code uses.
+- **Packed words.** A word split into fields is written field by field:
+  `hi = flags >> 24; mid = flags >> 16;` with a `u8 mid`, and
+  `(s16)(flags & 0xFFFF)` for the low half; the mask before the cast decides
+  which register holds the word (`func_1511D9E4`).
+- **Loops bounded by a parameter.** IDO unrolls `for (i = 0; i < count; i++)`
+  only when the bound is the parameter itself, not a local copy; halve or
+  adjust the parameter in place (`func_15165C80`: `arg7 = arg7 >> 1;`).
+
+These raw patterns have no known source form yet. Record new hypotheses for
+them in the ledger:
 
 - A loaded value lands in `v0` and is then moved to `a0`/`a1` for a call, where
   IDO normally loads it straight into the argument register (`func_151D5E30`,
@@ -579,6 +635,23 @@ in the ledger:
   scheduled last. IDO assigns the address to `v1` and loads the constant early,
   or with a named pointer local gives `v0` back to the return value partway
   through (`func_150CB008` and four identical rate-update functions).
+- A call result is stored to a named local's home and never read
+  (`sw v0,0x18(sp)`): IDO drops the store for every natural form. It survives
+  only if the local is read after the join (`func_15007360`, and the same idiom
+  in `func_15007558` and `func_15006BEC`).
+- A two-table `switch` whose `addiu tN,v0,-<low bound>` sits in the delay slot
+  of the range-test branch instead of at the jump-table dispatch
+  (`func_15072B44`, raw `func_15031FC8`; both switch on the `u16` at +0x84).
+  Operand types, wrappers, default position and optimisation flags leave the
+  subtract at the dispatch.
+- A `u16` load kept in a compiler temporary and used twice, as high and low
+  byte (`lhu t6; andi t7,t6,0xFF00; sra t8,t7,8; sb t8; sb t6`): every C form
+  tried puts the value in `v0`/`v1` (`func_151564F8`, `func_15130A9C`,
+  `func_1513DB00`).
+- A leaf function colours its values in order of first reference, so a
+  parameter that must take the earlier register has to be referenced before
+  the statement that the reference emits first (`func_1505A3A8`: `arg3` before
+  `arg2 *= ...`). Only a dead read or once-used copies do that so far.
 
 If an older focused match is invalidated by mixed-object layout evidence, do
 not edit progress JSON. Reopen it transactionally:
@@ -936,6 +1009,29 @@ the reviewed `config/game/us-rodata.ld` mapping and data-layout evidence from th
 a `LAYOUTS` entry in `scripts/split_game_rodata.py` with a literal-pool range,
 add it to `GAME_SPLIT_RODATA_OBJS` and map each range separately
 ([example](evidence/data-layout/game_rodata_literal_sub_pools.md)).
+
+Two further single-transform sweeps were measured in round-30 over every
+deferred candidate and are not sweep transforms, because neither produced an
+exact result on its own:
+
+- **Alternative declarations.** Each `func_`/`D_` symbol a candidate uses was
+  redeclared with every type another compiled file gives it
+  (`./conker declaration-conflicts`), and `void` callees whose definition is
+  still raw were tried as `s32`: 1,266 variants over 219 candidates. 686 did
+  not compile (types local to another unit), 417 scored the same, 150 worse
+  and 13 better, all on candidates above 800; none reached zero.
+- **Typed members.** Every fixed-offset access through a byte pointer or
+  integer base was rewritten as a member of a generated struct
+  (`((T *)p)->unk_58`): 2,285 accesses in 195 candidates, every rewrite
+  compiled. 133 of 185 scored candidates were unchanged, 24 improved and 28
+  got worse; none reached zero.
+
+Both facts still matter for manual work. A wrong declaration or an offset
+cast is rarely the only thing between a candidate and a match, but each
+changed the code of the two functions it was toggled in during the same round
+(see [IDO source idioms](#ido-source-idioms)), and the typed rewrite changes
+codegen in about a quarter of functions, so it belongs at the start of a
+rewrite, not in a cleanup pass after the bytes match.
 
 ### Edit completion before verification
 
