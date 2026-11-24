@@ -626,7 +626,7 @@ segments:
       - [0x1875E0, c, game/game_1B4A90]
       - [0x187EC0, c, done/game/game_1B5370]
       - [0x188810, c, game/game_1B5CC0]
-      - [0x189900, c, game/game_1B6DB0]
+      - [0x189900, c, done/game/game_1B6DB0]
       - [0x189FD0, c, done/game/game_1B7480]
       - [0x189FF0, c, game/game_1B74A0]
       - [0x18A3C0, c, done/game/game_1B7870]

@@ -9735,15 +9735,15 @@
         "func_15189A00",
         "func_15189EBC"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x189FD0",
           "start": "0x189900",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1B6DB0.c"
+      "source": "src/done/game/game_1B6DB0.c"
     },
     {
       "boundary_evidence": {
