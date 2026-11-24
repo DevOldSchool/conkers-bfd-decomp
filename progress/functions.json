@@ -55018,17 +55018,16 @@
       "symbol": "func_151C69CC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 7885,
-        "reason": "Two focused finishes and two bounded probe batches: CURRENT (7885), improved from 9912. Typed vector indexing and explicit delta snapshots improve raw expression order, but frame140 versus130, promoted owner/parameter spills and FP/register scheduling remain. K&R unchanged; volatile homes worse. Manual budget exhausted; source-local types and no shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 840,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C6A28",
           "vram": "0x151C6A28"
         }
@@ -81422,17 +81421,16 @@
       "symbol": "func_151BD828"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1840,
-        "reason": "CURRENT 1840; reference frame 0xA8 and all stack rows now match. Remaining register allocation, folded effect offsets and input-pointer store scheduling; three finish calls and three serial probe batches exhausted masked counters, distinct lifetimes, typed views and address expressions.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 800,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BDD8C",
           "vram": "0x151BDD8C"
         }

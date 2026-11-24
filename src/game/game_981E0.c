@@ -1892,12 +1892,12 @@ void func_1506FA90(s32 arg0) {
                   0, 0.0f);
 }
 u8 func_151044F4(void);
-void func_151C6A28(u8 *, s32, s32, s32);
+void func_151C6A28(u8 *, u8, u8, s32);
 void func_151C62D0(u8 *, s32, s32, s32, s32, s32, s32);
 
 void func_1506FB60(s32 arg0) {
     if (func_151044F4() != 0) {
-        func_151C6A28(D_800D154C, (arg0 - 0x13) & 0xFF, 0xFF, 0);
+        func_151C6A28(D_800D154C, arg0 - 0x13, 0xFF, 0);
         return;
     }
     func_151C62D0(D_800D154C, (arg0 - 0x13) & 0xFF, 0, 0, -1, 0xFF, 0);
