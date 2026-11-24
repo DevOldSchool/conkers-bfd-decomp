@@ -163,6 +163,184 @@ class MainErrorHandlingTests(unittest.TestCase):
         self.assertEqual(probe.diff.EXIT_FIX_COMPILE, status)
 
 
+LISTING = (
+    '\nDisassembly of section .text:\n\n00000000 <func_A>:\n'
+    '   0:\tlui\tv0,0x0\n\t\t\t0: R_MIPS_HI16\tD_1\n'
+    '   4:\tjr\tra\n   8:\tlw\tv0,0(v0)\n\t\t\t8: R_MIPS_LO16\tD_1\n'
+    '   c:\tnop\n'
+    '\n00000010 <func_B>:\n  10:\tjr\tra\n  14:\tnop\n'
+)
+
+
+class ReportTests(unittest.TestCase):
+    target = probe.Target('func_A', 'us', Path('src/unit.c'), 'func_A', Path('ref.s'),
+                          Path('ref.o'), 8, Path('build/probe'))
+
+    def run_main(self, flags, scores, *, diff_report=None, unit_report=None, base=None):
+        stdout, stderr = io.StringIO(), io.StringIO()
+        argv = ['probe.py', 'us', 'func_A', *scores, *flags]
+        calls = {'diff': [], 'unit': [], 'base': 0}
+
+        def default_diff(_target, candidate, context):
+            calls['diff'].append((candidate, context))
+            return ['instruction diff: identical']
+
+        def default_unit(_target, _base, candidate):
+            calls['unit'].append(candidate)
+            return ['2 other functions identical']
+
+        def build_base(_target):
+            calls['base'] += 1
+            if base is not None:
+                raise base
+            return Path('base.o')
+
+        with mock.patch.object(sys, 'argv', argv), \
+                mock.patch.object(probe, 'resolve', return_value=self.target), \
+                mock.patch.object(probe, 'build_variant', side_effect=lambda _t, variant, _i: variant), \
+                mock.patch.object(probe, 'score', side_effect=lambda _t, candidate: scores[str(candidate)]), \
+                mock.patch.object(probe, 'object_frame_size', return_value=0x20), \
+                mock.patch.object(probe, 'reference_frame_size', return_value=0x20), \
+                mock.patch.object(probe, 'terminal_padding_extent', return_value=None), \
+                mock.patch.object(probe, 'build_base', side_effect=build_base), \
+                mock.patch.object(probe, 'diff_report', side_effect=diff_report or default_diff), \
+                mock.patch.object(probe, 'unit_report', side_effect=unit_report or default_unit), \
+                redirect_stdout(stdout), redirect_stderr(stderr):
+            try:
+                status = probe.main()
+            except SystemExit as error:
+                status = error.code
+        return status, stdout.getvalue(), stderr.getvalue(), calls
+
+    def test_plain_probe_builds_no_reports(self):
+        status, stdout, _stderr, calls = self.run_main([], {'a.c': 5})
+        self.assertEqual(0, status)
+        self.assertEqual(calls, {'diff': [], 'unit': [], 'base': 0})
+        self.assertNotIn('--- diff', stdout)
+
+    def test_diff_reports_only_the_best_variant(self):
+        status, stdout, _stderr, calls = self.run_main(['--diff', '--context', '1'], {'a.c': 30, 'b.c': 5})
+        self.assertEqual(0, status)
+        self.assertEqual(calls['diff'], [(Path('b.c'), 1)])
+        self.assertIn('--- diff of b.c (CURRENT 5): - reference, + candidate', stdout)
+        self.assertLess(stdout.index('CURRENT (30)'), stdout.index('--- diff of b.c'))
+
+    def test_unit_reports_every_variant_against_one_base(self):
+        def unit_report(_target, _base, candidate):
+            if str(candidate) == 'a.c':
+                return ['1 other functions identical, 1 not', 'func_B: CHANGED (1 lines differ (1 other))',
+                        '.rodata: size 0x0 -> 0x10; appended words: 3f800000']
+            return ['2 other functions identical']
+
+        status, stdout, _stderr, calls = self.run_main(['--unit'], {'a.c': 30, 'b.c': 5},
+                                                       unit_report=unit_report)
+        self.assertEqual(0, status)
+        self.assertEqual(calls['base'], 1)
+        self.assertIn('unit b.c: 2 other functions identical\n', stdout)
+        self.assertIn('unit a.c: 1 other functions identical, 1 not\n'
+                      '  func_B: CHANGED (1 lines differ (1 other))\n'
+                      '  .rodata: size 0x0 -> 0x10; appended words: 3f800000\n', stdout)
+
+    def test_report_failure_blocks_after_the_ranking(self):
+        status, stdout, stderr, _calls = self.run_main(['--unit'], {'a.c': 5},
+                                                       base=probe.ToolingError('the current source does not compile'))
+        self.assertEqual(probe.diff.EXIT_BLOCKED_TOOLING, status)
+        self.assertIn('CURRENT (5)', stdout)
+        self.assertIn('report failed: the current source does not compile', stderr)
+
+    def test_layout_excludes_the_reports(self):
+        status, _stdout, stderr, _calls = self.run_main(['--layout', '--diff'], {'a.c': 5})
+        self.assertEqual(2, status)
+        self.assertIn('--layout cannot be combined', stderr)
+
+    def test_asm_prints_the_best_variant_listing(self):
+        with mock.patch.object(probe, 'compiler_assembly', return_value=['\t.ent\tfunc_A 2', '\t.end\tfunc_A']) as asm:
+            status, stdout, _stderr, _calls = self.run_main(['--asm'], {'a.c': 30, 'b.c': 5})
+        self.assertEqual(0, status)
+        asm.assert_called_once_with(self.target, Path('b.c'))
+        self.assertIn('--- compiler assembly of b.c (CURRENT 5), before assembler scheduling\n'
+                      '\t.ent\tfunc_A 2\n\t.end\tfunc_A\n', stdout)
+
+    def test_function_assembly_keeps_source_comments_and_drops_debug_directives(self):
+        listing = ('\t.ent\tfunc_B 2\nfunc_B:\n\tjr\t$31\n\t.end\tfunc_B\n'
+                   '\t.ent\tfunc_A 2\nfunc_A:\n\t.option\tO2\n\t.loc\t2 10\n\t.bgnb\t3\n'
+                   ' #  10\t    D_1 = 1;\n\tli\t$14, 1\n\t.noalias\t$2,$sp\n\tsw\t$14, D_1\n'
+                   '\t.endb\t9\n\t.end\tfunc_A\n\t.ent\tfunc_C 2\n')
+        self.assertEqual(probe.function_assembly(listing, 'func_A'),
+                         ['\t.ent\tfunc_A 2', 'func_A:', ' #  10\t    D_1 = 1;', '\tli\t$14, 1',
+                          '\tsw\t$14, D_1', '\t.end\tfunc_A'])
+        self.assertEqual(probe.function_assembly(listing, 'func_D'), [])
+
+    def test_compiler_assembly_runs_cc_with_dash_s_and_absolute_includes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'variant001.c'
+            source.write_text('void func_A(void) {}\n', encoding='utf-8')
+
+            def run(command, **kwargs):
+                self.assertEqual(Path(kwargs['cwd']), Path(directory))
+                self.assertIn('-S', command)
+                self.assertNotIn('-c', command)
+                self.assertIn(str(probe.ROOT / 'include'), command)
+                self.assertEqual(command[-1], 'variant001.c')
+                (Path(directory) / 'variant001.s').write_text(
+                    '\t.ent\tfunc_A 2\nfunc_A:\n\tjr\t$31\n\t.end\tfunc_A\n', encoding='utf-8')
+                return mock.Mock(returncode=0)
+
+            with mock.patch.object(probe.subprocess, 'run', side_effect=run):
+                lines = probe.compiler_assembly(self.target, Path(directory) / 'variant001.o')
+            self.assertEqual(lines, ['\t.ent\tfunc_A 2', 'func_A:', '\tjr\t$31', '\t.end\tfunc_A'])
+            self.assertFalse((Path(directory) / 'variant001.s').exists())
+
+    def test_compiler_assembly_failure_is_a_tooling_error(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'variant001.c').write_text('void func_A(void) {}\n', encoding='utf-8')
+            with mock.patch.object(probe.subprocess, 'run', return_value=mock.Mock(returncode=1)):
+                with self.assertRaises(probe.ToolingError):
+                    probe.compiler_assembly(self.target, Path(directory) / 'variant001.o')
+
+    def test_negative_context_is_rejected(self):
+        status, _stdout, stderr, _calls = self.run_main(['--diff', '--context', '-1'], {'a.c': 5})
+        self.assertEqual(2, status)
+        self.assertIn('--context must not be negative', stderr)
+
+    def test_diff_report_summarises_and_lists_hunks(self):
+        candidate = LISTING.replace('lw\tv0,0(v0)', 'lw\tv1,0(v0)')
+        listings = {'ref.o': LISTING, 'new.o': candidate}
+        with mock.patch.object(probe, 'object_listing', side_effect=lambda path: listings[str(path)]):
+            lines = probe.diff_report(self.target, Path('new.o'), 0)
+        self.assertEqual(lines[0], 'instruction diff: 1 lines differ (1 register-only)')
+        self.assertEqual(lines[1], 'register map (reference->candidate): v0->v1 x1')
+        self.assertIn('-    8:       lw\tv0,0(v0) %lo(D_1)', lines)
+        self.assertIn('+    8:       lw\tv1,0(v0) %lo(D_1)', lines)
+
+    def test_diff_report_requires_the_target_in_both_objects(self):
+        listings = {'ref.o': LISTING, 'new.o': LISTING.replace('<func_A>', '<func_C>')}
+        with mock.patch.object(probe, 'object_listing', side_effect=lambda path: listings[str(path)]):
+            with self.assertRaises(probe.ToolingError):
+                probe.diff_report(self.target, Path('new.o'), 2)
+
+    def test_unit_report_compares_functions_and_sections(self):
+        changed = LISTING.replace('  14:\tnop', '  14:\tmove\tv0,zero')
+        listings = {'base.o': LISTING, 'same.o': LISTING, 'changed.o': changed}
+        sections = {b'base': {'.rodata': b''}, b'same': {'.rodata': b''},
+                    b'changed': {'.rodata': bytes.fromhex('3f800000') + bytes(12)}}
+        with tempfile.TemporaryDirectory() as directory:
+            paths = {}
+            for name in ('base', 'same', 'changed'):
+                paths[name] = Path(directory) / f'{name}.o'
+                paths[name].write_bytes(name.encode())
+            with mock.patch.object(probe, 'object_listing',
+                                   side_effect=lambda path: listings[Path(path).name]), \
+                    mock.patch.object(probe.probe_report, 'data_sections',
+                                      side_effect=lambda data: sections[data]):
+                self.assertEqual(probe.unit_report(self.target, paths['base'], paths['same']),
+                                 ['1 other functions identical'])
+                self.assertEqual(probe.unit_report(self.target, paths['base'], paths['changed']),
+                                 ['0 other functions identical, 1 not',
+                                  'func_B: CHANGED (1 lines differ (1 other))',
+                                  '.rodata: size 0x0 -> 0x10; appended words: 3f800000'])
+
+
 class TerminalPaddingTests(unittest.TestCase):
     """Probe leaves out only the alignment words a terminal unit member gains in finish."""
 

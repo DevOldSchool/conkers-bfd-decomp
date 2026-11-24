@@ -390,6 +390,8 @@ attempts:
 ```sh
 ./conker probe <work-item-id> build/us/manual-attempts/<task>/a.c build/us/manual-attempts/<task>/b.c
 ./conker probe <work-item-id> --layout [<variant.c>]
+./conker probe <work-item-id> --diff [--context N] --unit <variant.c>...
+./conker probe <work-item-id> --asm <variant.c>
 ```
 
 Each variant file holds the function definition, optionally preceded by the
@@ -403,8 +405,56 @@ named local's stack offset read from IDO's `.mdebug` symbols beside the
 reference [frame plan](#diagnosis-checklist), aligned by offset from each
 side's frame top. When the frames differ it adds a `local-area account:` that
 counts the candidate's local words (see the checklist) and ends with a one-line
-delta such as `candidate +2 words: 1 named, 1 alignment`. A probe score is
-search evidence only: apply the chosen body and run `finish`. One probe batch
+delta such as `candidate +2 words: 1 named, 1 alignment`.
+
+`--diff` explains the best-scoring variant instead of leaving the residual to a
+hand-written objdump script: it prints the target function's instruction diff
+against the reference object (`-` reference, `+` candidate, offsets relative to
+the function). Branch targets are shown as `.L<n>` labels and each relocation
+is folded into its instruction (`%hi(D_x)`, `%call(func_x)`), so one inserted
+instruction does not turn every later line into a difference. A summary line
+counts the differing lines by kind (`register-only`, `relocation-only`,
+`inserted`, `deleted`, `other`), and a `register map` line lists which
+reference register became which candidate register and how often: one
+consistent rotation (`f0->f2 x3, f18->f0 x3, f2->f18 x3`) is a single
+allocation decision, usually the order in which values are first referenced;
+scattered pairs are several. A diff that is `relocation-only` is the
+alias-symbol case that `finish` proves through the linked bytes.
+
+`--unit` reports, for every variant, what it changed besides the target. The
+current source is compiled once as it stands and each variant object is
+compared with it: other functions are compared position-independently, so a
+function that only moved is identical, and `.rodata`, `.data` and `.bss` are
+compared by size and bytes. Use it with every complete-source variant that
+edits a struct, prototype, extern or literal:
+
+- `N other functions identical` is the evidence that a shared edit left the
+  unit's matched functions alone;
+- `CHANGED`, `missing` or `only in the variant object` rows mean the edit moved
+  another function, or that the variant is a stale copy of a source that has
+  changed since (regenerate it from the current file);
+- `.rodata: size 0x10 -> 0x20; appended words: c61c4000` lists the literal
+  words a variant adds. `probe` scores text only, so this line is the cue to
+  [map the unit's rodata](#diagnosis-checklist) before `verify-batch`; decode
+  the words against the ROM first.
+
+`--asm` prints IDO's own assembly (`cc -S`) for the best-scoring variant, cut
+to the target function. Each group of instructions follows a
+`# <line> <source text>` comment naming the statement that produced it, and the
+listing is the code generator's output before the assembler schedules it:
+temporaries appear in the order they were assigned (`$14`, `$15`, `$24`, `$25`,
+`$8`... are `t6`, `t7`, `t8`, `t9`, `t0`...), delay slots are not yet filled,
+and immediates that the assembler later merges are still separate
+instructions. Read it when the final object hides the cause of a residual: a
+temporary that is numbered one too high or too low (some earlier expression
+used a temporary that left no instruction behind, such as an unfolded constant
+or a narrowing conversion), or an instruction that sits on the other side of a
+statement boundary. It is evidence about the variant only; there is no such
+listing for the reference.
+
+The three reports combine (`--diff --unit --asm`) and none of them changes the
+scores. A probe score is search evidence only: apply the chosen body and run
+`finish`. One probe batch
 counts as one manual revision for the attempt limits; record its hypothesis and
 best score in the ledger.
 
