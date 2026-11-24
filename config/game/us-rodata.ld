@@ -313,6 +313,8 @@ SECTIONS
     /* ROM-verified constants: docs/evidence/data-layout/game_100810_float_constants.md. */
     .game_rodata_100810_0 0x800A09E8 (INFO) : SUBALIGN(4) { *game_100810.o(.rodata.100810_0) }
     .game_rodata_100810_1c 0x800A0A18 (INFO) : SUBALIGN(4) { *game_100810.o(.rodata.100810_1c) }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1028f0_float_constants.md. */
+    .game_rodata_1028f0 0x800A0A3C (INFO) : SUBALIGN(4) { *game_1028F0.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_1cc440_float_constant.md. */
     .game_rodata_1cc440 0x800A8CF0 (INFO) : SUBALIGN(4)
     {
@@ -1090,6 +1092,8 @@ ASSERT(SIZEOF(.game_rodata_ffba0) == 0x30, "game_FFBA0 colour table and literal 
 __game_rodata_ffba0_payload_size = 0x28;
 ASSERT(SIZEOF(.game_rodata_100810_0) == 0x1C, "game_100810 func_150D3360 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_100810_1c) == 0x14, "game_100810 func_150D4D58 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_1028f0) == 0x30, "game_1028F0 func_150D54C8 literal extent changed")
+__game_rodata_1028f0_payload_size = 0x28;
 ASSERT(SIZEOF(.game_rodata_holtenrope_0) == 0xC, "holtenrope func_151B3A7C literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_c) == 0xC, "holtenrope func_151B3CF0 literal extent changed")
 ASSERT(SIZEOF(.game_rodata_holtenrope_18) == 0xC, "holtenrope func_151B42A4 literal extent changed")

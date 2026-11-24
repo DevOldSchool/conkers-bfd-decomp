@@ -85500,8 +85500,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D54C8",
           "vram": "0x150D54C8"
         }
@@ -85564,6 +85569,12 @@
       "symbol": "func_150D5A4C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 686,
+        "reason": "CURRENT 686: uopt hoists &normal into the join before if (fallback) (ref recomputes it in the fallback body), shifting the hit/fallback blocks and spill slots 0x74/0x78 vs 0x78/0x7C",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
