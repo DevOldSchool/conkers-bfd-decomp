@@ -11,7 +11,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1501D348
  * - func_1501E81C
- * - func_1501EA18
  * - func_1501EC38
  * - func_15020388
  * - func_15020878
@@ -747,7 +746,7 @@ void func_150233E4(void);
 void func_1510B32C(s32, f32, f32, f32);
 void func_15169040(s32, u8);
 extern u8 D_800C35C3;
-extern s8 D_800C3671;
+extern u8 D_800C3671;
 extern s8 D_800C3683;
 extern u8 D_800C3C90;
 extern s32 D_800C3C94;
@@ -828,42 +827,50 @@ typedef struct Game49D30Event {
     f32 field20, field24, field28;
 } Game49D30Event;
 
-extern Game49D30Event D_800C3600[1];
+extern Game49D30Event D_800C3600;
 extern f32 D_800969C4, D_800969C8;
 void func_1512D560(void *, s32, void *);
 void func_150228E4(s32);
 void func_150227BC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501EA18 CURRENT (1270) */
-void func_1501EA18(s32 arg0) {
-    u8 *cursor;
-    u8 *owner;
+typedef struct Game49D30ResetActor {
+    s32 unk_00;
+    u8 unk_04[0xA0];
+    u8 unk_A4;
+    u8 unk_A5[0x13];
+    f32 unk_B8;
+    u8 unk_BC[8];
+    f32 unk_C4;
+    u8 unk_C8[0x264];
+} Game49D30ResetActor;
 
-    cursor = (u8 *)D_800C3600;
-    owner = D_800DBFF0;
-    ((Game49D30Event *)cursor)->field0 = 1;
-    ((Game49D30Event *)cursor)->field4 = arg0;
-    ((Game49D30Event *)cursor)->position[0] = *(f32 *)(owner + 0x2F8);
-    ((Game49D30Event *)cursor)->position[1] = *(f32 *)(owner + 0x2FC);
-    ((Game49D30Event *)cursor)->field20 = 0.0f;
-    ((Game49D30Event *)cursor)->position[2] = *(f32 *)(owner + 0x300);
-    ((Game49D30Event *)cursor)->field24 = *(f32 *)(owner + 0x388);
-    ((Game49D30Event *)cursor)->field28 = *(f32 *)(owner + 0x37C);
-    if ((u8)D_800C3671 == 0) {
-        func_1512D560(owner, 7, (s32)cursor);
-        if (D_800969C4 != D_800C3674) {
-            ((Game49D30Event *)cursor)->fieldC = D_800C3674;
-            func_1512D560(owner, 8, (s32)cursor);
+void func_1501EA18(s32 arg0) {
+    struct108 *owner = D_800DBFF0;
+    Game49D30ResetActor *actor;
+
+    D_800C3600.field0 = 1;
+    D_800C3600.field4 = arg0;
+    D_800C3600.position[0] = owner->unk2F8;
+    D_800C3600.position[1] = owner->unk2FC;
+    D_800C3600.position[2] = owner->unk300;
+    D_800C3600.field20 = 0.0f;
+    D_800C3600.field24 = owner->unk388;
+    D_800C3600.field28 = owner->unk37C;
+    if (D_800C3671 == 0) {
+        func_1512D560(owner, 7, &D_800C3600);
+        if (D_800C3674 != D_800969C4) {
+            D_800C3600.fieldC = D_800C3674;
+            func_1512D560(owner, 8, &D_800C3600);
         }
-        if (D_800969C8 != D_800C3678) {
-            ((Game49D30Event *)cursor)->fieldC = D_800C3678;
-            ((Game49D30Event *)cursor)->field10 = D_800C367C;
-            func_1512D560(owner, 0xA, (s32)cursor);
+        if (D_800C3678 != D_800969C8) {
+            D_800C3600.fieldC = D_800C3678;
+            D_800C3600.field10 = D_800C367C;
+            func_1512D560(owner, 0xA, &D_800C3600);
         }
     }
-    if ((D_800C35C2 == 0) && ((u8)D_800C3671 == 0)) {
+    if (D_800C35C2 == 0 && D_800C3671 == 0) {
         if (D_800C3680 == 0) {
-            func_1512D560(owner, 6, arg0);
+            func_1512D560(owner, 6, (void *)arg0);
         } else {
             D_800C3680 = 0;
         }
@@ -872,15 +879,14 @@ void func_1501EA18(s32 arg0) {
         func_150228E4(arg0);
     }
     func_150227BC(arg0);
-    cursor = &D_800CC2D0;
-    do {
-        if ((*(s32 *)cursor != 0) && (func_150229E4(cursor) != 0)) {
-            *(s8 *)(cursor + 0xA4) = 0;
-            *(f32 *)(cursor + 0xB8) = 0.0f;
-            *(f32 *)(cursor + 0xC4) = 0.0f;
+    actor = (Game49D30ResetActor *)&D_800CC2D0; do {
+        if (actor->unk_00 != 0 && func_150229E4(actor) != 0) {
+            actor->unk_A4 = 0;
+            actor->unk_B8 = 0.0f;
+            actor->unk_C4 = 0.0f;
         }
-        cursor += 0x32C;
-    } while (cursor != &D_800D121C);
+        actor++;
+    } while (actor != (Game49D30ResetActor *)&D_800D121C);
     if (D_800C35C2 == 0) {
         D_800C3A58 = 2;
         D_800C3663 = 0;
@@ -890,8 +896,6 @@ void func_1501EA18(s32 arg0) {
         D_800C358C.field_4 = D_800C3598[2];
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1501EA18 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EA18.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EC38.s")
 void func_15020878(s32, s32, s32);

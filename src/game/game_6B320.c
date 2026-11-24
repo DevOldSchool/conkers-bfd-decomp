@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_6B320.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_state_lifecycle_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1503EB78
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game6B320MaskPair {
@@ -35,12 +30,8 @@ typedef struct Game6B320Particle {
     f32 rot[3];
     f32 pos[3];
     f32 scale[3];
-    f32 field_48;
-    f32 field_4C;
-    f32 field_50;
-    f32 field_54;
-    f32 field_58;
-    f32 field_5C;
+    f32 field_48[3];
+    f32 field_54[3];
     f32 field_60;
     u8 active;
     u8 reserved_65[3];
@@ -361,66 +352,44 @@ void func_1503EA54(s32 arg0) {
             continue;
         }
         p = &D_800C6660[arg0].entity[i];
-        p->rot[0] += p->field_48 * dt;
-        p->rot[1] += p->field_4C * dt;
-        p->rot[2] += p->field_50 * dt;
-        p->pos[0] += p->field_54 * dt;
-        p->pos[1] += p->field_58 * dt;
-        p->pos[2] += p->field_5C * dt;
-        p->field_4C += p->field_60 * dt;
+        p->rot[0] += p->field_48[0] * dt;
+        p->rot[1] += p->field_48[1] * dt;
+        p->rot[2] += p->field_48[2] * dt;
+        p->pos[0] += p->field_54[0] * dt;
+        p->pos[1] += p->field_54[1] * dt;
+        p->pos[2] += p->field_54[2] * dt;
+        p->field_48[1] += p->field_60 * dt;
     }
 }
 
 void func_1503EB70(void) {
 }
-extern f32 D_80098920;
-extern f32 D_80098924;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EB78 CURRENT (227) */
-void func_1503EB78(void *arg0, f32 arg1, f32 arg2, s32 arg3) {
-    f32 sp50[3];
-    f32 *var_s1;
-    s32 var_s2;
-    s32 var_s3;
-    s32 var_s4;
-    u8 *var_s0;
+void func_1503EB78(Game6B320Particle *arg0, f32 arg1, f32 arg2, s32 arg3) {
+    s32 i;
+    f32 scale[3];
+    s32 mask;
+    s32 base;
 
     if (arg3 != 0) {
-        var_s3 = 0x80;
-        var_s4 = 0x7F;
+        mask = 0x80;
+        base = 0x7F;
     } else {
-        var_s3 = 0xFF;
-        var_s4 = 0;
+        mask = 0xFF;
+        base = 0;
     }
-    arg1 *= D_80098920;
-    var_s0 = arg0;
-    var_s1 = sp50;
-    sp50[0] = arg1;
-    sp50[2] = arg1;
-    sp50[1] = arg2 * D_80098920;
-    do {
-        arg3 = func_150ADA20();
-        arg1 = *var_s1;
-        arg2 = *(f32 *)(var_s0 + 0x48);
-        var_s1++;
-        var_s0 += 4;
-        *(f32 *)(var_s0 + 0x44) =
-            arg2 * (((f32)((arg3 & var_s3) + var_s4) *
-                         arg1) + 2.0f);
-    } while ((u32)var_s1 < (u32)&sp50[3]);
-    var_s2 = 0;
-    var_s0 = arg0;
-    do {
-        arg3 = func_150ADA20();
-        var_s2 += 1;
-        var_s0 += 4;
-        *(f32 *)(var_s0 + 0x50) =
-            (f32)((arg3 & 0xFF) - 0x80) * 0.03125f;
-    } while (var_s2 != 3);
-    *(f32 *)((u8 *)arg0 + 0x60) = D_80098924;
+    arg1 *= 0.02745098f;
+    arg2 *= 0.02745098f;
+    scale[0] = scale[2] = arg1;
+    scale[1] = arg2;
+    for (i = 0; i < 3; i++) {
+        arg0->field_48[i] *= (f32)(s32)((func_150ADA20() & mask) + base) * scale[i] + 2.0f;
+    }
+    for (i = 0; i < 3; i++) {
+        arg0->field_54[i] = (f32)(s32)((func_150ADA20() & 0xFF) - 0x80) * 0.03125f;
+    }
+    arg0->field_60 = -0.3f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503EB78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EB78.s")
 void func_1510F800(s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
 extern f32 D_80098928;
@@ -528,17 +497,17 @@ void func_1503EFC4(s32 arg0) {
     slot->field_C = 0x78;
     count = D_80098914[slot->pad_E[0]];
     for (i = 0; i < count; i++) {
-        slot->entity[i].field_4C =
+        slot->entity[i].field_48[1] =
             (f32)((s32)(func_150ADA20() % 20U) - 5);
     }
 }
 /* Call context: func_1503EB78: unique active project prototype */
-void func_1503EB78(void *, f32, f32, s32);
+void func_1503EB78(Game6B320Particle *, f32, f32, s32);
 
 void func_1503F078(void *arg0, s32 arg1) {
     func_1503EB78(arg0, 2.0f, 2.0f, 0);
 }
-void func_1503EB78(void *arg0, f32 arg1, f32 arg2, s32 arg3);
+void func_1503EB78(Game6B320Particle *arg0, f32 arg1, f32 arg2, s32 arg3);
 
 void func_1503F0AC(void *arg0, u8 arg1) {
     func_1503EB78(arg0, 1.0f, 2.0f, 1);
@@ -558,7 +527,7 @@ extern Game6B320EntityRecordField94 D_800CC364[];
 void func_1503F108(s32 arg0) {
     D_800C6660[arg0].field_C = 0x8C;
     D_800CC364[arg0].field_0 = 6;
-    D_800C6660[arg0].entity[4].field_4C = 10.0f;
+    D_800C6660[arg0].entity[4].field_48[1] = 10.0f;
 }
 s32 func_1503EF4C(s32, s32, s32);
 extern s16 D_800C666C;

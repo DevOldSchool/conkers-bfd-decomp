@@ -42,6 +42,8 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US game_1A20A0 float constants](game_1a20a0_float_constants.md)
 - [US game_1199D0 emitter constants](game_1199d0_float_constants.md)
 - [US game_DBA60 spark burst float constants](game_dba60_float_constants.md)
+- [US game_F52B0 camera float constants](game_f52b0_float_constants.md)
+- [US game_193130 degree-to-radian constant](game_193130_float_constant.md)
 - [US game_DC6B0 particle float constants](game_dc6b0_float_constants.md)
 - [US game_155C90 camera blend constants](game_155c90_float_constants.md)
 - [US game_156160 camera follow constants](game_156160_float_constants.md)

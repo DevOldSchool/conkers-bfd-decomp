@@ -12,7 +12,6 @@
  * - func_1511BEBC
  * - func_1511CB44
  * - func_1511D394
- * - func_1511D9E4
  * - func_1511DF6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -596,59 +595,34 @@ extern f64 D_800A3208;
 extern u8 D_800BE9C0;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511D9E4 CURRENT (1400) */
 void func_1511D9E4(Game1483E0Mesh *arg0) {
     Game1483E0Texcoord *coords;
-    Game1483E0Texcoord *cursor;
     s32 index;
-    s32 flags;
-    s32 offset;
+    s32 hi;
+    u8 mid;
     f32 delta;
-    Game1483E0Texcoord *existing;
-    Game1483E0Texcoord *allocated;
-    s16 x, y, z;
 
-    existing = arg0->coords;
-    if (existing == 0) {
-        allocated = func_10003C40(arg0->count * 4, 1, 0, 0);
-        arg0->coords = allocated;
-        coords = allocated;
-        index = 0;
-        offset = 0;
-        cursor = allocated;
-        while (index < arg0->count) {
-            cursor->s = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).s - 0x2000;
-            cursor->t = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).t - 0x2000;
-            cursor++;
-            index++;
-            offset += 0x10;
+    if (arg0->coords == NULL) {
+        arg0->coords = func_10003C40(arg0->count * 4, 1, 0, 0);
+        coords = arg0->coords;
+        for (index = 0; index < arg0->count; index++) {
+            coords[index].s = arg0->source[index].s - 0x2000;
+            coords[index].t = arg0->source[index].t - 0x2000;
         }
-        index = 0;
-        offset = 0;
-        while (index < arg0->count) {
-            x = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).x + arg0->x;
-            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[1] + offset)).x = x;
-            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[0] + offset)).x = x;
-            y = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).y + arg0->y;
-            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[1] + offset)).y = y;
-            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[0] + offset)).y = y;
-            z = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).z + arg0->z;
-            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[1] + offset)).z = z;
-            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[0] + offset)).z = z;
-            index++;
-            offset += 0x10;
+        for (index = 0; index < arg0->count; index++) {
+            arg0->buffers[0][index].x = arg0->buffers[1][index].x = arg0->source[index].x + arg0->x;
+            arg0->buffers[0][index].y = arg0->buffers[1][index].y = arg0->source[index].y + arg0->y;
+            arg0->buffers[0][index].z = arg0->buffers[1][index].z = arg0->source[index].z + arg0->z;
         }
+    } else {
+        coords = arg0->coords;
     }
-    else {
-        coords = existing;
-    }
-    flags = arg0->flags;
-    delta = (f32)((f64)(f32)(s16)flags * D_800A3208);
-    arg0->phase += delta * (f32)D_800BE9E4;
-    func_15094AB8((s32)arg0->buffers[D_800BE9C0], (s32)coords, arg0->count, arg0->phase, flags >> 24, (flags >> 16) & 0xFF);
+    hi = arg0->flags >> 24;
+    mid = arg0->flags >> 16;
+    delta = (f32)(s16)(arg0->flags & 0xFFFF) * D_800A3208;
+    arg0->phase += delta * D_800BE9E4;
+    func_15094AB8((s32)arg0->buffers[D_800BE9C0], (s32)coords, arg0->count, arg0->phase, hi, mid);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511D9E4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511D9E4.s")
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);
 f32 func_15047C00(f32);                             /* extern */
