@@ -580,6 +580,8 @@ SECTIONS
     .game_rodata_1bfcb0 0x800A8160 (INFO) : SUBALIGN(4) { *game_1BFCB0.o(.rodata) }
     /* Emitter literals: docs/evidence/data-layout/game_1bfdd0_float_constants.md. */
     .game_rodata_1bfdd0 0x800A8180 (INFO) : SUBALIGN(4) { *game_1BFDD0.o(.rodata) }
+    /* Three switch tables and one literal: docs/evidence/data-layout/game_a9820_jump_tables.md. */
+    .game_rodata_a9820 0x8009B4A0 (INFO) : SUBALIGN(4) { *game_A9820.o(.rodata) }
     /* Four switches and two literals: docs/evidence/data-layout/game_a9d90_jump_table.md. */
     .game_rodata_a9d90 0x8009B690 (INFO) : SUBALIGN(4) { *game_A9D90.o(.rodata) }
     /* Eighteen switch targets: docs/evidence/data-layout/game_1ba670_jump_table.md. */
@@ -885,6 +887,9 @@ ASSERT(SIZEOF(.game_rodata_12f400) == 0xB0, "game_12F400 literal and table exten
 __game_rodata_12f400_payload_size = 0xB0;
 ASSERT(SIZEOF(.game_rodata_ca630) == 0x150, "game_CA630 table extent changed")
 __game_rodata_ca630_payload_size = 0x148;
+
+ASSERT(SIZEOF(.game_rodata_a9820) == 0x1F0, "game_A9820 table extent changed")
+__game_rodata_a9820_payload_size = 0x1EC;
 
 ASSERT(SIZEOF(.game_rodata_a9d90) == 0x210, "game_A9D90 table extent changed")
 __game_rodata_a9d90_payload_size = 0x20C;
