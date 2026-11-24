@@ -16861,15 +16861,15 @@
         "func_150BA37C",
         "func_150BA424"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xBA4C0",
           "start": "0xB9ED0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_E7380.c"
+      "source": "src/done/game/game_E7380.c"
     },
     {
       "boundary_evidence": {
