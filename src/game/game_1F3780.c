@@ -135,10 +135,10 @@ void func_151C6A28(Game1F3780Actor *arg0, u8 arg1, u8 arg2, s32 arg3) {
         if (func_1514ECE0(arg0->unk_2F4, 0x1B, (void **)&entry) == 0) {
             goto end;
         }
-        state = &entry->object->state;
         if (!(entry->object->state.unk_74 & 1)) {
             goto end;
         }
+        state = &entry->object->state;
         original = &state->packet;
         if (original->count == 0) {
             goto end;

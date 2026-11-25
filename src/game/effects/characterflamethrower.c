@@ -844,6 +844,7 @@ typedef struct CharacterFlamethrowerRibbonNode {
     u8 pad22[2];
 } CharacterFlamethrowerRibbonNode;
 
+// RULE-EXCEPTION: layout, func_15196748 needs each ring advance on one source line (120 when expanded over lines).
 #define CHARACTER_FLAMETHROWER_NEXT_POINT(index, capacity) (index)++; if ((index) == (capacity)) (index) = 0
 #define CHARACTER_FLAMETHROWER_PREVIOUS_POINT(index, capacity) (index)--; if ((index) < 0) (index) = (capacity) - 1
 

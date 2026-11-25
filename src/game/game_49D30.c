@@ -879,6 +879,7 @@ void func_1501EA18(s32 arg0) {
         func_150228E4(arg0);
     }
     func_150227BC(arg0);
+    // RULE-EXCEPTION: layout, the assignment and `do` must share a line (30 when split; same shape as game_58F80.c).
     actor = (Game49D30ResetActor *)&D_800CC2D0; do {
         if (actor->unk_00 != 0 && func_150229E4(actor) != 0) {
             actor->unk_A4 = 0;

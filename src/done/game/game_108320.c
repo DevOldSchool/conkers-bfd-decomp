@@ -91,6 +91,7 @@ void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, u8 arg2, s32 arg3) {
             packet.life = D_80088930[arg1];
             packet.field44 = 0xFF;
             packet.field45 = 0xFF;
+            // RULE-EXCEPTION: layout, the three stores must share a line (47 when split; as in func_150DB518).
             packet.color[2] = 0xC8, packet.color[1] = 0xC8, packet.color[0] = 0xC8;
             packet.color[3] = 0xC8;
             packet.flags = 0x401;
