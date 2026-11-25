@@ -211,6 +211,8 @@ SECTIONS
     {
         *game_1DD500.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_1def60_float_constants.md. */
+    .game_rodata_1def60 0x800AA300 (INFO) : SUBALIGN(4) { *game_1DEF60.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_71820_float_constants.md. */
     .game_rodata_71820 0x80098D60 (INFO) : SUBALIGN(4)
     {
@@ -1024,6 +1026,8 @@ ASSERT(SIZEOF(.game_rodata_12c1e0) == 0x10, "game_12C1E0 ray literal extent chan
 __game_rodata_12c1e0_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1dd500) == 0x10, "game_1DD500 quad literal extent changed")
 __game_rodata_1dd500_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1def60) == 0x20, "game_1DEF60 literal extent changed")
+__game_rodata_1def60_payload_size = 0x1C;
 ASSERT(SIZEOF(.game_rodata_71820) == 0x10, "game_71820 look-at literal extent changed")
 __game_rodata_71820_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_2062d0_0) == 0x10, "game_2062D0 func_151DA08C literal extent changed")

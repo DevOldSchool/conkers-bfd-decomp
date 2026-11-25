@@ -71450,20 +71450,25 @@
           "vram": "0x151B1AB0"
         }
       },
-      "source": "src/game/game_1DEF60.c",
+      "source": "src/done/game/game_1DEF60.c",
       "symbol": "func_151B1AB0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1144,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B1B34",
           "vram": "0x151B1B34"
         }
       },
-      "source": "src/game/game_1DEF60.c",
+      "source": "src/done/game/game_1DEF60.c",
       "symbol": "func_151B1B34"
     },
     {
@@ -71481,7 +71486,7 @@
           "vram": "0x151B1FAC"
         }
       },
-      "source": "src/game/game_1DEF60.c",
+      "source": "src/done/game/game_1DEF60.c",
       "symbol": "func_151B1FAC"
     },
     {

@@ -2686,6 +2686,16 @@
         }
       },
       {
+        "address": "0x800AA300",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1DEF60.c",
+            "src/done/game/game_1DEF60.c"
+          ]
+        }
+      },
+      {
         "address": "0x800AA394",
         "section": ".rodata.holtenrope_0",
         "owner": {
