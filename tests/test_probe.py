@@ -291,6 +291,70 @@ class ReportTests(unittest.TestCase):
             self.assertEqual(lines, ['\t.ent\tfunc_A 2', 'func_A:', '\tjr\t$31', '\t.end\tfunc_A'])
             self.assertFalse((Path(directory) / 'variant001.s').exists())
 
+    def test_compiler_assembly_adds_the_generated_include_for_debugger_units(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'variant001.c'
+            source.write_text(probe.compile_c.DEBUGGER_UI_INCLUDE + '\nvoid func_A(void) {}\n', encoding='utf-8')
+
+            def run(command, **_kwargs):
+                self.assertIn(str(probe.ROOT / 'build' / 'us'), command)
+                (Path(directory) / 'variant001.s').write_text('\t.ent\tfunc_A 2\n\t.end\tfunc_A\n',
+                                                               encoding='utf-8')
+                return mock.Mock(returncode=0)
+
+            with mock.patch.object(probe.subprocess, 'run', side_effect=run):
+                self.assertEqual(len(probe.compiler_assembly(self.target, Path(directory) / 'variant001.o')), 2)
+
+    def test_compiler_assembly_reports_the_compiler_error_and_cleans_up(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'variant001.c').write_text('void func_A(void) {}\n', encoding='utf-8')
+
+            def run(_command, **_kwargs):
+                (Path(directory) / 'variant001.s').write_text('partial', encoding='utf-8')
+                return mock.Mock(returncode=1, stdout='', stderr='cfe: Error: variant001.c, line 3: bad\n')
+
+            with mock.patch.object(probe.subprocess, 'run', side_effect=run):
+                with self.assertRaisesRegex(probe.ToolingError, 'cfe: Error: variant001.c, line 3: bad'):
+                    probe.compiler_assembly(self.target, Path(directory) / 'variant001.o')
+            self.assertFalse((Path(directory) / 'variant001.s').exists())
+
+    def test_object_listing_keeps_zero_runs(self):
+        completed = mock.Mock(stdout='listing')
+        with mock.patch.object(probe.subprocess, 'run', return_value=completed) as run:
+            self.assertEqual(probe.object_listing(Path('x.o')), 'listing')
+        command = run.call_args.args[0]
+        self.assertIn('-z', command)
+        self.assertIn('-r', command)
+
+    def test_object_listing_failure_is_a_tooling_error(self):
+        with mock.patch.object(probe.subprocess, 'run', side_effect=OSError('no objdump')):
+            with self.assertRaises(probe.ToolingError):
+                probe.object_listing(Path('x.o'))
+
+    def test_build_base_compiles_the_current_source_without_raw_members(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'unit.c'
+            source.write_text('s32 a;\n#pragma GLOBAL_ASM("asm/nonmatchings/unit/func_A.s")\ns32 b;\n',
+                              encoding='utf-8')
+            target = probe.Target('func_A', 'us', source, 'func_A', Path('ref.s'), Path('ref.o'), 8,
+                                  Path(directory))
+            with mock.patch.object(probe.compile_c, 'run_compile', return_value=mock.Mock(returncode=0)) as run:
+                self.assertEqual(probe.build_base(target), Path(directory) / 'base.o')
+            self.assertNotIn('GLOBAL_ASM', (Path(directory) / 'base.c').read_text(encoding='utf-8'))
+            self.assertEqual(run.call_args.args[:3], ('us', Path(directory) / 'base.c', Path(directory) / 'base.o'))
+            with mock.patch.object(probe.compile_c, 'run_compile', return_value=mock.Mock(returncode=1)):
+                with self.assertRaisesRegex(probe.ToolingError, 'does not compile'):
+                    probe.build_base(target)
+
+    def test_exact_match_note_is_printed_only_with_remaining_rows(self):
+        rows = ['instruction diff: 1 lines differ (1 relocation-only)', '@@ x @@']
+        status, stdout, _stderr, _calls = self.run_main(['--diff'], {'a.c': 0},
+                                                        diff_report=lambda *_args: rows)
+        self.assertEqual(0, status)
+        self.assertIn('note: the scorer resolves the symbol spellings below', stdout)
+        status, stdout, _stderr, _calls = self.run_main(['--diff'], {'a.c': 0})
+        self.assertNotIn('symbol spellings', stdout)
+
     def test_compiler_assembly_failure_is_a_tooling_error(self):
         with tempfile.TemporaryDirectory() as directory:
             (Path(directory) / 'variant001.c').write_text('void func_A(void) {}\n', encoding='utf-8')
@@ -306,7 +370,8 @@ class ReportTests(unittest.TestCase):
     def test_diff_report_summarises_and_lists_hunks(self):
         candidate = LISTING.replace('lw\tv0,0(v0)', 'lw\tv1,0(v0)')
         listings = {'ref.o': LISTING, 'new.o': candidate}
-        with mock.patch.object(probe, 'object_listing', side_effect=lambda path: listings[str(path)]):
+        with mock.patch.object(probe, 'object_listing', side_effect=lambda path: listings[str(path)]), \
+                mock.patch.object(probe, 'object_data_sections', return_value={}):
             lines = probe.diff_report(self.target, Path('new.o'), 0)
         self.assertEqual(lines[0], 'instruction diff: 1 lines differ (1 register-only)')
         self.assertEqual(lines[1], 'register map (reference->candidate): v0->v1 x1')
@@ -315,15 +380,17 @@ class ReportTests(unittest.TestCase):
 
     def test_diff_report_requires_the_target_in_both_objects(self):
         listings = {'ref.o': LISTING, 'new.o': LISTING.replace('<func_A>', '<func_C>')}
-        with mock.patch.object(probe, 'object_listing', side_effect=lambda path: listings[str(path)]):
-            with self.assertRaises(probe.ToolingError):
+        with mock.patch.object(probe, 'object_listing', side_effect=lambda path: listings[str(path)]), \
+                mock.patch.object(probe, 'object_data_sections', return_value={}):
+            with self.assertRaisesRegex(probe.ToolingError, 'func_A not found in new.o'):
                 probe.diff_report(self.target, Path('new.o'), 2)
 
     def test_unit_report_compares_functions_and_sections(self):
         changed = LISTING.replace('  14:\tnop', '  14:\tmove\tv0,zero')
         listings = {'base.o': LISTING, 'same.o': LISTING, 'changed.o': changed}
-        sections = {b'base': {'.rodata': b''}, b'same': {'.rodata': b''},
-                    b'changed': {'.rodata': bytes.fromhex('3f800000') + bytes(12)}}
+        section = probe.probe_report.Section
+        sections = {b'base': {'.rodata': section()}, b'same': {'.rodata': section()},
+                    b'changed': {'.rodata': section(bytes.fromhex('3f800000') + bytes(12))}}
         with tempfile.TemporaryDirectory() as directory:
             paths = {}
             for name in ('base', 'same', 'changed'):

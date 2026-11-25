@@ -315,7 +315,8 @@ def object_listing(path: Path) -> str:
 
     try:
         return subprocess.run(
-            ["mips-linux-gnu-objdump", "-d", "-r", "--no-show-raw-insn", str(path)],
+            # -z: without it objdump folds runs of nops into "...", hiding instructions.
+            ["mips-linux-gnu-objdump", "-d", "-r", "-z", "--no-show-raw-insn", str(path)],
             cwd=ROOT, check=True, capture_output=True, text=True,
         ).stdout
     except (OSError, subprocess.CalledProcessError) as error:
@@ -466,46 +467,54 @@ def compiler_assembly(target: Target, candidate: Path) -> list[str]:
     source = candidate.with_suffix(".c")
     listing = candidate.with_suffix(".s")
     try:
-        flags = compile_c.compiler_flags(target.profile, source.read_text(encoding="utf-8"))
+        text = source.read_text(encoding="utf-8")
+        flags = compile_c.compiler_flags(target.profile, text)
         flags[flags.index("-c")] = "-S"
+        if compile_c.DEBUGGER_UI_INCLUDE in text:
+            flags += ["-I", str(Path("build") / target.profile)]
         flags = [str(ROOT / flag) if previous == "-I" else flag
                  for previous, flag in zip(["", *flags], flags)]
         listing.unlink(missing_ok=True)
         result = subprocess.run([str(compile_c.IDO_CC), *flags, source.name],
                                 cwd=source.parent, capture_output=True, text=True)
         if result.returncode or not listing.is_file():
-            raise ToolingError("the compiler produced no assembly listing")
+            reason = next((line.strip() for line in f"{result.stdout}\n{result.stderr}".splitlines()
+                           if "rror" in line), "the compiler produced no assembly listing")
+            raise ToolingError(reason)
         lines = function_assembly(listing.read_text(encoding="utf-8", errors="replace"), target.symbol)
-        listing.unlink(missing_ok=True)
     except (OSError, ValueError) as error:
         raise ToolingError(f"could not produce the compiler assembly: {error}") from error
+    finally:
+        listing.unlink(missing_ok=True)
     if not lines:
         raise ToolingError(f"{target.symbol} not found in the compiler assembly")
     return lines
 
 
+def object_data_sections(path: Path) -> dict[str, probe_report.Section]:
+    try:
+        return probe_report.data_sections(path.read_bytes())
+    except (ValueError, struct.error, OSError) as error:
+        raise ToolingError(f"could not read data sections of {path}: {error}") from error
+
+
 def diff_report(target: Target, candidate: Path, context: int) -> list[str]:
     """Instruction diff of the target function: reference ``-`` against candidate ``+``."""
 
-    reference_text = object_listing(target.reference)
-    candidate_text = object_listing(candidate)
-    try:
-        reference = probe_report.function_listings(reference_text)[target.symbol]
-        current = probe_report.function_listings(candidate_text)[target.symbol]
-    except KeyError as error:
-        raise ToolingError(f"{target.symbol} not found in {error}") from error
-    reference = probe_report.trim_padding(reference)
-    current = probe_report.trim_padding(current)
-    old, new = probe_report.render(reference), probe_report.render(current)
+    listings = []
+    for path in (target.reference, candidate):
+        functions = probe_report.function_listings(object_listing(path))
+        if target.symbol not in functions:
+            raise ToolingError(f"{target.symbol} not found in {path}")
+        listings.append(probe_report.trim_padding(functions[target.symbol]))
+    reference, current = listings
+    old, new = probe_report.aligned(reference, current, object_data_sections(target.reference),
+                                    object_data_sections(candidate))
     lines = [probe_report.summary(probe_report.classify(old, new))]
     registers = probe_report.register_summary(probe_report.register_map(old, new))
     if registers:
         lines.append(registers)
-    lines += probe_report.diff_lines(
-        reference, current, context=context,
-        reference_address=probe_report.function_addresses(reference_text).get(target.symbol, 0),
-        candidate_address=probe_report.function_addresses(candidate_text).get(target.symbol, 0))
-    return lines
+    return lines + probe_report.diff_lines(reference, current, context=context, lines=(old, new))
 
 
 def unit_report(target: Target, base: Path, candidate: Path) -> list[str]:
@@ -513,12 +522,10 @@ def unit_report(target: Target, base: Path, candidate: Path) -> list[str]:
 
     before = probe_report.function_listings(object_listing(base))
     after = probe_report.function_listings(object_listing(candidate))
-    identical, problems = probe_report.compare_functions(before, after, {target.symbol})
-    try:
-        sections = probe_report.compare_sections(probe_report.data_sections(base.read_bytes()),
-                                                 probe_report.data_sections(candidate.read_bytes()))
-    except (ValueError, struct.error, OSError) as error:
-        raise ToolingError(f"could not read data sections: {error}") from error
+    base_sections, candidate_sections = object_data_sections(base), object_data_sections(candidate)
+    identical, problems = probe_report.compare_functions(before, after, {target.symbol},
+                                                         base_sections, candidate_sections)
+    sections = probe_report.compare_sections(base_sections, candidate_sections)
     lines = [f"{identical} other functions identical"
              + (f", {len(problems)} not" if problems else "")]
     return lines + problems + sections
@@ -820,8 +827,11 @@ def main() -> int:
                     print(f"  {line}")
         if arguments.diff:
             value, label, _, candidate = results[0]
+            lines = diff_report(target, candidate, arguments.context)
             print(f"--- diff of {label} (CURRENT {value}): - reference, + candidate")
-            for line in diff_report(target, candidate, arguments.context):
+            if value == 0 and len(lines) > 1:
+                print("note: the scorer resolves the symbol spellings below; they are not differences")
+            for line in lines:
                 print(line)
         if arguments.asm:
             value, label, _, candidate = results[0]

@@ -27,10 +27,15 @@ FUNCTION_HEADER = re.compile(r"^([0-9a-f]+) <([^>]+)>:\s*$")
 INSTRUCTION = re.compile(r"^\s*([0-9a-f]+):\t(\S+)(?:\s+(.*\S))?\s*$")
 RELOCATION = re.compile(r"^\s*([0-9a-f]+):\s+(R_MIPS_\w+)\s+(\S+)\s*$")
 BRANCH_TARGET = re.compile(r"\b([0-9a-f]+) <[^>]+>")
-REGISTER = re.compile(
-    r"\b(?:zero|at|v[01]|a[0-3]|t[0-9]|s[0-8]|k[01]|gp|sp|fp|ra|f\d{1,2})\b")
+# `zero` is not listed: it is never an allocation, so a line that differs in it is not register-only.
+REGISTER = re.compile(r"\b(?:at|v[01]|a[0-3]|t[0-9]|s[0-8]|k[01]|gp|sp|fp|ra|f\d{1,2})\b")
 RELOCATION_NAMES = {"R_MIPS_HI16": "%hi", "R_MIPS_LO16": "%lo", "R_MIPS_26": "%call", "R_MIPS_32": "%word"}
 DATA_SECTIONS = (".rodata", ".data", ".bss")
+SYMBOL_NOTE = re.compile(r"%\w+\([^)]*\)")
+ADDEND = re.compile(r"(?<=[,\t])-?(?:0x[0-9a-f]+|\d+)(?=(?:\(\w+\))? %sym)")
+LOW_ADDEND = re.compile(r"(?<=[,\t])(-?\d+)(?=\(\w+\)$|$)")
+RETARGETED = " -> +0x"
+SHT_NOBITS, SHT_REL = 8, 9
 
 
 @dataclass
@@ -39,10 +44,37 @@ class Instruction:
     mnemonic: str
     operands: str
     relocations: list[tuple[str, str]] = field(default_factory=list)
+    target: int | None = None  # branch target relative to the function start
+
+    @property
+    def branch_target(self) -> int | None:
+        """The local branch target; a relocated operand is a link-time placeholder."""
+
+        return None if self.relocations else self.target
+
+
+@dataclass(frozen=True)
+class Section:
+    """One data section: its bytes and the offsets of the words a relocation patches."""
+
+    data: bytes = b""
+    relocated: frozenset[int] = frozenset()
+
+    def comparable(self) -> bytes:
+        """The bytes with every relocated word zeroed.
+
+        A relocated word (a jump-table entry) holds an offset into another
+        section, which moves whenever the code before its target changes size.
+        """
+
+        data = bytearray(self.data)
+        for offset in self.relocated:
+            data[offset:offset + 4] = bytes(len(data[offset:offset + 4]))
+        return bytes(data)
 
 
 def function_listings(disassembly: str) -> dict[str, list[Instruction]]:
-    """Instructions of every function in ``objdump -d -r --no-show-raw-insn`` text."""
+    """Instructions of every function in ``objdump -d -r -z --no-show-raw-insn`` text."""
 
     listings: dict[str, list[Instruction]] = {}
     current: list[Instruction] | None = None
@@ -62,52 +94,110 @@ def function_listings(disassembly: str) -> dict[str, list[Instruction]]:
             continue
         instruction = INSTRUCTION.match(line)
         if instruction:
-            current.append(Instruction(int(instruction.group(1), 16) - start,
-                                       instruction.group(2), instruction.group(3) or ""))
+            operands = instruction.group(3) or ""
+            target = BRANCH_TARGET.search(operands)
+            current.append(Instruction(int(instruction.group(1), 16) - start, instruction.group(2), operands,
+                                       target=int(target.group(1), 16) - start if target else None))
         elif line.startswith("Disassembly of section"):
             current = None
     return listings
 
 
-def render(instructions: list[Instruction]) -> list[str]:
+def label_lines(instructions: list[Instruction]) -> dict[int, str]:
+    """Offsets inside the function that a branch targets, with their label names."""
+
+    targets = sorted({instruction.branch_target for instruction in instructions
+                      if instruction.branch_target is not None})
+    return {target: f".L{number}" for number, target in enumerate(targets, start=1)}
+
+
+def _section_note(instruction: Instruction, kind: str, symbol: str,
+                  sections: dict[str, Section] | None) -> tuple[str, str]:
+    """(operands, note) for one relocation; section-relative loads are named by content."""
+
+    name = RELOCATION_NAMES.get(kind, kind)
+    section = (sections or {}).get(symbol)
+    addend = LOW_ADDEND.search(instruction.operands) if kind == "R_MIPS_LO16" else None
+    if section is None or symbol == ".bss" or addend is None:
+        return instruction.operands, f"{name}({symbol})"
+    offset = int(addend.group(1))
+    if offset in section.relocated:
+        content = "relocated"
+    elif 0 <= offset and offset + 4 <= len(section.data):
+        content = section.data[offset:offset + 4].hex()
+    else:
+        return instruction.operands, f"{name}({symbol})"
+    # The offset inside the section moves when an earlier literal is added; the word does not.
+    operands = instruction.operands[:addend.start()] + "0" + instruction.operands[addend.end():]
+    return operands, f"{name}({symbol}:{content})"
+
+
+def render(instructions: list[Instruction], sections: dict[str, Section] | None = None) -> list[str]:
     """One comparable text line per instruction.
 
     Branch targets inside the function become ``.L<n>`` labels numbered in
-    address order, and each relocation replaces the meaningless link-time
-    operand it patches, so equal code at different offsets renders equally.
+    address order, each relocation replaces the link-time operand it patches,
+    and a load from the object's own ``.rodata``/``.data`` is named by the
+    word it reads, so equal code at different offsets renders equally.
     """
 
-    # objdump prints branch targets as section addresses; only their order matters here.
-    targets = sorted({int(match.group(1), 16) for instruction in instructions
-                      if not instruction.relocations
-                      for match in BRANCH_TARGET.finditer(instruction.operands)})
-    labels = {target: f".L{number}" for number, target in enumerate(targets, start=1)}
+    labels = label_lines(instructions)
     lines: list[str] = []
     for instruction in instructions:
         operands = instruction.operands
         if instruction.relocations:
-            notes = [f"{RELOCATION_NAMES.get(kind, kind)}({symbol})"
-                     for kind, symbol in instruction.relocations]
+            notes = []
+            for kind, symbol in instruction.relocations:
+                operands, note = _section_note(Instruction(instruction.offset, instruction.mnemonic, operands),
+                                               kind, symbol, sections)
+                notes.append(note)
             if any(kind == "R_MIPS_26" for kind, _ in instruction.relocations):
                 operands = notes[0]  # the printed call target is a link-time placeholder
             else:
                 operands = f"{operands} {' '.join(notes)}"
-        else:
-            operands = BRANCH_TARGET.sub(lambda match: labels[int(match.group(1), 16)], operands)
+        elif instruction.target is not None:
+            operands = BRANCH_TARGET.sub(labels[instruction.target], operands)
         lines.append(f"{instruction.mnemonic}\t{operands}".rstrip())
     return lines
 
 
-def label_lines(instructions: list[Instruction], function_address: int = 0) -> dict[int, str]:
-    """Offsets inside the function that a branch targets, with their label names."""
+def _pairs(reference: list[str], candidate: list[str]) -> dict[int, int]:
+    """reference index -> candidate index for equal lines and position-paired replacements."""
 
-    targets: set[int] = set()
-    for instruction in instructions:
-        if instruction.relocations:
+    mapping: dict[int, int] = {}
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, reference, candidate, autojunk=False).get_opcodes():
+        if tag in ("equal", "replace"):
+            for index in range(min(i2 - i1, j2 - j1)):
+                mapping[i1 + index] = j1 + index
+    return mapping
+
+
+def aligned(reference: list[Instruction], candidate: list[Instruction],
+            reference_sections: dict[str, Section] | None = None,
+            candidate_sections: dict[str, Section] | None = None) -> tuple[list[str], list[str]]:
+    """Rendered lines of both listings, with retargeted branches made visible.
+
+    Labels are numbered by rank, so a branch whose target moved to a different
+    instruction can still render as the same ``.L<n>``. Each pair of equal
+    branch lines is therefore checked against the alignment of the two
+    listings: when the targets do not correspond, both lines get their real
+    target offset appended and no longer compare equal.
+    """
+
+    old, new = render(reference, reference_sections), render(candidate, candidate_sections)
+    mapping = _pairs(old, new)
+    mapped = set(mapping.values())
+    old_index = {instruction.offset: index for index, instruction in enumerate(reference)}
+    new_index = {instruction.offset: index for index, instruction in enumerate(candidate)}
+    for i, j in mapping.items():
+        before, after = reference[i].branch_target, candidate[j].branch_target
+        if old[i] != new[j] or before is None or after is None:
             continue
-        for match in BRANCH_TARGET.finditer(instruction.operands):
-            targets.add(int(match.group(1), 16) - function_address)
-    return {target: f".L{number}" for number, target in enumerate(sorted(targets), start=1)}
+        ti, tj = old_index.get(before), new_index.get(after)
+        if (ti in mapping and mapping[ti] != tj) or (ti not in mapping and tj in mapped):
+            old[i] += f"{RETARGETED}{before:x}"
+            new[j] += f"{RETARGETED}{after:x}"
+    return old, new
 
 
 def _shape(line: str) -> str:
@@ -115,13 +205,22 @@ def _shape(line: str) -> str:
 
 
 def _without_symbols(line: str) -> str:
-    return re.sub(r"%\w+\([^)]*\)", "%sym", line)
+    """``line`` without the symbol a relocation names or the addend it carries."""
+
+    return ADDEND.sub("N", SYMBOL_NOTE.sub("%sym", line))
+
+
+def _without_target(line: str) -> str:
+    return line.split(RETARGETED)[0]
+
+
+KINDS = ("register-only", "relocation-only", "branch-target", "other", "inserted", "deleted")
 
 
 def classify(reference: list[str], candidate: list[str]) -> dict[str, int]:
-    """Count differing lines by kind: register-only, relocation-only, inserted, deleted, other."""
+    """Count differing lines by kind (see ``KINDS``)."""
 
-    counts = {"register-only": 0, "relocation-only": 0, "other": 0, "inserted": 0, "deleted": 0}
+    counts = dict.fromkeys(KINDS, 0)
     matcher = difflib.SequenceMatcher(None, reference, candidate, autojunk=False)
     for tag, i1, i2, j1, j2 in matcher.get_opcodes():
         if tag == "equal":
@@ -129,7 +228,9 @@ def classify(reference: list[str], candidate: list[str]) -> dict[str, int]:
         paired = min(i2 - i1, j2 - j1)
         for index in range(paired):
             old, new = reference[i1 + index], candidate[j1 + index]
-            if _shape(old) == _shape(new):
+            if _without_target(old) == _without_target(new):
+                counts["branch-target"] += 1
+            elif _shape(old) == _shape(new):
                 counts["register-only"] += 1
             elif _without_symbols(old) == _without_symbols(new):
                 counts["relocation-only"] += 1
@@ -171,6 +272,10 @@ def register_summary(mapping: list[tuple[str, str, int]], limit: int = 8) -> str
     return f"register map (reference->candidate): {shown}{more}"
 
 
+def _transfers_control(mnemonic: str) -> bool:
+    return mnemonic != "break" and mnemonic[:1] in ("j", "b")
+
+
 def trim_padding(instructions: list[Instruction]) -> list[Instruction]:
     """Drop the alignment nops that follow a function's final delay slot."""
 
@@ -178,7 +283,7 @@ def trim_padding(instructions: list[Instruction]) -> list[Instruction]:
     while end > 0 and instructions[end - 1].mnemonic == "nop" and not instructions[end - 1].relocations:
         end -= 1
     # A nop directly after the last jump or branch is its delay slot, not padding.
-    if 0 < end < len(instructions) and instructions[end - 1].mnemonic[0] in "jb":
+    if 0 < end < len(instructions) and _transfers_control(instructions[end - 1].mnemonic):
         end += 1
     return instructions[:end]
 
@@ -191,26 +296,34 @@ def summary(counts: dict[str, int]) -> str:
     return f"instruction diff: {total} lines differ ({', '.join(parts)})"
 
 
+def _offset_at(instructions: list[Instruction], index: int) -> int:
+    if index < len(instructions):
+        return instructions[index].offset
+    return instructions[-1].offset + 4 if instructions else 0
+
+
 def diff_lines(reference: list[Instruction], candidate: list[Instruction], *, context: int = 2,
-               reference_address: int = 0, candidate_address: int = 0) -> list[str]:
-    """Unified diff of two listings: ``-`` reference, ``+`` candidate, with function offsets."""
+               lines: tuple[list[str], list[str]] | None = None) -> list[str]:
+    """Unified diff of two listings: ``-`` reference, ``+`` candidate, with function offsets.
 
-    old, new = render(reference), render(candidate)
-    old_labels = label_lines(reference, reference_address)
-    new_labels = label_lines(candidate, candidate_address)
+    ``lines`` are the rendered lines from ``aligned`` when the caller already has them.
+    """
 
-    def shown(prefix: str, instructions: list[Instruction], lines: list[str], labels: dict[int, str],
+    old, new = lines if lines is not None else aligned(reference, candidate)
+    old_labels, new_labels = label_lines(reference), label_lines(candidate)
+
+    def shown(prefix: str, instructions: list[Instruction], rendered: list[str], labels: dict[int, str],
               index: int) -> str:
         offset = instructions[index].offset
         label = labels.get(offset, "")
-        return f"{prefix} {offset:4x}: {label + ':' if label else '':6}{lines[index]}"
+        return f"{prefix} {offset:4x}: {label + ':' if label else '':6}{rendered[index]}"
 
     output: list[str] = []
     matcher = difflib.SequenceMatcher(None, old, new, autojunk=False)
     for group in matcher.get_grouped_opcodes(context):
         first = group[0]
-        output.append(f"@@ reference +0x{reference[first[1]].offset:x}, candidate "
-                      f"+0x{candidate[first[3]].offset if first[3] < len(candidate) else 0:x} @@")
+        output.append(f"@@ reference +0x{_offset_at(reference, first[1]):x}, "
+                      f"candidate +0x{_offset_at(candidate, first[3]):x} @@")
         for tag, i1, i2, j1, j2 in group:
             if tag == "equal":
                 output += [shown(" ", candidate, new, new_labels, index) for index in range(j1, j2)]
@@ -220,17 +333,15 @@ def diff_lines(reference: list[Instruction], candidate: list[Instruction], *, co
     return output
 
 
-def function_addresses(disassembly: str) -> dict[str, int]:
-    return {match.group(2): int(match.group(1), 16)
-            for match in map(FUNCTION_HEADER.match, disassembly.splitlines()) if match}
-
-
 def compare_functions(base: dict[str, list[Instruction]], candidate: dict[str, list[Instruction]],
-                      skip: set[str]) -> tuple[int, list[str]]:
+                      skip: set[str], base_sections: dict[str, Section] | None = None,
+                      candidate_sections: dict[str, Section] | None = None) -> tuple[int, list[str]]:
     """(identical count, problems) for every function other than ``skip``.
 
-    Listings are compared after rendering, so a function that only moved to a
-    different address counts as identical.
+    Listings are compared after rendering and without their trailing alignment
+    nops, so a function that only moved, whose literals only moved inside
+    ``.rodata``, or whose padding changed because a neighbour changed size
+    counts as identical.
     """
 
     identical = 0
@@ -240,10 +351,13 @@ def compare_functions(base: dict[str, list[Instruction]], candidate: dict[str, l
             continue
         if name not in candidate:
             problems.append(f"{name}: missing from the variant object")
-        elif render(base[name]) == render(candidate[name]):
+            continue
+        old, new = aligned(trim_padding(base[name]), trim_padding(candidate[name]),
+                           base_sections, candidate_sections)
+        if old == new:
             identical += 1
         else:
-            counts = classify(render(base[name]), render(candidate[name]))
+            counts = classify(old, new)
             problems.append(f"{name}: CHANGED ({summary(counts).removeprefix('instruction diff: ')})")
     problems += [f"{name}: only in the variant object" for name in candidate
                  if name not in base and name not in skip]
@@ -255,8 +369,8 @@ def words(data: bytes, limit: int = 16) -> str:
     return shown + (" ..." if len(data) > limit * 4 else "")
 
 
-def data_sections(data: bytes) -> dict[str, bytes]:
-    """Bytes of the data sections of a 32-bit big-endian ELF object (``.bss`` as zeros)."""
+def data_sections(data: bytes) -> dict[str, Section]:
+    """The data sections of a 32-bit big-endian ELF object (``.bss`` as zeros)."""
 
     if data[:4] != b"\x7fELF" or data[4] != 1 or data[5] != 2:
         raise ValueError("expected a 32-bit big-endian ELF object")
@@ -264,13 +378,22 @@ def data_sections(data: bytes) -> dict[str, bytes]:
     entry_size, count, names_index = struct.unpack_from(">HHH", data, 0x2E)
     headers = [struct.unpack_from(">10I", data, offset + index * entry_size) for index in range(count)]
     names = headers[names_index][4]
-    sections: dict[str, bytes] = {}
-    for header in headers:
+
+    def name_of(header: tuple[int, ...]) -> str:
         start = names + header[0]
-        name = data[start:data.index(b"\0", start)].decode()
+        return data[start:data.index(b"\0", start)].decode()
+
+    contents: dict[str, bytes] = {}
+    relocated: dict[str, set[int]] = {}
+    for header in headers:
+        name = name_of(header)
         if name in DATA_SECTIONS:
-            sections[name] = bytes(header[5]) if header[1] == 8 else data[header[4]:header[4] + header[5]]
-    return sections
+            contents[name] = bytes(header[5]) if header[1] == SHT_NOBITS else data[header[4]:header[4] + header[5]]
+        elif header[1] == SHT_REL and name.removeprefix(".rel") in DATA_SECTIONS:
+            entries = data[header[4]:header[4] + header[5]]
+            relocated[name.removeprefix(".rel")] = {struct.unpack_from(">I", entries, index)[0]
+                                                    for index in range(0, len(entries) - 7, 8)}
+    return {name: Section(content, frozenset(relocated.get(name, ()))) for name, content in contents.items()}
 
 
 def payload(data: bytes) -> bytes:
@@ -280,23 +403,31 @@ def payload(data: bytes) -> bytes:
     return data[:(end + 3) & ~3]
 
 
-def compare_sections(base: dict[str, bytes], candidate: dict[str, bytes]) -> list[str]:
-    """One line per data section whose size or bytes differ from the current-source object."""
+def compare_sections(base: dict[str, Section], candidate: dict[str, Section]) -> list[str]:
+    """One line per data section whose size or bytes differ from the current-source object.
+
+    Relocated words (jump-table entries) are compared as zero: their values
+    are offsets into the text, which a changed function size moves.
+    """
 
     lines: list[str] = []
     for name in DATA_SECTIONS:
-        old, new = base.get(name, b""), candidate.get(name, b"")
+        before, after = base.get(name, Section()), candidate.get(name, Section())
+        old, new = before.comparable(), after.comparable()
         if old == new:
             continue
-        if name == ".bss":
-            lines.append(f"{name}: size 0x{len(old):x} -> 0x{len(new):x}")
-            continue
         detail = f"{name}: size 0x{len(old):x} -> 0x{len(new):x}"
-        old_payload, new_payload = payload(old), payload(new)
-        if new_payload[:len(old_payload)] == old_payload:
-            added = new_payload[len(old_payload):]
+        if name == ".bss":
+            lines.append(detail)
+            continue
+        # Padding is judged on the real bytes: a zeroed jump-table word is not padding.
+        kept = len(payload(before.data))
+        if new[:kept] == old[:kept] and len(new) >= kept:
+            added = payload(after.data)[kept:]
             detail += f"; appended words: {words(added) or '(zero padding only)'}"
         else:
-            detail += f"; variant words: {words(new)}"
+            first = next((index for index in range(0, min(len(old), len(new)), 4)
+                          if old[index:index + 4] != new[index:index + 4]), min(len(old), len(new)))
+            detail += f"; differs from +0x{first:x}, variant words there: {words(after.data[first:]) or '(none)'}"
         lines.append(detail)
     return lines
