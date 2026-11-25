@@ -17,8 +17,9 @@ and 4 zero alignment bytes, with no data relocations. 0x800AA31C is zero in the
 ROM, and 0x800AA320 begins the next pool. `config/game/us-rodata.ld` maps it as
 an INFO section at 0x800AA300 with a 0x20 extent assertion and a 0x1C payload;
 `config/data/us.json` records the owner. The preceding word 0x800AA2FC belongs
-to game_1DD500 ([record](game_1dd500_float_constant.md)), whose informational
-alignment bytes overlap this pool's first 12 bytes.
+to game_1DD500 ([record](game_1dd500_float_constant.md)). That section's 0x10
+extent assertion is IDO alignment padding, not the ROM boundary (its payload is
+4 bytes), so its informational padding overlaps this pool's first 12 bytes.
 
 The two `{19.0f, 0.0f, 25.0f}` vectors at 0x8008FAD0 and 0x8008FADC are game
 `.data` and stay unit-local `extern Vec3f` declarations (as in game_1E73B0);

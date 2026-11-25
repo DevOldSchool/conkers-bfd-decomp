@@ -56,8 +56,8 @@ typedef struct Game1DEF60Billboard {
     u8 color[10];
     s16 field1E, field20, field22;
     f32 size, width, height;
-    f32 position[3], velocity[3];
-    f32 field48, field4C, field50, field54;
+    f32 position[3], field3C[3];
+    f32 velocity[3], field54;
     u32 flags58;
     s32 field5C;
     s8 modes[4];
@@ -131,13 +131,15 @@ void func_151B1B34(Game1DEF60Emitter *arg0) {
                     heading = (link->owner->field7A >> 8) + 0x40;
                     yaw = func_150ADA20() % 100U + heading - 0x31;
                     func_15143874(yaw, 36.0f, &descriptor.position[0], &descriptor.position[2]);
+                    /* The reference stores 0.0f to descriptor+0x34 here
+                       (151B1E2C) before the origin copy below overwrites it. */
                     descriptor.position[1] = 0.0f;
                     descriptor.position[0] += origin[0];
                     descriptor.position[1] = origin[1];
                     descriptor.position[2] += origin[2];
                     func_15143874(yaw, (func_150ADA68() * 1497.0f + 995.0f) * 0.01f,
-                                  &descriptor.field48, &descriptor.field50);
-                    descriptor.field4C = 0.0f;
+                                  &descriptor.velocity[0], &descriptor.velocity[2]);
+                    descriptor.velocity[1] = 0.0f;
                 }
                 descriptor.flags58 &= ~0xC0;
                 if (func_150ADA20() & 1) {
