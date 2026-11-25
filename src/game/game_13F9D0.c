@@ -9,7 +9,6 @@
  * - func_15112520
  * - func_15112A80
  * - func_15113218
- * - func_15114188
  * - func_15114A1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -116,7 +115,9 @@ typedef struct Game13F9D0AttachedActor {
     f32 xyz[3];
     u8 pad20[0x70];
     s16 field90;
-    u8 pad92[0x142];
+    u8 pad92[0x95];
+    u8 unk_127;
+    u8 pad128[0xAC];
     Game13F9D0Transform *transform1D4;
     u8 pad1D8[0x154];
 } Game13F9D0AttachedActor;
@@ -477,7 +478,11 @@ void func_15113E54(s32 arg0) {
 typedef struct Game13F9D0Entry {
     u8 pad0[0x4F];
     u8 flags;
-    u8 pad50[0x50];
+    u8 pad50[0x28];
+    void (*unk_78)(u8 *, Game13F9D0AttachedActor *);
+    u8 pad7C[0x16];
+    u8 unk_92;
+    u8 pad93[0xD];
 } Game13F9D0Entry;
 
 extern u32 *D_800DBF94;
@@ -524,73 +529,32 @@ extern u8 D_800CC2D0;
 struct Game13F9D0MovingActor;
 void func_1511473C(struct Game13F9D0MovingActor *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (1150) */
 void func_15114188(void) {
-    struct ActorSlot {
-        u8 pad[0x127];
-        u8 flag;
-        u8 rest[0x204];
-    };
     s32 index;
-    s32 offset;
-    s32 actorOffset;
     s32 bit;
-    u32 mask;
-    u32 *maskPointer;
-    u32 bitMask;
-    u8 *entry;
-    u8 *actor;
-    void (*callback)(void *);
+    Game13F9D0AttachedActor *actor;
 
-    index = 0;
-    offset = 0;
-    if (D_800DBEF0 > 0) {
-        do {
-            maskPointer = (u32 *)((u8 *)D_800DBF94 + offset);
-            mask = *maskPointer;
-            bit = 0;
-            if (mask != 0) {
-                actorOffset = index * 0xA0;
-                if (mask != 0) {
-                    do {
-                        bitMask = 1U << bit;
-                        if (mask & bitMask) {
-                            *maskPointer = mask ^ bitMask;
-                            entry = (u8 *)D_800DBEF4 + actorOffset;
-                            callback = *(void (**)(void *))(entry + 0x78);
-                            if (callback != 0) {
-                                actor = (u8 *)&((struct ActorSlot *)&D_800CC2D0)[bit];
-                                if (entry[0x92] != 0 || actor[0x127] != 0xFF) {
-                                    ((void (*)(void *, void *, void *, void *))callback)(
-                                        (void *)(actorOffset + D_800DBEF4), actor,
-                                        (void *)D_800DBEF4, (void *)callback);
-                                    entry = (u8 *)D_800DBEF4 + actorOffset;
-                                }
-                            }
-                            if ((entry[0x4F] & 4) == 4) {
-                                if (!(entry[0x4F] & 8)) {
-                                    func_1511473C((struct Game13F9D0MovingActor *)&((struct ActorSlot *)&D_800CC2D0)[bit], index);
-                                }
-                            }
+    for (index = 0; index < D_800DBEF0; index++) {
+        if (D_800DBF94[index] != 0) {
+            for (bit = 0; bit < 25 && D_800DBF94[index] != 0; bit++) {
+                if (D_800DBF94[index] & (1 << bit)) {
+                    D_800DBF94[index] ^= 1 << bit;
+                    if (((Game13F9D0Entry *)D_800DBEF4)[index].unk_78 != NULL) {
+                        actor = &((Game13F9D0AttachedActor *)&D_800CC2D0)[bit];
+                        if (((Game13F9D0Entry *)D_800DBEF4)[index].unk_92 != 0 || actor->unk_127 != 0xFF) {
+                            ((Game13F9D0Entry *)D_800DBEF4)[index].unk_78(D_800DBEF4 + index * 0xA0, actor);
                         }
-                        bit++;
-                        if (bit >= 0x19) {
-                            break;
-                        }
-                        maskPointer = (u32 *)((u8 *)D_800DBF94 + offset);
-                        mask = *maskPointer;
-                    } while (mask != 0);
+                    }
+                    if ((((Game13F9D0Entry *)D_800DBEF4)[index].flags & 4) == 4 &&
+                        !(((Game13F9D0Entry *)D_800DBEF4)[index].flags & 8)) {
+                        func_1511473C((struct Game13F9D0MovingActor *)&((Game13F9D0AttachedActor *)&D_800CC2D0)[bit], index);
+                    }
                 }
-                entry = (u8 *)D_800DBEF4 + actorOffset;
-                entry[0x4F] &= 0xFF73;
             }
-            index++;
-            offset += 4;
-        } while (index < D_800DBEF0);
+            ((Game13F9D0Entry *)D_800DBEF4)[index].flags &= ~0x8C;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15114188 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114188.s")
 typedef struct Game13F9D0Pivot {
     f32 angleX;
     f32 angleY;

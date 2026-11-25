@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_dispatcher_callback_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15075650
  * - func_150768DC
  * - func_15077508
  * - func_15078A60
@@ -29,7 +28,11 @@ typedef struct GameA28B0State {
     f32 position_x;
     f32 position_y;
     f32 position_z;
-    u8 pad20[0x4F];
+    u8 pad20[0x24];
+    f32 unk_44;
+    u8 pad48[0x1D];
+    u8 unk_65;
+    u8 pad66[9];
     u8 field_6F;
     u8 field_70;
     u8 field_71;
@@ -49,7 +52,8 @@ typedef struct GameA28B0State {
     u8 field_10E;
     u8 pad10F[0xD5];
     u8 field_1E4;
-    u8 pad1E5[0x39];
+    u8 pad1E5[0x37];
+    s16 unk_21C;
     u8 field_21E;
     u8 pad21F[3];
     u8 field_222;
@@ -148,14 +152,11 @@ void func_15075548(void) {
 extern u8 *D_800D2108;
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15075650 CURRENT (3069) */
 void func_15075650(void) {
     u8 count;
-    u8 previous;
     u8 limit;
-    u8 minimum;
+    u8 previous;
     u8 override;
-    u8 current;
     u8 selected;
 
     limit = D_800D2108[D_800D154C->pad10F[0x30]] - 1;
@@ -163,50 +164,43 @@ void func_15075650(void) {
     if (override != 0) {
         limit = override;
     }
-    minimum = D_800D154C->pad21F[1];
-    count = limit;
-    count -= minimum;
+    count = limit - D_800D154C->pad21F[1];
     if (D_800D1891 == 0xFF) {
         if (D_800D154C->pad223[0] != 13) {
-            D_800D154C->field_21E = func_150ADA20() % count + D_800D154C->pad21F[1];
-            goto reload_state;
+            D_800D154C->field_21E = D_800D154C->pad21F[1] + func_150ADA20() % count;
         }
     } else if (D_800D1891 == 0xFE) {
         if (D_800D154C->pad223[0] != 13) {
-            current = D_800D154C->field_21E;
+            s32 current = D_800D154C->field_21E;
+
             previous = current - 1;
-            if (minimum >= current) {
+            if (current <= D_800D154C->pad21F[1]) {
                 previous = limit - 1;
             }
-            selected = func_150ADA20() % count + D_800D154C->pad21F[1];
-            if (previous != selected) {
+            selected = D_800D154C->pad21F[1] + func_150ADA20() % count;
+            if (selected != previous) {
                 D_800D154C->field_21E = selected;
             }
         }
+    } else if (D_800D1891 == 0xFF) {
+        D_800D154C->field_21E = limit - 1;
     } else {
-        if (D_800D1891 == 0xFF) {
-            D_800D154C->field_21E = limit - 1;
-        } else {
-            D_800D154C->field_21E = D_800D1891;
-        }
+        selected = D_800D1891;
+        D_800D154C->field_21E = selected;
     }
-reload_state:
     D_800D154C->pad223[0] = 0;
-    *(s16 *) ((u8 *) D_800D154C + 0x21C) = D_800D1890 * 100;
+    D_800D154C->unk_21C = D_800D1890 * 100;
     if (D_800D1892 != 0xFF) {
-        *(f32 *) ((u8 *) D_800D154C + 0x44) = (f32) (u32) D_800D1892;
-        if (*(f32 *) ((u8 *) D_800D154C + 0x44) == 1.0f) {
-            *(f32 *) ((u8 *) D_800D154C + 0x44) = 0.5f;
+        D_800D154C->unk_44 = D_800D1892;
+        if (D_800D154C->unk_44 == 1.0f) {
+            D_800D154C->unk_44 = 0.5f;
         }
     }
-    current = D_800D154C->pad21F[1];
-    if (D_800D154C->field_21E < current) {
-        D_800D154C->field_21E = current;
+    if (D_800D154C->field_21E < D_800D154C->pad21F[1]) {
+        D_800D154C->field_21E = D_800D154C->pad21F[1];
     }
     func_15075498();
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15075650 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15075650.s")
 typedef struct {
     u8 pad_0[8];
     s16 values[1][4];
@@ -665,7 +659,7 @@ void func_15076B94(void) {
         }
     }
 }
-void func_1506160C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
+void func_1506160C(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
 
 void func_15076C7C(void) {
     func_1506160C((u8 *)D_800D154C, 1, D_800D1890, 0, 0);
@@ -780,9 +774,9 @@ void func_1502EA60(u8 *, s32);
 void func_1502EA7C(u8 *, s32);
 
 void func_150771F0(void) {
-    s32 first;
-    s32 second;
-    s32 mode;
+    u8 first;
+    u8 second;
+    u8 mode;
 
     if (D_800D1893 == 0) {
         first = D_800D1890;
@@ -2056,11 +2050,11 @@ void func_1507A984(void) {
             if (D_800D1893 != 0) {
                 D_800D154C->padB1[0x50] |= 0x40;
             }
-            D_800D154C->pad20[0x45] = ((s32) ((u8 *)temp_v0 - (u8 *)&D_800CC2D0) / 812) + 1;
+            D_800D154C->unk_65 = ((s32) ((u8 *)temp_v0 - (u8 *)&D_800CC2D0) / 812) + 1;
             *(s32 *)((u8 *)D_800D154C + 0x5C) = (s32) D_800D1891;
         }
     } else {
-        D_800D154C->pad20[0x45] = 0;
+        D_800D154C->unk_65 = 0;
     }
 }
 extern f32 D_8009A20C;
@@ -2186,7 +2180,7 @@ void func_1507B040(void) {
     D_800D154C->field_76 = D_800D154C->field_7A;
 }
 void *func_15072208(void *, s32);
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 s32 func_1507BB28(s32, s32);
 
 void func_1507B058(void) {
@@ -2442,7 +2436,7 @@ void func_1507B974(void) {
     GameA28B0State *var_v1;
     s32 temp_a0;
 
-    temp_a0 = D_800D154C->pad20[0x45];
+    temp_a0 = D_800D154C->unk_65;
     var_v1 = D_800D154C;
     if (temp_a0 != 0) {
         var_v1 = (GameA28B0State *) ((temp_a0 * 0x32C - 0x32C) + (u8 *)&D_800CC2D0);

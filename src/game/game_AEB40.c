@@ -10,7 +10,6 @@
  * - func_150825C0
  * - func_15082A44
  * - func_15083AC8
- * - func_15084044
  * - func_15084558
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -21,10 +20,17 @@ typedef struct GameAEB40NestedState {
     u8 field_56;
 } GameAEB40NestedState;
 
+typedef struct GameAEB40Config {
+    u8 unk_00[0x10];
+    u8 unk_10;
+} GameAEB40Config;
+
 typedef struct GameAEB40State {
     u8 pad0[0x14];
     f32 x, y, z;
-    u8 pad20[0xB2];
+    u8 pad20[0x45];
+    u8 unk_65;
+    u8 unk_66[0x6C];
     s16 radius;
     u8 padD4[2];
     s16 height;
@@ -32,15 +38,19 @@ typedef struct GameAEB40State {
     f32 scale, inverse;
     u8 padE4[0x14];
     u32 flags_F8;
-    u8 padFC[0xCD];
+    u8 padFC[0x48];
+    struct GameAEB40Config *unk_144;
+    u8 unk_148[0x81];
     u8 field_1C9;
     u8 field_1CA;
-    u8 pad1CB[0xF9];
+    u8 pad1CB[0xC1];
+    s32 unk_28C[7][2];
     u8 *field_2C4;
     u8 field_2C8;
     u8 field_2C9;
     u8 pad2CA[0x52];
     GameAEB40NestedState *nested_31C;
+    u8 unk_320[0xC];
 } GameAEB40State;
 
 void func_100226F0(void *, s32);
@@ -919,132 +929,94 @@ s32 func_15084000(s32 arg0) {
 }
 void func_10004074(s32);
 void func_10023A10(void *, void *, s32);
-extern u8 D_800C57A0[];
+extern u16 D_800C57A0[];
 extern u8 D_800CC0E8[];
 extern void *D_800D19A0[];
 extern u8 D_800D1F80[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084044 CURRENT (1934) */
-s32 func_15084044(void *arg0, s32 arg1) {
-    s32 failed;
-    u8 *count;
+s32 func_15084044(GameAEB40State *arg0, s32 arg1) {
+    GameAEB40Config *config;
+    s32 mode;
     s32 size;
-    s32 offset;
-    s32 model;
-    register s32 mode;
-    register s32 parent;
-    u8 *pair;
-    u8 *current;
-    void **shared;
-    register void *resource;
-    void *allocated;
-    register u8 *config;
+    s32 i;
+    s16 parent;
+    u8 model;
+    s32 failed;
 
-    parent = ((u8 *)arg0)[0x65];
-    pair = (u8 *)arg0 + arg1 * 8;
+    parent = arg0->unk_65;
     if (parent != 0) {
-        config = *(u8 **)(D_800CC0E8 + parent * 0x32C);
+        config = ((GameAEB40State *)&D_800CC2D0)[parent - 1].unk_144;
     } else {
-        config = *(u8 **)((u8 *)arg0 + 0x144);
+        config = arg0->unk_144;
     }
-    mode = 0;
-    model = ((GameAEB40State *)arg0)->field_2C4[arg1];
-    if (config != 0) {
-        mode = config[0x10] & 3;
-    }
+    model = arg0->field_2C4[arg1];
+    mode = (config != NULL) ? config->unk_10 & 3 : 0;
     if (model == 0) {
         mode = 2;
     }
-    resource = *(void **)(pair + 0x28C);
-    shared = &D_800D19A0[model];
-    if ((resource != 0) && (*(void **)(pair + 0x290) != 0)) {
+    if (arg0->unk_28C[arg1][0] != 0 && arg0->unk_28C[arg1][1] != 0) {
         return 0;
     }
-    allocated = *shared;
-    if (allocated == 0) {
+    if (D_800D19A0[model] == NULL) {
         return 0;
     }
     failed = 0;
     if (mode == 0) {
-        *(void **)(pair + 0x290) = allocated;
-        *(void **)(pair + 0x28C) = allocated;
-        count = &D_800D1F80[model];
-        *count += 2;
+        arg0->unk_28C[arg1][0] = arg0->unk_28C[arg1][1] = (s32)D_800D19A0[model];
+        D_800D1F80[model] += 2;
     } else if (mode == 1) {
-        if ((resource == 0) || (resource == allocated)) {
-            count = &D_800D1F80[model];
-            if (*count != 0) {
-                size = *(u16 *)(D_800C57A0 + model * 2) * 0x10;
-                allocated = func_10003C40(size, 1, 2, 2);
-                *(void **)(pair + 0x28C) = allocated;
-                if (allocated == 0) {
+        if (arg0->unk_28C[arg1][0] == 0 || arg0->unk_28C[arg1][0] == (s32)D_800D19A0[model]) {
+            if (D_800D1F80[model] != 0) {
+                size = D_800C57A0[model] * 0x10;
+                arg0->unk_28C[arg1][0] = (s32)func_10003C40(size, 1, 2, 2);
+                if (arg0->unk_28C[arg1][0] == 0) {
                     failed = 1;
                 } else {
-                    resource = *(void **)(pair + 0x28C);
-                    if (resource != 0) {
-                        func_10023A10(*shared, resource, size);
+                    if (arg0->unk_28C[arg1][0] != 0) {
+                        func_10023A10(D_800D19A0[model], (void *)arg0->unk_28C[arg1][0], size);
                     } else {
-                        *(void **)(pair + 0x28C) = *shared;
+                        arg0->unk_28C[arg1][0] = (s32)D_800D19A0[model];
                     }
                 }
             } else {
-                *(void **)(pair + 0x290) = allocated;
-                *(void **)(pair + 0x28C) = allocated;
-                *count += 2;
+                arg0->unk_28C[arg1][0] = arg0->unk_28C[arg1][1] = (s32)D_800D19A0[model];
+                D_800D1F80[model] += 2;
             }
-            resource = *(void **)(pair + 0x28C);
         }
-        *(void **)(pair + 0x290) = resource;
-    } else {
-        offset = 0;
-        if (mode == 2) {
-            current = (u8 *)arg0 + arg1 * 8;
-loop:
-            allocated = *(void **)(current + 0x28C);
-            count = &D_800D1F80[model];
-            if ((allocated == 0) || (allocated == *shared) ||
-                ((offset == 4) && (*(void **)(pair + 0x28C) ==
-                                  *(void **)(pair + 0x290)))) {
-                if (*count != 0) {
-                    size = *(u16 *)(D_800C57A0 + model * 2) * 0x10;
-                    allocated = func_10003C40(size, 1, 2, 2);
-                    *(void **)(current + 0x28C) = allocated;
-                    if (allocated == 0) {
+        arg0->unk_28C[arg1][1] = arg0->unk_28C[arg1][0];
+    } else if (mode == 2) {
+        for (i = 0; i < 2; i++) {
+            if (arg0->unk_28C[arg1][i] == 0 || arg0->unk_28C[arg1][i] == (s32)D_800D19A0[model] ||
+                (i == 1 && arg0->unk_28C[arg1][0] == arg0->unk_28C[arg1][1])) {
+                if (D_800D1F80[model] != 0) {
+                    size = D_800C57A0[model] * 0x10;
+                    arg0->unk_28C[arg1][i] = (s32)func_10003C40(size, 1, 2, 2);
+                    if (arg0->unk_28C[arg1][i] == 0) {
                         failed = 1;
-                        if (offset == 4) {
-                            resource = *(void **)(pair + 0x28C);
-                            if (resource != *shared) {
-                                func_10004074((s32)resource);
+                        if (i == 1) {
+                            if (arg0->unk_28C[arg1][0] != (s32)D_800D19A0[model]) {
+                                func_10004074(arg0->unk_28C[arg1][0]);
                             } else {
-                                *count -= 1;
+                                D_800D1F80[model] -= 1;
                             }
-                            *(void **)(pair + 0x28C) = 0;
+                            arg0->unk_28C[arg1][0] = 0;
                         }
-                        goto done;
+                        break;
                     }
-                    allocated = *(void **)(current + 0x28C);
-                    if (allocated != 0) {
-                        func_10023A10(*shared, allocated, size);
+                    if (arg0->unk_28C[arg1][i] != 0) {
+                        func_10023A10(D_800D19A0[model], (void *)arg0->unk_28C[arg1][i], size);
                     } else {
-                        *(void **)(current + 0x28C) = *shared;
+                        arg0->unk_28C[arg1][i] = (s32)D_800D19A0[model];
                     }
                 } else {
-                    *(void **)(current + 0x28C) = *shared;
-                    *count += 1;
+                    arg0->unk_28C[arg1][i] = (s32)D_800D19A0[model];
+                    D_800D1F80[model] += 1;
                 }
-            }
-            offset += 4;
-            current += 4;
-            if (offset != 8) {
-                goto loop;
             }
         }
     }
-done:
     return failed;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15084044 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084044.s")
 void func_150843AC(GameAEB40State *, s32);
 
 void func_1508434C(GameAEB40State *arg0) {

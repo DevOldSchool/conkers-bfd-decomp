@@ -16,15 +16,23 @@ The checksum-validated US game-data archive contains big-endian `38D1B717 42652E
 0x80098918 and `3ECCCCCD 3F4CCCCD` at 0x80098928, which the four literals reproduce.
 ROM SHA1 is `4cbadd3c4e0729dec46af64ad018050eada4f47a`; game-data base 0x80082B20.
 
-The generated `game_6B320.o` has rodata `38d1b717 42652ee0 3ecccccd 3f4ccccd`: the
-`func_1503E5F8` pair then the `func_1503ECA0` pair, 0x10 bytes with no alignment
-padding and no data relocations. The words at 0x80098920 and 0x80098924 (used by
-the deferred `func_1503EB78` through extern symbols) lie between the two pools, so game_6B320 is a
-split unit: `scripts/split_game_rodata.py` splits it into `.rodata.6b320_0` (0x8 at
-0x80098918) and `.rodata.6b320_8` (0x8 at 0x80098928), each with an exact linker size
-assertion, as described in [game rodata literal sub-pools](game_rodata_literal_sub_pools.md).
-The string data from 0x80098930 is outside both ranges and is not treated as padding or
-replaced. `config/data/us.json` records both owners.
+`func_1503EB78` (matched in round-30) sits between those two functions in the unit and
+scales its two inputs by `0.02745098f` (`3CE0E0E1` at 0x80098920) and uses `-0.3f`
+(`BE99999A` at 0x80098924). While it was deferred it read both words through the extern
+symbols `D_80098920`/`D_80098924`, which left a hole between the two pools and made
+game_6B320 a split unit (`.rodata.6b320_0` and `.rodata.6b320_8`). With the literals the
+residual float-register swap disappears (CURRENT 0) and the pool is contiguous, so the
+split is retired.
+
+The generated `game_6B320.o` now has rodata
+`38d1b717 42652ee0 3ce0e0e1 be99999a 3ecccccd 3f4ccccd`: the `func_1503E5F8` pair, the
+`func_1503EB78` pair, then the `func_1503ECA0` pair, 0x18 payload bytes followed by 8
+zero alignment bytes and no data relocations. These are exactly the ROM words at
+0x80098918..0x8009892F. `config/game/us-rodata.ld` maps the whole object `.rodata` at
+0x80098918 with a 0x20-byte section-size assertion and a 0x18-byte payload-size symbol;
+the verifier compares only the payload. The string data from 0x80098930 is outside the
+payload and is not treated as padding or replaced. `config/data/us.json` records the
+single owner.
 
 The INFO mappings retain linked bytes for verification without appending to the
 code-only payload. No reference assembly, compiler flag or verifier changes are involved.

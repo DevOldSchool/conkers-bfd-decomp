@@ -132,10 +132,14 @@ Getting started
   permute <work-item-id> --randomized [--seconds N] [--seed S]
                                  Drive the pinned decomp-permuter instead; improvements are
                                  rescored with the project differ and applied through finish.
-  probe <work-item-id> [<variant.c>...] [--layout]
+  probe <work-item-id> [<variant.c>...] [--layout | [--diff [--context N]] [--unit] [--asm]]
                                  Score function variants in one pass without editing source;
                                  --layout prints frame size and named-local stack offsets,
                                  plus a local-area word account when the frames differ.
+                                 --diff prints the best variant's instruction diff against the
+                                 reference with a register map; --unit reports what each variant
+                                 changes besides the target (other functions, .rodata/.data/.bss);
+                                 --asm prints the compiler's own assembly (cc -S) per source line.
   sweep <unchanged|literals|literals-inline> [--max-score N] [--source PATH]... [--function ID]...
         [--reason REGEX] [--batched | --probe-baseline] [--output PATH]
                                  Rescore every deferred candidate under one transform in one
@@ -1086,7 +1090,7 @@ case "$command" in
             --profile us --identifier "$reopened_symbol"
         ;;
     probe)
-        [[ $# -ge 1 ]] || die "usage: ./conker probe <work-item-id> [<variant.c>...] [--layout]"
+        [[ $# -ge 1 ]] || die "usage: ./conker probe <work-item-id> [<variant.c>...] [--layout | [--diff [--context N]] [--unit] [--asm]]"
         python3 "$state_tool" setup-check --profile us
         ensure_warm_container
         run_in_warm_container python3 scripts/probe.py us "$@"

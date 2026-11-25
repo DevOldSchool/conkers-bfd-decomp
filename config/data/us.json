@@ -639,17 +639,7 @@
       },
       {
         "address": "0x80098918",
-        "section": ".rodata.6b320_0",
-        "owner": {
-          "sources": [
-            "src/game/game_6B320.c",
-            "src/done/game/game_6B320.c"
-          ]
-        }
-      },
-      {
-        "address": "0x80098928",
-        "section": ".rodata.6b320_8",
+        "section": ".rodata",
         "owner": {
           "sources": [
             "src/game/game_6B320.c",
@@ -1256,6 +1246,16 @@
         }
       },
       {
+        "address": "0x800A04E0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_F52B0.c",
+            "src/done/game/game_F52B0.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A06D0",
         "section": ".rodata",
         "owner": {
@@ -1336,7 +1336,7 @@
         }
       },
       {
-        "address": "0x800A0BE4",
+        "address": "0x800A0BE0",
         "section": ".rodata",
         "owner": {
           "sources": [
@@ -1846,6 +1846,16 @@
         }
       },
       {
+        "address": "0x800A3678",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_157840.c",
+            "src/done/game/game_157840.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A376C",
         "section": ".rodata",
         "owner": {
@@ -2242,6 +2252,16 @@
           "sources": [
             "src/game/game_191C30.c",
             "src/done/game/game_191C30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A6C70",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_193130.c",
+            "src/done/game/game_193130.c"
           ]
         }
       },
@@ -2932,6 +2952,16 @@
           "sources": [
             "src/game/game_1F2730.c",
             "src/done/game/game_1F2730.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AAC04",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1F3780.c",
+            "src/done/game/game_1F3780.c"
           ]
         }
       },

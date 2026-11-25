@@ -9,7 +9,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1512A390
  * - func_1512AD54
- * - func_1512B1B8
  * - func_1512B730
  * - func_1512C20C
  *
@@ -25,7 +24,20 @@ void func_100226F0(void *, s32);
 extern s32 D_80082FA0;
 extern Game157840Record D_80089590[];
 extern s32 D_800BE9F0;
-extern u8 D_800DC0C0;
+typedef struct Game1512B730Slot {
+    u8 state;
+    u8 pad01[3];
+    s32 value;
+    u8 pad08[4];
+} Game1512B730Slot;
+
+typedef struct Game1512B730Entry {
+    Game1512B730Slot slots[4];
+    u8 side;
+    u8 pad31[0x1B];
+} Game1512B730Entry;
+
+extern Game1512B730Entry D_800DC0C0[4];
 extern Game157840Record D_800DC200[4][4];
 
 void func_1512ABF8(void) {
@@ -77,70 +89,74 @@ void func_1512B100(void *arg0) {
         *(s16 *)(base + 0x5FE) = 0x3C;
     }
 }
-s32 func_1512B630(void *, u8 *, s32, s32, s32, s32);
-extern u8 D_80089630[];
-extern const f32 D_800A3678;
+typedef struct Game157840DepthEncoding {
+    s32 shift;
+    s32 base;
+} Game157840DepthEncoding;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512B1B8 CURRENT (5377) */
-void func_1512B1B8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+typedef struct Game157840Owner {
+    u8 unk_000[0x1B4];
+    s16 unk_1B4;
+    u8 unk_1B6[0x87];
+    u8 unk_23D;
+    u8 unk_23E[0x3CE];
+    f32 unk_60C;
+    f32 unk_610;
+    u8 unk_614[0x2A8];
+    u16 *unk_8BC;
+} Game157840Owner;
+
+s32 func_1512B630(void *, u8 *, s32, s32, s32, s32);
+extern Game157840DepthEncoding D_80089630[];
+
+void func_1512B1B8(Game157840Owner *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s16 radius;
     s32 depths[640];
     s32 index;
-    u8 *record;
-    f32 oldX;
-    f32 oldY;
+    Game157840Record *record;
     s32 targetY;
     u16 packed;
-    s32 *entry;
-    f32 blend;
     s32 start;
+    s32 hit;
 
-    blend = D_800A3678;
-    record = (u8 *)&D_800DC200 + ((arg0[0x23D] << 5) +
-        (*(s16 *)(arg0 + 0x1B4) * 8));
-    radius = *(s16 *)record;
-    oldX = *(f32 *)(arg0 + 0x60C);
-    targetY = *(s16 *)(record + 2);
-    oldY = *(f32 *)(arg0 + 0x610);
-    *(f32 *)(arg0 + 0x60C) = oldX + ((f32)radius - oldX) * blend;
-    radius = (s16)((f32)(s16)(s32)*(f32 *)(arg0 + 0x60C) + 0.5f);
-    *(f32 *)(arg0 + 0x610) = oldY + ((f32)targetY - oldY) * blend;
+    record = &D_800DC200[arg0->unk_23D][arg0->unk_1B4];
+    radius = *(s16 *)&record->bytes[0];
+    targetY = *(s16 *)&record->bytes[2];
+    arg0->unk_60C += ((f32)radius - arg0->unk_60C) * 0.05f;
+    radius = (s16)arg0->unk_60C + 0.5f;
+    arg0->unk_610 += ((f32)targetY - arg0->unk_610) * 0.05f;
     start = radius / 4;
-    index = start;
-    if (index < radius) {
-        do {
-            if (*(f32 *)(D_800BE628 + arg0[0x23D] * 0x180 + 0x2C) < (f32)(arg1 - index)) {
-                packed = *(u16 *)(*(u8 **)(arg0 + 0x8BC) + arg1 * 2 + -(index * 2));
-                entry = (s32 *)(D_80089630 + ((packed >> 13) * 8));
-                arg2 = arg3 - ((u32)(entry[1] + (((packed >> 2) & 0x7FF) << entry[0])) >> 3);
-                *(depths + radius + -index) = arg2;
-                if (func_1512B630(arg0, &D_800DC0C0 + (((((arg0[0x23D] << 2) + arg0[0x23D]) << 2) - arg0[0x23D]) << 2),
-                        arg2, index, radius * 3 / 4, 0) != 0) {
-                    index = radius;
-                }
+    for (index = start; index < radius; index++) {
+        if (D_800BE628[arg0->unk_23D].left < (f32)(arg1 - index)) {
+            packed = arg0->unk_8BC[arg1 - index];
+            {
+                Game157840DepthEncoding *entry = &D_80089630[packed >> 13];
+
+                depths[radius - index] = arg3 - ((u32)(entry->base + (((packed >> 2) & 0x7FF) << entry->shift)) >> 3);
+                hit = func_1512B630(arg0, &D_800DC0C0[arg0->unk_23D].slots[0].state, depths[radius - index], index,
+                                    radius * 3 / 4, 0);
             }
-            index++;
-        } while (index < radius);
-        index = start;
+            if (hit != 0) {
+                index = radius;
+            }
+        }
     }
-    if (start < radius) {
-        do {
-            if ((f32)(arg1 + index) < *(f32 *)(D_800BE628 + arg0[0x23D] * 0x180 + 0x30)) {
-                packed = *(u16 *)(*(u8 **)(arg0 + 0x8BC) + arg1 * 2 + index * 2);
-                entry = (s32 *)(D_80089630 + ((packed >> 13) * 8));
-                arg2 = arg3 - ((u32)(entry[1] + (((packed >> 2) & 0x7FF) << entry[0])) >> 3);
-                *(depths + index + radius) = arg2;
-                if (func_1512B630(arg0, &D_800DC0C0 + (((((arg0[0x23D] << 2) + arg0[0x23D]) << 2) - arg0[0x23D]) << 2) + 0xC,
-                        arg2, index, radius * 3 / 4, 0) != 0) {
-                    index = radius;
-                }
+    for (index = start; index < radius; index++) {
+        if ((f32)(arg1 + index) < D_800BE628[arg0->unk_23D].right) {
+            packed = arg0->unk_8BC[arg1 + index];
+            {
+                Game157840DepthEncoding *entry = &D_80089630[packed >> 13];
+
+                depths[index + radius] = arg3 - ((u32)(entry->base + (((packed >> 2) & 0x7FF) << entry->shift)) >> 3);
+                hit = func_1512B630(arg0, &D_800DC0C0[arg0->unk_23D].slots[1].state, depths[index + radius], index,
+                                    radius * 3 / 4, 0);
             }
-            index++;
-        } while (index < radius);
+            if (hit != 0) {
+                index = radius;
+            }
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512B1B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512B1B8.s")
 
 s32 func_1512B53C(u8 *arg0) {
     if (*(s16 *)(arg0 + 0x5FC) != 0) {
@@ -197,19 +213,6 @@ s32 func_1512B630(void *arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) 
 }
 extern f32 D_800A367C, D_800A3680, D_800A3684;
 extern s32 D_800BE9E4;
-
-typedef struct Game1512B730Slot {
-    u8 state;
-    u8 pad01[3];
-    s32 value;
-    u8 pad08[4];
-} Game1512B730Slot;
-
-typedef struct Game1512B730Entry {
-    Game1512B730Slot slots[4];
-    u8 side;
-    u8 pad31[0x1B];
-} Game1512B730Entry;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1512B730 */
 s32 func_1512B730(u8 *arg0, f32 *arg1, s32 arg2) {

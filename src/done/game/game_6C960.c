@@ -25,7 +25,7 @@ void func_1505E0C4(s32, s32, Game6C960Actor *, s32, s32, s32, s32,
 
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
-void func_1502D824(void *, s32, s32);
+void func_1502D824(void *, void *, s32);
 void func_150A81D0(s32 *, s32, void *, s32, s32, s16 *, s32, s32);
 void func_150A9984(void *, u16);
 void func_1507BDB0(s32, s32, void *, s32);

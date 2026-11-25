@@ -8,11 +8,6 @@
 /*
  * Reviewed source unit: src/game/game_A9D90.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1507E1D0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameA9D90Inner {
@@ -44,9 +39,16 @@ typedef struct GameA9D90Status {
 } GameA9D90Status;
 
 typedef struct GameA9D90Player {
-    u8 pad0[7];
+    s32 unk_00;
+    u8 pad4[3];
     u8 controller;
-    u8 pad8[0x314];
+    u8 pad8[0xC];
+    Vec3f unk_14;
+    u8 pad20[0x130];
+    f32 unk_150;
+    u8 pad154[0x80];
+    s32 unk_1D4;
+    u8 pad1D8[0x144];
     GameA9D90Status *status;
     u8 pad320[0xC];
 } GameA9D90Player;
@@ -54,7 +56,7 @@ typedef struct GameA9D90Player {
 void func_1506160C(u8 *, u8, u8, u8, u8);
 void func_1507CD0C(void *);
 void func_1507D4F8(s32);
-void func_1507E1D0(void *, f32 *, f32 *, f32 *);
+void func_1507E1D0(GameA9D90Player *, f32 *, f32 *, f32 *);
 s32 func_150859AC(s32, s32);
 void func_1517F814(s32, f32, f32, f32, s32);
 extern s8 D_8008FD8C;
@@ -901,20 +903,19 @@ s32 func_1507E114(s32 arg0) {
 
 void func_15143134(f32 *, f32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 CURRENT (300) */
-void func_1507E1D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
-    if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+void func_1507E1D0(GameA9D90Player *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
+    if (arg0->unk_1D4 != 0) {
         s32 var_a2;
         Vec3f input;
         Vec3f output;
 
         input.x = 0.0f;
-        input.y = *(f32 *)((u8 *)arg0 + 0x150) * 30.0f;
+        input.y = arg0->unk_150 * 30.0f;
         input.z = 0.0f;
-        var_a2 = *(s32 *)((u8 *)arg0 + 0x1D4);
-        if (*(s32 *)arg0 == 1) {
+        var_a2 = arg0->unk_1D4;
+        if (arg0->unk_00 == 1) {
             var_a2 += 0x300;
-        } else if (*(s32 *)arg0 == 0x1E) {
+        } else if (arg0->unk_00 == 0x1E) {
             var_a2 += 0xC0;
         }
         func_15143134(&input.x, &output.x, var_a2);
@@ -922,10 +923,8 @@ void func_1507E1D0(void *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
         *arg2 = output.y;
         *arg3 = output.z;
     } else {
-        *arg1 = *(f32 *)((u8 *)arg0 + 0x14);
-        *arg2 = *(f32 *)((u8 *)arg0 + 0x18);
-        *arg3 = *(f32 *)((u8 *)arg0 + 0x1C);
+        *arg1 = arg0->unk_14.x;
+        *arg2 = arg0->unk_14.y;
+        *arg3 = arg0->unk_14.z;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E1D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507E1D0.s")

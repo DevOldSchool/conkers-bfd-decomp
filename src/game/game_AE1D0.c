@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_vec.h"
 
 /*
  * Reviewed source unit: src/game/game_AE1D0.c
@@ -6,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15080D20
- * - func_1508114C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -18,7 +18,9 @@ typedef struct GameAE1D0Actor {
     f32 x, y, z;
     u8 pad20[0x20];
     f32 yaw;
-    u8 pad44[0x74];
+    u8 pad44[0x58];
+    s32 unk_9C;
+    u8 unk_A0[0x18];
     f32 pitch;
     u8 padBC[0x69];
     u8 suppressEffect;
@@ -37,7 +39,7 @@ typedef struct GameAE1D0Bounds {
 
 typedef struct GameAE1D0Sphere {
     u8 joint;
-    u8 pad1;
+    u8 unk_01;
     u16 radius;
     s16 x, y, z;
 } GameAE1D0Sphere;
@@ -138,19 +140,103 @@ s32 func_15080D20(s32 arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4, s32 arg5) 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15080D20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AE1D0/func_15080D20.s")
-extern u16 D_8009BD30[];
+typedef struct GameAE1D0ModelEntry {
+    u16 model;
+    u8 sphereSet;
+    u8 unk_03;
+} GameAE1D0ModelEntry;
+
+extern GameAE1D0ModelEntry D_8009BD30[];
 
 s32 func_1508108C(void *arg0) {
     s32 index;
 
     for (index = 0; index < 0x17; index++) {
-        if (*(u8 *)((u8 *)arg0 + 4) == D_8009BD30[index * 2]) {
+        if (*(u8 *)((u8 *)arg0 + 4) == D_8009BD30[index].model) {
             return index;
         }
     }
     return -1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AE1D0/func_1508114C.s")
+s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
+
+s32 func_1508114C(GameAE1D0Actor *arg0, void *arg1, void *arg2, Vec3f *arg3, Vec3f *arg4,
+                  Vec3f *arg5, f32 *arg6, s32 *arg7, s32 *arg8, s32 *arg9,
+                  s16 *arg10) {
+    s32 index;
+    GameAE1D0Sphere *spheres;
+    s32 count;
+    s32 i;
+    s32 best;
+    f32 t;
+    f32 t2;
+    s32 priority;
+    Vec3f pos;
+    Vec3f bestPos;
+    Vec3f hit;
+    Vec3f normal;
+    f32 local[3];
+    Vec3f bestHit;
+    Vec3f bestNormal;
+    f32 radius;
+    f32 (*transform)[4][4];
+
+    if (arg0->transform == 0) {
+        return -1;
+    }
+    index = func_1508108C(arg0);
+    if (index == -1) {
+        return -1;
+    }
+    spheres = D_80086C60[D_8009BD30[index].sphereSet];
+    count = D_8009CBCC[D_8009BD30[index].sphereSet];
+    *arg6 = -1.0f;
+    pos.x = arg0->x;
+    pos.y = D_800D1C90[arg0->model]->height * arg0->heightScale + arg0->y;
+    pos.z = arg0->z;
+    radius = D_800D1C90[arg0->model]->radius * arg0->heightScale;
+    if (func_151452C4(arg1, arg2, &pos, radius, &hit, &normal, &t, &t2) == 0) {
+        return 0;
+    }
+    priority = -1;
+    for (i = 0; i < count; i++) {
+        if (arg0->unk_9C & (1 << spheres[i].joint)) {
+            continue;
+        }
+        transform = (f32 (*)[4][4])arg0->transform;
+        local[0] = spheres[i].x;
+        local[1] = spheres[i].y;
+        local[2] = spheres[i].z;
+        func_15143134(local, &pos.x, (s32)transform[spheres[i].joint]);
+        if (func_151452C4(arg1, arg2, &pos, spheres[i].radius * arg0->scale, &hit, &normal, &t, &t2) == 0) {
+            continue;
+        }
+        if (*arg6 == -1.0f || (t < *arg6 && spheres[i].unk_01 >= priority)) {
+            *arg6 = t;
+            bestHit = hit;
+            bestNormal = normal;
+            bestPos = pos;
+            best = i;
+            priority = spheres[i].unk_01;
+        }
+    }
+    if (*arg6 == -1.0f) {
+        return 0;
+    }
+    *arg6 = t;
+    *arg7 = best;
+    *arg9 = spheres[best].unk_01;
+    *arg8 = spheres[best].joint;
+    arg10[0] = spheres[best].x;
+    arg10[1] = spheres[best].y;
+    arg10[2] = spheres[best].z;
+    *arg3 = bestHit;
+    *arg4 = bestNormal;
+    if (arg5 != NULL) {
+        *arg5 = bestPos;
+    }
+    return 1;
+}
 s32 func_15080D20(s32, void *, s32, f32, f32, s32);
 s32 func_1508108C(void *);
 extern u8 D_800CC2D0;
@@ -167,7 +253,7 @@ s32 func_15081574(s32 arg0, f32 arg1, f32 arg2, void **arg3, s32 arg4, s32 arg5)
         if ((*(s32 *)(var_s0 + 0) == 0) || (*(s32 *)(var_s0 + 0x1D4) == 0) || (arg5 != var_s0[4])) continue;
         temp_v0_2 = func_1508108C(var_s0);
         if (temp_v0_2 != -1) {
-            temp_v0 = func_15080D20(arg0, var_s0, *((u8 *)&D_8009BD30 + (temp_v0_2 * 4) + 2), arg1, arg2, arg4);
+            temp_v0 = func_15080D20(arg0, var_s0, D_8009BD30[temp_v0_2].sphereSet, arg1, arg2, arg4);
             if (temp_v0 != 0) {
                 *arg3 = var_s0;
                 return temp_v0;

@@ -12,7 +12,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151BC794
  * - func_151BD43C
- * - func_151BDD8C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -636,8 +635,8 @@ typedef struct Game1E9A30BurstData {
     void *owner;
     u8 id;
     u8 pad05[3];
-    void *sparks[2];
-    void *glows[2];
+    struct Game1E9A30SparkObject *sparks[2];
+    struct Game1E9A30GlowObject *glows[2];
 } Game1E9A30BurstData;
 
 typedef struct Game1E9A30BurstSpark {
@@ -665,7 +664,7 @@ typedef struct Game1E9A30BurstSpark {
     f32 field4C;
     void *object;
     f32 field54;
-    s8 field58;
+    u8 field58;
     u8 pad59[3];
 } Game1E9A30BurstSpark;
 
@@ -885,40 +884,62 @@ void func_151BD828(u8 *arg0, u8 arg1, s32 arg2) {
         }
     }
 }
-void func_15145EA4(s32 *, s32 *, s32, s32);
-extern Vec3i D_800AA778, D_800AA784, D_800AA790, D_800AA79C;
+typedef struct Game1E9A30BurstActor {
+    s32 unk_00;
+    u8 unk_04[0x37];
+    u8 unk_3B;
+    u8 unk_3C[0x38];
+    u8 unk_74;
+    u8 unk_75[0x15F];
+    s32 unk_1D4;
+    u8 unk_1D8[0x154];
+} Game1E9A30BurstActor;
+
+typedef struct Game1E9A30BurstObject {
+    u8 unk_00[0xE];
+    s16 unk_0E;
+    u8 unk_10[0x18];
+    Game1E9A30BurstData data;
+} Game1E9A30BurstObject;
+
+typedef struct Game1E9A30SparkObject {
+    u8 unk_00[0x34];
+    Vec3f unk_34;
+    Vec3f unk_40;
+    u8 unk_4C[0xC4];
+    Game1E9A30BurstSpark spark;
+} Game1E9A30SparkObject;
+
+typedef struct Game1E9A30GlowObject {
+    u8 unk_00[0x34];
+    Vec3f unk_34;
+    Vec3f unk_40;
+    u8 unk_4C[0xC];
+    s32 unk_58;
+    u8 unk_5C[0x114];
+    Game1E9A30BurstGlow glow;
+} Game1E9A30GlowObject;
+
+void func_15145EA4(f32 **, f32 **, s32, s32);
+extern Vec3f D_800AA778, D_800AA784, D_800AA790, D_800AA79C;
 extern u16 **D_800BE728;
-extern u8 D_800CC2D0[];
+extern Game1E9A30BurstActor D_800CC2D0[];
 
-typedef struct { u8 pad0[0x48]; f32 width, height; u8 pad50[8]; u8 flags; } Game1E9A30TrailEffect;
-typedef struct { u8 pad0[4]; f32 scale; } Game1E9A30SparkEffect;
+void func_151BDD8C(Game1E9A30BurstObject *arg0) {
+    Game1E9A30BurstData *data = &arg0->data;
+    Game1E9A30BurstActor *owner = data->owner;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BDD8C CURRENT (1840) */
-void func_151BDD8C(void *arg0) {
-    s32 i;
-    u8 *owner;
-    Vec3i starts[2];
-    Vec3i ends[2];
-    s32 player;
-    Vec3i *inputs[4];
-    Vec3i *outputs[4];
-    u8 *payload;
-    u8 *entry;
-    u8 *hiddenEntry;
-    u8 *scaleEntry;
-    u8 *object;
-    u8 *secondObject;
-    Game1E9A30TrailEffect *hiddenEffect;
-    Game1E9A30TrailEffect *trailEffect;
-    Game1E9A30SparkEffect *sparkEffect;
-
-    owner = *(u8 **)((u8 *)arg0 + 0x28);
-    payload = (u8 *)arg0 + 0x28;
-    if ((*(s32 *)owner == 0) || (payload[4] != owner[0x3B])) {
-        *(s16 *)((u8 *)arg0 + 0xE) = -1;
+    if ((owner->unk_00 == 0) || (owner->unk_3B != data->id)) {
+        arg0->unk_0E = -1;
         return;
     }
-    if ((*(s32 *)(owner + 0x1D4) != 0) && ((owner[0x74] & 0xF) != 0xF)) {
+    if ((owner->unk_1D4 != 0) && ((owner->unk_74 & 0xF) != 0xF)) {
+        Vec3f starts[2];
+        Vec3f ends[2];
+        u8 i;
+        Vec3f *inputs[4];
+        Vec3f *outputs[4];
+
         inputs[0] = &D_800AA778;
         inputs[1] = &D_800AA784;
         inputs[2] = &D_800AA790;
@@ -927,72 +948,69 @@ void func_151BDD8C(void *arg0) {
         outputs[1] = &starts[1];
         outputs[2] = &ends[0];
         outputs[3] = &ends[1];
-        func_15145EA4((s32 *)inputs, (s32 *)outputs, *(s32 *)(owner + 0x1D4) + 0x40, 4);
-        i = 0;
-        do {
-            entry = payload + i * 4;
-            object = *(u8 **)(entry + 8);
-            if (object != NULL) {
-                object[0x168] |= 1;
-                *(Vec3i *)(object + 0x34) = starts[i];
-                *(Vec3i *)(object + 0x40) = ends[i];
+        func_15145EA4((f32 **)inputs, (f32 **)outputs, owner->unk_1D4 + 0x40, 4);
+        for (i = 0; i < 2; i++) {
+            if (data->sparks[i] != NULL) {
+                Game1E9A30SparkObject *sparkObject = data->sparks[i];
+
+                sparkObject->spark.field58 |= 1;
+                sparkObject->unk_34 = starts[i];
+                sparkObject->unk_40 = ends[i];
             }
-            object = *(u8 **)(entry + 0x10);
-            if (object != NULL) {
-                *(s32 *)(object + 0x58) |= 2;
-                *(s32 *)(object + 0x58) &= ~4;
-                *(Vec3i *)(object + 0x34) = starts[i];
-                *(Vec3i *)(object + 0x40) = ends[i];
+            if (data->glows[i] != NULL) {
+                Game1E9A30GlowObject *glowObject = data->glows[i];
+
+                glowObject->unk_58 |= 2;
+                glowObject->unk_58 &= ~4;
+                glowObject->unk_34 = starts[i];
+                glowObject->unk_40 = ends[i];
             }
-            i = (i + 1) & 0xFF;
-        } while (i < 2);
+        }
     } else {
-        i = 0;
-        do {
-            hiddenEntry = payload + i * 4;
-            object = *(u8 **)(hiddenEntry + 8);
-            if (object != NULL) {
-                hiddenEffect = (Game1E9A30TrailEffect *)(object + 0x110);
-                hiddenEffect->flags &= ~1;
+        u8 i;
+
+        for (i = 0; i < 2; i++) {
+            if (data->sparks[i] != NULL) {
+                Game1E9A30BurstSpark *spark = &data->sparks[i]->spark;
+
+                spark->field58 &= ~1;
             }
-            object = *(u8 **)(hiddenEntry + 0x10);
-            if (object != NULL) {
-                *(s32 *)(object + 0x58) &= ~2;
+            if (data->glows[i] != NULL) {
+                data->glows[i]->unk_58 &= ~2;
             }
-            i = (i + 1) & 0xFF;
-        } while (i < 2);
+        }
     }
-    player = (s32)(owner - D_800CC2D0) / 812;
-    if (player < 4) {
-        i = 0;
-        do {
-            scaleEntry = payload + i * 4;
-            object = *(u8 **)(scaleEntry + 8);
-            if (object != NULL) {
-                trailEffect = (Game1E9A30TrailEffect *)(object + 0x110);
-                if (*D_800BE728[(u8)player] & 0x8000) {
-                    trailEffect->width = 6.0f;
-                    trailEffect->height = 21.0f;
-                } else {
-                    trailEffect->width = 3.0f;
-                    trailEffect->height = 8.0f;
+    {
+        s32 player = owner - D_800CC2D0;
+
+        if (player < 4) {
+            u8 i;
+
+            for (i = 0; i < 2; i++) {
+                if (data->sparks[i] != NULL) {
+                    Game1E9A30BurstSpark *spark = &data->sparks[i]->spark;
+
+                    if (*D_800BE728[(u8)player] & 0x8000) {
+                        spark->field48 = 6.0f;
+                        spark->field4C = 21.0f;
+                    } else {
+                        spark->field48 = 3.0f;
+                        spark->field4C = 8.0f;
+                    }
+                }
+                if (data->glows[i] != NULL) {
+                    Game1E9A30BurstGlow *glow = &data->glows[i]->glow;
+
+                    if (*D_800BE728[(u8)player] & 0x8000) {
+                        glow->field04 = 1.5f;
+                    } else {
+                        glow->field04 = 1.0f;
+                    }
                 }
             }
-            secondObject = *(u8 **)(scaleEntry + 0x10);
-            if (secondObject != NULL) {
-                sparkEffect = (Game1E9A30SparkEffect *)(secondObject + 0x170);
-                if (*D_800BE728[(u8)player] & 0x8000) {
-                    sparkEffect->scale = 1.5f;
-                } else {
-                    sparkEffect->scale = 1.0f;
-                }
-            }
-            i = (i + 1) & 0xFF;
-        } while (i < 2);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BDD8C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BDD8C.s")
 void func_15169850(s32, u8, s32, s32, s32);
 
 void func_151BE0AC(void *arg0, void *arg1, u8 arg2) {

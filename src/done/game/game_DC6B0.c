@@ -350,7 +350,7 @@ void func_150AFDB0(void) {
     D_800DD190--;
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, f32, f32);
+void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s16, u16, s8, s16, s16, s32, u8, u8, s32, u8, u8, f32, f32, f32, f32, f32, f32);
 void func_150E2DB4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, u8);
 extern void *D_800D154C;
 

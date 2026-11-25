@@ -75,6 +75,7 @@ MATCHING_SCRIPTS = frozenset({
     "prepare_game_reference",
     "prepare_nonmatching_asm",
     "probe",
+    "probe_report",
     "project_state",
     "rom_span",
     "siblings",

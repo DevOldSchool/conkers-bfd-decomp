@@ -22,6 +22,7 @@ import compile_c
 import diff
 import frame_plan
 import linked_aliases
+import probe_report
 import project_state
 
 ROOT = diff.ROOT
@@ -309,6 +310,19 @@ def object_disassembly(path: Path) -> str:
         raise ToolingError(f"objdump failed for {path}: {error}") from error
 
 
+def object_listing(path: Path) -> str:
+    """Disassembly with relocations, the input of the ``probe_report`` helpers."""
+
+    try:
+        return subprocess.run(
+            # -z: without it objdump folds runs of nops into "...", hiding instructions.
+            ["mips-linux-gnu-objdump", "-d", "-r", "-z", "--no-show-raw-insn", str(path)],
+            cwd=ROOT, check=True, capture_output=True, text=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise ToolingError(f"objdump failed for {path}: {error}") from error
+
+
 def object_frame_size(path: Path, symbol: str) -> int | None:
     return disassembly_frame_size(object_disassembly(path), symbol, path)
 
@@ -398,6 +412,123 @@ def build_variant(target: Target, variant: Path | None, index: int) -> Path:
                             if "Error" in line or "error" in line)
         raise VariantError(message.strip() or "compile failed")
     return output
+
+
+def build_base(target: Target) -> Path:
+    """Compile the current source as it stands (raw members omitted) for unit comparison."""
+
+    content = diff.GLOBAL_ASM_LINE.sub("", target.source.read_text(encoding="utf-8"))
+    source = target.directory / "base.c"
+    output = target.directory / "base.o"
+    source.write_text(content, encoding="utf-8")
+    output.unlink(missing_ok=True)
+    try:
+        result = compile_c.run_compile(target.profile, source, output,
+            cwd=ROOT, capture_output=True, text=True,
+        )
+    except OSError as error:
+        raise ToolingError(f"could not run the compiler: {error}") from error
+    if result.returncode:
+        raise ToolingError("the current source does not compile on its own")
+    return output
+
+
+ASSEMBLY_NOISE = re.compile(r"^\s*\.(?:loc|bgnb|endb|noalias|option)\b")
+
+
+def function_assembly(listing: str, symbol: str) -> list[str]:
+    """The ``.ent``..``.end`` block of ``symbol`` in IDO ``-S`` output, without debug directives.
+
+    The ``# <line> <source text>`` comments stay: they attribute each group of
+    instructions to the statement that produced it.
+    """
+
+    lines: list[str] = []
+    inside = False
+    for line in listing.splitlines():
+        fields = line.split()
+        if fields[:2] == [".ent", symbol]:
+            inside = True
+        if inside and not ASSEMBLY_NOISE.match(line):
+            lines.append(line.rstrip())
+        if inside and fields[:2] == [".end", symbol]:
+            break
+    return lines
+
+
+def compiler_assembly(target: Target, candidate: Path) -> list[str]:
+    """IDO's own assembly for the target (``cc -S``), before the assembler reorders it.
+
+    This is the code generator's output: temporaries appear in the order they
+    were assigned, delay slots are not yet filled and merged immediates are
+    still separate instructions, which the final object no longer shows.
+    """
+
+    source = candidate.with_suffix(".c")
+    listing = candidate.with_suffix(".s")
+    try:
+        text = source.read_text(encoding="utf-8")
+        flags = compile_c.compiler_flags(target.profile, text)
+        flags[flags.index("-c")] = "-S"
+        if compile_c.DEBUGGER_UI_INCLUDE in text:
+            flags += ["-I", str(Path("build") / target.profile)]
+        flags = [str(ROOT / flag) if previous == "-I" else flag
+                 for previous, flag in zip(["", *flags], flags)]
+        listing.unlink(missing_ok=True)
+        result = subprocess.run([str(compile_c.IDO_CC), *flags, source.name],
+                                cwd=source.parent, capture_output=True, text=True)
+        if result.returncode or not listing.is_file():
+            reason = next((line.strip() for line in f"{result.stdout}\n{result.stderr}".splitlines()
+                           if "rror" in line), "the compiler produced no assembly listing")
+            raise ToolingError(reason)
+        lines = function_assembly(listing.read_text(encoding="utf-8", errors="replace"), target.symbol)
+    except (OSError, ValueError) as error:
+        raise ToolingError(f"could not produce the compiler assembly: {error}") from error
+    finally:
+        listing.unlink(missing_ok=True)
+    if not lines:
+        raise ToolingError(f"{target.symbol} not found in the compiler assembly")
+    return lines
+
+
+def object_data_sections(path: Path) -> dict[str, probe_report.Section]:
+    try:
+        return probe_report.data_sections(path.read_bytes())
+    except (ValueError, struct.error, OSError) as error:
+        raise ToolingError(f"could not read data sections of {path}: {error}") from error
+
+
+def diff_report(target: Target, candidate: Path, context: int) -> list[str]:
+    """Instruction diff of the target function: reference ``-`` against candidate ``+``."""
+
+    listings = []
+    for path in (target.reference, candidate):
+        functions = probe_report.function_listings(object_listing(path))
+        if target.symbol not in functions:
+            raise ToolingError(f"{target.symbol} not found in {path}")
+        listings.append(probe_report.trim_padding(functions[target.symbol]))
+    reference, current = listings
+    old, new = probe_report.aligned(reference, current, object_data_sections(target.reference),
+                                    object_data_sections(candidate))
+    lines = [probe_report.summary(probe_report.classify(old, new))]
+    registers = probe_report.register_summary(probe_report.register_map(old, new))
+    if registers:
+        lines.append(registers)
+    return lines + probe_report.diff_lines(reference, current, context=context, lines=(old, new))
+
+
+def unit_report(target: Target, base: Path, candidate: Path) -> list[str]:
+    """What a variant changed besides the target: other functions and data sections."""
+
+    before = probe_report.function_listings(object_listing(base))
+    after = probe_report.function_listings(object_listing(candidate))
+    base_sections, candidate_sections = object_data_sections(base), object_data_sections(candidate)
+    identical, problems = probe_report.compare_functions(before, after, {target.symbol},
+                                                         base_sections, candidate_sections)
+    sections = probe_report.compare_sections(base_sections, candidate_sections)
+    lines = [f"{identical} other functions identical"
+             + (f", {len(problems)} not" if problems else "")]
+    return lines + problems + sections
 
 
 def terminal_padding_extent(target: Target, candidate: Path) -> int | None:
@@ -608,7 +739,22 @@ def main() -> int:
     parser.add_argument("--layout", action="store_true",
                         help="print frame size and named-local stack offsets, plus a local-area "
                              "word account against the reference when the frames differ")
+    parser.add_argument("--diff", action="store_true",
+                        help="print the best variant's instruction diff against the reference "
+                             "(- reference, + candidate) with a register map")
+    parser.add_argument("--context", type=int, default=2, metavar="N",
+                        help="context lines around each --diff hunk (default 2)")
+    parser.add_argument("--asm", action="store_true",
+                        help="print the compiler's own assembly (cc -S) of the best variant, with "
+                             "source lines, before the assembler reorders and merges instructions")
+    parser.add_argument("--unit", action="store_true",
+                        help="report what each variant changes besides the target: other functions "
+                             "and .rodata/.data/.bss, against the current source")
     arguments = parser.parse_intermixed_args()
+    if arguments.context < 0:
+        parser.error("--context must not be negative")
+    if arguments.layout and (arguments.diff or arguments.unit or arguments.asm):
+        parser.error("--layout cannot be combined with --diff, --unit or --asm")
     try:
         target = resolve(arguments.identifier, arguments.profile)
     except (ValueError, OSError, subprocess.CalledProcessError) as error:
@@ -635,7 +781,7 @@ def main() -> int:
         return 0
 
     variants: list[Path | None] = list(arguments.variants) or [None]
-    results: list[tuple[int, str, str]] = []
+    results: list[tuple[int, str, str, Path]] = []
     padded: list[str] = []
     for index, variant in enumerate(variants, start=1):
         label = "current source" if variant is None else str(variant)
@@ -657,19 +803,44 @@ def main() -> int:
             # A scorer failure makes any ranking unreliable; stop without a partial result.
             print(f"error: scoring {label} failed: {error}", file=sys.stderr)
             return diff.EXIT_BLOCKED_TOOLING
-        results.append((value, label, hex(frame) if frame is not None else "leaf"))
+        results.append((value, label, hex(frame) if frame is not None else "leaf", candidate))
     if not results:
         print("error: no variant compiled", file=sys.stderr)
         return diff.EXIT_FIX_COMPILE
     reference_frame = reference_frame_size(target.assembly, target.symbol)
     print(f"{target.symbol}: reference frame {hex(reference_frame) if reference_frame else 'leaf'}")
-    for value, label, frame in sorted(results, key=lambda item: item[0]):
+    results.sort(key=lambda item: item[0])
+    for value, label, frame, _ in results:
         print(f"CURRENT ({value})\tframe {frame}\t{label}")
     if padded:
         print("note: trailing alignment words were not scored for "
               + ", ".join(padded) + "; finish proves them in the complete unit")
     if min(result[0] for result in results) == 0:
         print("note: a probe zero is not a match; apply the variant and run ./conker finish")
+    try:
+        if arguments.unit:
+            base = build_base(target)
+            for _, label, _, candidate in results:
+                lines = unit_report(target, base, candidate)
+                print(f"unit {label}: {lines[0]}")
+                for line in lines[1:]:
+                    print(f"  {line}")
+        if arguments.diff:
+            value, label, _, candidate = results[0]
+            lines = diff_report(target, candidate, arguments.context)
+            print(f"--- diff of {label} (CURRENT {value}): - reference, + candidate")
+            if value == 0 and len(lines) > 1:
+                print("note: the scorer resolves the symbol spellings below; they are not differences")
+            for line in lines:
+                print(line)
+        if arguments.asm:
+            value, label, _, candidate = results[0]
+            print(f"--- compiler assembly of {label} (CURRENT {value}), before assembler scheduling")
+            for line in compiler_assembly(target, candidate):
+                print(line)
+    except (ProbeError, OSError) as error:
+        print(f"error: report failed: {error}", file=sys.stderr)
+        return diff.EXIT_BLOCKED_TOOLING
     return 0
 
 

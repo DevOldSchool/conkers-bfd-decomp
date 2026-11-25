@@ -14,7 +14,6 @@
  * - func_151CAD28
  * - func_151CB110
  * - func_151CB5FC
- * - func_151CC524
  * - func_151CC840
  * - func_151CCF08
  *
@@ -1774,7 +1773,6 @@ s32 func_151CBC60(u8 *arg0) {
     return 1;
 }
 
-extern f32 D_800AAEC0;
 extern s32 D_800C3958;
 
 typedef struct {
@@ -1795,7 +1793,7 @@ f32 func_151CC1D4(void *arg0) {
     f32 upper;
 
     if (state->flags & 4) {
-        f32 scale = *(f32 *)((u8 *)D_800C3958 + state->index * 0x44 + 0x28) * D_800AAEC0;
+        f32 scale = *(f32 *)((u8 *)D_800C3958 + state->index * 0x44 + 0x28) * 0.01f;
 
         value = state->lower + (state->upper - state->lower) * scale;
         lower = state->lower;
@@ -1877,46 +1875,42 @@ typedef struct SightTwinSpawn {
     f32 value_48, value_4C, value_50, value_54;
 } SightTwinSpawn;
 
-extern f32 D_800AAEC4;
-extern f32 D_800AAEC8;
-extern f32 D_800AAECC;
-extern f32 D_800AAED0;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC524 CURRENT (5208) */
-void func_151CC524(s32 arg0, u8 arg1, u8 arg2, u8 arg3,
-                   u8 arg4, u8 arg5) {
-    SightTwinSpawn spawn;
+typedef struct SightTwinObject {
+    u8 unk_00[0x70];
     SightTwinPayload payload;
-    u32 flags;
-    void *object;
+} SightTwinObject;
+
+typedef struct SightSpawnOwner {
+    u8 pad0[0x23D];
+    u8 type;
+} SightSpawnOwner;
+
+void func_151CC524(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5) {
+    SightTwinSpawn spawn;
+    SightTwinObject *object;
+    SightTwinPayload payload;
 
     payload.value_04 = 0.0f;
     payload.selector = 0;
     payload.flags = 0;
     spawn.value_50 = 0.0f;
     spawn.value_54 = 0.0f;
-    spawn.lifetime = 300;
     payload.owner = (u8 *)arg0;
+    spawn.lifetime = 0x12C;
     payload.value_08 = 130.0f;
-    if ((u8)arg4 != 0) {
-        flags = 0x40;
-    } else {
-        flags = 0;
-    }
+    spawn.flags = (1 << (((SightSpawnOwner *)arg0)->type + 0xB)) | ((arg4 ? 0x40 : 0) | 0x10 | 0x80 | 0x100 | 0x200);
     spawn.value_16 = 1;
-    spawn.flags = flags | 0x390U |
-                  (1U << ((((u8 *)arg0)[0x23D] + 11) & 31));
-    spawn.red = (u8)arg1;
-    spawn.green = (u8)arg2;
+    spawn.value_18 = 0xFF;
     spawn.value_1A = 7;
+    spawn.red = arg1;
+    spawn.green = arg2;
+    spawn.blue = arg3;
     spawn.value_1E = 0x82;
-    spawn.value_1F = 255;
-    spawn.value_20 = 255;
-    spawn.value_21 = 255;
-    spawn.blue = (u8)arg3;
-    spawn.value_18 = 255;
-    spawn.value_22 = 255;
-    spawn.value_23 = 255;
+    spawn.value_1F = 0xFF;
+    spawn.value_20 = 0xFF;
+    spawn.value_21 = 0xFF;
+    spawn.value_22 = 0xFF;
+    spawn.value_23 = 0xFF;
     spawn.value_24 = 0;
     spawn.value_28 = 0x200004;
     spawn.value_2C = 0x1F0601;
@@ -1925,33 +1919,31 @@ void func_151CC524(s32 arg0, u8 arg1, u8 arg2, u8 arg3,
     spawn.value_38 = 0x80;
     spawn.value_3C = 0x20;
     spawn.value_40 = 0;
-    spawn.value_41 = 10;
+    spawn.value_41 = 0xA;
+    spawn.value_44 = ((SightSpawnOwner *)arg0)->type;
     spawn.kind = 0x9A;
     spawn.x = 0.0f;
-    spawn.value_48 = D_800AAEC4;
-    spawn.value_44 = ((u8 *)arg0)[0x23D];
+    spawn.value_48 = 0.2f;
     spawn.value_4C = 1.0f;
     spawn.z = 28.0f;
-    spawn.value_0C = D_800AAEC8;
+    spawn.value_0C = 4.2f;
     spawn.y = -37.0f;
-    object = func_1515548C(&spawn, 9, 0, 0, 0x58, (u8)arg5, 1);
-    if (object != 0) {
-        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    object = func_1515548C(&spawn, 9, 0, 0, 0x58, arg5, 1);
+    if (object != NULL) {
+        func_10022EC0(&object->payload, &payload, 0x58);
     }
     spawn.kind = 0x9B;
     spawn.y = 0.0f;
     spawn.value_48 = 1.0f;
-    spawn.value_4C = D_800AAECC;
-    spawn.z = D_800AAED0;
+    spawn.value_4C = 0.2f;
+    spawn.z = 4.2f;
     spawn.value_0C = 28.0f;
     spawn.x = -37.0f;
-    object = func_1515548C(&spawn, 9, 0, 0, 0x58, (u8)arg5, 1);
-    if (object != 0) {
-        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    object = func_1515548C(&spawn, 9, 0, 0, 0x58, arg5, 1);
+    if (object != NULL) {
+        func_10022EC0(&object->payload, &payload, 0x58);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CC524 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC524.s")
 void func_15145974(void *, f32 *, f32 *);
 extern f32 D_800AAED4;
 extern f32 D_800AAED8;
@@ -2075,11 +2067,6 @@ void func_151CCD1C(void *arg0, u8 arg1, u8 arg2, u8 arg3) {
         func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
     }
 }
-typedef struct SightSpawnOwner {
-    u8 pad0[0x23D];
-    u8 type;
-} SightSpawnOwner;
-
 extern u8 D_800BE616;
 void *func_10022EC0(void *, const void *, u32);
 

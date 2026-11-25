@@ -90,8 +90,6 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1A20A0 | 0x4 | 0x10 | 0x800A71AC | pool (func_1517725C) | `3C8EFA35` ×4 ([record](game_1a20a0_float_constants.md)) |
 | game_1FA770 | 0x0 | 0x8 | 0x800AAFC0 | pool (func_151CD674) | `BE828F5D BE028F5D` |
 | game_1FA770 | 0x8 | 0xC | 0x800AAFE4 | pool (func_151CDB94) | `3E49BA5F 3DCCCCCD 40A26FC1` (0.197, 0.1, 5.076142) |
-| game_6B320 | 0x0 | 0x8 | 0x80098918 | pool (func_1503E5F8) | `38D1B717 42652EE0` (0.0001, 57.295776, [record](game_6b320_float_constants.md)) |
-| game_6B320 | 0x8 | 0x8 | 0x80098928 | pool (func_1503ECA0) | `3ECCCCCD 3F4CCCCD` (0.4, 0.8) |
 | game_F3270 | 0x0 | 0x4 | 0x800A041C | pool (func_150C60D8) | `3E4CCCCD` (0.2, [record](game_burst_velocity_literals.md)) |
 | game_F3270 | 0x4 | 0x8 | 0x800A043C | pool (func_150C6460) | `46CCCCCD 3E6C8B44` (26214.4, 0.231) |
 | game_F3BA0 | 0x0 | 0x4 | 0x800A045C | pool (func_150C6A08) | `3E4CCCCD` (0.2) |
@@ -124,7 +122,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_1865D0 | 0x0 | 0x20 | 0x800A63C4 | pool (func_15159C08) | 8 words ([record](game_1865d0_float_constants.md); round-23) |
 | game_1865D0 | 0x20 | 0xC | 0x800A6414 | pool (func_1515AB88) | `3DA3D70A 3DCCCCCD 3E19999A` (unchanged) |
 | game_197F20 | 0x0 | 0x8 | 0x800A6DBC | pool (func_1516CC58) | `3C23D70A 3C8EFA35` (0.01, 0.017453292; round-23) |
-| game_197F20 | 0x8 | 0x1C | 0x800A6DC8 | pool (func_1516CC58) | `C0568000 00000000` (f64 -90.0), `3C8EFA35 40490FDB 3F933333 40490FDB 3F851EB8` |
+| game_197F20 | 0x8 | 0x24 | 0x800A6DC8 | pool (func_1516CC58, func_1516D0CC) | `C0568000 00000000` (f64 -90.0), `3C8EFA35 40490FDB 3F933333 40490FDB 3F851EB8`, then `40490FDB 3F933333` (3.1415927, 1.15; round-30) |
 | game_1F2730 | 0x0 | 0x8 | 0x800AAAB4 | pool (func_151C5280) | `3A83126F 3B5A740E` (0.001, 0.0033333334; round-25) |
 | game_1F2730 | 0x8 | 0xC | 0x800AAACC | pool (func_151C577C) | `3DCCCCCD 3E25E354 3E45A1CB` (0.1, 0.162, 0.193) |
 | game_1F2730 | 0x14 | 0x14 | 0x800AAADC | pool (func_151C577C) | `3DCCCCCD 3F2E978E BED2F1AB 3F736BE3 3A83126F` (0.1, 0.682, -0.412, 0.950865, 0.001) |
@@ -156,7 +154,7 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_177B50 | 0x1C | 0x80 | 0x800A5808 | pool (func_1514B034, func_1514B364, func_1514B8E4) | 11 + 11 + 10 words ([record](game_177b50_float_constants.md); merged round-23) |
 | effects_sight | 0x0 | 0x24 | 0x800AAC58 | pool (func_151C899C, func_151C8FCC) | `43F58000 3D77CED9 3D563886 3F32B021 BEE3D70B 3EE1CAC1` (491.0, 0.0605, 0.0523, 0.698, -0.44500002, 0.441; round-23) then `41F0CCCD 3E99999A 358637BD` (30.1, 0.3, 0.000001; round-29) |
 | effects_sight | 0x24 | 0xCC | 0x800AADBC | table, sites 0x2A84 / 0x2A8C | func_151C9BA0 cases 9..0x3B ([record](effects_sight_float_constant.md); round-23) |
-| effects_sight | 0xF0 | 0x4 | 0x800AAEBC | pool (func_151CBC60) | `3CEA0EA1` (0.028571429) |
+| effects_sight | 0xF0 | 0x18 | 0x800AAEBC | pool (func_151CBC60, func_151CC1D4, func_151CC524) | `3CEA0EA1` (0.028571429), then `3C23D70A` (0.01, func_151CC1D4; former extern `D_800AAEC0`) and `3E4CCCCD 40866666 3E4CCCCD 40866666` (0.2, 4.2, 0.2, 4.2, func_151CC524; former externs `D_800AAEC4..D0`; round-30). The next word 0x800AAED4 stays an extern read. |
 | game_1E37D0 | 0x0 | 0x4 | 0x800AA470 | pool (func_151B6420) | `3EFCED92` (0.49400002; [record](game_1e37d0_float_constant.md)) |
 | game_1E37D0 | 0x4 | 0x4 | 0x800AA484 | pool (func_151B7998) | `4495C000` (1198.0; round-29) |
 | game_1AC2F0 | 0x0 | 0xC | 0x800A7280 | pool (func_1517F814) | `461C4000 C61C4000 C61C4000` (10000.0, -10000.0, -10000.0; [record](game_1ac2f0_float_constants.md)) |
@@ -266,10 +264,17 @@ keep their runtime addresses.
   8-aligned 0x800A6DC8 after a zero padding word at 0x800A6DC4; no other reference function reads
   these words. In the object the double falls at 8-aligned offset 0x8 directly after the two
   floats, so the pool is split around the ROM padding word: 0x8 bytes at 0x800A6DBC and 0x1C bytes
-  at 0x800A6DC8. 0x800A6DB8 and 0x800A6DE4.. stay extern reads of the raw `func_1516B6BC` and
-  `func_1516D0CC`. The unit had no rodata mapping; `game_197F20.o` joined
-  `GAME_SPLIT_RODATA_OBJS`. The object `.rodata` is 0x30 bytes: 0x24 of payload and 12 zero
-  alignment bytes.
+  at 0x800A6DC8. 0x800A6DB8 stays an extern read of the raw `func_1516B6BC`. The unit had no
+  rodata mapping; `game_197F20.o` joined `GAME_SPLIT_RODATA_OBJS`. Round-30 matched
+  `func_1516D0CC`, which follows `func_1516CC58` in the unit and loads `3.1415927f` and `1.15f`
+  (former externs `D_800A6DE4`/`D_800A6DE8`, ROM words `40490FDB 3F933333`) as literals, so the
+  second range grew from 0x1C to 0x24 bytes (0x800A6DC8..0x800A6DEB); 0x800A6DEC is zero. The
+  object `.rodata` is 0x30 bytes: 0x2C of payload and 4 zero alignment bytes.
+- **game_6B320 (round-30):** the split (`.rodata.6b320_0` at 0x80098918 and
+  `.rodata.6b320_8` at 0x80098928) is retired. Once `func_1503EB78` uses the literals
+  `0.02745098f` and `-0.3f`, the unit's object `.rodata` is the contiguous ROM range
+  0x80098918..0x8009892F and is mapped as one section
+  ([record](game_6b320_float_constants.md)).
 - **game_39750 (round-25):** the round-23 split (`.rodata.39750_0` and
   `.rodata.39750_1c`) is retired. Once `func_1500C2F0`, `func_1500C8D0` and
   `func_1500DE88` use literals, the unit's object `.rodata` is the whole ROM

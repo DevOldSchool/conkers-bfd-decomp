@@ -11,7 +11,6 @@
  * - func_151E966C
  * - func_151EA15C
  * - func_151EB06C
- * - func_151EB96C
  * - func_151EC3E8
  * - func_151EC648
  * - func_151EDF4C
@@ -410,12 +409,11 @@ s32 func_151EB930(s32 arg0) {
 extern s16 D_800E0A80;
 extern s32 D_800E0A90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EB96C CURRENT (1254) */
 s32 func_151EB96C(s32 arg0) {
-    s32 count;
-    s16 index;
     s16 alpha;
+    s16 index;
     s32 x;
+    s32 count;
     s32 firstX;
     u8 opacity;
     s32 spacing;
@@ -430,7 +428,8 @@ s32 func_151EB96C(s32 arg0) {
             alpha = 0xFF;
         }
     } else {
-        alpha = (0x1A9 - D_800E0A90) * 4;
+        alpha = 0x1A9 - D_800E0A90;
+        alpha = alpha * 4;
         if (alpha < 0) {
             alpha = 0;
         }
@@ -440,7 +439,7 @@ s32 func_151EB96C(s32 arg0) {
     }
     index = D_800E0A80;
     count = 0;
-    opacity = alpha & 0xFF;
+    opacity = alpha;
     while (((u8 **)D_800E0BD8)[index][0] != 0x2A) {
         index++;
         count++;
@@ -450,14 +449,14 @@ s32 func_151EB96C(s32 arg0) {
     } else {
         spacing = 0x11;
     }
-    func_1504332C(0xFF, 0, 0, opacity & 0xFF);
+    func_1504332C(0xFF, 0, 0, opacity);
     index = D_800E0A80;
-    text = ((u8 **)D_800E0BD8)[index];
     x = (0xD0 - count * spacing) >> 1;
     firstX = x;
+    text = ((u8 **)D_800E0BD8)[index];
     while (text[0] != 0x2A) {
         func_15042D94(0x94, x, 1, (s32)text);
-        func_1504332C(0xFF, 0xFF, 0xFF, opacity & 0xFF);
+        func_1504332C(0xFF, 0xFF, 0xFF, opacity);
         if (x == firstX) {
             x += 0xC;
         }
@@ -467,8 +466,6 @@ s32 func_151EB96C(s32 arg0) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151EB96C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB96C.s")
 void *func_1501A6CC(void *, s32, s32, s32, s32);
 void func_150432BC(f32);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);

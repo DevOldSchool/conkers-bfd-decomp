@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151D3480
- * - func_151D3E6C
  * - func_151D40D4
  * - func_151D4794
  * - func_151D5334
@@ -411,29 +410,39 @@ void func_151D3E04(void *arg0, f32 *arg1, f32 *arg2, u8 arg3, f32 arg4) {
 extern u8 D_800CC2D0[];
 void func_1505D1C4(f32, f32, f32, s32, s32, u16, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3E6C CURRENT (740) */
-void func_151D3E6C(void *arg0, void *arg1, void *arg2, s32 arg3) {
+typedef struct Game200930ActorState {
+    u8 unk_00[0x12];
+    s16 unk_12;
+} Game200930ActorState;
+
+typedef struct Game200930Actor {
+    u8 unk_00[0x76];
+    u16 unk_76;
+    u8 unk_78[0x2A4];
+    Game200930ActorState *unk_31C;
+    u8 unk_320[0xC];
+} Game200930Actor;
+
+void func_151D3E6C(Game200930Actor *arg0, Vec3f *arg1, Vec3f *arg2, s32 arg3) {
     f32 x;
     f32 y;
     f32 z;
-    s32 offset;
-    u16 var_v1;
-    void *temp_v0;
 
-    x = (*(f32 *)arg1 + *(f32 *)arg2) * 0.5f;
-    y = (*(f32 *)((u8 *)arg1 + 4) + *(f32 *)((u8 *)arg2 + 4)) * 0.5f;
-    z = (*(f32 *)((u8 *)arg1 + 8) + *(f32 *)((u8 *)arg2 + 8)) * 0.5f;
-    offset = (s32)arg0 - (s32)D_800CC2D0;
-    temp_v0 = *(void **)((u8 *)arg0 + 0x31C);
-    if (temp_v0 != 0) {
-        var_v1 = (u16)(*(u16 *)((u8 *)arg0 + 0x76) - *(s16 *)((u8 *)temp_v0 + 0x12));
-    } else {
-        var_v1 = *(u16 *)((u8 *)arg0 + 0x76);
+    x = (arg1->x + arg2->x) * 0.5f;
+    y = (arg1->y + arg2->y) * 0.5f;
+    z = (arg1->z + arg2->z) * 0.5f;
+    {
+        s32 index = arg0 - (Game200930Actor *)D_800CC2D0;
+        u16 value;
+
+        if (arg0->unk_31C != NULL) {
+            value = arg0->unk_76 - arg0->unk_31C->unk_12;
+        } else {
+            value = arg0->unk_76;
+        }
+        func_1505D1C4(x, y, z, arg3, index, value, 0, 0);
     }
-    func_1505D1C4(x, y, z, arg3, offset / 0x32C, var_v1, 0, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D3E6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D3E6C.s")
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
 typedef struct Game200930Particle {

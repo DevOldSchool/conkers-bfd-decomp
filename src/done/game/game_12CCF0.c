@@ -127,7 +127,7 @@ void func_150FFC3C(void *arg0) {
         func_151D8868(&sp18.field_0, 0, 0xFF, 1);
     }
 }
-void func_151D3E6C(void *, void *, void *, s32);
+void func_151D3E6C(void *, Vec3f *, Vec3f *, s32);
 void func_151D5A18(void *, void *, void *, void *, void *, s32, s32);
 extern s32 D_8008FC8C;
 extern u8 *D_8008FC94;
