@@ -87,6 +87,7 @@ class ViMetadataTests(unittest.TestCase):
         self.assertTrue(config['metadata']['complete'])
 
     @unittest.skipUnless(Path('/opt/ido/cc').is_file(), 'requires pinned IDO compiler')
+    @unittest.skipUnless((ROOT / 'lib/ultralib/include/PR/os_vi.h').is_file(), 'requires the libultra submodule')
     def test_pinned_sdk_header_compiles_to_the_reviewed_layout(self):
         with tempfile.TemporaryDirectory(dir=ROOT / 'build', prefix='vi-abi-test-') as tmp:
             proof = metadata.compile_vi_layout(ROOT, Path(tmp))
