@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FF474
- * - func_150FF6E0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -181,7 +180,7 @@ extern f32 D_800A211C;
 void func_150FF2AC(void *arg0, void *arg1, void *arg2, void *arg3) {
     func_15145740(arg0, arg1, arg2, arg3, D_800A211C);
 }
-s32 func_150FF6E0(void *, void *, void *, void *, void *, void *, s32);
+s32 func_150FF6E0(Vec3f *, void *, Vec3f *, Vec3f *, void *, void *, s32);
 void func_151D5174(void *, void *, void *, s32, s32, s32, s32, s32, s32, void *);
 f32 fabsf(f32);
 f32 sqrtf(f32);
@@ -302,7 +301,7 @@ s32 func_150FF6B4(void *arg0, s32 arg1, s32 arg2) {
 extern u8 D_800A205C;
 extern u8 D_800A2068;
 extern u8 D_800A2074;
-extern u8 D_800A2080;
+extern Vec3f D_800A2080[2][6];
 
 typedef struct Game12C1E0Pointers {
     void *head[4];
@@ -315,36 +314,32 @@ typedef struct Game12C1E0InputPointers {
     u32 pad;
 } Game12C1E0InputPointers;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF6E0 CURRENT (1880) */
-s32 func_150FF6E0(s32 arg0, void *arg1, void *arg2, f32 *arg3,
-                  s32 arg4, void *arg5, s32 arg6) {
-    Game12C1E0InputPointers input;
-    Game12C1E0Pointers output;
-    s32 index;
-    s32 variant;
+s32 func_150FF6E0(Vec3f *arg0, void *arg1, Vec3f *arg2, Vec3f *arg3,
+                  void *arg4, void *arg5, s32 arg6) {
+    u8 variant;
+    void *input[10];
+    void *output[10];
+    u8 index;
 
-    variant = (func_150ADA20() & 1) * 0x48;
-    input.head[0] = &D_800A2050;
-    input.head[1] = &D_800A2068;
-    input.head[2] = &D_800A2074;
-    input.head[3] = &D_800A205C;
-    index = 0;
-    do {
-        input.elements[index] = (u8 *)&D_800A2080 + variant + index * 0xC;
-        output.elements[index] = (void *)(arg0 + index * 0xC);
-        index = (u8)(index + 1);
-    } while (index < 6);
-    output.head[0] = arg1;
-    output.head[1] = arg2;
-    output.head[2] = arg3;
-    output.head[3] = (void *)arg4;
-    if (func_1514654C(arg5, arg6, 0, input.head, output.head, 0xA) != 0) {
-        arg3[0] -= ((f32 *)arg2)[0];
-        arg3[1] -= ((f32 *)arg2)[1];
-        arg3[2] -= ((f32 *)arg2)[2];
-        return 1;
+    variant = func_150ADA20() & 1;
+    input[0] = &D_800A2050;
+    input[1] = &D_800A2068;
+    input[2] = &D_800A2074;
+    input[3] = &D_800A205C;
+    for (index = 0; index < 6; index++) {
+        input[index + 4] = &D_800A2080[variant][index];
+        output[index + 4] = &arg0[index];
     }
-    return 0;
+    output[0] = arg1;
+    output[1] = arg2;
+    output[2] = arg3;
+    output[3] = arg4;
+    if (func_1514654C(arg5, arg6, 0, input, output, 0xA) != 0) {
+        arg3->x -= arg2->x;
+        arg3->y -= arg2->y;
+        arg3->z -= arg2->z;
+    } else {
+        return 0;
+    }
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FF6E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF6E0.s")

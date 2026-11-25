@@ -3144,16 +3144,15 @@
       "symbol": "func_1519582C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5715,
-        "reason": "Manual scanner candidate score 5715; corrected m2c postfix decrement semantics, but induction-pointer optimization and register allocation still differ from raw command-index arithmetic.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15195868",
           "vram": "0x15195868"
         }
@@ -14281,17 +14280,16 @@
       "symbol": "func_15007360"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3625,
-        "reason": "CURRENT 3625 best: explicit labels restore the 0x18 frame and prevent four-way checksum unrolling, but compiler still hoists D_800BE358 before the loop and allocates checksum/shift differently; clear/copy loops retain scheduling differences. Volatile and split-pointer lifetimes did not close the plateau",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 280,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15007440",
           "vram": "0x15007440"
         }
@@ -29023,17 +29021,16 @@
       "symbol": "func_1513E2AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1090,
-        "reason": "Fresh baseline CURRENT (1090), unchanged C body. Three probe batches tested distinct/register pointers, aligned float/typed motion fields and integer-derived motion addresses; all remained probe1290. First two motion bases are folded into owner offsets, flag reload is hoisted across the first store, and later pointer/flag registers and return scheduling differ. Structural alias/address residual; no eligible register-only permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 340,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513E6E8",
           "vram": "0x1513E6E8"
         }
@@ -48101,17 +48098,16 @@
       "symbol": "func_150FF6B4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1880,
-        "reason": "Best manual candidate CURRENT (1880): corrected source-local return prototype of func_1514654C, exact frame/stack with padded input aggregate; loop instruction order/register allocation still differ (22 register-only, 4 control-flow, 9 missing/extra). Dual-index m2c-shaped loop regressed frame to 0xA0; needs new loop hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 352,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FF6E0",
           "vram": "0x150FF6E0"
         }
@@ -53161,17 +53157,16 @@
       "symbol": "func_15155564"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5659,
-        "reason": "CURRENT (5659): raw caller confirms live a2/a3 search inputs; C scan preserves behavior but frame 0x58 vs 0x48, stack pair placement, loop/float load ordering differ; loop-shape probe regressed and was reverted",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151555AC",
           "vram": "0x151555AC"
         }

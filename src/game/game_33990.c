@@ -11,7 +11,6 @@
  * - func_1500707C
  * - func_15007168
  * - func_15007360
- * - func_15007440
  * - func_15007558
  * - func_15007778
  *
@@ -46,7 +45,12 @@ void func_150064E0(void) {
 void func_10024F10(void);
 s32 func_151DD4E0(u8 *, u8, u8 *);
 extern u8 D_8002AC5C;
-extern u16 D_800BE358;
+typedef struct Game33990SaveBlock {
+    u16 checksum;
+    u8 data[0x1E];
+} Game33990SaveBlock;
+
+extern Game33990SaveBlock D_800BE358;
 extern u8 D_800BE3D8[];
 extern u8 D_800BE900[];
 
@@ -182,68 +186,41 @@ void func_15007360(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15007360 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007360.s")
 extern u8 D_800BE35A;
-extern s8 D_800E0BE0;
+extern s8 D_800E0BE0[];
 extern s8 D_800E0BFC;
 extern s8 D_8008FE30;
-void func_151DD9E4(s8 *, s8, s8 *);
+void func_151DD9E4(void);
 void func_151E7EF8(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007440 CURRENT (3625) */
 void func_15007440(void) {
-    s32 shift;
-    s32 checksum;
-    s32 next;
-    s32 saved;
-    u8 *checksum_source;
-    u8 *copy_source;
-    s8 *destination;
+    s32 i;
+    u16 sum;
+    s8 saved;
 
     func_151DD3A0(D_800BE900, 0, (s16 *)&D_800BE358, 0x20);
-    checksum = 0xCC;
-    checksum_source = &D_800BE35A;
-    shift = 2;
-checksum_loop:
-    next = (checksum + (*checksum_source << (shift & 3))) & 0xFFFF;
-    checksum = next;
-    shift++;
-    checksum_source++;
-    if (shift < 0x1E) {
-        goto checksum_loop;
-    }
-
-    saved = *(&D_800E0BE0 + 0x10);
-    if (next != D_800BE358) {
-        destination = &D_800E0BE0;
-clear_loop:
-        destination += 4;
-        destination[-4] = -1;
-        destination[-3] = -1;
-        destination[-2] = -1;
-        destination[-1] = -1;
-        if (destination != &D_800E0BFC) {
-            goto clear_loop;
-        }
+    sum = 0xCC;
+    // RULE-EXCEPTION: layout, the checksum loop and its body must share a line (90 when split).
+    for (i = 2; i < 0x1E; i++) sum += D_800BE358.data[i - 2] << (i & 3);
+    saved = D_800E0BE0[0x10];
+    if (D_800BE358.checksum != sum) {
+        i = 0;
+        do {
+            D_800E0BE0[i] = -1;
+            i++;
+        } while (i < 0x1C);
     } else {
-        destination = &D_800E0BE0;
-        copy_source = (u8 *)&D_800BE358;
-copy_loop:
-        destination += 4;
-        copy_source += 4;
-        destination[-4] = copy_source[-2];
-        destination[-3] = copy_source[-1];
-        destination[-2] = copy_source[0];
-        destination[-1] = copy_source[1];
-        if (destination != &D_800E0BFC) {
-            goto copy_loop;
-        }
+        i = 0;
+        do {
+            D_800E0BE0[i] = D_800BE358.data[i];
+            i++;
+        } while (i < 0x1C);
     }
-    *(&D_800E0BE0 + 0x10) = saved;
-    func_151DD9E4(&D_800E0BFC, saved, &D_800E0BE0);
+    D_800E0BE0[0x10] = saved;
+    func_151DD9E4();
     func_151E7EF8();
     D_8008FE30 = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15007440 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007440.s")
+
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15007558 CURRENT (1589) */
 void func_15007558(void) {

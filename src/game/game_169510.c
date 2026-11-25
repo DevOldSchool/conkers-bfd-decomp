@@ -15,7 +15,6 @@
  * - func_1513DB00
  * - func_1513E13C
  * - func_1513E2AC
- * - func_1513E6E8
  * - func_1513F114
  * - func_1513FAB4
  * - func_151406AC
@@ -833,47 +832,54 @@ void func_1513E2A4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E2AC.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513E6E8 CURRENT (1090) */
-s32 func_1513E6E8(u8 *arg0) {
-    u8 *temp_v0;
+typedef struct Game169510Motion {
+    u8 unk_0[8];
+    f32 vx, vy, vz;
+    f32 vrx, vry, vrz;
+    f32 vsx, vsy, vsz;
+    f32 ay;
+} Game169510Motion;
 
-    if (*(s32 *)((u8 *)arg0 + 0x58) & 0x20) {
-        temp_v0 = (void *)(arg0 + 0x110);
-        *(f32 *)((u8 *)temp_v0 + 0xC) += *(f32 *)((u8 *)temp_v0 + 0x2C) * D_800BE9A4;
-    }
-    if (*(s32 *)((u8 *)arg0 + 0x58) & 0x40) {
-        temp_v0 = (void *)(arg0 + 0x110);
-        *(f32 *)((u8 *)arg0 + 0x34) += *(f32 *)((u8 *)temp_v0 + 8) * D_800BE9A4;
-        *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)temp_v0 + 0xC) * D_800BE9A4;
-        *(f32 *)((u8 *)arg0 + 0x3C) += *(f32 *)((u8 *)temp_v0 + 0x10) * D_800BE9A4;
-    }
-    temp_v0 = (void *)(arg0 + 0x110);
-    if (*(s32 *)((u8 *)arg0 + 0x58) & 0x80) {
-        *(f32 *)((u8 *)arg0 + 0x40) += *(f32 *)((u8 *)temp_v0 + 0x14) * D_800BE9A4;
-        *(f32 *)((u8 *)arg0 + 0x44) += *(f32 *)((u8 *)temp_v0 + 0x18) * D_800BE9A4;
-        *(f32 *)((u8 *)arg0 + 0x48) += *(f32 *)((u8 *)temp_v0 + 0x1C) * D_800BE9A4;
-    }
-    temp_v0 = (void *)(arg0 + 0x110);
-    if (*(s32 *)((u8 *)arg0 + 0x58) & 0x100) {
-        *(f32 *)((u8 *)arg0 + 0x4C) += *(f32 *)((u8 *)temp_v0 + 0x20) * D_800BE9A4;
-        *(f32 *)((u8 *)arg0 + 0x50) += *(f32 *)((u8 *)temp_v0 + 0x24) * D_800BE9A4;
-        *(f32 *)((u8 *)arg0 + 0x54) += *(f32 *)((u8 *)temp_v0 + 0x28) * D_800BE9A4;
-    }
-    *(u8 *)((u8 *)arg0 + 0x5D) = 0xFF;
-    return 1;
-}
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513E6E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E6E8.s")
 typedef struct Game169510ScaledOwner {
     u8 unknown0[0x2C];
     f32 width, height;
     f32 x, y, z;
     f32 rx, ry, rz;
     f32 sx, sy, sz;
-    u8 unknown58[0x68];
+    s32 flags;
+    u8 unk_5C;
+    u8 unk_5D;
+    u8 unk_5E[0x62];
     u8 templateData[0x40];
     u8 *buffers[1];
+    u8 unk_104[0xC];
+    Game169510Motion motion;
 } Game169510ScaledOwner;
+
+s32 func_1513E6E8(Game169510ScaledOwner *owner) {
+    Game169510Motion *motion = &owner->motion;
+
+    if (owner->flags & 0x20) {
+        motion->vy += motion->ay * D_800BE9A4;
+    }
+    if (owner->flags & 0x40) {
+        owner->x += motion->vx * D_800BE9A4;
+        owner->y += motion->vy * D_800BE9A4;
+        owner->z += motion->vz * D_800BE9A4;
+    }
+    if (owner->flags & 0x80) {
+        owner->rx += motion->vrx * D_800BE9A4;
+        owner->ry += motion->vry * D_800BE9A4;
+        owner->rz += motion->vrz * D_800BE9A4;
+    }
+    if (owner->flags & 0x100) {
+        owner->sx += motion->vsx * D_800BE9A4;
+        owner->sy += motion->vsy * D_800BE9A4;
+        owner->sz += motion->vsz * D_800BE9A4;
+    }
+    owner->unk_5D = 0xFF;
+    return 1;
+}
 
 typedef struct Game169510ScaledVertex {
     s16 x, y, z, flag;
