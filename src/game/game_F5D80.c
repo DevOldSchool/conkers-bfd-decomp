@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_radial_composite_effect.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C88D0
  * - func_150C8A68
  * - func_150C8DB8
  * - func_150CA150
@@ -20,50 +19,30 @@ f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 extern f32 D_800A0528;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C88D0 CURRENT (2675) */
-void *func_150C88D0(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
-    f32 angle;
-    f32 zero;
-    u8 *effect;
-    s32 count;
-    s32 index;
-    s32 offset;
-    s32 five;
+typedef struct GameF5D80RingVertex {
+    u8 unk_00[0x10];
+} GameF5D80RingVertex;
 
-    count = *(s32 *)(arg0 + 0x14);
-    effect = func_15167A68(0x31, arg3, arg1 + (count * 8) + (count * 0xA0) + 0x408,
-                           1, arg2, 1);
-    five = 5;
-    if (effect == 0) {
-        return 0;
-    }
-    func_10022EC0(effect + 0x10, arg0, 0x30);
-    *(u8 **)(effect + 0x360) = effect + 0x368;
-    *(u8 **)(effect + 0x54) = effect + (*(s32 *)(arg0 + 0x14) * 8) + 0x368;
-    zero = 0.0f;
-    *(u8 **)(effect + 0x58) = effect + (*(s32 *)(arg0 + 0x14) * 8) + ((*(s32 *)(arg0 + 0x14) * five) * 0x10) + 0x3B8;
-    *(f32 *)(effect + 0x40) = zero;
-    *(f32 *)(effect + 0x44) = zero;
-    *(u8 **)(effect + 0x364) = effect + (*(s32 *)(arg0 + 0x14) * 8) + ((*(s32 *)(arg0 + 0x14) * five) * 0x20) + 0x408;
-    *(f32 *)(effect + 0x50) = zero;
-    *(s16 *)(effect + 0x4C) = *(s16 *)(effect + 0x28);
-    *(f32 *)(effect + 0x48) = D_800A0528 / (f32)*(s32 *)(effect + 0x24);
-    angle = zero;
-    index = 0;
-    offset = 0;
-    if (*(s32 *)(effect + 0x24) > 0) {
-        do {
-            *(f32 *)(*(u8 **)(effect + 0x360) + offset) = func_15047D60(angle);
-            index++;
-            *(f32 *)(*(u8 **)(effect + 0x360) + offset + 4) = func_15047C00(angle);
-            offset += 8;
-            angle += *(f32 *)(effect + 0x48);
-        } while (index < *(s32 *)(effect + 0x24));
-    }
-    return effect;
-}
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C88D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C88D0.s")
+typedef struct GameF5D80RingVertexPair {
+    GameF5D80RingVertex v[2];
+} GameF5D80RingVertexPair;
+
+typedef struct GameF5D80RadialDesc {
+    f32 x, y, z;
+    u8 flags;
+    s8 checkCallback;
+    u8 pad0E[2];
+    f32 speed;
+    s32 segments;
+    s16 remaining, growUntil;
+    f32 growRate;
+    s16 shrinkFrom;
+    u8 pad22[2];
+    f32 shrinkRate, emissionRate;
+    s8 emitCallback, updateCallback;
+    u8 pad2E[2];
+} GameF5D80RadialDesc;
+
 typedef struct GameF5D80RadialEffect {
     u8 pad0[0x10];
     f32 x, y, z;
@@ -71,7 +50,7 @@ typedef struct GameF5D80RadialEffect {
     s8 checkCallback;
     u8 pad1E[2];
     f32 speed;
-    u8 pad24[4];
+    s32 segments;
     s16 remaining, growUntil;
     f32 growRate;
     s16 shrinkFrom;
@@ -83,7 +62,50 @@ typedef struct GameF5D80RadialEffect {
     s16 duration;
     u8 pad4E[2];
     f32 pending;
+    GameF5D80RingVertex *unk_54;
+    GameF5D80RingVertex *unk_58;
+    u8 unk_05C[0x304];
+    f32 (*unk_360)[2];
+    void *unk_364;
+    f32 unk_368[1][2];
 } GameF5D80RadialEffect;
+
+void *func_150C88D0(GameF5D80RadialDesc *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    GameF5D80RadialEffect *effect;
+    s32 index;
+
+    effect = func_15167A68(0x31, arg3,
+                           arg1 + arg0->segments * sizeof(f32[2]) +
+                               arg0->segments * 5 * sizeof(GameF5D80RingVertexPair) + 0x408,
+                           1, arg2, 1);
+    if (effect == NULL) {
+        return NULL;
+    }
+    func_10022EC0(&effect->x, arg0, sizeof(GameF5D80RadialDesc));
+    effect->unk_360 = effect->unk_368;
+    effect->unk_54 = (GameF5D80RingVertex *)&effect->unk_368[arg0->segments];
+    effect->unk_58 = (GameF5D80RingVertex *)&effect->unk_368[arg0->segments] + 5 + arg0->segments * 5;
+    effect->unk_364 = (GameF5D80RingVertexPair *)&effect->unk_368[arg0->segments] + 5 + arg0->segments * 5;
+    effect->size = 0.0f;
+    effect->radius = 0.0f;
+    effect->spacing = D_800A0528 / effect->segments;
+    effect->pending = 0.0f;
+    effect->duration = effect->remaining;
+    {
+        f32 angle = 0.0f;
+
+        if (effect->segments > 0) {
+            index = 0;
+            do {
+                effect->unk_360[index][0] = func_15047D60(angle);
+                effect->unk_360[index][1] = func_15047C00(angle);
+                index++;
+                angle += effect->spacing;
+            } while (index < effect->segments);
+        }
+    }
+    return effect;
+}
 
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
