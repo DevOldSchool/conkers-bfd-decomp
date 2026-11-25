@@ -8,6 +8,7 @@ literal `1.5707964f` (pi / 2) used in the C source. With `extern f32 D_800AA2FC`
 
 The generated `game_1DD500.o` has 0x10 bytes of `.rodata`: the constant and 12 zero alignment bytes, with no data
 relocations. `config/game/us-rodata.ld` maps it as an INFO section at `0x800AA2FC` with a 0x10 extent assertion and a
-0x4 payload; `config/data/us.json` records the owner. The informational alignment bytes cover `0x800AA300..0x800AA30B`,
-which belong to the next unit's unmatched `func_151B1B34` (game_1DEF60) and are still supplied by the game-data
-archive. No reference assembly, compiler flag or verifier change is involved.
+0x4 payload; `config/data/us.json` records the owner. The 0x10 extent is IDO's section padding, not the ROM
+boundary: the unit's real ROM extent is the 4-byte payload. The informational alignment bytes cover
+`0x800AA300..0x800AA30B`, which are the first three constants of game_1DEF60's pool
+([record](game_1def60_float_constants.md)). No reference assembly, compiler flag or verifier change is involved.

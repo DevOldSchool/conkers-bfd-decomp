@@ -2214,7 +2214,7 @@ void func_150706F8(s32 arg0) {
         func_150F03F8(temp_a0, 1, 0xFF, 1);
     }
 }
-void func_150EBEC0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+s32 func_150EBEC0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_15070760(s32 arg0) {
     func_150EBEC0(D_800D154C, 0, 0xFF, 1);
