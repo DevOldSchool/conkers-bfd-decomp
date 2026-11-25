@@ -31,7 +31,7 @@ def fixture():
         data.extend(codec.encode_header(item['header']) + codec.encode_side(item['side_info'])
                     + int(bits, 2).to_bytes(len(bits) // 8, 'big'))
         if item['header']['copyright']:
-            data.extend(b'L:opaque\0')
+            data.extend(b'L:\x01\x05\x80\x80\x87\xe8\0')
     data.extend(b'unexplained tail')
     return records, bytes(data)
 
@@ -138,13 +138,14 @@ class SpectralBuildTests(unittest.TestCase):
         self.raw = self.directory / build.raw_relative_name(0)
         self.raw.parent.mkdir(parents=True)
         self.raw.write_bytes(self.original)
+        build.cues.initialize(self.root, self.original, self.expected)
 
     def test_fresh_coefficient_encoding_preserves_uncredited_bytes(self):
         with patch.object(codec, 'encode_stream', wraps=codec.encode_stream) as encode:
             packed, spans, hashes = build.packed_stream(self.directory, self.expected)
         encode.assert_called_once_with(self.records)
         self.assertEqual(packed, self.original)
-        self.assertEqual(packed[78:87], b'L:opaque\0')
+        self.assertEqual(packed[78:87], b'L:\x01\x05\x80\x80\x87\xe8\0')
         self.assertTrue(packed.endswith(b'unexplained tail'))
         self.assertEqual(sum(len(payload) for _, payload in spans), 156)
         self.assertEqual(set(hashes), {'manifest.json', 'stream.json', build.raw_relative_name(0)})
@@ -227,14 +228,14 @@ class SpectralBuildTests(unittest.TestCase):
         output = self.root / 'report'
         with patch.object(targets, 'ROOT', self.root):
             unit, item = targets.prepare_mp3_spectral_stream(self.original, self.expected, output=output)
-            self.assertEqual(unit['rom_ranges'], [[6, 84], [93, 248]])
-            self.assertEqual(unit['report_data_bytes'], 233)
+            self.assertEqual(unit['rom_ranges'], [[6, 85], [87, 248]])
+            self.assertEqual(unit['report_data_bytes'], 240)
             self.assertTrue(unit['complete'])
             self.assertNotIn('rom_start', unit)
-            wanted = self.original[:78] + self.original[87:242]
+            wanted = self.original[:79] + self.original[81:242]
             for key in ('base_path', 'target_path'):
                 self.assertEqual(sections((output / unit[key]).read_bytes(), 1)['.data'][1], wanted)
-            self.assertEqual(len(unit['source_inputs']), 3)
+            self.assertEqual(len(unit['source_inputs']), 5)
             self.assertTrue(all('..' not in name for name in unit['source_inputs']))
             self.assertEqual(item['name'], 'assets/audio/mp3/spectral/0000')
             # Even a changed excluded byte must fail agreement with current ROM

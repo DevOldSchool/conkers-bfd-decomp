@@ -20,6 +20,10 @@ frame fields or duration tails remain raw. Container directories and all
 other backing bytes also remain uncredited: 48,568 bytes across these three
 objects. No opaque fields or encoded-token recipes enter the semantic source.
 
+Subsequent work reconstructs the four container directories separately; see
+[partial animation indexes](us_partial_animation_indexes.md). That additive
+batch retains these accepted clip inputs and unresolved-clip exclusions.
+
 ## Character 146 runtime routing
 
 Most clips use the descriptor/default duration. Entry 146 pairs 18, 19 and
@@ -70,5 +74,4 @@ Full acceptance passed: the 67,108,864-byte ROM retains SHA-1
 Native objdiff reports 61,958,067 / 65,120,512 matched Data bytes (95.14371%),
 with unchanged Code measures, zero compile errors and a current snapshot.
 All 10,676 prior asset proofs and 26,037 unique source hashes are unchanged.
-Progress and whitespace gates pass. See the accompanying JSON for the
-source fingerprint and report digest.
+Progress and whitespace gates pass.

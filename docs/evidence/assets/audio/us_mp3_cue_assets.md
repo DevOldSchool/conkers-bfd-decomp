@@ -16,10 +16,10 @@ time in seconds, exact payload bytes, and null-inclusive record size.
 The US survey contains 282,715 MPEG-2 Layer III frames at 22,050 Hz and 9,856
 embedded records across 220 streams. Every record is exactly eight payload
 bytes, begins with `L:`, and is followed by one null byte. Payload byte 2 is
-`0x01` in 9,837 records and `0x02` in 19 records. The remaining bytes are kept
-opaque. The marker suggests a lip-related role, but no runtime consumer has yet
-proved that interpretation, and the records contain no independently proven
-speaker or subtitle identifiers.
+`0x01` in 9,837 records and `0x02` in 19 records. The [native animation-command consumer](../../data-layout/us_mp3_cue_fields.md)
+now proves byte 3 as an action selector and bytes 4–7 as a packed duration
+numerator. Bytes 1–2 remain unconsumed by that path. The records still contain
+no independently proven speaker or subtitle identifiers.
 
 The parser also records but does not consume each stream's trailing bytes. At
 the first non-frame boundary, 156 streams carry an ID3v1-shaped `TAG` record;

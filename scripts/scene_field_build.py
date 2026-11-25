@@ -4,13 +4,13 @@ import hashlib
 import json
 from pathlib import Path
 try:
-    from scripts import asset_inputs, model_assets, rzip_archive, scene_field_codec as codec, scene_volume_build as volumes, texture_build
+    from scripts import asset_inputs, model_assets, rzip_archive, scene_field_codec as codec, scene_volume_build as volumes, texture_build, model_placement_inputs, scene_structure_inputs
     from scripts.build_files import write_if_changed
     from scripts import asset_receipts
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
-    import asset_inputs, model_assets, rzip_archive, scene_field_codec as codec, scene_volume_build as volumes, texture_build
+    import asset_inputs, model_assets, rzip_archive, scene_field_codec as codec, scene_volume_build as volumes, texture_build, model_placement_inputs, scene_structure_inputs
     from build_files import write_if_changed
     import asset_receipts
     from model_character_alpha import checked_spans
@@ -330,6 +330,8 @@ def reviewed_bank(root=ROOT):
         raise ValueError('US scene ROM checksum mismatch')
     game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
     consumers = verify_consumers(game, layout)
+    model_placement_inputs.verify_consumers(game.code, layout['game_vram'])
+    scene_structure_inputs.verify_consumers(game.code, layout['game_vram'])
     target = next(b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table']) if b.index == 12)
     if target.flags:
         raise ValueError('scene bank flags differ from reviewed inventory')
@@ -384,19 +386,24 @@ def input_error(directory, reason):
                       './conker scene-fields recover to back up this folder and restore reviewed records.')
 
 
-def input_hashes(directory, expected):
+def input_hashes(directory, expected, *, include_model_placements=False, include_scene_structures=False):
     try:
         hashes = asset_inputs.manifest_hashes(directory, expected,
             ('manifest.json', 'backing.bin', 'records.json'), 'scene bank')
         if hashes['backing.bin'] != expected['original_sha256']:
             raise ValueError('scene backing changed; restore it before reconstruction')
+        if include_model_placements:
+            hashes.update(model_placement_inputs.input_hashes(directory, expected, (directory / 'backing.bin').read_bytes()))
+        if include_scene_structures:
+            for family in scene_structure_inputs.FAMILIES:
+                hashes.update(scene_structure_inputs.input_hashes(directory, expected, (directory / 'backing.bin').read_bytes(), family))
         return hashes
     except (OSError, ValueError) as error:
         raise input_error(directory, str(error)) from error
 
 
-def packed_bank(directory, expected):
-    before = input_hashes(directory, expected)
+def packed_bank(directory, expected, *, include_model_placements=False, include_scene_structures=False):
+    before = input_hashes(directory, expected, include_model_placements=include_model_placements, include_scene_structures=include_scene_structures)
     try:
         packed = bytearray((directory / 'backing.bin').read_bytes())
         records = json.loads((directory / 'records.json').read_text())
@@ -424,11 +431,18 @@ def packed_bank(directory, expected):
                 spans.append((at, data))
         if [[expected['rom_start'] + at, expected['rom_start'] + at + len(data)] for at, data in spans] != expected['rom_ranges']:
             raise ValueError('scene physical ranges changed')
+        if include_model_placements:
+            for at, data in model_placement_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes()):
+                packed[at:at + len(data)] = data
+        if include_scene_structures:
+            for family in scene_structure_inputs.FAMILIES:
+                for at, data in scene_structure_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes(), family):
+                    packed[at:at + len(data)] = data
         if sha256(packed) != expected['original_sha256']:
             raise ValueError('scene records no longer reconstruct original storage')
     except (OSError, ValueError) as error:
         raise input_error(directory, str(error)) from error
-    if input_hashes(directory, expected) != before:
+    if input_hashes(directory, expected, include_model_placements=include_model_placements, include_scene_structures=include_scene_structures) != before:
         raise ValueError('scene inputs changed during packing')
     return bytes(packed), spans, before
 
@@ -452,18 +466,25 @@ def build_parts(root=ROOT):
             (volume_directory, volumes.input_files, volume_expected, volume_decoded)):
         if not path.exists():
             texture_build.publish_inputs(path, producer(rom, contract, source))
-    packed, spans, hashes = packed_bank(directory, expected)
+    input_hashes(directory, expected)
+    model_placement_inputs.ensure_inputs(directory, expected, rom[expected['rom_start']:expected['rom_end']])
+    for family in scene_structure_inputs.FAMILIES:
+        scene_structure_inputs.ensure_inputs(directory, expected, rom[expected['rom_start']:expected['rom_end']], family)
+    packed, spans, hashes = packed_bank(directory, expected, include_model_placements=True, include_scene_structures=True)
+    parameter_spans = model_placement_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    structure_spans = [span for family in scene_structure_inputs.FAMILIES
+                       for span in scene_structure_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes(), family)]
     volume_packed, volume_spans, volume_hashes = volumes.packed_bank(volume_directory, volume_expected)
-    all_spans = sorted([*spans, *volume_spans])
+    all_spans = sorted([*spans, *volume_spans, *parameter_spans, *structure_spans])
     for (at, data), (following, _) in zip(all_spans, all_spans[1:]):
         if at + len(data) > following:
             raise ValueError('scene field and volume ownership overlaps')
     composed = bytearray(volume_packed)
-    for at, data in spans:
+    for at, data in [*spans, *parameter_spans, *structure_spans]:
         composed[at:at + len(data)] = data
     if composed != packed or packed != rom[expected['rom_start']:expected['rom_end']]:
         raise ValueError('scene candidate differs from independent original ROM')
-    if (input_hashes(directory, expected) != hashes
+    if (input_hashes(directory, expected, include_model_placements=True, include_scene_structures=True) != hashes
             or volumes.input_hashes(volume_directory, volume_expected) != volume_hashes):
         raise ValueError('scene inputs changed during batch packing')
     write_if_changed(root / 'build/us/scene-fields/parts' / (PART + '.bin'), bytes(composed))

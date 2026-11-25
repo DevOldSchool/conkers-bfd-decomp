@@ -1,0 +1,13 @@
+{
+  "status": "accepted",
+  "matched_gain": 1936,
+  "complete_gain": 1936,
+  "omitted_gate_logs": [
+    "modified_inputs",
+    "native_mutation_audit",
+    "report_audit",
+    "source_and_link_audit",
+    "tested_base",
+    "validation"
+  ]
+}

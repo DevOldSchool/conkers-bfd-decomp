@@ -51,6 +51,7 @@ class AssetMakeTests(unittest.TestCase):
                      'toolchain/python-requirements.txt', 'roms/baserom.us.z64',
                      'config/texture_encoders.us.json',
                      'scripts/asset_inputs.py', 'scripts/audio_consumers.py', 'scripts/build_jobs.py', 'scripts/rzip_gzip.py',
+                     'scripts/mp3_layout.py', 'scripts/asset_directory_codec.py', 'scripts/bank_index_inputs.py', 'scripts/model_character_alpha.py',
                      'scripts/build_files.py', 'scripts/asset_receipts.py', 'scripts/rzip_bounded.py', 'scripts/deflate_encoder.py', 'scripts/font_assets.py', 'scripts/mp3_assets.py',
                      'scripts/rzip_archive.py', 'scripts/rzip_extract.py',
                      'scripts/texture_assets.py', 'scripts/texture_catalog.py',
@@ -107,6 +108,12 @@ if __name__ == '__main__':
         for name in ('font_splits', 'mp3_bank', 'audio_boundaries', 'texture_build'):
             (self.root / f'scripts/{name}.py').write_text(script)
         (self.root / 'scripts/model_build.py').write_text('BANKS = (1, 2, 3, 4, 9)\n')
+        (self.root / 'scripts/asset_directory_build.py').write_text('print("")\n')
+        (self.root / 'scripts/model_alignment_build.py').write_text('print("")\n')
+        (self.root / 'scripts/mp3_metadata_build.py').write_text('print("")\n')
+        (self.root / 'scripts/mp3_metadata_codec.py').touch()
+        (self.root / 'scripts/mp3_cue_build.py').write_text('print("")\n')
+        (self.root / 'scripts/mp3_cue_codec.py').touch()
         self.ld = self.root / 'scripts/fake_ld.py'
         self.ld.write_text('''from pathlib import Path
 import sys
@@ -285,12 +292,16 @@ source=Path('build/assets/sprites/us')
 import json
 assert json.loads((source/'manifest.json').read_text())['entries'][0]['frames'] == 1
 assert (source/'backing.bin').read_bytes() == b'backing'
+assert (source/'bank-index/manifest.json').read_text() == '{}'
 assert (source/'40-00.i4.png').read_bytes() == b'intensity'
-write_if_changed(Path('build/us/sprites/parts/asset_bank_00.bin'),(source/'40-00.rgba16.png').read_bytes())
+write_if_changed(Path('build/us/sprites/parts/asset_bank_00.bin'),(source/'40-00.rgba16.png').read_bytes()+(source/'bank-index/index.json').read_bytes())
 with Path('sprite.calls').open('a') as log:log.write('packed\\n')
 """)
         source = self.root / 'build/assets/sprites/us'
         source.mkdir(parents=True)
+        (source / 'bank-index').mkdir()
+        (source / 'bank-index/manifest.json').write_text('{}')
+        (source / 'bank-index/index.json').write_text('')
         (source / 'manifest.json').write_text('{"entries":[{"entry":40,"frames":1}]}')
         (source / 'backing.bin').write_bytes(b'backing')
         (source / '40-00.i4.png').write_bytes(b'intensity')
@@ -328,10 +339,11 @@ with Path('sprite.calls').open('a') as log:log.write('packed\\n')
             self.assertNotEqual(failed.returncode, 0)
             self.assertIn('Invalid sprite manifest', failed.stderr)
         manifest.write_bytes(saved)
-        for name in ('manifest.json', 'backing.bin', '40-00.rgba16.png', '40-00.i4.png'):
+        for name in ('bank-index/manifest.json', 'bank-index/index.json', 'manifest.json', 'backing.bin', '40-00.rgba16.png', '40-00.i4.png'):
             file = source / name
             data = file.read_bytes()
             file.unlink()
+            os.utime(source / 'bank-index', ns=(1000000000, 1000000000))
             os.utime(source, ns=(1000000000, 1000000000))
             self.assertNotEqual(run().returncode, 0)
             self.assertEqual(linked_payload(obj), b'changed pixels')
@@ -340,10 +352,17 @@ with Path('sprite.calls').open('a') as log:log.write('packed\\n')
         native_source.unlink()
         self.assertNotEqual(run().returncode, 0)
         self.assertEqual(linked_payload(obj), b'changed pixels')
+        native_source.write_text('changed independent encoder')
+        time.sleep(1.05)
+        (source / 'bank-index/index.json').write_text(' changed index')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(linked_payload(obj).endswith(b' changed index'))
 
     def test_partial_animation_objects_rebuild_without_crediting_raw_siblings(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
         (self.root / 'scripts/model_character_alpha.py').touch()
+        (self.root / 'scripts/animation_index_inputs.py').touch()
+        (self.root / 'scripts/asset_directory_codec.py').touch()
         profile = self.root / 'config/profiles/us.yaml'
         profile.write_text(profile.read_text() + '  - name: asset_bank_02\n    type: group\n')
         (self.root / 'scripts/model_build.py').write_text("""BANKS=(2,)
@@ -358,7 +377,8 @@ for part in ('00D3CBA0','00E86CF8','00EEC120'):
  source=Path('build/assets/animation-clips/us')/part
  assert (source/'manifest.json').read_text()=='{}'
  assert (source/'backing.bin').read_bytes()==b'backing'
- write_if_changed(Path('build/us/animation-clips/parts/models/raw')/(part+'.bin'),(source/'clips.json').read_bytes())
+ assert (source/'indexes/manifest.json').read_text()=='{}'
+ write_if_changed(Path('build/us/animation-clips/parts/models/raw')/(part+'.bin'),(source/'clips.json').read_bytes()+(source/'indexes/indexes.json').read_bytes())
 with Path('animation-clips.calls').open('a') as log:log.write('packed\\n')
 """)
         parts = ('00D3CBA0', '00E86CF8', '00EEC120')
@@ -368,6 +388,9 @@ with Path('animation-clips.calls').open('a') as log:log.write('packed\\n')
             (source / 'manifest.json').write_text('{}')
             (source / 'backing.bin').write_bytes(b'backing')
             (source / 'clips.json').write_text(part)
+            (source / 'indexes').mkdir()
+            (source / 'indexes/manifest.json').write_text('{}')
+            (source / 'indexes/indexes.json').write_bytes(b'')
         raw = self.root / 'assets/models/raw/UNREVIEWED.bin'
         raw.parent.mkdir(parents=True); raw.write_bytes(b'unreviewed storage')
         names = ['build/us/assets/models/raw/' + part + '.o' for part in (*parts, 'UNREVIEWED')]
@@ -393,12 +416,169 @@ with Path('animation-clips.calls').open('a') as log:log.write('packed\\n')
         self.assertEqual(part.read_bytes(), b'edited channels')
         for name in parts:
             directory = self.root / 'build/assets/animation-clips/us' / name
-            for field in ('manifest.json', 'backing.bin', 'clips.json'):
+            for field in ('manifest.json', 'backing.bin', 'clips.json', 'indexes/manifest.json', 'indexes/indexes.json'):
                 file = directory / field; data = file.read_bytes(); file.unlink()
                 os.utime(directory, ns=(1000000000, 1000000000))
                 self.assertNotEqual(run().returncode, 0)
                 self.assertEqual(linked_payload(objects[0]), b'edited channels')
                 file.write_bytes(data)
+        self.assertEqual(run().returncode, 0)
+        sibling_times = [p.stat().st_mtime_ns for p in objects[1:]]
+        time.sleep(1.05)
+        (source / 'indexes/indexes.json').write_bytes(b'changed index')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(linked_payload(objects[0]), b'edited channelschanged index')
+        self.assertEqual([p.stat().st_mtime_ns for p in objects[1:]], sibling_times)
+
+    def test_direct_auxiliary_models_track_shared_index_and_preserve_raw_siblings(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        (self.root / 'scripts/model_character_alpha.py').touch()
+        for name in ('model_extended_build', 'model_bundle_build', 'model_color_build', 'model_short_normals'):
+            (self.root / f'scripts/{name}.py').touch()
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() + '  - name: asset_bank_03\n    type: group\n')
+        (self.root / 'scripts/model_build.py').write_text("""BANKS=(3,)
+def layout_bins(profile, *, bank, configuration=None):
+    assert bank == 3 and configuration is not None
+    return [(i, 'models/raw/' + p) for i, p in enumerate(('00F90626', '00F954D8', '00F969E2', '00F97590', '00F9BB68', '00F9C0B2', 'UNREVIEWED'))], 7
+""")
+        (self.root / 'scripts/direct_model_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+index=Path('build/assets/asset-directories/us/bank03')
+assert (index/'manifest.json').read_text()=='{}'
+assert (index/'backing.bin').read_bytes()==b'backing'
+for part in ('00F90626','00F954D8','00F969E2','00F97590','00F9BB68','00F9C0B2'):
+ source=Path('build/assets/direct-models/us')/part
+ assert (source/'manifest.json').read_text()=='{}'
+ assert (source/'backing.bin').read_bytes()==b'backing'
+ extra=b''
+ if part=='00F954D8':
+  assert (source/'short-normals/manifest.json').read_text()=='{}'
+  extra=(source/'short-normals/model.json').read_bytes()
+ write_if_changed(Path('build/us/direct-models/parts/models/raw')/(part+'.bin'),(source/'models.json').read_bytes()+extra+(index/'directory.json').read_bytes())
+with Path('direct-models.calls').open('a') as log:log.write('packed\\n')
+""")
+        parts = ('00F90626', '00F954D8', '00F969E2', '00F97590', '00F9BB68', '00F9C0B2')
+        for part in parts:
+            source = self.root / 'build/assets/direct-models/us' / part
+            source.mkdir(parents=True)
+            (source / 'manifest.json').write_text('{}')
+            (source / 'backing.bin').write_bytes(b'backing')
+            (source / 'models.json').write_text(part)
+        short = self.root / 'build/assets/direct-models/us/00F954D8/short-normals'
+        short.mkdir()
+        (short / 'manifest.json').write_text('{}')
+        (short / 'model.json').write_text('')
+        index = self.root / 'build/assets/asset-directories/us/bank03'
+        index.mkdir(parents=True)
+        (index / 'manifest.json').write_text('{}')
+        (index / 'backing.bin').write_bytes(b'backing')
+        (index / 'directory.json').write_text('')
+        raw = self.root / 'assets/models/raw/UNREVIEWED.bin'
+        raw.parent.mkdir(parents=True); raw.write_bytes(b'unreviewed storage')
+        names = ['build/us/assets/models/raw/' + part + '.o' for part in (*parts, 'UNREVIEWED')]
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *names],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        objects = [self.root / name for name in names]
+        self.assertEqual([linked_payload(p).decode() for p in objects[:6]], list(parts))
+        self.assertEqual(objects[6].read_bytes(), b'unreviewed storage')
+        timestamps = [p.stat().st_mtime_ns for p in objects]
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], timestamps)
+        self.assertEqual((self.root / 'direct-models.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source = self.root / 'build/assets/direct-models/us' / parts[0]
+        (source / 'models.json').write_text('edited normals')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(linked_payload(objects[0]), b'edited normals')
+        self.assertEqual([p.stat().st_mtime_ns for p in objects[1:]], timestamps[1:])
+        part = self.root / 'build/us/direct-models/parts/models/raw/00F90626.bin'
+        part.unlink(); self.assertEqual(run().returncode, 0)
+        self.assertEqual(part.read_bytes(), b'edited normals')
+        for name in parts:
+            directory = self.root / 'build/assets/direct-models/us' / name
+            for field in ('manifest.json', 'backing.bin', 'models.json'):
+                file = directory / field; data = file.read_bytes(); file.unlink()
+                os.utime(directory, ns=(1000000000, 1000000000))
+                self.assertNotEqual(run().returncode, 0)
+                self.assertEqual(linked_payload(objects[0]), b'edited normals')
+                file.write_bytes(data)
+
+        time.sleep(1.05)
+        (short / 'model.json').write_text(' short normals')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(linked_payload(objects[1]), b'00F954D8 short normals')
+        for field in ('manifest.json', 'model.json'):
+            file = short / field; saved = file.read_bytes(); file.unlink()
+            os.utime(short, ns=(1000000000, 1000000000))
+            self.assertNotEqual(run().returncode, 0)
+            self.assertEqual(linked_payload(objects[1]), b'00F954D8 short normals')
+            file.write_bytes(saved)
+
+        time.sleep(1.05)
+        (index / 'directory.json').write_text(' edited index')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(all(linked_payload(p).endswith(b' edited index') for p in objects[:6]))
+        self.assertEqual(objects[6].read_bytes(), b'unreviewed storage')
+        for field in ('manifest.json', 'backing.bin', 'directory.json'):
+            path = index / field; saved = path.read_bytes(); path.unlink()
+            os.utime(index, ns=(1000000000, 1000000000))
+            self.assertNotEqual(run().returncode, 0)
+            self.assertTrue(linked_payload(objects[0]).endswith(b' edited index'))
+            path.write_bytes(saved)
+
+    def test_duplicate_model_tracks_own_and_shared_inputs_without_touching_raw_sibling(self):
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        (self.root / 'scripts/model_duplicate_normals.py').touch()
+        profile = self.root / 'config/profiles/us.yaml'
+        profile.write_text(profile.read_text() + '  - name: asset_bank_04\n    type: group\n')
+        (self.root / 'scripts/model_build.py').write_text("""BANKS=(4,)
+def layout_bins(profile, *, bank, configuration=None):
+    assert bank == 4 and configuration is not None
+    return [(0, 'models/raw/010F8131'), (1, 'models/raw/UNREVIEWED')], 2
+""")
+        (self.root / 'scripts/duplicate_model_build.py').write_text("""from pathlib import Path
+from build_files import write_if_changed
+source=Path('build/assets/duplicate-models/us/58')
+index=Path('build/assets/asset-directories/us/bank04')
+assert (source/'manifest.json').read_text()=='{}'
+assert (index/'manifest.json').read_text()=='{}'
+assert (index/'backing.bin').read_bytes()==b'backing'
+write_if_changed(Path('build/us/duplicate-models/parts/models/raw/010F8131.bin'),(source/'model.json').read_bytes()+(index/'directory.json').read_bytes())
+with Path('duplicate-models.calls').open('a') as log:log.write('packed\\n')
+""")
+        source = self.root / 'build/assets/duplicate-models/us/58'; source.mkdir(parents=True)
+        (source / 'manifest.json').write_text('{}'); (source / 'model.json').write_text('model')
+        index = self.root / 'build/assets/asset-directories/us/bank04'; index.mkdir(parents=True)
+        (index / 'manifest.json').write_text('{}'); (index / 'directory.json').write_text(' index')
+        (index / 'backing.bin').write_bytes(b'backing')
+        raw = self.root / 'assets/models/raw/UNREVIEWED.bin'; raw.parent.mkdir(parents=True)
+        raw.write_bytes(b'unreviewed storage')
+        names = ['build/us/assets/models/raw/' + p + '.o' for p in ('010F8131', 'UNREVIEWED')]
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', '-j4', f'LD={sys.executable} {self.ld}', *names],
+                                  cwd=self.root, text=True, capture_output=True)
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        own, sibling = [self.root / n for n in names]; stamp = own.stat().st_mtime_ns
+        self.assertEqual(linked_payload(own), b'model index'); self.assertEqual(sibling.read_bytes(), b'unreviewed storage')
+        self.assertEqual(run().returncode, 0); self.assertEqual(own.stat().st_mtime_ns, stamp)
+        self.assertEqual((self.root / 'duplicate-models.calls').read_text(), 'packed\n')
+        for path, value in ((source / 'model.json', 'changed'), (index / 'directory.json', ' shared')):
+            time.sleep(1.05); path.write_text(value)
+            result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(linked_payload(own), (source / 'model.json').read_bytes() + (index / 'directory.json').read_bytes())
+            self.assertEqual(sibling.read_bytes(), b'unreviewed storage')
+        part = self.root / 'build/us/duplicate-models/parts/models/raw/010F8131.bin'
+        part.unlink(); self.assertEqual(run().returncode, 0); self.assertEqual(part.read_bytes(), b'changed shared')
+        for folder, fields in ((source, ('manifest.json', 'model.json')), (index, ('manifest.json', 'directory.json', 'backing.bin'))):
+            for field in fields:
+                path = folder / field; saved = path.read_bytes(); path.unlink()
+                os.utime(folder, ns=(1000000000, 1000000000))
+                self.assertNotEqual(run().returncode, 0)
+                self.assertFalse(path.exists()); self.assertEqual(linked_payload(own), b'changed shared')
+                path.write_bytes(saved)
 
     def test_route_banks_rebuild_incrementally_and_missing_sources_fail(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
@@ -410,12 +590,16 @@ for bank in ('10','19'):
  source=Path('build/assets/routes/us/bank'+bank)
  assert (source/'manifest.json').read_text() == '{}'
  assert (source/'backing.bin').read_bytes() == b'backing'
- write_if_changed(Path('build/us/routes/parts/asset_bank_'+bank+'.bin'),(source/'routes.json').read_bytes())
+ assert (source/'bank-index/manifest.json').read_text() == '{}'
+ write_if_changed(Path('build/us/routes/parts/asset_bank_'+bank+'.bin'),(source/'routes.json').read_bytes()+(source/'bank-index/index.json').read_bytes())
 with Path('routes.calls').open('a') as log:log.write('packed\\n')
 """)
         for bank in ('10', '19'):
             source = self.root / ('build/assets/routes/us/bank' + bank)
             source.mkdir(parents=True)
+            (source / 'bank-index').mkdir()
+            (source / 'bank-index/manifest.json').write_text('{}')
+            (source / 'bank-index/index.json').write_text('')
             (source / 'manifest.json').write_text('{}')
             (source / 'backing.bin').write_bytes(b'backing')
             (source / 'routes.json').write_text('route ' + bank)
@@ -440,13 +624,18 @@ with Path('routes.calls').open('a') as log:log.write('packed\\n')
         self.assertEqual(part.read_bytes(), b'changed path')
         for bank in ('10', '19'):
             source = self.root / ('build/assets/routes/us/bank' + bank)
-            for name in ('manifest.json', 'routes.json', 'backing.bin'):
+            for name in ('bank-index/manifest.json', 'bank-index/index.json', 'manifest.json', 'routes.json', 'backing.bin'):
                 file = source / name; data = file.read_bytes(); file.unlink()
+                os.utime(source / 'bank-index', ns=(1000000000, 1000000000))
                 os.utime(source, ns=(1000000000, 1000000000))
                 self.assertNotEqual(run().returncode, 0)
                 self.assertEqual(linked_payload(first), b'changed path')
                 self.assertEqual(linked_payload(second), b'route 19')
                 file.write_bytes(data)
+        time.sleep(1.05)
+        (source / 'bank-index/index.json').write_text(' changed index')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(linked_payload(second).endswith(b' changed index'))
 
     def test_animation_bank_rebuilds_incrementally_and_missing_sources_fail(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
@@ -488,20 +677,28 @@ write_if_changed(Path('build/us/animation-bank/parts/asset_bank_0a.bin'),(source
 
     def test_animation_control_rebuilds_incrementally_and_missing_sources_fail(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
-        for name in ('model_character_alpha', 'animation_control_codec'):
+        for name in ('model_character_alpha', 'animation_control_codec', 'collision_control_codec', 'collision_control_inputs'):
             (self.root / f'scripts/{name}.py').touch()
         (self.root / 'scripts/animation_control_build.py').write_text("""from pathlib import Path
 from build_files import write_if_changed
 source=Path('build/assets/animation-control/us/bank0F')
 assert (source/'manifest.json').read_text() == '{}'
 assert (source/'backing.bin').read_bytes() == b'backing'
-write_if_changed(Path('build/us/animation-control/parts/asset_bank_0f.bin'),(source/'controls.json').read_bytes())
+assert (source/'bank-index/manifest.json').read_text() == '{}'
+assert (source/'collision-controls/manifest.json').read_text() == '{}'
+write_if_changed(Path('build/us/animation-control/parts/asset_bank_0f.bin'),(source/'controls.json').read_bytes()+(source/'collision-controls/controls.json').read_bytes()+(source/'bank-index/index.json').read_bytes())
 """)
         source = self.root / 'build/assets/animation-control/us/bank0F'
         source.mkdir(parents=True)
+        (source / 'bank-index').mkdir()
+        (source / 'bank-index/manifest.json').write_text('{}')
+        (source / 'bank-index/index.json').write_text('')
         (source / 'manifest.json').write_text('{}')
         (source / 'backing.bin').write_bytes(b'backing')
         (source / 'controls.json').write_text('frame channels')
+        (source / 'collision-controls').mkdir()
+        (source / 'collision-controls/manifest.json').write_text('{}')
+        (source / 'collision-controls/controls.json').write_text('')
         def run():
             return subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}',
                                    'build/us/assets/asset_bank_0f.o'],
@@ -518,16 +715,27 @@ write_if_changed(Path('build/us/animation-control/parts/asset_bank_0f.bin'),(sou
         part = self.root / 'build/us/animation-control/parts/asset_bank_0f.bin'
         part.unlink(); self.assertEqual(run().returncode, 0)
         self.assertEqual(part.read_bytes(), b'changed frame')
-        for name in ('manifest.json', 'controls.json', 'backing.bin'):
+        time.sleep(1.05)
+        (source / 'collision-controls/controls.json').write_text(' collision response')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(linked), b'changed frame collision response')
+        for name in ('bank-index/manifest.json', 'bank-index/index.json', 'manifest.json', 'controls.json', 'backing.bin',
+                     'collision-controls/manifest.json', 'collision-controls/controls.json'):
             file = source / name; data = file.read_bytes(); file.unlink()
+            os.utime(source / 'bank-index', ns=(1000000000, 1000000000))
             os.utime(source, ns=(1000000000, 1000000000))
+            os.utime(source / 'collision-controls', ns=(1000000000, 1000000000))
             self.assertNotEqual(run().returncode, 0)
-            self.assertEqual(linked_payload(linked), b'changed frame')
+            self.assertEqual(linked_payload(linked), b'changed frame collision response')
             file.write_bytes(data)
+        time.sleep(1.05)
+        (source / 'bank-index/index.json').write_text(' changed index')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(linked_payload(linked).endswith(b' changed index'))
 
     def test_scene_bank_rebuilds_from_records_and_missing_sources_fail(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
-        for name in ('scene_volume_codec', 'scene_volume_build', 'scene_field_codec', 'model_character_alpha'):
+        for name in ('scene_structure_codec', 'scene_structure_inputs', 'model_placement_codec', 'model_placement_inputs', 'asset_directory_codec', 'scene_volume_codec', 'scene_volume_build', 'scene_field_codec', 'model_character_alpha'):
             (self.root / f'scripts/{name}.py').touch()
         (self.root / 'scripts/scene_field_build.py').write_text("""from pathlib import Path
 from build_files import write_if_changed
@@ -538,7 +746,11 @@ assert (volume/'backing.bin').read_bytes() == b'backing'
 assert (volume/'records.json').read_text() == 'volumes'
 assert (source/'manifest.json').read_text() == '{}'
 assert (source/'backing.bin').read_bytes() == b'backing'
-write_if_changed(Path('build/us/scene-fields/parts/asset_bank_0c.bin'),(source/'records.json').read_bytes())
+assert (source/'model-placements/manifest.json').read_text() == '{}'
+for family in ('directories','cylinders'):
+ assert (source/('scene-'+family)/'manifest.json').read_text() == '{}'
+extra=b''.join((source/('scene-'+family)/(family+'.json')).read_bytes() for family in ('directories','cylinders'))
+write_if_changed(Path('build/us/scene-fields/parts/asset_bank_0c.bin'),(source/'records.json').read_bytes()+(source/'model-placements/placements.json').read_bytes()+extra)
 with Path('scene-volumes.calls').open('a') as log:log.write('packed\\n')
 """)
         volume = self.root / 'build/assets/scene-volumes/us'
@@ -551,6 +763,13 @@ with Path('scene-volumes.calls').open('a') as log:log.write('packed\\n')
         (source / 'manifest.json').write_text('{}')
         (source / 'backing.bin').write_bytes(b'backing')
         (source / 'records.json').write_text('scene-volumes codes')
+        (source / 'model-placements').mkdir()
+        (source / 'model-placements/manifest.json').write_text('{}')
+        (source / 'model-placements/placements.json').write_text('')
+        for family in ('directories', 'cylinders'):
+            (source / ('scene-' + family)).mkdir()
+            (source / ('scene-' + family) / 'manifest.json').write_text('{}')
+            (source / ('scene-' + family) / (family + '.json')).write_text('')
         target = 'build/us/assets/asset_bank_0c.o'
         def run():
             return subprocess.run([MAKE, 'ASSETS=1', f'LD={sys.executable} {self.ld}', target],
@@ -580,6 +799,33 @@ with Path('scene-volumes.calls').open('a') as log:log.write('packed\\n')
                 self.assertEqual(linked_payload(obj), b'changed instructions')
                 file.write_bytes(data)
 
+        time.sleep(1.05)
+        child = source / 'model-placements'
+        (child / 'placements.json').write_text(' changed parameters')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(obj), b'changed instructions changed parameters')
+        for name in ('manifest.json', 'placements.json'):
+            file = child / name; data = file.read_bytes(); file.unlink()
+            os.utime(child, ns=(1000000000, 1000000000))
+            self.assertNotEqual(run().returncode, 0)
+            self.assertFalse(file.exists())
+            self.assertEqual(linked_payload(obj), b'changed instructions changed parameters')
+            file.write_bytes(data)
+
+        for family in ('directories', 'cylinders'):
+            child = source / ('scene-' + family)
+            time.sleep(1.05)
+            (child / (family + '.json')).write_text(' changed ' + family)
+            result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+            expected = linked_payload(obj)
+            self.assertIn(('changed ' + family).encode(), expected)
+            for name in ('manifest.json', family + '.json'):
+                file = child / name; data = file.read_bytes(); file.unlink()
+                os.utime(child, ns=(1000000000, 1000000000))
+                self.assertNotEqual(run().returncode, 0)
+                self.assertFalse(file.exists()); self.assertEqual(linked_payload(obj), expected)
+                file.write_bytes(data)
+
     def test_visibility_bank_rebuilds_from_codebooks_and_missing_sources_fail(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
         for name in ('visibility_codec', 'visibility_geometry', 'model_character_alpha'):
@@ -589,12 +835,16 @@ from build_files import write_if_changed
 source=Path('build/assets/visibility/us')
 assert (source/'manifest.json').read_text() == '{}'
 assert (source/'backing.bin').read_bytes() == b'backing'
+assert (source/'bank-index/manifest.json').read_text() == '{}'
 assert (source/'bitmaps.json').read_text() == '{}'
-write_if_changed(Path('build/us/visibility/parts/asset_bank_05.bin'),(source/'codebooks.json').read_bytes())
+write_if_changed(Path('build/us/visibility/parts/asset_bank_05.bin'),(source/'codebooks.json').read_bytes()+(source/'bank-index/index.json').read_bytes())
 with Path('visibility.calls').open('a') as log:log.write('packed\\n')
 """)
         source = self.root / 'build/assets/visibility/us'
         source.mkdir(parents=True)
+        (source / 'bank-index').mkdir()
+        (source / 'bank-index/manifest.json').write_text('{}')
+        (source / 'bank-index/index.json').write_text('')
         (source / 'manifest.json').write_text('{}')
         (source / 'backing.bin').write_bytes(b'backing')
         (source / 'codebooks.json').write_text('visibility codes')
@@ -618,14 +868,19 @@ with Path('visibility.calls').open('a') as log:log.write('packed\\n')
         part.unlink()
         self.assertEqual(run().returncode, 0)
         self.assertEqual(part.read_bytes(), b'changed instructions')
-        for name in ('manifest.json', 'codebooks.json', 'bitmaps.json', 'backing.bin'):
+        for name in ('bank-index/manifest.json', 'bank-index/index.json', 'manifest.json', 'codebooks.json', 'bitmaps.json', 'backing.bin'):
             file = source / name
             data = file.read_bytes()
             file.unlink()
+            os.utime(source / 'bank-index', ns=(1000000000, 1000000000))
             os.utime(source, ns=(1000000000, 1000000000))
             self.assertNotEqual(run().returncode, 0)
             self.assertEqual(linked_payload(obj), b'changed instructions')
             file.write_bytes(data)
+        time.sleep(1.05)
+        (source / 'bank-index/index.json').write_text(' changed index')
+        result = run(); self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue(linked_payload(obj).endswith(b' changed index'))
 
     def test_script_bank_rebuilds_from_tracks_and_missing_sources_fail(self):
         shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
@@ -1214,6 +1469,435 @@ if __name__ == '__main__':
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn(f'cannot write {path.relative_to(self.root)}', result.stderr)
                 self.assertNotIn('Traceback', result.stderr)
+
+    def test_save_width_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank07'
+        source_dir = directory / 'save-layout'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'widths.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_07')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank07/save-layout/widths.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_07.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_07.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank07', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('widths.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_camera_track_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank1B'
+        source_dir = directory / 'camera-tracks'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'tracks.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_1b')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank1B/camera-tracks/tracks.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_1b.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_1b.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank1B', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('tracks.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_menu_text_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank1C'
+        source_dir = directory / 'menu-text'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'text.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_1c')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank1C/menu-text/text.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_1c.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_1c.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank1C', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('text.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_dialogue_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank1A'
+        source_dir = directory / 'dialogue'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'dialogue.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_1a')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank1A/dialogue/dialogue.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_1a.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_1a.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank1A', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('dialogue.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_scene_header_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank15'
+        source_dir = directory / 'scene-headers'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'scenes.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_15')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank15/scene-headers/scenes.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_15.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_15.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank15', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('scenes.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_spawn_record_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank0E'
+        source_dir = directory / 'spawn-records'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'spawns.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_0e')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank0E/spawn-records/spawns.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_0e.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_0e.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank0E', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('spawns.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_model_placement_edits_and_missing_sources_reach_directory_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs', 'asset_directory_codec', 'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs', 'model_character_alpha'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank0B'
+        source_dir = directory / 'model-placements'
+        source_dir.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        (source_dir / 'manifest.json').write_text('{}')
+        source = source_dir / 'placements.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1] == 'list-parts':\n    print('asset_bank_0b')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank0B/model-placements/placements.json').read_bytes()\n"
+            "    p=Path('build/us/asset-directories/parts/asset_bank_0b.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists() or p.read_bytes()!=data:p.write_bytes(data)\n"
+            "    with Path('directory.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/asset_bank_0b.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank0B', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(self.root / target), b'first')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'directory.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), b'edited')
+        source.unlink()
+        os.utime(source_dir, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('placements.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_model_alignment_edits_and_missing_sources_reach_builder(self):
+        for name in ('model_placement_codec', 'model_placement_inputs', 'scene_field_codec', 'scene_volume_codec', 'spawn_record_codec', 'spawn_record_inputs', 'scene_header_codec', 'scene_header_inputs', 'dialogue_codec', 'dialogue_inputs', 'menu_text_codec', 'menu_text_inputs',
+                     'save_layout_codec', 'save_layout_inputs', 'camera_tracks_codec', 'camera_tracks_inputs'):
+            (self.root / f'scripts/{name}.py').touch()
+        directory = self.root / 'build/assets/asset-directories/us/bank01'
+        directory.mkdir(parents=True)
+        for name in ('manifest.json', 'directory.json', 'backing.bin'):
+            (directory / name).write_text('{}')
+        source = directory / 'directory.json'
+        source.write_bytes(b'first')
+        (self.root / 'scripts/asset_directory_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1]=='list-parts':print('models/raw/00000100')\n"
+            "else:\n"
+            "    p=Path('build/us/asset-directories/parts/models/raw/00000100.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    p.write_bytes(b'directory')\n")
+        (self.root / 'scripts/model_alignment_build.py').write_text(
+            "import sys\nfrom pathlib import Path\n"
+            "if sys.argv[1]=='list-parts':print('models/raw/00000113')\n"
+            "else:\n"
+            "    data=Path('build/assets/asset-directories/us/bank01/directory.json').read_bytes()\n"
+            "    if data!=b'first':raise SystemExit('source changed')\n"
+            "    p=Path('build/us/model-alignment/parts/models/raw/00000113.bin')\n"
+            "    p.parent.mkdir(parents=True,exist_ok=True)\n"
+            "    if not p.exists():p.write_bytes(bytes(5))\n"
+            "    with Path('alignment.calls').open('a') as f:f.write('packed\\n')\n")
+        target = 'build/us/assets/models/raw/00000113.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', 'DIRECTORY_KEYS=bank01',
+                                   'MODEL_ALIGNMENT_KEYS=bank01', target],
+                                  cwd=self.root, capture_output=True, text=True)
+        result = run()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(linked_payload(self.root / target), bytes(5))
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual((self.root / 'alignment.calls').read_text(), 'packed\n')
+        time.sleep(1.05)
+        source.write_bytes(b'edited')
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('source changed', result.stdout + result.stderr)
+        self.assertEqual(source.read_bytes(), b'edited')
+        self.assertEqual(linked_payload(self.root / target), bytes(5))
+        source.unlink()
+        os.utime(directory, ns=(1000000000, 1000000000))
+        result = run()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('directory.json', result.stdout + result.stderr)
+        self.assertFalse(source.exists())
+
+    def test_mp3_layout_edits_and_missing_sources_reach_bank_builder(self):
+        directory = self.root / 'build/assets/mp3-bank/us/layout'
+        directory.mkdir(parents=True)
+        (directory.parent / 'manifest.json').write_text('{}')
+        (directory / 'manifest.json').write_text('{}')
+        (directory / 'index.json').write_text('first')
+        (self.root / 'scripts/mp3_bank.py').write_text(
+            "from pathlib import Path\nfrom build_files import write_if_changed\n"
+            "def layout_bins(profile, *, configuration=None):\n"
+            "    return [(0, 'audio/mp3/index')]\n"
+            "if __name__ == '__main__':\n"
+            "    source=Path('build/assets/mp3-bank/us/layout')\n"
+            "    assert (source/'manifest.json').read_text() == '{}'\n"
+            "    write_if_changed(Path('build/us/audio/parts/audio/mp3/index.bin'),(source/'index.json').read_bytes())\n")
+        shutil.copy(ROOT / 'scripts/build_files.py', self.root / 'scripts/build_files.py')
+        target = self.root / 'build/us/assets/audio/mp3/index.o'
+        def run():
+            return subprocess.run([MAKE, 'ASSETS=1', str(target.relative_to(self.root))],
+                                  cwd=self.root, capture_output=True, text=True)
+        result = run(); self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        stamp = target.stat().st_mtime_ns
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(target.stat().st_mtime_ns, stamp)
+        time.sleep(1.05)
+        (directory / 'index.json').write_text('edited')
+        self.assertEqual(run().returncode, 0)
+        self.assertEqual(linked_payload(target), b'edited')
+        for name in ('index.json', 'manifest.json'):
+            path = directory / name; before = path.read_bytes(); path.unlink()
+            os.utime(directory, ns=(1000000000, 1000000000))
+            os.utime(directory.parent, ns=(1000000000, 1000000000))
+            self.assertNotEqual(run().returncode, 0)
+            self.assertEqual(linked_payload(target), b'edited')
+            self.assertFalse(path.exists())
+            path.write_bytes(before)
+
+    def test_metadata_edits_and_missing_sources_reach_spectral_builder(self):
+        (self.root / 'scripts/mp3_metadata_build.py').write_text("print('0000')\n")
+        directory = self.root / 'build/assets/mp3-metadata/us/0000'
+        directory.mkdir(parents=True)
+        (directory / 'manifest.json').write_text('{}')
+        source = directory / 'tag.json'; source.write_text('text')
+        builder = self.root / 'scripts/mp3_spectral_build.py'
+        builder.write_text(builder.read_text().replace('    payload=override or raw',
+            "    if index == 0:\n"
+            "        metadata=Path('build/assets/mp3-metadata/us/0000')\n"
+            "        (metadata/'manifest.json').read_bytes()\n"
+            "        override=(metadata/'tag.json').read_bytes()\n"
+            "    payload=override or raw"))
+        first, objects = self.run_make('mp3')
+        self.assertEqual(first.returncode, 0, first.stderr)
+        before = [p.stat().st_mtime_ns for p in objects]
+        unchanged, _ = self.run_make('mp3')
+        self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        time.sleep(1.05)
+        source.write_text('edited text')
+        changed, _ = self.run_make('mp3')
+        self.assertEqual(changed.returncode, 0, changed.stderr)
+        self.assertEqual(linked_payload(objects[0]), b'edited text')
+        self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
+        source.unlink()
+        os.utime(directory, ns=(1000000000, 1000000000))
+        missing, _ = self.run_make('mp3')
+        self.assertNotEqual(missing.returncode, 0)
+        self.assertEqual(linked_payload(objects[0]), b'edited text')
+
+    def test_cue_edits_and_missing_sources_reach_spectral_builder(self):
+        (self.root / 'scripts/mp3_cue_build.py').write_text("print('0000')\n")
+        directory = self.root / 'build/assets/mp3-cues/us/0000'
+        directory.mkdir(parents=True)
+        (directory / 'manifest.json').write_text('{}')
+        source = directory / 'commands.json'; source.write_text('text')
+        builder = self.root / 'scripts/mp3_spectral_build.py'
+        builder.write_text(builder.read_text().replace('    payload=override or raw',
+            "    if index == 0:\n"
+            "        metadata=Path('build/assets/mp3-cues/us/0000')\n"
+            "        (metadata/'manifest.json').read_bytes()\n"
+            "        override=(metadata/'commands.json').read_bytes()\n"
+            "    payload=override or raw"))
+        first, objects = self.run_make('mp3')
+        self.assertEqual(first.returncode, 0, first.stderr)
+        before = [p.stat().st_mtime_ns for p in objects]
+        unchanged, _ = self.run_make('mp3')
+        self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+        self.assertEqual([p.stat().st_mtime_ns for p in objects], before)
+        time.sleep(1.05)
+        source.write_text('edited text')
+        changed, _ = self.run_make('mp3')
+        self.assertEqual(changed.returncode, 0, changed.stderr)
+        self.assertEqual(linked_payload(objects[0]), b'edited text')
+        self.assertEqual(objects[1].stat().st_mtime_ns, before[1])
+        source.unlink()
+        os.utime(directory, ns=(1000000000, 1000000000))
+        missing, _ = self.run_make('mp3')
+        self.assertNotEqual(missing.returncode, 0)
+        self.assertEqual(linked_payload(objects[0]), b'edited text')
 
     def test_missing_part_is_recovered_and_missing_editable_input_fails(self):
         result, objects = self.run_make('font')

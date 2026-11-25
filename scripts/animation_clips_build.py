@@ -6,12 +6,13 @@ from pathlib import Path
 try:
     from scripts import asset_inputs, model_animation_build as codec, model_assets, model_build, rzip_archive, texture_build
     from scripts.build_files import write_if_changed
-    from scripts import asset_receipts
+    from scripts import asset_receipts, animation_index_inputs as indexes
     from scripts.model_character_alpha import checked_spans
 except ModuleNotFoundError:
     import asset_inputs, model_animation_build as codec, model_assets, model_build, rzip_archive, texture_build
     from build_files import write_if_changed
     import asset_receipts
+    import animation_index_inputs as indexes
     from model_character_alpha import checked_spans
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -161,6 +162,8 @@ def input_hashes(directory, expected):
             ('manifest.json', 'backing.bin', 'clips.json'), 'partial animation')
         if hashes['backing.bin'] != expected['original_sha256']:
             raise ValueError('animation backing changed')
+        child = indexes.input_hashes(directory, expected)
+        hashes.update({'indexes/' + p: h for p, h in child.items()})
         return hashes
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
@@ -194,6 +197,13 @@ def packed_object(directory, expected):
         ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)] for offset, data in spans]
         if ranges != expected['rom_ranges'] or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
             raise ValueError('partial animation generated ranges changed or overlap')
+        for offset, fresh in indexes.packed_spans(directory, expected):
+            packed[offset:offset + len(fresh)] = fresh
+            spans.append((offset, fresh))
+        spans.sort(key=lambda span: span[0])
+        ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)] for offset, data in spans]
+        if ranges != indexes.owned_ranges(expected):
+            raise ValueError('combined animation index and clip ranges changed')
         if sha256(packed) != expected['original_sha256']:
             raise ValueError('partial animation output differs from original storage')
     except (OSError, ValueError, TypeError, KeyError, IndexError) as error:
@@ -207,8 +217,10 @@ def recover_inputs(part, root=ROOT):
     input_directory(part)
     rom, selected = reviewed_objects(root)
     expected, records = next(pair for pair in selected if pair[0]['part'] == part)
+    files = input_files(rom, expected, records)
+    files.update({'indexes/' + p: data for p, data in indexes.input_files(files['backing.bin'], expected).items()})
     backup = asset_inputs.recover_directory(root / input_directory(part), root / 'build/assets/animation-clips/recovery',
-                                           f'us-{part}-', input_files(rom, expected, records))
+                                           f'us-{part}-', files)
     return {'input_directory': str(root / input_directory(part)), 'backup_directory': backup}
 
 
@@ -219,6 +231,9 @@ def build_parts(root=ROOT):
         directory = root / input_directory(expected['part'])
         if not directory.exists():
             texture_build.publish_inputs(directory, input_files(rom, expected, records))
+        if not (directory / 'indexes').exists():
+            texture_build.publish_inputs(directory / 'indexes',
+                indexes.input_files(rom[expected['rom_start']:expected['rom_end']], expected))
         packed, spans, hashes = packed_object(directory, expected)
         if packed != rom[expected['rom_start']:expected['rom_end']]:
             raise ValueError('partial animation differs from independent original ROM')
@@ -228,7 +243,7 @@ def build_parts(root=ROOT):
     for expected, directory, (packed, spans), hashes in candidates:
         name = part_name(expected['part'])
         write_if_changed(root / 'build/us/animation-clips/parts' / (name + '.bin'), packed)
-        proofs.append({**expected, 'source_inputs': hashes, 'rebuilt_bytes': sum(len(data) for _, data in spans),
+        proofs.append({**expected, 'rom_ranges': indexes.owned_ranges(expected), 'source_inputs': hashes, 'rebuilt_bytes': sum(len(data) for _, data in spans),
                        'matches_original': True})
         receipts[name] = asset_receipts.part_record(
             output=f'build/us/animation-clips/parts/{name}.bin', payload=packed, source_inputs=hashes,

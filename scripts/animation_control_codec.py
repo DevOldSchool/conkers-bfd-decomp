@@ -1,11 +1,16 @@
 """Native bank-0F animation routes, timed events and behavior programs.
 
-Collision records remain outside this codec. Offsets, sentinels and minimal
-alignment are derived; no unknown tail or compressed-byte recipe is retained.
+Collision records require explicit opt-in to the reviewed restricted format.
+Offsets, sentinels and minimal alignment are derived; no unknown tail or
+compressed-byte recipe is retained.
 """
 from __future__ import annotations
 import math
 import struct
+try:
+    from scripts import collision_control_codec as collision_codec
+except ModuleNotFoundError:
+    import collision_control_codec as collision_codec
 
 FORMAT = 'animation-control-native-v1'
 
@@ -32,8 +37,10 @@ def align(data, boundary):
 
 
 def encode(record):
-    fields(record, ('format', 'routes', 'events', 'actions', 'programs', 'behaviors'))
-    if record['format'] != FORMAT:
+    with_collisions = type(record) is dict and record.get('format') == collision_codec.FORMAT
+    names = ('format', 'routes', 'events', 'actions', 'programs', 'behaviors')
+    fields(record, names + (('collisions',) if with_collisions else ()))
+    if record['format'] not in (FORMAT, collision_codec.FORMAT):
         raise ValueError('unsupported animation control format')
     routes, events, actions, programs, behaviors = [sequence(record[k]) for k in
         ('routes', 'events', 'actions', 'programs', 'behaviors')]
@@ -62,6 +69,12 @@ def encode(record):
             out.extend(struct.pack('>HBB', integer(phase['animation'], 16),
                                    integer(phase['speed_percent'], 8), integer(phase['flags'], 8)))
         out.extend(bytes(2))
+    collision_offset = 0
+    if with_collisions:
+        if not behaviors:
+            raise ValueError('reviewed collision entries require a behavior map')
+        collision_offset = len(out)
+        out.extend(collision_codec.encode(record['collisions']))
     program_offsets = []
     for program in programs:
         program_offsets.append(len(out) - 16)
@@ -117,16 +130,16 @@ def encode(record):
     if used_events != set(range(len(events))):
         raise ValueError('unreferenced animation event stream')
     struct.pack_into('>HHI', out, 16 + len(routes) * 8, 999, 0, 0)
-    struct.pack_into('>4I', out, 0, behavior_offset, 0, action_offset, len(actions) * 24)
+    struct.pack_into('>4I', out, 0, behavior_offset, collision_offset, action_offset, len(actions) * 24)
     align(out, 16)
     return bytes(out)
 
 
-def decode(data):
+def decode(data, *, allow_collisions=False):
     if len(data) < 32 or len(data) % 16:
         raise ValueError('animation control extent is invalid')
     behavior_offset, collision_offset, action_offset, action_size = struct.unpack_from('>4I', data)
-    if collision_offset:
+    if collision_offset and not allow_collisions:
         raise ValueError('collision record fields are not fully established')
     if bool(action_offset) != bool(action_size) or action_size % 24:
         raise ValueError('animation action table extent is invalid')
@@ -174,6 +187,22 @@ def decode(data):
                       for a, b, c in struct.iter_unpack('>HBB', data[start + 10:start + 22])]
             actions.append({'selector': selector, 'sound': sound, 'response': response, 'phases': phases})
         cursor += action_size
+    collisions = None
+    if collision_offset:
+        if collision_offset != cursor or not cursor < behavior_offset <= len(data) - 8:
+            raise ValueError('collision table is not contiguous or has no behavior boundary')
+        at, starts = behavior_offset, [behavior_offset]
+        while at + 8 <= len(data):
+            pointer = struct.unpack_from('>I', data, at)[0]
+            if not pointer:
+                break
+            starts.append(pointer + 16)
+            at += 8
+        end = min(starts)
+        if not cursor < end <= behavior_offset:
+            raise ValueError('invalid collision table boundary')
+        collisions = collision_codec.decode(data[cursor:end])
+        cursor = end
     raw_bindings, program_starts = [], set()
     if behavior_offset:
         if behavior_offset < cursor or behavior_offset % 4 or behavior_offset + 8 > len(data):
@@ -224,6 +253,8 @@ def decode(data):
     bindings = [{'selector': selector, 'program': program_ids[start]} for selector, start in raw_bindings]
     record = {'format': FORMAT, 'routes': routes, 'events': events, 'actions': actions,
               'programs': programs, 'behaviors': bindings}
+    if collisions is not None:
+        record.update(format=collision_codec.FORMAT, collisions=collisions)
     if encode(record) != data:
         raise ValueError('animation control contains unexplained padding or storage')
     return record

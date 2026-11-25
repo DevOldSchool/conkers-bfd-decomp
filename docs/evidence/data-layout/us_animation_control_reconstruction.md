@@ -94,3 +94,9 @@ changes. Source fingerprint:
 `20a73102c5c38d31d2e18263d92206f2a5a5560f0cdb33d9744138e18f882992`.
 Report SHA-256:
 `8a46f1e1b8911d638fb201bc8e51b51a4b993ba21378eb42647ff3d337baaf97`.
+
+## Collision follow-up
+
+The later [collision-control subset](us_collision_controls.md) separately
+reconstructs 16 of the initially excluded entries (6,056 stored bytes). The
+original 82-entry family and its editable sources remain unchanged.

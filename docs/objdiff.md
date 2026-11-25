@@ -344,6 +344,14 @@ after full-span candidate and runtime-image verification. Native matched code
 includes assembly source; the separate C-only inventory still excludes TLB.
 Generated fallback assembly remains ineligible for native source credit.
 
+The [bank-07 save layout](evidence/data-layout/us_save_field_widths.md) reconstructs
+69 field widths consumed by both native save and load loops. Its range is
+separate from the asset directory, and three trailing bytes remain uncredited.
+
+The [bank-1B camera tracks](evidence/data-layout/us_camera_tracks.md) reconstruct
+5,293 compressed bytes from native six-float frame deltas. The directory has
+separate credit, and eleven gap bytes remain uncredited.
+
 Known SDK data names and payload sizes come from `config/symbols/us.txt`.
 Declaration-backed zero alignment padding stays anonymous in the reference,
 while every byte remains in the section and ROM checks. This avoids treating
@@ -594,6 +602,13 @@ unmatched raw remainder. [Bounded compression](evidence/data-layout/us_bounded_c
 resolves the five previous compression mismatches.
 
 
+### Native asset directories
+
+[Eighteen native asset directories](evidence/data-layout/us_asset_directory_reconstruction.md)
+rebuild 13,432 bytes from typed offsets, sizes and flags. Actual canonical linker
+objects are checked in full; only the generated directory prefixes receive
+credit. Unknown payloads and gaps remain in the unreconstructed remainder.
+
 ### Visibility codebooks
 
 [Reviewed bank-05 visibility codebooks](evidence/data-layout/us_visibility_reconstruction.md)
@@ -628,3 +643,77 @@ for unproved fields or directory/padding bytes.
 [MPEG partial-frame fields](evidence/data-layout/us_mp3_partial_frames.md) extend
 the spectral units to final typed headers and complete coefficient bytes.
 Incomplete reservoir bytes, cues and arbitrary stream tails stay uncredited.
+
+[MP3 source metadata fields](evidence/data-layout/us_mp3_metadata_fields.md)
+add 14,532 bytes from 156 ID3v1-shaped tags at the audio boundary. Only printable
+text, its explicit terminators, the marker and genre are regenerated. Bytes
+after a field terminator and storage after the tag remain excluded.
+
+[Collision-control records](evidence/data-layout/us_collision_controls.md)
+add a separate bounded family for 16 bank-0F entries. The existing animation
+control inputs remain intact, and the two families share the actual linked
+bank object while claiming disjoint ranges.
+
+[MP3 directory and alignment](evidence/data-layout/us_mp3_layout.md) reconstructs
+462 index records and 368 minimal zero-fill spans through the actual index and
+padding linker objects. Encoded stream bytes receive no credit from this family.
+
+[Menu text](evidence/data-layout/us_menu_text.md) reconstructs bank `1C` text and
+its nested directory as five disjoint ranges in the actual linked bank object.
+The outer directory has its own unit; thirteen inter-stream bytes remain raw.
+
+[Dialogue](evidence/data-layout/us_dialogue.md) reconstructs bank `1A` language
+directories and text/audio-ID payloads as 23 ranges in the actual linked bank
+object. The outer directory retains its own unit; 15 external gap bytes stay raw.
+
+The [flat-resource stored-length table](evidence/data-layout/us_flat_asset_sizes.md)
+reconstructs 7,762 halfwords in a separate data-only C owner. The actual GAME
+linker verifies its 15,524-byte payload; twelve compiler-padding bytes receive
+no credit. Its INFO placement can add matched data, but the original GAME
+archive still supplies runtime storage, so complete data is unchanged.
+
+[Resource descriptors](evidence/data-layout/us_resource_descriptors.md) use
+five data-only reconstruction owners for the records, names and dependency
+lists. GAME data references declare the packed scalar fields as non-relocations;
+the 524 real pointers retain symbolic references. Exact byte-array extents keep
+string alignment outside the string symbols. INFO placements preserve the
+original runtime backing and leave complete data unchanged.
+
+MP3 stream comparisons also include seven reconstructed bytes
+per reviewed animation cue, composed with the existing spectral and metadata spans.
+Editable `build/assets/mp3-cues/us/<entry>/commands.json` files store typed
+actions and duration numerators. Two unconsumed header bytes remain excluded;
+missing or edited sources fail without overwrite. Explicit
+`./conker mp3-assets recover-cues --entry <id>` backs up that cue child before
+restoring it. See [the native path and boundaries](evidence/data-layout/us_mp3_cue_fields.md).
+
+
+[Standalone model alignment](evidence/data-layout/us_model_alignment.md)
+regenerates complete short raw objects between native model directory entries.
+Lengths follow minimum absolute eight-byte alignment; the actual linked objects
+and independent ROM references are compared in full. Mixed raw objects remain
+unreconstructed. The builder reuses the existing typed directory inputs and
+rejects edited or missing sources without replacing them.
+
+
+[Scene headers](evidence/data-layout/us_scene_headers.md) reconstruct bank `15`
+containers from typed header fields and counted lookup IDs. Nested indexes and
+minimum alignment are generated; twelve unexplained bytes per header stay
+uncredited backing. Whole linked-bank verification precedes comparison of the
+owned ranges, with editable inputs preserved on failure.
+
+[Spawn records](evidence/data-layout/us_spawn_records.md) reconstruct 68 bank
+`0E` scene lists from typed 48-byte records. The unresolved nonzero byte `12`
+keeps entry 14 excluded; outer alignment remains backing. Source preservation
+and complete linked-object checks apply before the selected stream comparison.
+
+[Model placements](evidence/data-layout/us_model_placements.md) reconstruct
+bank `0B` compressed lists and additional bank-`0C` child-2 parameters through
+the shared native 68-byte schema. Separate child inputs preserve the previous
+scene-field sources. Each report unit verifies the complete linked bank before
+comparing its disjoint reconstructed ranges.
+
+Scene directory/alignment and cylinder-group units use preserved source children
+under `build/assets/scene-fields/us/`. They compare disjoint regenerated ranges
+after verifying the entire actual linked scene bank. See the
+[scene structure evidence](evidence/data-layout/us_scene_structures.md).

@@ -8,13 +8,13 @@ import zlib
 try:
     from scripts import asset_inputs, model_assets, rzip_archive, route_codec as codec, texture_build
     from scripts.build_files import write_if_changed
-    from scripts import asset_receipts
+    from scripts import asset_receipts, bank_index_inputs
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, rzip_archive, route_codec as codec, texture_build
     from build_files import write_if_changed
-    import asset_receipts
+    import asset_receipts, bank_index_inputs
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -149,19 +149,21 @@ def input_error(directory, expected, reason):
                       f'./conker route-assets recover --bank {expected["bank"]:02X} to back up this folder and restore reviewed routes.')
 
 
-def input_hashes(directory, expected):
+def input_hashes(directory, expected, *, include_directory=False):
     try:
         hashes = asset_inputs.manifest_hashes(directory, expected,
             ('manifest.json', 'backing.bin', 'routes.json'), 'route bank')
         if hashes['backing.bin'] != expected['original_sha256']:
             raise ValueError('route backing changed; restore it before reconstruction')
+        if include_directory:
+            hashes.update(bank_index_inputs.input_hashes(directory, expected, (directory / 'backing.bin').read_bytes()))
         return hashes
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
 
 
-def packed_bank(directory, expected):
-    before = input_hashes(directory, expected)
+def packed_bank(directory, expected, *, include_directory=False):
+    before = input_hashes(directory, expected, include_directory=include_directory)
     try:
         packed = bytearray((directory / 'backing.bin').read_bytes())
         records = json.loads((directory / 'routes.json').read_text())
@@ -183,11 +185,14 @@ def packed_bank(directory, expected):
             at = row['rom_start'] - expected['rom_start']
             packed[at:at + len(fresh)] = fresh
             spans.append((at, fresh))
+        if include_directory:
+            for offset, payload in bank_index_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes()):
+                packed[offset:offset + len(payload)] = payload
         if sha256(packed) != expected['original_sha256']:
             raise ValueError('routes no longer reconstruct original storage')
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
-    if input_hashes(directory, expected) != before:
+    if input_hashes(directory, expected, include_directory=include_directory) != before:
         raise ValueError('route inputs changed during packing')
     return bytes(packed), spans, before
 
@@ -199,15 +204,18 @@ def recover_inputs(bank, root=ROOT):
     return {'input_directory': str(root / input_directory(bank)), 'backup_directory': backup}
 
 
-def build_parts(bank, root=ROOT):
+def build_parts(bank, root=ROOT, *, include_directory=False):
     rom, expected, decoded = reviewed_bank(bank, root)
     directory = root / input_directory(bank)
     if not directory.exists():
         texture_build.publish_inputs(directory, input_files(rom, expected, decoded))
-    packed, spans, hashes = packed_bank(directory, expected)
+    if include_directory:
+        input_hashes(directory, expected)
+        bank_index_inputs.ensure_inputs(directory, expected, rom[expected['rom_start']:expected['rom_end']])
+    packed, spans, hashes = packed_bank(directory, expected, include_directory=include_directory)
     if packed != rom[expected['rom_start']:expected['rom_end']]:
         raise ValueError('route candidate differs from independent original ROM')
-    if input_hashes(directory, expected) != hashes:
+    if input_hashes(directory, expected, include_directory=include_directory) != hashes:
         raise ValueError('route inputs changed during batch packing')
     write_if_changed(root / 'build/us/routes/parts' / (part_name(bank) + '.bin'), packed)
     asset_receipts.write(root, 'routes', __file__, {part_name(bank): asset_receipts.part_record(
@@ -232,7 +240,7 @@ def main(argv=None):
             print(json.dumps(recover_inputs(int(args.bank, 16)), indent=2))
         else:
             for bank in (int(args.bank, 16),) if args.bank else BANKS:
-                proof = build_parts(bank)
+                proof = build_parts(bank, include_directory=True)
                 print(f"Verified route bank {bank:02X}: {proof['rebuilt_bytes']} ROM bytes")
     except (OSError, ValueError) as error:
         parser.exit(2, f'error: {error}\n')

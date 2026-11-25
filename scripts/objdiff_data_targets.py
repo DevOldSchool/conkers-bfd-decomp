@@ -28,6 +28,21 @@ import sprite_build
 import visibility_build
 import route_build
 import animation_control_build
+import asset_directory_build
+import bank_index_inputs
+import model_alignment_build
+import direct_model_build
+import duplicate_model_build
+import save_layout_inputs
+import camera_tracks_inputs
+import menu_text_inputs
+import dialogue_inputs
+import scene_header_inputs
+import spawn_record_inputs
+import model_placement_inputs
+import scene_structure_inputs
+import collision_control_inputs
+import mp3_layout
 import animation_bank_build
 import scene_volume_build
 import scene_field_build
@@ -937,6 +952,41 @@ def prepare_mp3_tables(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
     return [unit for unit, _ in pairs], [item for _, item in pairs]
 
 
+def prepare_mp3_layout_part(rom, expected, part, packed, *, output):
+    source = mp3_layout.INPUT_DIRECTORY
+    directory = ROOT / source
+    hashes = mp3_layout.part_hashes(directory, expected, part)
+    start = expected['rom_start'] + part['offset']
+    return prepare_rebuilt_asset(
+        rom, key='mp3-layout-' + part['name'].replace('/', '-'),
+        name='audio/mp3/' + part['name'], extent={'rom_start': start, 'rom_end': start + part['size']},
+        packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=lambda: mp3_layout.part_hashes(directory, expected, part),
+        label='MP3 directory/alignment', output=output)
+
+
+def prepare_mp3_layout(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    # The bank's stream payloads have separate spectral/metadata units.
+    from mp3_bank import describe_bank
+    from mp3_assets import load_profile_mp3_assets, resolve_rom
+    path, checked_rom, _, family = load_profile_mp3_assets('us', None)
+    if checked_rom != rom:
+        raise ValueError('MP3 layout reference differs from validated report ROM')
+    _, layout = resolve_rom('us', path)
+    mp3_layout.verify_consumers(rom, layout)
+    expected = describe_bank(rom, family)
+    source = ROOT / mp3_layout.INPUT_DIRECTORY
+    manifest, _ = mp3_layout.reviewed(expected)
+    paths = ['build/us/assets/audio/mp3/' + part['name'] + '.o' for part in manifest['parts']]
+    build_rebuilt_objects(paths, 'mp3-layout', output)
+    before = mp3_layout.input_hashes(source, expected)
+    parts = mp3_layout.encoded(source, expected)
+    pairs = [prepare_mp3_layout_part(rom, expected, part, data, output=output) for part, data in parts]
+    if mp3_layout.input_hashes(source, expected) != before:
+        raise ValueError('MP3 layout source changed during report preparation')
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
 def prepare_morph_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
     source = model_morph_build.INPUT_DIRECTORY
     if receipts is None:
@@ -1018,21 +1068,21 @@ def prepare_rebuilt_ranges(original_bank, expected, *, source, packed, fresh_spa
 
 
 
-def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
+def prepare_visibility_bank(rom: bytes, expected: dict, *, output: Path, receipts=None, include_directory=False) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = visibility_build.INPUT_DIRECTORY
     if receipts is None:
         receipts = family_receipts('visibility', 'scripts/visibility_build.py')
     packed, fresh_spans, hashes, provenance = asset_candidate(
-        receipts, visibility_build.PART_NAME, hashes=visibility_build.input_hashes(ROOT / source, expected),
-        extent=expected, encode=lambda: visibility_build.packed_bank(ROOT / source, expected), ranged=True)
+        receipts, visibility_build.PART_NAME, hashes=visibility_build.input_hashes(ROOT / source, expected, include_directory=include_directory),
+        extent=expected, encode=lambda: visibility_build.packed_bank(ROOT / source, expected, include_directory=include_directory), ranged=True)
     key = 'visibility-bank'
     name = 'visibility/bank05'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + visibility_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: visibility_build.input_hashes(ROOT / source, expected), output=output,
+        read_hashes=lambda: visibility_build.input_hashes(ROOT / source, expected, include_directory=include_directory), output=output,
         provenance=provenance)
 
 
@@ -1042,25 +1092,25 @@ def prepare_visibility(rom: bytes, *, output: Path) -> tuple[list[dict], list[di
     if checked_rom != rom:
         raise ValueError('visibility reference ROM differs from validated report ROM')
     build_rebuilt_objects(['build/us/assets/' + visibility_build.PART_NAME + '.o'], 'visibility', output)
-    unit, item = prepare_visibility_bank(rom, expected, output=output)
+    unit, item = prepare_visibility_bank(rom, expected, output=output, include_directory=True)
     return [unit], [item]
 
 
-def prepare_sprite_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
+def prepare_sprite_bank(rom: bytes, expected: dict, *, output: Path, receipts=None, include_directory=False) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = sprite_build.INPUT_DIRECTORY
     if receipts is None:
         receipts = family_receipts('sprites', 'scripts/sprite_build.py')
     packed, fresh_spans, hashes, provenance = asset_candidate(
-        receipts, sprite_build.PART_NAME, hashes=sprite_build.input_hashes(ROOT / source, expected),
-        extent=expected, encode=lambda: sprite_build.packed_bank(ROOT / source, expected), ranged=True)
+        receipts, sprite_build.PART_NAME, hashes=sprite_build.input_hashes(ROOT / source, expected, include_directory=include_directory),
+        extent=expected, encode=lambda: sprite_build.packed_bank(ROOT / source, expected, include_directory=include_directory), ranged=True)
     key = 'sprite-bank'
     name = 'sprites/bank00'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + sprite_build.PART_NAME + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: sprite_build.input_hashes(ROOT / source, expected), output=output,
+        read_hashes=lambda: sprite_build.input_hashes(ROOT / source, expected, include_directory=include_directory), output=output,
         provenance=provenance)
 
 
@@ -1070,7 +1120,7 @@ def prepare_sprites(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]
     if checked_rom != rom:
         raise ValueError('sprite reference ROM differs from validated report ROM')
     build_rebuilt_objects(['build/us/assets/' + sprite_build.PART_NAME + '.o'], 'sprites', output)
-    unit, item = prepare_sprite_bank(rom, expected, output=output)
+    unit, item = prepare_sprite_bank(rom, expected, output=output, include_directory=True)
     return [unit], [item]
 
 
@@ -1081,20 +1131,20 @@ def prepare_mp3_spectral_stream(original: bytes, expected: dict, *, output: Path
         receipts = family_receipts('mp3-spectral', 'scripts/mp3_spectral_build.py', extra=MP3_DECODER_SOURCE)
     packed, fresh_spans, hashes, provenance = asset_candidate(
         receipts, mp3_spectral_build.part_name(index),
-        hashes=mp3_spectral_build.input_hashes(ROOT / source, expected),
+        hashes=mp3_spectral_build.input_hashes(ROOT / source, expected, include_metadata=True, include_cues=True),
         extent={'rom_start': expected['rom_start'], 'rom_end': expected['rom_end']},
         encode=lambda: mp3_spectral_build.packed_stream(
-            ROOT / source, expected, include_partial=True,
+            ROOT / source, expected, include_partial=True, include_metadata=True, include_cues=True,
             # The audit mode re-encodes from coefficients; the span cache is
             # another receipt-like shortcut it must not take.
             cache_directory=None if FRESH_ENCODE else ROOT / 'build/us/mp3-spectral/cache'), ranged=True)
-    ranges, _, _ = mp3_spectral_build.codec.reviewed_ranges(original, include_partial=True)
+    ranges = mp3_spectral_build.report_ranges(original, expected)
     return prepare_rebuilt_ranges(
         original, expected, source=source, packed=packed, fresh_spans=fresh_spans, hashes=hashes,
         key=f'mp3-spectral-{index:04d}', name=f'audio/mp3/spectral/{index:04d}',
         linked=ROOT / ('build/us/assets/' + mp3_spectral_build.part_name(index) + '.o'),
         ranges=[[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in ranges],
-        read_hashes=lambda: mp3_spectral_build.input_hashes(ROOT / source, expected), output=output,
+        read_hashes=lambda: mp3_spectral_build.input_hashes(ROOT / source, expected, include_metadata=True, include_cues=True), output=output,
         provenance=provenance)
 
 
@@ -1200,15 +1250,15 @@ def prepare_scene_field_bank(rom: bytes, expected: dict, *, output: Path, receip
     if receipts is None:
         receipts = family_receipts('scene-fields', 'scripts/scene_field_build.py')
     packed, fresh_spans, hashes, provenance = asset_candidate(
-        receipts, scene_field_build.PART, hashes=scene_field_build.input_hashes(ROOT / source, expected),
-        extent=expected, encode=lambda: scene_field_build.packed_bank(ROOT / source, expected), ranged=True)
+        receipts, scene_field_build.PART, hashes=scene_field_build.input_hashes(ROOT / source, expected, include_model_placements=True, include_scene_structures=True),
+        extent=expected, encode=lambda: scene_field_build.packed_bank(ROOT / source, expected, include_model_placements=True, include_scene_structures=True), ranged=True)
     key = 'scene-fields'
     name = 'scenes/fields'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + scene_field_build.PART + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: scene_field_build.input_hashes(ROOT / source, expected), output=output,
+        read_hashes=lambda: scene_field_build.input_hashes(ROOT / source, expected, include_model_placements=True, include_scene_structures=True), output=output,
         provenance=provenance)
 
 
@@ -1252,23 +1302,283 @@ def prepare_animation_bank(rom: bytes, *, output: Path) -> tuple[list[dict], lis
     return units, configs
 
 
-def prepare_animation_control_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
+def prepare_animation_control_bank(rom: bytes, expected: dict, *, output: Path, receipts=None, include_collisions=False, include_directory=False) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = animation_control_build.input_directory(expected['bank'])
     if receipts is None:
         receipts = family_receipts('animation-control', 'scripts/animation_control_build.py')
     packed, fresh_spans, hashes, provenance = asset_candidate(
-        receipts, animation_control_build.part_name(expected['bank']), hashes=animation_control_build.input_hashes(ROOT / source, expected),
-        extent=expected, encode=lambda: animation_control_build.packed_bank(ROOT / source, expected), ranged=True)
+        receipts, animation_control_build.part_name(expected['bank']), hashes=animation_control_build.input_hashes(ROOT / source, expected, include_collisions=include_collisions, include_directory=include_directory),
+        extent=expected, encode=lambda: animation_control_build.packed_bank(ROOT / source, expected, include_collisions=include_collisions, include_directory=include_directory), ranged=True)
     key = f'animation-control-bank{expected["bank"]:02X}'
     name = f'animation-controls/bank{expected["bank"]:02X}'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + animation_control_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: animation_control_build.input_hashes(ROOT / source, expected), output=output,
+        read_hashes=lambda: animation_control_build.input_hashes(ROOT / source, expected, include_collisions=include_collisions, include_directory=include_directory), output=output,
         provenance=provenance)
 
+
+
+def prepare_asset_directory(rom: bytes, expected: dict, *, output: Path, receipts=None, include_alignment=False) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory(expected['key'])
+    if receipts is None:
+        receipts = family_receipts('asset-directories', 'scripts/asset_directory_build.py')
+    packed, spans, hashes, provenance = asset_candidate(
+        receipts, expected['part'], hashes=asset_directory_build.input_hashes(ROOT / source, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True, include_alignment=include_alignment),
+        extent=expected, encode=lambda: asset_directory_build.packed_directory(ROOT / source, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True, include_alignment=include_alignment), ranged=True)
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes, key='asset-directory-' + expected['key'],
+        name='directories/' + expected['key'],
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=expected['rom_ranges'],
+        read_hashes=lambda: asset_directory_build.input_hashes(ROOT / source, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True, include_alignment=include_alignment),
+        output=output, provenance=provenance)
+
+
+def prepare_asset_directories(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('asset directory reference differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + r['part'] + '.o' for r, _ in reviewed], 'asset directories', output)
+    receipts = family_receipts('asset-directories', 'scripts/asset_directory_build.py')
+    pairs = [prepare_asset_directory(rom, expected, output=output, receipts=receipts, include_alignment=True) for expected, _ in reviewed]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+
+def prepare_bank_index_object(rom, expected, *, module, source, part, options, alignment=False, output):
+    directory = ROOT / source
+    read_hashes = lambda: module.input_hashes(directory, expected, **options)
+    pack = module.packed_directory if alignment else module.packed_bank
+    packed, _, hashes = pack(directory, expected, **options)
+    if alignment:
+        spans = bank_index_inputs.existing_alignment(directory, expected)
+        key = expected['key']
+    else:
+        spans = bank_index_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+        key = f"bank{expected['bank']:02X}"
+    family = 'directory-alignment' if alignment else 'bank-index'
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes, key=family + '-' + key,
+        name=family + '/' + key, linked=ROOT / ('build/us/assets/' + part + '.o'),
+        ranges=[[expected['rom_start'] + a, expected['rom_start'] + a + len(data)] for a, data in spans],
+        read_hashes=read_hashes, output=output)
+
+
+def prepare_bank_indexes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    # Independently pin the native index consumers before publishing ownership.
+    path, layout = sprite_build.model_assets.resolve_rom('us', ROOT / 'roms/baserom.us.z64')
+    game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
+    bank_index_inputs.verify_consumers(game.code, layout['game_vram'])
+    tasks = []
+    for bank, module in ((0, sprite_build), (5, visibility_build), (15, animation_control_build),
+                         (16, route_build), (25, route_build)):
+        if bank in (0, 5):
+            checked, expected, _ = module.reviewed_bank(ROOT)
+            source, part = module.INPUT_DIRECTORY, module.PART_NAME
+        else:
+            checked, expected, _ = module.reviewed_bank(bank, ROOT)
+            source, part = module.input_directory(bank), module.part_name(bank)
+        if checked != rom:
+            raise ValueError('bank index reference differs from validated report ROM')
+        options = {'include_directory': True}
+        if bank == 15:
+            options['include_collisions'] = True
+        tasks.append((expected, module, source, part, options, False))
+    checked, parents = asset_directory_build.reviewed_directories(ROOT)
+    if checked != rom:
+        raise ValueError('directory alignment reference differs from validated report ROM')
+    options = dict(include_save_layout=True, include_camera_tracks=True, include_menu_text=True,
+                   include_dialogue=True, include_scene_headers=True, include_spawn_records=True,
+                   include_model_placements=True, include_alignment=True)
+    for expected, _ in parents:
+        if expected['key'] in bank_index_inputs.ALIGNMENT_KEYS:
+            tasks.append((expected, asset_directory_build, asset_directory_build.input_directory(expected['key']),
+                          expected['part'], options, True))
+    build_rebuilt_objects(['build/us/assets/' + part + '.o' for _, _, _, part, _, _ in tasks],
+                          'bank indexes and alignment', output)
+    pairs = [prepare_bank_index_object(rom, expected, module=module, source=source, part=part,
+             options=options, alignment=alignment, output=output)
+             for expected, module, source, part, options, alignment in tasks]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+def prepare_direct_model_object(rom, expected, *, output, receipts=None):
+    if receipts is None:
+        receipts = family_receipts('direct-models', 'scripts/direct_model_build.py')
+    part = expected['part']; name = direct_model_build.part_name(part)
+    read_hashes = lambda: direct_model_build.input_hashes(ROOT, expected)
+    packed, spans, hashes, provenance = asset_candidate(receipts, name, hashes=read_hashes(),
+        extent=expected, encode=lambda: direct_model_build.packed_object(ROOT, expected), ranged=True)
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=direct_model_build.SOURCE_ROOT,
+        packed=packed, fresh_spans=spans, hashes=hashes, key='direct-model-' + part,
+        name='models/direct-aux/' + part, linked=ROOT / ('build/us/assets/' + name + '.o'),
+        ranges=direct_model_build.owned_ranges(expected), read_hashes=read_hashes, output=output, provenance=provenance)
+
+
+def prepare_direct_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked, selected = direct_model_build.reviewed_objects(ROOT)
+    if checked != rom:
+        raise ValueError('direct-model reference differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + direct_model_build.part_name(e['part']) + '.o'
+                          for e, _ in selected], 'direct models', output)
+    receipts = family_receipts('direct-models', 'scripts/direct_model_build.py')
+    pairs = [prepare_direct_model_object(rom, expected, output=output, receipts=receipts)
+             for expected, _ in selected]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+def prepare_duplicate_model_object(rom, expected, *, output, receipts=None):
+    module = duplicate_model_build
+    if receipts is None:
+        receipts = family_receipts('duplicate-models', 'scripts/duplicate_model_build.py')
+    read_hashes = lambda: module.input_hashes(ROOT, expected)
+    packed, hashes, provenance = asset_candidate(receipts, module.PART, hashes=read_hashes(),
+        extent=expected, encode=lambda: module.packed_part(ROOT, expected))
+    return prepare_rebuilt_asset(rom, key='duplicate-model-58', name=module.PART, extent=expected,
+        packed=packed, hashes=hashes, source_directory=module.SOURCE_ROOT, read_hashes=read_hashes,
+        label='duplicate normal model', output=output, provenance=provenance)
+
+
+def prepare_duplicate_models(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked, expected, _ = duplicate_model_build.reviewed(ROOT)
+    if checked != rom:
+        raise ValueError('duplicate-model reference differs from validated ROM')
+    build_rebuilt_objects(['build/us/assets/' + duplicate_model_build.PART + '.o'], 'duplicate model', output)
+    unit, item = prepare_duplicate_model_object(rom, expected, output=output)
+    return [unit], [item]
+
+
+def prepare_model_alignment_part(rom, part, *, output):
+    source = asset_directory_build.input_directory(part['parent']['key'])
+    packed, hashes = model_alignment_build.packed_part(ROOT, part)
+    return prepare_rebuilt_asset(
+        rom, key='model-alignment-' + f'{part["rom_start"]:08X}', name=part['part'],
+        extent=part, packed=packed, hashes=hashes, source_directory=source,
+        read_hashes=lambda: model_alignment_build.input_hashes(ROOT, part),
+        label='model alignment', output=output)
+
+
+def prepare_model_alignment(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, parts = model_alignment_build.reviewed(ROOT)
+    if checked_rom != rom:
+        raise ValueError('model alignment reference differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/' + p['part'] + '.o' for p in parts],
+                         'model alignment', output)
+    pairs = [prepare_model_alignment_part(rom, part, output=output) for part in parts]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+def prepare_save_layout_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank07')
+    directory = ROOT / source
+    packed, _, hashes = asset_directory_build.packed_directory(directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+    fresh = save_layout_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + 8, expected['rom_start'] + 8 + len(fresh)]]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=[(8, fresh)], hashes=hashes,
+        key='save-layout-bank07', name='save-layout/field-widths',
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=ranges,
+        read_hashes=lambda: asset_directory_build.input_hashes(directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True),
+        output=output)
+
+
+def prepare_save_layout(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('save layout reference differs from validated report ROM')
+    expected, _ = next(row for row in reviewed if row[0]['key'] == 'bank07')
+    build_rebuilt_objects(['build/us/assets/' + expected['part'] + '.o'], 'save layout', output)
+    unit, config = prepare_save_layout_object(rom, expected, output=output)
+    return [unit], [config]
+
+
+def prepare_camera_tracks_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank1B')
+    directory = ROOT / source
+    packed, _, hashes = asset_directory_build.packed_directory(
+        directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+    spans = camera_tracks_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)]
+              for offset, data in spans]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes,
+        key='camera-tracks-bank1B', name='camera-tracks/frame-deltas',
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=ranges,
+        read_hashes=lambda: asset_directory_build.input_hashes(
+            directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True),
+        output=output)
+
+
+def prepare_camera_tracks(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('camera track reference differs from validated report ROM')
+    expected, _ = next(row for row in reviewed if row[0]['key'] == 'bank1B')
+    build_rebuilt_objects(['build/us/assets/' + expected['part'] + '.o'], 'camera tracks', output)
+    unit, config = prepare_camera_tracks_object(rom, expected, output=output)
+    return [unit], [config]
+
+
+def prepare_menu_text_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank1C')
+    directory = ROOT / source
+    packed, _, hashes = asset_directory_build.packed_directory(
+        directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+    spans = menu_text_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)]
+              for offset, data in spans]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes,
+        key='menu-text-bank1C', name='menu-text/bank1C',
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=ranges,
+        read_hashes=lambda: asset_directory_build.input_hashes(
+            directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True),
+        output=output)
+
+
+def prepare_menu_text(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('menu text reference differs from validated report ROM')
+    expected, _ = next(row for row in reviewed if row[0]['key'] == 'bank1C')
+    build_rebuilt_objects(['build/us/assets/' + expected['part'] + '.o'], 'menu text', output)
+    unit, config = prepare_menu_text_object(rom, expected, output=output)
+    return [unit], [config]
+
+
+def prepare_dialogue_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank1A')
+    directory = ROOT / source
+    packed, _, hashes = asset_directory_build.packed_directory(
+        directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+    spans = dialogue_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)]
+              for offset, data in spans]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes,
+        key='dialogue-bank1A', name='dialogue/bank1A',
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=ranges,
+        read_hashes=lambda: asset_directory_build.input_hashes(
+            directory, expected, include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True),
+        output=output)
+
+
+def prepare_dialogue(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('dialogue reference differs from validated report ROM')
+    expected, _ = next(row for row in reviewed if row[0]['key'] == 'bank1A')
+    build_rebuilt_objects(['build/us/assets/' + expected['part'] + '.o'], 'dialogue', output)
+    unit, config = prepare_dialogue_object(rom, expected, output=output)
+    return [unit], [config]
 
 
 def prepare_animation_controls(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
@@ -1278,26 +1588,49 @@ def prepare_animation_controls(rom: bytes, *, output: Path) -> tuple[list[dict],
         if checked_rom != rom:
             raise ValueError('animation control reference ROM differs from validated report ROM')
         build_rebuilt_objects(['build/us/assets/' + animation_control_build.part_name(bank) + '.o'], 'animation controls', output)
-        unit, item = prepare_animation_control_bank(rom, expected, output=output)
+        unit, item = prepare_animation_control_bank(rom, expected, output=output, include_collisions=True, include_directory=True)
         units.append(unit); configs.append(item)
     return units, configs
 
 
-def prepare_route_bank(rom: bytes, expected: dict, *, output: Path, receipts=None) -> tuple[dict, dict]:
+def prepare_collision_control_bank(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = animation_control_build.input_directory(expected['bank'])
+    directory = ROOT / source
+    packed, _, hashes = animation_control_build.packed_bank(directory, expected, include_collisions=True)
+    spans = collision_control_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + at, expected['rom_start'] + at + len(data)] for at, data in spans]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes,
+        key='collision-controls-bank0F', name='collision-controls/bank0F',
+        linked=ROOT / 'build/us/assets/asset_bank_0f.o', ranges=ranges,
+        read_hashes=lambda: animation_control_build.input_hashes(directory, expected, include_collisions=True), output=output)
+
+
+def prepare_collision_controls(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, expected, _ = animation_control_build.reviewed_bank(15, ROOT)
+    if checked_rom != rom:
+        raise ValueError('collision control reference differs from validated report ROM')
+    build_rebuilt_objects(['build/us/assets/asset_bank_0f.o'], 'collision controls', output)
+    unit, config = prepare_collision_control_bank(rom, expected, output=output)
+    return [unit], [config]
+
+
+def prepare_route_bank(rom: bytes, expected: dict, *, output: Path, receipts=None, include_directory=False) -> tuple[dict, dict]:
     """Report only regenerated physical ranges of the actual linked object."""
     source = route_build.input_directory(expected['bank'])
     if receipts is None:
         receipts = family_receipts('routes', 'scripts/route_build.py')
     packed, fresh_spans, hashes, provenance = asset_candidate(
-        receipts, route_build.part_name(expected['bank']), hashes=route_build.input_hashes(ROOT / source, expected),
-        extent=expected, encode=lambda: route_build.packed_bank(ROOT / source, expected), ranged=True)
+        receipts, route_build.part_name(expected['bank']), hashes=route_build.input_hashes(ROOT / source, expected, include_directory=include_directory),
+        extent=expected, encode=lambda: route_build.packed_bank(ROOT / source, expected, include_directory=include_directory), ranged=True)
     key = f'route-bank{expected["bank"]:02X}'
     name = f'routes/bank{expected["bank"]:02X}'
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
         linked=ROOT / ('build/us/assets/' + route_build.part_name(expected['bank']) + '.o'), ranges=expected['rom_ranges'],
-        read_hashes=lambda: route_build.input_hashes(ROOT / source, expected), output=output,
+        read_hashes=lambda: route_build.input_hashes(ROOT / source, expected, include_directory=include_directory), output=output,
         provenance=provenance)
 
 
@@ -1309,7 +1642,7 @@ def prepare_routes(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]
         if checked_rom != rom:
             raise ValueError('route reference ROM differs from validated report ROM')
         build_rebuilt_objects(['build/us/assets/' + route_build.part_name(bank) + '.o'], 'routes', output)
-        unit, item = prepare_route_bank(rom, expected, output=output)
+        unit, item = prepare_route_bank(rom, expected, output=output, include_directory=True)
         units.append(unit); configs.append(item)
     return units, configs
 
@@ -1327,7 +1660,8 @@ def prepare_animation_clips_object(rom: bytes, expected: dict, *, output: Path, 
     return prepare_rebuilt_ranges(
         rom[expected['rom_start']:expected['rom_end']], expected, source=source,
         packed=packed, fresh_spans=fresh_spans, hashes=hashes, key=key, name=name,
-        linked=ROOT / ('build/us/assets/' + animation_clips_build.part_name(expected['part']) + '.o'), ranges=expected['rom_ranges'],
+        linked=ROOT / ('build/us/assets/' + animation_clips_build.part_name(expected['part']) + '.o'),
+        ranges=animation_clips_build.indexes.owned_ranges(expected),
         read_hashes=lambda: animation_clips_build.input_hashes(ROOT / source, expected), output=output,
         provenance=provenance)
 
@@ -1339,4 +1673,128 @@ def prepare_animation_clips(rom: bytes, *, output: Path) -> tuple[list[dict], li
     paths = ['build/us/assets/' + animation_clips_build.part_name(e['part']) + '.o' for e, _ in selected]
     build_rebuilt_objects(paths, 'animation clips', output)
     pairs = [prepare_animation_clips_object(rom, expected, output=output) for expected, _ in selected]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+def prepare_scene_headers_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank15')
+    directory = ROOT / source
+    packed, _, hashes = asset_directory_build.packed_directory(
+        directory, expected, include_save_layout=True, include_camera_tracks=True,
+        include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+    spans = scene_header_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)]
+              for offset, data in spans]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes,
+        key='scene-headers-bank15', name='scene-headers/bank15',
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=ranges,
+        read_hashes=lambda: asset_directory_build.input_hashes(
+            directory, expected, include_save_layout=True, include_camera_tracks=True,
+            include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True),
+        output=output)
+
+
+def prepare_scene_headers(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('scene header reference differs from validated report ROM')
+    expected, _ = next(row for row in reviewed if row[0]['key'] == 'bank15')
+    build_rebuilt_objects(['build/us/assets/' + expected['part'] + '.o'], 'scene headers', output)
+    unit, config = prepare_scene_headers_object(rom, expected, output=output)
+    return [unit], [config]
+
+
+def prepare_spawn_records_object(rom: bytes, expected: dict, *, output: Path) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank0E')
+    directory = ROOT / source
+    packed, _, hashes = asset_directory_build.packed_directory(
+        directory, expected, include_save_layout=True, include_camera_tracks=True,
+        include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+    spans = spawn_record_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + offset, expected['rom_start'] + offset + len(data)]
+              for offset, data in spans]
+    return prepare_rebuilt_ranges(
+        rom[expected['rom_start']:expected['rom_end']], expected, source=source,
+        packed=packed, fresh_spans=spans, hashes=hashes,
+        key='spawn-records-bank0E', name='spawn-records/bank0E',
+        linked=ROOT / ('build/us/assets/' + expected['part'] + '.o'), ranges=ranges,
+        read_hashes=lambda: asset_directory_build.input_hashes(
+            directory, expected, include_save_layout=True, include_camera_tracks=True,
+            include_menu_text=True, include_dialogue=True, include_scene_headers=True, include_spawn_records=True, include_model_placements=True),
+        output=output)
+
+
+def prepare_spawn_records(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    if checked_rom != rom:
+        raise ValueError('spawn record reference differs from validated report ROM')
+    expected, _ = next(row for row in reviewed if row[0]['key'] == 'bank0E')
+    build_rebuilt_objects(['build/us/assets/' + expected['part'] + '.o'], 'spawn records', output)
+    unit, config = prepare_spawn_records_object(rom, expected, output=output)
+    return [unit], [config]
+
+
+def prepare_model_placement_object(rom: bytes, expected: dict, *, output: Path, props: bool) -> tuple[dict, dict]:
+    source = asset_directory_build.input_directory('bank0B') if props else scene_field_build.INPUT_DIRECTORY
+    directory = ROOT / source
+    if props:
+        def hashes_now():
+            return asset_directory_build.input_hashes(directory, expected, include_save_layout=True,
+                include_camera_tracks=True, include_menu_text=True, include_dialogue=True,
+                include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+        packed, _, hashes = asset_directory_build.packed_directory(directory, expected,
+            include_save_layout=True, include_camera_tracks=True, include_menu_text=True, include_dialogue=True,
+            include_scene_headers=True, include_spawn_records=True, include_model_placements=True)
+        bank, part = 'bank0B', expected['part']
+    else:
+        def hashes_now():
+            return scene_field_build.input_hashes(directory, expected, include_model_placements=True, include_scene_structures=True)
+        packed, _, hashes = scene_field_build.packed_bank(directory, expected, include_model_placements=True, include_scene_structures=True)
+        bank, part = 'bank0C', scene_field_build.PART
+    spans = model_placement_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes())
+    ranges = [[expected['rom_start'] + a, expected['rom_start'] + a + len(data)] for a, data in spans]
+    return prepare_rebuilt_ranges(rom[expected['rom_start']:expected['rom_end']], expected,
+        source=source, packed=packed, fresh_spans=spans, hashes=hashes,
+        key='model-placements-' + bank, name='model-placements/' + bank,
+        linked=ROOT / ('build/us/assets/' + part + '.o'), ranges=ranges,
+        read_hashes=hashes_now, output=output)
+
+
+def prepare_model_placements(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    prop_rom, reviewed = asset_directory_build.reviewed_directories(ROOT)
+    scene_rom, scene, _ = scene_field_build.reviewed_bank(ROOT)
+    if prop_rom != rom or scene_rom != rom:
+        raise ValueError('model placement reference differs from validated ROM')
+    props, _ = next(row for row in reviewed if row[0]['key'] == 'bank0B')
+    build_rebuilt_objects(['build/us/assets/' + props['part'] + '.o',
+                          'build/us/assets/' + scene_field_build.PART + '.o'], 'model placements', output)
+    pairs = [prepare_model_placement_object(rom, props, output=output, props=True),
+             prepare_model_placement_object(rom, scene, output=output, props=False)]
+    return [unit for unit, _ in pairs], [item for _, item in pairs]
+
+
+def prepare_scene_structure_object(rom: bytes, expected: dict, *, output: Path, family: str) -> tuple[dict, dict]:
+    source = scene_field_build.INPUT_DIRECTORY
+    directory = ROOT / source
+    def hashes_now():
+        return scene_field_build.input_hashes(directory, expected, include_model_placements=True, include_scene_structures=True)
+    packed, _, hashes = scene_field_build.packed_bank(directory, expected, include_model_placements=True, include_scene_structures=True)
+    spans = scene_structure_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes(), family)
+    ranges = [[expected['rom_start'] + a, expected['rom_start'] + a + len(data)] for a, data in spans]
+    return prepare_rebuilt_ranges(rom[expected['rom_start']:expected['rom_end']], expected,
+        source=source, packed=packed, fresh_spans=spans, hashes=hashes,
+        key='scene-' + family, name='scenes/' + family,
+        linked=ROOT / ('build/us/assets/' + scene_field_build.PART + '.o'), ranges=ranges,
+        read_hashes=hashes_now, output=output)
+
+
+def prepare_scene_structures(rom: bytes, *, output: Path) -> tuple[list[dict], list[dict]]:
+    checked, expected, _ = scene_field_build.reviewed_bank(ROOT)
+    if checked != rom:
+        raise ValueError('scene structure reference differs from validated ROM')
+    build_rebuilt_objects(['build/us/assets/' + scene_field_build.PART + '.o'], 'scene structures', output)
+    pairs = [prepare_scene_structure_object(rom, expected, output=output, family=family)
+             for family in scene_structure_inputs.FAMILIES]
     return [unit for unit, _ in pairs], [item for _, item in pairs]

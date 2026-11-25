@@ -218,6 +218,10 @@ After the raw base split map is available
                                  Extract, rebuild, preview, or byte-verify the RLE font table.
   sprite-assets <build|recover>
       Reconstruct reviewed sprite PNG ranges or recover their editable inputs.
+  direct-models <build|recover> [--part ID]
+      Rebuild reviewed direct-model ranges and alignment or recover their inputs.
+  duplicate-models <build|recover>
+      Rebuild the reviewed bank-04 duplicate-normal bundle or recover its inputs.
   animation-clips <build|recover> [--part ID]
       Rebuild reviewed clip ranges within partial animation objects or recover inputs.
   scene-fields <build|recover>
@@ -228,6 +232,8 @@ After the raw base split map is available
     Rebuild the native-format animation bundles in bank 0A.
   animation-control <build|recover --bank 0F>
     Rebuild reviewed animation routes, events and behavior programs.
+  asset-directories <build|recover --part ID>
+    Rebuild reviewed outer and inner asset directories from typed records.
   route-assets <build|recover> [--bank 10|19]
       Rebuild reviewed actor paths and navigation graphs or recover their inputs.
   visibility-assets <build|recover>
@@ -236,7 +242,7 @@ After the raw base split map is available
     Rebuild native script tracks, bindings, commands and text.
   event-assets <build|recover>
                                  Rebuild the complete US event bank from typed instructions and strings.
-  mp3-assets <build-spectral|recover-spectral|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
+  mp3-assets <build-spectral|recover-spectral|recover-metadata|recover-cues|recover-layout|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
   audio-assets <build-adpcm|recover-adpcm|build-sound-bank|recover-sound-bank|build-sequences|recover-sequence|survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
@@ -1558,6 +1564,14 @@ case "$command" in
         [[ $# -ge 1 ]] || die "usage: ./conker sprite-assets <build|recover>"
         run_in_container python3 scripts/sprite_build.py "$@"
         ;;
+    duplicate-models)
+        [[ $# -ge 1 ]] || die "usage: ./conker duplicate-models <build|recover>"
+        run_in_container python3 scripts/duplicate_model_build.py "$@"
+        ;;
+    direct-models)
+        [[ $# -ge 1 ]] || die "usage: ./conker direct-models <build|recover> [--part ID]"
+        run_in_container python3 scripts/direct_model_build.py "$@"
+        ;;
     animation-clips)
         [[ $# -ge 1 ]] || die "usage: ./conker animation-clips <build|recover> [--part ID]"
         run_in_container python3 scripts/animation_clips_build.py "$@"
@@ -1578,6 +1592,10 @@ case "$command" in
         [[ $# -ge 1 ]] || die "usage: ./conker animation-control <build|recover --bank 0F>"
         run_in_container python3 scripts/animation_control_build.py "$@"
         ;;
+    asset-directories)
+        [[ $# -ge 1 ]] || die "usage: ./conker asset-directories <build|recover --part ID>"
+        run_in_container python3 scripts/asset_directory_build.py "$@"
+        ;;
     route-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker route-assets <build|recover> [--bank 10|19]"
         run_in_container python3 scripts/route_build.py "$@"
@@ -1595,7 +1613,7 @@ case "$command" in
         run_in_container python3 scripts/event_build.py "$@"
         ;;
     mp3-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <build-spectral|recover-spectral|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <build-spectral|recover-spectral|recover-metadata|recover-cues|recover-layout|build-tables|recover-tables|extract|pack|build-bank|verify|cue-extract|cue-verify> [options]"
         if [[ "$1" == "build-tables" ]]; then
             shift
             run_in_container python3 scripts/mp3_table_build.py build-parts "$@"
@@ -1605,6 +1623,15 @@ case "$command" in
         elif [[ "$1" == "recover-spectral" ]]; then
             shift
             run_in_container python3 scripts/mp3_spectral_build.py recover "$@"
+        elif [[ "$1" == "recover-cues" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_cue_build.py recover "$@"
+        elif [[ "$1" == "recover-metadata" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_metadata_build.py recover "$@"
+        elif [[ "$1" == "recover-layout" ]]; then
+            shift
+            run_in_container python3 scripts/mp3_layout.py recover "$@"
         elif [[ "$1" == "recover-tables" ]]; then
             shift
             run_in_container python3 scripts/mp3_table_build.py recover "$@"

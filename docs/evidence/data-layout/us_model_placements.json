@@ -1,0 +1,662 @@
+{
+  "status": "accepted",
+  "native_field_proof": {
+    "status": "native schema authenticated; production acceptance recorded in this evidence",
+    "full_consumer": {
+      "start": 352336352,
+      "size": 2964,
+      "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66"
+    },
+    "additional_fields": [
+      {
+        "offset": 24,
+        "kind": "I",
+        "instruction": "15003C4C",
+        "word": "8D0B0018"
+      },
+      {
+        "offset": 56,
+        "kind": "I",
+        "instruction": "15003D08",
+        "word": "8D0C0038"
+      },
+      {
+        "offset": 46,
+        "kind": "H",
+        "instruction": "15004160",
+        "word": "950E002E"
+      },
+      {
+        "offset": 48,
+        "kind": "H",
+        "instruction": "15004168",
+        "word": "950F0030"
+      },
+      {
+        "offset": 50,
+        "kind": "B",
+        "instruction": "15004170",
+        "word": "91180032"
+      },
+      {
+        "offset": 44,
+        "kind": "B",
+        "instruction": "15004178",
+        "word": "9119002C"
+      },
+      {
+        "offset": 45,
+        "kind": "B",
+        "instruction": "15004180",
+        "word": "910A002D"
+      },
+      {
+        "offset": 62,
+        "kind": "H",
+        "instruction": "15004154",
+        "word": "950D003E"
+      },
+      {
+        "offset": 64,
+        "kind": "H",
+        "instruction": "15004188",
+        "word": "950B0040"
+      }
+    ],
+    "new_bytes_per_record": 19,
+    "bank0B_records": 727,
+    "bank0B_entries": 54,
+    "bank0B_stored_bytes": 11233,
+    "bank0B_zero_restricted_offsets": [
+      28,
+      29,
+      30,
+      31,
+      53,
+      54,
+      55,
+      61,
+      66,
+      67
+    ],
+    "bank0B_entries_proof": [
+      {
+        "entry": 0,
+        "records": 13,
+        "stored_bytes": 231,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 1,
+        "records": 22,
+        "stored_bytes": 230,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 2,
+        "records": 35,
+        "stored_bytes": 607,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 4,
+        "records": 23,
+        "stored_bytes": 371,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 6,
+        "records": 26,
+        "stored_bytes": 473,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 7,
+        "records": 12,
+        "stored_bytes": 192,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 10,
+        "records": 20,
+        "stored_bytes": 323,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 11,
+        "records": 13,
+        "stored_bytes": 269,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 12,
+        "records": 32,
+        "stored_bytes": 400,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 14,
+        "records": 18,
+        "stored_bytes": 265,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 16,
+        "records": 15,
+        "stored_bytes": 154,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 17,
+        "records": 2,
+        "stored_bytes": 48,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 18,
+        "records": 9,
+        "stored_bytes": 176,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 19,
+        "records": 17,
+        "stored_bytes": 250,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 20,
+        "records": 7,
+        "stored_bytes": 134,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 23,
+        "records": 18,
+        "stored_bytes": 322,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 24,
+        "records": 12,
+        "stored_bytes": 141,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 25,
+        "records": 9,
+        "stored_bytes": 197,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 26,
+        "records": 1,
+        "stored_bytes": 31,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 27,
+        "records": 12,
+        "stored_bytes": 211,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 28,
+        "records": 32,
+        "stored_bytes": 496,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 29,
+        "records": 9,
+        "stored_bytes": 143,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 30,
+        "records": 10,
+        "stored_bytes": 155,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 33,
+        "records": 3,
+        "stored_bytes": 51,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 34,
+        "records": 2,
+        "stored_bytes": 38,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 35,
+        "records": 13,
+        "stored_bytes": 216,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 36,
+        "records": 8,
+        "stored_bytes": 100,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 38,
+        "records": 2,
+        "stored_bytes": 58,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 40,
+        "records": 2,
+        "stored_bytes": 58,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 41,
+        "records": 19,
+        "stored_bytes": 348,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 43,
+        "records": 6,
+        "stored_bytes": 109,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 44,
+        "records": 8,
+        "stored_bytes": 160,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 45,
+        "records": 12,
+        "stored_bytes": 204,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 46,
+        "records": 2,
+        "stored_bytes": 58,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 47,
+        "records": 9,
+        "stored_bytes": 161,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 48,
+        "records": 1,
+        "stored_bytes": 26,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 49,
+        "records": 13,
+        "stored_bytes": 229,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 50,
+        "records": 6,
+        "stored_bytes": 134,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 51,
+        "records": 4,
+        "stored_bytes": 87,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 52,
+        "records": 13,
+        "stored_bytes": 209,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 53,
+        "records": 18,
+        "stored_bytes": 323,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 54,
+        "records": 74,
+        "stored_bytes": 489,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 55,
+        "records": 15,
+        "stored_bytes": 239,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 56,
+        "records": 7,
+        "stored_bytes": 71,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 57,
+        "records": 7,
+        "stored_bytes": 155,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 58,
+        "records": 11,
+        "stored_bytes": 120,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 59,
+        "records": 25,
+        "stored_bytes": 438,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 60,
+        "records": 13,
+        "stored_bytes": 255,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 62,
+        "records": 9,
+        "stored_bytes": 157,
+        "decoded_alignment_bytes": 12
+      },
+      {
+        "entry": 63,
+        "records": 4,
+        "stored_bytes": 46,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 64,
+        "records": 27,
+        "stored_bytes": 347,
+        "decoded_alignment_bytes": 4
+      },
+      {
+        "entry": 65,
+        "records": 14,
+        "stored_bytes": 261,
+        "decoded_alignment_bytes": 8
+      },
+      {
+        "entry": 67,
+        "records": 8,
+        "stored_bytes": 158,
+        "decoded_alignment_bytes": 0
+      },
+      {
+        "entry": 68,
+        "records": 5,
+        "stored_bytes": 109,
+        "decoded_alignment_bytes": 12
+      }
+    ],
+    "bank0C_records": 511,
+    "bank0C_new_bytes": 9709,
+    "bank0C_entries_proof": [
+      {
+        "scene": 0,
+        "records": 16,
+        "new_bytes": 304
+      },
+      {
+        "scene": 1,
+        "records": 13,
+        "new_bytes": 247
+      },
+      {
+        "scene": 2,
+        "records": 17,
+        "new_bytes": 323
+      },
+      {
+        "scene": 4,
+        "records": 16,
+        "new_bytes": 304
+      },
+      {
+        "scene": 6,
+        "records": 21,
+        "new_bytes": 399
+      },
+      {
+        "scene": 7,
+        "records": 12,
+        "new_bytes": 228
+      },
+      {
+        "scene": 10,
+        "records": 6,
+        "new_bytes": 114
+      },
+      {
+        "scene": 11,
+        "records": 9,
+        "new_bytes": 171
+      },
+      {
+        "scene": 12,
+        "records": 14,
+        "new_bytes": 266
+      },
+      {
+        "scene": 14,
+        "records": 11,
+        "new_bytes": 209
+      },
+      {
+        "scene": 16,
+        "records": 6,
+        "new_bytes": 114
+      },
+      {
+        "scene": 18,
+        "records": 7,
+        "new_bytes": 133
+      },
+      {
+        "scene": 19,
+        "records": 13,
+        "new_bytes": 247
+      },
+      {
+        "scene": 20,
+        "records": 12,
+        "new_bytes": 228
+      },
+      {
+        "scene": 24,
+        "records": 1,
+        "new_bytes": 19
+      },
+      {
+        "scene": 25,
+        "records": 1,
+        "new_bytes": 19
+      },
+      {
+        "scene": 26,
+        "records": 13,
+        "new_bytes": 247
+      },
+      {
+        "scene": 27,
+        "records": 11,
+        "new_bytes": 209
+      },
+      {
+        "scene": 28,
+        "records": 5,
+        "new_bytes": 95
+      },
+      {
+        "scene": 29,
+        "records": 11,
+        "new_bytes": 209
+      },
+      {
+        "scene": 30,
+        "records": 12,
+        "new_bytes": 228
+      },
+      {
+        "scene": 33,
+        "records": 1,
+        "new_bytes": 19
+      },
+      {
+        "scene": 35,
+        "records": 4,
+        "new_bytes": 76
+      },
+      {
+        "scene": 36,
+        "records": 26,
+        "new_bytes": 494
+      },
+      {
+        "scene": 38,
+        "records": 3,
+        "new_bytes": 57
+      },
+      {
+        "scene": 40,
+        "records": 2,
+        "new_bytes": 38
+      },
+      {
+        "scene": 41,
+        "records": 3,
+        "new_bytes": 57
+      },
+      {
+        "scene": 43,
+        "records": 2,
+        "new_bytes": 38
+      },
+      {
+        "scene": 44,
+        "records": 15,
+        "new_bytes": 285
+      },
+      {
+        "scene": 45,
+        "records": 34,
+        "new_bytes": 646
+      },
+      {
+        "scene": 47,
+        "records": 1,
+        "new_bytes": 19
+      },
+      {
+        "scene": 48,
+        "records": 19,
+        "new_bytes": 361
+      },
+      {
+        "scene": 49,
+        "records": 7,
+        "new_bytes": 133
+      },
+      {
+        "scene": 50,
+        "records": 11,
+        "new_bytes": 209
+      },
+      {
+        "scene": 51,
+        "records": 7,
+        "new_bytes": 133
+      },
+      {
+        "scene": 52,
+        "records": 20,
+        "new_bytes": 380
+      },
+      {
+        "scene": 53,
+        "records": 10,
+        "new_bytes": 190
+      },
+      {
+        "scene": 54,
+        "records": 9,
+        "new_bytes": 171
+      },
+      {
+        "scene": 55,
+        "records": 6,
+        "new_bytes": 114
+      },
+      {
+        "scene": 56,
+        "records": 2,
+        "new_bytes": 38
+      },
+      {
+        "scene": 57,
+        "records": 3,
+        "new_bytes": 57
+      },
+      {
+        "scene": 58,
+        "records": 2,
+        "new_bytes": 38
+      },
+      {
+        "scene": 59,
+        "records": 13,
+        "new_bytes": 247
+      },
+      {
+        "scene": 60,
+        "records": 13,
+        "new_bytes": 247
+      },
+      {
+        "scene": 62,
+        "records": 30,
+        "new_bytes": 570
+      },
+      {
+        "scene": 63,
+        "records": 21,
+        "new_bytes": 399
+      },
+      {
+        "scene": 64,
+        "records": 1,
+        "new_bytes": 19
+      },
+      {
+        "scene": 65,
+        "records": 19,
+        "new_bytes": 361
+      }
+    ],
+    "pointer_proof": "15003BA4 t0=s7+recordoffset. Offset starts0 and advances68 at15004218. Boundary15003B80..94 switches from bank0B to bank0Cchild2 while compensating cumulative index. Only write to t0 before150041A4 other than entry pointer is its saved reload15003E20 after15003E18 call. All extra loads refer to same record. Common schema is shared, but kind0 scene records override some parameters from static defaults; no claim every field is executed for every scene."
+  },
+  "omitted_gate_logs": [
+    "gates",
+    "modified_inputs",
+    "native_byte_mutations_rejected",
+    "report_audit",
+    "source_audit",
+    "tested_base"
+  ]
+}
