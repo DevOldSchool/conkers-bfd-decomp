@@ -91,6 +91,37 @@ def distant_word(word: int, protected: set[int]) -> bool:
     return False
 
 
+JOINED_LIMIT = 32
+
+
+def written_gprs(word: int) -> set[int] | None:
+    """GPRs an instruction writes, or None when it is not decoded here.
+
+    Calls, register jumps, absolute jumps, traps and unlisted opcodes are not
+    decoded, so a caller that requires a known result fails closed on them.
+    """
+    op, rs, rt, rd, funct = word >> 26, (word >> 21) & 31, (word >> 16) & 31, (word >> 11) & 31, word & 63
+    if op == 0:
+        if funct in (8, 9, 12, 13) or funct in (0x18, 0x19, 0x1A, 0x1B) and rd:
+            return None
+        if funct in (0x18, 0x19, 0x1A, 0x1B):
+            return set()
+        return {rd} - {0}
+    if op == 1:
+        return None if rt in (16, 17, 18, 19) else set()
+    if op in (4, 5, 6, 7, 20, 21, 22, 23):
+        return set()
+    if 8 <= op <= 15 or 0x20 <= op <= 0x26:
+        return {rt} - {0}
+    if op == 0x11:
+        if rs in (0, 2):  # mfc1, cfc1
+            return {rt} - {0}
+        return set()
+    if op in (0x28, 0x29, 0x2B, 0x31, 0x35, 0x39, 0x3D):
+        return set()
+    return None
+
+
 def reference_tables(assembly: str, code: bytes, data: bytes,
                      code_vram: int, data_vram: int) -> tuple[int, list[Table]]:
     rows = list(re.finditer(
@@ -123,7 +154,25 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
         # IDO can hoist the shift over an unrelated conditional exit, leaving
         # the table upper address in the bounds branch's delay slot.
         hoisted = index >= 7 and words[index - 3] >> 26 == 4
-        shift_index = index - 6 if hoisted else index - 3
+        # func_1511E780: the bound check sits directly before the hoisted
+        # bounds branch, the index shift is scheduled above an earlier
+        # forward if-chain, and that chain's join branch to the bounds
+        # branch carries a copy of the guard in its delay slot.
+        joined = (hoisted and index >= 8 and not is_index_shift(words[index - 6])
+                  and words[index - 4] >> 26 == 0x0B)
+        if joined:
+            hoisted = False
+            region_end = index - 4  # the guard
+            shift_index = None
+            for i in range(region_end - 1, max(0, region_end - 1 - JOINED_LIMIT), -1):
+                if (is_index_shift(words[i]) and rt(words[i]) == rs(words[index - 4])
+                        and rd(words[i]) in (rs(words[index - 1]), rt(words[index - 1]))):
+                    shift_index = i
+                    break
+            if shift_index is None:
+                raise TableEvidenceError("unsupported switch dispatch shape")
+        else:
+            shift_index = index - 6 if hoisted else index - 3
         # func_151E2404: the guard and shift can also be scheduled ahead of a
         # straight-line run of record copies, leaving only the bounds branch
         # and its delay slot before the table address.
@@ -167,6 +216,40 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                                 for target in direct_edges)):
                 counts.append(guard & 0xFFFF)
                 strict_guards.append(guard_address)
+        if joined:
+            guard_index, branch_index = index - 4, index - 3
+            guard, branch = words[guard_index], words[branch_index]
+            protected = {rt(shift), rd(shift)}
+            shift_address = start + shift_index * 4
+            guard_address = start + guard_index * 4
+            branch_address = start + branch_index * 4
+            dispatch_end = start + (index + 2) * 4
+            default_target = direct_target(branch, branch_address)
+            between = range(shift_index + 1, guard_index)
+            sound = (guard_index - shift_index - 1 <= JOINED_LIMIT
+                     and rs(guard) == rt(shift)
+                     and rt(guard) not in (0, rs(guard), rd(shift))
+                     and 0 < (guard & 0xFFFF) <= 1024
+                     and branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
+                     and default_target in addresses and default_target > dispatch_end)
+            for i in between:
+                written = written_gprs(words[i])
+                target = direct_edges[i]
+                if (written is None or written & protected
+                        or words[i] >> 26 in (2, 3)
+                        or target is not None and not shift_address < target <= branch_address
+                        or target == branch_address and words[i + 1] != guard):
+                    sound = False
+                    break
+            # Every direct entry into the shift..dispatch span must come from
+            # inside it; the shift itself may be entered from outside.
+            if any(target is not None and shift_address < target <= dispatch_end
+                   and not shift_index <= i < index + 2
+                   for i, target in enumerate(direct_edges)):
+                sound = False
+            if sound:
+                counts.append(guard & 0xFFFF)
+                strict_guards.append(shift_address)
         if distant:
             guard_index = shift_index - 1
             branch_index = index - 4
@@ -195,7 +278,7 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
         # there; such a constant load is accepted only into an unprotected GPR
         # and only in this guard window. Direct-edge vetoes below reject
         # bypasses for the new schedule, without inferring a full CFG.
-        for guard_index in (() if hoisted or distant else range(max(0, index - 10), index - 4)):
+        for guard_index in (() if hoisted or distant or joined else range(max(0, index - 10), index - 4)):
             guard = words[guard_index]
             if not (guard >> 26 == 0x0B and rs(guard) == rt(shift) and rt(guard) != 0
                     and rt(guard) != rs(guard) and 0 < (guard & 0xFFFF) <= 1024):

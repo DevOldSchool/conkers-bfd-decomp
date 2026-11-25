@@ -556,3 +556,78 @@ class DistantGuardDispatchTests(unittest.TestCase):
             bad_raw = raw.replace(f'{words[6]:08X}', f'{delay:08X}')
             with self.assertRaises(TableEvidenceError):
                 reference_tables(bad_raw, bad_code, data, start, 0x800993C0)
+
+
+class JoinedGuardDispatchTests(unittest.TestCase):
+    # func_1511E780: sll t5,v1,2 is scheduled above a forward if-chain. The
+    # bound check sltiu at,v1,14 sits before beqz at (whose delay holds the
+    # table upper), and the chain's join branch `b` to beqz carries a copy of
+    # the guard in its delay slot. These are the US ROM words from 0x1511E874
+    # through the dispatch; the rest of the span is padded so the table's
+    # US ROM targets stay inside the reference.
+    start = 0x1511E874
+    words = [
+        0x3C0B800C, 0x8D6BE9E4, 0x8C83003C, 0x3C01428C, 0x448B2000, 0x44818000, 0x3C0140C0,
+        0x46802020, 0x44819000, 0x00036403, 0x01801825, 0x24010002, 0x00036880, 0x46007382,
+        0x1181000A, 0x24010004, 0x11810008, 0x24010006, 0x15810009, 0x3C014040, 0x44819000,
+        0x3C0142A4, 0x44818000, 0x10000005, 0x2C61000E, 0x3C0142A0, 0x44818000, 0x00000000,
+        0x2C61000E, 0x102000CE, 0x3C01800A, 0x002D0821, 0x8C2D331C, 0x01A00008, 0x00000000,
+    ] + [0] * 203
+    targets = (0x1511E900, 0x1511EC24, 0x1511E9E0, 0x1511E970, 0x1511EA48, 0x1511EC24,
+               0x1511EA48, 0x1511EA48, 0x1511E9E0, 0x1511EC24, 0x1511EAB0, 0x1511EAD8,
+               0x1511EBA8, 0x1511EBD0)
+
+    def verify(self, words=None):
+        words = self.words.copy() if words is None else words
+        raw = ''.join(f'/* {i*4:06X} {self.start+i*4:08X} {word:08X} */ '
+                      + ('lw $t5,%lo(jtbl_800A331C_game)($at)' if i == 32 else 'instruction')
+                      + '\n' for i, word in enumerate(words))
+        code = b''.join(word.to_bytes(4, 'big') for word in words)
+        data = struct.pack('>14I', *self.targets)
+        return reference_tables(raw, code, data, self.start, 0x800A331C)
+
+    def reject(self, words):
+        with self.assertRaises(TableEvidenceError):
+            self.verify(words)
+
+    def replaced(self, **changes):
+        words = self.words.copy()
+        for position, word in changes.items():
+            words[int(position[1:])] = word
+        return words
+
+    def test_real_joined_guard_dispatch(self):
+        self.assertEqual(self.verify(), (self.start, [Table(0x78, 0x80, self.targets)]))
+
+    def test_join_branch_must_carry_the_same_guard(self):
+        for delay in (0, 0x2C61000D, 0x2C41000E, 0x2C62000E):
+            with self.subTest(delay=hex(delay)):
+                self.reject(self.replaced(p24=delay))
+
+    def test_writes_to_index_or_shift_between_shift_and_guard_are_rejected(self):
+        for position in (13, 15, 19, 22, 24, 27):
+            for register in (3, 13):
+                for word in (0x24000001 | register << 16, 0x8C800000 | register << 16,
+                             0x00000025 | register << 11, 0x44000000 | register << 16):
+                    with self.subTest(position=position, register=register, word=hex(word)):
+                        self.reject(self.replaced(**{f'p{position}': word}))
+
+    def test_calls_jumps_and_undecoded_words_are_rejected(self):
+        for word in (0x0C000000, 0x08000000, 0x03E00008, 0x0060F809, 0x04110001, 0x7C000000):
+            with self.subTest(word=hex(word)):
+                self.reject(self.replaced(p20=word))
+
+    def test_chain_branch_cannot_leave_or_skip_past_the_bound(self):
+        # beq t4,at to the jr delay slot, then to the first case target.
+        for offset in (0x13, 0x22):
+            with self.subTest(offset=hex(offset)):
+                self.reject(self.replaced(p14=0x11810000 | offset))
+
+    def test_direct_entry_from_outside_is_rejected(self):
+        # A branch after the dispatch back to the bound check (index 40 -> 28).
+        self.reject(self.replaced(p40=0x1000FFF3))
+
+    def test_missing_or_mismatched_shift_is_rejected(self):
+        for word in (0, 0x00036840, 0x00046880, 0x00037080):
+            with self.subTest(word=hex(word)):
+                self.reject(self.replaced(p12=word))
