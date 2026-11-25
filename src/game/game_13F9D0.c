@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15112520
  * - func_15112A80
- * - func_15113218
  * - func_15114A1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -132,93 +131,72 @@ extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 extern u8 D_800DBF08[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113218 CURRENT (4727) */
 void func_15113218(void) {
+    s32 i;
+    s32 index;
+    s32 dest;
     Game13F9D0Transform matrix;
-    s32 view;
-    f32 translation[3];
-    s32 offset;
-    u16 *count;
-    u8 ***table;
     Game13F9D0MotionArgs *motion;
+    s32 view;
     Game13F9D0AttachedActor *actor;
     Game13F9D0Transform *parent;
-    u16 index;
-    u16 countValue;
-    u8 kind;
+    f32 translation[3];
+    u8 *source;
+    s32 visible;
+    void *slot;
 
-    if (D_80082FA0 >= 0) {
-        view = 0;
-        do {
-            if (func_150859AC((s16)view, 0) != 0) {
-                count = &D_800DBEE8[view];
-                countValue = *count;
-                if (countValue > 0) {
-                    table = &D_80089240 + view;
-                    offset = 0;
-                    do {
-                        index = ((Game13F9D0DrawEntry *)(**table + offset))->index;
-                        motion = (Game13F9D0MotionArgs *)(index * 0xA0 + D_800DBEF4);
-                        if ((motion->flags70 & 1) == 1) {
-                            func_150A7B80(*D_80089250[D_800BE9C0] + (index << 6));
-                            countValue = *count;
-                        } else {
-                            kind = motion->kind4E;
-                            if (kind == 3) {
-                            } else if (kind < 3) {
-                                func_1511490C(&matrix, motion);
-                                func_150A7790(&matrix,
-                                    (s32)(*D_80089250[D_800BE9C0] +
-                                    (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
-                                countValue = *count;
-                            } else if (kind >= 0x65 && kind < 0x7D) {
-                                actor = &((Game13F9D0AttachedActor *)&D_800CC2D0)[kind - 100];
-                                if (actor->transform1D4 == 0) {
-                                    func_150A7CB0((Game13F9D0Matrix *)&matrix,
-                                        motion->scaleX, motion->scaleY, motion->scaleZ);
-                                    matrix.position_x = actor->xyz[0];
-                                    matrix.position_y = actor->xyz[1];
-                                    matrix.position_z = actor->xyz[2];
-                                    func_150A7790(&matrix,
-                                        (s32)(*D_80089250[D_800BE9C0] +
-                                        (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
-                                    countValue = *count;
-                                } else {
-                                    translation[2] = 0.0f;
-                                    translation[0] = translation[2];
-                                    translation[1] = (f32)actor->field90;
-                                    parent = actor->transform1D4;
-                                    func_150A7CB0((Game13F9D0Matrix *)&matrix,
-                                        motion->scaleX, motion->scaleY, motion->scaleZ);
-                                    matrix.position_x = parent->position_x;
-                                    matrix.position_y = parent->position_y;
-                                    matrix.position_z = parent->position_z;
-                                    func_150442C0((f32 (*)[4])&matrix,
-                                        translation[0], translation[1], translation[2]);
-                                    motion->positionX = (s32)matrix.position_x;
-                                    motion->positionY = (s32)matrix.position_y;
-                                    motion->positionZ = (s32)matrix.position_z;
-                                    func_150A7790(&matrix,
-                                        (s32)(*D_80089250[D_800BE9C0] +
-                                        (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
-                                    countValue = *count;
-                                }
-                            } else {
-                                func_150A7790(D_800DBF08 + (D_800BE9C0 << 6),
-                                    (s32)(*D_80089250[D_800BE9C0] + (index << 6)));
-                                countValue = *count;
-                            }
-                        }
-                        offset += 4;
-                    } while (offset < countValue * 4);
-                }
+    for (view = 0; view <= D_80082FA0; view++) {
+        visible = func_150859AC(view, 0);
+        if (visible == 0) {
+            continue;
+        }
+        for (i = 0; i < D_800DBEE8[view]; i++) {
+            index = ((Game13F9D0DrawEntry *)*(&D_80089240)[view])[i].index;
+            motion = (Game13F9D0MotionArgs *)(index * 0xA0 + D_800DBEF4);
+            if ((motion->flags70 & 1) == 1) {
+                slot = *D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)*(&D_80089240)[view])[i].index << 6);
+                func_150A7B80(slot);
+                continue;
             }
-            view++;
-        } while (D_80082FA0 >= view);
+            if (motion->kind4E == 3) {
+                continue;
+            }
+            if (motion->kind4E < 3) {
+                func_1511490C(&matrix, motion);
+                dest = (s32)(*D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)*(&D_80089240)[view])[i].index << 6));
+                func_150A7790(&matrix, dest);
+            } else if (motion->kind4E >= 0x65 && motion->kind4E < 0x7D) {
+                actor = &((Game13F9D0AttachedActor *)&D_800CC2D0)[motion->kind4E - 100];
+                if (actor->transform1D4 == NULL) {
+                    func_150A7CB0((Game13F9D0Matrix *)&matrix, motion->scaleX, motion->scaleY, motion->scaleZ);
+                    matrix.position_x = actor->xyz[0];
+                    matrix.position_y = actor->xyz[1];
+                    matrix.position_z = actor->xyz[2];
+                    dest = (s32)(*D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)*(&D_80089240)[view])[i].index << 6));
+                    func_150A7790(&matrix, dest);
+                } else {
+                    translation[0] = translation[2] = 0.0f;
+                    translation[1] = actor->field90;
+                    parent = actor->transform1D4;
+                    func_150A7CB0((Game13F9D0Matrix *)&matrix, motion->scaleX, motion->scaleY, motion->scaleZ);
+                    matrix.position_x = parent->position_x;
+                    matrix.position_y = parent->position_y;
+                    matrix.position_z = parent->position_z;
+                    func_150442C0((f32 (*)[4])&matrix, translation[0], translation[1], translation[2]);
+                    motion->positionX = matrix.position_x;
+                    motion->positionY = matrix.position_y;
+                    motion->positionZ = matrix.position_z;
+                    dest = (s32)(*D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)*(&D_80089240)[view])[i].index << 6));
+                    func_150A7790(&matrix, dest);
+                }
+            } else {
+                source = D_800DBF08 + (D_800BE9C0 << 6);
+                dest = (s32)(*D_80089250[D_800BE9C0] + (((Game13F9D0DrawEntry *)*(&D_80089240)[view])[i].index << 6));
+                func_150A7790(source, dest);
+            }
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15113218 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113218.s")
 
 
 typedef struct Game13F9D0Command {

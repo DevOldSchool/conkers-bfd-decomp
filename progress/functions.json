@@ -7959,17 +7959,16 @@
       "symbol": "func_15125C40"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2680,
-        "reason": "Manual raw pass best CURRENT2680 from3553: unified status pointer fixes all138GPR differences. Signed stores and explicit mask locals neutral. Preserve simpler frame38 candidate; negative-mask AND/ANDI forms and frame remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 900,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125DB4",
           "vram": "0x15125DB4"
         }
@@ -76901,17 +76900,16 @@
       "symbol": "func_15113180"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4727,
-        "reason": "Preserve matrix updater CURRENT (4727): three-float array recovers raw translation storage and sole F20 save (8676 to6348); explicit count lifetime improves to4727. Proven actor stride, helper contracts and u16 table entries retained. Frame and register/scheduling differences remain; no artificial padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 940,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15113218",
           "vram": "0x15113218"
         }
@@ -87328,17 +87326,16 @@
       "symbol": "func_1505250C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1392,
-        "reason": "Isolated small-queue worker group3 source-only handoff; best candidate independently reproduced. See saved worker report for exact three-variant hypotheses, type-field proof and exhausted approaches; no new match.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BEEE0",
           "vram": "0x151BEEE0"
         }
@@ -90133,17 +90130,16 @@
       "symbol": "func_15088824"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1432,
-        "reason": "Manual compile-only local prototype repair, compiledbaseline3167. Two lifetime revisions1432/1613; restored valid1432. Frame8 and arg1LBU recovered; added arg0LW, masked-register allocation and FF comparison operands remain. IDO top-level qualifier agreement repaired; no shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 352,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150888A8",
           "vram": "0x150888A8"
         }

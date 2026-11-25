@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151BEEE0
  * - func_151BF340
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -63,82 +62,80 @@ extern Game1EC390Selector D_8008FBC0;
 extern f32 D_800AA8E4;
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BEEE0 CURRENT (1392) */
 void *func_151BEEE0(f32 arg0, Game1EC390Position *arg1, s32 arg2,
-                   u8 arg3, s32 arg4, s32 arg5, s32 arg6,
-                   s32 arg7, s32 arg8) {
-    s32 offset;
+                   u8 arg3, u8 arg4, u8 arg5, s32 arg6,
+                   u8 arg7, s32 arg8) {
+    f32 scale;
     Game1EC390Selector selectors;
-    s32 flags;
-    Game1EC390Spawn spawn;
     u8 *object;
-    u8 *transform;
+    Game1EC390Spawn spawn;
 
-    offset = (u8)arg4;
     selectors = D_8008FBC0;
-    if (offset >= 3) {
+    if (arg4 >= 3) {
         return 0;
     }
-    spawn.scale0 = 1.0f;
-    spawn.scale4 = 1.0f;
-    spawn.scaleC = D_800AA8E4;
-    spawn.scale8 = D_800AA8E4;
-    spawn.zero10 = 0.0f;
-    spawn.amount = arg0;
-    spawn.zero18 = 0.0f;
-    spawn.scale1C = 1.0f;
-    spawn.scale20 = 1.0f;
-    spawn.scale24 = 1.0f;
-    spawn.position = *arg1;
-    spawn.zeros[0] = 0.0f;
-    spawn.zeros[1] = 0.0f;
-    spawn.zeros[2] = 0.0f;
-    spawn.zeros[3] = 0.0f;
-    spawn.zeros[4] = 0.0f;
-    spawn.zeros[5] = 0.0f;
-    spawn.zeros[6] = 0.0f;
-    if ((u8)arg5 != 0) {
-        flags = 0x4000;
-    } else {
-        flags = 0;
-    }
-    spawn.flags = flags | 0x1D00 | 0x80000 | 0x40000;
-    spawn.lifetime = 0x12C;
-    spawn.kind = 0x26;
-    spawn.alpha = 0xFF;
-    spawn.selector = selectors.values[offset];
-    spawn.owner = arg6;
-    if (D_800BE9F0 == 7) {
-        spawn.state = 0x18;
-    } else {
-        spawn.state = 0;
-    }
-    spawn.zero62 = 0;
-    spawn.zero63 = 0;
-    spawn.zero64 = 0;
-    spawn.zero65 = 0;
-    spawn.zero66 = 0;
-    spawn.zero67 = 0;
-    spawn.mode = 2;
-    spawn.zero6A = 0;
-    spawn.zero6C = 0;
-    spawn.zero70 = 0;
-    spawn.one72 = 1;
-    spawn.maximum = 0xFF;
-    object = func_15132A4C(&spawn, arg2, arg3, 0, (u8)arg7, arg8);
-    if (object != 0) {
-        offset = 0;
-        transform = object + 0x90;
-        do {
-            func_15133760((s32)transform, object);
-            offset += 0x40;
-            transform += 0x40;
-        } while (offset != 0x80);
+    scale = D_800AA8E4;
+    {
+        s32 flags;
+        u8 *transform;
+        s32 i;
+
+        spawn.scale0 = 1.0f;
+        spawn.scale4 = 1.0f;
+        spawn.scaleC = scale;
+        spawn.scale8 = scale;
+        spawn.zero10 = 0.0f;
+        spawn.amount = arg0;
+        spawn.zero18 = 0.0f;
+        spawn.scale1C = 1.0f;
+        spawn.scale20 = 1.0f;
+        spawn.scale24 = 1.0f;
+        spawn.position = *arg1;
+        spawn.zeros[0] = 0.0f;
+        spawn.zeros[1] = 0.0f;
+        spawn.zeros[2] = 0.0f;
+        spawn.zeros[3] = 0.0f;
+        spawn.zeros[4] = 0.0f;
+        spawn.zeros[5] = 0.0f;
+        spawn.zeros[6] = 0.0f;
+        if (arg5 != 0) {
+            flags = 0x4000;
+        } else {
+            flags = 0;
+        }
+        spawn.flags = flags | 0x1D00 | 0x80000 | 0x40000;
+        spawn.lifetime = 0x12C;
+        spawn.kind = 0x26;
+        spawn.selector = selectors.values[arg4];
+        spawn.owner = arg6;
+        spawn.alpha = 0xFF;
+        if (D_800BE9F0 == 7) {
+            spawn.state = 0x18;
+        } else {
+            spawn.state = 0;
+        }
+        spawn.zero62 = 0;
+        spawn.zero63 = 0;
+        spawn.zero64 = 0;
+        spawn.zero65 = 0;
+        spawn.zero66 = 0;
+        spawn.zero67 = 0;
+        spawn.mode = 2;
+        spawn.zero6A = 0;
+        spawn.zero6C = 0;
+        spawn.zero70 = 0;
+        spawn.one72 = 1;
+        spawn.maximum = 0xFF;
+        object = func_15132A4C(&spawn, arg2, arg3, 0, arg7, arg8);
+        if (object != 0) {
+            for (i = 0; i < 2; i++) {
+                transform = object + 0x90 + i * 0x40;
+                func_15133760((s32)transform, object);
+            }
+        }
     }
     return object;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BEEE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BEEE0.s")
 typedef struct {
     s32 countBase, countRange;
     Game1EC390Position position;
