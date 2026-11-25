@@ -8,6 +8,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 
 - [Independent bounded DEFLATE replacement](us_independent_deflate.md)
 - [US complete bounded asset storage accounting](us_asset_storage_accounting.md)
+- [US decoder read-only symbols](us_decoder_rodata_symbols.md): scalar arrays and candidate-derived compiler constants.
 
 - [US bank-03 and bank-09 model reconstruction](us_model_reconstruction.md)
 
@@ -188,3 +189,8 @@ record when extending the same claim.
 - [US animation-control records](us_animation_control_reconstruction.md): 82 bank-0F entries with typed routes, events, action phases and behavior instructions.
 
 - [Light nested switch tables](effects_light_jump_tables.md): both ROM-backed dispatch tables for `func_151604A0`.
+- [US SDK literal and VI symbol metadata](us_sdk_literal_symbols.md): candidate-instruction literal widths and a compiled 80-byte video-mode layout, with comparison-only metadata repairs.
+
+- [US SDK runtime pointer metadata](us_sdk_pointer_symbols.md): candidate-bounded switches, existing callback aliases, preserved runtime inputs and independent full-span link proofs.
+
+- [US sound strings and declared SDK globals](us_sdk_sound_symbols.md): two bounded format literals, a 16-entry switch and source-proven sound/timer/thread data.

@@ -1,6 +1,6 @@
 """Candidate-only IDO data symbols for stock objdiff; no ROM/reference access.
 
-Recognizes one conservative switch-dispatch shape and adjacent LUI/LDC1 pairs.
+Recognizes conservative IDO switch/copy loops and bounded floating loads.
 The caller supplies actual linked section bases for names, never object extents.
 Comparison copies may canonicalize jump-table REL words after an independent
 semantic check and a GNU ld proof; runtime linker inputs are never rewritten.
@@ -159,6 +159,39 @@ def signed16(w):
     return (w & 0xFFFF) - (0x10000 if w & 0x8000 else 0)
 
 
+def floating_load_base(obj: Elf, text: int, high: int, low: int) -> bool:
+    """Prove a short straight-line LUI lifetime without consulting a reference.
+
+    IDO may schedule independent operations between LUI and a floating load.
+    Unknown instructions, control transfers and writes to the base fail closed.
+    """
+    register = rt(obj.word(text, high))
+    if not 4 <= low - high <= 32 or rs(obj.word(text, low)) != register:
+        return False
+    for at in range(high + 4, low, 4):
+        word = obj.word(text, at)
+        opcode, function = word >> 26, word & 63
+        destination = None
+        if opcode == 0 and function in (0, 2, 3, 4, 6, 7, 10, 11, 16, 18,
+                                       32, 33, 34, 35, 36, 37, 38, 39, 42, 43):
+            destination = rd(word)
+        elif opcode == 0 and function in (17, 19, 24, 25, 26, 27):
+            pass  # HI/LO writes only.
+        elif opcode in (8, 9, 10, 11, 12, 13, 14, 15, 32, 33, 34, 35, 36, 37, 38):
+            destination = rt(word)
+        elif opcode in (40, 41, 42, 43, 46, 49, 53, 57, 61):
+            pass  # Stores and floating loads do not change a GPR.
+        elif opcode == 17 and rs(word) in (0, 2):
+            destination = rt(word)  # MFC1/CFC1.
+        elif opcode == 17 and rs(word) in (4, 6, 16, 17, 20, 21):
+            pass  # MTC1/CTC1 or floating arithmetic/conversion.
+        else:
+            return False
+        if destination == register:
+            return False
+    return True
+
+
 def references(obj: Elf) -> list[tuple[int, int, int, int, int]]:
     """Return (source section, high offset, low offset, target section, addend)."""
     pending, result = {}, []
@@ -197,11 +230,18 @@ def references(obj: Elf) -> list[tuple[int, int, int, int, int]]:
 def switch_size(obj: Elf, text: int, high: int, low: int, rodata: int, start: int) -> int:
     if low < 20 or high != low - 8:
         raise AnnotationError('unsupported switch dispatch')
-    guard, branch, shift, upper, add, load, jump, delay = [
-        obj.word(text, at) for at in range(low - 20, low + 12, 4)]
+    # IDO also leaves the branch delay slot empty and shifts immediately after it.
+    # Keep both complete instruction shapes explicit; do not search backwards for
+    # an unrelated bounds check or cross any intervening control transfer.
+    nop_delay = low >= 24 and obj.word(text, low - 16) == 0
+    guard_at = low - (24 if nop_delay else 20)
+    branch_at = guard_at + 4
+    guard, branch = obj.word(text, guard_at), obj.word(text, branch_at)
+    shift, upper, add, load, jump, delay = [
+        obj.word(text, at) for at in range(low - 12, low + 12, 4)]
     if not (guard >> 26 == 11 and rt(guard) != 0 and rs(guard) != rt(guard)
             and branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
-            and 0 < signed16(branch) and low + 8 < low - 12 + signed16(branch) * 4 < obj.headers[text][5]
+            and 0 < signed16(branch) and low + 8 < branch_at + 4 + signed16(branch) * 4 < obj.headers[text][5]
             and shift >> 26 == 0 and shift & 0x7FF == 0x80 and rs(shift) == 0
             and rt(shift) == rs(guard) and rd(shift) != 0
             and rt(upper) != rd(shift)
@@ -210,21 +250,105 @@ def switch_size(obj: Elf, text: int, high: int, low: int, rodata: int, start: in
             and load >> 26 == 35 and rs(load) == rd(add) and rt(load) != 0
             and jump == (rt(load) << 21 | 8) and delay == 0):
         raise AnnotationError('unsupported switch dispatch/bound')
-    # Count the relocation run, independently of the instruction's switch bound.
-    end = start
-    while (rodata, end) in obj.relocations:
-        kind, symbol = obj.relocations[(rodata, end)]
-        target = obj.symbols[symbol]
-        if kind != 2 or target[5] != text:
+    # A run may contain adjacent independently referenced tables. Each dispatch
+    # supplies its own bound; every entry must still be a valid code relocation.
+    end = start + (guard & 0xFFFF) * 4
+    starts = {addend for source, hi, lo, section, addend in references(obj)
+              if section == rodata and source == text and hi != lo
+              and obj.word(source, lo) >> 26 == 35}
+    for at in range(start, end, 4):
+        kind, symbol = obj.relocations.get((rodata, at), (None, None))
+        if kind != 2:
             raise AnnotationError('switch entry is not an R_MIPS_32 text pointer')
-        destination = target[1] + obj.word(rodata, end)
+        target = obj.symbols[symbol]
+        if target[5] != text:
+            raise AnnotationError('switch entry is not an R_MIPS_32 text pointer')
+        destination = target[1] + obj.word(rodata, at)
         if destination % 4 or not 0 <= destination < obj.headers[text][5]:
             raise AnnotationError('switch destination outside candidate text')
-        end += 4
-    if ((rodata, start - 4) in obj.relocations or not end > start
-            or end - start != (guard & 0xFFFF) * 4):
+    if (not end > start or ((rodata, end) in obj.relocations and end not in starts)
+            or ((rodata, start - 4) in obj.relocations and not any(s < start for s in starts))):
         raise AnnotationError('switch relocation count differs from dispatch bound')
     return end - start
+
+
+def initializer_size(obj: Elf, text: int, high: int, low: int) -> int:
+    """Bound an IDO stack initializer by its complete three-word copy loop."""
+    upper, lower = obj.word(text, high), obj.word(text, low)
+    if low != high + 4 or lower >> 26 != 9 or rs(lower) != rt(upper) or rt(lower) != rt(upper):
+        raise AnnotationError('unsupported initializer address')
+    source = rt(lower)
+    words = [obj.word(text, low + i * 4) for i in range(12)]
+    end, destination, temporary = rt(words[1]), rt(words[2]), rt(words[3])
+    count = signed16(words[1])
+    if (len({source, end, destination, temporary, 29, 0}) != 6
+            or count <= 0 or count % 12 or signed16(words[2]) < 0
+            or signed16(words[2]) % 4):
+        raise AnnotationError('unsupported initializer bounds/registers')
+
+    def ins(op, base, target, immediate):
+        return op << 26 | base << 21 | target << 16 | (immediate & 0xffff)
+
+    wanted = [ins(9, source, end, count), ins(9, 29, destination, signed16(words[2])),
+              ins(35, source, temporary, 0), ins(9, source, source, 12),
+              ins(9, destination, destination, 12), ins(43, destination, temporary, -12),
+              ins(35, source, temporary, -8), ins(43, destination, temporary, -8),
+              ins(35, source, temporary, -4), ins(5, source, end, -8),
+              ins(43, destination, temporary, -4)]
+    if words[1:] != wanted:
+        raise AnnotationError('unsupported initializer copy loop')
+    stop = low + 48
+    for tail in range(3):
+        at = low + 48 + tail * 8
+        if at + 4 > obj.headers[text][5]:
+            break
+        if obj.word(text, at) != ins(35, source, temporary, tail * 4):
+            break
+        if (tail == 2 or at + 8 > obj.headers[text][5]
+                or obj.word(text, at + 4) != ins(43, destination, temporary, tail * 4)):
+            raise AnnotationError('unsupported initializer tail')
+        count += 4
+        stop += 8
+    if any(s == text and low < at < stop for s, at in obj.relocations):
+        raise AnnotationError('initializer copy contains relocations')
+    return count
+
+
+def printf_string_size(obj: Elf, text: int, high: int, low: int, section: int, start: int) -> int | None:
+    """Bound a literal passed directly to the known osSyncPrintf string ABI.
+
+    Only a short straight-line setup is supported. The call and its delay slot
+    must retain a0; stores, unknown operations and other control flow fail closed.
+    """
+    upper, lower = obj.word(text, high), obj.word(text, low)
+    if low != high + 4 or rt(upper) != 4 or lower >> 26 != 9 or rs(lower) != 4 or rt(lower) != 4:
+        return None
+
+    def preserves_argument(word):
+        if word == 0:
+            return True
+        if word >> 26 in (32, 33, 34, 35, 36, 37, 38):
+            return rt(word) != 4
+        return (word >> 26 == 0 and word & 63 in (32, 33, 34, 35, 36, 37, 38, 39, 42, 43)
+                and rd(word) != 4)
+
+    for at in range(low + 4, min(low + 20, obj.headers[text][5] - 4), 4):
+        word = obj.word(text, at)
+        if word == 0x0C000000:
+            kind, symbol = obj.relocations.get((text, at), (None, None))
+            if kind != 4:
+                return None
+            target = obj.symbols[symbol]
+            if target[0] != 'osSyncPrintf' or target[1] or target[5] or not preserves_argument(obj.word(text, at + 4)):
+                return None
+            payload = obj.payload(section)
+            end = payload.find(b'\0', start, min(start + 1024, len(payload)))
+            if end < start or any(b not in (9, 10, 13) and not 32 <= b < 127 for b in payload[start:end]):
+                raise AnnotationError('printf literal is not a bounded ASCII string')
+            return end - start + 1
+        if not preserves_argument(word):
+            return None
+    return None
 
 
 def discover(candidate: bytes, bases: dict[str, int]) -> list[Symbol]:
@@ -237,8 +361,23 @@ def discover(candidate: bytes, bases: dict[str, int]) -> list[Symbol]:
         overlaps = [s for s in obj.symbols if s[5] == section and s[3] & 15 != 3
                     and s[1] <= offset < s[1] + s[2]]
         upper, lower = obj.word(text, high), obj.word(text, low)
-        if lower >> 26 == 53:
-            if low != high + 4 or rs(lower) != rt(upper):
+        if lower >> 26 == 49:
+            if not floating_load_base(obj, text, high, low):
+                raise AnnotationError('unsupported anonymous float load')
+            size, kind, prefix, alignment = 4, 'float', 'D', 4
+        elif lower >> 26 == 9:
+            section_name = obj.names[section]
+            own_name = f'D_{bases.get(section_name, -1) + offset:08X}'
+            if overlaps and not any(s[0] == own_name and s[1] == offset for s in overlaps):
+                continue
+            size = printf_string_size(obj, text, high, low, section, offset)
+            if size is None:
+                size = initializer_size(obj, text, high, low)
+                kind, prefix, alignment = 'initializer', 'D', 4
+            else:
+                kind, prefix, alignment = 'string', 'D', 1
+        elif lower >> 26 == 53:
+            if not floating_load_base(obj, text, high, low):
                 raise AnnotationError('unsupported anonymous double load')
             size, kind, prefix, alignment = 8, 'double', 'D', 8
         elif lower >> 26 == 35:
@@ -275,9 +414,9 @@ def discover(candidate: bytes, bases: dict[str, int]) -> list[Symbol]:
         if any(target == section and offset < addend < offset + symbol.size
                for _, _, _, target, addend in refs):
             raise AnnotationError('relocation points inside anonymous object')
-        if symbol.kind == 'double' and any(s == section and offset <= at < offset + symbol.size
-                                          for s, at in obj.relocations):
-            raise AnnotationError('double contains relocations')
+        if symbol.kind != 'jump_table' and any(s == section and offset <= at < offset + symbol.size
+                                               for s, at in obj.relocations):
+            raise AnnotationError('literal or initializer contains relocations')
     return [symbol for _, symbol in ordered]
 
 

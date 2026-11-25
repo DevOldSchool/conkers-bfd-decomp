@@ -348,8 +348,29 @@ Known SDK data names and payload sizes come from `config/symbols/us.txt`.
 Declaration-backed zero alignment padding stays anonymous in the reference,
 while every byte remains in the section and ROM checks. This avoids treating
 splat's generated padding labels as missing SDK variables. See the
-[SDK symbol evidence](evidence/data-layout/us_sdk_data_symbols.md) for remaining
-anonymous pools and incorrect SDK symbol extents.
+[SDK symbol evidence](evidence/data-layout/us_sdk_data_symbols.md) for the original
+metadata audit. The later [SDK literal and VI correction](evidence/data-layout/us_sdk_literal_symbols.md)
+uses candidate loads to name 23 anonymous literals and a compiled ABI probe to
+correct three 78-byte ELF symbol sizes to their true 80-byte extent. The explicit
+owner list, whole-section ROM proof and archive identity gate each comparison
+copy. Runtime archives, original candidates, bytes and relocations are unchanged.
+The [SDK runtime pointer correction](evidence/data-layout/us_sdk_pointer_symbols.md)
+separately compares reviewed main SDK owners. Candidate dispatches establish
+222 table entries; comparison copies express their actual runtime destinations
+with absolute labels. A semantic verifier and two independent whole-object links
+preserve every pointer value and all other bytes, with code/data checked against
+the original ROM. Reference context uses the documented main execution alias;
+array lengths and 18 callback names have source and existing linker evidence.
+The [sound-player follow-up](evidence/data-layout/us_sdk_sound_symbols.md) adds
+two format strings proved by a retained first argument to `osSyncPrintf`, its
+16-entry switch, and source-declared sound/timer/thread globals. Two explicit
+main-only pointer declarations preserve references to BSS outside the analyzed
+initialized-data image. Every original stored pointer value remains checked.
+The [GAME decoder correction](evidence/data-layout/us_decoder_rodata_symbols.md)
+adds source-declared scalar array names in `config/symbols/game-us.txt` and
+derives anonymous initializer/literal sizes from the candidate's instructions.
+Its comparison copy preserves all original bytes and relocations. The complete
+read-only section must independently match ROM, and NOLOAD backing stays incomplete.
 Native comparisons determine perfect-match credit. Fully linked data credit
 rests on the linked-input and ROM proofs above, not on native matching, so a
 unit's `complete_data` may exceed its `matched_data`. Stock objdiff gives IDO's

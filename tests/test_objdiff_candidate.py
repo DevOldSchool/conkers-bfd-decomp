@@ -1,5 +1,7 @@
-"""ROM-free checks for the candidate-only debugger comparison copy."""
+"""ROM-free checks for candidate-only IDO comparison copies."""
 import builtins
+import copy
+import hashlib
 from pathlib import Path
 import shutil
 import struct
@@ -16,6 +18,141 @@ from elf_sections import sections
 
 FIXTURE = ROOT / 'tests/fixtures/objdiff_candidate/switch.s'
 BASES = {'.text': 0x80000000, '.rodata': 0x80001000}
+
+
+@unittest.skipUnless(shutil.which('mips-linux-gnu-as'), 'requires pinned MIPS binutils')
+class ScheduledFloatTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        path = Path(self.tmp.name) / 'base.o'
+        subprocess.run(['mips-linux-gnu-as', '-EB', '-march=vr4300', '-mabi=32',
+                        '-no-pad-sections', '-o', str(path),
+                        str(FIXTURE.with_name('scheduled_float.s'))], check=True)
+        self.raw = path.read_bytes()
+        self.obj = c.Elf(self.raw)
+        self.text = self.obj.names.index('.text')
+
+    def test_scheduled_loads_derive_widths_without_changing_storage(self):
+        result, proof = c.annotate(self.raw, BASES)
+        self.assertEqual([(s['offset'], s['size']) for s in proof['symbols']], [(0, 4), (8, 8)])
+        self.assertTrue(proof['invariance_verified'])
+        self.assertEqual(c.annotate(result, BASES)[0], result)
+
+    def test_base_writes_control_transfers_and_unknown_operations_fail_closed(self):
+        # Intervening LW, ADDIU, MFC1, ADDU and LUI all overwrite $at.
+        # Calls, branches, indirect jumps and unsupported COP0 cannot prove it live.
+        for word in (0x8FA10000, 0x24210001, 0x44012000, 0x01090821, 0x3C010000,
+                     0x0C000000, 0x10000001, 0x45000001, 0x03E00008, 0x40016000):
+            data = bytearray(self.raw)
+            struct.pack_into('>I', data, self.obj.headers[self.text][4] + 4, word)
+            with self.subTest(word=hex(word)), self.assertRaises(c.AnnotationError):
+                c.annotate(bytes(data), BASES)
+
+
+@unittest.skipUnless(shutil.which('mips-linux-gnu-as'), 'requires pinned MIPS binutils')
+class InitializerCopyTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.path = Path(self.tmp.name) / 'base.o'
+        subprocess.run(['mips-linux-gnu-as', '-EB', '-march=vr4300', '-mabi=32', '-no-pad-sections',
+                        '-o', str(self.path), str(FIXTURE.with_name('initializer.s'))], check=True)
+        self.raw = self.path.read_bytes()
+        self.obj = c.Elf(self.raw)
+        self.text = self.obj.names.index('.text')
+
+    def changed_word(self, offset, word):
+        data = bytearray(self.raw)
+        struct.pack_into('>I', data, self.obj.headers[self.text][4] + offset, word)
+        return bytes(data)
+
+    def test_initializer_and_float_extents_come_from_instructions(self):
+        with patch.object(builtins, 'open', side_effect=AssertionError('file access')), \
+                patch.object(subprocess, 'run', side_effect=AssertionError('subprocess access')):
+            result, proof = c.annotate(self.raw, BASES)
+        self.assertEqual([(s['kind'], s['offset'], s['size']) for s in proof['symbols']],
+                         [('initializer', 4, 28), ('float', 32, 4)])
+        self.assertTrue(proof['invariance_verified'])
+        self.assertEqual(c.annotate(result, BASES)[0], result)
+        self.assertEqual(c.canonicalize(result, BASES)[0], result)
+        after = c.Elf(result)
+        self.assertEqual(after.relocations, self.obj.relocations)
+        for section in ('.text', '.rodata'):
+            self.assertEqual(after.payload(after.names.index(section)),
+                             self.obj.payload(self.obj.names.index(section)))
+
+    def test_every_copy_instruction_is_required(self):
+        for offset in range(4, 52, 4):
+            with self.subTest(offset=offset), self.assertRaises(c.AnnotationError):
+                c.annotate(self.changed_word(offset, self.obj.word(self.text, offset) ^ (1 << 26)), BASES)
+
+    def test_bounds_register_alias_branch_and_tail_are_checked(self):
+        for label, offset, word in (
+                ('zero bound', 8, self.obj.word(self.text, 8) & ~0xffff),
+                ('unaligned bound', 8, self.obj.word(self.text, 8) + 1),
+                ('negative bound', 8, self.obj.word(self.text, 8) | 0x8000),
+                ('past section', 8, self.obj.word(self.text, 8) + 12),
+                ('stack alignment', 12, self.obj.word(self.text, 12) + 1),
+                ('end aliases source', 8, self.obj.word(self.text, 8) ^ (1 << 16)),
+                ('branch destination', 44, self.obj.word(self.text, 44) ^ 1),
+                ('tail destination', 56, self.obj.word(self.text, 56) ^ 4),
+                ('float base', 64, self.obj.word(self.text, 64) ^ (1 << 21))):
+            with self.subTest(label=label), self.assertRaises(c.AnnotationError):
+                c.annotate(self.changed_word(offset, word), BASES)
+
+    def test_missing_tail_does_not_borrow_reference_extent(self):
+        raw = self.changed_word(52, 0)
+        symbols = c.discover(raw, BASES)
+        self.assertEqual(symbols[0].size, 24)
+
+    def test_relocation_inside_copy_is_rejected(self):
+        data = bytearray(self.raw)
+        rel = self.obj.headers[self.obj.names.index('.rel.text')]
+        # Move the float HI16 into the loop. The candidate cannot prove its bounds.
+        struct.pack_into('>I', data, rel[4] + 16, 20)
+        with self.assertRaises(c.AnnotationError):
+            c.annotate(bytes(data), BASES)
+
+    def test_decoder_report_hook_requires_actual_archive_and_whole_rom_proof(self):
+        import objdiff_report as report
+        root = Path(self.tmp.name)
+        output = root / 'report'
+        output.mkdir()
+        (output / 'base.o').write_bytes(self.raw)
+        archive = root / 'build/game-libs/us/libultrare.a'
+        archive.parent.mkdir(parents=True)
+        archive.write_bytes(b'test archive')
+        payload = self.obj.payload(self.obj.names.index('.rodata'))
+        span = {'section': '.rodata', 'kind': 'external_payload', 'linker_mode': 'NOLOAD',
+                'owner': {'archive': 'libultrare', 'member': 'decoder.o'},
+                'evidence_reference': 'config/game/us-sdk.ld', 'candidate_data_relocations': 0,
+                'literal_payload_matches_rom': True, 'size': len(payload),
+                'sha256': hashlib.sha256(payload).hexdigest(), 'start': BASES['.rodata']}
+        unit = {'key': 'game/decoder', 'kind': 'sdk', 'overlay': 'game', 'archive': 'libultrare',
+                'member': 'decoder.o', 'base_path': 'base.o', 'data_ranges': [span], 'complete': False}
+        config = {'base_path': 'base.o', 'metadata': {'complete': False}}
+        with patch.object(report, 'ROOT', root), patch.object(report, 'OUTPUT', output), \
+                patch.object(report.subprocess, 'check_output', return_value=self.raw):
+            for field, value in (('linker_mode', 'LOAD'), ('literal_payload_matches_rom', False),
+                                 ('candidate_data_relocations', 1), ('size', len(payload) - 1),
+                                 ('sha256', '0' * 64)):
+                wrong = copy.deepcopy(unit)
+                wrong['data_ranges'][0][field] = value
+                with self.subTest(field=field), self.assertRaises(ValueError):
+                    report.annotate_sdk_literal_candidates([wrong], [config.copy()])
+            (output / 'base.o').write_bytes(b'stale')
+            with self.assertRaisesRegex(ValueError, 'actual archive'):
+                report.annotate_sdk_literal_candidates([unit], [config])
+            (output / 'base.o').write_bytes(self.raw)
+            report.annotate_sdk_literal_candidates([unit], [config])
+        self.assertFalse(unit['complete'])
+        self.assertFalse(config['metadata']['complete'])
+        self.assertEqual(config['base_path'], unit['base_path'])
+        self.assertTrue(unit['comparison_copy']['invariance_verified'])
+        self.assertEqual((output / 'base.o').read_bytes(), self.raw)
+        self.assertEqual(unit['linked_inputs']['build/game-libs/us/libultrare.a'],
+                         hashlib.sha256(archive.read_bytes()).hexdigest())
 
 
 @unittest.skipUnless(shutil.which('mips-linux-gnu-as') and shutil.which('mips-linux-gnu-ld'),
@@ -114,6 +251,50 @@ class ComparisonCopyTests(unittest.TestCase):
                 struct.pack_into('>I', modified, offset, value)
                 with self.assertRaises(c.AnnotationError):
                     c.canonicalize(bytes(modified), BASES)
+
+
+@unittest.skipUnless(shutil.which('mips-linux-gnu-as'), 'requires pinned MIPS binutils')
+class PrintfStringTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        output = Path(self.tmp.name) / 'strings.o'
+        subprocess.run(['mips-linux-gnu-as', '-EB', '-march=vr4300', '-mabi=32', '-no-pad-sections',
+                        '-o', str(output), str(FIXTURE.parent / 'printf_strings.s')], check=True)
+        self.raw = output.read_bytes(); self.obj = c.Elf(self.raw)
+        self.text = self.obj.names.index('.text'); self.rodata = self.obj.names.index('.rodata')
+
+    def changed_word(self, offset, word):
+        raw = bytearray(self.raw)
+        struct.pack_into('>I', raw, self.obj.headers[self.text][4] + offset, word)
+        return bytes(raw)
+
+    def test_direct_printf_calls_prove_exact_nul_extents_and_preserve_all_bytes(self):
+        result, proof = c.annotate(self.raw, BASES)
+        self.assertEqual([(s['offset'], s['size'], s['kind']) for s in proof['symbols']],
+                         [(0, 10, 'string'), (12, 7, 'string')])
+        self.assertTrue(proof['invariance_verified'])
+        self.assertEqual(c.Elf(result).payload(self.rodata), self.obj.payload(self.rodata))
+        self.assertEqual(c.annotate(result, BASES)[0], result)
+
+    def test_clobbers_stores_control_transfers_and_nonzero_call_addends_fail_closed(self):
+        for offset, word in [(0, 0x3c050000), (4, 0x24850000), (8, 0x92040000),
+                             (8, 0xac800000), (8, 0x10000001), (8, 0x40084800),
+                             (12, 0x01202025), (16, 0x0c000001), (20, 0x01202025),
+                             (20, 0x03e00008)]:
+            with self.subTest(offset=offset, word=word), self.assertRaises(c.AnnotationError):
+                c.annotate(self.changed_word(offset, word), BASES)
+
+    def test_named_call_contract_and_terminator_are_required(self):
+        # Same-width symbol edit preserves ELF layout but removes the known ABI.
+        with self.assertRaises(c.AnnotationError):
+            c.annotate(self.raw.replace(b'osSyncPrintf', b'xxSyncPrintf'), BASES)
+        raw = bytearray(self.raw); start = self.obj.headers[self.rodata][4]
+        raw[start:start + self.obj.headers[self.rodata][5]] = b'A' * self.obj.headers[self.rodata][5]
+        with self.assertRaisesRegex(c.AnnotationError, 'bounded ASCII'):
+            c.annotate(bytes(raw), BASES)
+        raw = bytearray(self.raw); raw[start + 1] = 0xff
+        with self.assertRaisesRegex(c.AnnotationError, 'bounded ASCII'):
+            c.annotate(bytes(raw), BASES)
 
 
 if __name__ == '__main__':

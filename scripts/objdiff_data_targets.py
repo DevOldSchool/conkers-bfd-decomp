@@ -43,6 +43,7 @@ import asset_receipts
 import normalize_asm
 import objdiff
 import objdiff_targets
+import project_state
 import rom_span
 import rzip_archive
 from candidate_tables import Object32
@@ -88,8 +89,13 @@ def target_config(image: dict, directory: Path, binary: Path, code_start: int, c
     segments = []
     if code_start:
         segments.append([0, 'bin', 'prefix'])
+    context_vram = origin + code_start if code_vram is None else code_vram
+    # Main pointers use the established runtime alias. Code reference objects
+    # retain their linker addresses; this context only discovers data pointers.
+    if overlay == 'main':
+        context_vram -= 0x70000000
     segments.append({'name': 'context', 'type': 'code', 'start': code_start,
-                     'vram': origin + code_start if code_vram is None else code_vram,
+                     'vram': context_vram,
                      'subsegments': [[code_start, 'asm', 'context']]})
     data_start = image['vram_start'] - origin
     if code_end < data_start:
@@ -112,6 +118,10 @@ def target_config(image: dict, directory: Path, binary: Path, code_start: int, c
                         'undefined_funcs_auto_path': relative + '/undefined_funcs.txt',
                         'undefined_syms_auto_path': relative + '/undefined_syms.txt',
                         'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
+                        # Combined-buffer offsets; never apply these declarations
+                        # to standalone code or another overlay.
+                        **({'reloc_addrs_path': ['config/relocs/main-data-us.txt']}
+                           if overlay == 'main' else {}),
                         'create_c_files': False, 'asm_emit_size_directive': True,
                         'asm_data_macro': 'glabel', 'asm_jtbl_label_macro': 'glabel',
                         'data_string_guesser_level': 0, 'rodata_string_guesser_level': 0},
@@ -130,21 +140,63 @@ def target_extent(path: Path, expected_section: str, expected_size: int) -> None
         raise ValueError(f'{path}: missing data target section')
 
 
-def reference_definitions(assembly: str, rom: bytes, *, origin: int = 0x80000000) -> dict[str, int]:
+def reference_label_names(assembly: str) -> str:
+    """Give generated main data labels their address-only comparison spelling."""
+    return re.sub(r'(?<![\w.$])(\.L[0-9A-Fa-f]{8})_main_data\b', r'\1', assembly)
+
+
+def registered_game_function_symbols(root: Path, *, code_start: int,
+                                     code_size: int) -> dict[str, tuple[int, int]]:
+    """Use registered full US spans, never candidate code, for code anchors."""
+    functions = project_state.load_json(root / 'progress/functions.json')['functions']
+    units = project_state.load_json(root / 'progress/source_units.json')['source_units']
+    sizes = project_state.active_function_sizes(functions, units)
+    result = {}
+    for entry in functions:
+        if entry.get('overlay') != 'game' or 'us' not in entry['regions']:
+            continue
+        name = entry['symbol']
+        address = int(entry['regions']['us']['vram'], 0)
+        extent = sizes[name]
+        if (address % 4 or extent <= 0 or extent % 4
+                or not code_start <= address < address + extent <= code_start + code_size):
+            raise ValueError('registered function lies outside original code context')
+        if name in result and result[name] != (address, extent):
+            raise ValueError('conflicting registered function extents')
+        result[name] = (address, extent)
+    return result
+
+
+def reference_definitions(assembly: str, rom: bytes, *, origin: int = 0x80000000,
+                          code_symbols: dict[str, tuple[int, int]] | None = None) -> dict[str, int]:
     """Resolve symbolic pointer words from original rows, never candidate names.
 
     Splat may recognize a jump table through main's 0x10000000 execution alias
     without emitting an undefined-address assignment for its local label.
-    Only a bare symbolic .word with independently checked ROM bytes qualifies.
-    Expressions and unsupported directives remain linker errors.
+    Bare symbolic words retain their independently checked ROM addresses.
+    Function-plus-hex-offset expressions additionally require a registered full
+    code span and an original word equal to that anchor plus the bounded offset.
+    Never infer an anchor by subtracting a candidate addend. Other expressions
+    and unsupported directives remain linker errors.
     """
     result = {}
+    code_symbols = code_symbols or {}
     pattern = (r'/\*\s+([0-9A-Fa-f]+)\s+([0-9A-Fa-f]{8})\s+'
-               r'([0-9A-Fa-f]{8})\s*\*/\s*\.word\s+([A-Za-z_.$][\w.$]*)\s*$')
-    for offset, address, word, symbol in re.findall(pattern, assembly, re.M):
+               r'([0-9A-Fa-f]{8})\s*\*/\s*\.word\s+([A-Za-z_.$][\w.$]*)'
+               r'(?:\s*\+\s*(0x[0-9A-Fa-f]+))?\s*$')
+    for offset, address, word, symbol, addend in re.findall(pattern, reference_label_names(assembly), re.M):
+        if addend and symbol not in code_symbols:
+            continue
         offset, address, value = int(offset, 16), int(address, 16), int(word, 16)
         if address != origin + offset or rom[offset:offset + 4] != bytes.fromhex(word):
             raise ValueError('symbolic data row differs from original ROM')
+        if symbol in code_symbols:
+            base, extent = code_symbols[symbol]
+            displacement = int(addend, 16) if addend else 0
+            if (base % 4 or extent <= 0 or extent % 4 or displacement % 4
+                    or not 0 <= displacement < extent or base + displacement != value):
+                raise ValueError('symbolic pointer differs from registered function extent')
+            value = base
         if symbol in result and result[symbol] != value:
             raise ValueError('conflicting original pointer definitions')
         result[symbol] = value
@@ -212,7 +264,7 @@ def reference_assembly(assembly: str, section: str, *, output_section: str | Non
     linked-image comparison remain authoritative. Canonically sized payloads
     may leave verified padding anonymous; their symbols and sizes stay intact.
     """
-    text = anonymous_declared_padding(normalize_asm.normalize(assembly), declared_symbols or {})
+    text = anonymous_declared_padding(normalize_asm.normalize(reference_label_names(assembly)), declared_symbols or {})
     pattern = r'(^\.section\s+' + re.escape(section) + r'(?:,.*)?$)'
     def directive(match):
         return match[1].replace(section, output_section or section, 1) + '\n.align 0'
@@ -267,6 +319,8 @@ def prepare_targets(image: dict, rom: bytes, *, overlay: str = 'main',
                        env={**os.environ, 'SPIMDISASM_CREATE_RODATA_PADS': 'True'}, check=True)
     symbol_file = ROOT / "config/symbols" / ("game-us.txt" if overlay == "game" else "us.txt")
     declared = declared_data_symbols(symbol_file)
+    code_symbols = (registered_game_function_symbols(ROOT, code_start=base, code_size=len(code))
+                    if overlay == 'game' else {})
     units, objects, lines = [], [], ['SECTIONS {']
     definitions = {}
     for index, span in enumerate(image['ranges']):
@@ -276,7 +330,8 @@ def prepare_targets(image: dict, rom: bytes, *, overlay: str = 'main',
         source = directory / 'asm' / 'data' / f'{key}{assembly_section}.s'
         normalized, target = directory / f'{key}.s', directory / f'{key}.o'
         assembly = source.read_text()
-        for symbol, value in reference_definitions(assembly, payload, origin=origin).items():
+        for symbol, value in reference_definitions(assembly, payload, origin=origin,
+                                                  code_symbols=code_symbols).items():
             if symbol in definitions and definitions[symbol] != value:
                 raise ValueError('conflicting original data pointer definitions')
             definitions[symbol] = value
