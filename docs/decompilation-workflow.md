@@ -412,20 +412,30 @@ hand-written objdump script: it prints the target function's instruction diff
 against the reference object (`-` reference, `+` candidate, offsets relative to
 the function). Branch targets are shown as `.L<n>` labels and each relocation
 is folded into its instruction (`%hi(D_x)`, `%call(func_x)`), so one inserted
-instruction does not turn every later line into a difference. A summary line
-counts the differing lines by kind (`register-only`, `relocation-only`,
-`inserted`, `deleted`, `other`), and a `register map` line lists which
+instruction does not turn every later line into a difference. A load from the
+candidate's own `.rodata` or `.data` is named by the word it reads
+(`%lo(.rodata:3f800000)`). A summary line counts the differing lines by kind
+(`register-only`, `relocation-only`, `branch-target`, `inserted`, `deleted`,
+`other`); `branch-target` is a branch that is otherwise identical but lands on
+a different instruction, shown with its real target (`.L3 -> +0x1c`). A
+`register map` line lists which
 reference register became which candidate register and how often: one
 consistent rotation (`f0->f2 x3, f18->f0 x3, f2->f18 x3`) is a single
 allocation decision, usually the order in which values are first referenced;
-scattered pairs are several. A diff that is `relocation-only` is the
-alias-symbol case that `finish` proves through the linked bytes.
+scattered pairs are several. A `relocation-only` row is the same instruction
+with a different symbol spelling or addend: the alias-symbol case that `finish`
+proves through the linked bytes, or a named reference symbol against the
+candidate's literal. Such rows also remain under a `CURRENT (0)` score, where
+the scorer has already resolved them.
 
 `--unit` reports, for every variant, what it changed besides the target. The
 current source is compiled once as it stands and each variant object is
-compared with it: other functions are compared position-independently, so a
-function that only moved is identical, and `.rodata`, `.data` and `.bss` are
-compared by size and bytes. Use it with every complete-source variant that
+compared with it: other functions are compared position-independently and
+without their trailing alignment, with literal loads named by content, so a
+function that only moved, or whose literal only moved inside the pool, is
+identical. `.rodata`, `.data` and `.bss` are compared by size and bytes;
+relocated words (jump-table entries) are left out, because their values move
+with the code before their target. Use it with every complete-source variant that
 edits a struct, prototype, extern or literal:
 
 - `N other functions identical` is the evidence that a shared edit left the
@@ -577,7 +587,11 @@ matched example to compare against.
   members of an existing or source-local struct before tuning anything else;
   the [code rules](code-rules.md) require it anyway (R4). A word that the
   reference reads both whole and by bytes is a union of the word and a byte
-  struct (`GameCDE80Zone.packed`).
+  struct (`GameCDE80Zone.packed`). The same sensitivity makes a rename unsafe:
+  an element of a padding array and a scalar member at the same offset are
+  different trees too, and turning `state->pad10F[0xBB]` into a `u8` member
+  breaks the matched `func_1507A838`. Name a pad member only through the byte
+  gate, one struct at a time.
 - **Callee declarations.** A residual next to a call is often a wrong
   prototype rather than a wrong statement. A `void` prototype for a callee
   that returns a value moves the caller's values between `v0` and `v1`
@@ -594,9 +608,11 @@ matched example to compare against.
   boundary is a scheduling barrier, like the end of a block that declares
   locals. If a variant matches only with two statements on one line, the
   original had a macro there. Write the macro when it recurs
-  (`func_15196748`: the ring-buffer advance `index++; if (index == capacity)
-  index = 0` at five sites) or the comma form a matched sibling already uses
-  (`func_150DAE70` beside `func_150DB518`).
+  (`func_15196748`: a ring-buffer advance `index++; if (index == capacity)
+  index = 0` at two sites and its reverse at three) or the comma form a matched
+  sibling already uses (`func_150DAE70` beside `func_150DB518`). Other functions
+  of the same file match with the advance written across lines, so this is
+  evidence for one function, not a rule for the construct.
 - **Unfolded flag constants.** `x | 0x10 | 0x80 | 0x100 | 0x200` takes one
   temporary per constant even though the assembler merges them into a single
   `ori`. A reference whose temporaries skip numbers around a flag expression
