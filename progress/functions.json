@@ -64492,13 +64492,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1620,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15034860",
           "vram": "0x15034860"
         }
       },
-      "source": "src/game/game_61D10.c",
+      "source": "src/done/game/game_61D10.c",
       "symbol": "func_15034860"
     },
     {
@@ -64516,33 +64521,43 @@
           "vram": "0x15034EB4"
         }
       },
-      "source": "src/game/game_61D10.c",
+      "source": "src/done/game/game_61D10.c",
       "symbol": "func_15034EB4"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1668,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15177410",
           "vram": "0x15177410"
         }
       },
-      "source": "src/game/game_1A48C0.c",
+      "source": "src/done/game/game_1A48C0.c",
       "symbol": "func_15177410"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1276,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15177A94",
           "vram": "0x15177A94"
         }
       },
-      "source": "src/game/game_1A48C0.c",
+      "source": "src/done/game/game_1A48C0.c",
       "symbol": "func_15177A94"
     },
     {
@@ -64997,7 +65012,7 @@
           "vram": "0x1509DF20"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509DF20"
     },
     {
@@ -65015,39 +65030,43 @@
           "vram": "0x1509DFB4"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509DFB4"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1048,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509DFC4",
           "vram": "0x1509DFC4"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509DFC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "nov11 wI: natural switch with block-scoped case locals (no volatile arg0, no label) matches every instruction; CURRENT (200) is only the trailing alignment nops of the unit's last member, provable once game_CB3D0 has no raw members (func_1509DFC4). Needs a jump-table mapping at 0x8009F370 (22 words, text base 0x1509DF20) when it lands",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 612,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509E3DC",
           "vram": "0x1509E3DC"
         }
       },
-      "source": "src/game/game_CB3D0.c",
+      "source": "src/done/game/game_CB3D0.c",
       "symbol": "func_1509E3DC"
     },
     {
@@ -65236,20 +65255,25 @@
           "vram": "0x150A03B0"
         }
       },
-      "source": "src/game/game_CD860.c",
+      "source": "src/done/game/game_CD860.c",
       "symbol": "func_150A03B0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150A04D8",
           "vram": "0x150A04D8"
         }
       },
-      "source": "src/game/game_CD860.c",
+      "source": "src/done/game/game_CD860.c",
       "symbol": "func_150A04D8"
     },
     {
@@ -66272,20 +66296,25 @@
           "vram": "0x1507C370"
         }
       },
-      "source": "src/game/game_A9820.c",
+      "source": "src/done/game/game_A9820.c",
       "symbol": "func_1507C370"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1280,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507C3E0",
           "vram": "0x1507C3E0"
         }
       },
-      "source": "src/game/game_A9820.c",
+      "source": "src/done/game/game_A9820.c",
       "symbol": "func_1507C3E0"
     },
     {
@@ -67797,7 +67826,7 @@
           "vram": "0x150CB0E0"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB0E0"
     },
     {
@@ -67815,20 +67844,25 @@
           "vram": "0x150CB1E0"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB1E0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1496,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CB1F4",
           "vram": "0x150CB1F4"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB1F4"
     },
     {
@@ -67846,7 +67880,7 @@
           "vram": "0x150CB7CC"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB7CC"
     },
     {
@@ -67864,7 +67898,7 @@
           "vram": "0x150CB800"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CB800"
     },
     {
@@ -67882,7 +67916,7 @@
           "vram": "0x150CBA30"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBA30"
     },
     {
@@ -67900,7 +67934,7 @@
           "vram": "0x150CBABC"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBABC"
     },
     {
@@ -67918,7 +67952,7 @@
           "vram": "0x150CBCE0"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBCE0"
     },
     {
@@ -67936,7 +67970,7 @@
           "vram": "0x150CBE88"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBE88"
     },
     {
@@ -67954,7 +67988,7 @@
           "vram": "0x150CBF5C"
         }
       },
-      "source": "src/game/game_F8590.c",
+      "source": "src/done/game/game_F8590.c",
       "symbol": "func_150CBF5C"
     },
     {
@@ -85466,8 +85500,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D54C8",
           "vram": "0x150D54C8"
         }
@@ -85530,6 +85569,12 @@
       "symbol": "func_150D5A4C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 686,
+        "reason": "CURRENT 686: uopt hoists &normal into the join before if (fallback) (ref recomputes it in the fallback body), shifting the hit/fallback blocks and spill slots 0x74/0x78 vs 0x78/0x7C",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

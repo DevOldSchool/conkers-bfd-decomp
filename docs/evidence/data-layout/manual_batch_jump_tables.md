@@ -29,3 +29,12 @@ the remaining bytes in each object section are zero alignment padding. The
 ROM verification checks only those payloads. The `game_CD860` address is
 `0x8009F550`: its raw `lui`/`lw` pair uses the carried high half `0x800A`
 for the negative low half `0xF550`.
+
+`game_CD860.o` later gained the second switch table, for `func_150A04D8`
+(cases 6 to 18, 13 words), at raw address `0x8009F568` directly after the
+first table. Its `.rodata` is now 0x50 bytes: a 0x4C payload (both tables)
+and one zero alignment word, which the checksum-validated ROM also holds
+at `0x8009F59C`. The ROM table entries are `0x150A051C`, `0x150A06E4`,
+`0x150A05C0`, `0x150A05FC`, `0x150A063C`, `0x150A0674` (twice),
+`0x150A070C`, `0x150A0784`, `0x150A07AC`, `0x150A07D0`, `0x150A08BC` and
+`0x150A097C`, each a case label in the raw assembly.
