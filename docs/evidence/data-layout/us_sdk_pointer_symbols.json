@@ -1,0 +1,63 @@
+{
+  "status": "accepted",
+  "baseline": {
+    "fuzzy_match_percent": 31.577194,
+    "total_code": "2246328",
+    "matched_code": "700900",
+    "matched_code_percent": 31.202034,
+    "total_data": "65120512",
+    "matched_data": "63123584",
+    "matched_data_percent": 96.93349,
+    "total_functions": 5911,
+    "matched_functions": 4004,
+    "matched_functions_percent": 67.73811,
+    "complete_code": "173604",
+    "complete_code_percent": 7.728346,
+    "complete_data": "63079392",
+    "complete_data_percent": 96.86562,
+    "total_units": 12126,
+    "complete_units": 11451
+  },
+  "current": {
+    "fuzzy_match_percent": 31.577194,
+    "total_code": "2246328",
+    "matched_code": "700900",
+    "matched_code_percent": 31.202034,
+    "total_data": "65120512",
+    "matched_data": "63125040",
+    "matched_data_percent": 96.93572,
+    "total_functions": 5911,
+    "matched_functions": 4004,
+    "matched_functions_percent": 67.73811,
+    "complete_code": "173604",
+    "complete_code_percent": 7.728346,
+    "complete_data": "63079392",
+    "complete_data_percent": 96.86562,
+    "total_units": 12126,
+    "complete_units": 11451
+  },
+  "changed_existing_units": [
+    "main/sdk/libultrare/n_csplayer.o",
+    "main/sdk/libultrare/n_env.o",
+    "main/sdk/libultrare/n_reverb.o",
+    "main/sdk/libultrare/xprintf.o"
+  ],
+  "prior_source_hashes_preserved": 26809,
+  "remaining_bytes": 1995472,
+  "source_fingerprint": "7c66f9ff469b3cde1cbf7fd480257d2bf8db204c59031811da5b51c9de4021b5",
+  "snapshot_status": "current",
+  "worktree_changes": true,
+  "data_gain_bytes": 1456,
+  "pointer_words_verified": 222,
+  "archive_members_preserved": 4,
+  "omitted_gate_logs": [
+    "asset_build",
+    "full_tests",
+    "mutations",
+    "native_report",
+    "progress_check",
+    "report_sha256",
+    "tested_base_commit",
+    "whitespace_check"
+  ]
+}

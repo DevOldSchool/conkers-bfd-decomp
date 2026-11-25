@@ -117,7 +117,7 @@ class DataTargetTests(unittest.TestCase):
         text = '/* 0000 80000000 10002FF4 */ .word .L10002FF4_main-data'
         # The actual generated labels use underscores; unsupported names fail at link time.
         text = text.replace('main-data', 'main_data')
-        self.assertEqual(targets.reference_definitions(text, rom), {'.L10002FF4_main_data': 0x10002FF4})
+        self.assertEqual(targets.reference_definitions(text, rom), {'.L10002FF4': 0x10002FF4})
         with self.assertRaises(ValueError):
             targets.reference_definitions(text, bytes(4))
         with self.assertRaises(ValueError):
@@ -155,6 +155,7 @@ class DataTargetTests(unittest.TestCase):
                                  [[32, 'data', '16000020'], [48, 'rodata', '16000030'],
                                   [64, 'data', '16000040']])
                 self.assertEqual(config['segments'][2], [80])
+                self.assertNotIn('reloc_addrs_path', config['options'])
                 self.assertEqual((directory.parent / config['options']['base_path']).resolve(), root.resolve())
                 with self.assertRaisesRegex(ValueError, 'overlaps'):
                     targets.target_config(image, directory, binary, 0, 36,
@@ -287,6 +288,24 @@ class DataTargetTests(unittest.TestCase):
                 self.assertIsNone(targets.candidate_archive(invalid))
                 with self.assertRaises(ValueError):
                     targets.candidate_source(invalid)
+
+    def test_sdk_bss_pointer_declarations_are_limited_to_the_proven_fields(self):
+        text = (ROOT / 'config/relocs/main-data-us.txt').read_text()
+        rows = [line.split('//', 1)[0].strip() for line in text.splitlines()]
+        rows = [line for line in rows if line]
+        self.assertEqual(rows, [
+            'rom:0x2BA2C reloc:MIPS_32 symbol:__conker_sound_player_storage',
+            'rom:0x2BD70 reloc:MIPS_32 symbol:__osBaseTimer'])
+        # Both rows keep the original stored values, including the out-of-image
+        # BSS destinations. An incorrect symbolic row must fail before linking.
+        rom = bytearray(0x2BD74)
+        for offset, address, name in [(0x2BA2C, 0x80042850, '__conker_sound_player_storage'),
+                                       (0x2BD70, 0x80042990, '__osBaseTimer')]:
+            rom[offset:offset + 4] = address.to_bytes(4, 'big')
+            assembly = f'/* {offset:X} {0x80000000 + offset:X} {address:08X} */ .word {name}'
+            self.assertEqual(targets.reference_definitions(assembly, bytes(rom)), {name: address})
+            with self.assertRaises(ValueError):
+                targets.reference_definitions(assembly.replace(f'{address:08X}', f'{address + 4:08X}'), bytes(rom))
 
     def test_compiler_padding_keeps_full_base_without_claiming_next_rom_word(self):
         import hashlib

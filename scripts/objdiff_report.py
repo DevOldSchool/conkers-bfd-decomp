@@ -36,6 +36,8 @@ import objdiff_candidate
 import objdiff_data_targets
 import objdiff_storage
 import objdiff_snapshot
+import objdiff_sdk_metadata
+import objdiff_sdk_pointers
 import objdiff_ownership
 import objdiff_targets
 import objdiff_original_asm
@@ -336,6 +338,74 @@ def canonical_debugger_candidates(units: list[dict], configs: list[dict]) -> Non
         unit['base_sha256'] = objdiff_targets.sha256(path)
 
 
+# Each owner has a full literal-section ROM proof and candidate-only instruction
+# evidence. Unsupported branch-crossing loads and coefficient-array addressing
+# remain outside this list; see docs/evidence/data-layout/us_sdk_literal_symbols.md.
+SDK_LITERAL_OWNERS = frozenset({
+    ('game', 'libultrare', 'decoder.o'),
+    ('game', 'libultrare', 'perspective.o'),
+    ('main', 'libultrare', 'xldtob.o'),
+    ('main', 'libultrare', 'osc.o'),
+    ('main', 'libultrare', 'n_synthesizer.o'),
+    ('main', 'libultra_2_0G_d', 'cents2ratio.o'),
+    ('main', 'libultrare', 'n_drvrNew.o'),
+    ('main', 'libultrare', 'n_synfx.o'),
+    ('main', 'libultrare', 'n_auxbus.o'),
+    ('main', 'libultrare', 'n_resample2.o'),
+    ('main', 'libultrare', 'n_resample.o'),
+})
+
+
+def annotate_sdk_literal_candidates(units: list[dict], configs: list[dict]) -> None:
+    """Name proved SDK literals on invariant copies of actual archive members.
+
+    Reviewed SDK placements supply addresses, never inferred extents.
+    Object instructions supply every anonymous size. ROM equality of the whole
+    read-only section is checked independently; completion status is preserved.
+    """
+    for unit, config in zip(units, configs, strict=True):
+        identity = (unit.get('overlay'), unit.get('archive'), unit.get('member'))
+        if unit.get('kind') != 'sdk' or identity not in SDK_LITERAL_OWNERS:
+            continue
+        overlay, archive_name, member = identity
+        spans = [s for s in unit.get('data_ranges', []) if s.get('section') == '.rodata']
+        if len(spans) != 1 or not unit.get('base_path'):
+            raise ValueError('SDK literal comparison copy requires one reviewed rodata placement')
+        span = spans[0]
+        placement_ok = (
+            (overlay == 'game' and span.get('kind') == 'external_payload'
+             and span.get('linker_mode') == 'NOLOAD'
+             and span.get('evidence_reference') == 'config/game/us-sdk.ld')
+            or (overlay == 'main' and span.get('kind') == 'sdk_placement'
+                and span.get('evidence_reference') == 'config/profiles/us.yaml'))
+        if (not placement_ok or span.get('owner') != {'archive': archive_name, 'member': member}
+                or span.get('candidate_data_relocations') != 0
+                or span.get('literal_payload_matches_rom') is not True):
+            raise ValueError('SDK literal comparison copy requires the whole independent ROM proof')
+        archive = ROOT / ('build/game-libs/us' if overlay == 'game' else 'build/us/lib') / (archive_name + '.a')
+        raw = subprocess.check_output(['mips-linux-gnu-ar', 'p', str(archive), member])
+        raw_path = OUTPUT / unit['base_path']
+        if raw_path.read_bytes() != raw:
+            raise ValueError('SDK literal candidate differs from the actual archive member')
+        obj = objdiff_candidate.Elf(raw)
+        rodata = obj.names.index('.rodata')
+        payload = obj.payload(rodata)
+        if (len(payload) != span['size'] or hashlib.sha256(payload).hexdigest() != span['sha256']
+                or any(section == rodata for section, _ in obj.relocations)):
+            raise ValueError('SDK literal rodata changed after independent ROM verification')
+        annotated, proof = objdiff_candidate.annotate(raw, {'.rodata': span['start']})
+        if annotated == raw:
+            continue
+        path = OUTPUT / 'owned' / unit['key'] / 'base.o'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(annotated)
+        unit['comparison_copy'] = {'raw_base_path': unit['base_path'],
+                                   'raw_base_sha256': hashlib.sha256(raw).hexdigest(), **proof}
+        unit.setdefault('linked_inputs', {})[archive.relative_to(ROOT).as_posix()] = objdiff_targets.sha256(archive)
+        unit['base_path'] = config['base_path'] = path.relative_to(OUTPUT).as_posix()
+        unit['base_sha256'] = objdiff_targets.sha256(path)
+
+
 # Report unit order; functions are looked up by name when the report runs.
 ASSET_FAMILIES = (
     ('animation controls', 'prepare_animation_controls'), ('scripts', 'prepare_scripts'),
@@ -535,6 +605,9 @@ def prepare(*, fresh: bool = False) -> None:
     data_coverage['asset_candidates'] = asset_candidates
     grouped, grouped_config = objdiff_ownership.group_units(built + data_built, units + data_config, ROOT, OUTPUT)
     canonical_debugger_candidates(grouped, grouped_config)
+    annotate_sdk_literal_candidates(grouped, grouped_config)
+    objdiff_sdk_metadata.repair_vi_candidates(grouped, grouped_config, ROOT, OUTPUT)
+    objdiff_sdk_pointers.prepare_candidates(grouped, grouped_config, ROOT, OUTPUT)
     coverage = {'scope': 'US main/game/debugger CPU code, initialized data and all bounded font/flat/indexed asset storage; unassigned ROM regions, CPU archive backing, BSS and RSP excluded',
                 'mapped_code_bytes': sum(u['code_bytes'] for u in built),
                 'expected_code_bytes': sum(u['report_code_bytes'] for u in built),

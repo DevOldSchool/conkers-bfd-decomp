@@ -39,18 +39,22 @@ Referenced labels, nonzero rows and unknown gaps keep their symbols. This change
 only reference metadata: all padding bytes remain assembled, counted and included
 in the full-image ROM comparison. The real build objects are not modified.
 
-## Remaining limitations
+## Limitations at the original snapshot
 
 The VI structures are **80 bytes**, not 78. `OSViMode` has a one-byte type, three
 alignment bytes, nine 32-bit common registers and two sets of five 32-bit field
 registers. The last word is `vIntr = 2`; its last two bytes are real payload.
 The current archive ELF symbol reports only 78 bytes. Reducing the reference to
 that value would encode an incorrect boundary, so it retains the true 80 bytes.
-A byte-identical section may consequently remain incomplete in native objdiff.
+A byte-identical section consequently remained incomplete in that native snapshot.
+The later [SDK literal and VI metadata batch](us_sdk_literal_symbols.md) proves
+the 80-byte ABI with the pinned compiler and corrects only the symbol size in a
+comparison copy; the reference and archive remain unchanged.
 
-Anonymous constant pools retain their ROM-derived references. No artificial
-candidate symbols, fabricated padding or changes to native counts are used to
-make them qualify. Whole-unit completion still requires native data matching.
+At that snapshot, anonymous constant pools retained their ROM-derived references.
+The later batch names reviewed literals from candidate instructions and
+relocations, preserving every original byte and relocation. Whole-unit completion
+still requires native data matching.
 
 ## Validation and native result
 

@@ -1,0 +1,5 @@
+// US SDK pointers into BSS outside the initialized-data analysis image.
+// Original ROM words, source declarations and actual linked definitions agree.
+// Evidence: docs/evidence/data-layout/us_sdk_sound_symbols.md.
+rom:0x2BA2C reloc:MIPS_32 symbol:__conker_sound_player_storage
+rom:0x2BD70 reloc:MIPS_32 symbol:__osBaseTimer
