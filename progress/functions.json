@@ -44810,17 +44810,16 @@
       "symbol": "func_151EB930"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1254,
-        "reason": "Small-queue pass2512/1812/1254. Per-branch alpha clamps and byte-opacity restore control shape; remove redundant remaining temporary and reorder actual count local improve. Frame/spill-8, alpha expression scheduling and scalar allocation remain. Three variants exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 484,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EB96C",
           "vram": "0x151EB96C"
         }
