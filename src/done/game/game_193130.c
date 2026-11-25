@@ -10,7 +10,7 @@ f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
 extern s32 D_800BE9E4;
 
-void func_15165C80(f32 *arg0, u8 *arg1, f32 arg2, f32 *arg3,
+void func_15165C80(f32 *arg0, Vtx *arg1, f32 arg2, f32 *arg3,
                    f32 arg4, f32 arg5, u8 *arg6, u8 arg7) {
     s32 i;
     f32 cosine;
@@ -28,10 +28,10 @@ void func_15165C80(f32 *arg0, u8 *arg1, f32 arg2, f32 *arg3,
     x = (s16)(cosine * arg2);
     y = (s16)sine;
     for (i = 0; i < arg7; i++) {
-        ((Vtx *)arg1)[arg6[i]].v.ob[0] = -x;
-        ((Vtx *)arg1)[arg6[i]].v.ob[1] = y;
-        ((Vtx *)arg1)[arg6[i + arg7]].v.ob[0] = x;
-        ((Vtx *)arg1)[arg6[i + arg7]].v.ob[1] = y;
+        arg1[arg6[i]].v.ob[0] = -x;
+        arg1[arg6[i]].v.ob[1] = y;
+        arg1[arg6[i + arg7]].v.ob[0] = x;
+        arg1[arg6[i + arg7]].v.ob[1] = y;
     }
     *arg0 += velocity * D_800BE9E4;
     if (arg4 <= *arg0) {

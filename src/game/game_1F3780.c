@@ -56,7 +56,7 @@ typedef struct Game1F3780EffectPacket {
 
 void func_150F7470(Vec3f *, Vec3f *, s32, Vec3f *, u8, s32, f32, f32, f32, u8 *, u8, u8, u8, u8, s32, s8, s32, u8, u8, s32);
 s32 func_15142A5C(void *);
-void func_15145EA4(s32 *, s32 *, s32, s32);
+void func_15145EA4(f32 **, f32 **, s32, s32);
 s32 func_1514ECE0(void *, s16, void **);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
@@ -118,7 +118,7 @@ void func_151C6A28(Game1F3780Actor *arg0, u8 arg1, u8 arg2, s32 arg3) {
         outputs[0] = &first;
         outputs[1] = &second;
         outputs[2] = &third;
-        func_15145EA4((s32 *)inputs, (s32 *)outputs, transform, 3);
+        func_15145EA4((f32 **)inputs, (f32 **)outputs, transform, 3);
         third.x -= second.x;
         third.y -= second.y;
         third.z -= second.z;
@@ -140,7 +140,7 @@ void func_151C6A28(Game1F3780Actor *arg0, u8 arg1, u8 arg2, s32 arg3) {
             goto end;
         }
         original = &state->packet;
-        if (state->packet.count == 0) {
+        if (original->count == 0) {
             goto end;
         }
         if (original->count >= 2) {

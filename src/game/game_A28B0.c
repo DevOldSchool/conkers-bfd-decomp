@@ -659,7 +659,7 @@ void func_15076B94(void) {
         }
     }
 }
-void func_1506160C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
+void func_1506160C(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
 
 void func_15076C7C(void) {
     func_1506160C((u8 *)D_800D154C, 1, D_800D1890, 0, 0);
@@ -774,9 +774,9 @@ void func_1502EA60(u8 *, s32);
 void func_1502EA7C(u8 *, s32);
 
 void func_150771F0(void) {
-    s32 first;
-    s32 second;
-    s32 mode;
+    u8 first;
+    u8 second;
+    u8 mode;
 
     if (D_800D1893 == 0) {
         first = D_800D1890;
@@ -2180,7 +2180,7 @@ void func_1507B040(void) {
     D_800D154C->field_76 = D_800D154C->field_7A;
 }
 void *func_15072208(void *, s32);
-void func_1506160C(u8 *, s32, s32, s32, u8);
+void func_1506160C(u8 *, u8, u8, u8, u8);
 s32 func_1507BB28(s32, s32);
 
 void func_1507B058(void) {

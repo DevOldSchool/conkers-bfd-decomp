@@ -41,10 +41,8 @@ void func_150C7E00(GameF52B0Camera *arg0) {
     s32 sp30;
     s32 sp2C;
     f32 temp_fv0_2;
-    f32 var_fa0;
     f32 var_fv1;
     GameF52B0Actor *temp_v0;
-    GameF52B0Actor *temp_v1;
 
     sp34 = func_1509BE40(0, func_1509BE40(0, 0x2010, 0xB7) | 0x2000, 0xBC);
     sp30 = func_1509BE40(0, 0x2000, 0xBB);
@@ -94,16 +92,7 @@ void func_150C7E00(GameF52B0Camera *arg0) {
             }
             func_1509BFB0(1, 0x9000, 0x17, func_1509BE40(1, func_1509BE40(0, 0x2011, 0xB7) | 0x2000, 0x9C, 0x2000));
             temp_fv0 = ((f32) func_1509BE40(1, func_1509BE40(0, 0x2011, 0xB7) | 0x2000, 0x9A, 0x2000) - 300.0f) / 900.0f;
-            if (temp_fv0 < 0.0f) {
-                var_fv1 = 0.0f;
-            } else {
-                if (temp_fv0 > 1.0f) {
-                    var_fa0 = 1.0f;
-                } else {
-                    var_fa0 = temp_fv0;
-                }
-                var_fv1 = var_fa0;
-            }
+            var_fv1 = (temp_fv0 < 0.0f) ? 0.0f : ((temp_fv0 > 1.0f) ? 1.0f : temp_fv0);
             if (sp34 == 0) {
                 arg0->rangeB = 200.0f;
                 arg0->rangeA = 200.0f;
@@ -124,9 +113,8 @@ void func_150C7E00(GameF52B0Camera *arg0) {
             if (arg0->flags5F0 & 4) {
                 temp_v0 = func_15083E90(0x10);
                 if (temp_v0 != 0) {
-                    temp_v1 = arg0->actor;
-                    if (temp_v1->active != 0) {
-                        temp_v1->x = (f32) temp_v0->x;
+                    if (arg0->actor->active != 0) {
+                        arg0->actor->x = (f32) temp_v0->x;
                         arg0->actor->y = (f32) temp_v0->y;
                         arg0->actor->z = (f32) temp_v0->z;
                     }

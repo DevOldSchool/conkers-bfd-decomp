@@ -50,6 +50,7 @@ typedef struct GameAEB40State {
     u8 field_2C9;
     u8 pad2CA[0x52];
     GameAEB40NestedState *nested_31C;
+    u8 unk_320[0xC];
 } GameAEB40State;
 
 void func_100226F0(void *, s32);
@@ -944,7 +945,7 @@ s32 func_15084044(GameAEB40State *arg0, s32 arg1) {
 
     parent = arg0->unk_65;
     if (parent != 0) {
-        config = *(GameAEB40Config **)(D_800CC0E8 + parent * 0x32C);
+        config = ((GameAEB40State *)&D_800CC2D0)[parent - 1].unk_144;
     } else {
         config = arg0->unk_144;
     }

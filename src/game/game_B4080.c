@@ -1004,10 +1004,10 @@ void func_15088D58(GameB4080SearchActor *arg0) {
 }
 typedef struct GameB4080PathNode {
     /* 0x0 */ s16 pos[3];
-    /* 0x6 */ u8 unk6[3];
+    /* 0x6 */ u8 unk_06[3];
     /* 0x9 */ u8 links[5];
     /* 0xE */ u8 type;
-    /* 0xF */ u8 unkF;
+    /* 0xF */ u8 unk_0F;
 } GameB4080PathNode;
 
 void func_15088F30(GameB4080SearchEntry *entry, f32 *arg1, f32 *arg2, f32 *arg3) {

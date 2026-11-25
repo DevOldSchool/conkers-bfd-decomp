@@ -1057,9 +1057,9 @@ __game_rodata_1199d0_payload_size = 0x20;
 ASSERT(SIZEOF(.game_rodata_156160) == 0x10, "game_156160 camera literal extent changed")
 __game_rodata_156160_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_157840) == 0x10, "game_157840 literal extent changed")
+__game_rodata_157840_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_1f3780) == 0x10, "game_1F3780 literal extent changed")
 __game_rodata_1f3780_payload_size = 0xC;
-__game_rodata_157840_payload_size = 0x4;
 ASSERT(SIZEOF(.game_rodata_155c90) == 0x20, "game_155C90 camera blend literal extent changed")
 __game_rodata_155c90_payload_size = 0x20;
 ASSERT(SIZEOF(.game_rodata_13d350) == 0x10, "game_13D350 func_15111858 literal extent changed")

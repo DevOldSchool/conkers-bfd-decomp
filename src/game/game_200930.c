@@ -432,7 +432,7 @@ void func_151D3E6C(Game200930Actor *arg0, Vec3f *arg1, Vec3f *arg2, s32 arg3) {
     y = (arg1->y + arg2->y) * 0.5f;
     z = (arg1->z + arg2->z) * 0.5f;
     {
-        s32 index = ((s32)arg0 - (s32)D_800CC2D0) / 0x32C;
+        s32 index = arg0 - (Game200930Actor *)D_800CC2D0;
         u16 value;
 
         if (arg0->unk_31C != NULL) {

@@ -590,7 +590,7 @@ typedef struct Game1483E0Mesh {
     f32 phase;
 } Game1483E0Mesh;
 void *func_10003C40(s32, s32, s32, s32);
-void func_15094AB8(s32, s32, s32, f32, s32, s32);
+void func_15094AB8(void *, void *, s32, f32, s32, s32);
 extern f64 D_800A3208;
 extern u8 D_800BE9C0;
 extern s32 D_800BE9E4;
@@ -621,7 +621,7 @@ void func_1511D9E4(Game1483E0Mesh *arg0) {
     mid = arg0->flags >> 16;
     delta = (f32)(s16)(arg0->flags & 0xFFFF) * D_800A3208;
     arg0->phase += delta * D_800BE9E4;
-    func_15094AB8((s32)arg0->buffers[D_800BE9C0], (s32)coords, arg0->count, arg0->phase, hi, mid);
+    func_15094AB8(arg0->buffers[D_800BE9C0], coords, arg0->count, arg0->phase, hi, mid);
 }
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);

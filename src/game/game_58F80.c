@@ -970,8 +970,8 @@ void func_1502D824(Game58F80Anim *model, Game58F80Actor *actor, s32 output) {
                 }
             }
             source = model->unk_28[index] + width * frame;
-            offset = (u8)(source & 3);
-            source -= (u8)(source & 3);
+            offset = source & 3;
+            source -= offset;
             if (limit <= position + 1) {
                 wrap = 1;
                 length = width;
@@ -995,8 +995,8 @@ void func_1502D824(Game58F80Anim *model, Game58F80Actor *actor, s32 output) {
                 output += 15;
                 output = (u32)output >> 4;
                 output <<= 4;
-                offset = (u8)(source & 1);
-                source -= (u8)(source & 1);
+                offset = source & 1;
+                source -= offset;
                 length = offset + width;
                 if (length < 200) {
                     func_1000480C(source, output, length);
