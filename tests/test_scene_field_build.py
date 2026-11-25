@@ -103,15 +103,39 @@ class SceneFieldBuildTests(unittest.TestCase):
         temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup); self.root = Path(temp.name)
         self.records = {'0:2': transform()}; vol = build.volumes.codec.encode(volume(), 5)
         native = put_fields(bytes(range(68)), codec.encode(transform(), 2))
-        self.payload = b'index123' + vol + b'rawgap!!' + native + b'endstuff'
-        self.rom = b'prefix' + self.payload + b'suffix'
-        common = {'bank': 12, 'rom_start': 6, 'rom_end': 6 + len(self.payload),
+        # A real nested directory layout keeps every cooperating encoder active.
+        from scripts import scene_structure_codec as structures
+        cylinder = {'format': structures.CYLINDER_FORMAT, 'groups': [
+            {'id': 7, 'cylinders': [{'x': -3, 'z': 4, 'bottom': -5, 'height': 6,
+                                    'radius': 7, 'inside': True}]}]}
+        collision = bytearray(26)
+        for at, data in structures.encode_cylinders(cylinder): collision[at:at + len(data)] = data
+        collision[12:16] = b'raw!'
+        nested = bytearray(96); offsets = {}
+        for i in range(12):
+            data = {2: native, 5: vol, 9: bytes(collision), 10: bytes(60)}.get(i, b'')
+            if data: nested.extend(bytes((-len(nested)) % 16))
+            offsets[i] = len(nested)
+            struct.pack_into('>II', nested, i * 8, len(nested), len(data) | (0x80000000 if i == 11 else 0))
+            nested.extend(data)
+        outer = bytearray(552)
+        for i in range(69): struct.pack_into('>II', outer, i * 8, 552, (len(nested) if i == 0 else 0) | (0x80000000 if i == 68 else 0))
+        self.payload = bytes(outer + nested)
+        self.payload += bytes((-(8 + len(self.payload))) % 8)
+        self.rom = bytes(8) + self.payload + b'suffix'
+        self.model_offset = 552 + offsets[2]
+        self.cylinder_offset = 552 + offsets[9]
+        model_start = 8 + self.model_offset; volume_start = 8 + 552 + offsets[5]
+        common = {'bank': 12, 'rom_start': 8, 'rom_end': 8 + len(self.payload),
                   'original_sha256': build.sha256(self.payload)}
-        self.expected = {**common, 'entries': [{'scene': 0, 'child': 2, 'key': '0:2', 'rom_start': 74,
-            'rom_end': 142, 'record_count': 1, 'field_ranges': [[0, 24], [32, 44], [51, 53], [60, 61]],
-            'field_sha256': build.sha256(native[:24] + native[32:44] + native[51:53] + native[60:61])}], 'rom_ranges': [[74, 98], [106, 118], [125, 127], [134, 135]]}
-        self.volume_expected = {**common, 'entries': [{'scene': 0, 'child': 5, 'key': '0:5', 'rom_start': 14,
-            'rom_end': 66, 'record_count': 1, 'decoded_sha256': build.sha256(vol)}], 'rom_ranges': [[14, 66]]}
+        field_ranges = [[0, 24], [32, 44], [51, 53], [60, 61]]
+        self.expected = {**common, 'entries': [{'scene': 0, 'child': 2, 'key': '0:2', 'rom_start': model_start,
+            'rom_end': model_start + 68, 'record_count': 1, 'field_ranges': field_ranges,
+            'field_sha256': build.sha256(native[:24] + native[32:44] + native[51:53] + native[60:61])}],
+            'rom_ranges': [[model_start + a, model_start + b] for a, b in field_ranges]}
+        self.volume_expected = {**common, 'entries': [{'scene': 0, 'child': 5, 'key': '0:5', 'rom_start': volume_start,
+            'rom_end': volume_start + len(vol), 'record_count': 1, 'decoded_sha256': build.sha256(vol)}],
+            'rom_ranges': [[volume_start, volume_start + len(vol)]]}
         self.volume_records = {'0:5': volume()}
         self.directory = self.root / build.INPUT_DIRECTORY; self.volume_directory = self.root / build.volumes.INPUT_DIRECTORY
         build.texture_build.publish_inputs(self.directory, build.input_files(self.rom, self.expected, self.records))
@@ -138,9 +162,9 @@ class SceneFieldBuildTests(unittest.TestCase):
                 path = directory / name; original = path.read_bytes()
                 if bad is None: path.unlink()
                 else: path.write_bytes(bad)
-                before = {p.name: p.read_bytes() for p in directory.iterdir()}
+                before = {p.relative_to(directory).as_posix(): p.read_bytes() for p in directory.rglob('*') if p.is_file()}
                 with self.assertRaisesRegex(ValueError, 'Inputs were preserved'): build.build_parts(self.root)
-                self.assertEqual({p.name: p.read_bytes() for p in directory.iterdir()}, before)
+                self.assertEqual({p.relative_to(directory).as_posix(): p.read_bytes() for p in directory.rglob('*') if p.is_file()}, before)
                 self.assertEqual(part.read_bytes(), self.payload); path.write_bytes(original)
         (self.directory / 'records.json').write_bytes(b'edited')
         result = build.recover_inputs(self.root)
@@ -169,6 +193,7 @@ class SceneFieldBuildTests(unittest.TestCase):
         self.assertFalse((self.root / 'build/us/scene-fields/parts' / (build.PART + '.bin')).exists())
 
     def test_report_uses_fresh_fields_and_shared_actual_bank_without_opaque_bytes(self):
+        build.build_parts(self.root)
         from test_objdiff_data_targets import object_file, targets
         linked = self.root / 'build/us/assets' / (build.PART + '.o'); linked.parent.mkdir(parents=True)
         linked.write_bytes(object_file([('.data', 1, 3, self.payload)])); output = self.root / 'report'

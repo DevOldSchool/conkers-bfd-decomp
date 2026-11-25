@@ -9,13 +9,13 @@ import zlib
 try:
     from scripts import asset_inputs, model_assets, rzip_archive, visibility_codec as codec, texture_build, visibility_geometry, rzip_bounded
     from scripts.build_files import write_if_changed
-    from scripts import asset_receipts
+    from scripts import asset_receipts, bank_index_inputs
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
     import asset_inputs, model_assets, rzip_archive, visibility_codec as codec, texture_build, visibility_geometry, rzip_bounded
     from build_files import write_if_changed
-    import asset_receipts
+    import asset_receipts, bank_index_inputs
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -127,19 +127,21 @@ def input_error(directory, reason):
                       './conker visibility-assets recover to back up this folder and restore reviewed visibility sources.')
 
 
-def input_hashes(directory, expected):
+def input_hashes(directory, expected, *, include_directory=False):
     try:
         hashes = asset_inputs.manifest_hashes(directory, expected,
             ('manifest.json', 'backing.bin', 'codebooks.json', 'bitmaps.json'), 'visibility bank')
         if hashes['backing.bin'] != expected['original_sha256']:
             raise ValueError('visibility backing changed; restore it before reconstruction')
+        if include_directory:
+            hashes.update(bank_index_inputs.input_hashes(directory, expected, (directory / 'backing.bin').read_bytes()))
         return hashes
     except (OSError, ValueError) as error:
         raise input_error(directory, str(error)) from error
 
 
-def packed_bank(directory, expected):
-    before = input_hashes(directory, expected)
+def packed_bank(directory, expected, *, include_directory=False):
+    before = input_hashes(directory, expected, include_directory=include_directory)
     try:
         packed = bytearray((directory / 'backing.bin').read_bytes())
         codebooks = json.loads((directory / 'codebooks.json').read_text())
@@ -166,11 +168,14 @@ def packed_bank(directory, expected):
             at = row['rom_start'] - expected['rom_start']
             packed[at:at + len(fresh)] = fresh
             spans.append((at, fresh))
+        if include_directory:
+            for offset, payload in bank_index_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes()):
+                packed[offset:offset + len(payload)] = payload
         if sha256(packed) != expected['original_sha256']:
             raise ValueError('visibility sources no longer reconstruct original storage')
     except (OSError, ValueError) as error:
         raise input_error(directory, str(error)) from error
-    if input_hashes(directory, expected) != before:
+    if input_hashes(directory, expected, include_directory=include_directory) != before:
         raise ValueError('visibility inputs changed during packing')
     return bytes(packed), spans, before
 
@@ -182,15 +187,18 @@ def recover_inputs(root=ROOT):
     return {'input_directory': str(root / INPUT_DIRECTORY), 'backup_directory': backup}
 
 
-def build_parts(root=ROOT):
+def build_parts(root=ROOT, *, include_directory=False):
     rom, expected, decoded = reviewed_bank(root)
     directory = root / INPUT_DIRECTORY
     if not directory.exists():
         texture_build.publish_inputs(directory, input_files(rom, expected, decoded))
-    packed, spans, hashes = packed_bank(directory, expected)
+    if include_directory:
+        input_hashes(directory, expected)
+        bank_index_inputs.ensure_inputs(directory, expected, rom[expected['rom_start']:expected['rom_end']])
+    packed, spans, hashes = packed_bank(directory, expected, include_directory=include_directory)
     if packed != rom[expected['rom_start']:expected['rom_end']]:
         raise ValueError('visibility candidate differs from independent original ROM')
-    if input_hashes(directory, expected) != hashes:
+    if input_hashes(directory, expected, include_directory=include_directory) != hashes:
         raise ValueError('visibility inputs changed during batch packing')
     write_if_changed(root / 'build/us/visibility/parts' / (PART_NAME + '.bin'), packed)
     asset_receipts.write(root, 'visibility', __file__, {PART_NAME: asset_receipts.part_record(
@@ -211,7 +219,7 @@ def main(argv=None):
         if args.command == 'recover':
             print(json.dumps(recover_inputs(), indent=2))
         else:
-            proof = build_parts()
+            proof = build_parts(include_directory=True)
             print(f"Verified visibility ranges: {proof['rebuilt_bytes']} ROM bytes")
     except (OSError, ValueError) as error:
         parser.exit(2, f'error: {error}\n')

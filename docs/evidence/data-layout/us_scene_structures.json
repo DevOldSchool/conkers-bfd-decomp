@@ -1,0 +1,326 @@
+{
+  "status": "accepted",
+  "native_cylinder_proof": {
+    "status": "native schema authenticated; production acceptance recorded in this evidence",
+    "consumers": [
+      {
+        "function": "func_150163D0",
+        "start": 352412624,
+        "size": 304,
+        "sha1": "5d42be01ef96501de4cbd04700429767b3cc0aa9",
+        "fresh_independent_disassembly_verified": true
+      },
+      {
+        "function": "func_15055E50",
+        "start": 352673360,
+        "size": 768,
+        "sha1": "f534477307c96c3a7024254c3b6b6a410972d6ae",
+        "fresh_independent_disassembly_verified": true
+      }
+    ],
+    "native_loads": [
+      {
+        "instruction": "0x15055f54",
+        "word": "95090004",
+        "role": "group count"
+      },
+      {
+        "instruction": "0x15055f14",
+        "word": "94D80006",
+        "role": "group id"
+      },
+      {
+        "instruction": "0x15055f58",
+        "word": "8D050000",
+        "role": "relocated group pointer"
+      },
+      {
+        "instruction": "0x15055f90",
+        "word": "84C50004",
+        "role": "bottom"
+      },
+      {
+        "instruction": "0x15055fb4",
+        "word": "84CE0006",
+        "role": "height"
+      },
+      {
+        "instruction": "0x15055fd8",
+        "word": "84D90000",
+        "role": "center x"
+      },
+      {
+        "instruction": "0x15055fdc",
+        "word": "84CA0002",
+        "role": "center z"
+      },
+      {
+        "instruction": "0x15055fe0",
+        "word": "94C50008",
+        "role": "radius and mode"
+      },
+      {
+        "instruction": "0x15056104",
+        "word": "24C6000A",
+        "role": "stride10"
+      }
+    ],
+    "entries": [
+      {
+        "scene": 0,
+        "groups": 1,
+        "records": 3,
+        "rom_start": 19539920,
+        "stored_bytes": 46,
+        "owned_bytes": 42,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 1,
+        "groups": 1,
+        "records": 2,
+        "rom_start": 19546080,
+        "stored_bytes": 36,
+        "owned_bytes": 32,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 2,
+        "groups": 4,
+        "records": 23,
+        "rom_start": 19554832,
+        "stored_bytes": 270,
+        "owned_bytes": 266,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 6,
+        "groups": 4,
+        "records": 15,
+        "rom_start": 19571920,
+        "stored_bytes": 190,
+        "owned_bytes": 186,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 7,
+        "groups": 5,
+        "records": 13,
+        "rom_start": 19577632,
+        "stored_bytes": 178,
+        "owned_bytes": 174,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 10,
+        "groups": 2,
+        "records": 9,
+        "rom_start": 19582288,
+        "stored_bytes": 114,
+        "owned_bytes": 110,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 11,
+        "groups": 2,
+        "records": 4,
+        "rom_start": 19590912,
+        "stored_bytes": 64,
+        "owned_bytes": 60,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 12,
+        "groups": 3,
+        "records": 4,
+        "rom_start": 19597984,
+        "stored_bytes": 72,
+        "owned_bytes": 68,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 16,
+        "groups": 1,
+        "records": 1,
+        "rom_start": 19609088,
+        "stored_bytes": 26,
+        "owned_bytes": 22,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 19,
+        "groups": 3,
+        "records": 5,
+        "rom_start": 19618800,
+        "stored_bytes": 82,
+        "owned_bytes": 78,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 20,
+        "groups": 2,
+        "records": 2,
+        "rom_start": 19621888,
+        "stored_bytes": 44,
+        "owned_bytes": 40,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 28,
+        "groups": 1,
+        "records": 2,
+        "rom_start": 19649776,
+        "stored_bytes": 36,
+        "owned_bytes": 32,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 35,
+        "groups": 5,
+        "records": 8,
+        "rom_start": 19662688,
+        "stored_bytes": 128,
+        "owned_bytes": 124,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 41,
+        "groups": 1,
+        "records": 2,
+        "rom_start": 19679248,
+        "stored_bytes": 36,
+        "owned_bytes": 32,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 42,
+        "groups": 2,
+        "records": 2,
+        "rom_start": 19679792,
+        "stored_bytes": 44,
+        "owned_bytes": 40,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 43,
+        "groups": 1,
+        "records": 7,
+        "rom_start": 19684480,
+        "stored_bytes": 86,
+        "owned_bytes": 82,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 46,
+        "groups": 1,
+        "records": 4,
+        "rom_start": 19699680,
+        "stored_bytes": 56,
+        "owned_bytes": 52,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 50,
+        "groups": 1,
+        "records": 8,
+        "rom_start": 19716800,
+        "stored_bytes": 96,
+        "owned_bytes": 92,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 53,
+        "groups": 3,
+        "records": 16,
+        "rom_start": 19732624,
+        "stored_bytes": 192,
+        "owned_bytes": 188,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 60,
+        "groups": 5,
+        "records": 31,
+        "rom_start": 19763520,
+        "stored_bytes": 358,
+        "owned_bytes": 354,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 63,
+        "groups": 2,
+        "records": 2,
+        "rom_start": 19773376,
+        "stored_bytes": 44,
+        "owned_bytes": 40,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 64,
+        "groups": 3,
+        "records": 6,
+        "rom_start": 19776224,
+        "stored_bytes": 92,
+        "owned_bytes": 88,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 65,
+        "groups": 2,
+        "records": 18,
+        "rom_start": 19783680,
+        "stored_bytes": 204,
+        "owned_bytes": 200,
+        "unclaimed_sentinel_bytes": 4
+      },
+      {
+        "scene": 67,
+        "groups": 1,
+        "records": 1,
+        "rom_start": 19786336,
+        "stored_bytes": 26,
+        "owned_bytes": 22,
+        "unclaimed_sentinel_bytes": 4
+      }
+    ],
+    "records": 188,
+    "candidate_bytes": 2424,
+    "uncredited_bytes": 96,
+    "pointer_proof": "150163F8 requests bank0C child9 at depth3 into D800D18B0. Native code walks eight-byte entries to zero offset and adds base to each live offset. 15055EF8 loads this table, selects id at+6, obtains count+4 and pointer+0; a2 advances10 per cylinder with no intervening calls. Four signed coordinates and one radius/mode halfword are directly loaded.",
+    "native_function_matching_note": "func_15055E50 has a pre-existing C-matching block concerning possibly uninitialized nearest-point scratch values. This pilot changes no C and claims only native storage reads, not defined C recovery or runtime behavior.",
+    "disjoint_prior_coverage_and_model_placements": true
+  },
+  "directory_proof": {
+    "status": "native schema authenticated; production acceptance recorded in this evidence",
+    "directories": 66,
+    "entries": 849,
+    "directory_bytes": 6792,
+    "generated_alignment_bytes": 1912,
+    "new_candidate_bytes": 8704,
+    "loader_spans": [
+      {
+        "start": 352496776,
+        "size": 636,
+        "sha1": "24f02469c9605e212ed65a4c75b216d50ef8577e"
+      },
+      {
+        "start": 352499144,
+        "size": 244,
+        "sha1": "9c411ce6bf78e69583215fa8484bfd0f137edc72"
+      },
+      {
+        "start": 352499696,
+        "size": 240,
+        "sha1": "8f37332e9c2598c7a996b8d1e0c5d9ea82f44cfd"
+      }
+    ]
+  },
+  "omitted_gate_logs": [
+    "gates",
+    "modified_inputs",
+    "native_byte_mutations_rejected",
+    "report_audit",
+    "source_audit",
+    "tested_base"
+  ]
+}

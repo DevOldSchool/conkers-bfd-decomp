@@ -6,15 +6,15 @@ from pathlib import Path
 import struct
 import zlib
 try:
-    from scripts import asset_inputs, model_assets, rzip_archive, animation_control_codec as codec, texture_build
+    from scripts import asset_inputs, model_assets, rzip_archive, animation_control_codec as codec, texture_build, collision_control_inputs
     from scripts.build_files import write_if_changed
-    from scripts import asset_receipts
+    from scripts import asset_receipts, bank_index_inputs
     from scripts.model_character_alpha import checked_spans
     from scripts.profile_config import load_profile
 except ModuleNotFoundError:
-    import asset_inputs, model_assets, rzip_archive, animation_control_codec as codec, texture_build
+    import asset_inputs, model_assets, rzip_archive, animation_control_codec as codec, texture_build, collision_control_inputs
     from build_files import write_if_changed
-    import asset_receipts
+    import asset_receipts, bank_index_inputs
     from model_character_alpha import checked_spans
     from profile_config import load_profile
 
@@ -83,6 +83,7 @@ def reviewed_bank(bank, root=ROOT):
         raise ValueError('US animation control ROM checksum mismatch')
     game = rzip_archive.game_archive(rom, layout['game_start'], layout['game_end'])
     consumers = verify_consumers(game, layout)
+    collision_control_inputs.verify_consumers(game.code, layout['game_vram'])
     banks = {b.index: b for b in rzip_archive.parse_asset_banks(rom, layout['asset_table'])}
     target = banks[bank]
     if target.flags:
@@ -135,19 +136,23 @@ def input_error(directory, expected, reason):
                       f'./conker animation-control recover --bank {expected["bank"]:02X} to back up this folder and restore reviewed animation controls.')
 
 
-def input_hashes(directory, expected):
+def input_hashes(directory, expected, *, include_collisions=False, include_directory=False):
     try:
         hashes = asset_inputs.manifest_hashes(directory, expected,
             ('manifest.json', 'backing.bin', 'controls.json'), 'animation control bank')
         if hashes['backing.bin'] != expected['original_sha256']:
             raise ValueError('animation control backing changed; restore it before reconstruction')
+        if include_collisions:
+            hashes.update(collision_control_inputs.input_hashes(directory, expected, (directory / 'backing.bin').read_bytes()))
+        if include_directory:
+            hashes.update(bank_index_inputs.input_hashes(directory, expected, (directory / 'backing.bin').read_bytes()))
         return hashes
     except (OSError, ValueError, KeyError, TypeError, IndexError, struct.error) as error:
         raise input_error(directory, expected, str(error)) from error
 
 
-def packed_bank(directory, expected):
-    before = input_hashes(directory, expected)
+def packed_bank(directory, expected, *, include_collisions=False, include_directory=False):
+    before = input_hashes(directory, expected, include_collisions=include_collisions, include_directory=include_directory)
     try:
         packed = bytearray((directory / 'backing.bin').read_bytes())
         records = json.loads((directory / 'controls.json').read_text())
@@ -167,11 +172,17 @@ def packed_bank(directory, expected):
             at = row['rom_start'] - expected['rom_start']
             packed[at:at + len(fresh)] = fresh
             spans.append((at, fresh))
+        if include_collisions:
+            for at, fresh in collision_control_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes()):
+                packed[at:at + len(fresh)] = fresh
+        if include_directory:
+            for offset, payload in bank_index_inputs.encoded(directory, expected, (directory / 'backing.bin').read_bytes()):
+                packed[offset:offset + len(payload)] = payload
         if sha256(packed) != expected['original_sha256']:
             raise ValueError('animation controls no longer reconstruct original storage')
     except (OSError, ValueError, KeyError, TypeError, IndexError, struct.error) as error:
         raise input_error(directory, expected, str(error)) from error
-    if input_hashes(directory, expected) != before:
+    if input_hashes(directory, expected, include_collisions=include_collisions, include_directory=include_directory) != before:
         raise ValueError('animation control inputs changed during packing')
     return bytes(packed), spans, before
 
@@ -183,15 +194,21 @@ def recover_inputs(bank, root=ROOT):
     return {'input_directory': str(root / input_directory(bank)), 'backup_directory': backup}
 
 
-def build_parts(bank, root=ROOT):
+def build_parts(bank, root=ROOT, *, include_collisions=False, include_directory=False):
     rom, expected, decoded = reviewed_bank(bank, root)
     directory = root / input_directory(bank)
     if not directory.exists():
         texture_build.publish_inputs(directory, input_files(rom, expected, decoded))
-    packed, spans, hashes = packed_bank(directory, expected)
+    if include_collisions:
+        input_hashes(directory, expected)
+        collision_control_inputs.ensure_inputs(directory, expected, rom[expected['rom_start']:expected['rom_end']])
+    if include_directory:
+        input_hashes(directory, expected)
+        bank_index_inputs.ensure_inputs(directory, expected, rom[expected['rom_start']:expected['rom_end']])
+    packed, spans, hashes = packed_bank(directory, expected, include_collisions=include_collisions, include_directory=include_directory)
     if packed != rom[expected['rom_start']:expected['rom_end']]:
         raise ValueError('animation control candidate differs from independent original ROM')
-    if input_hashes(directory, expected) != hashes:
+    if input_hashes(directory, expected, include_collisions=include_collisions, include_directory=include_directory) != hashes:
         raise ValueError('animation control inputs changed during batch packing')
     write_if_changed(root / 'build/us/animation-control/parts' / (part_name(bank) + '.bin'), packed)
     asset_receipts.write(root, 'animation-control', __file__, {part_name(bank): asset_receipts.part_record(
@@ -216,7 +233,7 @@ def main(argv=None):
             print(json.dumps(recover_inputs(int(args.bank, 16)), indent=2))
         else:
             for bank in (int(args.bank, 16),) if args.bank else BANKS:
-                proof = build_parts(bank)
+                proof = build_parts(bank, include_collisions=True, include_directory=True)
                 print(f"Verified animation control bank {bank:02X}: {proof['rebuilt_bytes']} ROM bytes")
     except (OSError, ValueError) as error:
         parser.exit(2, f'error: {error}\n')

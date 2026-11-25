@@ -1,6 +1,7 @@
 from __future__ import annotations
 from copy import deepcopy
 import json
+import struct
 from pathlib import Path
 import tempfile
 import unittest
@@ -15,25 +16,39 @@ class AnimationClipsBuildTests(unittest.TestCase):
         self.root = Path(temp.name); self.part = build.PARTS[0]
         clip = build.codec.animation_records(animation_payload())['clips'][0]
         desc, stream = build.codec.encode_clip(clip); self.fresh = desc + stream
-        self.payload = b'unproved' + self.fresh + b'unknown!' + self.fresh + b'raw tail'
+        def container(parts):
+            cursor = len(parts) * 8; words = []
+            for i, data in enumerate(parts):
+                words.extend((cursor, len(data) | (0x80000000 if i == len(parts) - 1 else 0)))
+                cursor += len(data)
+            return struct.pack('>' + 'I' * len(words), *words) + b''.join(parts)
+        first = container([b'unknown!', b'raw clip', desc, stream])
+        second = container([desc, stream, b'unknown!', b'raw clip'])
+        self.tables = [first[:32], second[:32]]
+        self.payload = first + b'raw gap!' + second + b'raw tail'
         self.rom = b'prefix' + self.payload + b'suffix'
         self.records = {'82': {'1': deepcopy(clip)}, '83': {'0': deepcopy(clip)}}
         self.expected = {'part': self.part, 'rom_start': 6, 'rom_end': 6 + len(self.payload),
                          'original_sha256': build.sha256(self.payload), 'entries': [], 'rom_ranges': []}
-        for entry, pair, offset in ((82, 1, 14), (83, 0, 22 + len(self.fresh))):
+        for entry, pair, start, raw, skip in ((82, 1, 6, first, 16),
+                                             (83, 0, 6 + len(first) + 8, second, 0)):
+            offset = start + 32 + skip
             row = {'pair': pair, 'rom_start': offset, 'rom_end': offset + len(self.fresh),
                    'descriptor_size': len(desc), 'stream_size': len(stream), 'runtime_duration': 255,
                    'original_sha256': build.sha256(self.fresh)}
-            self.expected['entries'].append({'entry': entry, 'clips': [row]})
+            self.expected['entries'].append({'entry': entry, 'pair_count': 2, 'rom_start': start,
+                                             'rom_end': start + len(raw), 'clips': [row]})
             self.expected['rom_ranges'].append([row['rom_start'], row['rom_end']])
         self.directory = self.root / build.input_directory(self.part)
         build.texture_build.publish_inputs(self.directory, build.input_files(self.rom, self.expected, self.records))
+        build.texture_build.publish_inputs(self.directory / 'indexes',
+            build.indexes.input_files(self.payload, self.expected))
 
     def test_rebuilds_only_selected_clips_and_preserves_uncredited_bytes(self):
         packed, spans, before = build.packed_object(self.directory, self.expected)
         self.assertEqual(packed, self.payload)
-        self.assertEqual([data for _, data in spans], [self.fresh] * 2)
-        self.assertEqual(sum(len(data) for _, data in spans), len(self.payload) - 24)
+        self.assertEqual([data for _, data in spans], [self.tables[0], self.fresh, self.tables[1], self.fresh])
+        self.assertEqual(sum(len(data) for _, data in spans), len(self.fresh) * 2 + 64)
         with patch.object(build, 'reviewed_objects', return_value=(self.rom, [(self.expected, self.records)])):
             proofs = build.build_parts(self.root)
             part = self.root / 'build/us/animation-clips/parts' / (build.part_name(self.part) + '.bin')
@@ -42,21 +57,24 @@ class AnimationClipsBuildTests(unittest.TestCase):
             self.assertEqual(part.stat().st_mtime_ns, timestamp)
             part.unlink(); build.build_parts(self.root)
             self.assertEqual(part.read_bytes(), self.payload)
-            self.assertEqual(proofs[0]['rebuilt_bytes'], len(self.fresh) * 2)
+            self.assertEqual(proofs[0]['rebuilt_bytes'], len(self.fresh) * 2 + 64)
         self.assertEqual(build.input_hashes(self.directory, self.expected), before)
 
     def test_changed_missing_or_invalid_inputs_are_preserved_and_recover_backs_up(self):
         original = build.input_files(self.rom, self.expected, self.records)
+        original.update({'indexes/' + p: data for p, data in build.indexes.input_files(self.payload, self.expected).items()})
         for name, data in [('clips.json', None), ('clips.json', b'null'), ('clips.json', b'{}'),
-                           ('clips.json', b'bad'), ('backing.bin', b'changed'), ('manifest.json', b'{}')]:
+                           ('clips.json', b'bad'), ('backing.bin', b'changed'),
+                           ('indexes/indexes.json', None), ('indexes/indexes.json', b'{}'),
+                           ('indexes/manifest.json', b'{}'), ('manifest.json', b'{}')]:
             for key, value in original.items(): (self.directory / key).write_bytes(value)
             file = self.directory / name
             if data is None: file.unlink()
             else: file.write_bytes(data)
-            before = {p.name: p.read_bytes() for p in self.directory.iterdir()}
+            before = {str(p.relative_to(self.directory)): p.read_bytes() for p in self.directory.rglob('*') if p.is_file()}
             with self.assertRaisesRegex(ValueError, 'Inputs were preserved'):
                 build.packed_object(self.directory, self.expected)
-            self.assertEqual({p.name: p.read_bytes() for p in self.directory.iterdir()}, before)
+            self.assertEqual({str(p.relative_to(self.directory)): p.read_bytes() for p in self.directory.rglob('*') if p.is_file()}, before)
         with patch.object(build, 'reviewed_objects', return_value=(self.rom, [(self.expected, self.records)])):
             result = build.recover_inputs(self.part, self.root)
         self.assertEqual((Path(result['backup_directory']) / 'manifest.json').read_bytes(), b'{}')
@@ -98,16 +116,16 @@ class AnimationClipsBuildTests(unittest.TestCase):
         output = self.root / 'report'
         with patch.object(targets, 'ROOT', self.root):
             unit, item = targets.prepare_animation_clips_object(self.rom, self.expected, output=output)
-            self.assertEqual(unit['rom_ranges'], self.expected['rom_ranges'])
-            self.assertEqual(unit['size'], len(self.fresh) * 2)
+            self.assertEqual(unit['rom_ranges'], build.indexes.owned_ranges(self.expected))
+            self.assertEqual(unit['size'], len(self.fresh) * 2 + 64)
             self.assertEqual(item['name'], 'assets/animations/partial/' + self.part)
             candidate = targets.sections((output / unit['base_path']).read_bytes(), 1)['.data'][1]
-            self.assertEqual(candidate, self.fresh * 2)
+            self.assertEqual(candidate, self.tables[0] + self.fresh + self.tables[1] + self.fresh)
             changed = bytearray(self.payload); changed[0] ^= 1
             linked.write_bytes(object_file([('.data', 1, 3, bytes(changed))]))
             with self.assertRaisesRegex(ValueError, 'linked candidate'):
                 targets.prepare_animation_clips_object(self.rom, self.expected, output=output)
             linked.write_bytes(object_file([('.data', 1, 3, self.payload)]))
-            changed_rom = bytearray(self.rom); changed_rom[14] ^= 1
+            changed_rom = bytearray(self.rom); changed_rom[self.expected['rom_ranges'][0][0]] ^= 1
             with self.assertRaisesRegex(ValueError, 'original ROM'):
                 targets.prepare_animation_clips_object(bytes(changed_rom), self.expected, output=output)

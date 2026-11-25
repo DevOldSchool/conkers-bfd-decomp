@@ -1,0 +1,66 @@
+{
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "baseline": {
+    "fuzzy_match_percent": 31.577194,
+    "total_code": "2246328",
+    "matched_code": "700900",
+    "matched_code_percent": 31.202034,
+    "total_data": "65120512",
+    "matched_data": "63097229",
+    "matched_data_percent": 96.89302,
+    "total_functions": 5911,
+    "matched_functions": 4004,
+    "matched_functions_percent": 67.73811,
+    "complete_code": "173604",
+    "complete_code_percent": 7.728346,
+    "complete_data": "63076285",
+    "complete_data_percent": 96.860855,
+    "total_units": 12115,
+    "complete_units": 11450
+  },
+  "current": {
+    "fuzzy_match_percent": 31.577194,
+    "total_code": "2246328",
+    "matched_code": "700900",
+    "matched_code_percent": 31.202034,
+    "total_data": "65120512",
+    "matched_data": "63100336",
+    "matched_data_percent": 96.89779,
+    "total_functions": 5911,
+    "matched_functions": 4004,
+    "matched_functions_percent": 67.73811,
+    "complete_code": "173604",
+    "complete_code_percent": 7.728346,
+    "complete_data": "63079392",
+    "complete_data_percent": 96.86562,
+    "total_units": 12116,
+    "complete_units": 11451
+  },
+  "changed_existing_units": [
+    "assets/storage/bank1C/unreconstructed"
+  ],
+  "new_units": [
+    "assets/menu-text/bank1C"
+  ],
+  "prior_source_hashes_preserved": 26807,
+  "new_sources": [
+    "build/assets/asset-directories/us/bank1C/menu-text/manifest.json",
+    "build/assets/asset-directories/us/bank1C/menu-text/text.json"
+  ],
+  "remaining_bytes": 2020176,
+  "source_fingerprint": "a591d86ad69d65df62ccdc539b04db0c51fbad76c970b255683cf6c0fdc53125",
+  "gain_bytes": 3107,
+  "limits": {
+    "excluded_storage_bytes": 13,
+    "other_languages_unpopulated": true,
+    "icon_names_are_native_descriptor_identities": true
+  },
+  "omitted_gate_logs": [
+    "accepted_date",
+    "report_sha256",
+    "tested_base_commit",
+    "uncommitted_changes",
+    "validation"
+  ]
+}

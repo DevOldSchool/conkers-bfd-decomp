@@ -8,10 +8,10 @@ import struct
 
 try:
     from scripts.build_files import write_if_changed
-    from scripts import mp3_assets
+    from scripts import mp3_assets, mp3_layout
 except ModuleNotFoundError:
     from build_files import write_if_changed
-    import mp3_assets
+    import mp3_assets, mp3_layout
 
 
 def sha256(data: bytes) -> str:
@@ -72,25 +72,32 @@ def initialize_inputs(directory: Path, manifest: dict, rom: bytes) -> None:
     (directory / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
 
 
-def input_hashes(directory: Path, expected: dict) -> dict[str, str]:
+def input_hashes(directory: Path, expected: dict, *, include_layout=False) -> dict[str, str]:
     manifest = json.loads((directory / 'manifest.json').read_text())
     if manifest != expected:
         raise ValueError('MP3 bank manifest differs from the reviewed ROM layout')
     names = ['manifest.json'] + [entry['file'] for entry in expected['streams'] + expected['padding']]
-    return {name: sha256((directory / name).read_bytes()) for name in names}
+    hashes = {name: sha256((directory / name).read_bytes()) for name in names}
+    if include_layout:
+        hashes.update(mp3_layout.input_hashes(directory, expected))
+    return hashes
 
 
-def packed_bank(directory: Path, expected: dict) -> tuple[bytes, dict[str, str]]:
+def packed_bank(directory: Path, expected: dict, *, include_layout=False) -> tuple[bytes, dict[str, str]]:
     """Keep fixed storage coordinates; edits must retain stream lengths and framing.
 
     Index metadata and alignment padding retain their original values. Streams may
     change without changing their recorded original digest; comparison and the
     complete ROM build independently decide whether the result still matches.
     """
-    before = input_hashes(directory, expected)
+    before = input_hashes(directory, expected, include_layout=include_layout)
     size = expected['rom_end'] - expected['rom_start']
     output = bytearray(size)
     table = b''.join(struct.pack('>II', *record) for record in expected['records'])
+    layout_parts = {}
+    if include_layout:
+        layout_parts = {part['offset']: data for part, data in mp3_layout.encoded(directory, expected)}
+        table = layout_parts[0]
     output[:len(table)] = table
     cursor = len(table)
     pieces = sorted([(entry, True) for entry in expected['streams']]
@@ -106,21 +113,29 @@ def packed_bank(directory: Path, expected: dict) -> tuple[bytes, dict[str, str]]
                 raise ValueError('MP3 bank stream has no complete MPEG frames')
         elif sha256(data) != entry['sha256']:
             raise ValueError('MP3 bank alignment padding changed')
+        elif include_layout:
+            data = layout_parts[cursor]
         output[cursor:end] = data
         cursor = end
-    if cursor != size or before != input_hashes(directory, expected):
+    if cursor != size or before != input_hashes(directory, expected, include_layout=include_layout):
         raise ValueError('MP3 bank is incomplete or inputs changed during packing')
     return bytes(output), before
 
 
-def build_bank(input_dir: Path, output: Path) -> tuple[bytes, dict]:
+def build_bank(input_dir: Path, output: Path, *, include_layout=False) -> tuple[bytes, dict]:
     rom_path, rom, _, family = mp3_assets.load_profile_mp3_assets('us', None)
     expected = describe_bank(rom, family)
+    if include_layout:
+        _, layout = mp3_assets.resolve_rom('us', rom_path)
+        mp3_layout.verify_consumers(rom, layout)
     if output.resolve() == rom_path.resolve() or output.resolve().is_relative_to(input_dir.resolve()):
         raise ValueError('MP3 bank output would overwrite source inputs')
     if not (input_dir / 'manifest.json').is_file():
         initialize_inputs(input_dir, expected, rom)
-    packed, hashes = packed_bank(input_dir, expected)
+    if include_layout:
+        input_hashes(input_dir, expected)
+        mp3_layout.ensure_inputs(input_dir, expected)
+    packed, hashes = packed_bank(input_dir, expected, include_layout=include_layout)
     output.parent.mkdir(parents=True, exist_ok=True)
     write_if_changed(output, packed)
     evidence = {'rom_start': expected['rom_start'], 'rom_end': expected['rom_end'],
@@ -181,7 +196,7 @@ if __name__ == '__main__':
     elif sys.argv[1:] == ['build-parts']:
         root = mp3_assets.ROOT
         inputs = root / 'build/assets/mp3-bank/us'
-        packed, _ = build_bank(inputs, root / 'build/us/audio/asset_bank_16.bin')
+        packed, _ = build_bank(inputs, root / 'build/us/audio/asset_bank_16.bin', include_layout=True)
         manifest = json.loads((inputs / 'manifest.json').read_text())
         write_parts(packed, manifest, profile, root / 'build/us/audio/parts')
         print(f'Built {len(layout_bins(profile))} MP3 bank split inputs from US YAML')

@@ -1,0 +1,151 @@
+{
+  "status": "accepted",
+  "baseline": {
+    "fuzzy_match_percent": 31.577194,
+    "total_code": "2246328",
+    "matched_code": "700900",
+    "matched_code_percent": 31.202034,
+    "total_data": "65120512",
+    "matched_data": "63125280",
+    "matched_data_percent": 96.9361,
+    "total_functions": 5911,
+    "matched_functions": 4004,
+    "matched_functions_percent": 67.73811,
+    "complete_code": "173604",
+    "complete_code_percent": 7.728346,
+    "complete_data": "63079392",
+    "complete_data_percent": 96.86562,
+    "total_units": 12126,
+    "complete_units": 11451
+  },
+  "current": {
+    "fuzzy_match_percent": 31.577194,
+    "total_code": "2246328",
+    "matched_code": "700900",
+    "matched_code_percent": 31.202034,
+    "total_data": "65120512",
+    "matched_data": "63194272",
+    "matched_data_percent": 97.04204,
+    "total_functions": 5911,
+    "matched_functions": 4004,
+    "matched_functions_percent": 67.73811,
+    "complete_code": "173604",
+    "complete_code_percent": 7.728346,
+    "complete_data": "63148384",
+    "complete_data_percent": 96.97157,
+    "total_units": 12126,
+    "complete_units": 11451
+  },
+  "changed_existing_units": {
+    "summarized_list": true,
+    "count": 221,
+    "sha256": "0f84769a36fc45127e145f311de34b3bb47924acef2375ba6a83da8f3e5760af",
+    "first": [
+      "assets/audio/mp3/spectral/0000",
+      "assets/audio/mp3/spectral/0003",
+      "assets/audio/mp3/spectral/0004"
+    ]
+  },
+  "prior_source_hashes_preserved": 26809,
+  "new_source_files": 440,
+  "mp3_linked_objects_preserved": 453,
+  "remaining_bytes": 1926240,
+  "source_fingerprint": "d3cb8920299e71076c1268812e268c92399c56ae59a8f930978e78219cb24164",
+  "snapshot_status": "current",
+  "worktree_changes": true,
+  "data_gain_bytes": 68992,
+  "records": 9856,
+  "streams": 220,
+  "credited_bytes_per_record": 7,
+  "excluded_bytes_per_record": 2,
+  "native_consumers": [
+    {
+      "overlay": "main",
+      "start": 2147558752,
+      "size": 40,
+      "sha1": "891d4b000acebe7251dee825974542e2a74212c5"
+    },
+    {
+      "overlay": "main",
+      "start": 2147558792,
+      "size": 68,
+      "sha1": "a7d7983558e28d6af01912d7c3baf6d9eb841850"
+    },
+    {
+      "overlay": "main",
+      "start": 2147559144,
+      "size": 48,
+      "sha1": "002e44a318f56df2b5313c0e2e1c6b145e9b5f39"
+    },
+    {
+      "overlay": "game",
+      "start": 352598528,
+      "size": 32,
+      "sha1": "79822b53f37d06c0cf08afdeb29580c138155b46"
+    },
+    {
+      "overlay": "game",
+      "start": 352598560,
+      "size": 168,
+      "sha1": "a8f08074a03814baa3e3db1a21bf2ed69350a9fe"
+    },
+    {
+      "overlay": "game",
+      "start": 352598728,
+      "size": 168,
+      "sha1": "f2fb9139029b3f4a49582cd44f30f0f47298ddb3"
+    },
+    {
+      "overlay": "game",
+      "start": 352598896,
+      "size": 72,
+      "sha1": "3b994815cf19f20042240c6513cf206ca2bab71d"
+    },
+    {
+      "overlay": "game",
+      "start": 352598968,
+      "size": 236,
+      "sha1": "fdf0bfe5d63d14e4b28a1144ed6ed826eee23911"
+    },
+    {
+      "overlay": "game",
+      "start": 352599204,
+      "size": 232,
+      "sha1": "c7101091b6d8149f51f5e7733bfddd215fc86f64"
+    },
+    {
+      "overlay": "game",
+      "start": 352846376,
+      "size": 288,
+      "sha1": "c6151197222d84208ae36f32a183fd0f8e1569ac"
+    },
+    {
+      "overlay": "game",
+      "start": 352846896,
+      "size": 204,
+      "sha1": "d874d3ff162bcefda9530ef55c22883b88b33701"
+    },
+    {
+      "overlay": "game",
+      "start": 354368540,
+      "size": 24,
+      "sha1": "19e438e8442b48db32bfbb32a486f5a7a2feb464"
+    },
+    {
+      "overlay": "game",
+      "start": 354387632,
+      "size": 436,
+      "sha1": "07873affa142228a4e117b1993e2b16bee24b7e3"
+    }
+  ],
+  "omitted_gate_logs": [
+    "asset_build",
+    "full_tests",
+    "mutations",
+    "native_report",
+    "progress_check",
+    "report_sha256",
+    "tested_base_commit",
+    "whitespace_check"
+  ]
+}

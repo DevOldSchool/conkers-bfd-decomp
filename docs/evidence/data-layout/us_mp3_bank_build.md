@@ -73,3 +73,10 @@ denominator as unmatched targets. Repacking original encoded streams does not
 automatically grant reconstruction credit.
 The bank remains split and verified in `us.yaml` and the ROM build. Generated
 bundles remain ignored. See [the published report scope](../../objdiff.md#scope).
+
+## Directory and alignment follow-up
+
+The later [MP3 layout reconstruction](us_mp3_layout.md) introduces typed editable
+index fields and fresh alignment generation for 5,151 bytes. It preserves this
+bank's original source bundle and stream-edit behavior. Stream spectral and
+metadata reconstruction are separate from this layout family.

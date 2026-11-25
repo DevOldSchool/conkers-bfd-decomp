@@ -235,6 +235,66 @@ def prepare_animation_controls() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_animation_controls(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
 
+def prepare_asset_directories() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_asset_directories(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_model_alignment() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_model_alignment(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_save_layout() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_save_layout(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_camera_tracks() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_camera_tracks(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_menu_text() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_menu_text(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_scene_headers() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_scene_headers(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_spawn_records() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_spawn_records(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_model_placements() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_model_placements(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_scene_structures() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_scene_structures(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_direct_models() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_direct_models(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_duplicate_models() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_duplicate_models(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_bank_indexes() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_bank_indexes(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_dialogue() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_dialogue(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_collision_controls() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_collision_controls(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
+def prepare_mp3_layout() -> tuple[list[dict], list[dict]]:
+    return objdiff_data_targets.prepare_mp3_layout(main_private_data.validated_rom(ROOT), output=OUTPUT)
+
+
 def prepare_scripts() -> tuple[list[dict], list[dict]]:
     return objdiff_data_targets.prepare_scripts(main_private_data.validated_rom(ROOT), output=OUTPUT)
 
@@ -408,6 +468,21 @@ def annotate_sdk_literal_candidates(units: list[dict], configs: list[dict]) -> N
 
 # Report unit order; functions are looked up by name when the report runs.
 ASSET_FAMILIES = (
+    ('asset directories', 'prepare_asset_directories'),
+    ('model alignment', 'prepare_model_alignment'),
+    ('save layout', 'prepare_save_layout'),
+    ('camera tracks', 'prepare_camera_tracks'),
+    ('menu text', 'prepare_menu_text'),
+    ('dialogue', 'prepare_dialogue'),
+    ('scene headers', 'prepare_scene_headers'),
+    ('spawn records', 'prepare_spawn_records'),
+    ('model placements', 'prepare_model_placements'),
+    ('scene structures', 'prepare_scene_structures'),
+    ('bank indexes and alignment', 'prepare_bank_indexes'),
+    ('direct auxiliary models', 'prepare_direct_models'),
+    ('duplicate normal models', 'prepare_duplicate_models'),
+    ('collision controls', 'prepare_collision_controls'),
+    ('MP3 directory/alignment', 'prepare_mp3_layout'),
     ('animation controls', 'prepare_animation_controls'), ('scripts', 'prepare_scripts'),
     ('animation bank', 'prepare_animation_bank'), ('scene fields', 'prepare_scene_fields'),
     ('scene volumes', 'prepare_scene_volumes'), ('animation clips', 'prepare_animation_clips'),

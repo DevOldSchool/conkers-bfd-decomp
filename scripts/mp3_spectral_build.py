@@ -10,13 +10,13 @@ import tempfile
 from pathlib import Path
 
 try:
-    from scripts import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec
+    from scripts import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec, mp3_metadata_build as metadata, mp3_cue_build as cues
     from scripts import mp3_table_build, texture_build
     from scripts.build_files import write_if_changed, cached_sha256
     from scripts import asset_receipts
     from scripts.build_jobs import job_count
 except ModuleNotFoundError:
-    import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec
+    import asset_inputs, mp3_assets, mp3_bank, mp3_spectral_codec as codec, mp3_metadata_build as metadata, mp3_cue_build as cues
     import mp3_table_build, texture_build
     from build_files import write_if_changed, cached_sha256
     import asset_receipts
@@ -55,6 +55,8 @@ def reviewed_streams(root=ROOT):
     checked, _, _ = mp3_table_build.reviewed_tables(root)
     if checked != rom:
         raise ValueError('MP3 decoder table reference differs from stream ROM')
+    _, layout = mp3_assets.resolve_rom('us', root / 'roms/baserom.us.z64')
+    cues.verify_consumers(rom, layout)
     bank = mp3_bank.describe_bank(rom, family)
     expected_splits = [(bank['rom_start'], 'audio/mp3/index')] + sorted(
         (bank['rom_start'] + entry['offset'], 'audio/mp3/' + str(Path(entry['file']).with_suffix('')))
@@ -90,14 +92,28 @@ def input_error(directory, expected, reason):
                       'to back up and restore typed coefficients. Original MP3 files are never replaced.')
 
 
-def input_hashes(directory, expected):
+def input_hashes(directory, expected, *, include_metadata=False, include_cues=False):
     try:
         hashes = asset_inputs.manifest_hashes(directory, expected, ('manifest.json', 'stream.json'), 'MPEG coefficients')
         raw = raw_relative_name(expected['entry'])
         hashes[raw] = sha256((directory / raw).read_bytes())
         if hashes[raw] != expected['original_sha256']:
             raise ValueError('original MP3 input changed; restore it before spectral reconstruction')
+        if include_metadata:
+            reviewed = metadata.reviewed_tag((directory / raw).read_bytes(), expected)
+            if reviewed is not None:
+                relative = metadata.relative_directory(expected['entry'])
+                hashes.update({(relative / name).as_posix(): digest for name, digest in
+                               metadata.input_hashes(directory / relative, reviewed[0]).items()})
+        if include_cues:
+            reviewed = cues.reviewed_stream((directory / raw).read_bytes(), expected)
+            if reviewed is not None:
+                relative = cues.relative_directory(expected['entry'])
+                hashes.update({(relative / name).as_posix(): digest for name, digest in
+                               cues.input_hashes(directory / relative, reviewed[0]).items()})
         return hashes
+    except (metadata.InputError, cues.InputError):
+        raise
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
 
@@ -172,8 +188,8 @@ def encoded_spans(records, expected, hashes, include_partial, cache_directory=No
     return spans
 
 
-def packed_stream(directory, expected, *, include_partial=False, cache_directory=None):
-    before = input_hashes(directory, expected)
+def packed_stream(directory, expected, *, include_partial=False, cache_directory=None, include_metadata=False, include_cues=False):
+    before = input_hashes(directory, expected, include_metadata=include_metadata, include_cues=include_cues)
     try:
         records = json.loads((directory / 'stream.json').read_text())
         spans = encoded_spans(records, expected, before, include_partial, cache_directory)
@@ -191,19 +207,43 @@ def packed_stream(directory, expected, *, include_partial=False, cache_directory
             wanted_ranges = [[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in extra_ranges]
         if ranges != wanted_ranges:
             raise ValueError('MPEG reconstructed ranges differ from reviewed physical frames')
+        if include_metadata:
+            reviewed = metadata.reviewed_tag(original, expected)
+            if reviewed is not None:
+                extra, _ = metadata.packed_tag(directory / metadata.relative_directory(expected['entry']), reviewed[0])
+                spans = metadata.codec.merge([*spans, *extra])
+        if include_cues:
+            reviewed = cues.reviewed_stream(original, expected)
+            if reviewed is not None:
+                extra, _ = cues.packed_fields(directory / cues.relative_directory(expected['entry']), reviewed[0])
+                spans = metadata.codec.merge([*spans, *extra])
         packed = bytearray(original)
         if len(packed) != expected['rom_end'] - expected['rom_start']:
             raise ValueError('original MP3 input extent changed')
-        # Only excluded cue/tail/gap bytes come from this original backing.
+        # Only excluded cue fields, tail and gap bytes come from this backing.
         for start, payload in spans:
             packed[start:start + len(payload)] = payload
         if sha256(packed) != expected['original_sha256']:
             raise ValueError('MPEG coefficients no longer reconstruct original stream bytes')
+    except (metadata.InputError, cues.InputError):
+        raise
     except (OSError, ValueError) as error:
         raise input_error(directory, expected, str(error)) from error
-    if input_hashes(directory, expected) != before:
+    if input_hashes(directory, expected, include_metadata=include_metadata, include_cues=include_cues) != before:
         raise ValueError('MPEG inputs changed during packing')
     return bytes(packed), spans, before
+
+
+def report_ranges(original, expected):
+    ranges, _, _ = codec.reviewed_ranges(original, include_partial=True)
+    reviewed = metadata.reviewed_tag(original, expected)
+    if reviewed is not None:
+        ranges += reviewed[0]['ranges']
+    reviewed = cues.reviewed_stream(original, expected)
+    if reviewed is not None:
+        ranges += reviewed[0]['ranges']
+    merged = metadata.codec.merge([(a, original[a:z]) for a, z in ranges])
+    return [[a, a + len(data)] for a, data in merged]
 
 
 def recover_inputs(entry, root=ROOT):
@@ -224,8 +264,10 @@ def prepare_candidate(task):
     if not directory.exists():
         records = codec.decode_stream(original)
         texture_build.publish_inputs(directory, input_files(expected, records))
+    metadata.initialize(root, original, expected)
+    cues.initialize(root, original, expected)
     packed, spans, hashes = packed_stream(directory, expected, include_partial=True,
-                                          cache_directory=root / 'build/us/mp3-spectral/cache')
+                                          cache_directory=root / 'build/us/mp3-spectral/cache', include_metadata=True, include_cues=True)
     if packed != original:
         raise ValueError('MPEG candidate differs from independent original stream')
     return expected, directory, packed, hashes
@@ -244,12 +286,13 @@ def build_parts(root=ROOT, entries=None):
     mp3_bank.build_bank(root / 'build/assets/mp3-bank/us', root / 'build/us/audio/asset_bank_16.bin')
     with ProcessPoolExecutor(max_workers=job_count()) as workers:
         candidates = list(workers.map(prepare_candidate, ((root, e, raw) for e, raw in selected)))
-    asset_inputs.check_batch_sources(candidates, input_hashes, 'MPEG spectral')
+    asset_inputs.check_batch_sources(candidates,
+        lambda directory, expected: input_hashes(directory, expected, include_metadata=True, include_cues=True), 'MPEG spectral')
     proofs, receipts = [], {}
     for expected, directory, packed, hashes in candidates:
         name = part_name(expected['entry'])
         write_if_changed(root / 'build/us/mp3-spectral/parts' / (name + '.bin'), packed)
-        ranges, _, _ = codec.reviewed_ranges(packed, include_partial=True)
+        ranges = report_ranges(packed, expected)
         physical = [[expected['rom_start'] + a, expected['rom_start'] + z] for a, z in ranges]
         proofs.append({**expected, 'rom_ranges': physical, 'source_inputs': hashes, 'matches_original': True,
                        'reconstructed_bytes': sum(end - start for start, end in physical)})

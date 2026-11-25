@@ -828,7 +828,7 @@ def main() -> int:
                 from mp3_bank import build_bank
             input_dir = args.input if args.input.is_absolute() else ROOT / args.input
             output = args.output if args.output.is_absolute() else ROOT / args.output
-            packed, evidence = build_bank(input_dir, output)
+            packed, evidence = build_bank(input_dir, output, include_layout=True)
             print(f"Built US MP3 bank: {evidence['stream_count']} streams, {len(packed)} bytes; "
                   f"matches original: {evidence['matches_original']}")
         elif args.command == "verify":

@@ -192,6 +192,23 @@ record when extending the same claim.
 
 - [US animation-control records](us_animation_control_reconstruction.md): 82 bank-0F entries with typed routes, events, action phases and behavior instructions.
 
+- [US scene structures](us_scene_structures.md): native directories, generated alignment and bounded collision-cylinder groups.
+- [US model placements](us_model_placements.md): compressed prop records and additional typed scene parameters with disjoint ownership.
+- [US spawn records](us_spawn_records.md): typed compressed scene lists with an explicitly excluded unresolved record stream.
+- [US scene headers and lookup lists](us_scene_headers.md): typed native fields, generated indexes and alignment; unknown header bytes excluded.
+- [US standalone model-bank alignment](us_model_alignment.md): padding derived from typed directory boundaries.
+- [US native asset directories](us_asset_directory_reconstruction.md): typed offsets, sizes and flags; backing excluded from credit.
+- [US MP3 source metadata fields](us_mp3_metadata_fields.md): bounded text fields with post-terminator residue excluded.
+- [US save-field widths](us_save_field_widths.md): 69 native save/load bit widths, with trailing storage excluded.
+- [US camera tracks](us_camera_tracks.md): four native six-float delta streams with fresh compression.
+- [US collision-control subset](us_collision_controls.md): 16 bank-0F entries with 42 typed response records; unresolved byte 33 is constrained to zero, and other entries remain excluded.
+- [US MP3 directory and alignment](us_mp3_layout.md): 462 typed index records and 368 generated minimal alignment spans, compared through their actual linker objects.
+- [US menu text](us_menu_text.md): 438 editable strings, four named inline icon codes, derived string alignment and a typed nested directory.
+- [US dialogue](us_dialogue.md): language directories, pages with native renderer controls and 16-bit audio IDs, with fresh compression and separate external gaps.
+- [US MP3 animation-command fields](us_mp3_cue_fields.md): native action and duration fields; two unconsumed bytes per record remain excluded.
+- [US duplicated model normals](us_duplicate_model_normals.md): bank-04 model 58, whose unexplained child prefix duplicates the primary model's 28 typed normal tables.
+- [US short model normals](us_short_model_normals.md): bank-03 model 66, with an explicit 16-pair normal table verified against every loaded cache slot.
+
 - [Light nested switch tables](effects_light_jump_tables.md): both ROM-backed dispatch tables for `func_151604A0`.
 - [US SDK literal and VI symbol metadata](us_sdk_literal_symbols.md): candidate-instruction literal widths and a compiled 80-byte video-mode layout, with comparison-only metadata repairs.
 

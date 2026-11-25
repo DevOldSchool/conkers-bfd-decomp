@@ -182,8 +182,8 @@ def model_records(payload: bytes, *, bank: int, entry: int | None = None,
         raise ValueError('model has unsupported auxiliary regions')
     display_end = geometry.display_list_offset + geometry.display_list_size
     commands = list(struct.iter_unpack('>II', payload[geometry.display_list_offset:display_end]))
-    # DC38000E transfers 32 signed XY pairs, addressed by vertex-cache slot.
-    # Admit only complete, contiguous, referenced tables; do not absorb gaps.
+    # DC38000E selects the normal base, addressed by vertex-cache slot.
+    # This codec admits only complete 32-pair, contiguous, referenced tables.
     normal_offsets = sorted({argument for command, argument in commands
                              if command == model_assets.CHARACTER_CUSTOM_MOVEMEM_COMMAND})
     normal_end = display_end + 64 * len(normal_offsets)

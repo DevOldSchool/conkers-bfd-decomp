@@ -1,0 +1,40 @@
+{
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "source_fingerprint": "cb9d0abca6a4e70571218955f7432592e20e24e38f24c0f5ec16cff3bbecb9e3",
+  "data": {
+    "total_data": "65120512",
+    "matched_data": "63092078",
+    "matched_data_percent": 96.88511,
+    "complete_data": "63071134"
+  },
+  "gain_bytes": 6056,
+  "remaining_bytes": 2028434,
+  "prior_source_hashes_preserved": 26434,
+  "new_sources": [
+    "build/assets/animation-control/us/bank0F/collision-controls/controls.json",
+    "build/assets/animation-control/us/bank0F/collision-controls/manifest.json"
+  ],
+  "changed_existing_units": [
+    "assets/storage/bank0F/unreconstructed"
+  ],
+  "new_units": [
+    "assets/collision-controls/bank0F"
+  ],
+  "limits": {
+    "unresolved_collision_offset": 33,
+    "nonzero_entries": [
+      0,
+      128
+    ],
+    "remaining_collision_entries": 33,
+    "remaining_collision_stored_bytes": 53566
+  },
+  "omitted_gate_logs": [
+    "accepted_date",
+    "report_sha256",
+    "tested_base_commit",
+    "uncommitted_changes",
+    "validation"
+  ]
+}

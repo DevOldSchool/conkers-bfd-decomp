@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "profile": "us",
+  "scope": "bank-1B camera state delta tracks",
+  "validated_on": "2026-10-26",
+  "freshness_rechecked_on": "2026-10-29",
+  "local_changes_applied": true,
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "rom_size": 67108864,
+  "source_fingerprint": "43a057aae6951c46849feb84935733d5d5d762622e28423f2075d0a361d58498",
+  "consumers": [
+    {
+      "start": 353555000,
+      "size": 172,
+      "sha1": "c8377042a8ea9554438110cd544b3504e6e5f58d"
+    },
+    {
+      "start": 353551504,
+      "size": 3040,
+      "sha1": "6e3de8106f6ac5997e9db8d4da9acde1a106f965"
+    },
+    {
+      "start": 353555192,
+      "size": 112,
+      "sha1": "2cae95492810b9f2236178b577ecc53922d77624"
+    }
+  ],
+  "tracks": [
+    {
+      "index": 0,
+      "offset": 32,
+      "stored_size": 1351,
+      "flags": 1,
+      "decoded_size": 2640,
+      "frames": 110,
+      "stored_sha256": "b74eaaa06c3e8147947a47dec4d8d2cb59d74dd88b239e58ad044d31bbc1e525",
+      "decoded_sha256": "0ec5381fdf2963add8502e5974e2789f9529418cdd16d483a031881c766c5aad"
+    },
+    {
+      "index": 1,
+      "offset": 1384,
+      "stored_size": 1530,
+      "flags": 1,
+      "decoded_size": 3120,
+      "frames": 130,
+      "stored_sha256": "d23157a4e38de07ba47fb0b2a9fa07b9d7b646a2902358d98956813ae8ab3e70",
+      "decoded_sha256": "4e8412e90d0dc17947a70b585589dcf96dd3772111b40a079e25abb74720ac23"
+    },
+    {
+      "index": 2,
+      "offset": 2920,
+      "stored_size": 1783,
+      "flags": 1,
+      "decoded_size": 3120,
+      "frames": 130,
+      "stored_sha256": "727a0c75481ed490f3e23e80a0dc8c4d127dc6fb16cd4cf7e2ee7542061e75a5",
+      "decoded_sha256": "28c7ec4914f885b100f498acc228e47a8ddc36d06a408414ce5a3fa7d6a81326"
+    },
+    {
+      "index": 3,
+      "offset": 4704,
+      "stored_size": 629,
+      "flags": 9,
+      "decoded_size": 3120,
+      "frames": 130,
+      "stored_sha256": "d4bc0777a2d3d2579420b510e1e87317875606efe7c7e079dec2fce3cea147de",
+      "decoded_sha256": "4d5a5654113c1a2a0ab931112f97d14b740a3156f49548e83213c9429dc3e991"
+    }
+  ],
+  "rom_ranges": [
+    [
+      66623072,
+      66624423
+    ],
+    [
+      66624424,
+      66625954
+    ],
+    [
+      66625960,
+      66627743
+    ],
+    [
+      66627744,
+      66628373
+    ]
+  ],
+  "added_matched_data": 5293,
+  "added_complete_data": 5293,
+  "uncredited_bank_gap_bytes": 11,
+  "matched_data": 63086022,
+  "total_data": 65120512,
+  "matched_data_percent": 96.87581,
+  "complete_data": 63065078,
+  "unchanged_code_and_denominators": true,
+  "changed_existing_units": [
+    "assets/storage/bank1B/unreconstructed"
+  ],
+  "new_units": [
+    "assets/camera-tracks/frame-deltas"
+  ],
+  "prior_source_hashes_preserved": 26432,
+  "new_sources": [
+    "build/assets/asset-directories/us/bank1B/camera-tracks/manifest.json",
+    "build/assets/asset-directories/us/bank1B/camera-tracks/tracks.json"
+  ],
+  "omitted_gate_logs": [
+    "native_report_sha256",
+    "tested_base_commit",
+    "validation"
+  ]
+}

@@ -1,0 +1,1022 @@
+{
+  "status": "accepted",
+  "field_contract": {
+    "status": "reviewed additional load widths; no reconstruction/credit yet",
+    "previous_probe": "scene-header-load-probe.json",
+    "additional_spans": [
+      {
+        "image": "game",
+        "function": "func_150000B0",
+        "start": 352321712,
+        "size": 1584,
+        "sha1": "d7d64152297212fde212ad58a6c6da4805e29e28",
+        "asm": "build/us/objdiff-report/targets/game/asm/000090.s"
+      },
+      {
+        "image": "game",
+        "function": "func_1504A730",
+        "start": 352626480,
+        "size": 1696,
+        "sha1": "cc2b08465267b571c76efcafa9a65573047775e6",
+        "asm": "build/us/objdiff-report/targets/game/asm/04A730.s"
+      },
+      {
+        "image": "game",
+        "function": "func_15186794",
+        "start": 353920916,
+        "size": 2844,
+        "sha1": "cf8df41531db51e4f00144b140289ec3af632c13",
+        "asm": "build/us/objdiff-report/targets/game/asm/184150.s"
+      },
+      {
+        "image": "game",
+        "function": "func_151C2050",
+        "start": 354164816,
+        "size": 588,
+        "sha1": "f50b8215aeeb8f92410c62c766ee6044bcdd9a95",
+        "asm": "build/us/objdiff-report/targets/game/asm/1C2050.s"
+      },
+      {
+        "image": "main",
+        "function": "func_80012020",
+        "start": 2147557408,
+        "size": 1340,
+        "sha1": "c1d977a5ec7af0c058a49442e42e99ecfa384d8f",
+        "asm": "build/us/objdiff-report/targets/main/asm/011FA0.s"
+      }
+    ],
+    "fields": {
+      "00": "lhu",
+      "02": "lhu",
+      "05": "lbu",
+      "06": "lbu",
+      "07": "lbu",
+      "08": "lbu",
+      "09": "lbu",
+      "0A": "lbu",
+      "0B": "lbu",
+      "0C": "lbu",
+      "0D": "lbu",
+      "0E": "lbu",
+      "0F": "lbu",
+      "10": "lbu",
+      "11": "lb",
+      "12": "lbu",
+      "13": "lbu",
+      "14": "lbu",
+      "16": "lh",
+      "18": "lhu",
+      "1A": "lhu",
+      "1C": "lhu",
+      "1E": "lhu",
+      "21": "lbu",
+      "29": "lbu",
+      "2A": "lbu",
+      "2B": "lbu",
+      "2C": "lh",
+      "2E": "lhu",
+      "30": "lhu",
+      "32": "lh",
+      "34": "lhu",
+      "36": "lhu",
+      "38": "lbu",
+      "39": "lbu",
+      "3A": "lh",
+      "3C": "lh",
+      "3E": "lh",
+      "40": "lh",
+      "42": "lbu",
+      "43": "lbu",
+      "44": "lbu",
+      "45": "lbu",
+      "46": "lb",
+      "49": "lbu",
+      "4A": "lbu",
+      "4B": "lbu"
+    },
+    "field_bytes_per_header": 64,
+    "header_bytes": 4288,
+    "nested_directory_bytes": 1072,
+    "unknown_offsets": [
+      "04",
+      "15",
+      "20",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "47",
+      "48"
+    ],
+    "copy_proof": "150000E8..15000118 copies header2C..39 to stack60..6D. Native subsequent loads prove six halfwords (signed IDs at2C/32,unsigned at2E/30/34/36) and unsigned mode bytes38/39. Sites1500014C/150003A0/1500036C/150002A4/1500040C/150003D8/15000188/150006BC. Main800120A8 tests flag2A bit0; all67 values0 or1. Additional direct fields1E@1518683C,49@1504AADC,4A@1504AC54.",
+    "remaining": "Review original35field load leads and exact domains; integrate source/inputs/bank15nested directory; unknown12bytes/header stay backing. No padding or fill credit inferred for unknown bytes."
+  },
+  "load_evidence": {
+    "status": "candidate native-load map; manually review full consumers before credit",
+    "load_sites": [
+      {
+        "function": "func_150006E0",
+        "instruction": "15000710",
+        "word": "944E0002",
+        "operation": "lhu",
+        "offset": 2,
+        "asm": "build/us/objdiff-report/targets/game/asm/000090.s"
+      },
+      {
+        "function": "func_15000940",
+        "instruction": "15000978",
+        "word": "91CA0029",
+        "operation": "lbu",
+        "offset": 41,
+        "asm": "build/us/objdiff-report/targets/game/asm/000940.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "instruction": "15000AF8",
+        "word": "904E0005",
+        "operation": "lbu",
+        "offset": 5,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "instruction": "15000B00",
+        "word": "904F0006",
+        "operation": "lbu",
+        "offset": 6,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "instruction": "15000B08",
+        "word": "90580007",
+        "operation": "lbu",
+        "offset": 7,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "instruction": "15000B18",
+        "word": "90430008",
+        "operation": "lbu",
+        "offset": 8,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "instruction": "15000B3C",
+        "word": "90430008",
+        "operation": "lbu",
+        "offset": 8,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "instruction": "15000C14",
+        "word": "91F80009",
+        "operation": "lbu",
+        "offset": 9,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15002FB4",
+        "instruction": "15003084",
+        "word": "904E0012",
+        "operation": "lbu",
+        "offset": 18,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15002FB4",
+        "instruction": "150030A0",
+        "word": "90430012",
+        "operation": "lbu",
+        "offset": 18,
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15004E80",
+        "instruction": "15004EA0",
+        "word": "95CF001A",
+        "operation": "lhu",
+        "offset": 26,
+        "asm": "build/us/objdiff-report/targets/game/asm/004E00.s"
+      },
+      {
+        "function": "func_150054C4",
+        "instruction": "15005628",
+        "word": "97190002",
+        "operation": "lhu",
+        "offset": 2,
+        "asm": "build/us/objdiff-report/targets/game/asm/005290.s"
+      },
+      {
+        "function": "func_15005A60",
+        "instruction": "15005A78",
+        "word": "91C2000E",
+        "operation": "lbu",
+        "offset": 14,
+        "asm": "build/us/objdiff-report/targets/game/asm/005A60.s"
+      },
+      {
+        "function": "func_15007B3C",
+        "instruction": "15007C18",
+        "word": "81640011",
+        "operation": "lb",
+        "offset": 17,
+        "asm": "build/us/objdiff-report/targets/game/asm/007A70.s"
+      },
+      {
+        "function": "func_15009150",
+        "instruction": "15009190",
+        "word": "91F80010",
+        "operation": "lbu",
+        "offset": 16,
+        "asm": "build/us/objdiff-report/targets/game/asm/009150.s"
+      },
+      {
+        "function": "func_1500AF08",
+        "instruction": "1500AF38",
+        "word": "97030018",
+        "operation": "lhu",
+        "offset": 24,
+        "asm": "build/us/objdiff-report/targets/game/asm/0091D0.s"
+      },
+      {
+        "function": "func_1500E470",
+        "instruction": "1500E548",
+        "word": "9302000A",
+        "operation": "lbu",
+        "offset": 10,
+        "asm": "build/us/objdiff-report/targets/game/asm/00E470.s"
+      },
+      {
+        "function": "func_150127B0",
+        "instruction": "150127F8",
+        "word": "91C30021",
+        "operation": "lbu",
+        "offset": 33,
+        "asm": "build/us/objdiff-report/targets/game/asm/0127B0.s"
+      },
+      {
+        "function": "func_150127B0",
+        "instruction": "150128B8",
+        "word": "91830021",
+        "operation": "lbu",
+        "offset": 33,
+        "asm": "build/us/objdiff-report/targets/game/asm/0127B0.s"
+      },
+      {
+        "function": "func_150127B0",
+        "instruction": "15012940",
+        "word": "91230021",
+        "operation": "lbu",
+        "offset": 33,
+        "asm": "build/us/objdiff-report/targets/game/asm/0127B0.s"
+      },
+      {
+        "function": "func_150127B0",
+        "instruction": "15012A18",
+        "word": "91AF0021",
+        "operation": "lbu",
+        "offset": 33,
+        "asm": "build/us/objdiff-report/targets/game/asm/0127B0.s"
+      },
+      {
+        "function": "func_15015E80",
+        "instruction": "15015EF4",
+        "word": "9524001C",
+        "operation": "lhu",
+        "offset": 28,
+        "asm": "build/us/objdiff-report/targets/game/asm/015E80.s"
+      },
+      {
+        "function": "func_1501CC3C",
+        "instruction": "1501CC58",
+        "word": "91C8002B",
+        "operation": "lbu",
+        "offset": 43,
+        "asm": "build/us/objdiff-report/targets/game/asm/01C880.s"
+      },
+      {
+        "function": "func_1502C974",
+        "instruction": "1502CAEC",
+        "word": "852B003E",
+        "operation": "lh",
+        "offset": 62,
+        "asm": "build/us/objdiff-report/targets/game/asm/02BAD0.s"
+      },
+      {
+        "function": "func_150311C4",
+        "instruction": "150312E8",
+        "word": "852A003E",
+        "operation": "lh",
+        "offset": 62,
+        "asm": "build/us/objdiff-report/targets/game/asm/02FE10.s"
+      },
+      {
+        "function": "func_150311C4",
+        "instruction": "150313B0",
+        "word": "85F8003E",
+        "operation": "lh",
+        "offset": 62,
+        "asm": "build/us/objdiff-report/targets/game/asm/02FE10.s"
+      },
+      {
+        "function": "func_1505B5F8",
+        "instruction": "1505B6D8",
+        "word": "91A20013",
+        "operation": "lbu",
+        "offset": 19,
+        "asm": "build/us/objdiff-report/targets/game/asm/055E50.s"
+      },
+      {
+        "function": "func_1510FEA0",
+        "instruction": "1511025C",
+        "word": "93290008",
+        "operation": "lbu",
+        "offset": 8,
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15111AF4",
+        "instruction": "15111CD4",
+        "word": "90780005",
+        "operation": "lbu",
+        "offset": 5,
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15111AF4",
+        "instruction": "15111CE4",
+        "word": "906F0006",
+        "operation": "lbu",
+        "offset": 6,
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15111AF4",
+        "instruction": "15111CEC",
+        "word": "90790007",
+        "operation": "lbu",
+        "offset": 7,
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15111AF4",
+        "instruction": "15111F98",
+        "word": "932E0009",
+        "operation": "lbu",
+        "offset": 9,
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15130230",
+        "instruction": "15130248",
+        "word": "91C2000F",
+        "operation": "lbu",
+        "offset": 15,
+        "asm": "build/us/objdiff-report/targets/game/asm/130230.s"
+      },
+      {
+        "function": "func_151732E0",
+        "instruction": "151732FC",
+        "word": "8462003C",
+        "operation": "lh",
+        "offset": 60,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151732E0",
+        "instruction": "15173300",
+        "word": "846E0040",
+        "operation": "lh",
+        "offset": 64,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151732E0",
+        "instruction": "1517330C",
+        "word": "90780042",
+        "operation": "lbu",
+        "offset": 66,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151738C4",
+        "instruction": "151738E0",
+        "word": "81CF0046",
+        "operation": "lb",
+        "offset": 70,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151738C4",
+        "instruction": "1517396C",
+        "word": "904E0005",
+        "operation": "lbu",
+        "offset": 5,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151738C4",
+        "instruction": "15173974",
+        "word": "904F0006",
+        "operation": "lbu",
+        "offset": 6,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151738C4",
+        "instruction": "1517397C",
+        "word": "90580007",
+        "operation": "lbu",
+        "offset": 7,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_15173994",
+        "instruction": "151739A0",
+        "word": "81C20046",
+        "operation": "lb",
+        "offset": 70,
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151749F8",
+        "instruction": "15174A38",
+        "word": "91C2000B",
+        "operation": "lbu",
+        "offset": 11,
+        "asm": "build/us/objdiff-report/targets/game/asm/1749A0.s"
+      },
+      {
+        "function": "func_15174AA4",
+        "instruction": "15174AF4",
+        "word": "9308000C",
+        "operation": "lbu",
+        "offset": 12,
+        "asm": "build/us/objdiff-report/targets/game/asm/1749A0.s"
+      },
+      {
+        "function": "func_15174B48",
+        "instruction": "15174B98",
+        "word": "9308000D",
+        "operation": "lbu",
+        "offset": 13,
+        "asm": "build/us/objdiff-report/targets/game/asm/1749A0.s"
+      },
+      {
+        "function": "func_15178E50",
+        "instruction": "15178E64",
+        "word": "904E0014",
+        "operation": "lbu",
+        "offset": 20,
+        "asm": "build/us/objdiff-report/targets/game/asm/178E50.s"
+      },
+      {
+        "function": "func_151EB06C",
+        "instruction": "151EB278",
+        "word": "91AE0009",
+        "operation": "lbu",
+        "offset": 9,
+        "asm": "build/us/objdiff-report/targets/game/asm/1E84B0.s"
+      }
+    ],
+    "field_operations": {
+      "02": [
+        "lhu"
+      ],
+      "05": [
+        "lbu"
+      ],
+      "06": [
+        "lbu"
+      ],
+      "07": [
+        "lbu"
+      ],
+      "08": [
+        "lbu"
+      ],
+      "09": [
+        "lbu"
+      ],
+      "0A": [
+        "lbu"
+      ],
+      "0B": [
+        "lbu"
+      ],
+      "0C": [
+        "lbu"
+      ],
+      "0D": [
+        "lbu"
+      ],
+      "0E": [
+        "lbu"
+      ],
+      "0F": [
+        "lbu"
+      ],
+      "10": [
+        "lbu"
+      ],
+      "11": [
+        "lb"
+      ],
+      "12": [
+        "lbu"
+      ],
+      "13": [
+        "lbu"
+      ],
+      "14": [
+        "lbu"
+      ],
+      "18": [
+        "lhu"
+      ],
+      "1A": [
+        "lhu"
+      ],
+      "1C": [
+        "lhu"
+      ],
+      "21": [
+        "lbu"
+      ],
+      "29": [
+        "lbu"
+      ],
+      "2B": [
+        "lbu"
+      ],
+      "3C": [
+        "lh"
+      ],
+      "3E": [
+        "lh"
+      ],
+      "40": [
+        "lh"
+      ],
+      "42": [
+        "lbu"
+      ],
+      "46": [
+        "lb"
+      ]
+    },
+    "full_consumer_spans": [
+      {
+        "function": "func_150006E0",
+        "start": 352323296,
+        "size": 600,
+        "sha1": "973702b473ed10d5eda6bee701597aac42b5d530",
+        "asm": "build/us/objdiff-report/targets/game/asm/000090.s"
+      },
+      {
+        "function": "func_15000940",
+        "start": 352323904,
+        "size": 380,
+        "sha1": "e97422686d5b2ccc1824f8942e7972936b3fc09c",
+        "asm": "build/us/objdiff-report/targets/game/asm/000940.s"
+      },
+      {
+        "function": "func_15000AD0",
+        "start": 352324304,
+        "size": 2448,
+        "sha1": "db3541668e93174079730bedd448192d4399922e",
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_15002FB4",
+        "start": 352333748,
+        "size": 352,
+        "sha1": "12671f20de68fa9e1afb07632bf36734bc686177",
+        "asm": "build/us/objdiff-report/targets/game/asm/000AC0.s"
+      },
+      {
+        "function": "func_150031EC",
+        "start": 352334316,
+        "size": 712,
+        "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+        "asm": "build/us/objdiff-report/targets/game/asm/003120.s"
+      },
+      {
+        "function": "func_15004E80",
+        "start": 352341632,
+        "size": 124,
+        "sha1": "3a9708e49a6d867431e6c49ce50510c42ab7671d",
+        "asm": "build/us/objdiff-report/targets/game/asm/004E00.s"
+      },
+      {
+        "function": "func_150054C4",
+        "start": 352343236,
+        "size": 852,
+        "sha1": "0c74b6d5b41ca35bd6dab6d0d4a6da1ddf591901",
+        "asm": "build/us/objdiff-report/targets/game/asm/005290.s"
+      },
+      {
+        "function": "func_15005A60",
+        "start": 352344672,
+        "size": 68,
+        "sha1": "63e8a64e5cd621133063d5d9e7ea7c7e3fa5b974",
+        "asm": "build/us/objdiff-report/targets/game/asm/005A60.s"
+      },
+      {
+        "function": "func_15007B3C",
+        "start": 352353084,
+        "size": 1704,
+        "sha1": "5897d750e22cca5cfd3807a70361042faaf11c86",
+        "asm": "build/us/objdiff-report/targets/game/asm/007A70.s"
+      },
+      {
+        "function": "func_15009150",
+        "start": 352358736,
+        "size": 120,
+        "sha1": "de1fe10acad55765c5fa69f174e157dd177e2096",
+        "asm": "build/us/objdiff-report/targets/game/asm/009150.s"
+      },
+      {
+        "function": "func_1500AF08",
+        "start": 352366344,
+        "size": 748,
+        "sha1": "c21ace33ec6fd5088b86d7aea8b7ad26fdc3b9b3",
+        "asm": "build/us/objdiff-report/targets/game/asm/0091D0.s"
+      },
+      {
+        "function": "func_1500E470",
+        "start": 352380016,
+        "size": 336,
+        "sha1": "65c391c6679cf7b9daab2f1ca4b59f65af00f690",
+        "asm": "build/us/objdiff-report/targets/game/asm/00E470.s"
+      },
+      {
+        "function": "func_150127B0",
+        "start": 352397232,
+        "size": 1236,
+        "sha1": "9ab76db4fe57dc8da87681f84438c89e92362269",
+        "asm": "build/us/objdiff-report/targets/game/asm/0127B0.s"
+      },
+      {
+        "function": "func_15015E80",
+        "start": 352411264,
+        "size": 188,
+        "sha1": "8cfc674d6542596320221061abdce88b7ea607c1",
+        "asm": "build/us/objdiff-report/targets/game/asm/015E80.s"
+      },
+      {
+        "function": "func_1501CC3C",
+        "start": 352439356,
+        "size": 388,
+        "sha1": "f41a536ac40443c671b6fc8536943dff2c83ba5d",
+        "asm": "build/us/objdiff-report/targets/game/asm/01C880.s"
+      },
+      {
+        "function": "func_1502C974",
+        "start": 352504180,
+        "size": 704,
+        "sha1": "166b05f7f97b828a9ebad3c9a7e51e8a6b748eea",
+        "asm": "build/us/objdiff-report/targets/game/asm/02BAD0.s"
+      },
+      {
+        "function": "func_150311C4",
+        "start": 352522692,
+        "size": 1896,
+        "sha1": "e276f4d4cce00c18939e50ff942094540aae5f1e",
+        "asm": "build/us/objdiff-report/targets/game/asm/02FE10.s"
+      },
+      {
+        "function": "func_1505B5F8",
+        "start": 352695800,
+        "size": 972,
+        "sha1": "76ec202ad995bd2d5e8b618535a546bb06b7d0bb",
+        "asm": "build/us/objdiff-report/targets/game/asm/055E50.s"
+      },
+      {
+        "function": "func_1510FEA0",
+        "start": 353435296,
+        "size": 1068,
+        "sha1": "0b50922f91f99da8ecbd966a72e3545ea71551e9",
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15111AF4",
+        "start": 353442548,
+        "size": 2604,
+        "sha1": "cffa240084a658ffeee1215fd6498746e5bd0b22",
+        "asm": "build/us/objdiff-report/targets/game/asm/10FEA0.s"
+      },
+      {
+        "function": "func_15130230",
+        "start": 353567280,
+        "size": 68,
+        "sha1": "3b0b946993cabf13efa513d963ff03fd8b0d9e76",
+        "asm": "build/us/objdiff-report/targets/game/asm/130230.s"
+      },
+      {
+        "function": "func_151732E0",
+        "start": 353841888,
+        "size": 248,
+        "sha1": "fa16d05012863cd36cbf16d62083d12b1326b527",
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151738C4",
+        "start": 353843396,
+        "size": 208,
+        "sha1": "48f23d9683b649d455247c94c48f66f4cfb5cb78",
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_15173994",
+        "start": 353843604,
+        "size": 24,
+        "sha1": "d39d4d2607abb9e044800ec932560de10e2252c8",
+        "asm": "build/us/objdiff-report/targets/game/asm/1732E0.s"
+      },
+      {
+        "function": "func_151749F8",
+        "start": 353847800,
+        "size": 172,
+        "sha1": "8749405317b70ff18a55471aad596dcfd5a57404",
+        "asm": "build/us/objdiff-report/targets/game/asm/1749A0.s"
+      },
+      {
+        "function": "func_15174AA4",
+        "start": 353847972,
+        "size": 164,
+        "sha1": "c4139e9ed546efad90c87b58c7f4cabbb77b9983",
+        "asm": "build/us/objdiff-report/targets/game/asm/1749A0.s"
+      },
+      {
+        "function": "func_15174B48",
+        "start": 353848136,
+        "size": 164,
+        "sha1": "eff44f153aa5e04b09b97a1ddb21373fb80abd8c",
+        "asm": "build/us/objdiff-report/targets/game/asm/1749A0.s"
+      },
+      {
+        "function": "func_15178E50",
+        "start": 353865296,
+        "size": 88,
+        "sha1": "e5a1e1a630999d6e64e3280ebf3f58121b0dcb52",
+        "asm": "build/us/objdiff-report/targets/game/asm/178E50.s"
+      },
+      {
+        "function": "func_151EB06C",
+        "start": 354332780,
+        "size": 2244,
+        "sha1": "321cdb6b0234419d3d38a4acc4151786d502aeea",
+        "asm": "build/us/objdiff-report/targets/game/asm/1E84B0.s"
+      }
+    ],
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "manually_reviewed_supplemental_loads": [
+      {
+        "function": "func_151732E0",
+        "fields": {
+          "00": "lhu@15173384",
+          "02": "lhu@1517337C",
+          "3A": "lh@15173358",
+          "3C": "lh@15173364",
+          "3E": "lh@1517336C",
+          "40": "lh@15173374",
+          "42": "lbu@15173324",
+          "43": "lbu@15173334",
+          "44": "lbu@15173340",
+          "45": "lbu@1517334C",
+          "46": "lb@1517338C"
+        }
+      },
+      {
+        "function": "func_15178E50",
+        "fields": {
+          "14": "lbu@15178E64",
+          "16": "lh@15178E74"
+        }
+      },
+      {
+        "function": "func_150031EC",
+        "fields": {
+          "4B": "lbu@1500343C"
+        }
+      }
+    ]
+  },
+  "consumer_spans": {
+    "game": [
+      {
+        "start": 352321712,
+        "size": 1584,
+        "sha1": "d7d64152297212fde212ad58a6c6da4805e29e28"
+      },
+      {
+        "start": 352323296,
+        "size": 600,
+        "sha1": "973702b473ed10d5eda6bee701597aac42b5d530"
+      },
+      {
+        "start": 352323904,
+        "size": 380,
+        "sha1": "e97422686d5b2ccc1824f8942e7972936b3fc09c"
+      },
+      {
+        "start": 352324304,
+        "size": 2448,
+        "sha1": "db3541668e93174079730bedd448192d4399922e"
+      },
+      {
+        "start": 352333748,
+        "size": 352,
+        "sha1": "12671f20de68fa9e1afb07632bf36734bc686177"
+      },
+      {
+        "start": 352334316,
+        "size": 712,
+        "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a"
+      },
+      {
+        "start": 352341632,
+        "size": 124,
+        "sha1": "3a9708e49a6d867431e6c49ce50510c42ab7671d"
+      },
+      {
+        "start": 352343236,
+        "size": 852,
+        "sha1": "0c74b6d5b41ca35bd6dab6d0d4a6da1ddf591901"
+      },
+      {
+        "start": 352344672,
+        "size": 68,
+        "sha1": "63e8a64e5cd621133063d5d9e7ea7c7e3fa5b974"
+      },
+      {
+        "start": 352353084,
+        "size": 1704,
+        "sha1": "5897d750e22cca5cfd3807a70361042faaf11c86"
+      },
+      {
+        "start": 352358736,
+        "size": 120,
+        "sha1": "de1fe10acad55765c5fa69f174e157dd177e2096"
+      },
+      {
+        "start": 352366344,
+        "size": 748,
+        "sha1": "c21ace33ec6fd5088b86d7aea8b7ad26fdc3b9b3"
+      },
+      {
+        "start": 352380016,
+        "size": 336,
+        "sha1": "65c391c6679cf7b9daab2f1ca4b59f65af00f690"
+      },
+      {
+        "start": 352397232,
+        "size": 1236,
+        "sha1": "9ab76db4fe57dc8da87681f84438c89e92362269"
+      },
+      {
+        "start": 352411264,
+        "size": 188,
+        "sha1": "8cfc674d6542596320221061abdce88b7ea607c1"
+      },
+      {
+        "start": 352417896,
+        "size": 200,
+        "sha1": "5037eff0023a4a96e99a92d703493e9b967d90a9"
+      },
+      {
+        "start": 352439356,
+        "size": 388,
+        "sha1": "f41a536ac40443c671b6fc8536943dff2c83ba5d"
+      },
+      {
+        "start": 352496776,
+        "size": 636,
+        "sha1": "24f02469c9605e212ed65a4c75b216d50ef8577e"
+      },
+      {
+        "start": 352498856,
+        "size": 288,
+        "sha1": "d1a82190ae64677a9404302b5a61653a5770a7dc"
+      },
+      {
+        "start": 352499388,
+        "size": 308,
+        "sha1": "91ed9cccb2168331f871d0b5b3597f9cfc8f558f"
+      },
+      {
+        "start": 352504180,
+        "size": 704,
+        "sha1": "166b05f7f97b828a9ebad3c9a7e51e8a6b748eea"
+      },
+      {
+        "start": 352522692,
+        "size": 1896,
+        "sha1": "e276f4d4cce00c18939e50ff942094540aae5f1e"
+      },
+      {
+        "start": 352626480,
+        "size": 1696,
+        "sha1": "cc2b08465267b571c76efcafa9a65573047775e6"
+      },
+      {
+        "start": 352695800,
+        "size": 972,
+        "sha1": "76ec202ad995bd2d5e8b618535a546bb06b7d0bb"
+      },
+      {
+        "start": 352957600,
+        "size": 208,
+        "sha1": "cd7bc53cf5b4920ed87dff50e7faab869beb3b23"
+      },
+      {
+        "start": 353435296,
+        "size": 1068,
+        "sha1": "0b50922f91f99da8ecbd966a72e3545ea71551e9"
+      },
+      {
+        "start": 353442548,
+        "size": 2604,
+        "sha1": "cffa240084a658ffeee1215fd6498746e5bd0b22"
+      },
+      {
+        "start": 353567280,
+        "size": 68,
+        "sha1": "3b0b946993cabf13efa513d963ff03fd8b0d9e76"
+      },
+      {
+        "start": 353841888,
+        "size": 248,
+        "sha1": "fa16d05012863cd36cbf16d62083d12b1326b527"
+      },
+      {
+        "start": 353843396,
+        "size": 208,
+        "sha1": "48f23d9683b649d455247c94c48f66f4cfb5cb78"
+      },
+      {
+        "start": 353843604,
+        "size": 24,
+        "sha1": "d39d4d2607abb9e044800ec932560de10e2252c8"
+      },
+      {
+        "start": 353847800,
+        "size": 172,
+        "sha1": "8749405317b70ff18a55471aad596dcfd5a57404"
+      },
+      {
+        "start": 353847972,
+        "size": 164,
+        "sha1": "c4139e9ed546efad90c87b58c7f4cabbb77b9983"
+      },
+      {
+        "start": 353848136,
+        "size": 164,
+        "sha1": "eff44f153aa5e04b09b97a1ddb21373fb80abd8c"
+      },
+      {
+        "start": 353865296,
+        "size": 88,
+        "sha1": "e5a1e1a630999d6e64e3280ebf3f58121b0dcb52"
+      },
+      {
+        "start": 353920916,
+        "size": 2844,
+        "sha1": "cf8df41531db51e4f00144b140289ec3af632c13"
+      },
+      {
+        "start": 354164816,
+        "size": 588,
+        "sha1": "f50b8215aeeb8f92410c62c766ee6044bcdd9a95"
+      },
+      {
+        "start": 354332780,
+        "size": 2244,
+        "sha1": "321cdb6b0234419d3d38a4acc4151786d502aeea"
+      }
+    ],
+    "main": [
+      {
+        "start": 2147557408,
+        "size": 1340,
+        "sha1": "c1d977a5ec7af0c058a49442e42e99ecfa384d8f"
+      }
+    ]
+  },
+  "omitted_gate_logs": [
+    "gates",
+    "modified_inputs",
+    "native_byte_mutations_rejected",
+    "report_audit",
+    "source_audit",
+    "tested_base"
+  ]
+}
