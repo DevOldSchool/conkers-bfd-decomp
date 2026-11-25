@@ -1,0 +1,325 @@
+#include "types.h"
+
+/* Native byte-opcode dispatch table; all 256 selectors are bounded by lbu.
+ * Evidence: docs/evidence/data-layout/us_command_handlers.md
+ * Data-only reconstruction, not an original C-object boundary.
+ * Heterogeneous callback declarations preserve existing integer-register ABIs.
+ * This unit stores code addresses and never calls them.
+ */
+typedef void (*CommandHandlerAddress)(void);
+
+extern void func_15040748(s32 arg0);
+extern void func_150407A0(void);
+extern void func_150407A8(s32 arg0);
+extern void func_150407B4(s32 arg0);
+extern void func_150407C0(s32 arg0);
+extern void func_150407CC(s32 arg0);
+extern void func_150407D8(s32 arg0);
+extern void func_150407E4(s32 arg0);
+extern void func_150407F0(s32 arg0);
+extern void func_150407FC(s32 arg0);
+extern void func_15040808(s32 arg0);
+extern void func_15040814(s32 arg0);
+extern void func_15040820(s32 arg0);
+extern void func_1504086C(s32 arg0);
+extern void func_15040878(s32 arg0);
+extern void func_15040884(s32 arg0);
+extern void func_15040890(s32 arg0);
+extern void func_1504089C(s32 arg0);
+extern void func_150408A8(s32 arg0);
+extern void func_150408B4(s32 arg0);
+extern void func_150408C0(s32 arg0);
+extern void func_150408F0(s32 arg0);
+extern void func_150408FC(s32 arg0);
+extern void func_15040908(s32 arg0);
+extern void func_15040914(s32 arg0);
+extern void func_15040920(s32 arg0);
+extern void func_1504092C(s32 arg0);
+extern void func_15040938(s32 arg0);
+extern void func_15040944(s32 arg0);
+extern void func_15040950(s32 arg0);
+extern void func_1504095C(s32 arg0);
+extern void func_15040968(s32 arg0);
+extern void func_15040974(s32 arg0);
+extern void func_15040980(s32 arg0);
+extern void func_1504098C(s32 arg0);
+extern void func_15040998(s32 arg0);
+extern void func_150409A4(s32 arg0);
+extern void func_150409B0(s32 arg0);
+extern void func_150409BC(s32 arg0);
+extern void func_150409C8(s32 arg0);
+extern void func_150409D4(s32 arg0);
+extern void func_150409E0(s32 arg0);
+extern void func_150409EC(s32 arg0);
+extern void func_150409F8(s32 arg0);
+extern void func_15040A04(s32 arg0);
+extern void func_15040A10(s32 arg0);
+extern void func_15040A1C(s32 arg0);
+extern void func_15040A28(s32 arg0);
+extern void func_15040A34(s32 arg0);
+extern void func_15040A40(s32 arg0);
+extern void func_15040A54(s32 arg0);
+extern void func_15040A60(s32 arg0);
+extern void func_15040A6C(s32 arg0);
+extern void func_15040D60(s32 arg0);
+extern void func_15040D6C(s32 arg0);
+extern void func_15040D78(s32 arg0);
+
+const CommandHandlerAddress D_800844B0[256] = {
+    (CommandHandlerAddress)func_1504092C, /* 0x00 */
+    (CommandHandlerAddress)func_150407A0, /* 0x01 */
+    (CommandHandlerAddress)func_150407A8, /* 0x02 */
+    (CommandHandlerAddress)func_150407B4, /* 0x03 */
+    (CommandHandlerAddress)func_150407C0, /* 0x04 */
+    (CommandHandlerAddress)func_1504086C, /* 0x05 */
+    (CommandHandlerAddress)func_15040814, /* 0x06 */
+    (CommandHandlerAddress)func_15040808, /* 0x07 */
+    (CommandHandlerAddress)func_150407CC, /* 0x08 */
+    (CommandHandlerAddress)func_15040748, /* 0x09 */
+    (CommandHandlerAddress)func_15040748, /* 0x0A */
+    (CommandHandlerAddress)func_15040748, /* 0x0B */
+    (CommandHandlerAddress)func_15040748, /* 0x0C */
+    (CommandHandlerAddress)func_15040748, /* 0x0D */
+    (CommandHandlerAddress)func_15040748, /* 0x0E */
+    (CommandHandlerAddress)func_15040748, /* 0x0F */
+    (CommandHandlerAddress)func_15040820, /* 0x10 */
+    (CommandHandlerAddress)func_15040820, /* 0x11 */
+    (CommandHandlerAddress)func_15040820, /* 0x12 */
+    (CommandHandlerAddress)func_15040820, /* 0x13 */
+    (CommandHandlerAddress)func_15040820, /* 0x14 */
+    (CommandHandlerAddress)func_15040820, /* 0x15 */
+    (CommandHandlerAddress)func_15040820, /* 0x16 */
+    (CommandHandlerAddress)func_15040820, /* 0x17 */
+    (CommandHandlerAddress)func_15040820, /* 0x18 */
+    (CommandHandlerAddress)func_15040820, /* 0x19 */
+    (CommandHandlerAddress)func_15040820, /* 0x1A */
+    (CommandHandlerAddress)func_15040820, /* 0x1B */
+    (CommandHandlerAddress)func_15040820, /* 0x1C */
+    (CommandHandlerAddress)func_15040820, /* 0x1D */
+    (CommandHandlerAddress)func_15040820, /* 0x1E */
+    (CommandHandlerAddress)func_15040820, /* 0x1F */
+    (CommandHandlerAddress)func_15040748, /* 0x20 */
+    (CommandHandlerAddress)func_15040748, /* 0x21 */
+    (CommandHandlerAddress)func_15040748, /* 0x22 */
+    (CommandHandlerAddress)func_15040748, /* 0x23 */
+    (CommandHandlerAddress)func_15040748, /* 0x24 */
+    (CommandHandlerAddress)func_15040748, /* 0x25 */
+    (CommandHandlerAddress)func_15040748, /* 0x26 */
+    (CommandHandlerAddress)func_15040748, /* 0x27 */
+    (CommandHandlerAddress)func_15040748, /* 0x28 */
+    (CommandHandlerAddress)func_15040748, /* 0x29 */
+    (CommandHandlerAddress)func_15040748, /* 0x2A */
+    (CommandHandlerAddress)func_15040748, /* 0x2B */
+    (CommandHandlerAddress)func_15040748, /* 0x2C */
+    (CommandHandlerAddress)func_15040748, /* 0x2D */
+    (CommandHandlerAddress)func_15040748, /* 0x2E */
+    (CommandHandlerAddress)func_15040748, /* 0x2F */
+    (CommandHandlerAddress)func_15040748, /* 0x30 */
+    (CommandHandlerAddress)func_15040748, /* 0x31 */
+    (CommandHandlerAddress)func_15040748, /* 0x32 */
+    (CommandHandlerAddress)func_15040748, /* 0x33 */
+    (CommandHandlerAddress)func_15040748, /* 0x34 */
+    (CommandHandlerAddress)func_15040748, /* 0x35 */
+    (CommandHandlerAddress)func_15040748, /* 0x36 */
+    (CommandHandlerAddress)func_15040748, /* 0x37 */
+    (CommandHandlerAddress)func_15040748, /* 0x38 */
+    (CommandHandlerAddress)func_15040748, /* 0x39 */
+    (CommandHandlerAddress)func_15040748, /* 0x3A */
+    (CommandHandlerAddress)func_15040748, /* 0x3B */
+    (CommandHandlerAddress)func_15040748, /* 0x3C */
+    (CommandHandlerAddress)func_15040748, /* 0x3D */
+    (CommandHandlerAddress)func_15040748, /* 0x3E */
+    (CommandHandlerAddress)func_15040748, /* 0x3F */
+    (CommandHandlerAddress)func_15040748, /* 0x40 */
+    (CommandHandlerAddress)func_15040748, /* 0x41 */
+    (CommandHandlerAddress)func_15040748, /* 0x42 */
+    (CommandHandlerAddress)func_15040748, /* 0x43 */
+    (CommandHandlerAddress)func_15040748, /* 0x44 */
+    (CommandHandlerAddress)func_15040748, /* 0x45 */
+    (CommandHandlerAddress)func_15040748, /* 0x46 */
+    (CommandHandlerAddress)func_15040748, /* 0x47 */
+    (CommandHandlerAddress)func_15040748, /* 0x48 */
+    (CommandHandlerAddress)func_15040748, /* 0x49 */
+    (CommandHandlerAddress)func_15040748, /* 0x4A */
+    (CommandHandlerAddress)func_15040748, /* 0x4B */
+    (CommandHandlerAddress)func_15040748, /* 0x4C */
+    (CommandHandlerAddress)func_15040748, /* 0x4D */
+    (CommandHandlerAddress)func_15040748, /* 0x4E */
+    (CommandHandlerAddress)func_15040748, /* 0x4F */
+    (CommandHandlerAddress)func_15040748, /* 0x50 */
+    (CommandHandlerAddress)func_15040748, /* 0x51 */
+    (CommandHandlerAddress)func_15040748, /* 0x52 */
+    (CommandHandlerAddress)func_15040748, /* 0x53 */
+    (CommandHandlerAddress)func_15040748, /* 0x54 */
+    (CommandHandlerAddress)func_15040748, /* 0x55 */
+    (CommandHandlerAddress)func_15040748, /* 0x56 */
+    (CommandHandlerAddress)func_15040748, /* 0x57 */
+    (CommandHandlerAddress)func_15040748, /* 0x58 */
+    (CommandHandlerAddress)func_15040748, /* 0x59 */
+    (CommandHandlerAddress)func_15040748, /* 0x5A */
+    (CommandHandlerAddress)func_15040748, /* 0x5B */
+    (CommandHandlerAddress)func_15040748, /* 0x5C */
+    (CommandHandlerAddress)func_15040748, /* 0x5D */
+    (CommandHandlerAddress)func_15040748, /* 0x5E */
+    (CommandHandlerAddress)func_15040748, /* 0x5F */
+    (CommandHandlerAddress)func_15040748, /* 0x60 */
+    (CommandHandlerAddress)func_15040748, /* 0x61 */
+    (CommandHandlerAddress)func_15040748, /* 0x62 */
+    (CommandHandlerAddress)func_15040748, /* 0x63 */
+    (CommandHandlerAddress)func_15040748, /* 0x64 */
+    (CommandHandlerAddress)func_15040748, /* 0x65 */
+    (CommandHandlerAddress)func_15040748, /* 0x66 */
+    (CommandHandlerAddress)func_15040748, /* 0x67 */
+    (CommandHandlerAddress)func_15040748, /* 0x68 */
+    (CommandHandlerAddress)func_15040748, /* 0x69 */
+    (CommandHandlerAddress)func_15040748, /* 0x6A */
+    (CommandHandlerAddress)func_15040748, /* 0x6B */
+    (CommandHandlerAddress)func_15040748, /* 0x6C */
+    (CommandHandlerAddress)func_15040748, /* 0x6D */
+    (CommandHandlerAddress)func_15040748, /* 0x6E */
+    (CommandHandlerAddress)func_15040748, /* 0x6F */
+    (CommandHandlerAddress)func_15040748, /* 0x70 */
+    (CommandHandlerAddress)func_15040748, /* 0x71 */
+    (CommandHandlerAddress)func_15040748, /* 0x72 */
+    (CommandHandlerAddress)func_15040748, /* 0x73 */
+    (CommandHandlerAddress)func_15040748, /* 0x74 */
+    (CommandHandlerAddress)func_15040748, /* 0x75 */
+    (CommandHandlerAddress)func_15040748, /* 0x76 */
+    (CommandHandlerAddress)func_15040748, /* 0x77 */
+    (CommandHandlerAddress)func_15040748, /* 0x78 */
+    (CommandHandlerAddress)func_15040748, /* 0x79 */
+    (CommandHandlerAddress)func_15040748, /* 0x7A */
+    (CommandHandlerAddress)func_15040748, /* 0x7B */
+    (CommandHandlerAddress)func_15040748, /* 0x7C */
+    (CommandHandlerAddress)func_15040748, /* 0x7D */
+    (CommandHandlerAddress)func_15040748, /* 0x7E */
+    (CommandHandlerAddress)func_15040748, /* 0x7F */
+    (CommandHandlerAddress)func_15040748, /* 0x80 */
+    (CommandHandlerAddress)func_15040748, /* 0x81 */
+    (CommandHandlerAddress)func_15040748, /* 0x82 */
+    (CommandHandlerAddress)func_15040748, /* 0x83 */
+    (CommandHandlerAddress)func_15040748, /* 0x84 */
+    (CommandHandlerAddress)func_15040748, /* 0x85 */
+    (CommandHandlerAddress)func_15040748, /* 0x86 */
+    (CommandHandlerAddress)func_15040748, /* 0x87 */
+    (CommandHandlerAddress)func_15040748, /* 0x88 */
+    (CommandHandlerAddress)func_15040748, /* 0x89 */
+    (CommandHandlerAddress)func_15040748, /* 0x8A */
+    (CommandHandlerAddress)func_15040748, /* 0x8B */
+    (CommandHandlerAddress)func_15040748, /* 0x8C */
+    (CommandHandlerAddress)func_15040748, /* 0x8D */
+    (CommandHandlerAddress)func_15040748, /* 0x8E */
+    (CommandHandlerAddress)func_15040748, /* 0x8F */
+    (CommandHandlerAddress)func_15040748, /* 0x90 */
+    (CommandHandlerAddress)func_15040748, /* 0x91 */
+    (CommandHandlerAddress)func_15040748, /* 0x92 */
+    (CommandHandlerAddress)func_15040748, /* 0x93 */
+    (CommandHandlerAddress)func_15040748, /* 0x94 */
+    (CommandHandlerAddress)func_15040748, /* 0x95 */
+    (CommandHandlerAddress)func_15040748, /* 0x96 */
+    (CommandHandlerAddress)func_15040748, /* 0x97 */
+    (CommandHandlerAddress)func_15040748, /* 0x98 */
+    (CommandHandlerAddress)func_15040748, /* 0x99 */
+    (CommandHandlerAddress)func_15040748, /* 0x9A */
+    (CommandHandlerAddress)func_15040748, /* 0x9B */
+    (CommandHandlerAddress)func_15040748, /* 0x9C */
+    (CommandHandlerAddress)func_15040748, /* 0x9D */
+    (CommandHandlerAddress)func_15040748, /* 0x9E */
+    (CommandHandlerAddress)func_15040748, /* 0x9F */
+    (CommandHandlerAddress)func_15040748, /* 0xA0 */
+    (CommandHandlerAddress)func_15040748, /* 0xA1 */
+    (CommandHandlerAddress)func_15040748, /* 0xA2 */
+    (CommandHandlerAddress)func_15040748, /* 0xA3 */
+    (CommandHandlerAddress)func_15040748, /* 0xA4 */
+    (CommandHandlerAddress)func_15040748, /* 0xA5 */
+    (CommandHandlerAddress)func_15040748, /* 0xA6 */
+    (CommandHandlerAddress)func_15040748, /* 0xA7 */
+    (CommandHandlerAddress)func_15040748, /* 0xA8 */
+    (CommandHandlerAddress)func_15040748, /* 0xA9 */
+    (CommandHandlerAddress)func_15040748, /* 0xAA */
+    (CommandHandlerAddress)func_15040748, /* 0xAB */
+    (CommandHandlerAddress)func_15040748, /* 0xAC */
+    (CommandHandlerAddress)func_15040748, /* 0xAD */
+    (CommandHandlerAddress)func_15040748, /* 0xAE */
+    (CommandHandlerAddress)func_15040748, /* 0xAF */
+    (CommandHandlerAddress)func_15040748, /* 0xB0 */
+    (CommandHandlerAddress)func_15040748, /* 0xB1 */
+    (CommandHandlerAddress)func_15040748, /* 0xB2 */
+    (CommandHandlerAddress)func_15040748, /* 0xB3 */
+    (CommandHandlerAddress)func_15040748, /* 0xB4 */
+    (CommandHandlerAddress)func_15040748, /* 0xB5 */
+    (CommandHandlerAddress)func_15040748, /* 0xB6 */
+    (CommandHandlerAddress)func_15040748, /* 0xB7 */
+    (CommandHandlerAddress)func_15040748, /* 0xB8 */
+    (CommandHandlerAddress)func_15040748, /* 0xB9 */
+    (CommandHandlerAddress)func_15040748, /* 0xBA */
+    (CommandHandlerAddress)func_15040748, /* 0xBB */
+    (CommandHandlerAddress)func_15040748, /* 0xBC */
+    (CommandHandlerAddress)func_15040748, /* 0xBD */
+    (CommandHandlerAddress)func_15040748, /* 0xBE */
+    (CommandHandlerAddress)func_15040748, /* 0xBF */
+    (CommandHandlerAddress)func_15040748, /* 0xC0 */
+    (CommandHandlerAddress)func_15040748, /* 0xC1 */
+    (CommandHandlerAddress)func_15040748, /* 0xC2 */
+    (CommandHandlerAddress)func_15040748, /* 0xC3 */
+    (CommandHandlerAddress)func_15040748, /* 0xC4 */
+    (CommandHandlerAddress)func_15040748, /* 0xC5 */
+    (CommandHandlerAddress)func_15040748, /* 0xC6 */
+    (CommandHandlerAddress)func_15040748, /* 0xC7 */
+    (CommandHandlerAddress)func_15040748, /* 0xC8 */
+    (CommandHandlerAddress)func_15040748, /* 0xC9 */
+    (CommandHandlerAddress)func_15040748, /* 0xCA */
+    (CommandHandlerAddress)func_15040748, /* 0xCB */
+    (CommandHandlerAddress)func_15040748, /* 0xCC */
+    (CommandHandlerAddress)func_15040748, /* 0xCD */
+    (CommandHandlerAddress)func_15040748, /* 0xCE */
+    (CommandHandlerAddress)func_15040748, /* 0xCF */
+    (CommandHandlerAddress)func_15040748, /* 0xD0 */
+    (CommandHandlerAddress)func_15040748, /* 0xD1 */
+    (CommandHandlerAddress)func_15040748, /* 0xD2 */
+    (CommandHandlerAddress)func_15040998, /* 0xD3 */
+    (CommandHandlerAddress)func_150409A4, /* 0xD4 */
+    (CommandHandlerAddress)func_150409B0, /* 0xD5 */
+    (CommandHandlerAddress)func_150409BC, /* 0xD6 */
+    (CommandHandlerAddress)func_15040D6C, /* 0xD7 */
+    (CommandHandlerAddress)func_15040A28, /* 0xD8 */
+    (CommandHandlerAddress)func_15040A40, /* 0xD9 */
+    (CommandHandlerAddress)func_15040A34, /* 0xDA */
+    (CommandHandlerAddress)func_15040A6C, /* 0xDB */
+    (CommandHandlerAddress)func_15040A60, /* 0xDC */
+    (CommandHandlerAddress)func_15040A54, /* 0xDD */
+    (CommandHandlerAddress)func_150408F0, /* 0xDE */
+    (CommandHandlerAddress)func_15040A1C, /* 0xDF */
+    (CommandHandlerAddress)func_15040938, /* 0xE0 */
+    (CommandHandlerAddress)func_150407D8, /* 0xE1 */
+    (CommandHandlerAddress)func_15040908, /* 0xE2 */
+    (CommandHandlerAddress)func_150408FC, /* 0xE3 */
+    (CommandHandlerAddress)func_150409E0, /* 0xE4 */
+    (CommandHandlerAddress)func_150409EC, /* 0xE5 */
+    (CommandHandlerAddress)func_150408B4, /* 0xE6 */
+    (CommandHandlerAddress)func_150408A8, /* 0xE7 */
+    (CommandHandlerAddress)func_15040890, /* 0xE8 */
+    (CommandHandlerAddress)func_1504089C, /* 0xE9 */
+    (CommandHandlerAddress)func_150407F0, /* 0xEA */
+    (CommandHandlerAddress)func_150407FC, /* 0xEB */
+    (CommandHandlerAddress)func_15040914, /* 0xEC */
+    (CommandHandlerAddress)func_15040920, /* 0xED */
+    (CommandHandlerAddress)func_15040D60, /* 0xEE */
+    (CommandHandlerAddress)func_15040D78, /* 0xEF */
+    (CommandHandlerAddress)func_15040878, /* 0xF0 */
+    (CommandHandlerAddress)func_150407E4, /* 0xF1 */
+    (CommandHandlerAddress)func_15040A10, /* 0xF2 */
+    (CommandHandlerAddress)func_150409F8, /* 0xF3 */
+    (CommandHandlerAddress)func_15040884, /* 0xF4 */
+    (CommandHandlerAddress)func_15040A04, /* 0xF5 */
+    (CommandHandlerAddress)func_150409D4, /* 0xF6 */
+    (CommandHandlerAddress)func_150409C8, /* 0xF7 */
+    (CommandHandlerAddress)func_1504098C, /* 0xF8 */
+    (CommandHandlerAddress)func_15040980, /* 0xF9 */
+    (CommandHandlerAddress)func_15040974, /* 0xFA */
+    (CommandHandlerAddress)func_15040968, /* 0xFB */
+    (CommandHandlerAddress)func_150408C0, /* 0xFC */
+    (CommandHandlerAddress)func_1504095C, /* 0xFD */
+    (CommandHandlerAddress)func_15040950, /* 0xFE */
+    (CommandHandlerAddress)func_15040944, /* 0xFF */
+};

@@ -1,0 +1,482 @@
+{
+  "status": "Accepted",
+  "scene_preloads": {
+    "status": "native selector/load/termination chain verified; compilation pending",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_15002FB4": {
+        "address": "0x15002fb4",
+        "bytes": 364,
+        "sha1": "582b3fed973ec8cda4fd6b6cb68848671c74aa46"
+      },
+      "func_1502B6BC": {
+        "address": "0x1502b6bc",
+        "bytes": 308,
+        "sha1": "91ed9cccb2168331f871d0b5b3597f9cfc8f558f"
+      },
+      "func_150031EC": {
+        "address": "0x150031ec",
+        "bytes": 712,
+        "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a"
+      }
+    },
+    "instruction_anchors": {
+      "0x15002fc4": "0x240e0015",
+      "0x15002fd8": "0x24070002",
+      "0x15002fdc": "0xd40adaf",
+      "0x15003008": "0x8c490000",
+      "0x15003014": "0xac290df0",
+      "0x15003430": "0x8e590000",
+      "0x15003438": "0x26732b20",
+      "0x1500343c": "0x9322004b",
+      "0x15003440": "0x10400015",
+      "0x15003444": "0x24080",
+      "0x1500344c": "0x8d2a0000",
+      "0x15003450": "0x24110004",
+      "0x15003454": "0x8d500000",
+      "0x15003458": "0x1200000f",
+      "0x15003468": "0xd44343b",
+      "0x15003474": "0x916c004b",
+      "0x15003480": "0x8dcf0000",
+      "0x15003484": "0x1f1c021",
+      "0x15003488": "0x8f100000",
+      "0x1500348c": "0x26310004",
+      "0x15003490": "0x5600fff3"
+    },
+    "scenes": {
+      "summarized_list": true,
+      "count": 67,
+      "sha256": "79327444827aeb3d4a4d39461fd9589629e1b468888d71853265da338fbaf6c7",
+      "first": [
+        {
+          "scene": 0,
+          "selector": 0,
+          "rom_start": "0x132e8c0",
+          "stored_sha1": "3c509f722ba0b1dfef355d6be02ab2638d4fbb77"
+        },
+        {
+          "scene": 1,
+          "selector": 0,
+          "rom_start": "0x132e928",
+          "stored_sha1": "aa2fef084eca654c2b9f7ba543e392048cef3cd8"
+        },
+        {
+          "scene": 2,
+          "selector": 0,
+          "rom_start": "0x132e9a0",
+          "stored_sha1": "e339c9560782cdec58acfada787710e1c07b777e"
+        }
+      ]
+    },
+    "lists": [
+      {
+        "selector": 4,
+        "address": 2148073808,
+        "bytes": 28,
+        "values": [
+          4404,
+          4402,
+          4406,
+          1473,
+          1825,
+          1823,
+          0
+        ]
+      },
+      {
+        "selector": 1,
+        "address": 2148073836,
+        "bytes": 24,
+        "values": [
+          2339,
+          2340,
+          2341,
+          2342,
+          2982,
+          0
+        ]
+      },
+      {
+        "selector": 2,
+        "address": 2148073860,
+        "bytes": 64,
+        "values": [
+          2339,
+          2340,
+          2341,
+          2342,
+          2982,
+          4702,
+          4704,
+          4706,
+          4708,
+          4710,
+          4697,
+          4698,
+          4699,
+          4700,
+          4701,
+          0
+        ]
+      },
+      {
+        "selector": 3,
+        "address": 2148073924,
+        "bytes": 44,
+        "values": [
+          4702,
+          4704,
+          4706,
+          4708,
+          4710,
+          4697,
+          4698,
+          4699,
+          4700,
+          4701,
+          0
+        ]
+      }
+    ],
+    "units": [
+      {
+        "name": "scene_preload_roots",
+        "address": 2148018976,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [
+          {
+            "address": "0x80082b24",
+            "symbol": "D_8009016C",
+            "addend": 0,
+            "native_word": "0x8009016c"
+          },
+          {
+            "address": "0x80082b28",
+            "symbol": "D_80090184",
+            "addend": 0,
+            "native_word": "0x80090184"
+          },
+          {
+            "address": "0x80082b2c",
+            "symbol": "D_800901C4",
+            "addend": 0,
+            "native_word": "0x800901c4"
+          },
+          {
+            "address": "0x80082b30",
+            "symbol": "D_80090150",
+            "addend": 0,
+            "native_word": "0x80090150"
+          }
+        ],
+        "payload_sha256": "6b19f2ac119713475fbe93932588a7f3da1aed7e24195fcbe46d3ad90aa20214"
+      },
+      {
+        "name": "scene_preload_lists",
+        "address": 2148073808,
+        "bytes": 160,
+        "emitted_bytes": 160,
+        "pointers": [],
+        "symbols": [
+          {
+            "name": "D_80090150",
+            "address": 2148073808,
+            "bytes": 28
+          },
+          {
+            "name": "D_8009016C",
+            "address": 2148073836,
+            "bytes": 24
+          },
+          {
+            "name": "D_80090184",
+            "address": 2148073860,
+            "bytes": 64
+          },
+          {
+            "name": "D_800901C4",
+            "address": 2148073924,
+            "bytes": 44
+          }
+        ],
+        "payload_sha256": "40e54ca146565e76305a1a2976a1158ec7faf91eba5b4ec71658e9330e334065"
+      }
+    ],
+    "bytes": 180,
+    "external_symbols": [],
+    "limits": "Native terminated-list ownership, not original C object boundaries or runtime activation of every scene. No neighbouring labels are used to infer list lengths. Root zero is stored null and skipped by the reader."
+  },
+  "ui_drawing": {
+    "status": "native complete producers, scalar bounds and command extents verified; compilation pending",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_151EADFC": {
+        "address": "0x151eadfc",
+        "bytes": 624,
+        "sha1": "e25fd323b70dec0ef47bd7a8503559459f9e7714"
+      },
+      "func_151EDBDC": {
+        "address": "0x151edbdc",
+        "bytes": 880,
+        "sha1": "2a0fcb728902c350ede39802852cee5080623817"
+      }
+    },
+    "instruction_anchors": {
+      "0x151eae3c": "0x25ef009c",
+      "0x151eae40": "0x8de10000",
+      "0x151eae70": "0x8de10018",
+      "0x151eae84": "0x34219680",
+      "0x151eae88": "0x261082a",
+      "0x151eaea0": "0x3673967f",
+      "0x151eaea4": "0x6610002",
+      "0x151eaeac": "0x9825",
+      "0x151eaeb4": "0x26f70074",
+      "0x151eaeb8": "0x27b10094",
+      "0x151eaec0": "0x27b6007c",
+      "0x151eaec8": "0x262001a",
+      "0x151eaef0": "0x1812",
+      "0x151eaef4": "0x9810",
+      "0x151eaf10": "0x36880",
+      "0x151eaf14": "0x2edc821",
+      "0x151eaf18": "0x8f240000",
+      "0x151eaf28": "0xd44343b",
+      "0x151eb024": "0x2631fffc",
+      "0x151eb02c": "0x22c082b",
+      "0x151eb030": "0x5020ffa5",
+      "0x151edce8": "0x3c08de00",
+      "0x151edd30": "0x3c0b8009",
+      "0x151edd34": "0x256b0110",
+      "0x151edd38": "0xacab0004",
+      "0x151edd3c": "0xaca80000",
+      "0x151edea4": "0x3c08de00",
+      "0x151edee4": "0x3c188009",
+      "0x151edef0": "0x27180128",
+      "0x151edf28": "0xac680000",
+      "0x151edf2c": "0xac780004"
+    },
+    "units": [
+      {
+        "name": "ui_decimal_tables",
+        "address": 2148073588,
+        "bytes": 68,
+        "emitted_bytes": 80,
+        "pointers": [],
+        "symbols": [
+          {
+            "name": "D_80090074",
+            "address": 2148073588,
+            "bytes": 40
+          },
+          {
+            "name": "D_8009009C",
+            "address": 2148073628,
+            "bytes": 28
+          }
+        ],
+        "payload_sha256": "877807ab6a2aa90d519840d8d0eb93ceda2aefc5f36b2fd9a281a20089991323"
+      },
+      {
+        "name": "ui_model_graphics",
+        "address": 2148073744,
+        "bytes": 40,
+        "emitted_bytes": 48,
+        "pointers": [],
+        "symbols": [
+          {
+            "name": "D_80090110",
+            "address": 2148073744,
+            "bytes": 24
+          },
+          {
+            "name": "D_80090128",
+            "address": 2148073768,
+            "bytes": 16
+          }
+        ],
+        "payload_sha256": "6291764905d6055be8a34fad6d91443b7ae54eb48844f66c0f04a5f19501c79f"
+      }
+    ],
+    "bytes": 108,
+    "external_symbols": [],
+    "decimal_powers": [
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000,
+      1000000
+    ],
+    "decimal_texture_ids": [
+      2226,
+      2192,
+      2219,
+      2216,
+      2178,
+      2177,
+      2210,
+      2209,
+      2176,
+      2191
+    ],
+    "limits": "Native storage and rendering paths; no original object-boundary or runtime appearance claim. Decimal bounds follow the native clamp, division/remainder and original powers; source labels are not extent evidence. No deferred C candidate is changed."
+  },
+  "integrated_plan": {
+    "units": [
+      {
+        "name": "scene_preload_roots",
+        "address": 2148018976,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [
+          {
+            "address": "0x80082b24",
+            "symbol": "D_8009016C",
+            "addend": 0,
+            "native_word": "0x8009016c"
+          },
+          {
+            "address": "0x80082b28",
+            "symbol": "D_80090184",
+            "addend": 0,
+            "native_word": "0x80090184"
+          },
+          {
+            "address": "0x80082b2c",
+            "symbol": "D_800901C4",
+            "addend": 0,
+            "native_word": "0x800901c4"
+          },
+          {
+            "address": "0x80082b30",
+            "symbol": "D_80090150",
+            "addend": 0,
+            "native_word": "0x80090150"
+          }
+        ],
+        "payload_sha256": "6b19f2ac119713475fbe93932588a7f3da1aed7e24195fcbe46d3ad90aa20214",
+        "group": "scene-preloads",
+        "source": "src/game/data/scene_ui/scene_preload_roots.c",
+        "pointer_fields": [
+          {
+            "address": "0x80082b24",
+            "symbol": "D_8009016C",
+            "addend": 0,
+            "native_word": "0x8009016c"
+          },
+          {
+            "address": "0x80082b28",
+            "symbol": "D_80090184",
+            "addend": 0,
+            "native_word": "0x80090184"
+          },
+          {
+            "address": "0x80082b2c",
+            "symbol": "D_800901C4",
+            "addend": 0,
+            "native_word": "0x800901c4"
+          },
+          {
+            "address": "0x80082b30",
+            "symbol": "D_80090150",
+            "addend": 0,
+            "native_word": "0x80090150"
+          }
+        ]
+      },
+      {
+        "name": "ui_decimal_tables",
+        "address": 2148073588,
+        "bytes": 68,
+        "emitted_bytes": 80,
+        "pointers": [],
+        "symbols": [
+          {
+            "name": "D_80090074",
+            "address": 2148073588,
+            "bytes": 40
+          },
+          {
+            "name": "D_8009009C",
+            "address": 2148073628,
+            "bytes": 28
+          }
+        ],
+        "payload_sha256": "877807ab6a2aa90d519840d8d0eb93ceda2aefc5f36b2fd9a281a20089991323",
+        "group": "ui-drawing",
+        "source": "src/game/data/scene_ui/ui_decimal_tables.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "ui_model_graphics",
+        "address": 2148073744,
+        "bytes": 40,
+        "emitted_bytes": 48,
+        "pointers": [],
+        "symbols": [
+          {
+            "name": "D_80090110",
+            "address": 2148073744,
+            "bytes": 24
+          },
+          {
+            "name": "D_80090128",
+            "address": 2148073768,
+            "bytes": 16
+          }
+        ],
+        "payload_sha256": "6291764905d6055be8a34fad6d91443b7ae54eb48844f66c0f04a5f19501c79f",
+        "group": "ui-drawing",
+        "source": "src/game/data/scene_ui/ui_model_graphics.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "scene_preload_lists",
+        "address": 2148073808,
+        "bytes": 160,
+        "emitted_bytes": 160,
+        "pointers": [],
+        "symbols": [
+          {
+            "name": "D_80090150",
+            "address": 2148073808,
+            "bytes": 28
+          },
+          {
+            "name": "D_8009016C",
+            "address": 2148073836,
+            "bytes": 24
+          },
+          {
+            "name": "D_80090184",
+            "address": 2148073860,
+            "bytes": 64
+          },
+          {
+            "name": "D_800901C4",
+            "address": 2148073924,
+            "bytes": 44
+          }
+        ],
+        "payload_sha256": "40e54ca146565e76305a1a2976a1158ec7faf91eba5b4ec71658e9330e334065",
+        "group": "scene-preloads",
+        "source": "src/game/data/scene_ui/scene_preload_lists.c",
+        "pointer_fields": []
+      }
+    ],
+    "bytes": 288,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "native_matched_bytes": 288,
+  "omitted_gate_logs": [
+    "asset_build",
+    "base_commit",
+    "mutation_audit",
+    "pilot_audit",
+    "report_acceptance",
+    "report_timing",
+    "source_audit",
+    "tests"
+  ]
+}

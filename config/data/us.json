@@ -336,6 +336,196 @@
     ],
     "game": [
       {
+        "address": "0x80082B20",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/scene_ui/scene_preload_roots.c",
+            "src/done/game/data/scene_ui/scene_preload_roots.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80082FC0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80082FC0.c",
+            "src/done/game/data/render_state/render_state_80082FC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083140",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083140.c",
+            "src/done/game/data/render_state/render_state_80083140.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800832C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_800832C0.c",
+            "src/done/game/data/render_state/render_state_800832C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083440",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083440.c",
+            "src/done/game/data/render_state/render_state_80083440.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800835C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_800835C0.c",
+            "src/done/game/data/render_state/render_state_800835C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083740",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083740.c",
+            "src/done/game/data/render_state/render_state_80083740.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800838C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_800838C0.c",
+            "src/done/game/data/render_state/render_state_800838C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083A40",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083A40.c",
+            "src/done/game/data/render_state/render_state_80083A40.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083BC0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083BC0.c",
+            "src/done/game/data/render_state/render_state_80083BC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083D40",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083D40.c",
+            "src/done/game/data/render_state/render_state_80083D40.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80083EC0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/render_state/render_state_80083EC0.c",
+            "src/done/game/data/render_state/render_state_80083EC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80084160",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_80084160.c",
+            "src/done/game/data/draw_graphics/direct_graphics_80084160.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80084190",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_80084190.c",
+            "src/done/game/data/draw_graphics/direct_graphics_80084190.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80084350",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_80084350.c",
+            "src/done/game/data/draw_graphics/direct_graphics_80084350.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800844B0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/command_handlers.c",
+            "src/done/game/data/command_handlers.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800848D0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/inline_font_characters.c",
+            "src/done/game/data/inline_font_characters.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80084930",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/inline_font.c",
+            "src/done/game/data/inline_font.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800859A0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_800859A0.c",
+            "src/done/game/data/draw_graphics/direct_graphics_800859A0.c"
+          ]
+        }
+      },
+      {
         "address": "0x80085EA0",
         "section": ".data",
         "owner": {
@@ -352,6 +542,1296 @@
         }
       },
       {
+        "address": "0x80086B80",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_80086B80.c",
+            "src/done/game/data/draw_graphics/direct_graphics_80086B80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80087390",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_80087390.c",
+            "src/done/game/data/draw_graphics/direct_graphics_80087390.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800873D0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_800873D0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_800873D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80087430",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/resource_descriptors.c",
+            "src/done/game/data/resource_descriptors.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088420",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/resource_handlers.c",
+            "src/done/game/data/resource_handlers.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088724",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/native_float_data_80088724.c",
+            "src/done/game/data/native_float_data_80088724.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088768",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80088768.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80088768.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088828",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80088828.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80088828.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800889E0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_800889E0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_800889E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088BE0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80088BE0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80088BE0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800890C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_800890C0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_800890C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80089470",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80089470.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80089470.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80089700",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80089700.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80089700.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80089A20",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_fragment_roots.c",
+            "src/done/game/data/model_effect/model_fragment_roots.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80089BC0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80089BC0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80089BC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80089EB8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_80089EB8.c",
+            "src/done/game/data/effect_graphics/effect_graphics_80089EB8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008A1D0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008A1D0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008A1D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008A470",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008A470.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008A470.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008AC70",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008AC70.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008AC70.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008AD30",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008AD30.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008AD30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008AD60",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008AD60.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008AD60.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008ADD0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008ADD0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008ADD0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008AE60",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008AE60.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008AE60.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008AF38",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008AF38.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008AF38.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008B050",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008B050.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008B050.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008B3A0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008B3A0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008B3A0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008B3E0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008B3E0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008B3E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008B480",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008B480.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008B480.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008B4A8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_types.c",
+            "src/done/game/data/effect_types.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CA4C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_roots_8008CA4C.c",
+            "src/done/game/data/effect_textures/effect_texture_roots_8008CA4C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CB64",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_texture_callbacks.c",
+            "src/done/game/data/effect_texture_callbacks.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CB70",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008CB70.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008CB70.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CC30",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008CC30.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008CC30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CD90",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008CD90.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008CD90.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CF00",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/native_fp_control_8008CF00.c",
+            "src/done/game/data/native_fp_control_8008CF00.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008CFA0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_8008CFA0.c",
+            "src/done/game/data/draw_graphics/direct_graphics_8008CFA0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D018",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_8008D018.c",
+            "src/done/game/data/draw_graphics/direct_graphics_8008D018.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D448",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_8008D448.c",
+            "src/done/game/data/draw_graphics/direct_graphics_8008D448.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D4F0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008D4F0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008D4F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D5B0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008D5B0.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008D5B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D5E0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_settings/particle_category_roots.c",
+            "src/done/game/data/particle_settings/particle_category_roots.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D690",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008D690.c",
+            "src/done/game/data/particle_points/particle_points_8008D690.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D9D0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008D9D0.c",
+            "src/done/game/data/particle_points/particle_points_8008D9D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008DBA0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008DBA0.c",
+            "src/done/game/data/particle_points/particle_points_8008DBA0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E020",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008E020.c",
+            "src/done/game/data/particle_points/particle_points_8008E020.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E3B0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008E3B0.c",
+            "src/done/game/data/particle_points/particle_points_8008E3B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E490",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008E490.c",
+            "src/done/game/data/particle_points/particle_points_8008E490.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E540",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008E540.c",
+            "src/done/game/data/particle_points/particle_points_8008E540.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E5F0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_settings/particle_point_8008E5F0.c",
+            "src/done/game/data/particle_settings/particle_point_8008E5F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E600",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_points/particle_points_8008E600.c",
+            "src/done/game/data/particle_points/particle_points_8008E600.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008E940",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_settings/particle_parameters.c",
+            "src/done/game/data/particle_settings/particle_parameters.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008ED80",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_settings/particle_descriptors.c",
+            "src/done/game/data/particle_settings/particle_descriptors.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F2C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F2C0.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F2C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F2F0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F2F0.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F2F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F368",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F368.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F368.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F3E0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F3E0.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F3E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F428",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F428.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F428.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F470",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F470.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F470.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F4A0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F4A0.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F4A0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F4E8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F4E8.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F4E8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F518",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F518.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F518.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F590",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F590.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F590.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F608",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F608.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F608.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F638",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F638.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F638.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F668",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F668.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F668.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F698",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F698.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F698.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F6C8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F6C8.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F6C8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F6F8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_variants/particle_variants_8008F6F8.c",
+            "src/done/game/data/particle_variants/particle_variants_8008F6F8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F728",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_settings/particle_filter_lists.c",
+            "src/done/game/data/particle_settings/particle_filter_lists.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F780",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/particle_settings/particle_categories.c",
+            "src/done/game/data/particle_settings/particle_categories.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F910",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008F910.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008F910.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008FB18",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_8008FB18.c",
+            "src/done/game/data/effect_graphics/effect_graphics_8008FB18.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090028",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/draw_graphics/direct_graphics_80090028.c",
+            "src/done/game/data/draw_graphics/direct_graphics_80090028.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009006C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/menu_texture/ui_digit_columns.c",
+            "src/done/game/data/menu_texture/ui_digit_columns.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090074",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/scene_ui/ui_decimal_tables.c",
+            "src/done/game/data/scene_ui/ui_decimal_tables.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800900BC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/menu_texture/menu_primary_resources.c",
+            "src/done/game/data/menu_texture/menu_primary_resources.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800900D8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/menu_texture/menu_secondary_resources.c",
+            "src/done/game/data/menu_texture/menu_secondary_resources.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800900FC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/menu_texture/menu_rotating_resources.c",
+            "src/done/game/data/menu_texture/menu_rotating_resources.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090110",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/scene_ui/ui_model_graphics.c",
+            "src/done/game/data/scene_ui/ui_model_graphics.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090150",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/scene_ui/scene_preload_lists.c",
+            "src/done/game/data/scene_ui/scene_preload_lists.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800901F0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_800901F0.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_800901F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090358",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090358.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090358.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090388",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090388.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090388.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800903B8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/literal_effect_texture_800903B8.c",
+            "src/done/game/data/literal_effect_texture_800903B8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800903C8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800903C8.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800903C8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800903E0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/literal_effect_texture_800903E0.c",
+            "src/done/game/data/literal_effect_texture_800903E0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090420",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090420.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090420.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090480",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090480.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090480.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090494",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090494.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090494.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800904A0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_800904A0.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_800904A0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800904B4",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800904B4.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800904B4.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090538",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090538.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090538.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009053C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_8009053C.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_8009053C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090558",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/literal_effect_texture_80090558.c",
+            "src/done/game/data/literal_effect_texture_80090558.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800905A8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800905A8.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800905A8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800905FC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_800905FC.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_800905FC.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090600",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090600.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090600.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009060C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/two_frame_effect_texture.c",
+            "src/done/game/data/two_frame_effect_texture.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090620",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090620.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090620.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090634",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090634.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090634.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090640",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090640.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090640.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090660",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090660.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090660.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009069C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_8009069C.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_8009069C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800906C4",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800906C4.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800906C4.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800906D0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_800906D0.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_800906D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800906F8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800906F8.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800906F8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009071C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_8009071C.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_8009071C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090730",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80090730.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80090730.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009073C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_8009073C.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_8009073C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009075C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_8009075C.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_8009075C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090768",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090768.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090768.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009077C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_8009077C.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_8009077C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090788",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090788.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090788.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009078C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_8009078C.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_8009078C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800907A4",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_800907A4.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_800907A4.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800907EC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800907EC.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800907EC.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800907F8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_800907F8.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_800907F8.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800907FC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_800907FC.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_800907FC.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090808",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_frames_80090808.c",
+            "src/done/game/data/effect_textures/effect_texture_frames_80090808.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009080C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_8009080C.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_8009080C.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090818",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_80090818.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_80090818.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80090B60",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/menu_texture/cpu_texture_descriptors.c",
+            "src/done/game/data/menu_texture/cpu_texture_descriptors.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80091520",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_80091520.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_80091520.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800915BC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_800915BC.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_800915BC.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800915D8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/glyph_texture_data.c",
+            "src/done/game/data/glyph_texture_data.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800917E4",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/cpu_texture_frames/cpu_texture_frames_800917E4.c",
+            "src/done/game/data/cpu_texture_frames/cpu_texture_frames_800917E4.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80091834",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_80091834.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_80091834.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80091840",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/literal_effect_texture_80091840.c",
+            "src/done/game/data/literal_effect_texture_80091840.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009184C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_textures/effect_texture_descriptors_8009184C.c",
+            "src/done/game/data/effect_textures/effect_texture_descriptors_8009184C.c"
+          ]
+        }
+      },
+      {
         "address": "0x80091970",
         "section": ".data",
         "owner": {
@@ -365,6 +1845,16 @@
         "owner": {
           "archive": "libultrare",
           "member": "decoder.o"
+        }
+      },
+      {
+        "address": "0x80091D20",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/flat_asset_sizes.c",
+            "src/done/game/data/flat_asset_sizes.c"
+          ]
         }
       },
       {
@@ -414,6 +1904,16 @@
           "sources": [
             "src/game/game_36680.c",
             "src/done/game/game_36680.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80095C64",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/native_fp_control_80095C64.c",
+            "src/done/game/data/native_fp_control_80095C64.c"
           ]
         }
       },
@@ -720,6 +2220,16 @@
         }
       },
       {
+        "address": "0x80098E00",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/inverse_angle_80098E00.c",
+            "src/done/game/data/inverse_angle_80098E00.c"
+          ]
+        }
+      },
+      {
         "address": "0x80099000",
         "section": ".rodata",
         "owner": {
@@ -842,6 +2352,16 @@
           "sources": [
             "src/game/game_A28B0.c",
             "src/done/game/game_A28B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009A220",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/quarter_wave_8009A220.c",
+            "src/done/game/data/quarter_wave_8009A220.c"
           ]
         }
       },
@@ -982,6 +2502,46 @@
           "sources": [
             "src/game/game_C98F0.c",
             "src/done/game/game_C98F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009E470",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/resource_dependencies_0.c",
+            "src/done/game/data/resource_dependencies_0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009E5F4",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/resource_dependencies_1.c",
+            "src/done/game/data/resource_dependencies_1.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009E618",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/resource_dependencies_2.c",
+            "src/done/game/data/resource_dependencies_2.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009E834",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/data/resource_names.c",
+            "src/done/game/data/resource_names.c"
           ]
         }
       },
@@ -1546,6 +3106,26 @@
         }
       },
       {
+        "address": "0x800A18C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_fragment_extra.c",
+            "src/done/game/data/model_effect/model_fragment_extra.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A18CC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/menu_texture/model_extra_scales.c",
+            "src/done/game/data/menu_texture/model_extra_scales.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A192C",
         "section": ".rodata",
         "owner": {
@@ -1746,12 +3326,72 @@
         }
       },
       {
+        "address": "0x800A24B0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/weighted_vectors_800A24B0.c",
+            "src/done/game/data/weighted_vectors_800A24B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A2504",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/weighted_record_800A2504.c",
+            "src/done/game/data/weighted_record_800A2504.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A2520",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/weighted_vectors_800A2520.c",
+            "src/done/game/data/weighted_vectors_800A2520.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A2568",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/weighted_vectors_800A2568.c",
+            "src/done/game/data/weighted_vectors_800A2568.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A25BC",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/weighted_vectors_800A25BC.c",
+            "src/done/game/data/weighted_vectors_800A25BC.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A268C",
         "section": ".rodata",
         "owner": {
           "sources": [
             "src/game/game_1368C0.c",
             "src/done/game/game_1368C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A26C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_defaults.c",
+            "src/done/game/data/model_defaults.c"
           ]
         }
       },
@@ -1866,6 +3506,66 @@
         }
       },
       {
+        "address": "0x800A3880",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_effect_lookup.c",
+            "src/done/game/data/model_effect/model_effect_lookup.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3C30",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_fragment_scales.c",
+            "src/done/game/data/model_effect/model_fragment_scales.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3C6C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_fragment_selectors.c",
+            "src/done/game/data/model_effect/model_fragment_selectors.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3F14",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_fragment_counts.c",
+            "src/done/game/data/model_effect/model_fragment_counts.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3F64",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_fragment_codes.c",
+            "src/done/game/data/model_effect/model_fragment_codes.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A3FD8",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/model_effect/model_effect_profiles.c",
+            "src/done/game/data/model_effect/model_effect_profiles.c"
+          ]
+        }
+      },
+      {
         "address": "0x800A4350",
         "section": ".rodata.blood_0",
         "owner": {
@@ -1942,6 +3642,26 @@
           "sources": [
             "src/game/effects/blood.c",
             "src/done/game/effects/blood.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A49C0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/native_float_data_800A49C0.c",
+            "src/done/game/data/native_float_data_800A49C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A4A2C",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/native_float_data_800A4A2C.c",
+            "src/done/game/data/native_float_data_800A4A2C.c"
           ]
         }
       },
@@ -2182,6 +3902,26 @@
           "sources": [
             "src/game/game_183640.c",
             "src/done/game/game_183640.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A6080",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_800A6080.c",
+            "src/done/game/data/effect_graphics/effect_graphics_800A6080.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800A6170",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/data/effect_graphics/effect_graphics_800A6170.c",
+            "src/done/game/data/effect_graphics/effect_graphics_800A6170.c"
           ]
         }
       },
@@ -3026,26 +4766,6 @@
         }
       },
       {
-        "address": "0x800AB500",
-        "section": ".rodata.209b50_0",
-        "owner": {
-          "sources": [
-            "src/game/game_209B50.c",
-            "src/done/game/game_209B50.c"
-          ]
-        }
-      },
-      {
-        "address": "0x800AB538",
-        "section": ".rodata.209b50_18",
-        "owner": {
-          "sources": [
-            "src/game/game_209B50.c",
-            "src/done/game/game_209B50.c"
-          ]
-        }
-      },
-      {
         "address": "0x800AB470",
         "section": ".rodata.2062d0_0",
         "owner": {
@@ -3072,6 +4792,26 @@
           "sources": [
             "src/game/game_2062D0.c",
             "src/done/game/game_2062D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AB500",
+        "section": ".rodata.209b50_0",
+        "owner": {
+          "sources": [
+            "src/game/game_209B50.c",
+            "src/done/game/game_209B50.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AB538",
+        "section": ".rodata.209b50_18",
+        "owner": {
+          "sources": [
+            "src/game/game_209B50.c",
+            "src/done/game/game_209B50.c"
           ]
         }
       },

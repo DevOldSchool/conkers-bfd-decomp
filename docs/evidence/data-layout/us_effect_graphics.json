@@ -1,0 +1,5380 @@
+{
+  "status": "Accepted:2536 additional matched data bytes; complete data unchanged",
+  "native": {
+    "status": "Native extent and SDK reconstruction evidence verified",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "objects": [
+      {
+        "address": 2148037584,
+        "bytes": 56,
+        "ctype": "Gfx",
+        "count": 7,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsDPPipeSync()",
+          "gsDPSetCombine(GCCc0w0(15, 31, 3, 1) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 7) | GCCc1w1(15, 3, 1, 1, 7, 7))",
+          "gsDPSetBlendColor(0, 0, 0, 32)",
+          "gsSPGeometryMode(0x110000, 0x0)",
+          "gsDPSetOtherMode(0x2C0F, 0x55307C)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_800873D0",
+        "payload_sha256": "69cac22d6b328b721d693e3e5c546a316b02914a3edbc9f9582d7d1343e85b0a"
+      },
+      {
+        "address": 2148037640,
+        "bytes": 8,
+        "ctype": "Gfx",
+        "count": 1,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80087408",
+        "payload_sha256": "362ba65db4724019c8fca63982f5540f941df8cc2f19d140e279ea8be459def5"
+      },
+      {
+        "address": 2148042600,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsDPSetConvert(0, 0, 0, 0, 0, 255)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80088768",
+        "payload_sha256": "17590aafbe1c002510e7818fab8040c2c9b9eb4672fd8d3a1e3d79d8a71aeb99"
+      },
+      {
+        "address": 2148042640,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsDPPipeSync()",
+          "gsDPSetConvert(175, -33, 7, 222, 114, 42)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80088790",
+        "payload_sha256": "ec568ae0376c5197b7100bb52bf217d65ffbfc9181fe67cf2df85b6dbcf6c05e"
+      },
+      {
+        "address": 2148042792,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80088828",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148042824,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80088848",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148043232,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPGeometryMode(0x20600, 0x0)",
+          "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 1) | GCCc1w1(15, 7, 7, 1, 7, 1))",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_800889E0",
+        "payload_sha256": "4565cb8c3f9a36466257239e5eef3e0db32045c81be8cd764de949fdaaa42e88"
+      },
+      {
+        "address": 2148043744,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80088BE0",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148043776,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80088C00",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148044992,
+        "bytes": 96,
+        "ctype": "Gfx",
+        "count": 12,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsSPGeometryMode(0x130200, 0x0)",
+          "gsSPGeometryMode(0x0, 0x400)",
+          "gsDPPipeSync()",
+          "gsDPSetCombine(GCCc0w0(15, 31, 1, 3) | GCCc1w0(15, 31), GCCc0w1(15, 3, 7, 7) | GCCc1w1(15, 1, 3, 3, 7, 7))",
+          "gsDPSetPrimColor(0, 0, 0, 0, 0, 0)",
+          "gsDPSetEnvColor(0, 0, 0, 0)",
+          "gsDPSetTile(4, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0)",
+          "gsDPSetTile(4, 1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0)",
+          "gsDPSetTileSize(0, 0, 0, 252, 252)",
+          "gsDPSetOtherMode(0x82C3F, 0x504DD8)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_800890C0",
+        "payload_sha256": "0e9d7eb1b6aa09355c5e6028353c4acbe652a6038a78a35d2ce947388f2f3393"
+      },
+      {
+        "address": 2148045936,
+        "bytes": 64,
+        "ctype": "Mtx",
+        "count": null,
+        "kind": "matrix",
+        "initializers": [
+          "{ INTEGER_PAIR(1, 0), INTEGER_PAIR(0, 0), INTEGER_PAIR(0, 1), INTEGER_PAIR(0, 0) }",
+          "{ INTEGER_PAIR(0, 0), INTEGER_PAIR(1, 0), INTEGER_PAIR(0, 0), INTEGER_PAIR(0, 1) }",
+          "{ 0, 0, 0, 0 }",
+          "{ 0, 0, 0, 0 }"
+        ],
+        "symbol": "D_80089470",
+        "payload_sha256": "3cc03f81f5d9a6c8cca5b9b3db46efaa284d60c34d7d5d5083ff809e30bbc52e"
+      },
+      {
+        "address": 2148046592,
+        "bytes": 48,
+        "ctype": "Gfx",
+        "count": 6,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)",
+          "gsDPSetBlendColor(0, 0, 0, 32)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80089700",
+        "payload_sha256": "91ff9abdc0c61ba74f737d856d358a071c7e396a24ff00275513aa378974827b"
+      },
+      {
+        "address": 2148046640,
+        "bytes": 48,
+        "ctype": "Gfx",
+        "count": 6,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)",
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPGeometryMode(0xF0000, 0x0)",
+          "gsSPGeometryMode(0x0, 0x200005)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80089730",
+        "payload_sha256": "6dca14a1f9c738c4ad6ba2b4632f5107de7dd0e582da09f36d1b9c411163116f"
+      },
+      {
+        "address": 2148047808,
+        "bytes": 72,
+        "ctype": "Gfx",
+        "count": 9,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 12, 2, 0x2000)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 19, 1, 0x80000)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 9, 3, 0xC00)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 6, 2, 0x80)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 2, 0x20)",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80089BC0",
+        "payload_sha256": "6a9f201bcab736d831872ce4cd92692029ca00c7db0c77d19c63e175ac639164"
+      },
+      {
+        "address": 2148047880,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80089C08",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148048568,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80089EB8",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148048600,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_80089ED8",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148049360,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008A1D0",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148049392,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008A1F0",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148050032,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsDPSetConvert(0, 0, 0, 0, 0, 255)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008A470",
+        "payload_sha256": "17590aafbe1c002510e7818fab8040c2c9b9eb4672fd8d3a1e3d79d8a71aeb99"
+      },
+      {
+        "address": 2148050072,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsDPPipeSync()",
+          "gsDPSetConvert(175, -33, 7, 222, 114, 42)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008A498",
+        "payload_sha256": "ec568ae0376c5197b7100bb52bf217d65ffbfc9181fe67cf2df85b6dbcf6c05e"
+      },
+      {
+        "address": 2148052080,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AC70",
+        "payload_sha256": "307b609df114781b861aafac1b9e372d63479bac3462a892ea1a1eb58d8cca5e"
+      },
+      {
+        "address": 2148052120,
+        "bytes": 48,
+        "ctype": "Gfx",
+        "count": 6,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 19, 1, 0x80000)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 2, 1, 0x0)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)",
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AC98",
+        "payload_sha256": "e4bf7e40cf5ef33e8e7c219c670b712d198d2caba20f29a60a59f12043990b90"
+      },
+      {
+        "address": 2148052272,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AD30",
+        "payload_sha256": "de20517be21c637f5639c97680cd70f7817e0db84c969125a4d643d13ebe2abc"
+      },
+      {
+        "address": 2148052288,
+        "bytes": 24,
+        "ctype": "Gfx",
+        "count": 3,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AD40",
+        "payload_sha256": "5bd877a89eb90e9e94c298bc4c70aeb9ee054b3ee8f9e7f53cc363e567444e34"
+      },
+      {
+        "address": 2148052320,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AD60",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148052352,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AD80",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148052432,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008ADD0",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148052464,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008ADF0",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148052576,
+        "bytes": 72,
+        "ctype": "Gfx",
+        "count": 9,
+        "kind": "geometry_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPVertex(D_800A6080, 5, 0)",
+          "gsSP1Triangle(0, 1, 2, 0)",
+          "gsSP1Triangle(0, 2, 3, 0)",
+          "gsSP1Triangle(0, 3, 1, 0)",
+          "gsSP1Triangle(1, 4, 2, 0)",
+          "gsSP1Triangle(2, 4, 3, 0)",
+          "gsSP1Triangle(3, 4, 1, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AE60",
+        "payload_sha256": "343cb702f7d112373bbe760dd0a0b2244493df66c1e428440d050c012bf47ea6"
+      },
+      {
+        "address": 2148052648,
+        "bytes": 56,
+        "ctype": "Gfx",
+        "count": 7,
+        "kind": "geometry_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPVertex(D_800A60D0, 4, 0)",
+          "gsSP1Triangle(0, 1, 2, 0)",
+          "gsSP1Triangle(0, 3, 1, 0)",
+          "gsSP1Triangle(1, 3, 2, 0)",
+          "gsSP1Triangle(2, 3, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AEA8",
+        "payload_sha256": "2d1acade7ab341726092948fb455254b8f0d9f8176adf103a73149ccc02304f1"
+      },
+      {
+        "address": 2148052792,
+        "bytes": 72,
+        "ctype": "Gfx",
+        "count": 9,
+        "kind": "geometry_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPVertex(D_800A6170, 5, 0)",
+          "gsSP1Triangle(0, 1, 2, 0)",
+          "gsSP1Triangle(0, 2, 3, 0)",
+          "gsSP1Triangle(0, 3, 1, 0)",
+          "gsSP1Triangle(1, 4, 2, 0)",
+          "gsSP1Triangle(2, 4, 3, 0)",
+          "gsSP1Triangle(3, 4, 1, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AF38",
+        "payload_sha256": "41277f87d44d2ec89894d9a5d7eb4c882d5c969435d7195533bcf80aaac9458e"
+      },
+      {
+        "address": 2148052864,
+        "bytes": 56,
+        "ctype": "Gfx",
+        "count": 7,
+        "kind": "geometry_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPVertex(D_800A61C0, 4, 0)",
+          "gsSP1Triangle(0, 1, 2, 0)",
+          "gsSP1Triangle(0, 3, 1, 0)",
+          "gsSP1Triangle(1, 3, 2, 0)",
+          "gsSP1Triangle(2, 3, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008AF80",
+        "payload_sha256": "92070ed718dea6aec78678604fa1a169c6b6c2eae0265524b7481ea9308901bc"
+      },
+      {
+        "address": 2148052920,
+        "bytes": 16,
+        "ctype": "Gfx *",
+        "count": 4,
+        "kind": "proven_selector_prefix",
+        "initializers": [
+          "D_8008AE60",
+          "D_8008AEA8",
+          "D_8008AF38",
+          "D_8008AF80"
+        ],
+        "symbol": "D_8008AFB8",
+        "payload_sha256": "0c519a10916c30d9baebd1b5c7f0005b425250f16ac8b179c51547e73d71164b"
+      },
+      {
+        "address": 2148053072,
+        "bytes": 24,
+        "ctype": "Gfx",
+        "count": 3,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008B050",
+        "payload_sha256": "4ada05da37f2c372cda2302f6a6d2fc9e3f6d31822e052084370e73995be919d"
+      },
+      {
+        "address": 2148053096,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008B068",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148053920,
+        "bytes": 56,
+        "ctype": "Gfx",
+        "count": 7,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPGeometryMode(0x600, 0x0)",
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsDPPipeSync()",
+          "gsDPSetCombine(GCCc0w0(1, 3, 1, 3) | GCCc1w0(1, 3), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 1, 3, 7, 7, 7))",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x1)",
+          "gsDPSetBlendColor(0, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008B3A0",
+        "payload_sha256": "483a23511b8e9e0535c29872c7d29e1e4b49be2ee2f59b3c4a449fd5f6fd48c5"
+      },
+      {
+        "address": 2148053984,
+        "bytes": 96,
+        "ctype": "Vtx",
+        "count": 6,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { -400, -34, -40 }, 0, { 0, 0 }, { 0, 0, 0, 0 } }}",
+          "{{ { -400, -34, 40 }, 0, { 0, 0 }, { 0, 0, 0, 0 } }}",
+          "{{ { -400, 34, 0 }, 0, { 0, 0 }, { 0, 0, 0, 0 } }}",
+          "{{ { 0, -34, -40 }, 0, { 0, 0 }, { 0, 0, 0, 0 } }}",
+          "{{ { 0, -34, 40 }, 0, { 0, 0 }, { 0, 0, 0, 0 } }}",
+          "{{ { 0, 34, 0 }, 0, { 0, 0 }, { 0, 0, 0, 0 } }}"
+        ],
+        "symbol": "D_8008B3E0",
+        "payload_sha256": "0d2182620ffa9e3b71ef7f4b6fe572d1f246d99a2e6382c26acaef24e7b47eb4"
+      },
+      {
+        "address": 2148054080,
+        "bytes": 56,
+        "ctype": "Gfx",
+        "count": 7,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPGeometryMode(0x0, 0x400)",
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsDPPipeSync()",
+          "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 1) | GCCc1w1(15, 7, 7, 1, 7, 1))",
+          "gsDPSetBlendColor(0, 0, 0, 1)",
+          "gsDPSetOtherMode(0x82CAF, 0x504B50)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008B440",
+        "payload_sha256": "83e099c8ad5bf1b5c40a28e24fcfc90ea52381309c5b0edb2dd91f445b1fd03c"
+      },
+      {
+        "address": 2148054144,
+        "bytes": 24,
+        "ctype": "Gfx",
+        "count": 3,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsSPGeometryMode(0x130600, 0x0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008B480",
+        "payload_sha256": "3b291d809cb5f26a914f02e90c3bd09d883c5ceae5de5c8b3030de9901ccbfd9"
+      },
+      {
+        "address": 2148054168,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008B498",
+        "payload_sha256": "de20517be21c637f5639c97680cd70f7817e0db84c969125a4d643d13ebe2abc"
+      },
+      {
+        "address": 2148060016,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPDisplayList(D_800873D0)",
+          "gsDPSetCombine(GCCc0w0(3, 1, 3, 1) | GCCc1w0(3, 1), GCCc0w1(5, 5, 7, 7) | GCCc1w1(5, 3, 1, 5, 7, 7))",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 3, 29, 0x5049D8)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CB70",
+        "payload_sha256": "709e72e8a474b6a65fbe3dc13b02c589a539d08de1577b5ca8b1538eb206c0f6"
+      },
+      {
+        "address": 2148060048,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPDisplayList(D_80087408)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CB90",
+        "payload_sha256": "4a1313a453528f7761b3c388edea9491776a96f393d17bf4b7c43d9047425e25"
+      },
+      {
+        "address": 2148060208,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPGeometryMode(0x110600, 0x0)",
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsDPPipeSync()",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CC30",
+        "payload_sha256": "2a7825264c0cf0ecdfee8ad069e5ce963f2a263f487cc1bf0affbedd7ce97f5d"
+      },
+      {
+        "address": 2148060248,
+        "bytes": 24,
+        "ctype": "Gfx",
+        "count": 3,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPGeometryMode(0x0, 0x400)",
+          "gsDPPipeSync()",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CC58",
+        "payload_sha256": "96d77962e8eeda9da2752b59fcc7190ee2ad1f998e998860a80d4198f966df7a"
+      },
+      {
+        "address": 2148060560,
+        "bytes": 96,
+        "ctype": "Vtx",
+        "count": 6,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { 7, 4, 0 }, 0, { 9234, 8351 }, { 254, 254, 254, 255 } }}",
+          "{{ { -7, 4, 0 }, 0, { 8200, 8334 }, { 254, 254, 254, 255 } }}",
+          "{{ { 0, 1, 3 }, 0, { 8720, 8107 }, { 254, 254, 254, 255 } }}",
+          "{{ { 7, 14, 0 }, 0, { 9202, 9040 }, { 254, 254, 254, 255 } }}",
+          "{{ { -7, 14, 0 }, 0, { 8213, 9024 }, { 254, 254, 254, 255 } }}",
+          "{{ { 0, 21, 4 }, 0, { 8698, 9694 }, { 254, 254, 254, 255 } }}"
+        ],
+        "symbol": "D_8008CD90",
+        "payload_sha256": "e06fa181eadd5a6fb7c6cafc14a89dd092fe20378420ecab114ee8a22ceac556"
+      },
+      {
+        "address": 2148060656,
+        "bytes": 48,
+        "ctype": "Gfx",
+        "count": 6,
+        "kind": "geometry_list",
+        "initializers": [
+          "gsSPVertex(D_8008CD90, 6, 0)",
+          "gsSP1Triangle(0, 1, 2, 0)",
+          "gsSP1Triangle(0, 3, 1, 0)",
+          "gsSP1Triangle(4, 1, 3, 0)",
+          "gsSP1Triangle(5, 4, 3, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CDF0",
+        "payload_sha256": "af25159884a4f88f8439a4038a246d4f5f85d40f584a566098f5b0d918565314"
+      },
+      {
+        "address": 2148060704,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 3, 29, 0x5049D8)",
+          "gsSPDisplayList(D_8008CE60)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CE20",
+        "payload_sha256": "c4e454bee68f81f6271d38b99149cb493900cdf879dcea49239a3f0106c9d833"
+      },
+      {
+        "address": 2148060736,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPSetOtherMode(G_SETOTHERMODE_L, 3, 29, 0x504240)",
+          "gsSPDisplayList(D_8008CE60)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CE40",
+        "payload_sha256": "a81e71e4d94b0a52ece80737cb17beba147a8f201393b5dfe40a4204a32b76c6"
+      },
+      {
+        "address": 2148060768,
+        "bytes": 72,
+        "ctype": "Gfx",
+        "count": 9,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 20, 2, 0x0)",
+          "gsDPSetCombine(GCCc0w0(1, 4, 1, 3) | GCCc1w0(1, 4), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 1, 3, 7, 7, 7))",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 16, 1, 0x0)",
+          "gsSPTexture(65535, 65535, 0, 0, 1)",
+          "gsSPGeometryMode(0x110600, 0x0)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 17, 2, 0x0)",
+          "gsSPSetOtherMode(G_SETOTHERMODE_H, 12, 2, 0x2000)",
+          "gsDPSetTile(0, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008CE60",
+        "payload_sha256": "b55cc6c28aaa149b8fcf8913d18eeb80bea2c6230e7312814d80b682e8d11ac8"
+      },
+      {
+        "address": 2148062448,
+        "bytes": 48,
+        "ctype": "Gfx",
+        "count": 6,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsDPPipeSync()",
+          "gsDPSetCombine(GCCc0w0(3, 4, 3, 4) | GCCc1w0(3, 4), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 3, 4, 7, 7, 7))",
+          "gsSPGeometryMode(0x20600, 0x0)",
+          "gsDPSetOtherMode(0x82CAF, 0x504A50)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008D4F0",
+        "payload_sha256": "a2ffbbbc4156fc3bdc025452049a16b5836078264e574f8d7f183d90b201d61b"
+      },
+      {
+        "address": 2148062496,
+        "bytes": 24,
+        "ctype": "Gfx",
+        "count": 3,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsDPPipeSync()",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008D520",
+        "payload_sha256": "eca2231bab66d1b6359fff4cce72cd893b4f48a8c625d7ce78ac944d6ba82bf8"
+      },
+      {
+        "address": 2148062520,
+        "bytes": 64,
+        "ctype": "Vtx",
+        "count": 4,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { -625, 0, 0 }, 0, { 0, 0 }, { 255, 255, 255, 16 } }}",
+          "{{ { 625, 31, 0 }, 0, { 0, 0 }, { 255, 255, 255, 255 } }}",
+          "{{ { 625, -31, 31 }, 0, { 0, 0 }, { 255, 255, 255, 255 } }}",
+          "{{ { 625, -31, -31 }, 0, { 0, 0 }, { 255, 255, 255, 255 } }}"
+        ],
+        "symbol": "D_8008D538",
+        "payload_sha256": "aaf348742ffdd9830fc2b2e35783679648a40a9b476de657a92f8665d293adf2"
+      },
+      {
+        "address": 2148062640,
+        "bytes": 8,
+        "ctype": "s32",
+        "count": 2,
+        "kind": "selector_values",
+        "initializers": [
+          "0",
+          "1"
+        ],
+        "symbol": "D_8008D5B0",
+        "payload_sha256": "cd2662154e6d76b2b2b92e70c0cac3ccf534f9b74eb5b89819ec509083d00a50"
+      },
+      {
+        "address": 2148062648,
+        "bytes": 8,
+        "ctype": "s32",
+        "count": 2,
+        "kind": "selector_values",
+        "initializers": [
+          "2",
+          "3"
+        ],
+        "symbol": "D_8008D5B8",
+        "payload_sha256": "b51f34d123eb604fed1894df4caf94e649233ee1c618a46ffa55d66e5d9aceff"
+      },
+      {
+        "address": 2148071696,
+        "bytes": 32,
+        "ctype": "Gfx",
+        "count": 4,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008F910",
+        "payload_sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+      },
+      {
+        "address": 2148071728,
+        "bytes": 16,
+        "ctype": "Gfx",
+        "count": 2,
+        "kind": "display_list",
+        "initializers": [
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008F930",
+        "payload_sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+      },
+      {
+        "address": 2148072216,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)",
+          "gsSPTexture(32768, 32768, 0, 0, 1)",
+          "gsDPSetConvert(0, 0, 0, 0, 0, 255)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008FB18",
+        "payload_sha256": "17590aafbe1c002510e7818fab8040c2c9b9eb4672fd8d3a1e3d79d8a71aeb99"
+      },
+      {
+        "address": 2148072256,
+        "bytes": 40,
+        "ctype": "Gfx",
+        "count": 5,
+        "kind": "display_list",
+        "initializers": [
+          "gsDPPipeSync()",
+          "gsSPTexture(0, 0, 0, 0, 0)",
+          "gsDPPipeSync()",
+          "gsDPSetConvert(175, -33, 7, 222, 114, 42)",
+          "gsSPEndDisplayList()"
+        ],
+        "symbol": "D_8008FB40",
+        "payload_sha256": "ec568ae0376c5197b7100bb52bf217d65ffbfc9181fe67cf2df85b6dbcf6c05e"
+      },
+      {
+        "address": 2148163712,
+        "bytes": 80,
+        "ctype": "Vtx",
+        "count": 5,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { 0, -127, -255 }, 0, { 0, 0 }, { 255, 255, 0, 255 } }}",
+          "{{ { 0, 25, 0 }, 0, { 0, 0 }, { 200, 200, 0, 255 } }}",
+          "{{ { -22, -12, 0 }, 0, { 0, 0 }, { 160, 80, 20, 255 } }}",
+          "{{ { 22, -12, 0 }, 0, { 0, 0 }, { 100, 130, 18, 255 } }}",
+          "{{ { 0, 51, 255 }, 0, { 0, 0 }, { 128, 64, 0, 255 } }}"
+        ],
+        "symbol": "D_800A6080",
+        "payload_sha256": "3988b1e178aff7191d599a65cba17194954a08e16aede3d3d626fe9a94185e61"
+      },
+      {
+        "address": 2148163792,
+        "bytes": 64,
+        "ctype": "Vtx",
+        "count": 4,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { 0, 25, -255 }, 0, { 0, 0 }, { 200, 170, 20, 255 } }}",
+          "{{ { -22, -12, -255 }, 0, { 0, 0 }, { 128, 32, 8, 255 } }}",
+          "{{ { 22, -12, -255 }, 0, { 0, 0 }, { 100, 100, 0, 255 } }}",
+          "{{ { 0, 0, 255 }, 0, { 0, 0 }, { 128, 64, 0, 255 } }}"
+        ],
+        "symbol": "D_800A60D0",
+        "payload_sha256": "9cca237fea3034152ce88e4826a124fe73583c900214ba2e3358607ff1a5d36b"
+      },
+      {
+        "address": 2148163952,
+        "bytes": 80,
+        "ctype": "Vtx",
+        "count": 5,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { 0, -127, -255 }, 0, { 0, 0 }, { 252, 82, 5, 255 } }}",
+          "{{ { 0, 25, 0 }, 0, { 0, 0 }, { 254, 141, 48, 255 } }}",
+          "{{ { -22, -12, 0 }, 0, { 0, 0 }, { 240, 98, 28, 255 } }}",
+          "{{ { 22, -12, 0 }, 0, { 0, 0 }, { 249, 91, 20, 255 } }}",
+          "{{ { 0, 51, 255 }, 0, { 0, 0 }, { 133, 41, 0, 255 } }}"
+        ],
+        "symbol": "D_800A6170",
+        "payload_sha256": "6b5dbd716f117ff195fe6daaf489c449b94d413df6d984ca19fea4358ab03ed1"
+      },
+      {
+        "address": 2148164032,
+        "bytes": 64,
+        "ctype": "Vtx",
+        "count": 4,
+        "kind": "vertices",
+        "initializers": [
+          "{{ { 0, 25, -255 }, 0, { 0, 0 }, { 248, 88, 20, 255 } }}",
+          "{{ { -22, -12, -255 }, 0, { 0, 0 }, { 198, 62, 3, 255 } }}",
+          "{{ { 22, -12, -255 }, 0, { 0, 0 }, { 254, 143, 61, 255 } }}",
+          "{{ { 0, 0, 255 }, 0, { 0, 0 }, { 252, 82, 5, 255 } }}"
+        ],
+        "symbol": "D_800A61C0",
+        "payload_sha256": "8de14b2b4ac1336b2b0b7063d170e1c6a6363f85f17f8a84d6d86c381e276d79"
+      }
+    ],
+    "new_bytes": 2536,
+    "selector_producer": {
+      "symbol": "func_1518A3C0",
+      "address": "0x1518a3c0",
+      "bytes": 564,
+      "sha1": "afcf82bf5a2e5ae620c39e46c7ef0573ce831aa8",
+      "anchors": {
+        "0x1518a46c": "0x304f0001",
+        "0x1518a470": "0xfc080",
+        "0x1518a474": "0x3c0c8009",
+        "0x1518a47c": "0x8d8cd5b8",
+        "0x1518a484": "0xa3ac006e",
+        "0x1518a490": "0x304d0001",
+        "0x1518a494": "0xd7080",
+        "0x1518a498": "0x3c198009",
+        "0x1518a4a0": "0x8f39d5b0",
+        "0x1518a4a4": "0xa3b9006e",
+        "0x1518a5a0": "0xd45602c"
+      },
+      "possible_variants": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "geometry": [
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One ROM game-data primitive, four native vertices and three ordered triangles. No effect name, runtime instance transforms, activation, timeline, complete native frame or native opacity is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_type": 6,
+        "source_vertex_address": "0x8008D538",
+        "vertex_count": 4,
+        "triangle_count": 3,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x8008D538",
+            "position": [
+              -625,
+              0,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              255,
+              255,
+              255,
+              16
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x8008D548",
+            "position": [
+              625,
+              31,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              255,
+              255,
+              255,
+              255
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x8008D558",
+            "position": [
+              625,
+              -31,
+              31
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              255,
+              255,
+              255,
+              255
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x8008D568",
+            "position": [
+              625,
+              -31,
+              -31
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              255,
+              255,
+              255,
+              255
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            1,
+            3
+          ],
+          [
+            0,
+            2,
+            3
+          ]
+        ],
+        "vertex_load_command": "0x01004008",
+        "triangle_commands": [
+          {
+            "instruction_address": "0x15187CE0",
+            "command": "0x05000204",
+            "argument": "0x00000000"
+          },
+          {
+            "instruction_address": "0x15187CF8",
+            "command": "0x05000206",
+            "argument": "0x00000000"
+          },
+          {
+            "instruction_address": "0x15187D10",
+            "command": "0x05000406",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "290aab191fa562144dec98402a04c45dbe7ced77",
+        "source_reconstruction": "All64 original vertex bytes reconstructed exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x151875E0",
+            "size": 920,
+            "sha1": "4a3d8d5343c1a47014ffc4c7551897e3eeb5c6c3"
+          },
+          {
+            "address": "0x15187978",
+            "size": 288,
+            "sha1": "8cc428786a1ddea876f0cd501c799dc24f977f6f"
+          },
+          {
+            "address": "0x15187A98",
+            "size": 724,
+            "sha1": "57240400027c3c203cd122ec5387ae58336fed56"
+          },
+          {
+            "address": "0x15187D6C",
+            "size": 340,
+            "sha1": "da3f2f65e100988423a3e91aae0221d175d5274d"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008B5E0",
+            "size": 52,
+            "hex": "151879780000000015187a98000000008008d4f0000000000000000000000000000000008008d520000000000000000001000000",
+            "sha1": "ca02188ff3d12958c8e29136b2455302f43cdb51"
+          },
+          {
+            "address": "0x8008D4F0",
+            "size": 48,
+            "hex": "d700000000000000e700000000000000fc323864ff73ffffd9fdf9ff00000000ef082caf00504a50df00000000000000",
+            "sha1": "da9454df2434e87c06c268496589724ac78aa40d"
+          },
+          {
+            "address": "0x8008D520",
+            "size": 24,
+            "hex": "da38000380089470e700000000000000df00000000000000",
+            "sha1": "ed4f53bb562de37ca2dd4b4d54496adb7b951274"
+          },
+          {
+            "address": "0x8008D538",
+            "size": 64,
+            "hex": "fd8f00000000000000000000ffffff100271001f0000000000000000ffffffff0271ffe1001f000000000000ffffffff0271ffe1ffe1000000000000ffffffff",
+            "sha1": "290aab191fa562144dec98402a04c45dbe7ced77"
+          }
+        ],
+        "render_state": {
+          "setup_display_list": "0x8008D4F0",
+          "teardown_display_list": "0x8008D520",
+          "dispatcher": "func_151674F8",
+          "setup_submission": "0x1516774C..0x1516776C",
+          "texture_enabled": false,
+          "combine_mode": [
+            "0xFC323864",
+            "0xFF73FFFF"
+          ],
+          "combine_formula": {
+            "formula": "(A - B) * C + D",
+            "cycles": [
+              {
+                "color": [
+                  "PRIMITIVE",
+                  "ZERO",
+                  "SHADE",
+                  "ZERO"
+                ],
+                "alpha": [
+                  "PRIMITIVE",
+                  "ZERO",
+                  "SHADE",
+                  "ZERO"
+                ]
+              },
+              {
+                "color": [
+                  "PRIMITIVE",
+                  "ZERO",
+                  "SHADE",
+                  "ZERO"
+                ],
+                "alpha": [
+                  "PRIMITIVE",
+                  "ZERO",
+                  "SHADE",
+                  "ZERO"
+                ]
+              }
+            ],
+            "inputs": [
+              "PRIMITIVE",
+              "SHADE"
+            ]
+          },
+          "other_mode": [
+            "0xEF082CAF",
+            "0x00504A50"
+          ],
+          "geometry_mode_clear_mask": "0x00020600",
+          "cleared_geometry_modes": [
+            "lighting",
+            "front-cull",
+            "back-cull"
+          ],
+          "remaining_geometry_modes": "Inherited; not fully specified by this setup.",
+          "primitive_color": {
+            "rgb": [
+              255,
+              255,
+              255
+            ],
+            "alpha": "Runtime ((remaining * 255) / lifetime) &255; not baked.",
+            "command": "0xFA000100",
+            "write_address": "0x15187C20..0x15187C88"
+          },
+          "diagnostic_export_policy": "No glTF material is assigned. The viewer default material is diagnostic and normally treats alpha as opaque; COLOR_0 preserves original vertex RGBA bytes, not the native result of primitive-alpha multiplication and RDP blending. Native transforms and other inherited geometry flags are not reconstructed."
+        },
+        "runtime_instancing": {
+          "draw_loop_count": 12,
+          "effect_record_stride": 160,
+          "policy": "Primitive exported once at native local coordinates; runtime matrices, random initializer state and primitive alpha omitted."
+        }
+      },
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One ROM game-data primitive shared by effect types 8, 9, 12 and 89. Six native vertices and four ordered triangles are preserved. No effect name, runtime instance, placement, scale, visibility, texture selection, animation or native appearance is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_types": [
+          8,
+          9,
+          12,
+          89
+        ],
+        "source_vertex_address": "0x8008CD90",
+        "source_list_address": "0x8008CDF0",
+        "vertex_count": 6,
+        "triangle_count": 4,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x8008CD90",
+            "position": [
+              7,
+              4,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              9234,
+              8351
+            ],
+            "rgba_u8": [
+              254,
+              254,
+              254,
+              255
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x8008CDA0",
+            "position": [
+              -7,
+              4,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              8200,
+              8334
+            ],
+            "rgba_u8": [
+              254,
+              254,
+              254,
+              255
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x8008CDB0",
+            "position": [
+              0,
+              1,
+              3
+            ],
+            "flag": 0,
+            "st_s16": [
+              8720,
+              8107
+            ],
+            "rgba_u8": [
+              254,
+              254,
+              254,
+              255
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x8008CDC0",
+            "position": [
+              7,
+              14,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              9202,
+              9040
+            ],
+            "rgba_u8": [
+              254,
+              254,
+              254,
+              255
+            ]
+          },
+          {
+            "index": 4,
+            "source_address": "0x8008CDD0",
+            "position": [
+              -7,
+              14,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              8213,
+              9024
+            ],
+            "rgba_u8": [
+              254,
+              254,
+              254,
+              255
+            ]
+          },
+          {
+            "index": 5,
+            "source_address": "0x8008CDE0",
+            "position": [
+              0,
+              21,
+              4
+            ],
+            "flag": 0,
+            "st_s16": [
+              8698,
+              9694
+            ],
+            "rgba_u8": [
+              254,
+              254,
+              254,
+              255
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            1
+          ],
+          [
+            4,
+            1,
+            3
+          ],
+          [
+            5,
+            4,
+            3
+          ]
+        ],
+        "vertex_load_command": "0x0100600C",
+        "triangle_commands": [
+          {
+            "source_address": "0x8008CDF8",
+            "command": "0x05000204",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008CE00",
+            "command": "0x05000602",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008CE08",
+            "command": "0x05080206",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008CE10",
+            "command": "0x050A0806",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "93628695ad949451da5fa2199e8e60578149a9b6",
+        "source_reconstruction": "All96 original vertex bytes and all48 display-list bytes preserved exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x15179FE0",
+            "size": 3024,
+            "sha1": "695b7d3f515a5c4ee888aba10551844fcc18f751"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008CD90",
+            "size": 96,
+            "hex": "00070004000000002412209ffefefefffff90004000000002008208efefefeff000000010003000022101fabfefefeff0007000e0000000023f22350fefefefffff9000e0000000020152340fefefeff000000150004000021fa25defefefeff",
+            "sha1": "93628695ad949451da5fa2199e8e60578149a9b6"
+          },
+          {
+            "address": "0x8008CDF0",
+            "size": 48,
+            "hex": "0100600c8008cd90050002040000000005000602000000000508020600000000050a080600000000df00000000000000",
+            "sha1": "7fdfb9b9c212494ce10c5b808762eed458f13815"
+          },
+          {
+            "address": "0x8008B648",
+            "size": 52,
+            "hex": "1517a1ec000000001517a3a0000000008008ce201517a95800000000000000000000000000000000000000000000000001000000",
+            "sha1": "79bb8f350705cdefd770789566c3f667f6325f1e"
+          },
+          {
+            "address": "0x8008B67C",
+            "size": 52,
+            "hex": "1517a84c000000001517a3a0000000008008ce201517a95800000000000000000000000000000000000000000000000001000000",
+            "sha1": "bbb76f815d32b9f370f9f843a6b3e51db36a60a5"
+          },
+          {
+            "address": "0x8008B718",
+            "size": 52,
+            "hex": "1517a1ec000000001517a3a0000000008008ce401517a95800000000000000001517ab7c80087408000000000000000001000000",
+            "sha1": "13a4cb8e4b255343a8c9cceeb702a2324a330252"
+          },
+          {
+            "address": "0x8008C6BC",
+            "size": 52,
+            "hex": "1517a1ec000000001517a3a0000000008008ce401517a95800000000000000001517ab7c00000000000000000000000001000000",
+            "sha1": "f2f42bae0aa710c0198ee2a89629972eac76a00a"
+          },
+          {
+            "address": "0x8008CE20",
+            "size": 32,
+            "hex": "e700000000000000e200001c005049d8de0000008008ce60df00000000000000",
+            "sha1": "b92fb14d519fb58bb24d825e4aa9029bc4819a17"
+          },
+          {
+            "address": "0x8008CE40",
+            "size": 32,
+            "hex": "e700000000000000e200001c00504240de0000008008ce60df00000000000000",
+            "sha1": "b815a99a0e351fb0f21ccbeadf4b4c87fdca9921"
+          },
+          {
+            "address": "0x8008CE60",
+            "size": 72,
+            "hex": "e3000a0100000000fc121624ff2fffffe3000f0000000000d7000002ffffffffd9eef9ff00000000e3000d0100000000e300120100002000f510000007000000df00000000000000",
+            "sha1": "d4af66e8604d01175eb76aea24bdd6490a65680f"
+          },
+          {
+            "address": "0x80087408",
+            "size": 8,
+            "hex": "df00000000000000",
+            "sha1": "313618a8e2c428e2ff1f32a3c7aae30e0e15c22f"
+          },
+          {
+            "address": "0x8009060C",
+            "size": 20,
+            "hex": "00000bae00000bac8009060c02000020002c0201",
+            "sha1": "5c14168d8a04388ad25a175ebac3882c6798e763"
+          }
+        ],
+        "render_state": {
+          "dispatcher": "func_151674F8",
+          "renderer": "func_1517A3A0",
+          "setup_display_lists": {
+            "8": "0x8008CE20",
+            "9": "0x8008CE20",
+            "12": "0x8008CE40",
+            "89": "0x8008CE40"
+          },
+          "shared_setup_display_list": "0x8008CE60",
+          "geometry_submission": "0x1517A618..0x1517A628",
+          "combine_mode": [
+            "0xFC121624",
+            "0xFF2FFFFF"
+          ],
+          "combine_formula": {
+            "formula": "(A - B) * C + D",
+            "cycles": [
+              {
+                "color": [
+                  "TEXEL0",
+                  "ZERO",
+                  "SHADE",
+                  "ZERO"
+                ],
+                "alpha": [
+                  "TEXEL0",
+                  "ZERO",
+                  "PRIMITIVE",
+                  "ZERO"
+                ]
+              },
+              {
+                "color": [
+                  "TEXEL0",
+                  "ZERO",
+                  "SHADE",
+                  "ZERO"
+                ],
+                "alpha": [
+                  "TEXEL0",
+                  "ZERO",
+                  "PRIMITIVE",
+                  "ZERO"
+                ]
+              }
+            ],
+            "inputs": [
+              "PRIMITIVE",
+              "SHADE",
+              "TEXEL0"
+            ]
+          },
+          "texture_selector": {
+            "object_offset": "0x9F",
+            "helper": "func_1517A9A8",
+            "descriptor_address": "0x80090614",
+            "table_address": "0x8009060C",
+            "stored_flat_indices": [
+              2990,
+              2988
+            ],
+            "status": "Selector bytes recorded; complete loader, tile and UV contract not reconstructed."
+          },
+          "primitive_alpha": {
+            "object_offset": "0xB3",
+            "cache_address": "0x800DD450",
+            "write_address": "0x1517A5AC..0x1517A5CC",
+            "policy": "Not baked."
+          },
+          "diagnostic_export_policy": "No glTF material, texture or normalized UVs are assigned. The default viewer material is diagnostic. COLOR_0 preserves original RGBA bytes; native alpha instead multiplies texture alpha by runtime primitive alpha. Raw signed ST is preserved in the source and manifest, without assuming tile state, filtering or coordinate normalization."
+        },
+        "runtime_instancing": {
+          "policy": "Export one source-local primitive shared by four dispatch types; no runtime instance synthesized.",
+          "position_and_angle_halfwords": "object+0x90..0x9A",
+          "scale_float": "object+0xA8",
+          "matrix_address": "object+0x10+(D_800BE9C0<<6)"
+        }
+      },
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One ROM game-data primitive used by effect type 13. Six local vertices and four ordered triangles are preserved. No effect name, runtime instance, placement, scale, visibility, timeline or native appearance is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_type": 13,
+        "source_vertex_address": "0x8008B3E0",
+        "vertex_count": 6,
+        "triangle_count": 4,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x8008B3E0",
+            "position": [
+              -400,
+              -34,
+              -40
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x8008B3F0",
+            "position": [
+              -400,
+              -34,
+              40
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x8008B400",
+            "position": [
+              -400,
+              34,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x8008B410",
+            "position": [
+              0,
+              -34,
+              -40
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "index": 4,
+            "source_address": "0x8008B420",
+            "position": [
+              0,
+              -34,
+              40
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "index": 5,
+            "source_address": "0x8008B430",
+            "position": [
+              0,
+              34,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            5,
+            3,
+            0
+          ],
+          [
+            2,
+            5,
+            0
+          ],
+          [
+            1,
+            4,
+            5
+          ],
+          [
+            1,
+            5,
+            2
+          ]
+        ],
+        "vertex_load_command": "0x0100600C",
+        "triangle_commands": [
+          {
+            "instruction_address": "0x15166ECC",
+            "command": "0x050A0600",
+            "argument": "0x00000000"
+          },
+          {
+            "instruction_address": "0x15166EE4",
+            "command": "0x05040A00",
+            "argument": "0x00000000"
+          },
+          {
+            "instruction_address": "0x15166EFC",
+            "command": "0x0502080A",
+            "argument": "0x00000000"
+          },
+          {
+            "instruction_address": "0x15166F14",
+            "command": "0x05020A04",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "dc13f954ac0a0693b224e05c9742597282cf1c6c",
+        "source_reconstruction": "All 96 original vertex bytes reconstructed exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x151669A0",
+            "size": 1648,
+            "sha1": "3f95afd4d65830cd0c4b2e1903e8307746524610"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008B3E0",
+            "size": 96,
+            "hex": "fe70ffdeffd800000000000000000000fe70ffde002800000000000000000000fe7000220000000000000000000000000000ffdeffd8000000000000000000000000ffde00280000000000000000000000000022000000000000000000000000",
+            "sha1": "dc13f954ac0a0693b224e05c9742597282cf1c6c"
+          },
+          {
+            "address": "0x8008B440",
+            "size": 56,
+            "hex": "d9ffffff00000400d7000002ffffffffe700000000000000fcfffffffffcf279f900000000000001ef082caf00504b50df00000000000000",
+            "sha1": "3f9d86c007ae7ed28140d644ea0d01cc1e810557"
+          },
+          {
+            "address": "0x8008B74C",
+            "size": 52,
+            "hex": "15166b500000000015166d68000000008008b44015166f6c000000000000000015166fd800000000000000000000000001000000",
+            "sha1": "672e8419243e856c2bb1c6f66a92fbc35dd8008d"
+          },
+          {
+            "address": "0x80090548",
+            "size": 16,
+            "hex": "000010b3800905480100004000200401",
+            "sha1": "07ce0f7a9fdf7d4f8331d55462afeebb5e74dbd9"
+          }
+        ],
+        "render_state": {
+          "setup_display_list": "0x8008B440",
+          "setup_callback": "0x15166F6C",
+          "dispatcher": "func_151674F8",
+          "texture_enabled": true,
+          "combine_mode": [
+            "0xFCFFFFFF",
+            "0xFFFCF279"
+          ],
+          "combine_formula": {
+            "formula": "(A - B) * C + D",
+            "cycles": [
+              {
+                "color": [
+                  "ZERO",
+                  "ZERO",
+                  "ZERO",
+                  "TEXEL0"
+                ],
+                "alpha": [
+                  "ZERO",
+                  "ZERO",
+                  "ZERO",
+                  "TEXEL0"
+                ]
+              },
+              {
+                "color": [
+                  "ZERO",
+                  "ZERO",
+                  "ZERO",
+                  "TEXEL0"
+                ],
+                "alpha": [
+                  "ZERO",
+                  "ZERO",
+                  "ZERO",
+                  "TEXEL0"
+                ]
+              }
+            ],
+            "inputs": [
+              "TEXEL0"
+            ]
+          },
+          "other_mode": [
+            "0xEF082CAF",
+            "0x00504B50"
+          ],
+          "blend_color": [
+            "0xF9000000",
+            "0x00000001"
+          ],
+          "texture_descriptor": "0x8009054C",
+          "texture_index": 4275,
+          "texture_limit": "Descriptor and loader call are proven; complete texture/TMEM/filter contract is unresolved.",
+          "dynamic_st": {
+            "source": "15166E08..15166EC0, unsigned object byte +0xD0",
+            "s0": "0x2800 - trunc((object_D0 << 12) / 10)",
+            "s1": "s0 + 0x800",
+            "cache_pairs": [
+              [
+                "s0",
+                8192
+              ],
+              [
+                "s0",
+                8192
+              ],
+              [
+                "s0",
+                9216
+              ],
+              [
+                "s1",
+                8192
+              ],
+              [
+                "s1",
+                8192
+              ],
+              [
+                "s1",
+                9216
+              ]
+            ],
+            "policy": "Raw zero ST retained; G_MODIFYVTX results not synthesized."
+          },
+          "diagnostic_export_policy": "No glTF material, texture or normalized UVs are assigned. The viewer default material is diagnostic. All six source RGBA and ST values are zero; native texture-only shading does not use these zero colors. The draw updates all six cached ST pairs from runtime object state before emitting triangles. Neither those coordinates nor the three runtime instance matrices are baked."
+        },
+        "runtime_instancing": {
+          "draw_loop_count": 3,
+          "matrix_offsets": [
+            16,
+            80,
+            144
+          ],
+          "policy": "Primitive exported once; constructor randomness, caller scale and runtime matrices omitted."
+        }
+      },
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One selected ROM game-data geometry source shared by object types55 and85. Native local positions, ordered triangles and all vertex RGBA bytes are preserved. The five known pointer-table entries are source variants, not proof of five active effects. No effect name, native instance, placement, activation or timeline is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_types": [
+          55,
+          85
+        ],
+        "selector": 0,
+        "selector_table_address": "0x8008AFB8",
+        "source_vertex_address": "0x800A6080",
+        "source_list_address": "0x8008AE60",
+        "vertex_count": 5,
+        "triangle_count": 6,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x800A6080",
+            "position": [
+              0,
+              -127,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              255,
+              255,
+              0,
+              255
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x800A6090",
+            "position": [
+              0,
+              25,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              200,
+              200,
+              0,
+              255
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x800A60A0",
+            "position": [
+              -22,
+              -12,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              160,
+              80,
+              20,
+              255
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x800A60B0",
+            "position": [
+              22,
+              -12,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              100,
+              130,
+              18,
+              255
+            ]
+          },
+          {
+            "index": 4,
+            "source_address": "0x800A60C0",
+            "position": [
+              0,
+              51,
+              255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              128,
+              64,
+              0,
+              255
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            0,
+            3,
+            1
+          ],
+          [
+            1,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            3
+          ],
+          [
+            3,
+            4,
+            1
+          ]
+        ],
+        "vertex_load_command": "0x0100500A",
+        "triangle_commands": [
+          {
+            "source_address": "0x8008AE70",
+            "command": "0x05000204",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AE78",
+            "command": "0x05000406",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AE80",
+            "command": "0x05000602",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AE88",
+            "command": "0x05020804",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AE90",
+            "command": "0x05040806",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AE98",
+            "command": "0x05060802",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "563720aea71892b329af58de0b89e1363f81f0e2",
+        "display_list_bytes_sha1": "c390a5d8e625ecf8167a514d46a55a617fee95b7",
+        "source_reconstruction": "All80 vertex bytes and all72 display-list bytes preserved exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x151580B0",
+            "size": 296,
+            "sha1": "245f256fa6f56f8569af3c594f97fec803883e8f"
+          },
+          {
+            "address": "0x151582C8",
+            "size": 708,
+            "sha1": "fbfe9a770dc1694858e8e48fc9e202480daca985"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008AFB8",
+            "size": 20,
+            "hex": "8008ae608008aea88008af388008af808008aee0",
+            "sha1": "f492873577f76671a15a3dcca17ba38cfa3d8be0"
+          },
+          {
+            "address": "0x8008BFD4",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008C5EC",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008AE60",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6080050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "c390a5d8e625ecf8167a514d46a55a617fee95b7"
+          },
+          {
+            "address": "0x8008AEA8",
+            "size": 56,
+            "hex": "e70000000000000001004008800a60d00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "57b84dc5b2340d60d758f6b9630fece2f19d5ef6"
+          },
+          {
+            "address": "0x8008AF38",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6170050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "ccb28370e93017ad0da49c0e0217fc463ab2ac33"
+          },
+          {
+            "address": "0x8008AF80",
+            "size": 56,
+            "hex": "e70000000000000001004008800a61c00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "203459b3bf9fee715bad77599b2ee3325290da23"
+          },
+          {
+            "address": "0x8008AEE0",
+            "size": 88,
+            "hex": "e7000000000000000100600c800a61100500020a0000000005000a060000000005000608000000000500080200000000050a02040000000005060a040000000005080604000000000502080400000000df00000000000000",
+            "sha1": "f0809f74439c7e3b9494742d1fd9657443fcda9a"
+          },
+          {
+            "address": "0x800A6080",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000ffff00ff000000190000000000000000c8c800ffffeafff40000000000000000a05014ff0016fff40000000000000000648212ff0000003300ff000000000000804000ff",
+            "sha1": "563720aea71892b329af58de0b89e1363f81f0e2"
+          },
+          {
+            "address": "0x800A60D0",
+            "size": 64,
+            "hex": "00000019ff01000000000000c8aa14ffffeafff4ff01000000000000802008ff0016fff4ff01000000000000646400ff0000000000ff000000000000804000ff",
+            "sha1": "494746003d9af32d1f96124c61c70c6abad52971"
+          },
+          {
+            "address": "0x800A6170",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000fc5205ff000000190000000000000000fe8d30ffffeafff40000000000000000f0621cff0016fff40000000000000000f95b14ff0000003300ff000000000000852900ff",
+            "sha1": "09ff97684061bf6e20b7f8de553b7b3da5350e3f"
+          },
+          {
+            "address": "0x800A61C0",
+            "size": 64,
+            "hex": "00000019ff01000000000000f85814ffffeafff4ff01000000000000c63e03ff0016fff4ff01000000000000fe8f3dff0000000000ff000000000000fc5205ff",
+            "sha1": "e0755359b5d3eba4ed4ce894183732f7d7333799"
+          },
+          {
+            "address": "0x800A6110",
+            "size": 96,
+            "hex": "000000ff0000000000000000ff00004000ff00000000000000000000ff0000400000ff010000000000000000ff000040ff0100000000000000000000ff0000400000000000ff000000000000ff00004000000000ff01000000000000ff000040",
+            "sha1": "80864e415021a3c23b18793d0c83b4f3ad300f3d"
+          },
+          {
+            "address": "0x8008ADD0",
+            "size": 32,
+            "hex": "e700000000000000da38000380089470d700000280008000df00000000000000",
+            "sha1": "cf787beaef71db4f90c4cb811b1668192bae77aa"
+          },
+          {
+            "address": "0x8008ADF0",
+            "size": 16,
+            "hex": "d700000000000000df00000000000000",
+            "sha1": "7f9be70108edb3ebffd24e04c131d8000038411c"
+          }
+        ],
+        "constructor": {
+          "function": "func_151580B0",
+          "parameter_copy": "0x15158128..0x15158134",
+          "source_bytes": 68,
+          "object_destination_offset": "0x10",
+          "caller_selector_offset": "0x06",
+          "object_selector_offset": "0x16",
+          "object_type": "Fourth argument low byte zero selects55; nonzero selects85.",
+          "selector_scope": "Renderer reads an unsigned byte without a bounds check. Export supports only the five proven source entries; no caller activation is inferred."
+        },
+        "render_state": {
+          "dispatcher": "func_151674F8",
+          "renderer": "func_151582C8",
+          "descriptors": {
+            "55": "0x8008BFD4",
+            "85": "0x8008C5EC"
+          },
+          "setup_display_list": "0x8008ADD0",
+          "teardown_display_list": "0x8008ADF0",
+          "geometry_submission": "0x15158550..0x15158574",
+          "matrix_submission": "Runtime object+0x58+64*D_800BE9C0 (frame-buffer index); not baked.",
+          "material_status": "caller-and-runtime-dependent-not-reconstructed",
+          "diagnostic_export_policy": "No glTF material, normals or normalized UVs are assigned. The viewer default material is diagnostic and normally treats alpha as opaque. COLOR_0 preserves the source bytes, not a reconstructed native material result. Raw flags and signed ST remain in the source vertex file and manifest. Runtime matrix, combiner, OtherMode, primitive/environment colour, lighting and texture state are not simulated."
+        },
+        "runtime_instancing": {
+          "policy": "One source primitive at native local coordinates; no runtime object or world transform is exported."
+        }
+      },
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One selected ROM game-data geometry source shared by object types55 and85. Native local positions, ordered triangles and all vertex RGBA bytes are preserved. The five known pointer-table entries are source variants, not proof of five active effects. No effect name, native instance, placement, activation or timeline is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_types": [
+          55,
+          85
+        ],
+        "selector": 1,
+        "selector_table_address": "0x8008AFB8",
+        "source_vertex_address": "0x800A60D0",
+        "source_list_address": "0x8008AEA8",
+        "vertex_count": 4,
+        "triangle_count": 4,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x800A60D0",
+            "position": [
+              0,
+              25,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              200,
+              170,
+              20,
+              255
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x800A60E0",
+            "position": [
+              -22,
+              -12,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              128,
+              32,
+              8,
+              255
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x800A60F0",
+            "position": [
+              22,
+              -12,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              100,
+              100,
+              0,
+              255
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x800A6100",
+            "position": [
+              0,
+              0,
+              255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              128,
+              64,
+              0,
+              255
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            2,
+            3,
+            0
+          ]
+        ],
+        "vertex_load_command": "0x01004008",
+        "triangle_commands": [
+          {
+            "source_address": "0x8008AEB8",
+            "command": "0x05000204",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AEC0",
+            "command": "0x05000602",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AEC8",
+            "command": "0x05020604",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AED0",
+            "command": "0x05040600",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "494746003d9af32d1f96124c61c70c6abad52971",
+        "display_list_bytes_sha1": "57b84dc5b2340d60d758f6b9630fece2f19d5ef6",
+        "source_reconstruction": "All64 vertex bytes and all56 display-list bytes preserved exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x151580B0",
+            "size": 296,
+            "sha1": "245f256fa6f56f8569af3c594f97fec803883e8f"
+          },
+          {
+            "address": "0x151582C8",
+            "size": 708,
+            "sha1": "fbfe9a770dc1694858e8e48fc9e202480daca985"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008AFB8",
+            "size": 20,
+            "hex": "8008ae608008aea88008af388008af808008aee0",
+            "sha1": "f492873577f76671a15a3dcca17ba38cfa3d8be0"
+          },
+          {
+            "address": "0x8008BFD4",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008C5EC",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008AE60",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6080050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "c390a5d8e625ecf8167a514d46a55a617fee95b7"
+          },
+          {
+            "address": "0x8008AEA8",
+            "size": 56,
+            "hex": "e70000000000000001004008800a60d00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "57b84dc5b2340d60d758f6b9630fece2f19d5ef6"
+          },
+          {
+            "address": "0x8008AF38",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6170050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "ccb28370e93017ad0da49c0e0217fc463ab2ac33"
+          },
+          {
+            "address": "0x8008AF80",
+            "size": 56,
+            "hex": "e70000000000000001004008800a61c00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "203459b3bf9fee715bad77599b2ee3325290da23"
+          },
+          {
+            "address": "0x8008AEE0",
+            "size": 88,
+            "hex": "e7000000000000000100600c800a61100500020a0000000005000a060000000005000608000000000500080200000000050a02040000000005060a040000000005080604000000000502080400000000df00000000000000",
+            "sha1": "f0809f74439c7e3b9494742d1fd9657443fcda9a"
+          },
+          {
+            "address": "0x800A6080",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000ffff00ff000000190000000000000000c8c800ffffeafff40000000000000000a05014ff0016fff40000000000000000648212ff0000003300ff000000000000804000ff",
+            "sha1": "563720aea71892b329af58de0b89e1363f81f0e2"
+          },
+          {
+            "address": "0x800A60D0",
+            "size": 64,
+            "hex": "00000019ff01000000000000c8aa14ffffeafff4ff01000000000000802008ff0016fff4ff01000000000000646400ff0000000000ff000000000000804000ff",
+            "sha1": "494746003d9af32d1f96124c61c70c6abad52971"
+          },
+          {
+            "address": "0x800A6170",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000fc5205ff000000190000000000000000fe8d30ffffeafff40000000000000000f0621cff0016fff40000000000000000f95b14ff0000003300ff000000000000852900ff",
+            "sha1": "09ff97684061bf6e20b7f8de553b7b3da5350e3f"
+          },
+          {
+            "address": "0x800A61C0",
+            "size": 64,
+            "hex": "00000019ff01000000000000f85814ffffeafff4ff01000000000000c63e03ff0016fff4ff01000000000000fe8f3dff0000000000ff000000000000fc5205ff",
+            "sha1": "e0755359b5d3eba4ed4ce894183732f7d7333799"
+          },
+          {
+            "address": "0x800A6110",
+            "size": 96,
+            "hex": "000000ff0000000000000000ff00004000ff00000000000000000000ff0000400000ff010000000000000000ff000040ff0100000000000000000000ff0000400000000000ff000000000000ff00004000000000ff01000000000000ff000040",
+            "sha1": "80864e415021a3c23b18793d0c83b4f3ad300f3d"
+          },
+          {
+            "address": "0x8008ADD0",
+            "size": 32,
+            "hex": "e700000000000000da38000380089470d700000280008000df00000000000000",
+            "sha1": "cf787beaef71db4f90c4cb811b1668192bae77aa"
+          },
+          {
+            "address": "0x8008ADF0",
+            "size": 16,
+            "hex": "d700000000000000df00000000000000",
+            "sha1": "7f9be70108edb3ebffd24e04c131d8000038411c"
+          }
+        ],
+        "constructor": {
+          "function": "func_151580B0",
+          "parameter_copy": "0x15158128..0x15158134",
+          "source_bytes": 68,
+          "object_destination_offset": "0x10",
+          "caller_selector_offset": "0x06",
+          "object_selector_offset": "0x16",
+          "object_type": "Fourth argument low byte zero selects55; nonzero selects85.",
+          "selector_scope": "Renderer reads an unsigned byte without a bounds check. Export supports only the five proven source entries; no caller activation is inferred."
+        },
+        "render_state": {
+          "dispatcher": "func_151674F8",
+          "renderer": "func_151582C8",
+          "descriptors": {
+            "55": "0x8008BFD4",
+            "85": "0x8008C5EC"
+          },
+          "setup_display_list": "0x8008ADD0",
+          "teardown_display_list": "0x8008ADF0",
+          "geometry_submission": "0x15158550..0x15158574",
+          "matrix_submission": "Runtime object+0x58+64*D_800BE9C0 (frame-buffer index); not baked.",
+          "material_status": "caller-and-runtime-dependent-not-reconstructed",
+          "diagnostic_export_policy": "No glTF material, normals or normalized UVs are assigned. The viewer default material is diagnostic and normally treats alpha as opaque. COLOR_0 preserves the source bytes, not a reconstructed native material result. Raw flags and signed ST remain in the source vertex file and manifest. Runtime matrix, combiner, OtherMode, primitive/environment colour, lighting and texture state are not simulated."
+        },
+        "runtime_instancing": {
+          "policy": "One source primitive at native local coordinates; no runtime object or world transform is exported."
+        }
+      },
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One selected ROM game-data geometry source shared by object types55 and85. Native local positions, ordered triangles and all vertex RGBA bytes are preserved. The five known pointer-table entries are source variants, not proof of five active effects. No effect name, native instance, placement, activation or timeline is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_types": [
+          55,
+          85
+        ],
+        "selector": 2,
+        "selector_table_address": "0x8008AFB8",
+        "source_vertex_address": "0x800A6170",
+        "source_list_address": "0x8008AF38",
+        "vertex_count": 5,
+        "triangle_count": 6,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x800A6170",
+            "position": [
+              0,
+              -127,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              252,
+              82,
+              5,
+              255
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x800A6180",
+            "position": [
+              0,
+              25,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              254,
+              141,
+              48,
+              255
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x800A6190",
+            "position": [
+              -22,
+              -12,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              240,
+              98,
+              28,
+              255
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x800A61A0",
+            "position": [
+              22,
+              -12,
+              0
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              249,
+              91,
+              20,
+              255
+            ]
+          },
+          {
+            "index": 4,
+            "source_address": "0x800A61B0",
+            "position": [
+              0,
+              51,
+              255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              133,
+              41,
+              0,
+              255
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            0,
+            3,
+            1
+          ],
+          [
+            1,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            3
+          ],
+          [
+            3,
+            4,
+            1
+          ]
+        ],
+        "vertex_load_command": "0x0100500A",
+        "triangle_commands": [
+          {
+            "source_address": "0x8008AF48",
+            "command": "0x05000204",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AF50",
+            "command": "0x05000406",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AF58",
+            "command": "0x05000602",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AF60",
+            "command": "0x05020804",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AF68",
+            "command": "0x05040806",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AF70",
+            "command": "0x05060802",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "09ff97684061bf6e20b7f8de553b7b3da5350e3f",
+        "display_list_bytes_sha1": "ccb28370e93017ad0da49c0e0217fc463ab2ac33",
+        "source_reconstruction": "All80 vertex bytes and all72 display-list bytes preserved exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x151580B0",
+            "size": 296,
+            "sha1": "245f256fa6f56f8569af3c594f97fec803883e8f"
+          },
+          {
+            "address": "0x151582C8",
+            "size": 708,
+            "sha1": "fbfe9a770dc1694858e8e48fc9e202480daca985"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008AFB8",
+            "size": 20,
+            "hex": "8008ae608008aea88008af388008af808008aee0",
+            "sha1": "f492873577f76671a15a3dcca17ba38cfa3d8be0"
+          },
+          {
+            "address": "0x8008BFD4",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008C5EC",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008AE60",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6080050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "c390a5d8e625ecf8167a514d46a55a617fee95b7"
+          },
+          {
+            "address": "0x8008AEA8",
+            "size": 56,
+            "hex": "e70000000000000001004008800a60d00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "57b84dc5b2340d60d758f6b9630fece2f19d5ef6"
+          },
+          {
+            "address": "0x8008AF38",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6170050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "ccb28370e93017ad0da49c0e0217fc463ab2ac33"
+          },
+          {
+            "address": "0x8008AF80",
+            "size": 56,
+            "hex": "e70000000000000001004008800a61c00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "203459b3bf9fee715bad77599b2ee3325290da23"
+          },
+          {
+            "address": "0x8008AEE0",
+            "size": 88,
+            "hex": "e7000000000000000100600c800a61100500020a0000000005000a060000000005000608000000000500080200000000050a02040000000005060a040000000005080604000000000502080400000000df00000000000000",
+            "sha1": "f0809f74439c7e3b9494742d1fd9657443fcda9a"
+          },
+          {
+            "address": "0x800A6080",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000ffff00ff000000190000000000000000c8c800ffffeafff40000000000000000a05014ff0016fff40000000000000000648212ff0000003300ff000000000000804000ff",
+            "sha1": "563720aea71892b329af58de0b89e1363f81f0e2"
+          },
+          {
+            "address": "0x800A60D0",
+            "size": 64,
+            "hex": "00000019ff01000000000000c8aa14ffffeafff4ff01000000000000802008ff0016fff4ff01000000000000646400ff0000000000ff000000000000804000ff",
+            "sha1": "494746003d9af32d1f96124c61c70c6abad52971"
+          },
+          {
+            "address": "0x800A6170",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000fc5205ff000000190000000000000000fe8d30ffffeafff40000000000000000f0621cff0016fff40000000000000000f95b14ff0000003300ff000000000000852900ff",
+            "sha1": "09ff97684061bf6e20b7f8de553b7b3da5350e3f"
+          },
+          {
+            "address": "0x800A61C0",
+            "size": 64,
+            "hex": "00000019ff01000000000000f85814ffffeafff4ff01000000000000c63e03ff0016fff4ff01000000000000fe8f3dff0000000000ff000000000000fc5205ff",
+            "sha1": "e0755359b5d3eba4ed4ce894183732f7d7333799"
+          },
+          {
+            "address": "0x800A6110",
+            "size": 96,
+            "hex": "000000ff0000000000000000ff00004000ff00000000000000000000ff0000400000ff010000000000000000ff000040ff0100000000000000000000ff0000400000000000ff000000000000ff00004000000000ff01000000000000ff000040",
+            "sha1": "80864e415021a3c23b18793d0c83b4f3ad300f3d"
+          },
+          {
+            "address": "0x8008ADD0",
+            "size": 32,
+            "hex": "e700000000000000da38000380089470d700000280008000df00000000000000",
+            "sha1": "cf787beaef71db4f90c4cb811b1668192bae77aa"
+          },
+          {
+            "address": "0x8008ADF0",
+            "size": 16,
+            "hex": "d700000000000000df00000000000000",
+            "sha1": "7f9be70108edb3ebffd24e04c131d8000038411c"
+          }
+        ],
+        "constructor": {
+          "function": "func_151580B0",
+          "parameter_copy": "0x15158128..0x15158134",
+          "source_bytes": 68,
+          "object_destination_offset": "0x10",
+          "caller_selector_offset": "0x06",
+          "object_selector_offset": "0x16",
+          "object_type": "Fourth argument low byte zero selects55; nonzero selects85.",
+          "selector_scope": "Renderer reads an unsigned byte without a bounds check. Export supports only the five proven source entries; no caller activation is inferred."
+        },
+        "render_state": {
+          "dispatcher": "func_151674F8",
+          "renderer": "func_151582C8",
+          "descriptors": {
+            "55": "0x8008BFD4",
+            "85": "0x8008C5EC"
+          },
+          "setup_display_list": "0x8008ADD0",
+          "teardown_display_list": "0x8008ADF0",
+          "geometry_submission": "0x15158550..0x15158574",
+          "matrix_submission": "Runtime object+0x58+64*D_800BE9C0 (frame-buffer index); not baked.",
+          "material_status": "caller-and-runtime-dependent-not-reconstructed",
+          "diagnostic_export_policy": "No glTF material, normals or normalized UVs are assigned. The viewer default material is diagnostic and normally treats alpha as opaque. COLOR_0 preserves the source bytes, not a reconstructed native material result. Raw flags and signed ST remain in the source vertex file and manifest. Runtime matrix, combiner, OtherMode, primitive/environment colour, lighting and texture state are not simulated."
+        },
+        "runtime_instancing": {
+          "policy": "One source primitive at native local coordinates; no runtime object or world transform is exported."
+        }
+      },
+      {
+        "schema_version": 1,
+        "family": "rom-embedded-effect-geometry",
+        "scope": "One selected ROM game-data geometry source shared by object types55 and85. Native local positions, ordered triangles and all vertex RGBA bytes are preserved. The five known pointer-table entries are source variants, not proof of five active effects. No effect name, native instance, placement, activation or timeline is inferred.",
+        "source_kind": "game-data",
+        "indexed_model_bank": null,
+        "object_types": [
+          55,
+          85
+        ],
+        "selector": 3,
+        "selector_table_address": "0x8008AFB8",
+        "source_vertex_address": "0x800A61C0",
+        "source_list_address": "0x8008AF80",
+        "vertex_count": 4,
+        "triangle_count": 4,
+        "vertices": [
+          {
+            "index": 0,
+            "source_address": "0x800A61C0",
+            "position": [
+              0,
+              25,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              248,
+              88,
+              20,
+              255
+            ]
+          },
+          {
+            "index": 1,
+            "source_address": "0x800A61D0",
+            "position": [
+              -22,
+              -12,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              198,
+              62,
+              3,
+              255
+            ]
+          },
+          {
+            "index": 2,
+            "source_address": "0x800A61E0",
+            "position": [
+              22,
+              -12,
+              -255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              254,
+              143,
+              61,
+              255
+            ]
+          },
+          {
+            "index": 3,
+            "source_address": "0x800A61F0",
+            "position": [
+              0,
+              0,
+              255
+            ],
+            "flag": 0,
+            "st_s16": [
+              0,
+              0
+            ],
+            "rgba_u8": [
+              252,
+              82,
+              5,
+              255
+            ]
+          }
+        ],
+        "triangles": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            3,
+            1
+          ],
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            2,
+            3,
+            0
+          ]
+        ],
+        "vertex_load_command": "0x01004008",
+        "triangle_commands": [
+          {
+            "source_address": "0x8008AF90",
+            "command": "0x05000204",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AF98",
+            "command": "0x05000602",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AFA0",
+            "command": "0x05020604",
+            "argument": "0x00000000"
+          },
+          {
+            "source_address": "0x8008AFA8",
+            "command": "0x05040600",
+            "argument": "0x00000000"
+          }
+        ],
+        "vertex_bytes_sha1": "e0755359b5d3eba4ed4ce894183732f7d7333799",
+        "display_list_bytes_sha1": "203459b3bf9fee715bad77599b2ee3325290da23",
+        "source_reconstruction": "All64 vertex bytes and all56 display-list bytes preserved exactly.",
+        "consumers": [
+          {
+            "address": "0x151674F8",
+            "size": 1392,
+            "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+          },
+          {
+            "address": "0x151580B0",
+            "size": 296,
+            "sha1": "245f256fa6f56f8569af3c594f97fec803883e8f"
+          },
+          {
+            "address": "0x151582C8",
+            "size": 708,
+            "sha1": "fbfe9a770dc1694858e8e48fc9e202480daca985"
+          }
+        ],
+        "data_spans": [
+          {
+            "address": "0x8008AFB8",
+            "size": 20,
+            "hex": "8008ae608008aea88008af388008af808008aee0",
+            "sha1": "f492873577f76671a15a3dcca17ba38cfa3d8be0"
+          },
+          {
+            "address": "0x8008BFD4",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008C5EC",
+            "size": 52,
+            "hex": "1515822400000000151582c8000000008008add0000000000000000015158b3c000000008008adf015158aa415158ad001000000",
+            "sha1": "f5058a160bb3f1c6742d358d836f73577dca181a"
+          },
+          {
+            "address": "0x8008AE60",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6080050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "c390a5d8e625ecf8167a514d46a55a617fee95b7"
+          },
+          {
+            "address": "0x8008AEA8",
+            "size": 56,
+            "hex": "e70000000000000001004008800a60d00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "57b84dc5b2340d60d758f6b9630fece2f19d5ef6"
+          },
+          {
+            "address": "0x8008AF38",
+            "size": 72,
+            "hex": "e7000000000000000100500a800a6170050002040000000005000406000000000500060200000000050208040000000005040806000000000506080200000000df00000000000000",
+            "sha1": "ccb28370e93017ad0da49c0e0217fc463ab2ac33"
+          },
+          {
+            "address": "0x8008AF80",
+            "size": 56,
+            "hex": "e70000000000000001004008800a61c00500020400000000050006020000000005020604000000000504060000000000df00000000000000",
+            "sha1": "203459b3bf9fee715bad77599b2ee3325290da23"
+          },
+          {
+            "address": "0x8008AEE0",
+            "size": 88,
+            "hex": "e7000000000000000100600c800a61100500020a0000000005000a060000000005000608000000000500080200000000050a02040000000005060a040000000005080604000000000502080400000000df00000000000000",
+            "sha1": "f0809f74439c7e3b9494742d1fd9657443fcda9a"
+          },
+          {
+            "address": "0x800A6080",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000ffff00ff000000190000000000000000c8c800ffffeafff40000000000000000a05014ff0016fff40000000000000000648212ff0000003300ff000000000000804000ff",
+            "sha1": "563720aea71892b329af58de0b89e1363f81f0e2"
+          },
+          {
+            "address": "0x800A60D0",
+            "size": 64,
+            "hex": "00000019ff01000000000000c8aa14ffffeafff4ff01000000000000802008ff0016fff4ff01000000000000646400ff0000000000ff000000000000804000ff",
+            "sha1": "494746003d9af32d1f96124c61c70c6abad52971"
+          },
+          {
+            "address": "0x800A6170",
+            "size": 80,
+            "hex": "0000ff81ff01000000000000fc5205ff000000190000000000000000fe8d30ffffeafff40000000000000000f0621cff0016fff40000000000000000f95b14ff0000003300ff000000000000852900ff",
+            "sha1": "09ff97684061bf6e20b7f8de553b7b3da5350e3f"
+          },
+          {
+            "address": "0x800A61C0",
+            "size": 64,
+            "hex": "00000019ff01000000000000f85814ffffeafff4ff01000000000000c63e03ff0016fff4ff01000000000000fe8f3dff0000000000ff000000000000fc5205ff",
+            "sha1": "e0755359b5d3eba4ed4ce894183732f7d7333799"
+          },
+          {
+            "address": "0x800A6110",
+            "size": 96,
+            "hex": "000000ff0000000000000000ff00004000ff00000000000000000000ff0000400000ff010000000000000000ff000040ff0100000000000000000000ff0000400000000000ff000000000000ff00004000000000ff01000000000000ff000040",
+            "sha1": "80864e415021a3c23b18793d0c83b4f3ad300f3d"
+          },
+          {
+            "address": "0x8008ADD0",
+            "size": 32,
+            "hex": "e700000000000000da38000380089470d700000280008000df00000000000000",
+            "sha1": "cf787beaef71db4f90c4cb811b1668192bae77aa"
+          },
+          {
+            "address": "0x8008ADF0",
+            "size": 16,
+            "hex": "d700000000000000df00000000000000",
+            "sha1": "7f9be70108edb3ebffd24e04c131d8000038411c"
+          }
+        ],
+        "constructor": {
+          "function": "func_151580B0",
+          "parameter_copy": "0x15158128..0x15158134",
+          "source_bytes": 68,
+          "object_destination_offset": "0x10",
+          "caller_selector_offset": "0x06",
+          "object_selector_offset": "0x16",
+          "object_type": "Fourth argument low byte zero selects55; nonzero selects85.",
+          "selector_scope": "Renderer reads an unsigned byte without a bounds check. Export supports only the five proven source entries; no caller activation is inferred."
+        },
+        "render_state": {
+          "dispatcher": "func_151674F8",
+          "renderer": "func_151582C8",
+          "descriptors": {
+            "55": "0x8008BFD4",
+            "85": "0x8008C5EC"
+          },
+          "setup_display_list": "0x8008ADD0",
+          "teardown_display_list": "0x8008ADF0",
+          "geometry_submission": "0x15158550..0x15158574",
+          "matrix_submission": "Runtime object+0x58+64*D_800BE9C0 (frame-buffer index); not baked.",
+          "material_status": "caller-and-runtime-dependent-not-reconstructed",
+          "diagnostic_export_policy": "No glTF material, normals or normalized UVs are assigned. The viewer default material is diagnostic and normally treats alpha as opaque. COLOR_0 preserves the source bytes, not a reconstructed native material result. Raw flags and signed ST remain in the source vertex file and manifest. Runtime matrix, combiner, OtherMode, primitive/environment colour, lighting and texture state are not simulated."
+        },
+        "runtime_instancing": {
+          "policy": "One source primitive at native local coordinates; no runtime object or world transform is exported."
+        }
+      }
+    ],
+    "graphics": {
+      "status": "Compiled SDK expressions verified against ROM and independent native objects",
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "sdk_header_sha256": "e909f9b1575af769086293cbf7dcbeece40b3941327cc01082007f9d0d94c59b",
+      "list_count": 47,
+      "list_bytes": 1592,
+      "commands": 199,
+      "graph_acyclic": true,
+      "lists": [
+        {
+          "address": "0x800873d0",
+          "end": "0x80087408",
+          "bytes": 56,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  15,
+                  31,
+                  3,
+                  1
+                ],
+                "cycle1_word0_selectors": [
+                  15,
+                  31
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  1,
+                  7,
+                  7
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  3,
+                  1,
+                  1,
+                  7,
+                  7
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 3, 1) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 7) | GCCc1w1(15, 3, 1, 1, 7, 7))"
+            },
+            {
+              "opcode": "F9",
+              "fields": {
+                "red": 0,
+                "green": 0,
+                "blue": 0,
+                "alpha": 32
+              },
+              "sdk_expression": "gsDPSetBlendColor(0, 0, 0, 32)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 1114112,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x110000, 0x0)"
+            },
+            {
+              "opcode": "EF",
+              "fields": {
+                "mode_high": 11279,
+                "mode_low": 5582972
+              },
+              "sdk_expression": "gsDPSetOtherMode(0x2C0F, 0x55307C)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "69cac22d6b328b721d693e3e5c546a316b02914a3edbc9f9582d7d1343e85b0a"
+        },
+        {
+          "address": "0x80087408",
+          "end": "0x80087410",
+          "bytes": 8,
+          "commands": [
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "362ba65db4724019c8fca63982f5540f941df8cc2f19d140e279ea8be459def5"
+        },
+        {
+          "address": "0x80088768",
+          "end": "0x80088790",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "EC",
+              "fields": {
+                "k0": 0,
+                "k1": 0,
+                "k2": 0,
+                "k3": 0,
+                "k4": 0,
+                "k5": 255
+              },
+              "sdk_expression": "gsDPSetConvert(0, 0, 0, 0, 0, 255)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "17590aafbe1c002510e7818fab8040c2c9b9eb4672fd8d3a1e3d79d8a71aeb99"
+        },
+        {
+          "address": "0x80088790",
+          "end": "0x800887b8",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "EC",
+              "fields": {
+                "k0": 175,
+                "k1": -33,
+                "k2": 7,
+                "k3": 222,
+                "k4": 114,
+                "k5": 42
+              },
+              "sdk_expression": "gsDPSetConvert(175, -33, 7, 222, 114, 42)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ec568ae0376c5197b7100bb52bf217d65ffbfc9181fe67cf2df85b6dbcf6c05e"
+        },
+        {
+          "address": "0x80088828",
+          "end": "0x80088848",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x80088848",
+          "end": "0x80088858",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x800889e0",
+          "end": "0x80088a00",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 132608,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x20600, 0x0)"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  15,
+                  31,
+                  7,
+                  7
+                ],
+                "cycle1_word0_selectors": [
+                  15,
+                  31
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  1,
+                  7,
+                  1
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  7,
+                  7,
+                  1,
+                  7,
+                  1
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 1) | GCCc1w1(15, 7, 7, 1, 7, 1))"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "4565cb8c3f9a36466257239e5eef3e0db32045c81be8cd764de949fdaaa42e88"
+        },
+        {
+          "address": "0x80088be0",
+          "end": "0x80088c00",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x80088c00",
+          "end": "0x80088c10",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x800890c0",
+          "end": "0x80089120",
+          "bytes": 96,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 1245696,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x130200, 0x0)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 0,
+                "set": 1024
+              },
+              "sdk_expression": "gsSPGeometryMode(0x0, 0x400)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  15,
+                  31,
+                  1,
+                  3
+                ],
+                "cycle1_word0_selectors": [
+                  15,
+                  31
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  3,
+                  7,
+                  7
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  1,
+                  3,
+                  3,
+                  7,
+                  7
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 1, 3) | GCCc1w0(15, 31), GCCc0w1(15, 3, 7, 7) | GCCc1w1(15, 1, 3, 3, 7, 7))"
+            },
+            {
+              "opcode": "FA",
+              "fields": {
+                "red": 0,
+                "green": 0,
+                "blue": 0,
+                "alpha": 0,
+                "min_level": 0,
+                "lod_fraction": 0
+              },
+              "sdk_expression": "gsDPSetPrimColor(0, 0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "FB",
+              "fields": {
+                "red": 0,
+                "green": 0,
+                "blue": 0,
+                "alpha": 0
+              },
+              "sdk_expression": "gsDPSetEnvColor(0, 0, 0, 0)"
+            },
+            {
+              "opcode": "F5",
+              "fields": {
+                "format": 4,
+                "size": 2,
+                "line": 0,
+                "tmem": 0,
+                "tile": 7,
+                "palette": 0,
+                "clamp_mirror_t": 0,
+                "mask_t": 0,
+                "shift_t": 0,
+                "clamp_mirror_s": 0,
+                "mask_s": 0,
+                "shift_s": 0
+              },
+              "sdk_expression": "gsDPSetTile(4, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "F5",
+              "fields": {
+                "format": 4,
+                "size": 1,
+                "line": 8,
+                "tmem": 0,
+                "tile": 0,
+                "palette": 0,
+                "clamp_mirror_t": 0,
+                "mask_t": 0,
+                "shift_t": 0,
+                "clamp_mirror_s": 0,
+                "mask_s": 0,
+                "shift_s": 0
+              },
+              "sdk_expression": "gsDPSetTile(4, 1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "F2",
+              "fields": {
+                "tile": 0,
+                "upper_s": 0,
+                "upper_t": 0,
+                "lower_s": 252,
+                "lower_t": 252
+              },
+              "sdk_expression": "gsDPSetTileSize(0, 0, 0, 252, 252)"
+            },
+            {
+              "opcode": "EF",
+              "fields": {
+                "mode_high": 535615,
+                "mode_low": 5262808
+              },
+              "sdk_expression": "gsDPSetOtherMode(0x82C3F, 0x504DD8)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "0e9d7eb1b6aa09355c5e6028353c4acbe652a6038a78a35d2ce947388f2f3393"
+        },
+        {
+          "address": "0x80089700",
+          "end": "0x80089730",
+          "bytes": 48,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 2,
+                "shift": 0,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)"
+            },
+            {
+              "opcode": "F9",
+              "fields": {
+                "red": 0,
+                "green": 0,
+                "blue": 0,
+                "alpha": 32
+              },
+              "sdk_expression": "gsDPSetBlendColor(0, 0, 0, 32)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "91ff9abdc0c61ba74f737d856d358a071c7e396a24ff00275513aa378974827b"
+        },
+        {
+          "address": "0x80089730",
+          "end": "0x80089760",
+          "bytes": 48,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 2,
+                "shift": 0,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 983040,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0xF0000, 0x0)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 0,
+                "set": 2097157
+              },
+              "sdk_expression": "gsSPGeometryMode(0x0, 0x200005)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "6dca14a1f9c738c4ad6ba2b4632f5107de7dd0e582da09f36d1b9c411163116f"
+        },
+        {
+          "address": "0x80089bc0",
+          "end": "0x80089c08",
+          "bytes": 72,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 2,
+                "shift": 12,
+                "value": 8192
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 12, 2, 0x2000)"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 1,
+                "shift": 19,
+                "value": 524288
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 19, 1, 0x80000)"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 3,
+                "shift": 9,
+                "value": 3072
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 9, 3, 0xC00)"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 2,
+                "shift": 6,
+                "value": 128
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 6, 2, 0x80)"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 2,
+                "shift": 4,
+                "value": 32
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 4, 2, 0x20)"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "6a9f201bcab736d831872ce4cd92692029ca00c7db0c77d19c63e175ac639164"
+        },
+        {
+          "address": "0x80089c08",
+          "end": "0x80089c18",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x80089eb8",
+          "end": "0x80089ed8",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x80089ed8",
+          "end": "0x80089ee8",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x8008a1d0",
+          "end": "0x8008a1f0",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x8008a1f0",
+          "end": "0x8008a200",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x8008a470",
+          "end": "0x8008a498",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "EC",
+              "fields": {
+                "k0": 0,
+                "k1": 0,
+                "k2": 0,
+                "k3": 0,
+                "k4": 0,
+                "k5": 255
+              },
+              "sdk_expression": "gsDPSetConvert(0, 0, 0, 0, 0, 255)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "17590aafbe1c002510e7818fab8040c2c9b9eb4672fd8d3a1e3d79d8a71aeb99"
+        },
+        {
+          "address": "0x8008a498",
+          "end": "0x8008a4c0",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "EC",
+              "fields": {
+                "k0": 175,
+                "k1": -33,
+                "k2": 7,
+                "k3": 222,
+                "k4": 114,
+                "k5": 42
+              },
+              "sdk_expression": "gsDPSetConvert(175, -33, 7, 222, 114, 42)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ec568ae0376c5197b7100bb52bf217d65ffbfc9181fe67cf2df85b6dbcf6c05e"
+        },
+        {
+          "address": "0x8008ac70",
+          "end": "0x8008ac98",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 2,
+                "shift": 0,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "307b609df114781b861aafac1b9e372d63479bac3462a892ea1a1eb58d8cca5e"
+        },
+        {
+          "address": "0x8008ac98",
+          "end": "0x8008acc8",
+          "bytes": 48,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 1,
+                "shift": 19,
+                "value": 524288
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 19, 1, 0x80000)"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 1,
+                "shift": 2,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 2, 1, 0x0)"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 2,
+                "shift": 0,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x0)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "e4bf7e40cf5ef33e8e7c219c670b712d198d2caba20f29a60a59f12043990b90"
+        },
+        {
+          "address": "0x8008ad30",
+          "end": "0x8008ad40",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "de20517be21c637f5639c97680cd70f7817e0db84c969125a4d643d13ebe2abc"
+        },
+        {
+          "address": "0x8008ad40",
+          "end": "0x8008ad58",
+          "bytes": 24,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5bd877a89eb90e9e94c298bc4c70aeb9ee054b3ee8f9e7f53cc363e567444e34"
+        },
+        {
+          "address": "0x8008ad60",
+          "end": "0x8008ad80",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x8008ad80",
+          "end": "0x8008ad90",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x8008add0",
+          "end": "0x8008adf0",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x8008adf0",
+          "end": "0x8008ae00",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x8008b050",
+          "end": "0x8008b068",
+          "bytes": 24,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "4ada05da37f2c372cda2302f6a6d2fc9e3f6d31822e052084370e73995be919d"
+        },
+        {
+          "address": "0x8008b068",
+          "end": "0x8008b078",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x8008b3a0",
+          "end": "0x8008b3d8",
+          "bytes": 56,
+          "commands": [
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 1536,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x600, 0x0)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  1,
+                  3,
+                  1,
+                  3
+                ],
+                "cycle1_word0_selectors": [
+                  1,
+                  3
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  7,
+                  7,
+                  7
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  1,
+                  3,
+                  7,
+                  7,
+                  7
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(1, 3, 1, 3) | GCCc1w0(1, 3), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 1, 3, 7, 7, 7))"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 2,
+                "shift": 0,
+                "value": 1
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 0, 2, 0x1)"
+            },
+            {
+              "opcode": "F9",
+              "fields": {
+                "red": 0,
+                "green": 0,
+                "blue": 0,
+                "alpha": 1
+              },
+              "sdk_expression": "gsDPSetBlendColor(0, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "483a23511b8e9e0535c29872c7d29e1e4b49be2ee2f59b3c4a449fd5f6fd48c5"
+        },
+        {
+          "address": "0x8008b440",
+          "end": "0x8008b478",
+          "bytes": 56,
+          "commands": [
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 0,
+                "set": 1024
+              },
+              "sdk_expression": "gsSPGeometryMode(0x0, 0x400)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  15,
+                  31,
+                  7,
+                  7
+                ],
+                "cycle1_word0_selectors": [
+                  15,
+                  31
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  1,
+                  7,
+                  1
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  7,
+                  7,
+                  1,
+                  7,
+                  1
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 1) | GCCc1w1(15, 7, 7, 1, 7, 1))"
+            },
+            {
+              "opcode": "F9",
+              "fields": {
+                "red": 0,
+                "green": 0,
+                "blue": 0,
+                "alpha": 1
+              },
+              "sdk_expression": "gsDPSetBlendColor(0, 0, 0, 1)"
+            },
+            {
+              "opcode": "EF",
+              "fields": {
+                "mode_high": 535727,
+                "mode_low": 5262160
+              },
+              "sdk_expression": "gsDPSetOtherMode(0x82CAF, 0x504B50)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "83e099c8ad5bf1b5c40a28e24fcfc90ea52381309c5b0edb2dd91f445b1fd03c"
+        },
+        {
+          "address": "0x8008b480",
+          "end": "0x8008b498",
+          "bytes": 24,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 1246720,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x130600, 0x0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "3b291d809cb5f26a914f02e90c3bd09d883c5ceae5de5c8b3030de9901ccbfd9"
+        },
+        {
+          "address": "0x8008b498",
+          "end": "0x8008b4a8",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "de20517be21c637f5639c97680cd70f7817e0db84c969125a4d643d13ebe2abc"
+        },
+        {
+          "address": "0x8008cb70",
+          "end": "0x8008cb90",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "DE",
+              "fields": {
+                "target": "D_800873D0",
+                "push": true
+              },
+              "sdk_expression": "gsSPDisplayList(D_800873D0)"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  3,
+                  1,
+                  3,
+                  1
+                ],
+                "cycle1_word0_selectors": [
+                  3,
+                  1
+                ],
+                "cycle0_word1_selectors": [
+                  5,
+                  5,
+                  7,
+                  7
+                ],
+                "cycle1_word1_selectors": [
+                  5,
+                  3,
+                  1,
+                  5,
+                  7,
+                  7
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(3, 1, 3, 1) | GCCc1w0(3, 1), GCCc0w1(5, 5, 7, 7) | GCCc1w1(5, 3, 1, 5, 7, 7))"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 29,
+                "shift": 3,
+                "value": 5261784
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 3, 29, 0x5049D8)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "709e72e8a474b6a65fbe3dc13b02c589a539d08de1577b5ca8b1538eb206c0f6"
+        },
+        {
+          "address": "0x8008cb90",
+          "end": "0x8008cba0",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "DE",
+              "fields": {
+                "target": "D_80087408",
+                "push": true
+              },
+              "sdk_expression": "gsSPDisplayList(D_80087408)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "4a1313a453528f7761b3c388edea9491776a96f393d17bf4b7c43d9047425e25"
+        },
+        {
+          "address": "0x8008cc30",
+          "end": "0x8008cc58",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 1115648,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x110600, 0x0)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "2a7825264c0cf0ecdfee8ad069e5ce963f2a263f487cc1bf0affbedd7ce97f5d"
+        },
+        {
+          "address": "0x8008cc58",
+          "end": "0x8008cc70",
+          "bytes": 24,
+          "commands": [
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 0,
+                "set": 1024
+              },
+              "sdk_expression": "gsSPGeometryMode(0x0, 0x400)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "96d77962e8eeda9da2752b59fcc7190ee2ad1f998e998860a80d4198f966df7a"
+        },
+        {
+          "address": "0x8008ce20",
+          "end": "0x8008ce40",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 29,
+                "shift": 3,
+                "value": 5261784
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 3, 29, 0x5049D8)"
+            },
+            {
+              "opcode": "DE",
+              "fields": {
+                "target": "D_8008CE60",
+                "push": true
+              },
+              "sdk_expression": "gsSPDisplayList(D_8008CE60)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "c4e454bee68f81f6271d38b99149cb493900cdf879dcea49239a3f0106c9d833"
+        },
+        {
+          "address": "0x8008ce40",
+          "end": "0x8008ce60",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "E2",
+              "fields": {
+                "length": 29,
+                "shift": 3,
+                "value": 5259840
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_L, 3, 29, 0x504240)"
+            },
+            {
+              "opcode": "DE",
+              "fields": {
+                "target": "D_8008CE60",
+                "push": true
+              },
+              "sdk_expression": "gsSPDisplayList(D_8008CE60)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "a81e71e4d94b0a52ece80737cb17beba147a8f201393b5dfe40a4204a32b76c6"
+        },
+        {
+          "address": "0x8008d4f0",
+          "end": "0x8008d520",
+          "bytes": 48,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  3,
+                  4,
+                  3,
+                  4
+                ],
+                "cycle1_word0_selectors": [
+                  3,
+                  4
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  7,
+                  7,
+                  7
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  3,
+                  4,
+                  7,
+                  7,
+                  7
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(3, 4, 3, 4) | GCCc1w0(3, 4), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 3, 4, 7, 7, 7))"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 132608,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x20600, 0x0)"
+            },
+            {
+              "opcode": "EF",
+              "fields": {
+                "mode_high": 535727,
+                "mode_low": 5261904
+              },
+              "sdk_expression": "gsDPSetOtherMode(0x82CAF, 0x504A50)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "a2ffbbbc4156fc3bdc025452049a16b5836078264e574f8d7f183d90b201d61b"
+        },
+        {
+          "address": "0x8008d520",
+          "end": "0x8008d538",
+          "bytes": 24,
+          "commands": [
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "eca2231bab66d1b6359fff4cce72cd893b4f48a8c625d7ce78ac944d6ba82bf8"
+        },
+        {
+          "address": "0x8008f910",
+          "end": "0x8008f930",
+          "bytes": 32,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ffd649921d4003a647c93679fec8d8e60da7405921ab1044dd2a66c97acde466"
+        },
+        {
+          "address": "0x8008f930",
+          "end": "0x8008f940",
+          "bytes": 16,
+          "commands": [
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "5468a84a17be996ad512a8e7e3147fde13aa9140f57a50370a811bf0671a4573"
+        },
+        {
+          "address": "0x8008fb18",
+          "end": "0x8008fb40",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "DA",
+              "fields": {
+                "matrix": "D_80089470",
+                "flags": "G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH",
+                "bytes": 64
+              },
+              "sdk_expression": "gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 32768,
+                "t": 32768,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(32768, 32768, 0, 0, 1)"
+            },
+            {
+              "opcode": "EC",
+              "fields": {
+                "k0": 0,
+                "k1": 0,
+                "k2": 0,
+                "k3": 0,
+                "k4": 0,
+                "k5": 255
+              },
+              "sdk_expression": "gsDPSetConvert(0, 0, 0, 0, 0, 255)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "17590aafbe1c002510e7818fab8040c2c9b9eb4672fd8d3a1e3d79d8a71aeb99"
+        },
+        {
+          "address": "0x8008fb40",
+          "end": "0x8008fb68",
+          "bytes": 40,
+          "commands": [
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 0,
+                "t": 0,
+                "level": 0,
+                "tile": 0,
+                "on": 0
+              },
+              "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "E7",
+              "fields": {},
+              "sdk_expression": "gsDPPipeSync()"
+            },
+            {
+              "opcode": "EC",
+              "fields": {
+                "k0": 175,
+                "k1": -33,
+                "k2": 7,
+                "k3": 222,
+                "k4": 114,
+                "k5": 42
+              },
+              "sdk_expression": "gsDPSetConvert(175, -33, 7, 222, 114, 42)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "ec568ae0376c5197b7100bb52bf217d65ffbfc9181fe67cf2df85b6dbcf6c05e"
+        },
+        {
+          "address": "0x8008ce60",
+          "end": "0x8008cea8",
+          "bytes": 72,
+          "commands": [
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 2,
+                "shift": 20,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 20, 2, 0x0)"
+            },
+            {
+              "opcode": "FC",
+              "fields": {
+                "cycle0_word0_selectors": [
+                  1,
+                  4,
+                  1,
+                  3
+                ],
+                "cycle1_word0_selectors": [
+                  1,
+                  4
+                ],
+                "cycle0_word1_selectors": [
+                  15,
+                  7,
+                  7,
+                  7
+                ],
+                "cycle1_word1_selectors": [
+                  15,
+                  1,
+                  3,
+                  7,
+                  7,
+                  7
+                ]
+              },
+              "sdk_expression": "gsDPSetCombine(GCCc0w0(1, 4, 1, 3) | GCCc1w0(1, 4), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 1, 3, 7, 7, 7))"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 1,
+                "shift": 16,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 16, 1, 0x0)"
+            },
+            {
+              "opcode": "D7",
+              "fields": {
+                "s": 65535,
+                "t": 65535,
+                "level": 0,
+                "tile": 0,
+                "on": 1
+              },
+              "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+            },
+            {
+              "opcode": "D9",
+              "fields": {
+                "clear": 1115648,
+                "set": 0
+              },
+              "sdk_expression": "gsSPGeometryMode(0x110600, 0x0)"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 2,
+                "shift": 17,
+                "value": 0
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 17, 2, 0x0)"
+            },
+            {
+              "opcode": "E3",
+              "fields": {
+                "length": 2,
+                "shift": 12,
+                "value": 8192
+              },
+              "sdk_expression": "gsSPSetOtherMode(G_SETOTHERMODE_H, 12, 2, 0x2000)"
+            },
+            {
+              "opcode": "F5",
+              "fields": {
+                "format": 0,
+                "size": 2,
+                "line": 0,
+                "tmem": 0,
+                "tile": 7,
+                "palette": 0,
+                "clamp_mirror_t": 0,
+                "mask_t": 0,
+                "shift_t": 0,
+                "clamp_mirror_s": 0,
+                "mask_s": 0,
+                "shift_s": 0
+              },
+              "sdk_expression": "gsDPSetTile(0, 2, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0)"
+            },
+            {
+              "opcode": "DF",
+              "fields": {},
+              "sdk_expression": "gsSPEndDisplayList()"
+            }
+          ],
+          "sha256": "b55cc6c28aaa149b8fcf8913d18eeb80bea2c6230e7312814d80b682e8d11ac8"
+        }
+      ],
+      "matrix_lead": {
+        "address": "0x80089470",
+        "bytes": 64,
+        "raw": "00010000000000000000000100000000000000000001000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+        "lead": "18 DA380003 commands target this fixed-point identity matrix; SDK and native microcode contract still to be checked"
+      },
+      "matrix": {
+        "address": "0x80089470",
+        "bytes": 64,
+        "format": "SDK Mtx signed 15.16, high-half plane then low-half plane",
+        "matrix_16_16": [
+          65536,
+          0,
+          0,
+          0,
+          0,
+          65536,
+          0,
+          0,
+          0,
+          0,
+          65536,
+          0,
+          0,
+          0,
+          0,
+          65536
+        ],
+        "original_sha256": "3cc03f81f5d9a6c8cca5b9b3db46efaa284d60c34d7d5d5083ff809e30bbc52e",
+        "native_matrix_load_count": 18,
+        "sdk_pack_roundtrip_exact": true,
+        "sdk_source": "lib/ultralib/src/gu/mtxutil.c",
+        "sdk_source_sha256": "4f61c11992bbfb679343516902e734ab3b475769fc3fd85b2ef2dd58f4d2c1df"
+      }
+    },
+    "exclusions": "Type55 fifth pointer, fifth list and fifth vertex array remain unclaimed: the five-row inspection gallery is not native selector-bound evidence. Other gaps and compiler-tail alignment remain unclaimed."
+  },
+  "native_objdiff": {
+    "fuzzy_match_percent": 100.0,
+    "matched_code_percent": 100.0,
+    "total_data": "7944",
+    "matched_data": "7944",
+    "matched_data_percent": 100.0,
+    "matched_functions_percent": 100.0,
+    "complete_code_percent": 100.0,
+    "total_units": 32
+  },
+  "independent_reference": {
+    "bytes": 189088,
+    "sha256": "0bbc00e1adfac5ffe6117f5be9c941575f87b341a77d808004603ac1cb87c670",
+    "matches_original": true
+  },
+  "header_dependencies": {
+    "up_to_date_objects": 32,
+    "objects_rebuilt_if_shared_header_changes": 32,
+    "dry_run_only": true
+  },
+  "sources": {
+    "src/game/data/effect_graphics/effect_graphics_8008AD30.c": "e3b6cea47d0cdf03b8822bfe5b48077b054f79effae77261f94f91c033c42f8b",
+    "src/game/data/effect_graphics/effect_graphics_8008ADD0.c": "2365375426fb2dd25ba1989e69b2f0de1b90264a09f536a6023bf593463de0ae",
+    "src/game/data/effect_graphics/effect_graphics_8008FB18.c": "0ffd0cd04c26f537aba23e5a8f50204b14932968264ac2b407e7b9be36d75be6",
+    "src/game/data/effect_graphics/effect_graphics_800890C0.c": "4c4c3dba6b61c7e1d7667df95bc383a9af6efd5f6b53ec3dde9b043825630a0e",
+    "src/game/data/effect_graphics/effect_graphics_8008A1D0.c": "33ab674f2b91e584c4a325a3932089223540394db96dd2455405d4198c79545d",
+    "src/game/data/effect_graphics/effect_graphics_8008AD60.c": "5b8132c53075e2ea67c94ec853524bf97ae7994cf07276b9ccca91097bbc643c",
+    "src/game/data/effect_graphics/effect_graphics_80089700.c": "16cbd8050733dba9fc203cb5f81a18c64e5daa088c71319d33f8558fc8793de1",
+    "src/game/data/effect_graphics/effect_graphics_80089BC0.c": "9bdbd1e6fbe2a3edccf2750c1d8c236cd2783086385fea0b0accde01f0db20c1",
+    "src/game/data/effect_graphics/effect_graphics_800873D0.c": "cdcf2865408fd10226272423fe517fe63c92593a311190b70255a9d7d4ec93ac",
+    "src/game/data/effect_graphics/effect_graphics_800889E0.c": "b0623c95456709de7d50ce1663eff7069fed21e8474ea7c0e42ac3a538155766",
+    "src/game/data/effect_graphics/effect_graphics_8008AE60.c": "283486780893ac79480bcdf1692f2f8f8f3554c6a71d97afd89a09914b4b28c8",
+    "src/game/data/effect_graphics/effect_graphics_8008B050.c": "492ef9f9b65169d2634841c4738c5666f9b2916499687c44683c173afb774b1f",
+    "src/game/data/effect_graphics/effect_graphics_8008A470.c": "e5f3499466c3fe72e8fe35d36b6790313d99847d6931f32131e33693ec3ef52c",
+    "src/game/data/effect_graphics/effect_graphics_800A6170.c": "38f15ceb382dff98278a71bb88bde2e0b08586fb5343023dc6b5bf472cbfbd36",
+    "src/game/data/effect_graphics/effect_graphics_8008AC70.c": "72ce780b04e09c0ee431b6dff0d1502fc9169366403d8951fea475b269f0cd38",
+    "src/game/data/effect_graphics/effect_graphics_8008D5B0.c": "1f61fb3ac7d74868a127cf24fdea683e849d505c5127e76bfc7414a40fc55758",
+    "src/game/data/effect_graphics/effect_graphics_80088768.c": "5875884242b1d826d777e798e5549d6b78be7c4af2074499d18102218c3e1970",
+    "src/game/data/effect_graphics/effect_graphics_800A6080.c": "142fcf3211d09c90bdc45e08e24f7afee11c412176f8c88f4bbc931bf2f33193",
+    "src/game/data/effect_graphics/effect_graphics_8008D4F0.c": "31401a3ac8d7bfaa3ca05a79c46e34719e954df1803408e303783e4c8224987f",
+    "src/game/data/effect_graphics/effect_graphics_8008F910.c": "e5cb8228a74c6835ba5227cbd12d75f461e20689b51f2bb14b57f34fb9d53f92",
+    "src/game/data/effect_graphics/effect_graphics_8008CD90.c": "18a8f74216db1a25b849ff172d545c2d232c666e4f281899107260e1e83b9b9b",
+    "src/game/data/effect_graphics/effect_graphics_8008AF38.c": "883cfa2f8393b049312128cfa4bcdb2070fd71dc49cfdee681b29a2a92815b5e",
+    "src/game/data/effect_graphics/effect_graphics_8008B480.c": "0d023ff465f96aab74d205714733beb74ce22ed96074e37e156630d21faa072e",
+    "src/game/data/effect_graphics/effect_graphics_80088828.c": "cae19416d76c706d45313616a8c2dace6f5f1372d9ea3d73f7b676826cbcbf3f",
+    "src/game/data/effect_graphics/effect_graphics_80089EB8.c": "675a26dfb2c7abccf79e1dabb03965a69e0782a00dce21754cb8da9a876ff558",
+    "src/game/data/effect_graphics/effect_graphics_80089470.c": "dc8b9fa940d6ac400528cbcff809df676ef6fa9c82901f2f758e532f8551141a",
+    "src/game/data/effect_graphics/effect_graphics_8008B3E0.c": "a13290eaf51e0bdb9e35957d9d440e0c584ee7dd539aec807b2af42149926acd",
+    "src/game/data/effect_graphics/effect_graphics_80088BE0.c": "ba23a968b657584fbae99f669c2f67955c79eef713c4b59f03b2304d6475053b",
+    "src/game/data/effect_graphics/effect_graphics_8008B3A0.c": "960dec62b00398310fd1da8532eea2406f8f20f544196de9cc62e8b9e2c2daa9",
+    "src/game/data/effect_graphics/effect_graphics_8008CC30.c": "c0fcfebdde02b84569abd13aceb6e8301541dee084225016804a90371ce79c32",
+    "src/game/data/effect_graphics/effect_graphics_8008CB70.c": "d3b08b19be4b9afe71de38ee9c04bfb7a7ca4c48571e8f74b4f96427e6e6db7f",
+    "include/game_effect_graphics.h": "e68e9cbd8623981f8da3a51d375cfeeebf3ef7b6d5072391fa3c1e25c1ce379e"
+  },
+  "include_repair": {
+    "repaired_sources": 32,
+    "game_build_exact": true,
+    "macro_recovery": {
+      "cause": "Initial host target preparation used Splat0.50.0 with generate_asm_macros_files defaulttrue",
+      "host_generated_file_exactly_reproduced_without_writing": true,
+      "restored_tracked_macro_sha256": "6c00aa9ca5fdff68692576507a3b231e28790ab923d9bcb1d1b59ffe5e830faa",
+      "generated_macro_sha256": "264c89da539c2f2b8e8d2c4d742acd6a0578002596b0e9ef43ed9719309c678e",
+      "pinned_container_splat": "0.34.1"
+    }
+  },
+  "omitted_gate_logs": [
+    "asset_build",
+    "base_commit",
+    "full_tests",
+    "mutations",
+    "native_report",
+    "report_audit"
+  ]
+}

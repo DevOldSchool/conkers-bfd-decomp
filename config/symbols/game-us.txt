@@ -291,9 +291,577 @@ var70059acc = 0x800B0AAC; // size:0x4 can_reference:False
 var70059ad0 = 0x800B0AB0; // size:0x4 can_reference:False
 D_800B0C48 = 0x800B0C48; // size:0x4 can_reference:False
 
+// Shared flat-resource stored lengths; docs/evidence/data-layout/us_flat_asset_sizes.md.
+D_80091D20 = 0x80091D20; // type:u16 size:0x3CA4 can_reference:False
+
+// Resource dependency and name payloads: docs/evidence/data-layout/us_resource_descriptors.md.
+D_8009E470 = 0x8009E470; // type:u16 size:0x2 can_reference:False
+D_8009E474 = 0x8009E474; // type:u16 size:0x4 can_reference:False
+D_8009E478 = 0x8009E478; // type:u16 size:0x2 can_reference:False
+D_8009E47C = 0x8009E47C; // type:u16 size:0x4 can_reference:False
+D_8009E480 = 0x8009E480; // type:u16 size:0x4 can_reference:False
+D_8009E484 = 0x8009E484; // type:u16 size:0x4 can_reference:False
+D_8009E488 = 0x8009E488; // type:u16 size:0x4 can_reference:False
+D_8009E48C = 0x8009E48C; // type:u16 size:0x4 can_reference:False
+D_8009E490 = 0x8009E490; // type:u16 size:0x6 can_reference:False
+D_8009E498 = 0x8009E498; // type:u16 size:0x4 can_reference:False
+D_8009E49C = 0x8009E49C; // type:u16 size:0xA can_reference:False
+D_8009E4A8 = 0x8009E4A8; // type:u16 size:0x4 can_reference:False
+D_8009E4AC = 0x8009E4AC; // type:u16 size:0x8 can_reference:False
+D_8009E4B4 = 0x8009E4B4; // type:u16 size:0x6 can_reference:False
+D_8009E4BC = 0x8009E4BC; // type:u16 size:0xE can_reference:False
+D_8009E4CC = 0x8009E4CC; // type:u16 size:0x6 can_reference:False
+D_8009E4D4 = 0x8009E4D4; // type:u16 size:0x6 can_reference:False
+D_8009E4DC = 0x8009E4DC; // type:u16 size:0x4 can_reference:False
+D_8009E4E0 = 0x8009E4E0; // type:u16 size:0x4 can_reference:False
+D_8009E4E4 = 0x8009E4E4; // type:u16 size:0x4 can_reference:False
+D_8009E4E8 = 0x8009E4E8; // type:u16 size:0x6 can_reference:False
+D_8009E4F0 = 0x8009E4F0; // type:u16 size:0x8 can_reference:False
+D_8009E4F8 = 0x8009E4F8; // type:u16 size:0x4 can_reference:False
+D_8009E4FC = 0x8009E4FC; // type:u16 size:0x6 can_reference:False
+D_8009E504 = 0x8009E504; // type:u16 size:0x4 can_reference:False
+D_8009E508 = 0x8009E508; // type:u16 size:0x4 can_reference:False
+D_8009E50C = 0x8009E50C; // type:u16 size:0x4 can_reference:False
+D_8009E510 = 0x8009E510; // type:u16 size:0x4 can_reference:False
+D_8009E514 = 0x8009E514; // type:u16 size:0x6 can_reference:False
+D_8009E51C = 0x8009E51C; // type:u16 size:0xC can_reference:False
+D_8009E528 = 0x8009E528; // type:u16 size:0x4 can_reference:False
+D_8009E52C = 0x8009E52C; // type:u16 size:0x4 can_reference:False
+D_8009E530 = 0x8009E530; // type:u16 size:0x4 can_reference:False
+D_8009E534 = 0x8009E534; // type:u16 size:0xA can_reference:False
+D_8009E540 = 0x8009E540; // type:u16 size:0xC can_reference:False
+D_8009E54C = 0x8009E54C; // type:u16 size:0x4 can_reference:False
+D_8009E550 = 0x8009E550; // type:u16 size:0xE can_reference:False
+D_8009E560 = 0x8009E560; // type:u16 size:0x4 can_reference:False
+D_8009E564 = 0x8009E564; // type:u16 size:0x4 can_reference:False
+D_8009E568 = 0x8009E568; // type:u16 size:0x6 can_reference:False
+D_8009E570 = 0x8009E570; // type:u16 size:0x4 can_reference:False
+D_8009E574 = 0x8009E574; // type:u16 size:0x6 can_reference:False
+D_8009E57C = 0x8009E57C; // type:u16 size:0x4 can_reference:False
+D_8009E580 = 0x8009E580; // type:u16 size:0x4 can_reference:False
+D_8009E584 = 0x8009E584; // type:u16 size:0x4 can_reference:False
+D_8009E588 = 0x8009E588; // type:u16 size:0x4 can_reference:False
+D_8009E58C = 0x8009E58C; // type:u16 size:0xA can_reference:False
+D_8009E598 = 0x8009E598; // type:u16 size:0xC can_reference:False
+D_8009E5A4 = 0x8009E5A4; // type:u16 size:0xA can_reference:False
+D_8009E5B0 = 0x8009E5B0; // type:u16 size:0x4 can_reference:False
+D_8009E5B4 = 0x8009E5B4; // type:u16 size:0x4 can_reference:False
+D_8009E5B8 = 0x8009E5B8; // type:u16 size:0x6 can_reference:False
+D_8009E5C0 = 0x8009E5C0; // type:u16 size:0x4 can_reference:False
+D_8009E5C4 = 0x8009E5C4; // type:u16 size:0x4 can_reference:False
+D_8009E5C8 = 0x8009E5C8; // type:u16 size:0x4 can_reference:False
+D_8009E5CC = 0x8009E5CC; // type:u16 size:0x4 can_reference:False
+D_8009E5D0 = 0x8009E5D0; // type:u16 size:0x4 can_reference:False
+D_8009E5D4 = 0x8009E5D4; // type:u16 size:0x2 can_reference:False
+D_8009E5D8 = 0x8009E5D8; // type:u16 size:0x6 can_reference:False
+D_8009E5E0 = 0x8009E5E0; // type:u16 size:0x8 can_reference:False
+D_8009E5E8 = 0x8009E5E8; // type:u16 size:0x4 can_reference:False
+D_8009E5EC = 0x8009E5EC; // type:u16 size:0x4 can_reference:False
+D_8009E5F4 = 0x8009E5F4; // type:u16 size:0x4 can_reference:False
+D_8009E5F8 = 0x8009E5F8; // type:u16 size:0x6 can_reference:False
+D_8009E600 = 0x8009E600; // type:u16 size:0x6 can_reference:False
+D_8009E608 = 0x8009E608; // type:u16 size:0x4 can_reference:False
+D_8009E60C = 0x8009E60C; // type:u16 size:0x8 can_reference:False
+D_8009E618 = 0x8009E618; // type:u16 size:0x4 can_reference:False
+D_8009E61C = 0x8009E61C; // type:u16 size:0x4 can_reference:False
+D_8009E620 = 0x8009E620; // type:u16 size:0x4 can_reference:False
+D_8009E624 = 0x8009E624; // type:u16 size:0x4 can_reference:False
+D_8009E628 = 0x8009E628; // type:u16 size:0x4 can_reference:False
+D_8009E62C = 0x8009E62C; // type:u16 size:0x4 can_reference:False
+D_8009E630 = 0x8009E630; // type:u16 size:0x4 can_reference:False
+D_8009E634 = 0x8009E634; // type:u16 size:0x4 can_reference:False
+D_8009E638 = 0x8009E638; // type:u16 size:0x4 can_reference:False
+D_8009E63C = 0x8009E63C; // type:u16 size:0x4 can_reference:False
+D_8009E640 = 0x8009E640; // type:u16 size:0x6 can_reference:False
+D_8009E648 = 0x8009E648; // type:u16 size:0x8 can_reference:False
+D_8009E650 = 0x8009E650; // type:u16 size:0x6 can_reference:False
+D_8009E658 = 0x8009E658; // type:u16 size:0x8 can_reference:False
+D_8009E660 = 0x8009E660; // type:u16 size:0x4 can_reference:False
+D_8009E664 = 0x8009E664; // type:u16 size:0x4 can_reference:False
+D_8009E668 = 0x8009E668; // type:u16 size:0xA can_reference:False
+D_8009E674 = 0x8009E674; // type:u16 size:0x8 can_reference:False
+D_8009E67C = 0x8009E67C; // type:u16 size:0x8 can_reference:False
+D_8009E684 = 0x8009E684; // type:u16 size:0x4 can_reference:False
+D_8009E688 = 0x8009E688; // type:u16 size:0x4 can_reference:False
+D_8009E68C = 0x8009E68C; // type:u16 size:0x4 can_reference:False
+D_8009E690 = 0x8009E690; // type:u16 size:0x4 can_reference:False
+D_8009E694 = 0x8009E694; // type:u16 size:0x4 can_reference:False
+D_8009E698 = 0x8009E698; // type:u16 size:0x4 can_reference:False
+D_8009E69C = 0x8009E69C; // type:u16 size:0x4 can_reference:False
+D_8009E6A0 = 0x8009E6A0; // type:u16 size:0x6 can_reference:False
+D_8009E6A8 = 0x8009E6A8; // type:u16 size:0x4 can_reference:False
+D_8009E6AC = 0x8009E6AC; // type:u16 size:0x4 can_reference:False
+D_8009E6B0 = 0x8009E6B0; // type:u16 size:0x4 can_reference:False
+D_8009E6B4 = 0x8009E6B4; // type:u16 size:0x8 can_reference:False
+D_8009E6BC = 0x8009E6BC; // type:u16 size:0x4 can_reference:False
+D_8009E6C0 = 0x8009E6C0; // type:u16 size:0x4 can_reference:False
+D_8009E6C4 = 0x8009E6C4; // type:u16 size:0x4 can_reference:False
+D_8009E6C8 = 0x8009E6C8; // type:u16 size:0x4 can_reference:False
+D_8009E6CC = 0x8009E6CC; // type:u16 size:0x4 can_reference:False
+D_8009E6D0 = 0x8009E6D0; // type:u16 size:0x4 can_reference:False
+D_8009E6D4 = 0x8009E6D4; // type:u16 size:0x4 can_reference:False
+D_8009E6D8 = 0x8009E6D8; // type:u16 size:0x4 can_reference:False
+D_8009E6DC = 0x8009E6DC; // type:u16 size:0x4 can_reference:False
+D_8009E6E0 = 0x8009E6E0; // type:u16 size:0x4 can_reference:False
+D_8009E6E4 = 0x8009E6E4; // type:u16 size:0x6 can_reference:False
+D_8009E6EC = 0x8009E6EC; // type:u16 size:0x4 can_reference:False
+D_8009E6F0 = 0x8009E6F0; // type:u16 size:0x4 can_reference:False
+D_8009E6F4 = 0x8009E6F4; // type:u16 size:0x4 can_reference:False
+D_8009E6F8 = 0x8009E6F8; // type:u16 size:0x6 can_reference:False
+D_8009E700 = 0x8009E700; // type:u16 size:0x4 can_reference:False
+D_8009E704 = 0x8009E704; // type:u16 size:0x4 can_reference:False
+D_8009E708 = 0x8009E708; // type:u16 size:0x4 can_reference:False
+D_8009E70C = 0x8009E70C; // type:u16 size:0x4 can_reference:False
+D_8009E710 = 0x8009E710; // type:u16 size:0x4 can_reference:False
+D_8009E714 = 0x8009E714; // type:u16 size:0xC can_reference:False
+D_8009E720 = 0x8009E720; // type:u16 size:0x8 can_reference:False
+D_8009E728 = 0x8009E728; // type:u16 size:0x4 can_reference:False
+D_8009E72C = 0x8009E72C; // type:u16 size:0x8 can_reference:False
+D_8009E734 = 0x8009E734; // type:u16 size:0x4 can_reference:False
+D_8009E738 = 0x8009E738; // type:u16 size:0x4 can_reference:False
+D_8009E73C = 0x8009E73C; // type:u16 size:0x4 can_reference:False
+D_8009E740 = 0x8009E740; // type:u16 size:0x4 can_reference:False
+D_8009E744 = 0x8009E744; // type:u16 size:0x4 can_reference:False
+D_8009E748 = 0x8009E748; // type:u16 size:0x4 can_reference:False
+D_8009E74C = 0x8009E74C; // type:u16 size:0x6 can_reference:False
+D_8009E754 = 0x8009E754; // type:u16 size:0x4 can_reference:False
+D_8009E758 = 0x8009E758; // type:u16 size:0x4 can_reference:False
+D_8009E75C = 0x8009E75C; // type:u16 size:0x4 can_reference:False
+D_8009E760 = 0x8009E760; // type:u16 size:0x4 can_reference:False
+D_8009E764 = 0x8009E764; // type:u16 size:0x4 can_reference:False
+D_8009E768 = 0x8009E768; // type:u16 size:0x4 can_reference:False
+D_8009E76C = 0x8009E76C; // type:u16 size:0x4 can_reference:False
+D_8009E770 = 0x8009E770; // type:u16 size:0x4 can_reference:False
+D_8009E774 = 0x8009E774; // type:u16 size:0x4 can_reference:False
+D_8009E778 = 0x8009E778; // type:u16 size:0x4 can_reference:False
+D_8009E77C = 0x8009E77C; // type:u16 size:0x4 can_reference:False
+D_8009E780 = 0x8009E780; // type:u16 size:0x4 can_reference:False
+D_8009E784 = 0x8009E784; // type:u16 size:0x4 can_reference:False
+D_8009E788 = 0x8009E788; // type:u16 size:0x4 can_reference:False
+D_8009E78C = 0x8009E78C; // type:u16 size:0x4 can_reference:False
+D_8009E790 = 0x8009E790; // type:u16 size:0x4 can_reference:False
+D_8009E794 = 0x8009E794; // type:u16 size:0x4 can_reference:False
+D_8009E798 = 0x8009E798; // type:u16 size:0x4 can_reference:False
+D_8009E79C = 0x8009E79C; // type:u16 size:0x4 can_reference:False
+D_8009E7A0 = 0x8009E7A0; // type:u16 size:0x4 can_reference:False
+D_8009E7A4 = 0x8009E7A4; // type:u16 size:0x4 can_reference:False
+D_8009E7A8 = 0x8009E7A8; // type:u16 size:0x4 can_reference:False
+D_8009E7AC = 0x8009E7AC; // type:u16 size:0x6 can_reference:False
+D_8009E7B4 = 0x8009E7B4; // type:u16 size:0x4 can_reference:False
+D_8009E7B8 = 0x8009E7B8; // type:u16 size:0x4 can_reference:False
+D_8009E7BC = 0x8009E7BC; // type:u16 size:0x4 can_reference:False
+D_8009E7C0 = 0x8009E7C0; // type:u16 size:0x4 can_reference:False
+D_8009E7C4 = 0x8009E7C4; // type:u16 size:0x4 can_reference:False
+D_8009E7C8 = 0x8009E7C8; // type:u16 size:0x4 can_reference:False
+D_8009E7CC = 0x8009E7CC; // type:u16 size:0x4 can_reference:False
+D_8009E7D0 = 0x8009E7D0; // type:u16 size:0x4 can_reference:False
+D_8009E7D4 = 0x8009E7D4; // type:u16 size:0x6 can_reference:False
+D_8009E7DC = 0x8009E7DC; // type:u16 size:0x4 can_reference:False
+D_8009E7E0 = 0x8009E7E0; // type:u16 size:0x4 can_reference:False
+D_8009E7E4 = 0x8009E7E4; // type:u16 size:0x4 can_reference:False
+D_8009E7E8 = 0x8009E7E8; // type:u16 size:0x4 can_reference:False
+D_8009E7EC = 0x8009E7EC; // type:u16 size:0x4 can_reference:False
+D_8009E7F0 = 0x8009E7F0; // type:u16 size:0x4 can_reference:False
+D_8009E7F4 = 0x8009E7F4; // type:u16 size:0x4 can_reference:False
+D_8009E7F8 = 0x8009E7F8; // type:u16 size:0x4 can_reference:False
+D_8009E7FC = 0x8009E7FC; // type:u16 size:0x4 can_reference:False
+D_8009E800 = 0x8009E800; // type:u16 size:0x4 can_reference:False
+D_8009E804 = 0x8009E804; // type:u16 size:0x4 can_reference:False
+D_8009E808 = 0x8009E808; // type:u16 size:0x8 can_reference:False
+D_8009E810 = 0x8009E810; // type:u16 size:0x6 can_reference:False
+D_8009E818 = 0x8009E818; // type:u16 size:0x8 can_reference:False
+D_8009E820 = 0x8009E820; // type:u16 size:0x4 can_reference:False
+D_8009E824 = 0x8009E824; // type:u16 size:0x6 can_reference:False
+D_8009E82C = 0x8009E82C; // type:u16 size:0x4 can_reference:False
+D_8009E830 = 0x8009E830; // type:u16 size:0x4 can_reference:False
+D_8009E834 = 0x8009E834; // type:u8 size:0x15 can_reference:False
+D_8009E84C = 0x8009E84C; // type:u8 size:0x13 can_reference:False
+D_8009E860 = 0x8009E860; // type:u8 size:0x16 can_reference:False
+D_8009E878 = 0x8009E878; // type:u8 size:0x16 can_reference:False
+D_8009E890 = 0x8009E890; // type:u8 size:0x1A can_reference:False
+D_8009E8AC = 0x8009E8AC; // type:u8 size:0x1B can_reference:False
+D_8009E8C8 = 0x8009E8C8; // type:u8 size:0x23 can_reference:False
+D_8009E8EC = 0x8009E8EC; // type:u8 size:0x13 can_reference:False
+D_8009E900 = 0x8009E900; // type:u8 size:0xF can_reference:False
+D_8009E910 = 0x8009E910; // type:u8 size:0x18 can_reference:False
+D_8009E928 = 0x8009E928; // type:u8 size:0x13 can_reference:False
+D_8009E93C = 0x8009E93C; // type:u8 size:0x13 can_reference:False
+D_8009E950 = 0x8009E950; // type:u8 size:0xE can_reference:False
+D_8009E960 = 0x8009E960; // type:u8 size:0x12 can_reference:False
+D_8009E974 = 0x8009E974; // type:u8 size:0x17 can_reference:False
+D_8009E98C = 0x8009E98C; // type:u8 size:0x1E can_reference:False
+D_8009E9AC = 0x8009E9AC; // type:u8 size:0xC can_reference:False
+D_8009E9B8 = 0x8009E9B8; // type:u8 size:0xE can_reference:False
+D_8009E9C8 = 0x8009E9C8; // type:u8 size:0xF can_reference:False
+D_8009E9D8 = 0x8009E9D8; // type:u8 size:0x1A can_reference:False
+D_8009E9F4 = 0x8009E9F4; // type:u8 size:0xE can_reference:False
+D_8009EA04 = 0x8009EA04; // type:u8 size:0x1B can_reference:False
+D_8009EA20 = 0x8009EA20; // type:u8 size:0xE can_reference:False
+D_8009EA30 = 0x8009EA30; // type:u8 size:0x13 can_reference:False
+D_8009EA44 = 0x8009EA44; // type:u8 size:0xF can_reference:False
+D_8009EA54 = 0x8009EA54; // type:u8 size:0x12 can_reference:False
+D_8009EA68 = 0x8009EA68; // type:u8 size:0x14 can_reference:False
+D_8009EA7C = 0x8009EA7C; // type:u8 size:0x12 can_reference:False
+D_8009EA90 = 0x8009EA90; // type:u8 size:0x16 can_reference:False
+D_8009EAA8 = 0x8009EAA8; // type:u8 size:0xE can_reference:False
+D_8009EAB8 = 0x8009EAB8; // type:u8 size:0x16 can_reference:False
+D_8009EAD0 = 0x8009EAD0; // type:u8 size:0x17 can_reference:False
+D_8009EAE8 = 0x8009EAE8; // type:u8 size:0x15 can_reference:False
+D_8009EB00 = 0x8009EB00; // type:u8 size:0xE can_reference:False
+D_8009EB10 = 0x8009EB10; // type:u8 size:0x11 can_reference:False
+D_8009EB24 = 0x8009EB24; // type:u8 size:0x1B can_reference:False
+D_8009EB40 = 0x8009EB40; // type:u8 size:0x14 can_reference:False
+D_8009EB54 = 0x8009EB54; // type:u8 size:0x14 can_reference:False
+D_8009EB68 = 0x8009EB68; // type:u8 size:0x17 can_reference:False
+D_8009EB80 = 0x8009EB80; // type:u8 size:0x14 can_reference:False
+D_8009EB94 = 0x8009EB94; // type:u8 size:0x11 can_reference:False
+D_8009EBA8 = 0x8009EBA8; // type:u8 size:0x11 can_reference:False
+D_8009EBBC = 0x8009EBBC; // type:u8 size:0xB can_reference:False
+D_8009EBC8 = 0x8009EBC8; // type:u8 size:0x13 can_reference:False
+D_8009EBDC = 0x8009EBDC; // type:u8 size:0xE can_reference:False
+D_8009EBEC = 0x8009EBEC; // type:u8 size:0x18 can_reference:False
+D_8009EC04 = 0x8009EC04; // type:u8 size:0xE can_reference:False
+D_8009EC14 = 0x8009EC14; // type:u8 size:0x13 can_reference:False
+D_8009EC28 = 0x8009EC28; // type:u8 size:0xB can_reference:False
+D_8009EC34 = 0x8009EC34; // type:u8 size:0x15 can_reference:False
+D_8009EC4C = 0x8009EC4C; // type:u8 size:0x10 can_reference:False
+D_8009EC5C = 0x8009EC5C; // type:u8 size:0x11 can_reference:False
+D_8009EC70 = 0x8009EC70; // type:u8 size:0xC can_reference:False
+D_8009EC7C = 0x8009EC7C; // type:u8 size:0xF can_reference:False
+D_8009EC8C = 0x8009EC8C; // type:u8 size:0x13 can_reference:False
+D_8009ECA0 = 0x8009ECA0; // type:u8 size:0x10 can_reference:False
+D_8009ECB0 = 0x8009ECB0; // type:u8 size:0x10 can_reference:False
+D_8009ECC0 = 0x8009ECC0; // type:u8 size:0x14 can_reference:False
+D_8009ECD4 = 0x8009ECD4; // type:u8 size:0x11 can_reference:False
+D_8009ECE8 = 0x8009ECE8; // type:u8 size:0x11 can_reference:False
+D_8009ECFC = 0x8009ECFC; // type:u8 size:0x10 can_reference:False
+D_8009ED0C = 0x8009ED0C; // type:u8 size:0x15 can_reference:False
+D_8009ED24 = 0x8009ED24; // type:u8 size:0xF can_reference:False
+D_8009ED34 = 0x8009ED34; // type:u8 size:0xE can_reference:False
+D_8009ED44 = 0x8009ED44; // type:u8 size:0x10 can_reference:False
+D_8009ED54 = 0x8009ED54; // type:u8 size:0x15 can_reference:False
+D_8009ED6C = 0x8009ED6C; // type:u8 size:0x11 can_reference:False
+D_8009ED80 = 0x8009ED80; // type:u8 size:0x18 can_reference:False
+D_8009ED98 = 0x8009ED98; // type:u8 size:0x10 can_reference:False
+D_8009EDA8 = 0x8009EDA8; // type:u8 size:0xC can_reference:False
+D_8009EDB4 = 0x8009EDB4; // type:u8 size:0xD can_reference:False
+D_8009EDC4 = 0x8009EDC4; // type:u8 size:0x11 can_reference:False
+D_8009EDD8 = 0x8009EDD8; // type:u8 size:0xD can_reference:False
+D_8009EDE8 = 0x8009EDE8; // type:u8 size:0x18 can_reference:False
+D_8009EE00 = 0x8009EE00; // type:u8 size:0x15 can_reference:False
+D_8009EE18 = 0x8009EE18; // type:u8 size:0xF can_reference:False
+D_8009EE28 = 0x8009EE28; // type:u8 size:0x11 can_reference:False
+D_8009EE3C = 0x8009EE3C; // type:u8 size:0x16 can_reference:False
+D_8009EE54 = 0x8009EE54; // type:u8 size:0xF can_reference:False
+D_8009EE64 = 0x8009EE64; // type:u8 size:0x11 can_reference:False
+D_8009EE78 = 0x8009EE78; // type:u8 size:0xD can_reference:False
+D_8009EE88 = 0x8009EE88; // type:u8 size:0x13 can_reference:False
+D_8009EE9C = 0x8009EE9C; // type:u8 size:0xD can_reference:False
+D_8009EEAC = 0x8009EEAC; // type:u8 size:0x9 can_reference:False
+D_8009EEB8 = 0x8009EEB8; // type:u8 size:0x13 can_reference:False
+D_8009EECC = 0x8009EECC; // type:u8 size:0xF can_reference:False
+D_8009EEDC = 0x8009EEDC; // type:u8 size:0xD can_reference:False
+D_8009EEEC = 0x8009EEEC; // type:u8 size:0x13 can_reference:False
+D_8009EF00 = 0x8009EF00; // type:u8 size:0xD can_reference:False
+D_8009EF10 = 0x8009EF10; // type:u8 size:0xC can_reference:False
+D_8009EF1C = 0x8009EF1C; // type:u8 size:0x14 can_reference:False
+D_8009EF30 = 0x8009EF30; // type:u8 size:0xE can_reference:False
+D_8009EF40 = 0x8009EF40; // type:u8 size:0x10 can_reference:False
+D_8009EF50 = 0x8009EF50; // type:u8 size:0xB can_reference:False
+D_8009EF5C = 0x8009EF5C; // type:u8 size:0x10 can_reference:False
+D_8009EF6C = 0x8009EF6C; // type:u8 size:0xA can_reference:False
+D_8009EF78 = 0x8009EF78; // type:u8 size:0x1A can_reference:False
+D_8009EF94 = 0x8009EF94; // type:u8 size:0x10 can_reference:False
+D_8009EFA4 = 0x8009EFA4; // type:u8 size:0x9 can_reference:False
+D_8009EFB0 = 0x8009EFB0; // type:u8 size:0xF can_reference:False
+D_8009EFC0 = 0x8009EFC0; // type:u8 size:0x9 can_reference:False
+D_8009EFCC = 0x8009EFCC; // type:u8 size:0x7 can_reference:False
+D_8009EFD4 = 0x8009EFD4; // type:u8 size:0xD can_reference:False
+D_8009EFE4 = 0x8009EFE4; // type:u8 size:0xB can_reference:False
+D_8009EFF0 = 0x8009EFF0; // type:u8 size:0xB can_reference:False
+D_8009EFFC = 0x8009EFFC; // type:u8 size:0xA can_reference:False
+D_8009F008 = 0x8009F008; // type:u8 size:0xD can_reference:False
+D_8009F018 = 0x8009F018; // type:u8 size:0x12 can_reference:False
+D_8009F02C = 0x8009F02C; // type:u8 size:0xF can_reference:False
+D_8009F03C = 0x8009F03C; // type:u8 size:0xF can_reference:False
+D_8009F04C = 0x8009F04C; // type:u8 size:0x14 can_reference:False
+D_8009F060 = 0x8009F060; // type:u8 size:0x11 can_reference:False
+D_8009F074 = 0x8009F074; // type:u8 size:0x21 can_reference:False
+D_8009F098 = 0x8009F098; // type:u8 size:0xB can_reference:False
+D_8009F0A4 = 0x8009F0A4; // type:u8 size:0xC can_reference:False
+D_8009F0B0 = 0x8009F0B0; // type:u8 size:0x13 can_reference:False
+
 // SDK literal extents from native loads: docs/evidence/data-layout/us_sdk_literal_symbols.md.
 D_80098DB0 = 0x80098DB0; // type:f32 size:0x4 can_reference:False
 D_80098DB4 = 0x80098DB4; // type:f32 size:0x4 can_reference:False
+
+// Resource handler tables: docs/evidence/data-layout/us_resource_handlers.md.
+D_80088420 = 0x80088420; // size:0x3C
+D_8008845C = 0x8008845C; // size:0x3C
+D_80088498 = 0x80088498; // size:0x3C
+D_800884D4 = 0x800884D4; // size:0x3C
+
+// Inline I4 font and exact character search extent; us_inline_font.md.
+D_800848D0 = 0x800848D0; // type:u8 size:0x50 can_reference:False
+D_80084930 = 0x80084930; // type:u8 size:0x1000 can_reference:False
+
+// Native unsigned-byte opcode dispatch table; us_command_handlers.md.
+D_800844B0 = 0x800844B0; // size:0x400
+
+// Native effect-type record extent; us_effect_types.md.
+D_8008B4A8 = 0x8008B4A8; // size:0x1520
+
+// Display-list destinations loaded from effect-type fields +0x10/+0x24.
+// Extents now come from the reviewed effect graphics; pointer fields are explicit.
+D_800873D0 = 0x800873D0; // size:0x38 can_reference:False
+D_80087408 = 0x80087408; // size:0x8 can_reference:False
+D_80088768 = 0x80088768; // size:0x28 can_reference:False
+D_80088790 = 0x80088790; // size:0x28 can_reference:False
+D_80088828 = 0x80088828; // size:0x20 can_reference:False
+D_80088848 = 0x80088848; // size:0x10 can_reference:False
+D_800889E0 = 0x800889E0; // size:0x20 can_reference:False
+D_80088BE0 = 0x80088BE0; // size:0x20 can_reference:False
+D_80088C00 = 0x80088C00; // size:0x10 can_reference:False
+D_800890C0 = 0x800890C0; // size:0x60 can_reference:False
+D_80089700 = 0x80089700; // size:0x30 can_reference:False
+D_80089730 = 0x80089730; // size:0x30 can_reference:False
+D_80089BC0 = 0x80089BC0; // size:0x48 can_reference:False
+D_80089C08 = 0x80089C08; // size:0x10 can_reference:False
+D_80089EB8 = 0x80089EB8; // size:0x20 can_reference:False
+D_80089ED8 = 0x80089ED8; // size:0x10 can_reference:False
+D_8008A1D0 = 0x8008A1D0; // size:0x20 can_reference:False
+D_8008A1F0 = 0x8008A1F0; // size:0x10 can_reference:False
+D_8008A470 = 0x8008A470; // size:0x28 can_reference:False
+D_8008A498 = 0x8008A498; // size:0x28 can_reference:False
+D_8008AC70 = 0x8008AC70; // size:0x28 can_reference:False
+D_8008AC98 = 0x8008AC98; // size:0x30 can_reference:False
+D_8008AD30 = 0x8008AD30; // size:0x10 can_reference:False
+D_8008AD40 = 0x8008AD40; // size:0x18 can_reference:False
+D_8008AD60 = 0x8008AD60; // size:0x20 can_reference:False
+D_8008AD80 = 0x8008AD80; // size:0x10 can_reference:False
+D_8008ADD0 = 0x8008ADD0; // size:0x20 can_reference:False
+D_8008ADF0 = 0x8008ADF0; // size:0x10 can_reference:False
+D_8008B050 = 0x8008B050; // size:0x18 can_reference:False
+D_8008B068 = 0x8008B068; // size:0x10 can_reference:False
+D_8008B3A0 = 0x8008B3A0; // size:0x38 can_reference:False
+D_8008B440 = 0x8008B440; // size:0x38 can_reference:False
+D_8008B480 = 0x8008B480; // size:0x18 can_reference:False
+D_8008B498 = 0x8008B498; // size:0x10 can_reference:False
+D_8008CB70 = 0x8008CB70; // size:0x20 can_reference:False
+D_8008CB90 = 0x8008CB90; // size:0x10 can_reference:False
+D_8008CC30 = 0x8008CC30; // size:0x28 can_reference:False
+D_8008CC58 = 0x8008CC58; // size:0x18 can_reference:False
+D_8008CE20 = 0x8008CE20; // size:0x20 can_reference:False
+D_8008CE40 = 0x8008CE40; // size:0x20 can_reference:False
+D_8008D4F0 = 0x8008D4F0; // size:0x30 can_reference:False
+D_8008D520 = 0x8008D520; // size:0x18 can_reference:False
+D_8008F910 = 0x8008F910; // size:0x20 can_reference:False
+D_8008F930 = 0x8008F930; // size:0x10 can_reference:False
+D_8008FB18 = 0x8008FB18; // size:0x28 can_reference:False
+D_8008FB40 = 0x8008FB40; // size:0x28 can_reference:False
+
+// Native effect graphics extents; scalar words stay literal.
+// Pointer fields are explicit in config/relocs/game-data-us.txt.
+D_80089470 = 0x80089470; // size:0x40 can_reference:False
+D_8008AE60 = 0x8008AE60; // size:0x48 can_reference:False
+D_8008AEA8 = 0x8008AEA8; // size:0x38 can_reference:False
+D_8008AF38 = 0x8008AF38; // size:0x48 can_reference:False
+D_8008AF80 = 0x8008AF80; // size:0x38 can_reference:False
+D_8008AFB8 = 0x8008AFB8; // size:0x10 can_reference:False
+D_8008B3E0 = 0x8008B3E0; // size:0x60 can_reference:False
+D_8008CD90 = 0x8008CD90; // size:0x60 can_reference:False
+D_8008CDF0 = 0x8008CDF0; // size:0x30 can_reference:False
+D_8008CE60 = 0x8008CE60; // size:0x48 can_reference:False
+D_8008D538 = 0x8008D538; // size:0x40 can_reference:False
+D_8008D5B0 = 0x8008D5B0; // size:0x8 can_reference:False
+D_8008D5B8 = 0x8008D5B8; // size:0x8 can_reference:False
+D_800A6080 = 0x800A6080; // size:0x50 can_reference:False
+D_800A60D0 = 0x800A60D0; // size:0x40 can_reference:False
+D_800A6170 = 0x800A6170; // size:0x50 can_reference:False
+D_800A61C0 = 0x800A61C0; // size:0x40 can_reference:False
+
+// Segment-8 OtherMode/EndDL records; all command words are scalar.
+D_80082FC0 = 0x80082FC0; // size:0x180 can_reference:False
+D_80083140 = 0x80083140; // size:0x180 can_reference:False
+D_800832C0 = 0x800832C0; // size:0x180 can_reference:False
+D_80083440 = 0x80083440; // size:0x180 can_reference:False
+D_800835C0 = 0x800835C0; // size:0x180 can_reference:False
+D_80083740 = 0x80083740; // size:0x180 can_reference:False
+D_800838C0 = 0x800838C0; // size:0x180 can_reference:False
+D_80083A40 = 0x80083A40; // size:0x180 can_reference:False
+D_80083BC0 = 0x80083BC0; // size:0x180 can_reference:False
+D_80083D40 = 0x80083D40; // size:0x180 can_reference:False
+D_80083EC0 = 0x80083EC0; // size:0x180 can_reference:False
+
+// Model defaults and direct drawing commands; pointer fields declared explicitly.
+D_80084160 = 0x80084160; // size:0x30 can_reference:False
+D_80084190 = 0x80084190; // size:0x28 can_reference:False
+D_80084350 = 0x80084350; // size:0x30 can_reference:False
+D_800859A0 = 0x800859A0; // size:0x28 can_reference:False
+D_80086B80 = 0x80086B80; // size:0x20 can_reference:False
+D_80087390 = 0x80087390; // size:0x20 can_reference:False
+D_8008CFA0 = 0x8008CFA0; // size:0x48 can_reference:False
+D_8008D018 = 0x8008D018; // size:0x38 can_reference:False
+D_8008D448 = 0x8008D448; // size:0x50 can_reference:False
+D_80090028 = 0x80090028; // size:0x30 can_reference:False
+D_800A26C0 = 0x800A26C0; // size:0x558 can_reference:False
+
+// Native particle coordinate prefixes; float vectors and signed joint indices.
+D_8008D690 = 0x8008D690; // size:0x340 can_reference:False
+D_8008D9D0 = 0x8008D9D0; // size:0x1D0 can_reference:False
+D_8008DBA0 = 0x8008DBA0; // size:0x480 can_reference:False
+D_8008E020 = 0x8008E020; // size:0x390 can_reference:False
+D_8008E3B0 = 0x8008E3B0; // size:0xE0 can_reference:False
+D_8008E490 = 0x8008E490; // size:0xB0 can_reference:False
+D_8008E540 = 0x8008E540; // size:0xB0 can_reference:False
+D_8008E600 = 0x8008E600; // size:0x340 can_reference:False
+
+// Native particle configuration and selection; variant-table names claim no sizes.
+D_8008D5E0 = 0x8008D5E0; // size:0x40
+D_8008E5F0 = 0x8008E5F0; // size:0x10 can_reference:False
+D_8008E940 = 0x8008E940; // size:0x440 can_reference:False
+D_8008ED80 = 0x8008ED80; // size:0x540
+D_8008F728 = 0x8008F728; // type:u8 size:0x7 can_reference:False
+D_8008F730 = 0x8008F730; // type:u8 size:0x1 can_reference:False
+D_8008F734 = 0x8008F734; // type:u8 size:0x6 can_reference:False
+D_8008F73C = 0x8008F73C; // type:u8 size:0xA can_reference:False
+D_8008F748 = 0x8008F748; // type:u8 size:0x2 can_reference:False
+D_8008F74C = 0x8008F74C; // type:u8 size:0x1 can_reference:False
+D_8008F750 = 0x8008F750; // size:0x30
+D_8008F780 = 0x8008F780; // size:0xC0
+
+// Native particle variant prefixes through ordinal five; no universal upper bound.
+D_8008F2C0 = 0x8008F2C0; // size:0x30
+D_8008F2F0 = 0x8008F2F0; // size:0x78
+D_8008F368 = 0x8008F368; // size:0x78
+D_8008F3E0 = 0x8008F3E0; // size:0x48
+D_8008F428 = 0x8008F428; // size:0x48
+D_8008F470 = 0x8008F470; // size:0x30
+D_8008F4A0 = 0x8008F4A0; // size:0x48
+D_8008F4E8 = 0x8008F4E8; // size:0x30
+D_8008F518 = 0x8008F518; // size:0x78
+D_8008F590 = 0x8008F590; // size:0x78
+D_8008F608 = 0x8008F608; // size:0x30
+D_8008F638 = 0x8008F638; // size:0x30
+D_8008F668 = 0x8008F668; // size:0x30
+D_8008F698 = 0x8008F698; // size:0x30
+D_8008F6C8 = 0x8008F6C8; // size:0x30
+D_8008F6F8 = 0x8008F6F8; // size:0x30
+
+// Native model-effect selection; typed prefixes with native producers.
+D_80089A20 = 0x80089A20; // size:0x50
+D_800A18C0 = 0x800A18C0; // size:0xC can_reference:False
+D_800A3880 = 0x800A3880; // size:0x3A4 can_reference:False
+D_800A3C30 = 0x800A3C30; // size:0x3C can_reference:False
+D_800A3C6C = 0x800A3C6C; // size:0x2A8 can_reference:False
+D_800A3F14 = 0x800A3F14; // size:0x50 can_reference:False
+D_800A3F64 = 0x800A3F64; // size:0x50 can_reference:False
+D_800A3FD8 = 0x800A3FD8; // size:0x140 can_reference:False
+
+// Native scene preload and UI tables; typed prefixes with native producers.
+D_80082B20 = 0x80082B20; // size:0x14
+D_80090074 = 0x80090074; // size:0x28 can_reference:False
+D_8009009C = 0x8009009C; // size:0x1C can_reference:False
+D_80090110 = 0x80090110; // size:0x18 can_reference:False
+D_80090128 = 0x80090128; // size:0x10 can_reference:False
+D_80090150 = 0x80090150; // size:0x1C can_reference:False
+D_8009016C = 0x8009016C; // size:0x18 can_reference:False
+D_80090184 = 0x80090184; // size:0x40 can_reference:False
+D_800901C4 = 0x800901C4; // size:0x2C can_reference:False
+
+// Native menu and CPU texture tables; typed prefixes with native producers.
+D_8009006C = 0x8009006C; // type:u8 size:0x4 can_reference:False
+D_800900BC = 0x800900BC; // size:0x18 can_reference:False
+D_800900D8 = 0x800900D8; // size:0x20 can_reference:False
+D_800900FC = 0x800900FC; // size:0x14 can_reference:False
+D_80090B60 = 0x80090B60; // size:0x9B4
+D_800A18CC = 0x800A18CC; // size:0xC can_reference:False
+D_800901F0 = 0x800901F0; // size:0x14
+D_8009073C = 0x8009073C; // size:0x20
+D_800907A4 = 0x800907A4; // size:0x8
+D_80090818 = 0x80090818; // size:0x348
+D_80091520 = 0x80091520; // size:0x44
+D_800915BC = 0x800915BC; // size:0x1C
+D_800917E4 = 0x800917E4; // size:0x8
+
+// Native effect texture roots, descriptors and shared frame groups.
+D_8008CA4C = 0x8008CA4C; // size:0x118
+D_80090358 = 0x80090358; // size:0x30
+D_80090388 = 0x80090388; // size:0xC
+D_800903C8 = 0x800903C8; // size:0x18
+D_80090420 = 0x80090420; // size:0x60
+D_80090480 = 0x80090480; // size:0x14
+D_80090494 = 0x80090494; // size:0xC
+D_800904A0 = 0x800904A0; // size:0x14
+D_800904B4 = 0x800904B4; // size:0x84
+D_80090538 = 0x80090538; // size:0x4
+D_8009053C = 0x8009053C; // size:0xC
+D_800905A8 = 0x800905A8; // size:0x54
+D_800905FC = 0x800905FC; // size:0x4
+D_80090600 = 0x80090600; // size:0xC
+D_80090620 = 0x80090620; // size:0x14
+D_80090634 = 0x80090634; // size:0xC
+D_80090640 = 0x80090640; // size:0x20
+D_80090660 = 0x80090660; // size:0x3C
+D_8009069C = 0x8009069C; // size:0x28
+D_800906C4 = 0x800906C4; // size:0xC
+D_800906D0 = 0x800906D0; // size:0x28
+D_800906F8 = 0x800906F8; // size:0x24
+D_8009071C = 0x8009071C; // size:0x14
+D_80090730 = 0x80090730; // size:0xC
+D_8009075C = 0x8009075C; // size:0xC
+D_80090768 = 0x80090768; // size:0x14
+D_8009077C = 0x8009077C; // size:0xC
+D_80090788 = 0x80090788; // size:0x4
+D_8009078C = 0x8009078C; // size:0x18
+D_800907EC = 0x800907EC; // size:0xC
+D_800907F8 = 0x800907F8; // size:0x4
+D_800907FC = 0x800907FC; // size:0xC
+D_80090808 = 0x80090808; // size:0x4
+D_8009080C = 0x8009080C; // size:0xC
+D_80091834 = 0x80091834; // size:0xC
+D_8009184C = 0x8009184C; // size:0x90
+
+// Native glyph descriptors with explicit per-case frame domains.
+D_800915D8 = 0x800915D8; // size:0x198
+
+// Native literal effect descriptors and callbacks.
+D_8008CB64 = 0x8008CB64; // size:0xC
+D_800903B8 = 0x800903B8; // size:0x10
+D_800903E0 = 0x800903E0; // size:0x20
+D_80090558 = 0x80090558; // type:u32 size:0x50
+D_80091840 = 0x80091840; // size:0xC
+func_151787A4 = 0x151787A4; // type:func size:0x8
+
+// Native type-nine texture.
+D_8009060C = 0x8009060C; // size:0x14
+
+// Native single-precision words.
+
+// Native single-precision words.
+D_800A251C = 0x800A251C; // type:f32 size:0x4 can_reference:False
+
+// Native float data and bounded records.
+D_80088724 = 0x80088724; // type:f32 size:0xC can_reference:False
+D_800A49C0 = 0x800A49C0; // type:f32 size:0x6C can_reference:False
+D_800A4A2C = 0x800A4A2C; // type:s32 size:0x48 can_reference:False
+
+// Native floating-point data and creation records.
+D_8008CF00 = 0x8008CF00; // type:s16 size:0xA0 can_reference:False
+D_80095C64 = 0x80095C64; // type:f32 size:0x40 can_reference:False
+
+// Weighted vector tables.
+D_800A24B0 = 0x800A24B0; // type:f32 size:0x54 can_reference:False
+D_800A2520 = 0x800A2520; // type:f32 size:0x48 can_reference:False
+D_800A2568 = 0x800A2568; // type:f32 size:0x54 can_reference:False
+D_800A25BC = 0x800A25BC; // type:f32 size:0x48 can_reference:False
+
+// Joint weights and total verification owner; D_800A251C remains an interior alias.
+D_800A2504 = 0x800A2504; // size:0x1C
+
+D_8009A220 = 0x8009A220; // type:f32 size:0x104 can_reference:False
+
+D_80098E00 = 0x80098E00; // type:u16 size:0x200 can_reference:False
 func_1503EB70 = 0x1503EB70; // type:func size:0x8
 func_1507DB34 = 0x1507DB34; // type:func size:0x8
 func_1507DB3C = 0x1507DB3C; // type:func size:0x8

@@ -1,0 +1,115 @@
+{
+  "status": "accepted",
+  "native_consumer_evidence": {
+    "bitmap_address": "0x80084930",
+    "bitmap_bytes": 4096,
+    "format": "i4",
+    "width": 64,
+    "height": 128,
+    "row_bytes": 32,
+    "character_map_address": "0x800848D0",
+    "character_map_bytes": 80,
+    "character_scan_inputs_verified": 256,
+    "prospective_bytes": 4176,
+    "bitmap_sha256": "e382bece2d4e3ea63bcb7501c8a29dc3717f3c42ec0ebc1effab7ded4cb14e51",
+    "characters_sha256": "8bf20d76e638d17316f1b7c5bf5b7edd94963a1b2db929d5a0085f095d04845f",
+    "commands": [
+      [
+        3607101442,
+        4294967295
+      ],
+      [
+        3875536896,
+        0
+      ],
+      [
+        4244635647,
+        4294767225
+      ],
+      [
+        4009765903,
+        5578828
+      ],
+      [
+        4254072895,
+        2148026672
+      ],
+      [
+        4254072832,
+        2148026672
+      ],
+      [
+        4119855104,
+        117440512
+      ],
+      [
+        3858759680,
+        0
+      ],
+      [
+        4076863488,
+        125825536
+      ],
+      [
+        3875536896,
+        0
+      ],
+      [
+        4118808576,
+        0
+      ],
+      [
+        4060086272,
+        1032700
+      ]
+    ],
+    "full_source_unit_raw_asm_words": 200,
+    "consumer_spans": [
+      {
+        "start": "0x150412c0",
+        "bytes": 316,
+        "sha1": "4b1e5f70a3f7e434ff616bb14d0d897ab7ee57e2"
+      },
+      {
+        "start": "0x150413fc",
+        "bytes": 132,
+        "sha1": "4e2cef09eeee15982877ca423104512fddcf2215"
+      },
+      {
+        "start": "0x15041480",
+        "bytes": 136,
+        "sha1": "75a1d9069a14a70b397f2bda6caf77b430f45ec6"
+      },
+      {
+        "start": "0x15041508",
+        "bytes": 216,
+        "sha1": "4bff24c22eb60353c895efaf9edb877195bfe10a"
+      }
+    ],
+    "png_roundtrip_exact": true,
+    "gap_excluded": [
+      "0x80084920",
+      "0x80084930"
+    ],
+    "qualification": "The 16-byte gap is unowned; source-unit code completion is not data ownership.",
+    "observed_intensity_levels": [
+      0,
+      8,
+      9,
+      10,
+      11,
+      12,
+      15
+    ],
+    "monochrome_row_source_possible": false
+  },
+  "qualification": "Matched data only; runtime GAME archive remains original. The 16-byte gap is excluded.",
+  "omitted_gate_logs": [
+    "modified_inputs",
+    "native_byte_mutations",
+    "report_audit",
+    "source_and_link_audit",
+    "tested_base",
+    "validation"
+  ]
+}

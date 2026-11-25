@@ -1,0 +1,2081 @@
+{
+  "status": "accepted: native comparison, preservation, negative gates, full tests, ROM rebuild and full report pass",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "native_functions": {
+    "func_1502C6E8": {
+      "address": "0x1502c6e8",
+      "bytes": 652,
+      "sha1": "a168f14ac1b2fe5bb064d8e6194c3b486dc00023"
+    },
+    "func_1502FBE8": {
+      "address": "0x1502fbe8",
+      "bytes": 392,
+      "sha1": "86363abf6467595cc9d78c3c1b6577bb4374835f"
+    },
+    "func_1503D774": {
+      "address": "0x1503d774",
+      "bytes": 144,
+      "sha1": "546821f215679e4d341cd39d98c9a9d6256110d2"
+    },
+    "func_1505F188": {
+      "address": "0x1505f188",
+      "bytes": 272,
+      "sha1": "c4b6d2297e2dc2c7f3c7c5724781e9042b9d3204"
+    },
+    "func_15065A5C": {
+      "address": "0x15065a5c",
+      "bytes": 19348,
+      "sha1": "7f60cbcdfdc421e08122fd361bcebabd913da9dc"
+    },
+    "func_150837D4": {
+      "address": "0x150837d4",
+      "bytes": 280,
+      "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d"
+    },
+    "func_150839B8": {
+      "address": "0x150839b8",
+      "bytes": 272,
+      "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff"
+    },
+    "func_150A7960": {
+      "address": "0x150a7960",
+      "bytes": 160,
+      "sha1": "74bbe33c7a4fb06b7b640eb86c0fb601b77a8c0d"
+    },
+    "func_15143134": {
+      "address": "0x15143134",
+      "bytes": 392,
+      "sha1": "aff90add2efa478694dcdd5359f96038e7f1c6f8"
+    },
+    "func_1518D1C0": {
+      "address": "0x1518d1c0",
+      "bytes": 1312,
+      "sha1": "5cd05a02899f91be78894f87bc6f8798db861de7"
+    },
+    "func_1518D6E0": {
+      "address": "0x1518d6e0",
+      "bytes": 3000,
+      "sha1": "82f4e7d6e69ba6d7d25e25188503a5421a46ae6a"
+    },
+    "func_1518E3C4": {
+      "address": "0x1518e3c4",
+      "bytes": 220,
+      "sha1": "691c6e55b5dcfc79b933011bda904c9d4a7bf53f"
+    }
+  },
+  "instruction_anchors": {
+    "0x1502fbf8": "0x920301c9",
+    "0x1502fc34": "0x921802c9",
+    "0x1502fc38": "0x2462ffff",
+    "0x1502fc3c": "0x58082a",
+    "0x1502fc40": "0x50200047",
+    "0x1502fc58": "0x8e0802c4",
+    "0x1502fc64": "0x1024821",
+    "0x1502fc68": "0x91250000",
+    "0x1502fc70": "0xafa2003c",
+    "0x1502fc74": "0xd420df5",
+    "0x1502fc7c": "0x8fa2003c",
+    "0x1502fc8c": "0xa20201c8",
+    "0x1503d7b8": "0x24080011",
+    "0x1503d7c0": "0x24070002",
+    "0x1503d7c8": "0xd40adaf",
+    "0x1503d7f0": "0xac6a0000",
+    "0x15065a74": "0x808025",
+    "0x150669b8": "0x240d0006",
+    "0x150669c4": "0x52380ec5",
+    "0x150669d4": "0xa20d01c9",
+    "0x150839c8": "0x57080",
+    "0x150839d8": "0x8c421c90",
+    "0x15083a68": "0x904f0004",
+    "0x15083a74": "0x90580005",
+    "0x15083a7c": "0x18c880",
+    "0x15083a84": "0x8d086cac",
+    "0x15083a88": "0xac8802c4",
+    "0x15083a90": "0xa08902c8",
+    "0x15083a98": "0x904b0038",
+    "0x15083a9c": "0x14b6021",
+    "0x15083aa0": "0xa08c02c9",
+    "0x1518d88c": "0x915901c8",
+    "0x1518d890": "0x8d8d0000",
+    "0x1518d894": "0x256e0002",
+    "0x1518d898": "0x32e0019",
+    "0x1518d8ac": "0x187880",
+    "0x1518d8b0": "0x1af4021",
+    "0x1518d8b4": "0x1197021",
+    "0x1518d8bc": "0x8dd30000",
+    "0x1518d900": "0x77080",
+    "0x1518d904": "0x10ec021",
+    "0x1518d90c": "0x8f130000",
+    "0x1518d94c": "0x915801c8",
+    "0x1518d954": "0x256d0002",
+    "0x1518d958": "0x30d0019",
+    "0x1518d970": "0x8df30004"
+  },
+  "units": [
+    {
+      "name": "particle_variants_8008F2C0",
+      "address": 2148070080,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f2c0",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2c4",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2c8",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2cc",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2d0",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2d4",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2d8",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2dc",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2e0",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2e4",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2e8",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        },
+        {
+          "address": "0x8008f2ec",
+          "symbol": "D_8008ED80",
+          "addend": 0,
+          "native_word": "0x8008ed80"
+        }
+      ],
+      "payload_sha256": "1842a38f849c8ad9ad071a549382ea0ce52ce65e23fdee69a217c209be67c73e",
+      "category": 0,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F2F0",
+      "address": 2148070128,
+      "bytes": 120,
+      "emitted_bytes": 128,
+      "pointers": [
+        {
+          "address": "0x8008f2f0",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f2f4",
+          "symbol": "D_8008ED80",
+          "addend": 168,
+          "native_word": "0x8008ee28"
+        },
+        {
+          "address": "0x8008f2f8",
+          "symbol": "D_8008ED80",
+          "addend": 56,
+          "native_word": "0x8008edb8"
+        },
+        {
+          "address": "0x8008f2fc",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f300",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f304",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f308",
+          "symbol": "D_8008ED80",
+          "addend": 168,
+          "native_word": "0x8008ee28"
+        },
+        {
+          "address": "0x8008f30c",
+          "symbol": "D_8008ED80",
+          "addend": 56,
+          "native_word": "0x8008edb8"
+        },
+        {
+          "address": "0x8008f310",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f314",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f318",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f31c",
+          "symbol": "D_8008ED80",
+          "addend": 168,
+          "native_word": "0x8008ee28"
+        },
+        {
+          "address": "0x8008f320",
+          "symbol": "D_8008ED80",
+          "addend": 56,
+          "native_word": "0x8008edb8"
+        },
+        {
+          "address": "0x8008f324",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f328",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f32c",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f330",
+          "symbol": "D_8008ED80",
+          "addend": 168,
+          "native_word": "0x8008ee28"
+        },
+        {
+          "address": "0x8008f334",
+          "symbol": "D_8008ED80",
+          "addend": 56,
+          "native_word": "0x8008edb8"
+        },
+        {
+          "address": "0x8008f338",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f33c",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f340",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f344",
+          "symbol": "D_8008ED80",
+          "addend": 168,
+          "native_word": "0x8008ee28"
+        },
+        {
+          "address": "0x8008f348",
+          "symbol": "D_8008ED80",
+          "addend": 56,
+          "native_word": "0x8008edb8"
+        },
+        {
+          "address": "0x8008f34c",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f350",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f354",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f358",
+          "symbol": "D_8008ED80",
+          "addend": 168,
+          "native_word": "0x8008ee28"
+        },
+        {
+          "address": "0x8008f35c",
+          "symbol": "D_8008ED80",
+          "addend": 56,
+          "native_word": "0x8008edb8"
+        },
+        {
+          "address": "0x8008f360",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        },
+        {
+          "address": "0x8008f364",
+          "symbol": "D_8008ED80",
+          "addend": 112,
+          "native_word": "0x8008edf0"
+        }
+      ],
+      "payload_sha256": "238385aeb61c11eeb07b650d216bd33ef0d2d29a57e6e50d5517e6213043225c",
+      "category": 1,
+      "rows_in_prefix": 6,
+      "columns": 5
+    },
+    {
+      "name": "particle_variants_8008F368",
+      "address": 2148070248,
+      "bytes": 120,
+      "emitted_bytes": 128,
+      "pointers": [
+        {
+          "address": "0x8008f368",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f36c",
+          "symbol": "D_8008ED80",
+          "addend": 840,
+          "native_word": "0x8008f0c8"
+        },
+        {
+          "address": "0x8008f370",
+          "symbol": "D_8008ED80",
+          "addend": 728,
+          "native_word": "0x8008f058"
+        },
+        {
+          "address": "0x8008f374",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f378",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f37c",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f380",
+          "symbol": "D_8008ED80",
+          "addend": 840,
+          "native_word": "0x8008f0c8"
+        },
+        {
+          "address": "0x8008f384",
+          "symbol": "D_8008ED80",
+          "addend": 728,
+          "native_word": "0x8008f058"
+        },
+        {
+          "address": "0x8008f388",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f38c",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f390",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f394",
+          "symbol": "D_8008ED80",
+          "addend": 840,
+          "native_word": "0x8008f0c8"
+        },
+        {
+          "address": "0x8008f398",
+          "symbol": "D_8008ED80",
+          "addend": 728,
+          "native_word": "0x8008f058"
+        },
+        {
+          "address": "0x8008f39c",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3a0",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3a4",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3a8",
+          "symbol": "D_8008ED80",
+          "addend": 840,
+          "native_word": "0x8008f0c8"
+        },
+        {
+          "address": "0x8008f3ac",
+          "symbol": "D_8008ED80",
+          "addend": 728,
+          "native_word": "0x8008f058"
+        },
+        {
+          "address": "0x8008f3b0",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3b4",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3b8",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3bc",
+          "symbol": "D_8008ED80",
+          "addend": 840,
+          "native_word": "0x8008f0c8"
+        },
+        {
+          "address": "0x8008f3c0",
+          "symbol": "D_8008ED80",
+          "addend": 728,
+          "native_word": "0x8008f058"
+        },
+        {
+          "address": "0x8008f3c4",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3c8",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3cc",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3d0",
+          "symbol": "D_8008ED80",
+          "addend": 840,
+          "native_word": "0x8008f0c8"
+        },
+        {
+          "address": "0x8008f3d4",
+          "symbol": "D_8008ED80",
+          "addend": 728,
+          "native_word": "0x8008f058"
+        },
+        {
+          "address": "0x8008f3d8",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        },
+        {
+          "address": "0x8008f3dc",
+          "symbol": "D_8008ED80",
+          "addend": 784,
+          "native_word": "0x8008f090"
+        }
+      ],
+      "payload_sha256": "4a3db9c3d278ad62ae8af25210fe01a8277a6d90b56f491ddf86fd847ec7d116",
+      "category": 7,
+      "rows_in_prefix": 6,
+      "columns": 5
+    },
+    {
+      "name": "particle_variants_8008F3E0",
+      "address": 2148070368,
+      "bytes": 72,
+      "emitted_bytes": 80,
+      "pointers": [
+        {
+          "address": "0x8008f3e0",
+          "symbol": "D_8008ED80",
+          "addend": 224,
+          "native_word": "0x8008ee60"
+        },
+        {
+          "address": "0x8008f3e4",
+          "symbol": "D_8008ED80",
+          "addend": 280,
+          "native_word": "0x8008ee98"
+        },
+        {
+          "address": "0x8008f3e8",
+          "symbol": "D_8008ED80",
+          "addend": 448,
+          "native_word": "0x8008ef40"
+        },
+        {
+          "address": "0x8008f3ec",
+          "symbol": "D_8008ED80",
+          "addend": 224,
+          "native_word": "0x8008ee60"
+        },
+        {
+          "address": "0x8008f3f0",
+          "symbol": "D_8008ED80",
+          "addend": 280,
+          "native_word": "0x8008ee98"
+        },
+        {
+          "address": "0x8008f3f4",
+          "symbol": "D_8008ED80",
+          "addend": 448,
+          "native_word": "0x8008ef40"
+        },
+        {
+          "address": "0x8008f3f8",
+          "symbol": "D_8008ED80",
+          "addend": 224,
+          "native_word": "0x8008ee60"
+        },
+        {
+          "address": "0x8008f3fc",
+          "symbol": "D_8008ED80",
+          "addend": 280,
+          "native_word": "0x8008ee98"
+        },
+        {
+          "address": "0x8008f400",
+          "symbol": "D_8008ED80",
+          "addend": 448,
+          "native_word": "0x8008ef40"
+        },
+        {
+          "address": "0x8008f404",
+          "symbol": "D_8008ED80",
+          "addend": 224,
+          "native_word": "0x8008ee60"
+        },
+        {
+          "address": "0x8008f408",
+          "symbol": "D_8008ED80",
+          "addend": 280,
+          "native_word": "0x8008ee98"
+        },
+        {
+          "address": "0x8008f40c",
+          "symbol": "D_8008ED80",
+          "addend": 448,
+          "native_word": "0x8008ef40"
+        },
+        {
+          "address": "0x8008f410",
+          "symbol": "D_8008ED80",
+          "addend": 224,
+          "native_word": "0x8008ee60"
+        },
+        {
+          "address": "0x8008f414",
+          "symbol": "D_8008ED80",
+          "addend": 280,
+          "native_word": "0x8008ee98"
+        },
+        {
+          "address": "0x8008f418",
+          "symbol": "D_8008ED80",
+          "addend": 448,
+          "native_word": "0x8008ef40"
+        },
+        {
+          "address": "0x8008f41c",
+          "symbol": "D_8008ED80",
+          "addend": 224,
+          "native_word": "0x8008ee60"
+        },
+        {
+          "address": "0x8008f420",
+          "symbol": "D_8008ED80",
+          "addend": 280,
+          "native_word": "0x8008ee98"
+        },
+        {
+          "address": "0x8008f424",
+          "symbol": "D_8008ED80",
+          "addend": 448,
+          "native_word": "0x8008ef40"
+        }
+      ],
+      "payload_sha256": "2c5692382c4822204f26ca0a9bb08b07862db5f8a1e27a43712dde664c32eb02",
+      "category": 2,
+      "rows_in_prefix": 6,
+      "columns": 3
+    },
+    {
+      "name": "particle_variants_8008F428",
+      "address": 2148070440,
+      "bytes": 72,
+      "emitted_bytes": 80,
+      "pointers": [
+        {
+          "address": "0x8008f428",
+          "symbol": "D_8008ED80",
+          "addend": 392,
+          "native_word": "0x8008ef08"
+        },
+        {
+          "address": "0x8008f42c",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f430",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f434",
+          "symbol": "D_8008ED80",
+          "addend": 392,
+          "native_word": "0x8008ef08"
+        },
+        {
+          "address": "0x8008f438",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f43c",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f440",
+          "symbol": "D_8008ED80",
+          "addend": 392,
+          "native_word": "0x8008ef08"
+        },
+        {
+          "address": "0x8008f444",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f448",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f44c",
+          "symbol": "D_8008ED80",
+          "addend": 392,
+          "native_word": "0x8008ef08"
+        },
+        {
+          "address": "0x8008f450",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f454",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f458",
+          "symbol": "D_8008ED80",
+          "addend": 392,
+          "native_word": "0x8008ef08"
+        },
+        {
+          "address": "0x8008f45c",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f460",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f464",
+          "symbol": "D_8008ED80",
+          "addend": 392,
+          "native_word": "0x8008ef08"
+        },
+        {
+          "address": "0x8008f468",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        },
+        {
+          "address": "0x8008f46c",
+          "symbol": "D_8008ED80",
+          "addend": 336,
+          "native_word": "0x8008eed0"
+        }
+      ],
+      "payload_sha256": "b4998c527837098469f79c3875fe301a15897361fae1d9540708918b49e359e9",
+      "category": 3,
+      "rows_in_prefix": 6,
+      "columns": 3
+    },
+    {
+      "name": "particle_variants_8008F470",
+      "address": 2148070512,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f470",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f474",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f478",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f47c",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f480",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f484",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f488",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f48c",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f490",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f494",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f498",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        },
+        {
+          "address": "0x8008f49c",
+          "symbol": "D_8008ED80",
+          "addend": 560,
+          "native_word": "0x8008efb0"
+        }
+      ],
+      "payload_sha256": "f63b4be0d766a9bb6f29a3028febf3c5c608dc1169737c544cf87c7c89c42022",
+      "category": 5,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F4A0",
+      "address": 2148070560,
+      "bytes": 72,
+      "emitted_bytes": 80,
+      "pointers": [
+        {
+          "address": "0x8008f4a0",
+          "symbol": "D_8008ED80",
+          "addend": 616,
+          "native_word": "0x8008efe8"
+        },
+        {
+          "address": "0x8008f4a4",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4a8",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4ac",
+          "symbol": "D_8008ED80",
+          "addend": 616,
+          "native_word": "0x8008efe8"
+        },
+        {
+          "address": "0x8008f4b0",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4b4",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4b8",
+          "symbol": "D_8008ED80",
+          "addend": 616,
+          "native_word": "0x8008efe8"
+        },
+        {
+          "address": "0x8008f4bc",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4c0",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4c4",
+          "symbol": "D_8008ED80",
+          "addend": 616,
+          "native_word": "0x8008efe8"
+        },
+        {
+          "address": "0x8008f4c8",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4cc",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4d0",
+          "symbol": "D_8008ED80",
+          "addend": 616,
+          "native_word": "0x8008efe8"
+        },
+        {
+          "address": "0x8008f4d4",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4d8",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4dc",
+          "symbol": "D_8008ED80",
+          "addend": 616,
+          "native_word": "0x8008efe8"
+        },
+        {
+          "address": "0x8008f4e0",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        },
+        {
+          "address": "0x8008f4e4",
+          "symbol": "D_8008ED80",
+          "addend": 672,
+          "native_word": "0x8008f020"
+        }
+      ],
+      "payload_sha256": "bed3da5c6e9140d0da327c7f868f764f580a173a62be7bc49ad3ef33c58e4c06",
+      "category": 6,
+      "rows_in_prefix": 6,
+      "columns": 3
+    },
+    {
+      "name": "particle_variants_8008F4E8",
+      "address": 2148070632,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f4e8",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f4ec",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f4f0",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f4f4",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f4f8",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f4fc",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f500",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f504",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f508",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f50c",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f510",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        },
+        {
+          "address": "0x8008f514",
+          "symbol": "D_8008ED80",
+          "addend": 504,
+          "native_word": "0x8008ef78"
+        }
+      ],
+      "payload_sha256": "eebbe83869e0c2ba30c69be77ed45357e344107499ab53f192bff3df0e03afb4",
+      "category": 4,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F518",
+      "address": 2148070680,
+      "bytes": 120,
+      "emitted_bytes": 128,
+      "pointers": [
+        {
+          "address": "0x8008f518",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f51c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f520",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f524",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f528",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f52c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f530",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f534",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f538",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f53c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f540",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f544",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f548",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f54c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f550",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f554",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f558",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f55c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f560",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f564",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f568",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f56c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f570",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f574",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f578",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f57c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f580",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f584",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f588",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        },
+        {
+          "address": "0x8008f58c",
+          "symbol": "D_8008ED80",
+          "addend": 896,
+          "native_word": "0x8008f100"
+        }
+      ],
+      "payload_sha256": "6c9aaf009d2d35607d0531d800d5c58093813731d69df56b09e2283c84f5666d",
+      "category": 8,
+      "rows_in_prefix": 6,
+      "columns": 5
+    },
+    {
+      "name": "particle_variants_8008F590",
+      "address": 2148070800,
+      "bytes": 120,
+      "emitted_bytes": 128,
+      "pointers": [
+        {
+          "address": "0x8008f590",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f594",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f598",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f59c",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5a0",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5a4",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5a8",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5ac",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5b0",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5b4",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5b8",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5bc",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5c0",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5c4",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5c8",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5cc",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5d0",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5d4",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5d8",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5dc",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5e0",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5e4",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5e8",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5ec",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5f0",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5f4",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5f8",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f5fc",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f600",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        },
+        {
+          "address": "0x8008f604",
+          "symbol": "D_8008ED80",
+          "addend": 952,
+          "native_word": "0x8008f138"
+        }
+      ],
+      "payload_sha256": "5aed54d6c18e6f2701b55b2d11cceda885fc9202095258169b41c356d38f56f0",
+      "category": 9,
+      "rows_in_prefix": 6,
+      "columns": 5
+    },
+    {
+      "name": "particle_variants_8008F608",
+      "address": 2148070920,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f608",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f60c",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f610",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f614",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f618",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f61c",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f620",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f624",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f628",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f62c",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f630",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        },
+        {
+          "address": "0x8008f634",
+          "symbol": "D_8008ED80",
+          "addend": 1008,
+          "native_word": "0x8008f170"
+        }
+      ],
+      "payload_sha256": "9c19c5ba1a072a4239f276d19e9079a0633b27a8bf0b3632f06127b1a57c6025",
+      "category": 10,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F638",
+      "address": 2148070968,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f638",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f63c",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f640",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f644",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f648",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f64c",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f650",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f654",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f658",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f65c",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f660",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        },
+        {
+          "address": "0x8008f664",
+          "symbol": "D_8008ED80",
+          "addend": 1064,
+          "native_word": "0x8008f1a8"
+        }
+      ],
+      "payload_sha256": "a12d16ae1b96f7f7fb8e083029d70c358633ef30bf4bdaa45ae45d59d08a4e39",
+      "category": 11,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F668",
+      "address": 2148071016,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f668",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f66c",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f670",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f674",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f678",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f67c",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f680",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f684",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f688",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f68c",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f690",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        },
+        {
+          "address": "0x8008f694",
+          "symbol": "D_8008ED80",
+          "addend": 1120,
+          "native_word": "0x8008f1e0"
+        }
+      ],
+      "payload_sha256": "1861ca7d7f6f8b8ff86e3c93540dadb5677072d0e10793f57c5aa3cb118c49a8",
+      "category": 12,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F698",
+      "address": 2148071064,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f698",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f69c",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6a0",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6a4",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6a8",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6ac",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6b0",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6b4",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6b8",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6bc",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6c0",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        },
+        {
+          "address": "0x8008f6c4",
+          "symbol": "D_8008ED80",
+          "addend": 1176,
+          "native_word": "0x8008f218"
+        }
+      ],
+      "payload_sha256": "a78c68b102c90054e3b0bafc6aacc823b63f0252fa2f27ac082ebbd2cbf40d92",
+      "category": 13,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F6C8",
+      "address": 2148071112,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f6c8",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6cc",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6d0",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6d4",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6d8",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6dc",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6e0",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6e4",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6e8",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6ec",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6f0",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        },
+        {
+          "address": "0x8008f6f4",
+          "symbol": "D_8008ED80",
+          "addend": 1232,
+          "native_word": "0x8008f250"
+        }
+      ],
+      "payload_sha256": "b011fcabcef86696430ce924a642247fa1596ff1e683acbed9ee04441fafc9c0",
+      "category": 14,
+      "rows_in_prefix": 6,
+      "columns": 2
+    },
+    {
+      "name": "particle_variants_8008F6F8",
+      "address": 2148071160,
+      "bytes": 48,
+      "emitted_bytes": 48,
+      "pointers": [
+        {
+          "address": "0x8008f6f8",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f6fc",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f700",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f704",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f708",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f70c",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f710",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f714",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f718",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f71c",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f720",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        },
+        {
+          "address": "0x8008f724",
+          "symbol": "D_8008ED80",
+          "addend": 1288,
+          "native_word": "0x8008f288"
+        }
+      ],
+      "payload_sha256": "30ba2865c6e51d4243ff49896a03456e67c8e69be8d54fdd4c2a1348a0507b8f",
+      "category": 15,
+      "rows_in_prefix": 6,
+      "columns": 2
+    }
+  ],
+  "bytes": 1128,
+  "external_symbols": [],
+  "native_default_counts": {
+    "summarized_list": true,
+    "count": 186,
+    "sha256": "2e9d8bb5223ad9f7f785ca497a8f1f90f29b471a8a3d5034c4a7bb255d4edc13",
+    "first": [
+      {
+        "model": 0,
+        "auto": 5,
+        "list": 1,
+        "extra": 2,
+        "total": 7,
+        "bundle_sha1": "d25026414eadcf8246405045b4034e874042c437",
+        "header_sha1": "58b643bd36b6a51be788bcd97f07708137d517a0",
+        "list_address": "0x8009cdd0",
+        "model_bytes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          130,
+          150
+        ]
+      },
+      {
+        "model": 1,
+        "auto": 5,
+        "list": 1,
+        "extra": 1,
+        "total": 6,
+        "bundle_sha1": "b702677e0dc1c3974170759cca243c34a2ea5250",
+        "header_sha1": "fe5aa201b2803d55b1306a68ea3973ce30851499",
+        "list_address": "0x8009cdd0",
+        "model_bytes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          130
+        ]
+      },
+      {
+        "model": 2,
+        "auto": 5,
+        "list": 1,
+        "extra": 1,
+        "total": 6,
+        "bundle_sha1": "b702677e0dc1c3974170759cca243c34a2ea5250",
+        "header_sha1": "fe5aa201b2803d55b1306a68ea3973ce30851499",
+        "list_address": "0x8009cdd0",
+        "model_bytes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          130
+        ]
+      }
+    ]
+  },
+  "selector_chain": {
+    "literal_control": 6,
+    "applied_ordinal": 5,
+    "count_guard": "ordinal < actor +0x2C9",
+    "model0_total": 7,
+    "model0_ordinal5_model_byte": 130
+  },
+  "limits": "These are typed storage prefixes through ordinal five, not inferred original array boundaries or universal six-row limits. Category zero has no observed constructor call; static root/record format is independently established. No claim that every category and ordinal combination executes. Model zero has seven entries; persistence of effects into ordinal six remains unresolved. Neighbouring table addresses are consistency checks only, not extent evidence.",
+  "omitted_gate_logs": [
+    "asset_build",
+    "mutation_audit",
+    "pilot_audit",
+    "report_audit",
+    "report_timings_seconds",
+    "source_audit",
+    "tests"
+  ]
+}

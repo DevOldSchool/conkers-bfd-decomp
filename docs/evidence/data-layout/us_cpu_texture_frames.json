@@ -1,0 +1,371 @@
+{
+  "status": "accepted",
+  "native": {
+    "status": "native frame-count path established; source grouping and pointer alias integration pending",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_1515BAE0": {
+        "address": "0x1515bae0",
+        "bytes": 272,
+        "sha1": "d347b9ee34a002cc25b3566b31d7cd5932867864"
+      },
+      "func_1515BBF0": {
+        "address": "0x1515bbf0",
+        "bytes": 600,
+        "sha1": "35e39a1a104babd7a81363f322938c7df696a4cc"
+      },
+      "func_1514401C": {
+        "address": "0x1514401c",
+        "bytes": 392,
+        "sha1": "0f1ef45753df926c72cb7235db8c5daf19d50b2f"
+      },
+      "func_15142E24": {
+        "address": "0x15142e24",
+        "bytes": 408,
+        "sha1": "c282266cd9d3db78bd02afc30e4d74b6f26264aa"
+      },
+      "func_1514306C": {
+        "address": "0x1514306c",
+        "bytes": 200,
+        "sha1": "57f7e47b0c58c843d442b744762abafd67645d7e"
+      },
+      "func_15094FE8": {
+        "address": "0x15094fe8",
+        "bytes": 120,
+        "sha1": "2c4f7d72dc31f3c0c877fdb5cde1637a014fcaab"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      }
+    },
+    "instruction_anchors": {
+      "0x1515bb6c": "0x2605001c",
+      "0x1515bb70": "0x26060018",
+      "0x1515bb7c": "0x92040010",
+      "0x1515bb80": "0xd451007",
+      "0x1515bb84": "0x92070012",
+      "0x15144020": "0x308e00ff",
+      "0x15144040": "0x4c080",
+      "0x15144044": "0x304c023",
+      "0x1514404c": "0x18c080",
+      "0x15144058": "0x90420b64",
+      "0x15144064": "0x24400",
+      "0x15144068": "0x2508ffff",
+      "0x15144078": "0x10d082a",
+      "0x15144098": "0x304f0002",
+      "0x151440a4": "0xaca00000",
+      "0x151440ac": "0xacc80000",
+      "0x1515bd40": "0x92030010",
+      "0x1515bd44": "0x8e060018",
+      "0x1515bd4c": "0x35880",
+      "0x1515bd50": "0x1635823",
+      "0x1515bd54": "0xb5880",
+      "0x1515bd58": "0x258c0b60",
+      "0x1515bd6c": "0x16c2821",
+      "0x1515bd88": "0xd450b89",
+      "0x1515bd8c": "0xafa30018",
+      "0x15142e44": "0x8fa50058",
+      "0x15142e48": "0x67403",
+      "0x15142e50": "0xd450c1b",
+      "0x15143118": "0x8d4a0b60",
+      "0x1514311c": "0x65880",
+      "0x15143120": "0x14b6021",
+      "0x15143124": "0x8d830000",
+      "0x15142f2c": "0x6ca03",
+      "0x15142f5c": "0xd4253fa",
+      "0x15095090": "0x57203",
+      "0x15095094": "0xe7880",
+      "0x15095098": "0x4fc021",
+      "0x1509509c": "0x8f190000"
+    },
+    "effect_type97": {
+      "address": "0x8008c85c",
+      "process": "0x1515bae0",
+      "render": "0x1515bbf0"
+    },
+    "native_cap_cases": 975,
+    "native_instructions_executed": 29787,
+    "frame_intervals": {
+      "summarized_list": true,
+      "count": 187,
+      "sha256": "9fd904c140e106c75a11d771c2ab2c9e272bd0fdf44207b5a651c9d6ecb6a406",
+      "first": [
+        {
+          "descriptor": 0,
+          "address": 2148075332,
+          "count": 1,
+          "end": 2148075336
+        },
+        {
+          "descriptor": 1,
+          "address": 2148075336,
+          "count": 1,
+          "end": 2148075340
+        },
+        {
+          "descriptor": 2,
+          "address": 2148075340,
+          "count": 1,
+          "end": 2148075344
+        }
+      ]
+    },
+    "groups": [
+      {
+        "address": 2148073968,
+        "end": 2148073988,
+        "bytes": 20,
+        "words": [
+          2313,
+          2315,
+          2316,
+          2317,
+          2318
+        ],
+        "payload_sha256": "8f949461da8a0fb2490e135b0c73627a9d9b9447f4937938e79d47d53e45b9fd"
+      },
+      {
+        "address": 2148075324,
+        "end": 2148075356,
+        "bytes": 32,
+        "words": [
+          1947,
+          1948,
+          1022,
+          1023,
+          1024,
+          3665,
+          3666,
+          3667
+        ],
+        "payload_sha256": "c5dc5866d420cc27e894c1a7e238f384d8648ae3ec32ae23bf129761e67609ca"
+      },
+      {
+        "address": 2148075428,
+        "end": 2148075436,
+        "bytes": 8,
+        "words": [
+          1348,
+          1349
+        ],
+        "payload_sha256": "d6c7220577e253844e3d1b88005bc83d51b6398ab5409ce8d9230b10b31f3471"
+      },
+      {
+        "address": 2148075544,
+        "end": 2148076312,
+        "bytes": 768,
+        "words": {
+          "summarized_list": true,
+          "count": 192,
+          "sha256": "aa302d929cac96b44bce183d375451ee90271e1bf54cc166de42ffde4538e103",
+          "first": [
+            1825,
+            3475,
+            7206
+          ]
+        },
+        "payload_sha256": "60636b250f67ce39002168d188ac415b53e7bee71c47c0ee2a32c0e183c62759"
+      },
+      {
+        "address": 2148078880,
+        "end": 2148078948,
+        "bytes": 68,
+        "words": [
+          950,
+          951,
+          4057,
+          4058,
+          7260,
+          7261,
+          7262,
+          2303,
+          2304,
+          2305,
+          2306,
+          2307,
+          2308,
+          2309,
+          2310,
+          2311,
+          2312
+        ],
+        "payload_sha256": "d5a59954dc6f47f734860708dcbf88b80cf039f0f5f33103fe0f56e817c470fc"
+      },
+      {
+        "address": 2148079036,
+        "end": 2148079064,
+        "bytes": 28,
+        "words": [
+          4126,
+          4127,
+          4128,
+          4129,
+          4130,
+          868,
+          3601
+        ],
+        "payload_sha256": "b61e04f987f5b9a0d182615f09c86137688e5a4a5c612eff19bbc6d676214902"
+      },
+      {
+        "address": 2148079588,
+        "end": 2148079596,
+        "bytes": 8,
+        "words": [
+          3616,
+          3617
+        ],
+        "payload_sha256": "de14e1d75470fecd149f5cdafd57cc17da8f91a09e409be0a3614fd7cf257049"
+      }
+    ],
+    "bytes": 932,
+    "limits": "The bounded cap branch demonstrates count-1 as the highest frame, and paired updater/drawer fields carry it to the word lookup. Other flags can terminate, wrap, reverse or retain negative phases; no universal safety or runtime-activation claim. Overlapping frame spans around800909A0..800909C0 must retain shared storage and symbolic element offsets; do not emit overlapping standalone arrays or infer boundaries from labels. All seven groups are the union of native pointer/count spans from the admitted189 descriptor prefix; later descriptor rows excluded."
+  },
+  "plan": {
+    "units": [
+      {
+        "name": "cpu_texture_frames_800901F0",
+        "address": 2148073968,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "payload_sha256": "8f949461da8a0fb2490e135b0c73627a9d9b9447f4937938e79d47d53e45b9fd",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_800901F0.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_frames_8009073C",
+        "address": 2148075324,
+        "bytes": 32,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "payload_sha256": "c5dc5866d420cc27e894c1a7e238f384d8648ae3ec32ae23bf129761e67609ca",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_8009073C.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_frames_800907A4",
+        "address": 2148075428,
+        "bytes": 8,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "payload_sha256": "d6c7220577e253844e3d1b88005bc83d51b6398ab5409ce8d9230b10b31f3471",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_800907A4.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_frames_80090818",
+        "address": 2148075544,
+        "bytes": 768,
+        "emitted_bytes": 768,
+        "pointers": [],
+        "payload_sha256": "60636b250f67ce39002168d188ac415b53e7bee71c47c0ee2a32c0e183c62759",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_80090818.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_frames_80091520",
+        "address": 2148078880,
+        "bytes": 68,
+        "emitted_bytes": 80,
+        "pointers": [],
+        "payload_sha256": "d5a59954dc6f47f734860708dcbf88b80cf039f0f5f33103fe0f56e817c470fc",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_80091520.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_frames_800915BC",
+        "address": 2148079036,
+        "bytes": 28,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "payload_sha256": "b61e04f987f5b9a0d182615f09c86137688e5a4a5c612eff19bbc6d676214902",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_800915BC.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_frames_800917E4",
+        "address": 2148079588,
+        "bytes": 8,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "payload_sha256": "de14e1d75470fecd149f5cdafd57cc17da8f91a09e409be0a3614fd7cf257049",
+        "source": "src/game/data/cpu_texture_frames/cpu_texture_frames_800917E4.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_descriptors",
+        "address": 2148076384,
+        "bytes": 2268,
+        "emitted_bytes": 2272,
+        "pointers": {
+          "summarized_list": true,
+          "count": 187,
+          "sha256": "63fc046fbff8b35fc933b8e2d7c964dd1356629ba3fdbed7c57d29cb2caab794",
+          "first": [
+            {
+              "address": "0x80090b60",
+              "symbol": "D_8009073C",
+              "addend": 8,
+              "native_word": "0x80090744"
+            },
+            {
+              "address": "0x80090b6c",
+              "symbol": "D_8009073C",
+              "addend": 12,
+              "native_word": "0x80090748"
+            },
+            {
+              "address": "0x80090b78",
+              "symbol": "D_8009073C",
+              "addend": 16,
+              "native_word": "0x8009074c"
+            }
+          ]
+        },
+        "payload_sha256": "626f4eae3c5dfdbfa82ddea57a48eb679a9f7cc6433bdab14ec1ec8c8433dae8",
+        "source": "src/game/data/menu_texture/cpu_texture_descriptors.c",
+        "replacement": true,
+        "pointer_fields": {
+          "summarized_list": true,
+          "count": 187,
+          "sha256": "63fc046fbff8b35fc933b8e2d7c964dd1356629ba3fdbed7c57d29cb2caab794",
+          "first": [
+            {
+              "address": "0x80090b60",
+              "symbol": "D_8009073C",
+              "addend": 8,
+              "native_word": "0x80090744"
+            },
+            {
+              "address": "0x80090b6c",
+              "symbol": "D_8009073C",
+              "addend": 12,
+              "native_word": "0x80090748"
+            },
+            {
+              "address": "0x80090b78",
+              "symbol": "D_8009073C",
+              "addend": 16,
+              "native_word": "0x8009074c"
+            }
+          ]
+        }
+      }
+    ],
+    "bytes": 3200,
+    "new_bytes": 932,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "omitted_gate_logs": [
+    "asset_build",
+    "base_commit",
+    "mutation_audit",
+    "pilot_audit",
+    "report_audit",
+    "report_timing_seconds",
+    "source_audit",
+    "tests"
+  ]
+}

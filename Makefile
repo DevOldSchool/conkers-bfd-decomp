@@ -182,6 +182,214 @@ GAME_INTEGRATED_PREPARE_INPUTS := Makefile Dockerfile config/game/us.yaml config
 GAME_INTEGRATED_ASM_SRCS := $(shell find asm/game_integrated/$(GAME_PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 GAME_INTEGRATED_ASM_OBJS := $(patsubst asm/%.s,$(GAME_INTEGRATED_BUILD_DIR)/asm/%.o,$(GAME_INTEGRATED_ASM_SRCS))
 GAME_INTEGRATED_C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay game --profile $(GAME_PROFILE) 2>/dev/null)
+# Data-only reconstruction; no function source-unit registration is implied.
+GAME_INTEGRATED_C_SRCS += src/game/data/flat_asset_sizes.c
+GAME_INTEGRATED_C_SRCS += src/game/data/resource_descriptors.c
+GAME_INTEGRATED_C_SRCS += src/game/data/resource_handlers.c
+GAME_INTEGRATED_C_SRCS += src/game/data/resource_dependencies_0.c
+GAME_INTEGRATED_C_SRCS += src/game/data/resource_dependencies_1.c
+GAME_INTEGRATED_C_SRCS += src/game/data/resource_dependencies_2.c
+GAME_INTEGRATED_C_SRCS += src/game/data/resource_names.c
+GAME_INTEGRATED_C_SRCS += src/game/data/inline_font.c
+GAME_INTEGRATED_C_SRCS += src/game/data/inline_font_characters.c
+GAME_INTEGRATED_C_SRCS += src/game/data/glyph_texture_data.c
+GAME_LITERAL_EFFECT_C_SRCS := \
+	src/game/data/effect_texture_callbacks.c \
+	src/game/data/literal_effect_texture_800903B8.c \
+	src/game/data/literal_effect_texture_800903E0.c \
+	src/game/data/literal_effect_texture_80090558.c \
+	src/game/data/literal_effect_texture_80091840.c
+GAME_INTEGRATED_C_SRCS += $(GAME_LITERAL_EFFECT_C_SRCS)
+GAME_TWO_FRAME_EFFECT_C_SRCS := \
+	src/game/data/two_frame_effect_texture.c
+GAME_INTEGRATED_C_SRCS += $(GAME_TWO_FRAME_EFFECT_C_SRCS)
+GAME_NATIVE_FLOAT_FLOW_C_SRCS := \
+	src/game/data/native_float_data_80088724.c \
+	src/game/data/native_float_data_800A49C0.c \
+	src/game/data/native_float_data_800A4A2C.c
+GAME_INTEGRATED_C_SRCS += $(GAME_NATIVE_FLOAT_FLOW_C_SRCS)
+GAME_NATIVE_FP_CONTROL_C_SRCS := \
+	src/game/data/native_fp_control_8008CF00.c \
+	src/game/data/native_fp_control_80095C64.c
+GAME_INTEGRATED_C_SRCS += $(GAME_NATIVE_FP_CONTROL_C_SRCS)
+GAME_WEIGHTED_VECTOR_PREFIX_C_SRCS := \
+	src/game/data/weighted_vectors_800A24B0.c \
+	src/game/data/weighted_vectors_800A2520.c \
+	src/game/data/weighted_vectors_800A2568.c \
+	src/game/data/weighted_vectors_800A25BC.c
+GAME_INTEGRATED_C_SRCS += $(GAME_WEIGHTED_VECTOR_PREFIX_C_SRCS)
+# Joint native weight record replaces the separate total verification owner.
+GAME_INTEGRATED_C_SRCS += src/game/data/weighted_record_800A2504.c
+# Independently verified native angle lookup tables.
+GAME_INTEGRATED_C_SRCS += src/game/data/quarter_wave_8009A220.c
+GAME_INTEGRATED_C_SRCS += src/game/data/inverse_angle_80098E00.c
+GAME_INTEGRATED_C_SRCS += src/game/data/command_handlers.c
+GAME_INTEGRATED_C_SRCS += src/game/data/effect_types.c
+GAME_EFFECT_GRAPHICS_C_SRCS := \
+	src/game/data/effect_graphics/effect_graphics_800873D0.c \
+	src/game/data/effect_graphics/effect_graphics_80088768.c \
+	src/game/data/effect_graphics/effect_graphics_80088828.c \
+	src/game/data/effect_graphics/effect_graphics_800889E0.c \
+	src/game/data/effect_graphics/effect_graphics_80088BE0.c \
+	src/game/data/effect_graphics/effect_graphics_800890C0.c \
+	src/game/data/effect_graphics/effect_graphics_80089470.c \
+	src/game/data/effect_graphics/effect_graphics_80089700.c \
+	src/game/data/effect_graphics/effect_graphics_80089BC0.c \
+	src/game/data/effect_graphics/effect_graphics_80089EB8.c \
+	src/game/data/effect_graphics/effect_graphics_8008A1D0.c \
+	src/game/data/effect_graphics/effect_graphics_8008A470.c \
+	src/game/data/effect_graphics/effect_graphics_8008AC70.c \
+	src/game/data/effect_graphics/effect_graphics_8008AD30.c \
+	src/game/data/effect_graphics/effect_graphics_8008AD60.c \
+	src/game/data/effect_graphics/effect_graphics_8008ADD0.c \
+	src/game/data/effect_graphics/effect_graphics_8008AE60.c \
+	src/game/data/effect_graphics/effect_graphics_8008AF38.c \
+	src/game/data/effect_graphics/effect_graphics_8008B050.c \
+	src/game/data/effect_graphics/effect_graphics_8008B3A0.c \
+	src/game/data/effect_graphics/effect_graphics_8008B3E0.c \
+	src/game/data/effect_graphics/effect_graphics_8008B480.c \
+	src/game/data/effect_graphics/effect_graphics_8008CB70.c \
+	src/game/data/effect_graphics/effect_graphics_8008CC30.c \
+	src/game/data/effect_graphics/effect_graphics_8008CD90.c \
+	src/game/data/effect_graphics/effect_graphics_8008D4F0.c \
+	src/game/data/effect_graphics/effect_graphics_8008D5B0.c \
+	src/game/data/effect_graphics/effect_graphics_8008F910.c \
+	src/game/data/effect_graphics/effect_graphics_8008FB18.c \
+	src/game/data/effect_graphics/effect_graphics_800A6080.c \
+	src/game/data/effect_graphics/effect_graphics_800A6170.c
+GAME_INTEGRATED_C_SRCS += $(GAME_EFFECT_GRAPHICS_C_SRCS)
+GAME_RENDER_STATE_C_SRCS := \
+	src/game/data/render_state/render_state_80082FC0.c \
+	src/game/data/render_state/render_state_80083140.c \
+	src/game/data/render_state/render_state_800832C0.c \
+	src/game/data/render_state/render_state_80083440.c \
+	src/game/data/render_state/render_state_800835C0.c \
+	src/game/data/render_state/render_state_80083740.c \
+	src/game/data/render_state/render_state_800838C0.c \
+	src/game/data/render_state/render_state_80083A40.c \
+	src/game/data/render_state/render_state_80083BC0.c \
+	src/game/data/render_state/render_state_80083D40.c \
+	src/game/data/render_state/render_state_80083EC0.c
+GAME_INTEGRATED_C_SRCS += $(GAME_RENDER_STATE_C_SRCS)
+GAME_DRAW_GRAPHICS_C_SRCS := \
+	src/game/data/draw_graphics/direct_graphics_80084160.c \
+	src/game/data/draw_graphics/direct_graphics_80084190.c \
+	src/game/data/draw_graphics/direct_graphics_80084350.c \
+	src/game/data/draw_graphics/direct_graphics_800859A0.c \
+	src/game/data/draw_graphics/direct_graphics_80086B80.c \
+	src/game/data/draw_graphics/direct_graphics_80087390.c \
+	src/game/data/draw_graphics/direct_graphics_8008CFA0.c \
+	src/game/data/draw_graphics/direct_graphics_8008D018.c \
+	src/game/data/draw_graphics/direct_graphics_8008D448.c \
+	src/game/data/draw_graphics/direct_graphics_80090028.c
+GAME_INTEGRATED_C_SRCS += $(GAME_DRAW_GRAPHICS_C_SRCS) src/game/data/model_defaults.c
+GAME_PARTICLE_POINTS_C_SRCS := \
+	src/game/data/particle_points/particle_points_8008D690.c \
+	src/game/data/particle_points/particle_points_8008D9D0.c \
+	src/game/data/particle_points/particle_points_8008DBA0.c \
+	src/game/data/particle_points/particle_points_8008E020.c \
+	src/game/data/particle_points/particle_points_8008E3B0.c \
+	src/game/data/particle_points/particle_points_8008E490.c \
+	src/game/data/particle_points/particle_points_8008E540.c \
+	src/game/data/particle_points/particle_points_8008E600.c
+GAME_INTEGRATED_C_SRCS += $(GAME_PARTICLE_POINTS_C_SRCS)
+GAME_PARTICLE_SETTINGS_C_SRCS := \
+	src/game/data/particle_settings/particle_category_roots.c \
+	src/game/data/particle_settings/particle_point_8008E5F0.c \
+	src/game/data/particle_settings/particle_parameters.c \
+	src/game/data/particle_settings/particle_descriptors.c \
+	src/game/data/particle_settings/particle_filter_lists.c \
+	src/game/data/particle_settings/particle_categories.c
+GAME_INTEGRATED_C_SRCS += $(GAME_PARTICLE_SETTINGS_C_SRCS)
+GAME_PARTICLE_VARIANTS_C_SRCS := \
+	src/game/data/particle_variants/particle_variants_8008F2C0.c \
+	src/game/data/particle_variants/particle_variants_8008F2F0.c \
+	src/game/data/particle_variants/particle_variants_8008F368.c \
+	src/game/data/particle_variants/particle_variants_8008F3E0.c \
+	src/game/data/particle_variants/particle_variants_8008F428.c \
+	src/game/data/particle_variants/particle_variants_8008F470.c \
+	src/game/data/particle_variants/particle_variants_8008F4A0.c \
+	src/game/data/particle_variants/particle_variants_8008F4E8.c \
+	src/game/data/particle_variants/particle_variants_8008F518.c \
+	src/game/data/particle_variants/particle_variants_8008F590.c \
+	src/game/data/particle_variants/particle_variants_8008F608.c \
+	src/game/data/particle_variants/particle_variants_8008F638.c \
+	src/game/data/particle_variants/particle_variants_8008F668.c \
+	src/game/data/particle_variants/particle_variants_8008F698.c \
+	src/game/data/particle_variants/particle_variants_8008F6C8.c \
+	src/game/data/particle_variants/particle_variants_8008F6F8.c
+GAME_INTEGRATED_C_SRCS += $(GAME_PARTICLE_VARIANTS_C_SRCS)
+GAME_MODEL_EFFECT_C_SRCS := \
+	src/game/data/model_effect/model_fragment_roots.c \
+	src/game/data/model_effect/model_fragment_extra.c \
+	src/game/data/model_effect/model_effect_lookup.c \
+	src/game/data/model_effect/model_fragment_scales.c \
+	src/game/data/model_effect/model_fragment_selectors.c \
+	src/game/data/model_effect/model_fragment_counts.c \
+	src/game/data/model_effect/model_fragment_codes.c \
+	src/game/data/model_effect/model_effect_profiles.c
+GAME_INTEGRATED_C_SRCS += $(GAME_MODEL_EFFECT_C_SRCS)
+GAME_SCENE_UI_C_SRCS := \
+	src/game/data/scene_ui/scene_preload_roots.c \
+	src/game/data/scene_ui/ui_decimal_tables.c \
+	src/game/data/scene_ui/ui_model_graphics.c \
+	src/game/data/scene_ui/scene_preload_lists.c
+GAME_INTEGRATED_C_SRCS += $(GAME_SCENE_UI_C_SRCS)
+GAME_MENU_TEXTURE_C_SRCS := \
+	src/game/data/menu_texture/ui_digit_columns.c \
+	src/game/data/menu_texture/menu_primary_resources.c \
+	src/game/data/menu_texture/menu_secondary_resources.c \
+	src/game/data/menu_texture/menu_rotating_resources.c \
+	src/game/data/menu_texture/cpu_texture_descriptors.c \
+	src/game/data/menu_texture/model_extra_scales.c
+GAME_INTEGRATED_C_SRCS += $(GAME_MENU_TEXTURE_C_SRCS)
+GAME_CPU_TEXTURE_FRAMES_C_SRCS := \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_800901F0.c \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_8009073C.c \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_800907A4.c \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_80090818.c \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_80091520.c \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_800915BC.c \
+	src/game/data/cpu_texture_frames/cpu_texture_frames_800917E4.c
+GAME_INTEGRATED_C_SRCS += $(GAME_CPU_TEXTURE_FRAMES_C_SRCS)
+GAME_EFFECT_TEXTURE_C_SRCS := \
+	src/game/data/effect_textures/effect_texture_roots_8008CA4C.c \
+	src/game/data/effect_textures/effect_texture_frames_80090358.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090388.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800903C8.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090420.c \
+	src/game/data/effect_textures/effect_texture_frames_80090480.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090494.c \
+	src/game/data/effect_textures/effect_texture_frames_800904A0.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800904B4.c \
+	src/game/data/effect_textures/effect_texture_frames_80090538.c \
+	src/game/data/effect_textures/effect_texture_descriptors_8009053C.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800905A8.c \
+	src/game/data/effect_textures/effect_texture_frames_800905FC.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090600.c \
+	src/game/data/effect_textures/effect_texture_frames_80090620.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090634.c \
+	src/game/data/effect_textures/effect_texture_frames_80090640.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090660.c \
+	src/game/data/effect_textures/effect_texture_frames_8009069C.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800906C4.c \
+	src/game/data/effect_textures/effect_texture_frames_800906D0.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800906F8.c \
+	src/game/data/effect_textures/effect_texture_frames_8009071C.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80090730.c \
+	src/game/data/effect_textures/effect_texture_descriptors_8009075C.c \
+	src/game/data/effect_textures/effect_texture_frames_80090768.c \
+	src/game/data/effect_textures/effect_texture_descriptors_8009077C.c \
+	src/game/data/effect_textures/effect_texture_frames_80090788.c \
+	src/game/data/effect_textures/effect_texture_descriptors_8009078C.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800907EC.c \
+	src/game/data/effect_textures/effect_texture_frames_800907F8.c \
+	src/game/data/effect_textures/effect_texture_descriptors_800907FC.c \
+	src/game/data/effect_textures/effect_texture_frames_80090808.c \
+	src/game/data/effect_textures/effect_texture_descriptors_8009080C.c \
+	src/game/data/effect_textures/effect_texture_descriptors_80091834.c \
+	src/game/data/effect_textures/effect_texture_descriptors_8009184C.c
+GAME_INTEGRATED_C_SRCS += $(GAME_EFFECT_TEXTURE_C_SRCS)
 GAME_INTEGRATED_C_OBJS := $(patsubst src/%.c,$(GAME_INTEGRATED_BUILD_DIR)/src/%.o,$(GAME_INTEGRATED_C_SRCS))
 GAME_INTEGRATED_NORMALIZED_ASM_DIR := $(GAME_INTEGRATED_BUILD_DIR)/normalized-asm
 GAME_INTEGRATED_BOOTSTRAP_SYMBOLS := $(GAME_INTEGRATED_BUILD_DIR)/bootstrap-symbols.ld
@@ -920,6 +1128,8 @@ $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRA
 
 $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB) $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT)
 	$(LD) -m elf32btsmip -T $(GAME_LIB_SYMBOLS) -T $(GAME_RODATA_SCRIPT) -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
+
+$(patsubst src/%.c,$(GAME_INTEGRATED_BUILD_DIR)/src/%.o,$(GAME_EFFECT_GRAPHICS_C_SRCS)) $(GAME_INTEGRATED_BUILD_DIR)/src/game/data/effect_types.o: include/game_effect_graphics.h
 
 $(GAME_INTEGRATED_BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"

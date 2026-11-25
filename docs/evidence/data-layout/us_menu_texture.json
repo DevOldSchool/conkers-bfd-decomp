@@ -1,0 +1,614 @@
+{
+  "status": "accepted",
+  "menu_scale_native": {
+    "status": "native producer and consumer paths verified; compile and independent comparison pending",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_151DE85C": {
+        "address": "0x151de85c",
+        "bytes": 140,
+        "sha1": "e10897e291e96ca3435ceb1a39f8a7d7494e47c9"
+      },
+      "func_151E5034": {
+        "address": "0x151e5034",
+        "bytes": 148,
+        "sha1": "ab6e07436e0c64d9a382c992c5247b011dc89b22"
+      },
+      "func_151E0424": {
+        "address": "0x151e0424",
+        "bytes": 1464,
+        "sha1": "8f7244299f464304184c08183196063840c8e22e"
+      },
+      "func_151EC3E8": {
+        "address": "0x151ec3e8",
+        "bytes": 608,
+        "sha1": "3f54874e1c66a9068bfa1c40bac4eb7e169bf883"
+      },
+      "func_151EC648": {
+        "address": "0x151ec648",
+        "bytes": 2644,
+        "sha1": "7c296329b65f1b1b67c66aacfa4bf313f8fedd9a"
+      },
+      "func_151E89A0": {
+        "address": "0x151e89a0",
+        "bytes": 3276,
+        "sha1": "b7e9e8e0348a19a7891a8eafa2352808dec49d2c"
+      },
+      "func_150F1D10": {
+        "address": "0x150f1d10",
+        "bytes": 992,
+        "sha1": "77c321a9f44d4758a8f5b249b431ada52469e419"
+      },
+      "func_1515080C": {
+        "address": "0x1515080c",
+        "bytes": 1296,
+        "sha1": "8a76782a5c5b96ff73e269d77038908f01dfc5db"
+      }
+    },
+    "instruction_anchors": {
+      "0x151de8b4": "0x2463fdd4",
+      "0x151de8c0": "0x24090005",
+      "0x151de8c4": "0xa100003e",
+      "0x151de8cc": "0xa149002b",
+      "0x151de8d4": "0x804b002b",
+      "0x151de8d8": "0xa04b002c",
+      "0x151ec46c": "0x8085003e",
+      "0x151ec470": "0x14c50005",
+      "0x151ec488": "0x54a0006a",
+      "0x151ec590": "0x81ae002c",
+      "0x151ec59c": "0xec080",
+      "0x151ec5a4": "0x8def00bc",
+      "0x151ec738": "0x24190004",
+      "0x151ec740": "0x4610503c",
+      "0x151ec750": "0xa03900f8",
+      "0x151ec7dc": "0x814a00f8",
+      "0x151ec7e4": "0x256b00d8",
+      "0x151ec7e8": "0xa6080",
+      "0x151ec7f0": "0x8d0d0000",
+      "0x151e5074": "0xa1400041",
+      "0x151e0568": "0x810e002c",
+      "0x151e0588": "0x26e9821",
+      "0x151e0598": "0x8273fe9b",
+      "0x151e06cc": "0x810b0041",
+      "0x151e06d8": "0x256cffff",
+      "0x151e06dc": "0xa10c0041",
+      "0x151e0708": "0x810e0041",
+      "0x151e0714": "0x25cf0001",
+      "0x151e0718": "0xa10f0041",
+      "0x151e0738": "0x81050041",
+      "0x151e0744": "0x4a10004",
+      "0x151e0748": "0xb3c021",
+      "0x151e074c": "0xa1180041",
+      "0x151e0758": "0xb3082a",
+      "0x151e075c": "0x14200004",
+      "0x151e0760": "0xb35023",
+      "0x151e0764": "0xa10a0041",
+      "0x151ec784": "0x24110004",
+      "0x151ec994": "0x806e002c",
+      "0x151ec9a0": "0x562e01b1",
+      "0x151eca04": "0x81710041",
+      "0x151eca10": "0x2631fffc",
+      "0x151eca14": "0x24140001",
+      "0x151eca20": "0x6210002",
+      "0x151eca28": "0x26310005",
+      "0x151eca54": "0x25ce00fc",
+      "0x151eca58": "0x115880",
+      "0x151eca70": "0x16e4821",
+      "0x151ecac8": "0x8d380000",
+      "0x151ecb30": "0x26310001",
+      "0x151ecbec": "0x26310001",
+      "0x151ecbf0": "0x2a210005",
+      "0x151ecbfc": "0x2631fffb",
+      "0x151ecc00": "0x24010008",
+      "0x151ecc04": "0x1681ff89",
+      "0x151e8e10": "0x26d6006c",
+      "0x151e8f64": "0x304e0003",
+      "0x151e8f68": "0x2ce6021",
+      "0x151e8f6c": "0x91830000",
+      "0x150f1fb8": "0x24c618cc",
+      "0x150f1fe8": "0x24070003",
+      "0x150f1ff0": "0xd454203",
+      "0x1515081c": "0xe0a825",
+      "0x1515084c": "0xafa60128",
+      "0x1515086c": "0x1aa00012",
+      "0x151508b0": "0x1495fffa",
+      "0x15150b78": "0x5e001b",
+      "0x15150bbc": "0x215082a",
+      "0x15150be8": "0x108880",
+      "0x15150c08": "0x8fab0128",
+      "0x15150c14": "0x1716021",
+      "0x15150c18": "0xc5880000",
+      "0x15150c28": "0x46064282"
+    },
+    "units": [
+      {
+        "name": "ui_digit_columns",
+        "address": 2148073580,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "values": [
+          1,
+          8,
+          15,
+          21
+        ],
+        "payload_sha256": "b23c83aafa415ddee5368781a353cd5a425424001ed0e0fb455123781f27573d",
+        "symbols": [
+          {
+            "name": "D_8009006C",
+            "address": 2148073580,
+            "bytes": 4,
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "menu_primary_resources",
+        "address": 2148073660,
+        "bytes": 24,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "values": [
+          2188,
+          2035,
+          1994,
+          2017,
+          2014,
+          2011
+        ],
+        "payload_sha256": "17b9cf045af70485517cc1abaa8d72c7fc68a8c53d53e51d710de4d7e1181560"
+      },
+      {
+        "name": "menu_secondary_resources",
+        "address": 2148073688,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "values": [
+          2097,
+          2180,
+          2212,
+          2059,
+          1980
+        ],
+        "payload_sha256": "674e9350b2ada0d5115359cfdb08a5a45e96d4bcd8f762d427732f4566bf3694"
+      },
+      {
+        "name": "menu_rotating_resources",
+        "address": 2148073724,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "values": [
+          1984,
+          1990,
+          1999,
+          2085,
+          2076
+        ],
+        "payload_sha256": "509781e54c33e063bf447e46fd0cf14a227a3892b4ed2427e0eab8a39ddba757"
+      },
+      {
+        "name": "model_extra_scales",
+        "address": 2148145356,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "payload_sha256": "e852d0ceaa6a4d8ae6859337b6e3d25a56b1bef05a492d34283afabbdfe4db36"
+      }
+    ],
+    "bytes": 80,
+    "external_symbols": [],
+    "menu_rotation_count": {
+      "address": "0x8008FE9F",
+      "value": 5,
+      "selector": 4
+    },
+    "rotation_checks": [
+      {
+        "initial": 0,
+        "indices": [
+          1,
+          2,
+          3,
+          4,
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "initial": 1,
+        "indices": [
+          2,
+          3,
+          4,
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "initial": 2,
+        "indices": [
+          3,
+          4,
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "initial": 3,
+        "indices": [
+          4,
+          0,
+          1,
+          2,
+          3,
+          4,
+          0
+        ]
+      },
+      {
+        "initial": 4,
+        "indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          0,
+          1
+        ]
+      }
+    ],
+    "limits": "Native typed prefixes and bounded menu paths; no original object boundaries or every-runtime-path claim. Secondary resources claim only five of the apparent eight words. The following digit-row array is unclaimed because its score input bound remains unresolved. Rotation proof follows initialized state and the selection-four count-five update path; it is not a claim for arbitrary corrupted menu state."
+  },
+  "cpu_descriptor_native": {
+    "status": "native selector188 and field layout verified; compilation and independent reference pending",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_151D1C98": {
+        "address": "0x151d1c98",
+        "bytes": 1444,
+        "sha1": "4d707b6df3e4c01f28a42192bb9777ea307446e3"
+      },
+      "func_15142E24": {
+        "address": "0x15142e24",
+        "bytes": 408,
+        "sha1": "c282266cd9d3db78bd02afc30e4d74b6f26264aa"
+      },
+      "func_1514306C": {
+        "address": "0x1514306c",
+        "bytes": 200,
+        "sha1": "57f7e47b0c58c843d442b744762abafd67645d7e"
+      },
+      "func_15094FE8": {
+        "address": "0x15094fe8",
+        "bytes": 120,
+        "sha1": "2c4f7d72dc31f3c0c877fdb5cde1637a014fcaab"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      },
+      "func_150950D4": {
+        "address": "0x150950d4",
+        "bytes": 1384,
+        "sha1": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+      }
+    },
+    "instruction_anchors": {
+      "0x151d1d44": "0x3c058009",
+      "0x151d1d50": "0x240b00bc",
+      "0x151d1d60": "0xafab0018",
+      "0x151d1d68": "0x24a51430",
+      "0x151d1d6c": "0x3025",
+      "0x151d1d7c": "0xafa0001c",
+      "0x151d1d84": "0xd450b89",
+      "0x15142e40": "0x8fa40044",
+      "0x15142e44": "0x8fa50058",
+      "0x15142e48": "0x67403",
+      "0x15142e50": "0xd450c1b",
+      "0x15142e54": "0x93a7005f",
+      "0x15142f38": "0x8fa50044",
+      "0x15142f5c": "0xd4253fa",
+      "0x15143078": "0x24efffff",
+      "0x1514307c": "0x2de10006",
+      "0x15143080": "0x10200021",
+      "0x15143108": "0x1254823",
+      "0x1514310c": "0x94880",
+      "0x15143110": "0x3c0a8009",
+      "0x15143114": "0x1495021",
+      "0x15143118": "0x8d4a0b60",
+      "0x1514311c": "0x65880",
+      "0x15143120": "0x14b6021",
+      "0x15143124": "0x8d830000",
+      "0x15095070": "0x8c820000",
+      "0x15095074": "0x3c011000",
+      "0x1509507c": "0x41082b",
+      "0x15095080": "0x10200003",
+      "0x15095090": "0x57203",
+      "0x15095094": "0xe7880",
+      "0x15095098": "0x4fc021",
+      "0x1509509c": "0x8f190000",
+      "0x150950a4": "0x94880006",
+      "0x150950ac": "0x94890008",
+      "0x150950b4": "0x908a000a",
+      "0x150950bc": "0x908b000b",
+      "0x150950c4": "0x908c0004"
+    },
+    "units": [
+      {
+        "name": "cpu_texture_descriptors",
+        "address": 2148076384,
+        "bytes": 2268,
+        "emitted_bytes": 2272,
+        "pointers": {
+          "summarized_list": true,
+          "count": 187,
+          "sha256": "dfb4c53bcc9a02519daed49821ecb343f866b7ae91961545a67c42e9d04e22b4",
+          "first": [
+            {
+              "address": "0x80090b60",
+              "symbol": "D_80090744",
+              "addend": 0,
+              "native_word": "0x80090744"
+            },
+            {
+              "address": "0x80090b6c",
+              "symbol": "D_80090748",
+              "addend": 0,
+              "native_word": "0x80090748"
+            },
+            {
+              "address": "0x80090b78",
+              "symbol": "D_8009074C",
+              "addend": 0,
+              "native_word": "0x8009074c"
+            }
+          ]
+        },
+        "payload_sha256": "626f4eae3c5dfdbfa82ddea57a48eb679a9f7cc6433bdab14ec1ec8c8433dae8"
+      }
+    ],
+    "bytes": 2268,
+    "external_symbols": {
+      "summarized_list": true,
+      "count": 186,
+      "sha256": "225c777cf912c25b7be1f30953d799061ade5138586258b2b20a4cc7b4ff959a",
+      "first": [
+        {
+          "name": "D_800901F0",
+          "address": 2148073968
+        },
+        {
+          "name": "D_8009073C",
+          "address": 2148075324
+        },
+        {
+          "name": "D_80090740",
+          "address": 2148075328
+        }
+      ]
+    },
+    "records": {
+      "summarized_list": true,
+      "count": 189,
+      "sha256": "cee18fc4cf34093b3d89f9efecff55f48e0b50c56fa9c2dad03be92be5e2e6aa",
+      "first": [
+        {
+          "index": 0,
+          "address": "0x80090b60",
+          "word": 2148075332,
+          "frame_parameter": 1,
+          "natural_padding": 0,
+          "width": 32,
+          "height": 32,
+          "format": 0,
+          "size": 3
+        },
+        {
+          "index": 1,
+          "address": "0x80090b6c",
+          "word": 2148075336,
+          "frame_parameter": 1,
+          "natural_padding": 0,
+          "width": 32,
+          "height": 32,
+          "format": 0,
+          "size": 3
+        },
+        {
+          "index": 2,
+          "address": "0x80090b78",
+          "word": 2148075340,
+          "frame_parameter": 1,
+          "natural_padding": 0,
+          "width": 32,
+          "height": 32,
+          "format": 0,
+          "size": 3
+        }
+      ]
+    },
+    "prefix_count": 189,
+    "limits": "The 207-record research inventory is not extent evidence. This prefix ends after independently supplied index188. Later descriptors remain unclaimed. Frame pointers remain symbolic, but no pointed-to frame-array storage is claimed and frameParameter is not assumed to bound every caller frame. One natural padding byte per record is verified zero. Small first-word values are scalar resource identifiers under the native threshold test, including zero; only real addresses receive relocations. No original C object boundary or every-runtime-path claim."
+  },
+  "integrated_plan": {
+    "units": [
+      {
+        "name": "ui_digit_columns",
+        "address": 2148073580,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "values": [
+          1,
+          8,
+          15,
+          21
+        ],
+        "payload_sha256": "b23c83aafa415ddee5368781a353cd5a425424001ed0e0fb455123781f27573d",
+        "symbols": [
+          {
+            "name": "D_8009006C",
+            "address": 2148073580,
+            "bytes": 4,
+            "type": "u8"
+          }
+        ],
+        "source": "src/game/data/menu_texture/ui_digit_columns.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "menu_primary_resources",
+        "address": 2148073660,
+        "bytes": 24,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "values": [
+          2188,
+          2035,
+          1994,
+          2017,
+          2014,
+          2011
+        ],
+        "payload_sha256": "17b9cf045af70485517cc1abaa8d72c7fc68a8c53d53e51d710de4d7e1181560",
+        "source": "src/game/data/menu_texture/menu_primary_resources.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "menu_secondary_resources",
+        "address": 2148073688,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "values": [
+          2097,
+          2180,
+          2212,
+          2059,
+          1980
+        ],
+        "payload_sha256": "674e9350b2ada0d5115359cfdb08a5a45e96d4bcd8f762d427732f4566bf3694",
+        "source": "src/game/data/menu_texture/menu_secondary_resources.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "menu_rotating_resources",
+        "address": 2148073724,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "values": [
+          1984,
+          1990,
+          1999,
+          2085,
+          2076
+        ],
+        "payload_sha256": "509781e54c33e063bf447e46fd0cf14a227a3892b4ed2427e0eab8a39ddba757",
+        "source": "src/game/data/menu_texture/menu_rotating_resources.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "cpu_texture_descriptors",
+        "address": 2148076384,
+        "bytes": 2268,
+        "emitted_bytes": 2272,
+        "pointers": {
+          "summarized_list": true,
+          "count": 187,
+          "sha256": "dfb4c53bcc9a02519daed49821ecb343f866b7ae91961545a67c42e9d04e22b4",
+          "first": [
+            {
+              "address": "0x80090b60",
+              "symbol": "D_80090744",
+              "addend": 0,
+              "native_word": "0x80090744"
+            },
+            {
+              "address": "0x80090b6c",
+              "symbol": "D_80090748",
+              "addend": 0,
+              "native_word": "0x80090748"
+            },
+            {
+              "address": "0x80090b78",
+              "symbol": "D_8009074C",
+              "addend": 0,
+              "native_word": "0x8009074c"
+            }
+          ]
+        },
+        "payload_sha256": "626f4eae3c5dfdbfa82ddea57a48eb679a9f7cc6433bdab14ec1ec8c8433dae8",
+        "source": "src/game/data/menu_texture/cpu_texture_descriptors.c",
+        "pointer_fields": {
+          "summarized_list": true,
+          "count": 187,
+          "sha256": "dfb4c53bcc9a02519daed49821ecb343f866b7ae91961545a67c42e9d04e22b4",
+          "first": [
+            {
+              "address": "0x80090b60",
+              "symbol": "D_80090744",
+              "addend": 0,
+              "native_word": "0x80090744"
+            },
+            {
+              "address": "0x80090b6c",
+              "symbol": "D_80090748",
+              "addend": 0,
+              "native_word": "0x80090748"
+            },
+            {
+              "address": "0x80090b78",
+              "symbol": "D_8009074C",
+              "addend": 0,
+              "native_word": "0x8009074c"
+            }
+          ]
+        }
+      },
+      {
+        "name": "model_extra_scales",
+        "address": 2148145356,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "payload_sha256": "e852d0ceaa6a4d8ae6859337b6e3d25a56b1bef05a492d34283afabbdfe4db36",
+        "source": "src/game/data/menu_texture/model_extra_scales.c",
+        "pointer_fields": []
+      }
+    ],
+    "bytes": 2348,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "omitted_gate_logs": [
+    "asset_build",
+    "base_commit",
+    "mutation_audit",
+    "pilot_audit",
+    "report_audit",
+    "report_timing_seconds",
+    "source_audit",
+    "tests"
+  ]
+}

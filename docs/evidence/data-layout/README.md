@@ -6,6 +6,21 @@ Jump tables, literal pools and private storage have their own proof requirements
 
 ## Records
 
+- [US native angle lookup tables](us_angle_lookup_tables.md): a 65-float quarter-wave table and a 256-halfword inverse-angle table with native input witnesses.
+
+- [US weighted-selection record](us_weighted_record_joint.md): a compatible joint owner for six weights and their previously matched total, with disjoint accounting.
+
+- [US model-effect selection tables](us_model_effect.md): twenty profiles and fragment lists, with a native producer for lookup selector 232.
+
+- [US menu tables and CPU texture descriptors](us_menu_texture.md): native selector-backed descriptor table, symbolic frame references, menu resources and fragment scales.
+- [US scene preload and UI tables](us_scene_ui.md): native scene resource lists, decimal tables and submitted display lists.
+- [US particle variant pointer tables](us_particle_variants.md): sixteen tables through native ordinal five, with symbolic descriptor references and no universal row-bound claim.
+
+- [US particle configuration and selection](us_particle_settings.md): typed parameters, descriptors and selection records, with symbolic pointers and explicit extent limits.
+- [US particle attachment coordinates](us_particle_points.md): eight typed point tables with native descriptor counts; one full extent remains unresolved.
+- [US model defaults and direct drawing data](us_model_draw_data.md): a typed defaults table and ten native display lists, including symbolic physical matrix references.
+- [US segment-8 rendering-state records](us_render_state_tables.md): 264 terminated command lists with native base bindings and explicitly separate runtime-use limits.
+- [US effect graphics](us_effect_graphics.md): typed drawing lists, vertices, identity matrix and proven selector entries, with compiler tails excluded.
 - [Independent bounded DEFLATE replacement](us_independent_deflate.md)
 - [US complete bounded asset storage accounting](us_asset_storage_accounting.md)
 - [US decoder read-only symbols](us_decoder_rodata_symbols.md): scalar arrays and candidate-derived compiler constants.
@@ -189,8 +204,28 @@ record when extending the same claim.
 - [US animation-control records](us_animation_control_reconstruction.md): 82 bank-0F entries with typed routes, events, action phases and behavior instructions.
 
 - [Light nested switch tables](effects_light_jump_tables.md): both ROM-backed dispatch tables for `func_151604A0`.
+- [US flat-resource stored lengths](us_flat_asset_sizes.md): 7,762 typed halfwords independently recovered from 7,760 compressed-stream extents and two empty resource slots.
+
+- [US resource descriptors](us_resource_descriptors.md): 204 typed records, 116 task/scene names and 179 dependency lists, with explicit scalar/pointer distinctions and two unexplained gaps excluded.
+- [US resource handlers](us_resource_handlers.md): four 15-entry callback address tables, with native selector bounds and independently checked symbolic destinations.
 - [US SDK literal and VI symbol metadata](us_sdk_literal_symbols.md): candidate-instruction literal widths and a compiled 80-byte video-mode layout, with comparison-only metadata repairs.
 
 - [US SDK runtime pointer metadata](us_sdk_pointer_symbols.md): candidate-bounded switches, existing callback aliases, preserved runtime inputs and independent full-span link proofs.
 
 - [US sound strings and declared SDK globals](us_sdk_sound_symbols.md): two bounded format literals, a 16-entry switch and source-proven sound/timer/thread data.
+
+- [US CPU texture frame storage](us_cpu_texture_frames.md): 1,004 bytes of shared frame lists and preserved descriptor element pointers.
+
+- [US effect texture data](us_effect_textures.md): 70 table slots, 63 distinct descriptors and shared frame lists, totalling 1,316 bytes.
+
+- [US glyph texture reconstruction](us_glyph_texture_reconstruction.md): eleven explicit glyph-frame textures, 5,130 stored bytes rebuilt from PNGs.
+
+- [US literal effect data](us_literal_effect_data.md): bounded literal texture frames, descriptors and initializer callbacks.
+
+- [US two-frame effect texture](us_two_frame_effect_data.md): two native selector values, frame words and a descriptor in twenty bytes.
+
+- [US native float addresses and bounded records](us_native_float_address_flow.md): a three-float record and the nine-entry vector/range tables walked by `1513BBFC`.
+
+- [US floating-point data and bounded creation records](us_native_fp_control.md): scene-selected creation choices and the eight float pairs they select.
+
+- [US weighted vectors](us_weighted_vectors.md): native typed reads and exact-rational selector witnesses, with the upward-rounding boundary caveat.

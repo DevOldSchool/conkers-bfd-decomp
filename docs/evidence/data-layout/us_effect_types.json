@@ -1,0 +1,449 @@
+{
+  "status": "accepted",
+  "working_tree_changes": true,
+  "scope": "Data-only INFO reconstruction; original GAME archive remains runtime backing; no function or original C-object boundary credit.",
+  "native": {
+    "status": "accepted native record evidence; compiled checks recorded separately",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "address": "0x8008B4A8",
+    "end": "0x8008C9C8",
+    "bytes": 5408,
+    "record_count": 104,
+    "stride": 52,
+    "full_consumers": [
+      {
+        "symbol": "func_15167010",
+        "start": "0x15167010",
+        "bytes": 92,
+        "sha1": "2de6abf2b457f5de8de3ab2d5a0868171f6d266f"
+      },
+      {
+        "symbol": "func_151670C0",
+        "start": "0x151670c0",
+        "bytes": 296,
+        "sha1": "d2916d86b1d5ce32f099219f6b2424fcd593b72f"
+      },
+      {
+        "symbol": "func_151671E8",
+        "start": "0x151671e8",
+        "bytes": 296,
+        "sha1": "21878944566695e6e7d567dfe58b0382dc596ad2"
+      },
+      {
+        "symbol": "func_15167310",
+        "start": "0x15167310",
+        "bytes": 488,
+        "sha1": "cb33f9f946de533fbf5190ed1cccb9c65c219496"
+      },
+      {
+        "symbol": "func_151674F8",
+        "start": "0x151674f8",
+        "bytes": 1392,
+        "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+      },
+      {
+        "symbol": "func_15169040",
+        "start": "0x15169040",
+        "bytes": 48,
+        "sha1": "d1c76134a227a13049556a0512c5c205e004c2b7"
+      },
+      {
+        "symbol": "func_15169070",
+        "start": "0x15169070",
+        "bytes": 496,
+        "sha1": "3ceed3a0f3dee1b5f1cee16aaea78fadbfdce315"
+      },
+      {
+        "symbol": "func_1516944C",
+        "start": "0x1516944c",
+        "bytes": 420,
+        "sha1": "58699ef611cef002da659977bf8958664452bb16"
+      },
+      {
+        "symbol": "func_1516972C",
+        "start": "0x1516972c",
+        "bytes": 112,
+        "sha1": "81b4b370171457a5fcda5fc9a20a0137fd35bba0"
+      },
+      {
+        "symbol": "func_1516979C",
+        "start": "0x1516979c",
+        "bytes": 104,
+        "sha1": "d02d16d36aca2561a1adf5a7214baaa257f93bc8"
+      },
+      {
+        "symbol": "func_15143D18",
+        "start": "0x15143d18",
+        "bytes": 144,
+        "sha1": "85b4f54814a1c11b1fcb619124553987081f396c"
+      },
+      {
+        "symbol": "func_15168F84",
+        "start": "0x15168f84",
+        "bytes": 188,
+        "sha1": "1324c4ba507812eaa627d85f9ecfdc4fc26326f7"
+      },
+      {
+        "symbol": "func_1516D400",
+        "start": "0x1516d400",
+        "bytes": 232,
+        "sha1": "c5a26bf174bc10e83a657b3994a3b51306ec7dfa"
+      }
+    ],
+    "instruction_anchors": {
+      "0x15167028": "0x25d0b4a8",
+      "0x1516702c": "0x26121484",
+      "0x15167030": "0x8e020018",
+      "0x15167044": "0x26100034",
+      "0x15169054": "0x2025",
+      "0x15169058": "0xd45a41c",
+      "0x1516905c": "0x24050068",
+      "0x151690b8": "0x24060002",
+      "0x151690bc": "0xd450f46",
+      "0x151690c0": "0x24070068",
+      "0x151690d0": "0x37880",
+      "0x151690dc": "0x1e37823",
+      "0x151690e0": "0xf7880",
+      "0x151690e4": "0x1e37821",
+      "0x151690e8": "0xf7880",
+      "0x151690ec": "0x2718b4a8",
+      "0x1516922c": "0x26d60034",
+      "0x15169484": "0x28810068",
+      "0x15169490": "0x24040067",
+      "0x15167610": "0x82820030",
+      "0x1516774c": "0x8e8b0010",
+      "0x15167754": "0x3c0cde00",
+      "0x15167760": "0xac4c0000",
+      "0x1516776c": "0xac4d0004",
+      "0x151678e0": "0x8e8a0024",
+      "0x151678e8": "0x3c0fde00",
+      "0x151678f4": "0xac4f0000",
+      "0x15167900": "0xac4b0004",
+      "0x15167164": "0x8e590000",
+      "0x1516716c": "0x2002025",
+      "0x15167170": "0x320f809",
+      "0x1516728c": "0x8e590004",
+      "0x15167294": "0x2002025",
+      "0x15167298": "0x320f809",
+      "0x15167460": "0x8e59000c",
+      "0x1516746c": "0x320f809",
+      "0x15167770": "0x8e820014",
+      "0x15167784": "0x40f809",
+      "0x151677d8": "0x8e990008",
+      "0x151677ec": "0x1a03025",
+      "0x151677f0": "0x2602025",
+      "0x151677f4": "0x2002825",
+      "0x151677f8": "0x320f809",
+      "0x15167820": "0x409825",
+      "0x15167904": "0x8e820020",
+      "0x15167918": "0x40f809",
+      "0x151694d0": "0x8ec8001c",
+      "0x15169520": "0x320f809",
+      "0x15169768": "0x8c63b4d0",
+      "0x15169774": "0x60f809",
+      "0x151697d0": "0x8c42b4d4",
+      "0x151697dc": "0x40f809"
+    },
+    "native_clamp_cases": 169,
+    "native_constant_range_result": [
+      2,
+      104
+    ],
+    "init_record_count": 101,
+    "all_104_records_covered": true,
+    "distinct_callbacks": 202,
+    "distinct_display_lists": 46,
+    "nonzero_pointer_fields": 409,
+    "compiler_alignment_bytes": 312,
+    "payload_sha256": "273b20c2f7967e62e9341a325b9c44d7ea28d689789ca56bc8e2ea621b23d812",
+    "source": {
+      "format": "effect-types-native-v1",
+      "records": {
+        "summarized_list": true,
+        "count": 104,
+        "sha256": "5d827ddb2264ea3f3edac84cc68599cbd310363cbac950ab5210661c11825475",
+        "first": [
+          {
+            "process": "func_15169824",
+            "process_secondary": null,
+            "render": null,
+            "update": null,
+            "before_display_list": null,
+            "pre_render": null,
+            "initialize": null,
+            "traverse": null,
+            "post_render": null,
+            "after_display_list": null,
+            "destroy": null,
+            "destroy_secondary": null,
+            "render_mode": -1
+          },
+          {
+            "process": "func_15168A2C",
+            "process_secondary": null,
+            "render": null,
+            "update": null,
+            "before_display_list": null,
+            "pre_render": null,
+            "initialize": null,
+            "traverse": null,
+            "post_render": null,
+            "after_display_list": null,
+            "destroy": null,
+            "destroy_secondary": null,
+            "render_mode": -1
+          },
+          {
+            "process": null,
+            "process_secondary": null,
+            "render": null,
+            "update": null,
+            "before_display_list": null,
+            "pre_render": null,
+            "initialize": null,
+            "traverse": null,
+            "post_render": null,
+            "after_display_list": null,
+            "destroy": null,
+            "destroy_secondary": null,
+            "render_mode": -1
+          }
+        ]
+      }
+    },
+    "qualification": "Existing matched definitions are declaration evidence; deferred candidates are not. The table stores code addresses without invoking callbacks."
+  },
+  "declarations": {
+    "declarations": {
+      "summarized_list": true,
+      "count": 202,
+      "sha256": "d8e84fde71383ba764719ba27329cb9069c7114a17bb594be3b5b10ca5e20652",
+      "first": [
+        {
+          "symbol": "func_150A6860",
+          "state": "blocked",
+          "slots": [
+            8
+          ],
+          "origin": "native dispatch ABI view; not an original C prototype",
+          "declaration": "extern void *func_150A6860(void *display_list, void *node, s32 selector); /* CONKER_ABI_DISCARDED_RETURN */"
+        },
+        {
+          "symbol": "func_150C09B0",
+          "state": "matched",
+          "slots": [
+            28
+          ],
+          "origin": "active matched definition",
+          "source": "src/game/game_EDE60.c",
+          "declaration": "extern void func_150C09B0(s32 arg0, s32 arg1, u8 arg2);",
+          "source_sha256": "b12cd47fc20952646fee1d4d27674014427d6d24b1c69a64b1285adf92d435e5"
+        },
+        {
+          "symbol": "func_150C09F0",
+          "state": "matched",
+          "slots": [
+            40
+          ],
+          "origin": "active matched definition",
+          "source": "src/game/game_EDE60.c",
+          "declaration": "extern void func_150C09F0(void *arg0);",
+          "source_sha256": "b12cd47fc20952646fee1d4d27674014427d6d24b1c69a64b1285adf92d435e5"
+        }
+      ]
+    },
+    "local_types": {
+      "GameF2820State": {
+        "definition": "typedef struct {\n    u8 pad_0[0x38];\n    u8 field_38;\n} GameF2820State;",
+        "source": "src/game/game_F2820.c",
+        "tagged_forward": false
+      },
+      "Game13AE20Command": {
+        "definition": "typedef struct { u32 first, second; } Game13AE20Command;",
+        "source": "src/game/game_13AE20.c",
+        "tagged_forward": false
+      },
+      "BloodState": {
+        "definition": "typedef struct BloodState BloodState;",
+        "source": "src/game/effects/blood.c",
+        "tagged_forward": true
+      },
+      "Blood347CCState": {
+        "definition": "typedef struct {\n    u8 pad00[0x18];\n    u8 field18;\n    u8 pad19[3];\n    s32 field1C;\n    u8 pad20[0x1D];\n    u8 field3D;\n} Blood347CCState;",
+        "source": "src/game/effects/blood.c",
+        "tagged_forward": false
+      },
+      "Blood347CCEvent": {
+        "definition": "typedef struct {\n    s32 field00;\n    union {\n        s32 word;\n        u8 bytes[4];\n    } field04;\n    u8 field08;\n    u8 field09;\n} Blood347CCEvent;",
+        "source": "src/game/effects/blood.c",
+        "tagged_forward": false
+      },
+      "Game174BF0State": {
+        "definition": "typedef struct {\n    u8 pad_0[0x20];\n    s32 field_20;\n} Game174BF0State;",
+        "source": "src/game/game_174BF0.c",
+        "tagged_forward": false
+      },
+      "Game1765E0Effect": {
+        "definition": "typedef struct Game1765E0Effect Game1765E0Effect;",
+        "source": "src/done/game/game_1765E0.c",
+        "tagged_forward": true
+      },
+      "Game1765E0State": {
+        "definition": "typedef struct {\n    u8 pad_0[0x13];\n    u8 callbackSetIndex;\n} Game1765E0State;",
+        "source": "src/done/game/game_1765E0.c",
+        "tagged_forward": false
+      },
+      "Game1765E0DispatchState": {
+        "definition": "typedef struct {\n    u8 pad_0[0x12];\n    s8 drawCallbackIndex;\n} Game1765E0DispatchState;",
+        "source": "src/done/game/game_1765E0.c",
+        "tagged_forward": false
+      },
+      "Game193430State": {
+        "definition": "typedef struct {\n    u8 pad_0[0x92];\n    u8 field_92;\n    u8 pad_93[3];\n    s16 field_96;\n    u8 pad_98[6];\n    s16 field_9E;\n} Game193430State;",
+        "source": "src/game/game_193430.c",
+        "tagged_forward": false
+      },
+      "DisplayCommand193E50": {
+        "definition": "typedef struct DisplayCommand193E50 DisplayCommand193E50;",
+        "source": "src/game/game_193E50.c",
+        "tagged_forward": true
+      },
+      "Game1944C0Command": {
+        "definition": "typedef struct Game1944C0Command Game1944C0Command;",
+        "source": "src/game/game_1944C0.c",
+        "tagged_forward": true
+      },
+      "Game1944C0RenderState": {
+        "definition": "typedef struct Game1944C0RenderState Game1944C0RenderState;",
+        "source": "src/game/game_1944C0.c",
+        "tagged_forward": true
+      },
+      "Game19A8B0Motion": {
+        "definition": "typedef struct Game19A8B0Motion Game19A8B0Motion;",
+        "source": "src/game/game_19A8B0.c",
+        "tagged_forward": true
+      },
+      "Game19F150Object": {
+        "definition": "typedef struct Game19F150Object Game19F150Object;",
+        "source": "src/game/game_19F150.c",
+        "tagged_forward": true
+      },
+      "Game1A5C00Owner": {
+        "definition": "typedef struct Game1A5C00Owner Game1A5C00Owner;",
+        "source": "src/game/game_1A5C00.c",
+        "tagged_forward": true
+      },
+      "Game1B0740Command": {
+        "definition": "typedef struct Game1B0740Command Game1B0740Command;",
+        "source": "src/game/game_1B0740.c",
+        "tagged_forward": true
+      },
+      "Game1CBE20Effect": {
+        "definition": "typedef struct Game1CBE20Effect Game1CBE20Effect;",
+        "source": "src/done/game/game_1CBE20.c",
+        "tagged_forward": true
+      },
+      "HoltenRopeEffect": {
+        "definition": "typedef struct HoltenRopeEffect HoltenRopeEffect;",
+        "source": "src/game/effects/holtenrope.c",
+        "tagged_forward": true
+      },
+      "GameD2830Command": {
+        "definition": "typedef struct GameD2830Command GameD2830Command;",
+        "source": "src/done/game/game_1FFB70.c",
+        "tagged_forward": true
+      },
+      "GameD2830State": {
+        "definition": "typedef struct GameD2830State GameD2830State;",
+        "source": "src/done/game/game_1FFB70.c",
+        "tagged_forward": true
+      },
+      "Game1FFF60Motion": {
+        "definition": "typedef struct Game1FFF60Motion Game1FFF60Motion;",
+        "source": "src/game/game_1FFF60.c",
+        "tagged_forward": true
+      }
+    },
+    "source_sha256": "a64a5255664f6a09f40fccb745299e6d9ae6395124375b51b4bf17edc6cb160e",
+    "counts": {
+      "active matched definition": 121,
+      "native dispatch ABI view; not an original C prototype": 78,
+      "unique active project prototype": 3
+    }
+  },
+  "initializer": {
+    "symbol": "func_1516D400",
+    "record": 102,
+    "bytes": 232,
+    "sha1": "c5a26bf174bc10e83a657b3994a3b51306ec7dfa",
+    "native_cases_executed": 1280,
+    "incoming_arguments_undefined_in_every_case": true,
+    "read_global_addresses": [
+      "0x800be9a0",
+      "0x800dd2a0",
+      "0x800dd2a1",
+      "0x800dd2a2",
+      "0x800dd2a3"
+    ],
+    "written_global_addresses": [
+      "0x800dd2a0",
+      "0x800dd2a1",
+      "0x800dd2a2",
+      "0x800dd2a3"
+    ],
+    "qualification": "No initialization-loop invocation is claimed for record 102. Native leaf clamps four byte globals; its outgoing return register is ignored by this data owner."
+  },
+  "compiled_source": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "table_bytes": 5408,
+    "record_count": 104,
+    "record_stride": 52,
+    "symbolic_pointer_relocations": 409,
+    "source_sha256": "a64a5255664f6a09f40fccb745299e6d9ae6395124375b51b4bf17edc6cb160e",
+    "object_sha256": "6eaf183f9afd9ff17d1dc608740ed90dd28aa70ef65ca936837d379f5ebe585c",
+    "payload_sha256": "273b20c2f7967e62e9341a325b9c44d7ea28d689789ca56bc8e2ea621b23d812",
+    "linked_info_exact": true,
+    "prior_game_objects_allocated_sections_relocations_symbols_preserved": 724,
+    "full_game_code_bytes_identical": 2072880,
+    "function_and_source_unit_inventories_unchanged": true,
+    "prospective_matched_bytes": 5408,
+    "prospective_complete_bytes": 0
+  },
+  "checks": {
+    "game_build": "passed; exact 2072880-byte GAME code and 5408-byte table",
+    "focused_tests": {
+      "count": 122,
+      "skipped": 2,
+      "seconds": 1.024,
+      "passed": true
+    },
+    "header_repair_focused_tests": {
+      "count": 58,
+      "skipped": 2,
+      "seconds": 2.661,
+      "passed": true
+    },
+    "full_tests": {
+      "count": 3032,
+      "skipped": 8,
+      "seconds": 244.985,
+      "passed": true
+    },
+    "asset_build": {
+      "passed": true
+    },
+    "independent_linked_rom": {
+      "bytes": 67108864,
+      "sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "matches_original": true
+    },
+    "progress_check": "passed",
+    "whitespace": "passed"
+  },
+  "matched_data_percent_from_integer_totals": 97.20846021603761,
+  "omitted_gate_logs": [
+    "base_commit",
+    "mutation_checks",
+    "report_audit"
+  ]
+}

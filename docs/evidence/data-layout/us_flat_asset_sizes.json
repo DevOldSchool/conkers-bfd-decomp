@@ -1,0 +1,37 @@
+{
+  "status": "accepted",
+  "schema_version": 1,
+  "tested_commit": "38f3c3348cf5dbeeb0a0b191f3f4576c85a97bc7",
+  "working_tree_changes": true,
+  "source_verification": {
+    "profile": "us",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "table_start": 2148080928,
+    "table_end": 2148096452,
+    "field_count": 7762,
+    "payload_bytes": 15524,
+    "compiler_padding_bytes_excluded": 12,
+    "source": "src/game/data/flat_asset_sizes.c",
+    "source_sha256": "6154fabe24466f4370a7934d3d3e053152bc31646d75688c7f0a397fc94b4d9a",
+    "object": "build/game-integrated/us/src/game/data/flat_asset_sizes.o",
+    "object_sha256": "8a1cba58fa2fa44da348d13a29e4f98919490863a62414389dfe5619a63a121c",
+    "payload_sha256": "51b40c4080feea4e04b7e4921bce202c67a5d1c27f04ee92086255b6b38d6454",
+    "physical_stream_count": 7760,
+    "archive_bytes": 9494881,
+    "empty_slots": [
+      1767,
+      1768
+    ],
+    "game_code_bytes_identical": 2072880,
+    "complete_data_claim": false
+  },
+  "ownership_limits": [
+    "New reconstruction owner; no original function-source-unit boundary claim.",
+    "INFO placement retains original GAME archive runtime backing; complete_data unchanged.",
+    "Twelve compiler-padding bytes excluded; adjacent unassigned storage retains separate units."
+  ],
+  "omitted_gate_logs": [
+    "report_preservation",
+    "validation"
+  ]
+}

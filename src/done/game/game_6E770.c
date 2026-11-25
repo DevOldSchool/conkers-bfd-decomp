@@ -5,7 +5,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_call_connected_segments_continued.md
  */
 
-extern u8 D_80084930[];
+extern const u8 D_80084930[4096];
 
 typedef struct Game6E770Command {
     u32 w0;
@@ -30,7 +30,7 @@ Game6E770Command *func_150412C0(Game6E770Command *arg0) {
 
 Game6E770Command *func_15041508(Game6E770Command *, s32, s32, s32);
 s32 func_15041480(u8);
-extern u8 D_800848D0[];
+extern const u8 D_800848D0[80];
 
 Game6E770Command *func_150413FC(Game6E770Command *arg0, s32 arg1, s32 arg2, u8 *arg3) {
     s32 i;

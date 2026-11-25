@@ -1,0 +1,101 @@
+{
+  "status": "accepted",
+  "native_extent_proof": "150AE148 masks F000; 150AE14C shifts12; zero returns at150AE15C; otherwise subtract1 at150AE164 and index4 at150AE168. Four explicit bases at150AE0F8..150AE134.",
+  "tables": [
+    {
+      "address": "0x80088420",
+      "size": 60,
+      "entries": [
+        null,
+        "func_15097910",
+        null,
+        null,
+        null,
+        null,
+        "func_1509EFF0",
+        "func_1509DD50",
+        null,
+        null,
+        "func_150A0264",
+        null,
+        null,
+        "func_1509D180",
+        "func_1509DF20"
+      ]
+    },
+    {
+      "address": "0x8008845c",
+      "size": 60,
+      "entries": [
+        null,
+        "func_150979CC",
+        null,
+        null,
+        null,
+        null,
+        "func_1509F248",
+        "func_1509DDC4",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "func_1509D780",
+        "func_1509DFB4"
+      ]
+    },
+    {
+      "address": "0x80088498",
+      "size": 60,
+      "entries": [
+        "func_1509C7C8",
+        "func_15099C14",
+        "func_1509ED74",
+        "func_150A04D8",
+        "func_1509FE0C",
+        "func_1509E6F0",
+        "func_1509F33C",
+        "func_1509DEC4",
+        "func_1509759C",
+        "func_1509E8A0",
+        "func_150A0374",
+        "func_1509F800",
+        null,
+        "func_1509DBBC",
+        "func_1509E3DC"
+      ]
+    },
+    {
+      "address": "0x800884d4",
+      "size": 60,
+      "entries": [
+        "func_1509C440",
+        "func_15097A8C",
+        "func_1509E900",
+        "func_150A03B0",
+        "func_1509F850",
+        "func_1509E640",
+        "func_1509F284",
+        "func_1509DDFC",
+        "func_15096D78",
+        "func_1509E730",
+        "func_150A02D0",
+        "func_1509F818",
+        null,
+        "func_1509D8FC",
+        "func_1509DFC4"
+      ]
+    }
+  ],
+  "omitted_gate_logs": [
+    "asset_build",
+    "modified_inputs",
+    "progress_check",
+    "report_audit",
+    "report_seconds",
+    "source_and_link_audit",
+    "tested_base",
+    "tests",
+    "whitespace_check"
+  ]
+}

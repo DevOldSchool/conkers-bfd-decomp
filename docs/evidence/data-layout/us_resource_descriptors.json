@@ -1,0 +1,152 @@
+{
+  "status": "accepted",
+  "schema_version": 1,
+  "tested_commit": "38f3c3348cf5dbeeb0a0b191f3f4576c85a97bc7",
+  "working_tree_changes": true,
+  "source_verification": {
+    "profile": "us",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "consumer_span_sha1": "7f80b6659725e30b32eccb9ea7adcf84cb2ad5d9",
+    "consumer_bytes": 1904,
+    "game_code_bytes_identical": 2072880,
+    "descriptor_records": 204,
+    "symbolic_pointer_relocations": 524,
+    "name_count": 116,
+    "dependency_list_count": 179,
+    "parts": [
+      {
+        "source": "src/game/data/resource_descriptors.c",
+        "name": "resource_descriptors",
+        "start": 2148037680,
+        "end": 2148041760,
+        "size": 4080,
+        "section": ".data",
+        "emitted_size": 4080,
+        "source_sha256": "39f06c2990842f3d05b6dd7b07c6e36d86823a685a52c47917a194c854a44047",
+        "object_sha256": "bd5e6fce9c62e033cc3443d810c989fa23e2e352f2010fb50271c648273b20b6",
+        "payload_sha256": "3429d7f70b1fd47f61e51096b651ef4788b56ddf486e7d1fc695ba4d65ec3e33",
+        "relocations": 524,
+        "defined_payload_symbols": 1
+      },
+      {
+        "source": "src/game/data/resource_dependencies_0.c",
+        "name": "resource_dependencies_0",
+        "start": 2148131952,
+        "end": 2148132336,
+        "size": 384,
+        "section": ".rodata",
+        "emitted_size": 384,
+        "source_sha256": "0385ee9dcfb86892657f00eb9947d29dfff0c083d8d3dcf4b0936e7bc93e8e60",
+        "object_sha256": "3110e212881c56a2677456b1ddbd8a513be767c0fa5bf533af2e3ce4453d05df",
+        "payload_sha256": "c8020eafa0c273c11d1a79e84862a3a38f00d462f649f97da2f3076e1bbc350e",
+        "relocations": 0,
+        "defined_payload_symbols": 62
+      },
+      {
+        "source": "src/game/data/resource_dependencies_1.c",
+        "name": "resource_dependencies_1",
+        "start": 2148132340,
+        "end": 2148132372,
+        "size": 32,
+        "section": ".rodata",
+        "emitted_size": 32,
+        "source_sha256": "08fcc7312df57edb6929af6736b8ccbf292446728243675407b1267840d5c2aa",
+        "object_sha256": "f33ff475fc8b9dcc25a0421824fb99f32e095f871903041986b50c2224df2bc4",
+        "payload_sha256": "430b447eb2666d2f874e452518f03538d9f558465887fce48fbaa1c0cd9026a8",
+        "relocations": 0,
+        "defined_payload_symbols": 5
+      },
+      {
+        "source": "src/game/data/resource_dependencies_2.c",
+        "name": "resource_dependencies_2",
+        "start": 2148132376,
+        "end": 2148132916,
+        "size": 540,
+        "section": ".rodata",
+        "emitted_size": 544,
+        "source_sha256": "49734b8140636784e7bd4911a443b5797c8afd75196dec0228e2d9ba67ba55b8",
+        "object_sha256": "c3ad4b902575477e1a76b2e005f8613791f6d458086c97a9094ac6e9f4bfcc56",
+        "payload_sha256": "0c6ec2864c987c450c389c9f4bfb2deba425a1e95c709891c58a3c8177e63dbb",
+        "relocations": 0,
+        "defined_payload_symbols": 112
+      },
+      {
+        "source": "src/game/data/resource_names.c",
+        "name": "resource_names",
+        "start": 2148132916,
+        "end": 2148135108,
+        "size": 2192,
+        "section": ".rodata",
+        "emitted_size": 2192,
+        "source_sha256": "19da07f6c53b4f0980c074ed1efa73caa95ce9f254323a42ab167870156e6603",
+        "object_sha256": "240ae80896cc83867735121aa01aebf510b67cdba7ad1f3c32c71d2b4d2f62c9",
+        "payload_sha256": "cbd4cc5f55f4971a3401c220d7fbce79e24907b82ed8f2c30ed01ac5c5f8d302",
+        "relocations": 0,
+        "defined_payload_symbols": 116
+      }
+    ],
+    "excluded_gaps": [
+      [
+        2148132336,
+        2148132340
+      ],
+      [
+        2148132372,
+        2148132376
+      ]
+    ],
+    "payload_bytes": 7228,
+    "complete_data_claim": false
+  },
+  "reference_verification": {
+    "parts": [
+      {
+        "name": "resource_descriptors",
+        "target_bytes": 4080,
+        "candidate_bytes": 4080,
+        "reference_and_candidate_relocations": 524,
+        "same_scalar_bytes_and_pointer_destinations": true
+      },
+      {
+        "name": "resource_dependencies_0",
+        "target_bytes": 384,
+        "candidate_bytes": 384,
+        "reference_and_candidate_relocations": 0,
+        "same_scalar_bytes_and_pointer_destinations": true
+      },
+      {
+        "name": "resource_dependencies_1",
+        "target_bytes": 32,
+        "candidate_bytes": 32,
+        "reference_and_candidate_relocations": 0,
+        "same_scalar_bytes_and_pointer_destinations": true
+      },
+      {
+        "name": "resource_dependencies_2",
+        "target_bytes": 540,
+        "candidate_bytes": 544,
+        "reference_and_candidate_relocations": 0,
+        "same_scalar_bytes_and_pointer_destinations": true
+      },
+      {
+        "name": "resource_names",
+        "target_bytes": 2192,
+        "candidate_bytes": 2192,
+        "reference_and_candidate_relocations": 0,
+        "same_scalar_bytes_and_pointer_destinations": true
+      }
+    ],
+    "scalar_declaration_file_sha256": "534f3695376e5db57299419410196f314e20225f1c2886967f7b05aadc8579ac",
+    "pointer_fields_preserved": 524,
+    "scalar_words_declared": 408
+  },
+  "ownership_limits": [
+    "Data-only reconstruction owners, no historical C-unit boundary claim.",
+    "INFO placement retains original GAME archive runtime backing; complete_data unchanged.",
+    "Two unexplained four-byte list gaps and four emitted compiler-tail bytes are excluded."
+  ],
+  "omitted_gate_logs": [
+    "report_preservation",
+    "validation"
+  ]
+}

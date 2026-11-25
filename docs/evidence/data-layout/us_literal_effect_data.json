@@ -1,0 +1,741 @@
+{
+  "status": "accepted: native, linked-object, full-ROM and full-report gates passed",
+  "five_frame": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_151668B8": {
+        "address": "0x151668b8",
+        "bytes": 232,
+        "sha1": "f27068062e162589616a1312769fd9a343adf3ae"
+      },
+      "func_15094F70": {
+        "address": "0x15094f70",
+        "bytes": 120,
+        "sha1": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      },
+      "func_150950D4": {
+        "address": "0x150950d4",
+        "bytes": 1384,
+        "sha1": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+      }
+    },
+    "instruction_anchors": {
+      "0x151668e4": "0x84620000",
+      "0x151668ec": "0x25ce03f4",
+      "0x151668f0": "0x244f0080",
+      "0x151668f4": "0xa46f0000",
+      "0x15166904": "0x2b210500",
+      "0x15166910": "0xad220000",
+      "0x15166914": "0xa4600000",
+      "0x1516693c": "0x8d050000",
+      "0x15166940": "0x8d260000",
+      "0x1516694c": "0xd4253dc",
+      "0x15094f7c": "0xafa50034",
+      "0x15094f80": "0xafa60038",
+      "0x15094f84": "0x8fa40034",
+      "0x15094f88": "0x8fa50038",
+      "0x15094f8c": "0xd425418",
+      "0x15095090": "0x57203",
+      "0x15095094": "0xe7880",
+      "0x1509509c": "0x8f190000"
+    },
+    "original_instruction_cases": 1280,
+    "selected_frames": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "address": 2148074464,
+    "bytes": 32,
+    "descriptor": 2148074484,
+    "resources": [
+      2320,
+      2321,
+      2322,
+      2323,
+      2324
+    ],
+    "payload_sha256": "228f5b3c3a52b2a4ba4fc6c07d2d78de4438a20a3701ef3b99c31c92d6146ce5",
+    "scope": "Normal phase states 0..0x4FF form a closed domain and select all five frames. Negative/corrupt state and gameplay activation are not claimed. Source integration pending."
+  },
+  "callbacks": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "address": 2148060004,
+    "bytes": 12,
+    "consumer": {
+      "address": "0x1516706c",
+      "bytes": 84,
+      "sha1": "dba52353d7db1fb5a93ffa611169f6f328737b3c"
+    },
+    "native_words": [
+      "0x27bdffe0",
+      "0xafbf001c",
+      "0xafb10018",
+      "0xafb00014",
+      "0x3c108009",
+      "0x3c118009",
+      "0x2631cb70",
+      "0x2610cb64",
+      "0x8e020000",
+      "0x50400004",
+      "0x26100004",
+      "0x40f809",
+      "0x0",
+      "0x26100004",
+      "0x5611fffa",
+      "0x8e020000",
+      "0x8fbf001c",
+      "0x8fb00014",
+      "0x8fb10018",
+      "0x3e00008",
+      "0x27bd0020"
+    ],
+    "pointers": [
+      "0x15164ee4",
+      "0x1515c158",
+      "0x151787a4"
+    ],
+    "original_instruction_cases": [
+      {
+        "nonnull_mask": 0,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": []
+      },
+      {
+        "nonnull_mask": 1,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x15164ee4"
+        ]
+      },
+      {
+        "nonnull_mask": 2,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x1515c158"
+        ]
+      },
+      {
+        "nonnull_mask": 3,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x15164ee4",
+          "0x1515c158"
+        ]
+      },
+      {
+        "nonnull_mask": 4,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x151787a4"
+        ]
+      },
+      {
+        "nonnull_mask": 5,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x15164ee4",
+          "0x151787a4"
+        ]
+      },
+      {
+        "nonnull_mask": 6,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x1515c158",
+          "0x151787a4"
+        ]
+      },
+      {
+        "nonnull_mask": 7,
+        "loads": [
+          "0x8008cb64",
+          "0x8008cb68",
+          "0x8008cb6c"
+        ],
+        "calls": [
+          "0x15164ee4",
+          "0x1515c158",
+          "0x151787a4"
+        ]
+      }
+    ],
+    "scope": "Exact three-slot extent from native begin/end pointers. Callees preserve s0/s1 under the existing ABI. No gameplay activation claim. Source integration pending."
+  },
+  "direct_literals": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_1516B6BC": {
+        "address": "0x1516b6bc",
+        "bytes": 4540,
+        "sha1": "b249dabf50910c66d2018a6f96261e19d5dfa103"
+      },
+      "func_150368C4": {
+        "address": "0x150368c4",
+        "bytes": 940,
+        "sha1": "e96e5057c4ad77c4f8411029b049167221a1da74"
+      },
+      "func_15090630": {
+        "address": "0x15090630",
+        "bytes": 780,
+        "sha1": "a48a719176cc700d322395f7bb10f506fc284cde"
+      },
+      "func_15094F70": {
+        "address": "0x15094f70",
+        "bytes": 120,
+        "sha1": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      },
+      "func_150950D4": {
+        "address": "0x150950d4",
+        "bytes": 1384,
+        "sha1": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+      }
+    },
+    "routes": [
+      {
+        "descriptor": "0x8009055c",
+        "phase": 0,
+        "start": "0x1516c698",
+        "call": "0x1516c798",
+        "branches": {
+          "0x1516c6d4": true,
+          "0x1516c728": true
+        },
+        "visited": [
+          "0x1516c698",
+          "0x1516c69c",
+          "0x1516c6a0",
+          "0x1516c6a4",
+          "0x1516c6a8",
+          "0x1516c6ac",
+          "0x1516c6b0",
+          "0x1516c6b4",
+          "0x1516c6b8",
+          "0x1516c6bc",
+          "0x1516c6c0",
+          "0x1516c6c4",
+          "0x1516c6c8",
+          "0x1516c6cc",
+          "0x1516c6d0",
+          "0x1516c6d4",
+          "0x1516c6d8",
+          "0x1516c6e8",
+          "0x1516c6ec",
+          "0x1516c6f0",
+          "0x1516c6f4",
+          "0x1516c6f8",
+          "0x1516c6fc",
+          "0x1516c700",
+          "0x1516c704",
+          "0x1516c708",
+          "0x1516c70c",
+          "0x1516c710",
+          "0x1516c714",
+          "0x1516c718",
+          "0x1516c71c",
+          "0x1516c720",
+          "0x1516c724",
+          "0x1516c728",
+          "0x1516c72c",
+          "0x1516c784",
+          "0x1516c788",
+          "0x1516c78c",
+          "0x1516c790",
+          "0x1516c794",
+          "0x1516c798",
+          "0x1516c79c"
+        ]
+      },
+      {
+        "descriptor": "0x8009056c",
+        "phase": 0,
+        "start": "0x1516c738",
+        "call": "0x1516c774",
+        "branches": {},
+        "visited": [
+          "0x1516c738",
+          "0x1516c73c",
+          "0x1516c740",
+          "0x1516c744",
+          "0x1516c748",
+          "0x1516c74c",
+          "0x1516c750",
+          "0x1516c754",
+          "0x1516c758",
+          "0x1516c75c",
+          "0x1516c760",
+          "0x1516c764",
+          "0x1516c768",
+          "0x1516c76c",
+          "0x1516c770",
+          "0x1516c774",
+          "0x1516c778"
+        ]
+      },
+      {
+        "descriptor": "0x8009057c",
+        "phase": 0,
+        "start": "0x1516c59c",
+        "call": "0x1516c5c4",
+        "branches": {},
+        "visited": [
+          "0x1516c59c",
+          "0x1516c5a0",
+          "0x1516c5a4",
+          "0x1516c5a8",
+          "0x1516c5ac",
+          "0x1516c5b0",
+          "0x1516c5b4",
+          "0x1516c5b8",
+          "0x1516c5bc",
+          "0x1516c5c0",
+          "0x1516c5c4",
+          "0x1516c5c8"
+        ]
+      },
+      {
+        "descriptor": "0x8009058c",
+        "phase": 0,
+        "start": "0x1516bc60",
+        "call": "0x1516bc90",
+        "branches": {},
+        "visited": [
+          "0x1516bc60",
+          "0x1516bc64",
+          "0x1516bc68",
+          "0x1516bc6c",
+          "0x1516bc70",
+          "0x1516bc74",
+          "0x1516bc78",
+          "0x1516bc7c",
+          "0x1516bc80",
+          "0x1516bc84",
+          "0x1516bc88",
+          "0x1516bc8c",
+          "0x1516bc90",
+          "0x1516bc94"
+        ]
+      },
+      {
+        "descriptor": "0x8009059c",
+        "phase": 0,
+        "start": "0x1516c4dc",
+        "call": "0x1516c508",
+        "branches": {},
+        "visited": [
+          "0x1516c4dc",
+          "0x1516c4e0",
+          "0x1516c4e4",
+          "0x1516c4e8",
+          "0x1516c4ec",
+          "0x1516c4f0",
+          "0x1516c4f4",
+          "0x1516c4f8",
+          "0x1516c4fc",
+          "0x1516c500",
+          "0x1516c504",
+          "0x1516c508",
+          "0x1516c50c"
+        ]
+      },
+      {
+        "descriptor": "0x800903bc",
+        "phase": 0,
+        "start": "0x15036ba0",
+        "call": "0x15036bd0",
+        "branches": {},
+        "visited": [
+          "0x15036ba0",
+          "0x15036ba4",
+          "0x15036ba8",
+          "0x15036bac",
+          "0x15036bb0",
+          "0x15036bb4",
+          "0x15036bb8",
+          "0x15036bbc",
+          "0x15036bc0",
+          "0x15036bc4",
+          "0x15036bc8",
+          "0x15036bcc",
+          "0x15036bd0",
+          "0x15036bd4"
+        ]
+      },
+      {
+        "descriptor": "0x80091840",
+        "phase": 0,
+        "call": "0x15090890",
+        "visited": [
+          "0x15090878",
+          "0x1509087c",
+          "0x15090880",
+          "0x15090884",
+          "0x15090888",
+          "0x1509088c",
+          "0x15090890",
+          "0x15090894"
+        ],
+        "callee_saved_register": "fp; literal set at150906E4/150906F0, no native fp writes before call; intervening calls obey existing ABI"
+      }
+    ],
+    "records": [
+      {
+        "address": 2148074840,
+        "bytes": 16,
+        "descriptor": 2148074844,
+        "resources": [
+          4167
+        ],
+        "stored_count": 1,
+        "width": 64,
+        "height": 64,
+        "format": 3,
+        "size": 1
+      },
+      {
+        "address": 2148074856,
+        "bytes": 16,
+        "descriptor": 2148074860,
+        "resources": [
+          4168
+        ],
+        "stored_count": 1,
+        "width": 64,
+        "height": 64,
+        "format": 3,
+        "size": 1
+      },
+      {
+        "address": 2148074872,
+        "bytes": 16,
+        "descriptor": 2148074876,
+        "resources": [
+          4169
+        ],
+        "stored_count": 1,
+        "width": 16,
+        "height": 16,
+        "format": 3,
+        "size": 1
+      },
+      {
+        "address": 2148074888,
+        "bytes": 16,
+        "descriptor": 2148074892,
+        "resources": [
+          4170
+        ],
+        "stored_count": 1,
+        "width": 16,
+        "height": 16,
+        "format": 3,
+        "size": 1
+      },
+      {
+        "address": 2148074904,
+        "bytes": 16,
+        "descriptor": 2148074908,
+        "resources": [
+          1204
+        ],
+        "stored_count": 1,
+        "width": 16,
+        "height": 32,
+        "format": 3,
+        "size": 1
+      },
+      {
+        "address": 2148074424,
+        "bytes": 16,
+        "descriptor": 2148074428,
+        "resources": [
+          1293
+        ],
+        "stored_count": 1,
+        "width": 32,
+        "height": 16,
+        "format": 0,
+        "size": 2
+      },
+      {
+        "address": 2148079680,
+        "bytes": 12,
+        "descriptor": 2148079680,
+        "resources": [
+          1205
+        ],
+        "stored_count": 1,
+        "width": 32,
+        "height": 32,
+        "format": 5,
+        "size": 2,
+        "scalar": true
+      }
+    ],
+    "bytes": 108,
+    "scope": "Declared native call paths pass exact descriptors and phase zero. Branch choices identify paths, not observed activation. The scalar resource uses fp preserved by the existing ABI. Other paths and universal safety are not claimed."
+  },
+  "plan": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "units": [
+      {
+        "name": "effect_texture_callbacks",
+        "address": 2148060004,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "source": "src/game/data/effect_texture_callbacks.c",
+        "pointers": [
+          {
+            "address": "0x8008cb64",
+            "symbol": "func_15164EE4",
+            "addend": 0,
+            "native_word": "0x15164ee4"
+          },
+          {
+            "address": "0x8008cb68",
+            "symbol": "func_1515C158",
+            "addend": 0,
+            "native_word": "0x1515c158"
+          },
+          {
+            "address": "0x8008cb6c",
+            "symbol": "func_151787A4",
+            "addend": 0,
+            "native_word": "0x151787a4"
+          }
+        ]
+      },
+      {
+        "name": "literal_effect_texture_800903B8",
+        "address": 2148074424,
+        "bytes": 16,
+        "emitted_bytes": 16,
+        "source": "src/game/data/literal_effect_texture_800903B8.c",
+        "pointers": [
+          {
+            "address": "0x800903bc",
+            "symbol": "D_800903B8",
+            "addend": 0,
+            "native_word": "0x800903b8"
+          }
+        ]
+      },
+      {
+        "name": "literal_effect_texture_800903E0",
+        "address": 2148074464,
+        "bytes": 32,
+        "emitted_bytes": 32,
+        "source": "src/game/data/literal_effect_texture_800903E0.c",
+        "pointers": [
+          {
+            "address": "0x800903f4",
+            "symbol": "D_800903E0",
+            "addend": 0,
+            "native_word": "0x800903e0"
+          }
+        ]
+      },
+      {
+        "name": "literal_effect_texture_80090558",
+        "address": 2148074840,
+        "bytes": 80,
+        "emitted_bytes": 80,
+        "source": "src/game/data/literal_effect_texture_80090558.c",
+        "pointers": [
+          {
+            "address": "0x8009055c",
+            "symbol": "D_80090558",
+            "addend": 0,
+            "native_word": "0x80090558"
+          },
+          {
+            "address": "0x8009056c",
+            "symbol": "D_80090558",
+            "addend": 16,
+            "native_word": "0x80090568"
+          },
+          {
+            "address": "0x8009057c",
+            "symbol": "D_80090558",
+            "addend": 32,
+            "native_word": "0x80090578"
+          },
+          {
+            "address": "0x8009058c",
+            "symbol": "D_80090558",
+            "addend": 48,
+            "native_word": "0x80090588"
+          },
+          {
+            "address": "0x8009059c",
+            "symbol": "D_80090558",
+            "addend": 64,
+            "native_word": "0x80090598"
+          }
+        ],
+        "symbols": [
+          {
+            "name": "D_80090558",
+            "address": 2148074840,
+            "bytes": 80,
+            "type": "u32"
+          }
+        ]
+      },
+      {
+        "name": "literal_effect_texture_80091840",
+        "address": 2148079680,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "source": "src/game/data/literal_effect_texture_80091840.c",
+        "pointers": []
+      }
+    ],
+    "bytes": 152,
+    "external_symbols": [
+      {
+        "name": "func_151787A4",
+        "address": 353863588,
+        "bytes": 8,
+        "type": "func"
+      }
+    ],
+    "native_evidence": [
+      "literal-frame-native-pilot.json",
+      "effect-callbacks-native-pilot.json",
+      "literal-direct-native-pilot.json"
+    ],
+    "empty_callback_proof": {
+      "source": "src/game/game_1A5C00.c",
+      "address": "0x151787a4",
+      "bytes": 8,
+      "native_hex": "03e0000800000000",
+      "sha1": "fcaee431e1f242adb7285049ca72a9c79bfa3f0e",
+      "native_meaning": "jr ra; nop",
+      "registration": {
+        "evidence": {
+          "current_differences": 0,
+          "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+          "verified_revision": "working-tree"
+        },
+        "size_bytes": 8,
+        "state": "matched",
+        "symbol": "func_151787A4",
+        "vram": "0x151787A4"
+      }
+    },
+    "native_functions": {
+      "func_151668B8": {
+        "address": "0x151668b8",
+        "bytes": 232,
+        "sha1": "f27068062e162589616a1312769fd9a343adf3ae"
+      },
+      "func_15094F70": {
+        "address": "0x15094f70",
+        "bytes": 120,
+        "sha1": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      },
+      "func_150950D4": {
+        "address": "0x150950d4",
+        "bytes": 1384,
+        "sha1": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+      },
+      "func_1516B6BC": {
+        "address": "0x1516b6bc",
+        "bytes": 4540,
+        "sha1": "b249dabf50910c66d2018a6f96261e19d5dfa103"
+      },
+      "func_150368C4": {
+        "address": "0x150368c4",
+        "bytes": 940,
+        "sha1": "e96e5057c4ad77c4f8411029b049167221a1da74"
+      },
+      "func_15090630": {
+        "address": "0x15090630",
+        "bytes": 780,
+        "sha1": "a48a719176cc700d322395f7bb10f506fc284cde"
+      },
+      "func_1516706C": {
+        "address": "0x1516706c",
+        "bytes": 84,
+        "sha1": "dba52353d7db1fb5a93ffa611169f6f328737b3c"
+      },
+      "func_151787A4": {
+        "address": "0x151787a4",
+        "bytes": 8,
+        "sha1": "fcaee431e1f242adb7285049ca72a9c79bfa3f0e"
+      }
+    },
+    "instruction_anchors": {
+      "0x151668e4": "0x84620000",
+      "0x151668ec": "0x25ce03f4",
+      "0x151668f0": "0x244f0080",
+      "0x151668f4": "0xa46f0000",
+      "0x15166904": "0x2b210500",
+      "0x15166910": "0xad220000",
+      "0x15166914": "0xa4600000",
+      "0x1516693c": "0x8d050000",
+      "0x15166940": "0x8d260000",
+      "0x1516694c": "0xd4253dc",
+      "0x15094f7c": "0xafa50034",
+      "0x15094f80": "0xafa60038",
+      "0x15094f84": "0x8fa40034",
+      "0x15094f88": "0x8fa50038",
+      "0x15094f8c": "0xd425418",
+      "0x15095090": "0x57203",
+      "0x15095094": "0xe7880",
+      "0x1509509c": "0x8f190000"
+    }
+  },
+  "omitted_gate_logs": [
+    "acceptance",
+    "base_commit",
+    "compiled_pilot",
+    "native_pilot_measures"
+  ]
+}

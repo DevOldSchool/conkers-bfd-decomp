@@ -1,0 +1,297 @@
+{
+  "payload_bytes": 772,
+  "compiler_tail_bytes_excluded": 12,
+  "units": [
+    {
+      "source": "src/game/data/quarter_wave_8009A220.c",
+      "type": "f32",
+      "payload_bytes": 260,
+      "emitted_bytes": 272,
+      "native_proof": {
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "address": 2148114976,
+        "bytes": 260,
+        "count": 65,
+        "type": "f32",
+        "payload_sha256": "63d5e433f26fc064a7de67354337d256cd4b91ffcfa8cff53bcf92e1181adf46",
+        "native_consumers": [
+          {
+            "symbol": "func_150489B0",
+            "start": "0x150489b0",
+            "bytes": 144,
+            "assembly": "reference/game/us/asm/489B0.s",
+            "sha256": "11c6a3f191d36b5ad898a05a71b8a00489ebc54a7826794d54bc1f56134c93e1",
+            "cases": {
+              "summarized_list": true,
+              "count": 256,
+              "sha256": "ffa440a053cdace7bdb89a6b74a7ae8ab023198812cc5769f9fd76461abb0c11",
+              "first": [
+                {
+                  "angle": 0,
+                  "index": 0,
+                  "read_address": "0x8009a220",
+                  "result_bits": "3f800000",
+                  "trace": [
+                    "0x150489b0",
+                    "0x150489b4",
+                    "0x150489b8",
+                    "0x150489bc",
+                    "0x150489c0",
+                    "0x150489c4",
+                    "0x15048a24",
+                    "0x15048a28",
+                    "0x15048a2c",
+                    "0x15048a30",
+                    "0x15048a34",
+                    "0x15048a38",
+                    "0x15048a3c"
+                  ]
+                },
+                {
+                  "angle": 1,
+                  "index": 1,
+                  "read_address": "0x8009a224",
+                  "result_bits": "3f7fec43",
+                  "trace": [
+                    "0x150489b0",
+                    "0x150489b4",
+                    "0x150489b8",
+                    "0x150489bc",
+                    "0x150489c0",
+                    "0x150489c4",
+                    "0x15048a24",
+                    "0x15048a28",
+                    "0x15048a2c",
+                    "0x15048a30",
+                    "0x15048a34",
+                    "0x15048a38",
+                    "0x15048a3c"
+                  ]
+                },
+                {
+                  "angle": 2,
+                  "index": 2,
+                  "read_address": "0x8009a228",
+                  "result_bits": "3f7fb10e",
+                  "trace": [
+                    "0x150489b0",
+                    "0x150489b4",
+                    "0x150489b8",
+                    "0x150489bc",
+                    "0x150489c0",
+                    "0x150489c4",
+                    "0x15048a24",
+                    "0x15048a28",
+                    "0x15048a2c",
+                    "0x15048a30",
+                    "0x15048a34",
+                    "0x15048a38",
+                    "0x15048a3c"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "symbol": "func_151423D8",
+            "start": "0x151423d8",
+            "bytes": 108,
+            "assembly": "reference/game/us/asm/141970.s",
+            "sha256": "7d8800bced6a6b54940fa6f014a7a233975aacb0ba279b0bc6d6d021ab6e86c7",
+            "cases": {
+              "summarized_list": true,
+              "count": 256,
+              "sha256": "79d40ed22f13160791cc80ac6b94bb478535372d48bf13b075d2928016a6b5a0",
+              "first": [
+                {
+                  "angle": 0,
+                  "index": 0,
+                  "read_address": "0x8009a220",
+                  "result_bits": "3f800000",
+                  "trace": [
+                    "0x151423d8",
+                    "0x151423dc",
+                    "0x151423e0",
+                    "0x151423e4",
+                    "0x151423e8",
+                    "0x151423ec",
+                    "0x15142400",
+                    "0x15142404",
+                    "0x15142408",
+                    "0x1514240c",
+                    "0x15142418",
+                    "0x1514241c",
+                    "0x15142420",
+                    "0x15142424",
+                    "0x15142428"
+                  ]
+                },
+                {
+                  "angle": 1,
+                  "index": 1,
+                  "read_address": "0x8009a224",
+                  "result_bits": "3f7fec43",
+                  "trace": [
+                    "0x151423d8",
+                    "0x151423dc",
+                    "0x151423e0",
+                    "0x151423e4",
+                    "0x151423e8",
+                    "0x151423ec",
+                    "0x15142400",
+                    "0x15142404",
+                    "0x15142408",
+                    "0x1514240c",
+                    "0x15142418",
+                    "0x1514241c",
+                    "0x15142420",
+                    "0x15142424",
+                    "0x15142428"
+                  ]
+                },
+                {
+                  "angle": 2,
+                  "index": 2,
+                  "read_address": "0x8009a228",
+                  "result_bits": "3f7fb10e",
+                  "trace": [
+                    "0x151423d8",
+                    "0x151423dc",
+                    "0x151423e0",
+                    "0x151423e4",
+                    "0x151423e8",
+                    "0x151423ec",
+                    "0x15142400",
+                    "0x15142404",
+                    "0x15142408",
+                    "0x1514240c",
+                    "0x15142418",
+                    "0x1514241c",
+                    "0x15142420",
+                    "0x15142424",
+                    "0x15142428"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "signed_zero_differences": [
+          [
+            64,
+            "00000000",
+            "80000000"
+          ],
+          [
+            192,
+            "80000000",
+            "00000000"
+          ]
+        ],
+        "nonzero_results_agree": true,
+        "prior_unassigned_range": {
+          "start": 2148114960,
+          "end": 2148120200,
+          "kind": "unassigned",
+          "size": 5240,
+          "sha256": "83538596173e1b254623e893c27140c79c5aaf7f7e609ba3a85d7ab316f8d6ce",
+          "zero_filled": false,
+          "owner": null
+        },
+        "scope": "Exact read-domain and single-precision type proved for these two full native consumers; no original object boundary or runtime immutability claim. No canonical source/accounting edits."
+      },
+      "reference_image": {
+        "bytes": 189088,
+        "sha256": "0bbc00e1adfac5ffe6117f5be9c941575f87b341a77d808004603ac1cb87c670",
+        "matches_original": true
+      },
+      "native_matched_bytes": 260
+    },
+    {
+      "source": "src/game/data/inverse_angle_80098E00.c",
+      "type": "u16",
+      "payload_bytes": 512,
+      "emitted_bytes": 512,
+      "native_proof": {
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "address": 2148109824,
+        "bytes": 512,
+        "count": 256,
+        "type": "u16",
+        "payload_sha256": "22a541eeb643aa1e8b56fc458fb377adcc88ef4dafc8e179748109a221cea4f3",
+        "native_function": {
+          "symbol": "func_150487E0",
+          "start": "0x150487e0",
+          "bytes": 132,
+          "assembly": "reference/game/us/asm/487E0.s",
+          "sha256": "06ff789d21f48b1040a642f8de27c2c232a8bd9f04ad03a0d6845f08a845d021"
+        },
+        "prefix_instruction_words": {
+          "0x150487e0": "0x3c01800a",
+          "0x150487e4": "0xc4249000",
+          "0x150487e8": "0x46006005",
+          "0x150487ec": "0x3c19800a",
+          "0x150487f0": "0x46040182",
+          "0x150487f4": "0x3c014f80",
+          "0x150487f8": "0x4600320d",
+          "0x150487fc": "0x440f4000",
+          "0x15048800": "0x0",
+          "0x15048804": "0xfc040",
+          "0x15048808": "0x338c821",
+          "0x1504880c": "0x97398e00"
+        },
+        "exact_rational_read_witnesses": {
+          "summarized_list": true,
+          "count": 1024,
+          "sha256": "7b25eb308d639a077e52d42553140a3f54b6d2d91f45452de6ab33122a7a0c79",
+          "first": [
+            {
+              "mode": "nearest",
+              "index": 0,
+              "input_bits": "3b000000",
+              "read_address": "0x80098e00",
+              "u16_value": 0
+            },
+            {
+              "mode": "nearest",
+              "index": 1,
+              "input_bits": "3bc00000",
+              "read_address": "0x80098e02",
+              "u16_value": 162
+            },
+            {
+              "mode": "nearest",
+              "index": 2,
+              "input_bits": "3c200000",
+              "read_address": "0x80098e04",
+              "u16_value": 325
+            }
+          ]
+        },
+        "prior_unassigned_range": {
+          "start": 2148109812,
+          "end": 2148110336,
+          "kind": "unassigned",
+          "size": 524,
+          "sha256": "dee9387ca17620abd7a34e79450399bf68fe11dc5eae55dbd9f7fabe303be957",
+          "zero_filled": false,
+          "owner": null
+        },
+        "scope": "Each represented halfword has a native LHU witness. All four IEEE rounding modes covered for each exact input. Full registered consumer span authenticated; only the straight-line read prefix is executed. No global input bound, original object extent or runtime immutability claim. Scratch source only."
+      },
+      "reference_image": {
+        "bytes": 189088,
+        "sha256": "0bbc00e1adfac5ffe6117f5be9c941575f87b341a77d808004603ac1cb87c670",
+        "matches_original": true
+      },
+      "native_matched_bytes": 512
+    }
+  ],
+  "omitted_gate_logs": [
+    "acceptance_status",
+    "completed_gates",
+    "report_audit",
+    "source_audit",
+    "tested_base_commit"
+  ]
+}

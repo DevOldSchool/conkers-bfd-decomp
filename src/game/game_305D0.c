@@ -190,14 +190,14 @@ void func_10004074(s32);
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
 extern u8 D_1A37E0;
-extern u16 D_80091D20;
+extern const u16 D_80091D20[7762];
 extern s16 D_800B87A0;
 extern s16 D_800BC444;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15003570 CURRENT (605) */
 void func_15003570(void) {
     u8 *var_s0;
-    u16 *var_s2;
+    const u16 *var_s2;
     s16 *var_s3;
     u8 *temp_s4;
     s32 temp_t8;
@@ -207,7 +207,7 @@ void func_15003570(void) {
     temp_s4 = func_10003C40(0x10, 1, 2, 0);
     var_s0 = &D_1A37E0;
     var_s3 = &D_800B87A0;
-    var_s2 = &D_80091D20;
+    var_s2 = D_80091D20;
     do {
         if ((s32)var_s0 & 1) {
             var_s0--;

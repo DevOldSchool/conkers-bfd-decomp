@@ -1,0 +1,632 @@
+{
+  "status": "accepted: native comparison, full tests, asset rebuild, preservation and full report pass",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "native_functions": {
+    "func_1518D1C0": {
+      "address": "0x1518d1c0",
+      "bytes": 1312,
+      "sha1": "5cd05a02899f91be78894f87bc6f8798db861de7"
+    },
+    "func_1518D6E0": {
+      "address": "0x1518d6e0",
+      "bytes": 3000,
+      "sha1": "82f4e7d6e69ba6d7d25e25188503a5421a46ae6a"
+    },
+    "func_1518E3C4": {
+      "address": "0x1518e3c4",
+      "bytes": 220,
+      "sha1": "691c6e55b5dcfc79b933011bda904c9d4a7bf53f"
+    },
+    "func_15143134": {
+      "address": "0x15143134",
+      "bytes": 392,
+      "sha1": "aff90add2efa478694dcdd5359f96038e7f1c6f8"
+    },
+    "func_1502FBE8": {
+      "address": "0x1502fbe8",
+      "bytes": 392,
+      "sha1": "86363abf6467595cc9d78c3c1b6577bb4374835f"
+    }
+  },
+  "instruction_anchors": {
+    "0x1502fc14": "0x240100ff",
+    "0x1502fc20": "0x14610004",
+    "0x1502fc30": "0x1025",
+    "0x1502fc70": "0xafa2003c",
+    "0x1502fc7c": "0x8fa2003c",
+    "0x1502fc8c": "0xa20201c8",
+    "0x1514314c": "0x808025",
+    "0x15143170": "0xc6040000",
+    "0x15143188": "0xc6060004",
+    "0x1514319c": "0xc6080008",
+    "0x1518d2b4": "0x2d810012",
+    "0x1518d2c0": "0xc6080",
+    "0x1518d2c4": "0x3c01800a",
+    "0x1518d2cc": "0x8c2c7b14",
+    "0x1518d850": "0x92590022",
+    "0x1518d858": "0x3c0c8009",
+    "0x1518d85c": "0x197080",
+    "0x1518d870": "0x8d8cd5e0",
+    "0x1518d888": "0x858b0004",
+    "0x1518d88c": "0x915901c8",
+    "0x1518d890": "0x8d8d0000",
+    "0x1518d894": "0x256e0002",
+    "0x1518d898": "0x32e0019",
+    "0x1518d89c": "0xbc880",
+    "0x1518d8ac": "0x187880",
+    "0x1518d8bc": "0x8dd30000",
+    "0x1518da4c": "0x8e6e0004",
+    "0x1518da54": "0xa025",
+    "0x1518daa0": "0x926e0019",
+    "0x1518daa8": "0x52ee0004",
+    "0x1518dab0": "0x16f80011",
+    "0x1518dab4": "0x147100",
+    "0x1518daf8": "0x8e620008",
+    "0x1518dafc": "0x14c100",
+    "0x1518db04": "0x4e2021",
+    "0x1518db10": "0x85ed000c",
+    "0x1518db14": "0x8dd801d4",
+    "0x1518db1c": "0xdc980",
+    "0x1518db20": "0xd450c4d",
+    "0x1518dcb4": "0x8e6d0004",
+    "0x1518dcb8": "0x26940001",
+    "0x1518dcc0": "0x28d082a",
+    "0x1518dcc4": "0x5420ff6c",
+    "0x1518e110": "0x24010018",
+    "0x1518e118": "0x8e620008",
+    "0x1518e120": "0x3c100",
+    "0x1518e128": "0x582021",
+    "0x1518e134": "0x85ed000c",
+    "0x1518e424": "0x24640018",
+    "0x1518e428": "0x8fa50028",
+    "0x1518e42c": "0x2406000c",
+    "0x1518e430": "0xc008bb0"
+  },
+  "constructor_categories": [
+    {
+      "call_pc": "0x1518d30c",
+      "category": 7,
+      "store_pc": "0x1518d308",
+      "literal_pc": "0x1518d2e8"
+    },
+    {
+      "call_pc": "0x1518d34c",
+      "category": 1,
+      "store_pc": "0x1518d348",
+      "literal_pc": "0x1518d32c"
+    },
+    {
+      "call_pc": "0x1518d390",
+      "category": 7,
+      "store_pc": "0x1518d38c",
+      "literal_pc": "0x1518d36c"
+    },
+    {
+      "call_pc": "0x1518d3c0",
+      "category": 1,
+      "store_pc": "0x1518d3b8",
+      "literal_pc": "0x1518d3a8"
+    },
+    {
+      "call_pc": "0x1518d3f4",
+      "category": 7,
+      "store_pc": "0x1518d3ec",
+      "literal_pc": "0x1518d3dc"
+    },
+    {
+      "call_pc": "0x1518d428",
+      "category": 8,
+      "store_pc": "0x1518d420",
+      "literal_pc": "0x1518d410"
+    },
+    {
+      "call_pc": "0x1518d45c",
+      "category": 9,
+      "store_pc": "0x1518d454",
+      "literal_pc": "0x1518d444"
+    },
+    {
+      "call_pc": "0x1518d48c",
+      "category": 2,
+      "store_pc": "0x1518d484",
+      "literal_pc": "0x1518d474"
+    },
+    {
+      "call_pc": "0x1518d4bc",
+      "category": 3,
+      "store_pc": "0x1518d4b4",
+      "literal_pc": "0x1518d4a4"
+    },
+    {
+      "call_pc": "0x1518d4ec",
+      "category": 4,
+      "store_pc": "0x1518d4e4",
+      "literal_pc": "0x1518d4d4"
+    },
+    {
+      "call_pc": "0x1518d51c",
+      "category": 5,
+      "store_pc": "0x1518d514",
+      "literal_pc": "0x1518d504"
+    },
+    {
+      "call_pc": "0x1518d54c",
+      "category": 6,
+      "store_pc": "0x1518d544",
+      "literal_pc": "0x1518d534"
+    },
+    {
+      "call_pc": "0x1518d590",
+      "category": 10,
+      "store_pc": "0x1518d588",
+      "literal_pc": "0x1518d580"
+    },
+    {
+      "call_pc": "0x1518d5c4",
+      "category": 11,
+      "store_pc": "0x1518d5b8",
+      "literal_pc": "0x1518d5ac"
+    },
+    {
+      "call_pc": "0x1518d608",
+      "category": 12,
+      "store_pc": "0x1518d600",
+      "literal_pc": "0x1518d5f8"
+    },
+    {
+      "call_pc": "0x1518d64c",
+      "category": 13,
+      "store_pc": "0x1518d644",
+      "literal_pc": "0x1518d63c"
+    },
+    {
+      "call_pc": "0x1518d680",
+      "category": 14,
+      "store_pc": "0x1518d678",
+      "literal_pc": "0x1518d668"
+    },
+    {
+      "call_pc": "0x1518d6b4",
+      "category": 15,
+      "store_pc": "0x1518d6a8",
+      "literal_pc": "0x1518d69c"
+    }
+  ],
+  "category_paths": [
+    {
+      "category": 0,
+      "root_pointer_address": "0x8008d5e0",
+      "category_record": "0x8008f780",
+      "variant_table": "0x8008f2c0",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f2c0",
+      "descriptor": "0x8008ed80",
+      "point_count": 72,
+      "point_address": "0x8008dba0",
+      "mode": 1
+    },
+    {
+      "category": 1,
+      "root_pointer_address": "0x8008d5e4",
+      "category_record": "0x8008f78c",
+      "variant_table": "0x8008f2f0",
+      "variant_index": 0,
+      "filter_count": 3,
+      "descriptor_pointer_address": "0x8008f2fc",
+      "descriptor": "0x8008edf0",
+      "point_count": 51,
+      "point_address": "0x8008d690",
+      "mode": 1
+    },
+    {
+      "category": 2,
+      "root_pointer_address": "0x8008d5e8",
+      "category_record": "0x8008f7a4",
+      "variant_table": "0x8008f3e0",
+      "variant_index": 0,
+      "filter_count": 1,
+      "descriptor_pointer_address": "0x8008f3e4",
+      "descriptor": "0x8008ee98",
+      "point_count": 72,
+      "point_address": "0x8008dba0",
+      "mode": 1
+    },
+    {
+      "category": 3,
+      "root_pointer_address": "0x8008d5ec",
+      "category_record": "0x8008f7b0",
+      "variant_table": "0x8008f428",
+      "variant_index": 0,
+      "filter_count": 1,
+      "descriptor_pointer_address": "0x8008f42c",
+      "descriptor": "0x8008eed0",
+      "point_count": 72,
+      "point_address": "0x8008dba0",
+      "mode": 1
+    },
+    {
+      "category": 4,
+      "root_pointer_address": "0x8008d5f0",
+      "category_record": "0x8008f7d4",
+      "variant_table": "0x8008f4e8",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f4e8",
+      "descriptor": "0x8008ef78",
+      "point_count": 20,
+      "point_address": "0x0",
+      "mode": 2
+    },
+    {
+      "category": 5,
+      "root_pointer_address": "0x8008d5f4",
+      "category_record": "0x8008f7bc",
+      "variant_table": "0x8008f470",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f470",
+      "descriptor": "0x8008efb0",
+      "point_count": 20,
+      "point_address": "0x0",
+      "mode": 2
+    },
+    {
+      "category": 6,
+      "root_pointer_address": "0x8008d5f8",
+      "category_record": "0x8008f7c8",
+      "variant_table": "0x8008f4a0",
+      "variant_index": 0,
+      "filter_count": 1,
+      "descriptor_pointer_address": "0x8008f4a4",
+      "descriptor": "0x8008f020",
+      "point_count": 20,
+      "point_address": "0x0",
+      "mode": 2
+    },
+    {
+      "category": 7,
+      "root_pointer_address": "0x8008d5fc",
+      "category_record": "0x8008f798",
+      "variant_table": "0x8008f368",
+      "variant_index": 0,
+      "filter_count": 3,
+      "descriptor_pointer_address": "0x8008f374",
+      "descriptor": "0x8008f090",
+      "point_count": 29,
+      "point_address": "0x8008d9d0",
+      "mode": 1
+    },
+    {
+      "category": 8,
+      "root_pointer_address": "0x8008d600",
+      "category_record": "0x8008f7e0",
+      "variant_table": "0x8008f518",
+      "variant_index": 0,
+      "filter_count": 3,
+      "descriptor_pointer_address": "0x8008f524",
+      "descriptor": "0x8008f100",
+      "point_count": 51,
+      "point_address": "0x8008d690",
+      "mode": 1
+    },
+    {
+      "category": 9,
+      "root_pointer_address": "0x8008d604",
+      "category_record": "0x8008f7ec",
+      "variant_table": "0x8008f590",
+      "variant_index": 0,
+      "filter_count": 3,
+      "descriptor_pointer_address": "0x8008f59c",
+      "descriptor": "0x8008f138",
+      "point_count": 29,
+      "point_address": "0x8008d9d0",
+      "mode": 1
+    },
+    {
+      "category": 10,
+      "root_pointer_address": "0x8008d608",
+      "category_record": "0x8008f7f8",
+      "variant_table": "0x8008f608",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f608",
+      "descriptor": "0x8008f170",
+      "point_count": 57,
+      "point_address": "0x8008e020",
+      "mode": 1
+    },
+    {
+      "category": 11,
+      "root_pointer_address": "0x8008d60c",
+      "category_record": "0x8008f804",
+      "variant_table": "0x8008f638",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f638",
+      "descriptor": "0x8008f1a8",
+      "point_count": 14,
+      "point_address": "0x8008e3b0",
+      "mode": 1
+    },
+    {
+      "category": 12,
+      "root_pointer_address": "0x8008d610",
+      "category_record": "0x8008f810",
+      "variant_table": "0x8008f668",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f668",
+      "descriptor": "0x8008f1e0",
+      "point_count": 11,
+      "point_address": "0x8008e490",
+      "mode": 1
+    },
+    {
+      "category": 13,
+      "root_pointer_address": "0x8008d614",
+      "category_record": "0x8008f81c",
+      "variant_table": "0x8008f698",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f698",
+      "descriptor": "0x8008f218",
+      "point_count": 11,
+      "point_address": "0x8008e540",
+      "mode": 1
+    },
+    {
+      "category": 14,
+      "root_pointer_address": "0x8008d618",
+      "category_record": "0x8008f828",
+      "variant_table": "0x8008f6c8",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f6c8",
+      "descriptor": "0x8008f250",
+      "point_count": 72,
+      "point_address": "0x8008e5f0",
+      "mode": 1
+    },
+    {
+      "category": 15,
+      "root_pointer_address": "0x8008d61c",
+      "category_record": "0x8008f834",
+      "variant_table": "0x8008f6f8",
+      "variant_index": 0,
+      "filter_count": 0,
+      "descriptor_pointer_address": "0x8008f6f8",
+      "descriptor": "0x8008f288",
+      "point_count": 51,
+      "point_address": "0x8008e600",
+      "mode": 1
+    }
+  ],
+  "units": [
+    {
+      "name": "particle_points_8008D690",
+      "address": 2148062864,
+      "count": 51,
+      "bytes": 816,
+      "emitted_bytes": 816,
+      "payload_sha256": "3d24f20235e35dc44cdfa8566e4d81f8d3b29c2dd1d56869592b7f276546c9f9",
+      "path": {
+        "category": 1,
+        "root_pointer_address": "0x8008d5e4",
+        "category_record": "0x8008f78c",
+        "variant_table": "0x8008f2f0",
+        "variant_index": 0,
+        "filter_count": 3,
+        "descriptor_pointer_address": "0x8008f2fc",
+        "descriptor": "0x8008edf0",
+        "point_count": 51,
+        "point_address": "0x8008d690",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008D9D0",
+      "address": 2148063696,
+      "count": 29,
+      "bytes": 464,
+      "emitted_bytes": 464,
+      "payload_sha256": "728cf46634e472adbc89c37ff82cf597fcc387c8a15439186f238a6d98311950",
+      "path": {
+        "category": 7,
+        "root_pointer_address": "0x8008d5fc",
+        "category_record": "0x8008f798",
+        "variant_table": "0x8008f368",
+        "variant_index": 0,
+        "filter_count": 3,
+        "descriptor_pointer_address": "0x8008f374",
+        "descriptor": "0x8008f090",
+        "point_count": 29,
+        "point_address": "0x8008d9d0",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008DBA0",
+      "address": 2148064160,
+      "count": 72,
+      "bytes": 1152,
+      "emitted_bytes": 1152,
+      "payload_sha256": "27113581d6d8f143a0caf44609c71cd2e08ce73bcd32eb36032cb3e4c7bc5053",
+      "path": {
+        "category": 2,
+        "root_pointer_address": "0x8008d5e8",
+        "category_record": "0x8008f7a4",
+        "variant_table": "0x8008f3e0",
+        "variant_index": 0,
+        "filter_count": 1,
+        "descriptor_pointer_address": "0x8008f3e4",
+        "descriptor": "0x8008ee98",
+        "point_count": 72,
+        "point_address": "0x8008dba0",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008E020",
+      "address": 2148065312,
+      "count": 57,
+      "bytes": 912,
+      "emitted_bytes": 912,
+      "payload_sha256": "03a1af0122d3e4b7e80965547b7dc6db14591c1c507776bd70db7039d3049819",
+      "path": {
+        "category": 10,
+        "root_pointer_address": "0x8008d608",
+        "category_record": "0x8008f7f8",
+        "variant_table": "0x8008f608",
+        "variant_index": 0,
+        "filter_count": 0,
+        "descriptor_pointer_address": "0x8008f608",
+        "descriptor": "0x8008f170",
+        "point_count": 57,
+        "point_address": "0x8008e020",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008E3B0",
+      "address": 2148066224,
+      "count": 14,
+      "bytes": 224,
+      "emitted_bytes": 224,
+      "payload_sha256": "b942f661beb80a7d8147e7a392b83cbbad7f67f076e5372cbe0c50a0fd28bb32",
+      "path": {
+        "category": 11,
+        "root_pointer_address": "0x8008d60c",
+        "category_record": "0x8008f804",
+        "variant_table": "0x8008f638",
+        "variant_index": 0,
+        "filter_count": 0,
+        "descriptor_pointer_address": "0x8008f638",
+        "descriptor": "0x8008f1a8",
+        "point_count": 14,
+        "point_address": "0x8008e3b0",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008E490",
+      "address": 2148066448,
+      "count": 11,
+      "bytes": 176,
+      "emitted_bytes": 176,
+      "payload_sha256": "245c9f08c508bd02af45a41e9d26e0303417f36a4491953efc30796ef18bbdfd",
+      "path": {
+        "category": 12,
+        "root_pointer_address": "0x8008d610",
+        "category_record": "0x8008f810",
+        "variant_table": "0x8008f668",
+        "variant_index": 0,
+        "filter_count": 0,
+        "descriptor_pointer_address": "0x8008f668",
+        "descriptor": "0x8008f1e0",
+        "point_count": 11,
+        "point_address": "0x8008e490",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008E540",
+      "address": 2148066624,
+      "count": 11,
+      "bytes": 176,
+      "emitted_bytes": 176,
+      "payload_sha256": "781807f54b1c96aa3d53c16380a003cdc1e3a489290ab6c43b2ea1797df534c1",
+      "path": {
+        "category": 13,
+        "root_pointer_address": "0x8008d614",
+        "category_record": "0x8008f81c",
+        "variant_table": "0x8008f698",
+        "variant_index": 0,
+        "filter_count": 0,
+        "descriptor_pointer_address": "0x8008f698",
+        "descriptor": "0x8008f218",
+        "point_count": 11,
+        "point_address": "0x8008e540",
+        "mode": 1
+      }
+    },
+    {
+      "name": "particle_points_8008E600",
+      "address": 2148066816,
+      "count": 51,
+      "bytes": 816,
+      "emitted_bytes": 816,
+      "payload_sha256": "3d24f20235e35dc44cdfa8566e4d81f8d3b29c2dd1d56869592b7f276546c9f9",
+      "path": {
+        "category": 15,
+        "root_pointer_address": "0x8008d61c",
+        "category_record": "0x8008f834",
+        "variant_table": "0x8008f6f8",
+        "variant_index": 0,
+        "filter_count": 0,
+        "descriptor_pointer_address": "0x8008f6f8",
+        "descriptor": "0x8008f288",
+        "point_count": 51,
+        "point_address": "0x8008e600",
+        "mode": 1
+      }
+    }
+  ],
+  "bytes": 4736,
+  "layout": {
+    "stride": 16,
+    "position": {
+      "offset": 0,
+      "type": "Vec3f",
+      "bytes": 12
+    },
+    "joint": {
+      "offset": 12,
+      "type": "s16"
+    },
+    "implicit_padding": {
+      "offset": 14,
+      "bytes": 2,
+      "all_zero": true
+    }
+  },
+  "unresolved": [
+    {
+      "address": "0x8008d9c0",
+      "bytes": 16,
+      "reason": "52nd record not covered by native count 51"
+    },
+    {
+      "address": "0x8008e930",
+      "bytes": 16,
+      "reason": "52nd record not covered by native count 51"
+    },
+    {
+      "address": "0x8008e5f0",
+      "descriptor": {
+        "category": 14,
+        "root_pointer_address": "0x8008d618",
+        "category_record": "0x8008f828",
+        "variant_table": "0x8008f6c8",
+        "variant_index": 0,
+        "filter_count": 0,
+        "descriptor_pointer_address": "0x8008f6c8",
+        "descriptor": "0x8008f250",
+        "point_count": 72,
+        "point_address": "0x8008e5f0",
+        "mode": 1
+      },
+      "reason": "Count 72 overlaps the independent E600 points and the parameter records at E940. No original array extent or valid runtime path established; excluded pending investigation."
+    }
+  ],
+  "limits": "Native storage/consumer evidence, not a claim that every category/variant/point executes in a game session or that these are original C object boundaries. No six-row variant table extent is inferred from neighbouring labels.",
+  "omitted_gate_logs": [
+    "acceptance",
+    "asset_build",
+    "compiler_audit",
+    "mutation_audit",
+    "native_comparison",
+    "source_audit",
+    "tests"
+  ]
+}

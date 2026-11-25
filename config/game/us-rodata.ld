@@ -5,6 +5,717 @@
  */
 SECTIONS
 {
+    /* Weighted vector tables: us_weighted_vectors.md. */
+    .game_rodata_weighted_vectors_800A24B0 0x800A24B0 (INFO) : SUBALIGN(4)
+    {
+        *weighted_vectors_800A24B0.o(.data)
+    }
+    .game_rodata_weighted_vectors_800A2520 0x800A2520 (INFO) : SUBALIGN(4)
+    {
+        *weighted_vectors_800A2520.o(.data)
+    }
+    .game_rodata_weighted_vectors_800A2568 0x800A2568 (INFO) : SUBALIGN(4)
+    {
+        *weighted_vectors_800A2568.o(.data)
+    }
+    .game_rodata_weighted_vectors_800A25BC 0x800A25BC (INFO) : SUBALIGN(4)
+    {
+        *weighted_vectors_800A25BC.o(.data)
+    }
+    /* Native floating-point data and creation records: us_native_fp_control.md. */
+    .game_rodata_native_fp_control_8008CF00 0x8008CF00 (INFO) : SUBALIGN(4)
+    {
+        *native_fp_control_8008CF00.o(.data)
+    }
+    .game_rodata_native_fp_control_80095C64 0x80095C64 (INFO) : SUBALIGN(4)
+    {
+        *native_fp_control_80095C64.o(.data)
+    }
+    /* Native float data and bounded records: us_native_float_address_flow.md. */
+    .game_rodata_native_float_data_80088724 0x80088724 (INFO) : SUBALIGN(4)
+    {
+        *native_float_data_80088724.o(.data)
+    }
+    .game_rodata_native_float_data_800A49C0 0x800A49C0 (INFO) : SUBALIGN(4)
+    {
+        *native_float_data_800A49C0.o(.data)
+    }
+    .game_rodata_native_float_data_800A4A2C 0x800A4A2C (INFO) : SUBALIGN(4)
+    {
+        *native_float_data_800A4A2C.o(.data)
+    }
+    .game_rodata_weighted_record_800A2504 0x800A2504 (INFO) : SUBALIGN(4)
+    {
+        *weighted_record_800A2504.o(.data)
+    }
+    /* Native type-nine texture: us_two_frame_effect_data.md. */
+    .game_rodata_two_frame_effect_texture 0x8009060C (INFO) : SUBALIGN(4)
+    {
+        *two_frame_effect_texture.o(.data)
+    }
+    /* Native literal effect descriptors and callbacks: us_literal_effect_data.md. */
+    .game_rodata_effect_texture_callbacks 0x8008CB64 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_callbacks.o(.data)
+    }
+    .game_rodata_literal_effect_texture_800903B8 0x800903B8 (INFO) : SUBALIGN(4)
+    {
+        *literal_effect_texture_800903B8.o(.data)
+    }
+    .game_rodata_literal_effect_texture_800903E0 0x800903E0 (INFO) : SUBALIGN(4)
+    {
+        *literal_effect_texture_800903E0.o(.data)
+    }
+    .game_rodata_literal_effect_texture_80090558 0x80090558 (INFO) : SUBALIGN(4)
+    {
+        *literal_effect_texture_80090558.o(.data)
+    }
+    .game_rodata_literal_effect_texture_80091840 0x80091840 (INFO) : SUBALIGN(4)
+    {
+        *literal_effect_texture_80091840.o(.data)
+    }
+    /* Explicit glyph frame domains: us_glyph_texture_reconstruction.md. */
+    .game_rodata_glyph_texture_data 0x800915D8 (INFO) : SUBALIGN(4)
+    {
+        *glyph_texture_data.o(.data)
+    }
+    /* Native effect texture roots, descriptors and frames: us_effect_textures.md. */
+    .game_rodata_effect_texture_roots_8008CA4C 0x8008CA4C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_roots_8008CA4C.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090358 0x80090358 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090358.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090388 0x80090388 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090388.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800903C8 0x800903C8 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800903C8.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090420 0x80090420 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090420.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090480 0x80090480 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090480.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090494 0x80090494 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090494.o(.data)
+    }
+    .game_rodata_effect_texture_frames_800904A0 0x800904A0 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_800904A0.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800904B4 0x800904B4 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800904B4.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090538 0x80090538 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090538.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_8009053C 0x8009053C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_8009053C.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800905A8 0x800905A8 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800905A8.o(.data)
+    }
+    .game_rodata_effect_texture_frames_800905FC 0x800905FC (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_800905FC.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090600 0x80090600 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090600.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090620 0x80090620 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090620.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090634 0x80090634 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090634.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090640 0x80090640 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090640.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090660 0x80090660 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090660.o(.data)
+    }
+    .game_rodata_effect_texture_frames_8009069C 0x8009069C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_8009069C.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800906C4 0x800906C4 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800906C4.o(.data)
+    }
+    .game_rodata_effect_texture_frames_800906D0 0x800906D0 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_800906D0.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800906F8 0x800906F8 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800906F8.o(.data)
+    }
+    .game_rodata_effect_texture_frames_8009071C 0x8009071C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_8009071C.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80090730 0x80090730 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80090730.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_8009075C 0x8009075C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_8009075C.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090768 0x80090768 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090768.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_8009077C 0x8009077C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_8009077C.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090788 0x80090788 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090788.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_8009078C 0x8009078C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_8009078C.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800907EC 0x800907EC (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800907EC.o(.data)
+    }
+    .game_rodata_effect_texture_frames_800907F8 0x800907F8 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_800907F8.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_800907FC 0x800907FC (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_800907FC.o(.data)
+    }
+    .game_rodata_effect_texture_frames_80090808 0x80090808 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_frames_80090808.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_8009080C 0x8009080C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_8009080C.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_80091834 0x80091834 (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_80091834.o(.data)
+    }
+    .game_rodata_effect_texture_descriptors_8009184C 0x8009184C (INFO) : SUBALIGN(4)
+    {
+        *effect_texture_descriptors_8009184C.o(.data)
+    }
+    /* Native CPU texture frame storage: us_cpu_texture_frames.md. */
+    .game_rodata_cpu_texture_frames_800901F0 0x800901F0 (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_800901F0.o(.data)
+    }
+    .game_rodata_cpu_texture_frames_8009073C 0x8009073C (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_8009073C.o(.data)
+    }
+    .game_rodata_cpu_texture_frames_800907A4 0x800907A4 (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_800907A4.o(.data)
+    }
+    .game_rodata_cpu_texture_frames_80090818 0x80090818 (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_80090818.o(.data)
+    }
+    .game_rodata_cpu_texture_frames_80091520 0x80091520 (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_80091520.o(.data)
+    }
+    .game_rodata_cpu_texture_frames_800915BC 0x800915BC (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_800915BC.o(.data)
+    }
+    .game_rodata_cpu_texture_frames_800917E4 0x800917E4 (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_frames_800917E4.o(.data)
+    }
+    /* Native menu and CPU texture tables: us_menu_texture.md. */
+    .game_rodata_ui_digit_columns 0x8009006C (INFO) : SUBALIGN(4)
+    {
+        *ui_digit_columns.o(.data)
+    }
+    .game_rodata_menu_primary_resources 0x800900BC (INFO) : SUBALIGN(4)
+    {
+        *menu_primary_resources.o(.data)
+    }
+    .game_rodata_menu_secondary_resources 0x800900D8 (INFO) : SUBALIGN(4)
+    {
+        *menu_secondary_resources.o(.data)
+    }
+    .game_rodata_menu_rotating_resources 0x800900FC (INFO) : SUBALIGN(4)
+    {
+        *menu_rotating_resources.o(.data)
+    }
+    .game_rodata_cpu_texture_descriptors 0x80090B60 (INFO) : SUBALIGN(4)
+    {
+        *cpu_texture_descriptors.o(.data)
+    }
+    .game_rodata_model_extra_scales 0x800A18CC (INFO) : SUBALIGN(4)
+    {
+        *model_extra_scales.o(.data)
+    }
+    /* Native scene preload and UI tables: us_scene_ui.md. */
+    .game_rodata_scene_preload_roots 0x80082B20 (INFO) : SUBALIGN(4)
+    {
+        *scene_preload_roots.o(.data)
+    }
+    .game_rodata_ui_decimal_tables 0x80090074 (INFO) : SUBALIGN(4)
+    {
+        *ui_decimal_tables.o(.data)
+    }
+    .game_rodata_ui_model_graphics 0x80090110 (INFO) : SUBALIGN(4)
+    {
+        *ui_model_graphics.o(.data)
+    }
+    .game_rodata_scene_preload_lists 0x80090150 (INFO) : SUBALIGN(4)
+    {
+        *scene_preload_lists.o(.data)
+    }
+    /* Native model-effect selection: us_model_effect.md. */
+    .game_rodata_model_fragment_roots 0x80089A20 (INFO) : SUBALIGN(4)
+    {
+        *model_fragment_roots.o(.data)
+    }
+    .game_rodata_model_fragment_extra 0x800A18C0 (INFO) : SUBALIGN(4)
+    {
+        *model_fragment_extra.o(.data)
+    }
+    .game_rodata_model_effect_lookup 0x800A3880 (INFO) : SUBALIGN(4)
+    {
+        *model_effect_lookup.o(.data)
+    }
+    .game_rodata_model_fragment_scales 0x800A3C30 (INFO) : SUBALIGN(4)
+    {
+        *model_fragment_scales.o(.data)
+    }
+    .game_rodata_model_fragment_selectors 0x800A3C6C (INFO) : SUBALIGN(4)
+    {
+        *model_fragment_selectors.o(.data)
+    }
+    .game_rodata_model_fragment_counts 0x800A3F14 (INFO) : SUBALIGN(4)
+    {
+        *model_fragment_counts.o(.data)
+    }
+    .game_rodata_model_fragment_codes 0x800A3F64 (INFO) : SUBALIGN(4)
+    {
+        *model_fragment_codes.o(.data)
+    }
+    .game_rodata_model_effect_profiles 0x800A3FD8 (INFO) : SUBALIGN(4)
+    {
+        *model_effect_profiles.o(.data)
+    }
+    /* Native particle variant prefixes: us_particle_variants.md. */
+    .game_rodata_particle_variants_8008F2C0 0x8008F2C0 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F2C0.o(.data)
+    }
+    .game_rodata_particle_variants_8008F2F0 0x8008F2F0 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F2F0.o(.data)
+    }
+    .game_rodata_particle_variants_8008F368 0x8008F368 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F368.o(.data)
+    }
+    .game_rodata_particle_variants_8008F3E0 0x8008F3E0 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F3E0.o(.data)
+    }
+    .game_rodata_particle_variants_8008F428 0x8008F428 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F428.o(.data)
+    }
+    .game_rodata_particle_variants_8008F470 0x8008F470 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F470.o(.data)
+    }
+    .game_rodata_particle_variants_8008F4A0 0x8008F4A0 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F4A0.o(.data)
+    }
+    .game_rodata_particle_variants_8008F4E8 0x8008F4E8 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F4E8.o(.data)
+    }
+    .game_rodata_particle_variants_8008F518 0x8008F518 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F518.o(.data)
+    }
+    .game_rodata_particle_variants_8008F590 0x8008F590 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F590.o(.data)
+    }
+    .game_rodata_particle_variants_8008F608 0x8008F608 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F608.o(.data)
+    }
+    .game_rodata_particle_variants_8008F638 0x8008F638 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F638.o(.data)
+    }
+    .game_rodata_particle_variants_8008F668 0x8008F668 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F668.o(.data)
+    }
+    .game_rodata_particle_variants_8008F698 0x8008F698 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F698.o(.data)
+    }
+    .game_rodata_particle_variants_8008F6C8 0x8008F6C8 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F6C8.o(.data)
+    }
+    .game_rodata_particle_variants_8008F6F8 0x8008F6F8 (INFO) : SUBALIGN(4)
+    {
+        *particle_variants_8008F6F8.o(.data)
+    }
+    /* Native particle configuration and selection: us_particle_settings.md. */
+    .game_rodata_particle_category_roots 0x8008D5E0 (INFO) : SUBALIGN(4)
+    {
+        *particle_category_roots.o(.data)
+    }
+    .game_rodata_particle_point_8008E5F0 0x8008E5F0 (INFO) : SUBALIGN(4)
+    {
+        *particle_point_8008E5F0.o(.data)
+    }
+    .game_rodata_particle_parameters 0x8008E940 (INFO) : SUBALIGN(4)
+    {
+        *particle_parameters.o(.data)
+    }
+    .game_rodata_particle_descriptors 0x8008ED80 (INFO) : SUBALIGN(4)
+    {
+        *particle_descriptors.o(.data)
+    }
+    .game_rodata_particle_filter_lists 0x8008F728 (INFO) : SUBALIGN(4)
+    {
+        *particle_filter_lists.o(.data)
+    }
+    .game_rodata_particle_categories 0x8008F780 (INFO) : SUBALIGN(4)
+    {
+        *particle_categories.o(.data)
+    }
+    /* Native particle coordinate prefixes: us_particle_points.md. */
+    .game_rodata_particle_points_8008D690 0x8008D690 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008D690.o(.data)
+    }
+    .game_rodata_particle_points_8008D9D0 0x8008D9D0 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008D9D0.o(.data)
+    }
+    .game_rodata_particle_points_8008DBA0 0x8008DBA0 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008DBA0.o(.data)
+    }
+    .game_rodata_particle_points_8008E020 0x8008E020 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008E020.o(.data)
+    }
+    .game_rodata_particle_points_8008E3B0 0x8008E3B0 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008E3B0.o(.data)
+    }
+    .game_rodata_particle_points_8008E490 0x8008E490 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008E490.o(.data)
+    }
+    .game_rodata_particle_points_8008E540 0x8008E540 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008E540.o(.data)
+    }
+    .game_rodata_particle_points_8008E600 0x8008E600 (INFO) : SUBALIGN(4)
+    {
+        *particle_points_8008E600.o(.data)
+    }
+    /* Native drawing commands and model defaults: us_model_draw_data.md. */
+    .game_rodata_direct_graphics_80084160 0x80084160 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_80084160.o(.data)
+    }
+    .game_rodata_direct_graphics_80084190 0x80084190 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_80084190.o(.data)
+    }
+    .game_rodata_direct_graphics_80084350 0x80084350 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_80084350.o(.data)
+    }
+    .game_rodata_direct_graphics_800859A0 0x800859A0 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_800859A0.o(.data)
+    }
+    .game_rodata_direct_graphics_80086B80 0x80086B80 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_80086B80.o(.data)
+    }
+    .game_rodata_direct_graphics_80087390 0x80087390 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_80087390.o(.data)
+    }
+    .game_rodata_direct_graphics_8008CFA0 0x8008CFA0 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_8008CFA0.o(.data)
+    }
+    .game_rodata_direct_graphics_8008D018 0x8008D018 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_8008D018.o(.data)
+    }
+    .game_rodata_direct_graphics_8008D448 0x8008D448 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_8008D448.o(.data)
+    }
+    .game_rodata_direct_graphics_80090028 0x80090028 (INFO) : SUBALIGN(4)
+    {
+        *direct_graphics_80090028.o(.data)
+    }
+    .game_rodata_model_defaults 0x800A26C0 (INFO) : SUBALIGN(4)
+    {
+        *model_defaults.o(.data)
+    }
+    /* Native segment-8 rendering records: us_render_state_tables.md. */
+    .game_rodata_render_state_80082FC0 0x80082FC0 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80082FC0.o(.data)
+    }
+    .game_rodata_render_state_80083140 0x80083140 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083140.o(.data)
+    }
+    .game_rodata_render_state_800832C0 0x800832C0 (INFO) : SUBALIGN(4)
+    {
+        *render_state_800832C0.o(.data)
+    }
+    .game_rodata_render_state_80083440 0x80083440 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083440.o(.data)
+    }
+    .game_rodata_render_state_800835C0 0x800835C0 (INFO) : SUBALIGN(4)
+    {
+        *render_state_800835C0.o(.data)
+    }
+    .game_rodata_render_state_80083740 0x80083740 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083740.o(.data)
+    }
+    .game_rodata_render_state_800838C0 0x800838C0 (INFO) : SUBALIGN(4)
+    {
+        *render_state_800838C0.o(.data)
+    }
+    .game_rodata_render_state_80083A40 0x80083A40 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083A40.o(.data)
+    }
+    .game_rodata_render_state_80083BC0 0x80083BC0 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083BC0.o(.data)
+    }
+    .game_rodata_render_state_80083D40 0x80083D40 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083D40.o(.data)
+    }
+    .game_rodata_render_state_80083EC0 0x80083EC0 (INFO) : SUBALIGN(4)
+    {
+        *render_state_80083EC0.o(.data)
+    }
+    /* Native effect graphics: docs/evidence/data-layout/us_effect_graphics.md. */
+    .game_rodata_effect_graphics_800873D0 0x800873D0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_800873D0.o(.data)
+    }
+    .game_rodata_effect_graphics_80088768 0x80088768 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80088768.o(.data)
+    }
+    .game_rodata_effect_graphics_80088828 0x80088828 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80088828.o(.data)
+    }
+    .game_rodata_effect_graphics_800889E0 0x800889E0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_800889E0.o(.data)
+    }
+    .game_rodata_effect_graphics_80088BE0 0x80088BE0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80088BE0.o(.data)
+    }
+    .game_rodata_effect_graphics_800890C0 0x800890C0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_800890C0.o(.data)
+    }
+    .game_rodata_effect_graphics_80089470 0x80089470 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80089470.o(.data)
+    }
+    .game_rodata_effect_graphics_80089700 0x80089700 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80089700.o(.data)
+    }
+    .game_rodata_effect_graphics_80089BC0 0x80089BC0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80089BC0.o(.data)
+    }
+    .game_rodata_effect_graphics_80089EB8 0x80089EB8 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_80089EB8.o(.data)
+    }
+    .game_rodata_effect_graphics_8008A1D0 0x8008A1D0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008A1D0.o(.data)
+    }
+    .game_rodata_effect_graphics_8008A470 0x8008A470 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008A470.o(.data)
+    }
+    .game_rodata_effect_graphics_8008AC70 0x8008AC70 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008AC70.o(.data)
+    }
+    .game_rodata_effect_graphics_8008AD30 0x8008AD30 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008AD30.o(.data)
+    }
+    .game_rodata_effect_graphics_8008AD60 0x8008AD60 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008AD60.o(.data)
+    }
+    .game_rodata_effect_graphics_8008ADD0 0x8008ADD0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008ADD0.o(.data)
+    }
+    .game_rodata_effect_graphics_8008AE60 0x8008AE60 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008AE60.o(.data)
+    }
+    .game_rodata_effect_graphics_8008AF38 0x8008AF38 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008AF38.o(.data)
+    }
+    .game_rodata_effect_graphics_8008B050 0x8008B050 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008B050.o(.data)
+    }
+    .game_rodata_effect_graphics_8008B3A0 0x8008B3A0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008B3A0.o(.data)
+    }
+    .game_rodata_effect_graphics_8008B3E0 0x8008B3E0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008B3E0.o(.data)
+    }
+    .game_rodata_effect_graphics_8008B480 0x8008B480 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008B480.o(.data)
+    }
+    .game_rodata_effect_graphics_8008CB70 0x8008CB70 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008CB70.o(.data)
+    }
+    .game_rodata_effect_graphics_8008CC30 0x8008CC30 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008CC30.o(.data)
+    }
+    .game_rodata_effect_graphics_8008CD90 0x8008CD90 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008CD90.o(.data)
+    }
+    .game_rodata_effect_graphics_8008D4F0 0x8008D4F0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008D4F0.o(.data)
+    }
+    .game_rodata_effect_graphics_8008D5B0 0x8008D5B0 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008D5B0.o(.data)
+    }
+    .game_rodata_effect_graphics_8008F910 0x8008F910 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008F910.o(.data)
+    }
+    .game_rodata_effect_graphics_8008FB18 0x8008FB18 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_8008FB18.o(.data)
+    }
+    .game_rodata_effect_graphics_800A6080 0x800A6080 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_800A6080.o(.data)
+    }
+    .game_rodata_effect_graphics_800A6170 0x800A6170 (INFO) : SUBALIGN(4)
+    {
+        *effect_graphics_800A6170.o(.data)
+    }
+    /* Native effect-type records: docs/evidence/data-layout/us_effect_types.md. */
+    .game_rodata_effect_types 0x8008B4A8 (INFO) : SUBALIGN(4)
+    {
+        *effect_types.o(.data)
+    }
+    /* Native byte-opcode dispatch: us_command_handlers.md. */
+    .game_rodata_command_handlers 0x800844B0 (INFO) : SUBALIGN(4)
+    {
+        *command_handlers.o(.data)
+    }
+    /* Native inline font: docs/evidence/data-layout/us_inline_font.md. */
+    .game_rodata_inline_font_characters 0x800848D0 (INFO) : SUBALIGN(4)
+    {
+        *inline_font_characters.o(.rodata)
+    }
+    .game_rodata_inline_font 0x80084930 (INFO) : SUBALIGN(4)
+    {
+        *inline_font.o(.rodata)
+    }
+    /* Heterogeneous resource callbacks: us_resource_handlers.md. */
+    .game_rodata_resource_handlers 0x80088420 (INFO) : SUBALIGN(4)
+    {
+        *resource_handlers.o(.data)
+    }
+    /* Resource metadata: docs/evidence/data-layout/us_resource_descriptors.md. */
+    .game_rodata_resource_descriptors 0x80087430 (INFO) : SUBALIGN(4)
+    {
+        *resource_descriptors.o(.data)
+    }
+    .game_rodata_resource_dependencies_0 0x8009E470 (INFO) : SUBALIGN(4)
+    {
+        *resource_dependencies_0.o(.rodata)
+    }
+    .game_rodata_resource_dependencies_1 0x8009E5F4 (INFO) : SUBALIGN(4)
+    {
+        *resource_dependencies_1.o(.rodata)
+    }
+    .game_rodata_resource_dependencies_2 0x8009E618 (INFO) : SUBALIGN(4)
+    {
+        *resource_dependencies_2.o(.rodata)
+    }
+    .game_rodata_resource_names 0x8009E834 (INFO) : SUBALIGN(4)
+    {
+        *resource_names.o(.rodata)
+    }
+    /* Shared loader metadata: docs/evidence/data-layout/us_flat_asset_sizes.md. */
+    .game_rodata_flat_asset_sizes 0x80091D20 (INFO) : SUBALIGN(4)
+    {
+        *flat_asset_sizes.o(.rodata)
+    }
     /* ROM-backed scalar literals: docs/evidence/data-layout/game_second_batch_literals.md. */
     .game_rodata_camera_camera 0x800A352C (INFO) : SUBALIGN(4)
     {
@@ -651,6 +1362,14 @@ SECTIONS
     .game_rodata_39750 0x800960F0 (INFO) : SUBALIGN(4) { *game_39750.o(.rodata) }
     /* Sixteen ROM-proven entries: docs/evidence/data-layout/game_3ba70_jump_table.md. */
     .game_rodata_3ba70 0x800961D0 (INFO) : SUBALIGN(4) { *game_3BA70.o(.rodata) }
+    .game_rodata_quarter_wave_8009A220 0x8009A220 (INFO) : SUBALIGN(4)
+    {
+        *quarter_wave_8009A220.o(.data)
+    }
+    .game_rodata_inverse_angle_80098E00 0x80098E00 (INFO) : SUBALIGN(4)
+    {
+        *inverse_angle_80098E00.o(.data)
+    }
     /* ROM-verified constants: docs/evidence/data-layout/game_3c740_float_constants.md. */
     .game_rodata_3c740 0x80096250 (INFO) : SUBALIGN(4) { *game_3C740.o(.rodata) }
     /* Ten ROM-proven entries: docs/evidence/data-layout/game_20bda0_jump_table.md. */
@@ -1317,3 +2036,377 @@ __game_rodata_1e9820_payload_size = 0x14;
 
 ASSERT(SIZEOF(.game_rodata_light) == 0xC0, "light switch table extent changed")
 __game_rodata_light_payload_size = 0xBC;
+
+ASSERT(SIZEOF(.game_rodata_flat_asset_sizes) == 0x3CB0, "flat asset size table extent changed")
+__game_rodata_flat_asset_sizes_payload_size = 0x3CA4;
+
+ASSERT(SIZEOF(.game_rodata_resource_descriptors) == 0xFF0, "resource_descriptors extent changed")
+__game_rodata_resource_descriptors_payload_size = 0xFF0;
+ASSERT(SIZEOF(.game_rodata_resource_dependencies_0) == 0x180, "resource_dependencies_0 extent changed")
+__game_rodata_resource_dependencies_0_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_resource_dependencies_1) == 0x20, "resource_dependencies_1 extent changed")
+__game_rodata_resource_dependencies_1_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_resource_dependencies_2) == 0x220, "resource_dependencies_2 extent changed")
+__game_rodata_resource_dependencies_2_payload_size = 0x21C;
+ASSERT(SIZEOF(.game_rodata_resource_names) == 0x890, "resource_names extent changed")
+__game_rodata_resource_names_payload_size = 0x890;
+
+ASSERT(SIZEOF(.game_rodata_resource_handlers) == 0xF0, "resource handler table extent changed")
+__game_rodata_resource_handlers_payload_size = 0xF0;
+
+ASSERT(SIZEOF(.game_rodata_inline_font_characters) == 0x50, "inline font character count changed")
+__game_rodata_inline_font_characters_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_inline_font) == 0x1000, "inline font texture extent changed")
+__game_rodata_inline_font_payload_size = 0x1000;
+
+ASSERT(SIZEOF(.game_rodata_command_handlers) == 0x400, "command handler table extent changed")
+__game_rodata_command_handlers_payload_size = 0x400;
+
+ASSERT(SIZEOF(.game_rodata_effect_types) == 0x1520, "effect-type record extent changed")
+__game_rodata_effect_types_payload_size = 0x1520;
+
+ASSERT(SIZEOF(.game_rodata_effect_graphics_800873D0) == 0x40, "effect_graphics_800873D0 extent changed")
+__game_rodata_effect_graphics_800873D0_payload_size = 0x40;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80088768) == 0x50, "effect_graphics_80088768 extent changed")
+__game_rodata_effect_graphics_80088768_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80088828) == 0x30, "effect_graphics_80088828 extent changed")
+__game_rodata_effect_graphics_80088828_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_800889E0) == 0x20, "effect_graphics_800889E0 extent changed")
+__game_rodata_effect_graphics_800889E0_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80088BE0) == 0x30, "effect_graphics_80088BE0 extent changed")
+__game_rodata_effect_graphics_80088BE0_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_800890C0) == 0x60, "effect_graphics_800890C0 extent changed")
+__game_rodata_effect_graphics_800890C0_payload_size = 0x60;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80089470) == 0x40, "effect_graphics_80089470 extent changed")
+__game_rodata_effect_graphics_80089470_payload_size = 0x40;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80089700) == 0x60, "effect_graphics_80089700 extent changed")
+__game_rodata_effect_graphics_80089700_payload_size = 0x60;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80089BC0) == 0x60, "effect_graphics_80089BC0 extent changed")
+__game_rodata_effect_graphics_80089BC0_payload_size = 0x58;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_80089EB8) == 0x30, "effect_graphics_80089EB8 extent changed")
+__game_rodata_effect_graphics_80089EB8_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008A1D0) == 0x30, "effect_graphics_8008A1D0 extent changed")
+__game_rodata_effect_graphics_8008A1D0_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008A470) == 0x50, "effect_graphics_8008A470 extent changed")
+__game_rodata_effect_graphics_8008A470_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008AC70) == 0x60, "effect_graphics_8008AC70 extent changed")
+__game_rodata_effect_graphics_8008AC70_payload_size = 0x58;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008AD30) == 0x30, "effect_graphics_8008AD30 extent changed")
+__game_rodata_effect_graphics_8008AD30_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008AD60) == 0x30, "effect_graphics_8008AD60 extent changed")
+__game_rodata_effect_graphics_8008AD60_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008ADD0) == 0x30, "effect_graphics_8008ADD0 extent changed")
+__game_rodata_effect_graphics_8008ADD0_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008AE60) == 0x80, "effect_graphics_8008AE60 extent changed")
+__game_rodata_effect_graphics_8008AE60_payload_size = 0x80;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008AF38) == 0x90, "effect_graphics_8008AF38 extent changed")
+__game_rodata_effect_graphics_8008AF38_payload_size = 0x90;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008B050) == 0x30, "effect_graphics_8008B050 extent changed")
+__game_rodata_effect_graphics_8008B050_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008B3A0) == 0x40, "effect_graphics_8008B3A0 extent changed")
+__game_rodata_effect_graphics_8008B3A0_payload_size = 0x38;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008B3E0) == 0xA0, "effect_graphics_8008B3E0 extent changed")
+__game_rodata_effect_graphics_8008B3E0_payload_size = 0x98;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008B480) == 0x30, "effect_graphics_8008B480 extent changed")
+__game_rodata_effect_graphics_8008B480_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008CB70) == 0x30, "effect_graphics_8008CB70 extent changed")
+__game_rodata_effect_graphics_8008CB70_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008CC30) == 0x40, "effect_graphics_8008CC30 extent changed")
+__game_rodata_effect_graphics_8008CC30_payload_size = 0x40;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008CD90) == 0x120, "effect_graphics_8008CD90 extent changed")
+__game_rodata_effect_graphics_8008CD90_payload_size = 0x118;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008D4F0) == 0x90, "effect_graphics_8008D4F0 extent changed")
+__game_rodata_effect_graphics_8008D4F0_payload_size = 0x88;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008D5B0) == 0x10, "effect_graphics_8008D5B0 extent changed")
+__game_rodata_effect_graphics_8008D5B0_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008F910) == 0x30, "effect_graphics_8008F910 extent changed")
+__game_rodata_effect_graphics_8008F910_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_8008FB18) == 0x50, "effect_graphics_8008FB18 extent changed")
+__game_rodata_effect_graphics_8008FB18_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_800A6080) == 0x90, "effect_graphics_800A6080 extent changed")
+__game_rodata_effect_graphics_800A6080_payload_size = 0x90;
+ASSERT(SIZEOF(.game_rodata_effect_graphics_800A6170) == 0x90, "effect_graphics_800A6170 extent changed")
+__game_rodata_effect_graphics_800A6170_payload_size = 0x90;
+
+ASSERT(SIZEOF(.game_rodata_render_state_80082FC0) == 0x180, "render_state_80082FC0 extent changed")
+__game_rodata_render_state_80082FC0_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083140) == 0x180, "render_state_80083140 extent changed")
+__game_rodata_render_state_80083140_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_800832C0) == 0x180, "render_state_800832C0 extent changed")
+__game_rodata_render_state_800832C0_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083440) == 0x180, "render_state_80083440 extent changed")
+__game_rodata_render_state_80083440_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_800835C0) == 0x180, "render_state_800835C0 extent changed")
+__game_rodata_render_state_800835C0_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083740) == 0x180, "render_state_80083740 extent changed")
+__game_rodata_render_state_80083740_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_800838C0) == 0x180, "render_state_800838C0 extent changed")
+__game_rodata_render_state_800838C0_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083A40) == 0x180, "render_state_80083A40 extent changed")
+__game_rodata_render_state_80083A40_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083BC0) == 0x180, "render_state_80083BC0 extent changed")
+__game_rodata_render_state_80083BC0_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083D40) == 0x180, "render_state_80083D40 extent changed")
+__game_rodata_render_state_80083D40_payload_size = 0x180;
+ASSERT(SIZEOF(.game_rodata_render_state_80083EC0) == 0x180, "render_state_80083EC0 extent changed")
+__game_rodata_render_state_80083EC0_payload_size = 0x180;
+
+ASSERT(SIZEOF(.game_rodata_direct_graphics_80084160) == 0x30, "direct_graphics_80084160 extent changed")
+__game_rodata_direct_graphics_80084160_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_80084190) == 0x30, "direct_graphics_80084190 extent changed")
+__game_rodata_direct_graphics_80084190_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_80084350) == 0x30, "direct_graphics_80084350 extent changed")
+__game_rodata_direct_graphics_80084350_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_800859A0) == 0x30, "direct_graphics_800859A0 extent changed")
+__game_rodata_direct_graphics_800859A0_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_80086B80) == 0x20, "direct_graphics_80086B80 extent changed")
+__game_rodata_direct_graphics_80086B80_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_80087390) == 0x20, "direct_graphics_80087390 extent changed")
+__game_rodata_direct_graphics_80087390_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_8008CFA0) == 0x50, "direct_graphics_8008CFA0 extent changed")
+__game_rodata_direct_graphics_8008CFA0_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_8008D018) == 0x40, "direct_graphics_8008D018 extent changed")
+__game_rodata_direct_graphics_8008D018_payload_size = 0x38;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_8008D448) == 0x50, "direct_graphics_8008D448 extent changed")
+__game_rodata_direct_graphics_8008D448_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_direct_graphics_80090028) == 0x30, "direct_graphics_80090028 extent changed")
+__game_rodata_direct_graphics_80090028_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_model_defaults) == 0x560, "model_defaults extent changed")
+__game_rodata_model_defaults_payload_size = 0x558;
+
+ASSERT(SIZEOF(.game_rodata_particle_points_8008D690) == 0x340, "particle_points_8008D690 extent changed")
+__game_rodata_particle_points_8008D690_payload_size = 0x340;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008D9D0) == 0x1D0, "particle_points_8008D9D0 extent changed")
+__game_rodata_particle_points_8008D9D0_payload_size = 0x1D0;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008DBA0) == 0x480, "particle_points_8008DBA0 extent changed")
+__game_rodata_particle_points_8008DBA0_payload_size = 0x480;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008E020) == 0x390, "particle_points_8008E020 extent changed")
+__game_rodata_particle_points_8008E020_payload_size = 0x390;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008E3B0) == 0xE0, "particle_points_8008E3B0 extent changed")
+__game_rodata_particle_points_8008E3B0_payload_size = 0xE0;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008E490) == 0xB0, "particle_points_8008E490 extent changed")
+__game_rodata_particle_points_8008E490_payload_size = 0xB0;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008E540) == 0xB0, "particle_points_8008E540 extent changed")
+__game_rodata_particle_points_8008E540_payload_size = 0xB0;
+ASSERT(SIZEOF(.game_rodata_particle_points_8008E600) == 0x340, "particle_points_8008E600 extent changed")
+__game_rodata_particle_points_8008E600_payload_size = 0x340;
+
+ASSERT(SIZEOF(.game_rodata_particle_category_roots) == 0x40, "particle_category_roots extent changed")
+__game_rodata_particle_category_roots_payload_size = 0x40;
+ASSERT(SIZEOF(.game_rodata_particle_point_8008E5F0) == 0x10, "particle_point_8008E5F0 extent changed")
+__game_rodata_particle_point_8008E5F0_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_particle_parameters) == 0x440, "particle_parameters extent changed")
+__game_rodata_particle_parameters_payload_size = 0x440;
+ASSERT(SIZEOF(.game_rodata_particle_descriptors) == 0x540, "particle_descriptors extent changed")
+__game_rodata_particle_descriptors_payload_size = 0x540;
+ASSERT(SIZEOF(.game_rodata_particle_filter_lists) == 0x60, "particle_filter_lists extent changed")
+__game_rodata_particle_filter_lists_payload_size = 0x58;
+ASSERT(SIZEOF(.game_rodata_particle_categories) == 0xC0, "particle_categories extent changed")
+__game_rodata_particle_categories_payload_size = 0xC0;
+
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F2C0) == 0x30, "particle_variants_8008F2C0 extent changed")
+__game_rodata_particle_variants_8008F2C0_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F2F0) == 0x80, "particle_variants_8008F2F0 extent changed")
+__game_rodata_particle_variants_8008F2F0_payload_size = 0x78;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F368) == 0x80, "particle_variants_8008F368 extent changed")
+__game_rodata_particle_variants_8008F368_payload_size = 0x78;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F3E0) == 0x50, "particle_variants_8008F3E0 extent changed")
+__game_rodata_particle_variants_8008F3E0_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F428) == 0x50, "particle_variants_8008F428 extent changed")
+__game_rodata_particle_variants_8008F428_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F470) == 0x30, "particle_variants_8008F470 extent changed")
+__game_rodata_particle_variants_8008F470_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F4A0) == 0x50, "particle_variants_8008F4A0 extent changed")
+__game_rodata_particle_variants_8008F4A0_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F4E8) == 0x30, "particle_variants_8008F4E8 extent changed")
+__game_rodata_particle_variants_8008F4E8_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F518) == 0x80, "particle_variants_8008F518 extent changed")
+__game_rodata_particle_variants_8008F518_payload_size = 0x78;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F590) == 0x80, "particle_variants_8008F590 extent changed")
+__game_rodata_particle_variants_8008F590_payload_size = 0x78;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F608) == 0x30, "particle_variants_8008F608 extent changed")
+__game_rodata_particle_variants_8008F608_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F638) == 0x30, "particle_variants_8008F638 extent changed")
+__game_rodata_particle_variants_8008F638_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F668) == 0x30, "particle_variants_8008F668 extent changed")
+__game_rodata_particle_variants_8008F668_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F698) == 0x30, "particle_variants_8008F698 extent changed")
+__game_rodata_particle_variants_8008F698_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F6C8) == 0x30, "particle_variants_8008F6C8 extent changed")
+__game_rodata_particle_variants_8008F6C8_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_particle_variants_8008F6F8) == 0x30, "particle_variants_8008F6F8 extent changed")
+__game_rodata_particle_variants_8008F6F8_payload_size = 0x30;
+
+ASSERT(SIZEOF(.game_rodata_model_fragment_roots) == 0x50, "model_fragment_roots extent changed")
+__game_rodata_model_fragment_roots_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_model_fragment_extra) == 0x10, "model_fragment_extra extent changed")
+__game_rodata_model_fragment_extra_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_model_effect_lookup) == 0x3B0, "model_effect_lookup extent changed")
+__game_rodata_model_effect_lookup_payload_size = 0x3A4;
+ASSERT(SIZEOF(.game_rodata_model_fragment_scales) == 0x40, "model_fragment_scales extent changed")
+__game_rodata_model_fragment_scales_payload_size = 0x3C;
+ASSERT(SIZEOF(.game_rodata_model_fragment_selectors) == 0x2B0, "model_fragment_selectors extent changed")
+__game_rodata_model_fragment_selectors_payload_size = 0x2A8;
+ASSERT(SIZEOF(.game_rodata_model_fragment_counts) == 0x50, "model_fragment_counts extent changed")
+__game_rodata_model_fragment_counts_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_model_fragment_codes) == 0x50, "model_fragment_codes extent changed")
+__game_rodata_model_fragment_codes_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_model_effect_profiles) == 0x140, "model_effect_profiles extent changed")
+__game_rodata_model_effect_profiles_payload_size = 0x140;
+
+ASSERT(SIZEOF(.game_rodata_scene_preload_roots) == 0x20, "scene_preload_roots extent changed")
+__game_rodata_scene_preload_roots_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_ui_decimal_tables) == 0x50, "ui_decimal_tables extent changed")
+__game_rodata_ui_decimal_tables_payload_size = 0x44;
+ASSERT(SIZEOF(.game_rodata_ui_model_graphics) == 0x30, "ui_model_graphics extent changed")
+__game_rodata_ui_model_graphics_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_scene_preload_lists) == 0xA0, "scene_preload_lists extent changed")
+__game_rodata_scene_preload_lists_payload_size = 0xA0;
+
+ASSERT(SIZEOF(.game_rodata_ui_digit_columns) == 0x10, "ui_digit_columns extent changed")
+__game_rodata_ui_digit_columns_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_menu_primary_resources) == 0x20, "menu_primary_resources extent changed")
+__game_rodata_menu_primary_resources_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_menu_secondary_resources) == 0x20, "menu_secondary_resources extent changed")
+__game_rodata_menu_secondary_resources_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_menu_rotating_resources) == 0x20, "menu_rotating_resources extent changed")
+__game_rodata_menu_rotating_resources_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_descriptors) == 0x9C0, "cpu_texture_descriptors extent changed")
+__game_rodata_cpu_texture_descriptors_payload_size = 0x9B4;
+ASSERT(SIZEOF(.game_rodata_model_extra_scales) == 0x10, "model_extra_scales extent changed")
+__game_rodata_model_extra_scales_payload_size = 0xC;
+
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_800901F0) == 0x20, "cpu_texture_frames_800901F0 extent changed")
+__game_rodata_cpu_texture_frames_800901F0_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_8009073C) == 0x20, "cpu_texture_frames_8009073C extent changed")
+__game_rodata_cpu_texture_frames_8009073C_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_800907A4) == 0x10, "cpu_texture_frames_800907A4 extent changed")
+__game_rodata_cpu_texture_frames_800907A4_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_80090818) == 0x350, "cpu_texture_frames_80090818 extent changed")
+__game_rodata_cpu_texture_frames_80090818_payload_size = 0x348;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_80091520) == 0x50, "cpu_texture_frames_80091520 extent changed")
+__game_rodata_cpu_texture_frames_80091520_payload_size = 0x44;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_800915BC) == 0x20, "cpu_texture_frames_800915BC extent changed")
+__game_rodata_cpu_texture_frames_800915BC_payload_size = 0x1C;
+ASSERT(SIZEOF(.game_rodata_cpu_texture_frames_800917E4) == 0x10, "cpu_texture_frames_800917E4 extent changed")
+__game_rodata_cpu_texture_frames_800917E4_payload_size = 0x8;
+
+ASSERT(SIZEOF(.game_rodata_effect_texture_roots_8008CA4C) == 0x120, "effect_texture_roots_8008CA4C extent changed")
+__game_rodata_effect_texture_roots_8008CA4C_payload_size = 0x118;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090358) == 0x30, "effect_texture_frames_80090358 extent changed")
+__game_rodata_effect_texture_frames_80090358_payload_size = 0x30;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090388) == 0x10, "effect_texture_descriptors_80090388 extent changed")
+__game_rodata_effect_texture_descriptors_80090388_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800903C8) == 0x20, "effect_texture_descriptors_800903C8 extent changed")
+__game_rodata_effect_texture_descriptors_800903C8_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090420) == 0x60, "effect_texture_descriptors_80090420 extent changed")
+__game_rodata_effect_texture_descriptors_80090420_payload_size = 0x60;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090480) == 0x20, "effect_texture_frames_80090480 extent changed")
+__game_rodata_effect_texture_frames_80090480_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090494) == 0x10, "effect_texture_descriptors_80090494 extent changed")
+__game_rodata_effect_texture_descriptors_80090494_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_800904A0) == 0x20, "effect_texture_frames_800904A0 extent changed")
+__game_rodata_effect_texture_frames_800904A0_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800904B4) == 0x90, "effect_texture_descriptors_800904B4 extent changed")
+__game_rodata_effect_texture_descriptors_800904B4_payload_size = 0x84;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090538) == 0x10, "effect_texture_frames_80090538 extent changed")
+__game_rodata_effect_texture_frames_80090538_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_8009053C) == 0x10, "effect_texture_descriptors_8009053C extent changed")
+__game_rodata_effect_texture_descriptors_8009053C_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800905A8) == 0x60, "effect_texture_descriptors_800905A8 extent changed")
+__game_rodata_effect_texture_descriptors_800905A8_payload_size = 0x54;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_800905FC) == 0x10, "effect_texture_frames_800905FC extent changed")
+__game_rodata_effect_texture_frames_800905FC_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090600) == 0x10, "effect_texture_descriptors_80090600 extent changed")
+__game_rodata_effect_texture_descriptors_80090600_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090620) == 0x20, "effect_texture_frames_80090620 extent changed")
+__game_rodata_effect_texture_frames_80090620_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090634) == 0x10, "effect_texture_descriptors_80090634 extent changed")
+__game_rodata_effect_texture_descriptors_80090634_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090640) == 0x20, "effect_texture_frames_80090640 extent changed")
+__game_rodata_effect_texture_frames_80090640_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090660) == 0x40, "effect_texture_descriptors_80090660 extent changed")
+__game_rodata_effect_texture_descriptors_80090660_payload_size = 0x3C;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_8009069C) == 0x30, "effect_texture_frames_8009069C extent changed")
+__game_rodata_effect_texture_frames_8009069C_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800906C4) == 0x10, "effect_texture_descriptors_800906C4 extent changed")
+__game_rodata_effect_texture_descriptors_800906C4_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_800906D0) == 0x30, "effect_texture_frames_800906D0 extent changed")
+__game_rodata_effect_texture_frames_800906D0_payload_size = 0x28;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800906F8) == 0x30, "effect_texture_descriptors_800906F8 extent changed")
+__game_rodata_effect_texture_descriptors_800906F8_payload_size = 0x24;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_8009071C) == 0x20, "effect_texture_frames_8009071C extent changed")
+__game_rodata_effect_texture_frames_8009071C_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80090730) == 0x10, "effect_texture_descriptors_80090730 extent changed")
+__game_rodata_effect_texture_descriptors_80090730_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_8009075C) == 0x10, "effect_texture_descriptors_8009075C extent changed")
+__game_rodata_effect_texture_descriptors_8009075C_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090768) == 0x20, "effect_texture_frames_80090768 extent changed")
+__game_rodata_effect_texture_frames_80090768_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_8009077C) == 0x10, "effect_texture_descriptors_8009077C extent changed")
+__game_rodata_effect_texture_descriptors_8009077C_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090788) == 0x10, "effect_texture_frames_80090788 extent changed")
+__game_rodata_effect_texture_frames_80090788_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_8009078C) == 0x20, "effect_texture_descriptors_8009078C extent changed")
+__game_rodata_effect_texture_descriptors_8009078C_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800907EC) == 0x10, "effect_texture_descriptors_800907EC extent changed")
+__game_rodata_effect_texture_descriptors_800907EC_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_800907F8) == 0x10, "effect_texture_frames_800907F8 extent changed")
+__game_rodata_effect_texture_frames_800907F8_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_800907FC) == 0x10, "effect_texture_descriptors_800907FC extent changed")
+__game_rodata_effect_texture_descriptors_800907FC_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_frames_80090808) == 0x10, "effect_texture_frames_80090808 extent changed")
+__game_rodata_effect_texture_frames_80090808_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_8009080C) == 0x10, "effect_texture_descriptors_8009080C extent changed")
+__game_rodata_effect_texture_descriptors_8009080C_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_80091834) == 0x10, "effect_texture_descriptors_80091834 extent changed")
+__game_rodata_effect_texture_descriptors_80091834_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_effect_texture_descriptors_8009184C) == 0x90, "effect_texture_descriptors_8009184C extent changed")
+__game_rodata_effect_texture_descriptors_8009184C_payload_size = 0x90;
+
+ASSERT(SIZEOF(.game_rodata_glyph_texture_data) == 0x1A0, "glyph texture extent changed")
+__game_rodata_glyph_texture_data_payload_size = 0x198;
+
+ASSERT(SIZEOF(.game_rodata_effect_texture_callbacks) == 0x10, "effect_texture_callbacks extent changed")
+__game_rodata_effect_texture_callbacks_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_literal_effect_texture_800903B8) == 0x10, "literal_effect_texture_800903B8 extent changed")
+__game_rodata_literal_effect_texture_800903B8_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_literal_effect_texture_800903E0) == 0x20, "literal_effect_texture_800903E0 extent changed")
+__game_rodata_literal_effect_texture_800903E0_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_literal_effect_texture_80090558) == 0x50, "literal_effect_texture_80090558 extent changed")
+__game_rodata_literal_effect_texture_80090558_payload_size = 0x50;
+ASSERT(SIZEOF(.game_rodata_literal_effect_texture_80091840) == 0x10, "literal_effect_texture_80091840 extent changed")
+__game_rodata_literal_effect_texture_80091840_payload_size = 0xC;
+
+ASSERT(SIZEOF(.game_rodata_two_frame_effect_texture) == 0x20, "two_frame_effect_texture extent changed")
+__game_rodata_two_frame_effect_texture_payload_size = 0x14;
+
+
+ASSERT(SIZEOF(.game_rodata_weighted_record_800A2504) == 0x20, "weighted_record_800A2504 extent changed")
+__game_rodata_weighted_record_800A2504_payload_size = 0x1C;
+
+ASSERT(SIZEOF(.game_rodata_native_float_data_80088724) == 0x10, "native_float_data_80088724 extent changed")
+__game_rodata_native_float_data_80088724_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_native_float_data_800A49C0) == 0x70, "native_float_data_800A49C0 extent changed")
+__game_rodata_native_float_data_800A49C0_payload_size = 0x6C;
+ASSERT(SIZEOF(.game_rodata_native_float_data_800A4A2C) == 0x50, "native_float_data_800A4A2C extent changed")
+__game_rodata_native_float_data_800A4A2C_payload_size = 0x48;
+
+ASSERT(SIZEOF(.game_rodata_native_fp_control_8008CF00) == 0xA0, "native_fp_control_8008CF00 extent changed")
+__game_rodata_native_fp_control_8008CF00_payload_size = 0xA0;
+ASSERT(SIZEOF(.game_rodata_native_fp_control_80095C64) == 0x40, "native_fp_control_80095C64 extent changed")
+__game_rodata_native_fp_control_80095C64_payload_size = 0x40;
+
+ASSERT(SIZEOF(.game_rodata_weighted_vectors_800A24B0) == 0x60, "weighted_vectors_800A24B0 extent changed")
+__game_rodata_weighted_vectors_800A24B0_payload_size = 0x54;
+ASSERT(SIZEOF(.game_rodata_weighted_vectors_800A2520) == 0x50, "weighted_vectors_800A2520 extent changed")
+__game_rodata_weighted_vectors_800A2520_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_weighted_vectors_800A2568) == 0x60, "weighted_vectors_800A2568 extent changed")
+__game_rodata_weighted_vectors_800A2568_payload_size = 0x54;
+ASSERT(SIZEOF(.game_rodata_weighted_vectors_800A25BC) == 0x50, "weighted_vectors_800A25BC extent changed")
+__game_rodata_weighted_vectors_800A25BC_payload_size = 0x48;
+
+ASSERT(SIZEOF(.game_rodata_quarter_wave_8009A220) == 0x110, "quarter_wave_8009A220 extent changed")
+__game_rodata_quarter_wave_8009A220_payload_size = 0x104;
+ASSERT(SIZEOF(.game_rodata_inverse_angle_80098E00) == 0x200, "inverse_angle_80098E00 extent changed")
+__game_rodata_inverse_angle_80098E00_payload_size = 0x200;

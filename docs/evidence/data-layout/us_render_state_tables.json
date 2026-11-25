@@ -1,0 +1,305 @@
+{
+  "status": "accepted: independently compiled, linked, compared and preserved",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "native_renderers": [
+    {
+      "symbol": "func_1502CCFC",
+      "address": "0x1502ccfc",
+      "bytes": 2128,
+      "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+      "table_bases": [
+        "0x80082fc0",
+        "0x80083140",
+        "0x800832c0"
+      ]
+    },
+    {
+      "symbol": "func_150911F4",
+      "address": "0x150911f4",
+      "bytes": 832,
+      "sha1": "80b64b061f9d7b4f36d648cbd47b73aa424000de",
+      "table_bases": [
+        "0x80083440",
+        "0x800835c0"
+      ]
+    },
+    {
+      "symbol": "func_15157420",
+      "address": "0x15157420",
+      "bytes": 1088,
+      "sha1": "e2c01ccf96e364cf5c2c04cf7c82216b4536ed9a",
+      "table_bases": [
+        "0x80083740",
+        "0x800838c0",
+        "0x80083a40",
+        "0x80083bc0"
+      ]
+    },
+    {
+      "symbol": "func_15132B80",
+      "address": "0x15132b80",
+      "bytes": 604,
+      "sha1": "d0b8f621187945c259efddd0f31cdc77bb6eba9a",
+      "table_bases": [
+        "0x80083740",
+        "0x800838c0"
+      ]
+    },
+    {
+      "symbol": "func_151137D4",
+      "address": "0x151137d4",
+      "bytes": 1204,
+      "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+      "table_bases": [
+        "0x80083d40",
+        "0x80083ec0"
+      ]
+    }
+  ],
+  "native_segment_bindings": [
+    {
+      "base": "0x80082fc0",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x1502cf84": "0x3c198008",
+        "0x1502cf88": "0x27392fc0",
+        "0x1502cf80": "0x3c18db06",
+        "0x1502cf8c": "0x37180020",
+        "0x1502cf90": "0xac580000",
+        "0x1502cf94": "0xac590004"
+      }
+    },
+    {
+      "base": "0x80083140",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x1502cfa8": "0x3c0f8008",
+        "0x1502cfac": "0x25ef3140",
+        "0x1502cfa4": "0x3c0edb06",
+        "0x1502cfb0": "0x35ce0020",
+        "0x1502cfb4": "0xac4e0000",
+        "0x1502cfb8": "0xac4f0004"
+      }
+    },
+    {
+      "base": "0x800832c0",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x1502cf1c": "0x3c188008",
+        "0x1502cf20": "0x271832c0",
+        "0x1502cf18": "0x3c0fdb06",
+        "0x1502cf24": "0x35ef0020",
+        "0x1502cf28": "0xac4f0000",
+        "0x1502cf2c": "0xac580004"
+      }
+    },
+    {
+      "base": "0x80083440",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x150912a8": "0x3c0e8008",
+        "0x150912ac": "0x25ce3440",
+        "0x150912a4": "0x3c0ddb06",
+        "0x150912b0": "0x35ad0020",
+        "0x150912b4": "0xac4d0000",
+        "0x150912b8": "0xac4e0004"
+      }
+    },
+    {
+      "base": "0x800835c0",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x150912d0": "0x3c188008",
+        "0x150912d4": "0x271835c0",
+        "0x150912cc": "0x3c0fdb06",
+        "0x150912d8": "0x35ef0020",
+        "0x150912dc": "0xac4f0000",
+        "0x150912e0": "0xac580004"
+      }
+    },
+    {
+      "base": "0x80083740",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x15132bec": "0x3c0b8008",
+        "0x15132bf0": "0x256b3740",
+        "0x15132be8": "0x3c0adb06",
+        "0x15132bf4": "0x354a0020",
+        "0x15132bf8": "0xac4a0000",
+        "0x15132bfc": "0xac4b0004"
+      }
+    },
+    {
+      "base": "0x800838c0",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x15132c14": "0x3c0d8008",
+        "0x15132c18": "0x25ad38c0",
+        "0x15132c10": "0x3c0cdb06",
+        "0x15132c1c": "0x358c0020",
+        "0x15132c20": "0xac4c0000",
+        "0x15132c24": "0xac4d0004"
+      }
+    },
+    {
+      "base": "0x80083a40",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x15157780": "0x3c0f8008",
+        "0x15157784": "0x25ef3a40",
+        "0x15157738": "0x3c0cdb06",
+        "0x1515773c": "0x358c0020",
+        "0x15157764": "0xac4c0000",
+        "0x1515778c": "0xac4f0004"
+      }
+    },
+    {
+      "base": "0x80083bc0",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x151577bc": "0x3c0a8008",
+        "0x151577c0": "0x254a3bc0",
+        "0x15157750": "0x3c19db06",
+        "0x15157754": "0x37390020",
+        "0x151577a0": "0xac590000",
+        "0x151577c8": "0xac4a0004"
+      }
+    },
+    {
+      "base": "0x80083d40",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x15113a1c": "0x3c0e8008",
+        "0x15113a20": "0x25ce3d40",
+        "0x15113a18": "0x3c0ddb06",
+        "0x15113a24": "0x35ad0020",
+        "0x15113a28": "0xac4d0000",
+        "0x15113a2c": "0xac4e0004"
+      }
+    },
+    {
+      "base": "0x80083ec0",
+      "segment": 8,
+      "command": "0xDB060020",
+      "anchors": {
+        "0x15113a44": "0x3c188008",
+        "0x15113a48": "0x27183ec0",
+        "0x15113a40": "0x3c0fdb06",
+        "0x15113a4c": "0x35ef0020",
+        "0x15113a50": "0xac4f0000",
+        "0x15113a54": "0xac580004"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "address": "0x80082FC0",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "5b693acab389937f53f4613eb5452a97e982f079962c15e44c34d95e438164e1"
+    },
+    {
+      "address": "0x80083140",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "719f591a1d46f01973f0ec8b22f1ce977893a123674cd3ad207901509844a8c7"
+    },
+    {
+      "address": "0x800832C0",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "5a7c87a60b27e4ac2aa642f01286cf82a773d9bfe19d86a31947ec163c8034ac"
+    },
+    {
+      "address": "0x80083440",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "c720d2baf70d91165c6f327e1458a6e00405091f571c1d5d3c2a5e0aa98fda97"
+    },
+    {
+      "address": "0x800835C0",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "6ce33d64716ec30a8ec89b791da658bccf547348f786b4b82a08e54e6e239ff1"
+    },
+    {
+      "address": "0x80083740",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "e66ae9c4d09b4c7a3165332f71e79fa4eed275374d5d3f2821b0b78d7cfdcd0a"
+    },
+    {
+      "address": "0x800838C0",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "5a74031e1bb08935c69131d17bd8ec441290232e702a805e371035b9327a8c43"
+    },
+    {
+      "address": "0x80083A40",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "c5fea31dab9b38483146244d143af36a400213f7c37d606f3ba37eca04e69ca5"
+    },
+    {
+      "address": "0x80083BC0",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "0093186598ca0fd21bb228209eefe18b7bfe1322b51fec5b66890b6e9e2b278a"
+    },
+    {
+      "address": "0x80083D40",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "fc0625307259f9770deb04f8d86db3da8aaef50259b82151bb88c354a54ee5f1"
+    },
+    {
+      "address": "0x80083EC0",
+      "bytes": 384,
+      "lists": 24,
+      "payload_sha256": "fff5ff6618fbd2dab6d0dae2ecae1420df0ec142e8e1e14cfbd0d7b8a6d46e74"
+    }
+  ],
+  "bytes": 4224,
+  "lists": 264,
+  "pointer_relocations": 0,
+  "boundary_evidence": {
+    "first": "0x80082FC0",
+    "end_exclusive": "0x80084040",
+    "following_word": "0x80096928",
+    "group_spacing": 384,
+    "record_bytes": 16
+  },
+  "limits": "Eleven native bindings establish the render-state family. Each EF/DF pair is independently terminated. The 24-slot groups describe storage, not original C boundaries. Static model references and runtime reachability are a separate property; this does not assert that every slot or every base/model combination executes.",
+  "model_scan": {
+    "models_checked": 1487,
+    "missing_slots": [
+      "0x20",
+      "0x60",
+      "0x80",
+      "0x90",
+      "0xa0",
+      "0xb0",
+      "0xe0",
+      "0xf0",
+      "0x120",
+      "0x140",
+      "0x150",
+      "0x160",
+      "0x170"
+    ],
+    "unparsed_models": []
+  },
+  "omitted_gate_logs": [
+    "validation"
+  ]
+}

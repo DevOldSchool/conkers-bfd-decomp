@@ -62,6 +62,19 @@ def placements(root: Path, base: int, size: int) -> list[dict]:
     return result
 
 
+def data_owner_sources(root: Path) -> list[str]:
+    """Return the active source of each data-only GAME owner in config/data/us.json."""
+    document = json.loads((root / "config/data/us.json").read_text())
+    result = []
+    for record in document["owners"]["game"]:
+        sources = record["owner"].get("sources")
+        if sources:
+            source = data_boundaries.active_source(root, sources)
+            if source not in result:
+                result.append(source)
+    return result
+
+
 def linked_objects(root: Path, sources: list[str]) -> dict[str, Path]:
     """Map each actual integrated C object by stem, as the linker selectors do."""
     result: dict[str, Path] = {}
@@ -144,6 +157,7 @@ def build(elf_path: Path, output: Path, manifest_path: Path, *, root: Path = ROO
     if sources is None:
         import list_integrated_sources
         sources = list_integrated_sources.mapped_sources("us", overlay="game")
+        sources += [source for source in data_owner_sources(root) if source not in sources]
     mappings = placements(root, base, len(original))
     objects = linked_objects(root, sources)
     inputs = [link_input(root, mapping, objects) for mapping in mappings]

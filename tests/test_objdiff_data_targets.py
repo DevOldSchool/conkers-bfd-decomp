@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import io
 from pathlib import Path
+import json
 import os
+import re
 import struct
 import shutil
 import subprocess
@@ -268,12 +270,78 @@ class DataTargetTests(unittest.TestCase):
             self.assertEqual(data['subsegments'], [[32, 'data', '80082B20'], [48, 'rodata', '80082B30']])
             self.assertEqual(end, [64])
             self.assertEqual(config['options']['symbol_addrs_path'], ['config/symbols/game-us.txt'])
+            self.assertEqual(config['options']['reloc_addrs_path'], ['config/relocs/game-data-us.txt'])
             pointer_image = bytes(32) + bytes.fromhex('15000004')
             row = '/* 0020 80082B20 15000004 */ .word func_15000004'
             self.assertEqual(targets.reference_definitions(row, pointer_image, origin=0x80082B00),
                              {'func_15000004': 0x15000004})
             with self.assertRaises(ValueError):
                 targets.reference_definitions(row, pointer_image, origin=0x15000000)
+
+    def test_resource_scalar_metadata_cannot_suppress_pointer_fields(self):
+        # This declaration is in decoded code+data coordinates, not physical ROM
+        # coordinates. Only packed_id and the pair of halfwords are scalars.
+        text = (ROOT / 'config/relocs/game-data-us.txt').read_text()
+        rows = [line.split('//', 1)[0].strip() for line in text.splitlines()]
+        rows = [line for line in rows if line]
+        offsets = []
+        for row in rows:
+            if 'reloc:MIPS_32' in row:
+                # Independently checked by the graphics-pointer test below.
+                continue
+            match = re.fullmatch(r'rom:(0x[0-9A-F]+) reloc:MIPS_NONE symbol:0', row)
+            self.assertIsNotNone(match, row)
+            offsets.append(int(match[1], 16))
+        expected = {0x1FEA40 + 20 * index + field
+                    for index in range(204) for field in (4, 8)}
+        self.assertEqual(len(offsets), len(expected))
+        self.assertEqual(set(offsets), expected)
+        pointers = {0x1FEA40 + 20 * index + field
+                    for index in range(204) for field in (0, 12, 16)}
+        self.assertTrue(set(offsets).isdisjoint(pointers))
+
+    def test_graphics_relocations_are_only_native_address_fields(self):
+        # Original matrix/list/vertex command address words and the four
+        # producer-proven selector slots. Scalar command words and vertex
+        # attributes must never acquire inferred pointer relocations.
+        matrix_sites = {
+            0x80088774, 0x80088834, 0x80088BEC, 0x8008970C, 0x80089BF4,
+            0x80089EC4, 0x8008A1DC, 0x8008A47C, 0x8008AC84, 0x8008AD34,
+            0x8008AD4C, 0x8008AD6C, 0x8008ADDC, 0x8008B49C, 0x8008CC34,
+            0x8008D524, 0x8008F91C, 0x8008FB24,
+        }
+        expected = {address: 0x80089470 for address in matrix_sites}
+        expected.update({
+            0x8008AE6C: 0x800A6080, 0x8008AEB4: 0x800A60D0,
+            0x8008AF44: 0x800A6170, 0x8008AF8C: 0x800A61C0,
+            0x8008CDF4: 0x8008CD90,
+            0x8008AFB8: 0x8008AE60, 0x8008AFBC: 0x8008AEA8,
+            0x8008AFC0: 0x8008AF38, 0x8008AFC4: 0x8008AF80,
+            0x8008CB74: 0x800873D0, 0x8008CB94: 0x80087408,
+            0x8008CE34: 0x8008CE60, 0x8008CE54: 0x8008CE60,
+        })
+        expected = {address: (target, 0) for address, target in expected.items()}
+        # These two commands store the physical alias of the same identity
+        # matrix. Preserve both the symbolic destination and the exact addend.
+        expected.update({
+            0x8008416C: (0x80089470, -0x80000000),
+            0x8008CFA4: (0x80089470, -0x80000000),
+        })
+        text = (ROOT / 'config/relocs/game-data-us.txt').read_text()
+        actual = {}
+        for line in text.splitlines():
+            row = line.split('//', 1)[0].strip()
+            if not row or 'reloc:MIPS_NONE' in row:
+                continue
+            match = re.fullmatch(
+                r'rom:(0x[0-9A-F]+) reloc:MIPS_32 symbol:D_([0-9A-F]{8})'
+                r'(?: addend:(-?0x[0-9A-F]+))?', row)
+            self.assertIsNotNone(match, row)
+            address = int(match[1], 16) - 2072880 + 0x80082B20
+            self.assertNotIn(address, actual)
+            actual[address] = (int(match[2], 16), int(match[3], 0) if match[3] else 0)
+        self.assertEqual(actual, expected)
+        self.assertNotIn(0x8008AFC8, actual)  # Fifth selector is not proven here.
 
     def test_game_sdk_uses_reviewed_archive_and_section(self):
         unit = {'kind': 'external_payload', 'overlay': 'game', 'section': '.data', 'key': '80091970',

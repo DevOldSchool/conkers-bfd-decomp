@@ -38,7 +38,7 @@ class ReferenceNamesTests(unittest.TestCase):
             self.assertEqual(main['segments'][1]['vram'], 0x80000020)
             self.assertEqual(main['options']['reloc_addrs_path'], ['config/relocs/main-data-us.txt'])
             self.assertEqual(game['segments'][0]['vram'], 0x15000000)
-            self.assertNotIn('reloc_addrs_path', game['options'])
+            self.assertEqual(game['options']['reloc_addrs_path'], ['config/relocs/game-data-us.txt'])
 
 
 @unittest.skipUnless(shutil.which('mips-linux-gnu-as') and shutil.which('mips-linux-gnu-ld'),

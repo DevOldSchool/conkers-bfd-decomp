@@ -1,0 +1,1343 @@
+{
+  "status": "textures and glyph data accepted",
+  "plan": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "new_textures": [
+      {
+        "resource": 2985,
+        "physical": 2983,
+        "frame": 0,
+        "descriptor": "0x8009162c",
+        "stored_count": 0,
+        "decoded_bytes": 2048,
+        "stored_bytes": 869,
+        "payload_sha256": "67695612a1435cec02519b5d36953c65a641ae033d2ff4a7574fc2cb6fa2e3f0",
+        "contract": {
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "e7584c4c9257d8662702201178242ba7108a87505604cd46e6bab944e473deb0",
+        "stored_sha256": "d4f22b8c8c02634413beb3af7964dcf3fbb03fe522daaade9c7d4e8c790495a9",
+        "rom_start": 6122738,
+        "rom_end": 6123607
+      },
+      {
+        "resource": 3744,
+        "physical": 3742,
+        "frame": 0,
+        "descriptor": "0x8009163c",
+        "stored_count": 0,
+        "decoded_bytes": 2048,
+        "stored_bytes": 869,
+        "payload_sha256": "bc8ace1e488638cd1d816246f57b26f33cfb1c348974a2a3bc6af6268fc62561",
+        "contract": {
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "4435bb7eb26a39d4c0334048c5b8d5adf6f7f9662af6d5180ad0d33022327f2f",
+        "stored_sha256": "deedef4a550444d0ca4a9b2c7df72376cde3e79c11c8d049d4c56324ae92bfb8",
+        "rom_start": 7219651,
+        "rom_end": 7220520
+      },
+      {
+        "resource": 4695,
+        "physical": 4693,
+        "frame": 0,
+        "descriptor": "0x8009164c",
+        "stored_count": 0,
+        "decoded_bytes": 2048,
+        "stored_bytes": 849,
+        "payload_sha256": "cb0c05a709cc8f813e5a0324696e8992f813bb5bb627574dc923a32b9bb0b6bc",
+        "contract": {
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "4f98e4456243e1877d6ea3b09776061211a1575326307756cf71af24aa5fde1c",
+        "stored_sha256": "383f680c84da51c8f07bd266dc48953318188473361677a00ffb9ebb954d9263",
+        "rom_start": 8462075,
+        "rom_end": 8462924
+      },
+      {
+        "resource": 1689,
+        "physical": 1689,
+        "frame": 0,
+        "descriptor": "0x8009165c",
+        "stored_count": 0,
+        "decoded_bytes": 2048,
+        "stored_bytes": 866,
+        "payload_sha256": "b99ca88a8139a7b58a9d21a999b078b1ba70be2488a55bf8530d1add0dd67c03",
+        "contract": {
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "a812d00eb99a2ff4a723694737b09430e868168193c0e5461753c6a0d441e281",
+        "stored_sha256": "40f0e8f50e42329da02f38978fbb1d5784b6c9cbe05d1e8bbdd2a6024137b9a1",
+        "rom_start": 4292755,
+        "rom_end": 4293621
+      },
+      {
+        "resource": 7731,
+        "physical": 7729,
+        "frame": 0,
+        "descriptor": "0x800915fc",
+        "stored_count": 0,
+        "decoded_bytes": 1024,
+        "stored_bytes": 492,
+        "payload_sha256": "8ba669b13937d3ddceb0a7569f37a0b9f691f8f13f806de6649b5616b4dc9cfd",
+        "contract": {
+          "format": "rgba16",
+          "width": 16,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "27b043be0593749b9e1fdd9d90c1af9ca2308e69e138f2861f527e8ffa064165",
+        "stored_sha256": "936b072214ffe02292e65809b4ca62ccbc49a3d667df353f61e8e237f8a3253c",
+        "rom_start": 11173990,
+        "rom_end": 11174482
+      },
+      {
+        "resource": 2941,
+        "physical": 2939,
+        "frame": 0,
+        "descriptor": "0x8009160c",
+        "stored_count": 0,
+        "decoded_bytes": 1024,
+        "stored_bytes": 476,
+        "payload_sha256": "e67d4936a79467ac473fc6b7590330aadb6c4bd3caeb82be363cba92bfa0c8a7",
+        "contract": {
+          "format": "rgba16",
+          "width": 32,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "c420d341b864410b2d70ae65c9b0f9aac66d382ec74c323a450bf0ff3281a3fe",
+        "stored_sha256": "4d1d5e51e0dc0e2ef29873c7dd0a189be4f5db57a6b62d47635a82c61baeb1d3",
+        "rom_start": 6048549,
+        "rom_end": 6049025
+      },
+      {
+        "resource": 3668,
+        "physical": 3666,
+        "frame": 0,
+        "descriptor": "0x8009161c",
+        "stored_count": 0,
+        "decoded_bytes": 1024,
+        "stored_bytes": 463,
+        "payload_sha256": "f4168fe992d8ef62095ee6a69e3d48fd2d91f793cf97e09f84c2c9ec8a9901ab",
+        "contract": {
+          "format": "rgba16",
+          "width": 32,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "60f9729cb1261ce475db753fc88336a23d71054fecb10641592a7eb92ca7bf51",
+        "stored_sha256": "b10bea27efcbd1fc9cf4555699027174e568c54e3111c5ab9db68eb5ddc833bf",
+        "rom_start": 7135341,
+        "rom_end": 7135804
+      },
+      {
+        "resource": 4099,
+        "physical": 4097,
+        "frame": 3,
+        "descriptor": "0x800916ac",
+        "stored_count": 3,
+        "decoded_bytes": 512,
+        "stored_bytes": 59,
+        "payload_sha256": "6308b0e8adfe57493f92d79d3a17637f22fa4366281789212c5b8e75bbe3c5c3",
+        "contract": {
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "e9282b5bb3650e4e295d1d577b840d1cf57c3c91a248e786ad0ab39948a13c03",
+        "stored_sha256": "cdbce7b97a26aaa2f0d070ade363cd6330cc498e0ebf662449c3d3b33115e93f",
+        "rom_start": 7715353,
+        "rom_end": 7715412
+      },
+      {
+        "resource": 4323,
+        "physical": 4321,
+        "frame": 3,
+        "descriptor": "0x800916e4",
+        "stored_count": 3,
+        "decoded_bytes": 512,
+        "stored_bytes": 54,
+        "payload_sha256": "ef9e440419ddcf1dc03e4aaba8054ecb82c7ebee2fa0319b310799ae18d7b65c",
+        "contract": {
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "ce50ad05107a6fd9bfb4c2fca2ad660c3e2b87de057c9efbd75691a45c28f91b",
+        "stored_sha256": "1985d2d05f1a22583ea293674af93cc0dbf5f5fb9c3982a4dbf89f3c67a8ee4e",
+        "rom_start": 8009772,
+        "rom_end": 8009826
+      },
+      {
+        "resource": 4238,
+        "physical": 4236,
+        "frame": 3,
+        "descriptor": "0x800916c8",
+        "stored_count": 3,
+        "decoded_bytes": 512,
+        "stored_bytes": 63,
+        "payload_sha256": "60fe2a6a9b13e64a0e5c0030d6b6b943f48087f5e2151c4035f42745655822b5",
+        "contract": {
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "ffae8953f803b0bb34759785eef87567b3217ea8e0f8fdbfbeaa95f5d052abe5",
+        "stored_sha256": "dc3a6d055a73d9f5e1893cf8f2c8b15a0f6e904d7b900b127dc79950589a33d8",
+        "rom_start": 7889767,
+        "rom_end": 7889830
+      },
+      {
+        "resource": 3072,
+        "physical": 3070,
+        "frame": 3,
+        "descriptor": "0x80091700",
+        "stored_count": 3,
+        "decoded_bytes": 512,
+        "stored_bytes": 70,
+        "payload_sha256": "01b7b9edf0c96db4618981a0de73b63998ee0a49e5d8087e1cda738b999c9744",
+        "contract": {
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left"
+        },
+        "inverse_exact": true,
+        "encoder": "zlib",
+        "matching_encoders": [
+          "zlib",
+          "gzip"
+        ],
+        "png_sha256": "3041fd06b417f38c2d96f3cdb8b51fbb12811fcf7fce2f708eb275ebab6202e3",
+        "stored_sha256": "94a33c8f3a7fd859a085522ae5508952db3d24c346f2aed5ca37df361f108e1b",
+        "rom_start": 6335955,
+        "rom_end": 6336025
+      }
+    ],
+    "new_input_files": {
+      "build/assets/texture-build/us/runtime/2983/2983.rgba16.png": "e7584c4c9257d8662702201178242ba7108a87505604cd46e6bab944e473deb0",
+      "build/assets/texture-build/us/runtime/2983/manifest.json": "2d0d59193f08b374040e8d73d47f390499d27069606fd3f5231fba7113cab56e",
+      "build/assets/texture-build/us/runtime/3742/manifest.json": "bf712d7406749a120e57d8eb4850fa142b09abb0c2cae6a8e8df6ad5ac1c0579",
+      "build/assets/texture-build/us/runtime/3742/3742.rgba16.png": "4435bb7eb26a39d4c0334048c5b8d5adf6f7f9662af6d5180ad0d33022327f2f",
+      "build/assets/texture-build/us/runtime/4693/manifest.json": "614393d51ac844bc7870bec79f5cf63b061759642bf171bdd27f187ec0ec1c6e",
+      "build/assets/texture-build/us/runtime/4693/4693.rgba16.png": "4f98e4456243e1877d6ea3b09776061211a1575326307756cf71af24aa5fde1c",
+      "build/assets/texture-build/us/runtime/1689/manifest.json": "7d2a7394f9084b21d93e8f5ad82699b9545100006da40bb2810fdb190807f999",
+      "build/assets/texture-build/us/runtime/1689/1689.rgba16.png": "a812d00eb99a2ff4a723694737b09430e868168193c0e5461753c6a0d441e281",
+      "build/assets/texture-build/us/runtime/7729/7729.rgba16.png": "27b043be0593749b9e1fdd9d90c1af9ca2308e69e138f2861f527e8ffa064165",
+      "build/assets/texture-build/us/runtime/7729/manifest.json": "a942ba96e38ea8bc58b72da6891274a33282e4d5fc4532b924f6ccdc170e8574",
+      "build/assets/texture-build/us/runtime/2939/manifest.json": "6c002badab95911cd4cfdda7f2b052c0f050494919be91430c78d093d16ea409",
+      "build/assets/texture-build/us/runtime/2939/2939.rgba16.png": "c420d341b864410b2d70ae65c9b0f9aac66d382ec74c323a450bf0ff3281a3fe",
+      "build/assets/texture-build/us/runtime/3666/3666.rgba16.png": "60f9729cb1261ce475db753fc88336a23d71054fecb10641592a7eb92ca7bf51",
+      "build/assets/texture-build/us/runtime/3666/manifest.json": "472719f4d355dd882f1b5caa800969bb6ca4449a80c250d612726ba35dcb97a2",
+      "build/assets/texture-build/us/runtime/4097/4097.rgba16.png": "e9282b5bb3650e4e295d1d577b840d1cf57c3c91a248e786ad0ab39948a13c03",
+      "build/assets/texture-build/us/runtime/4097/manifest.json": "c872e66531f66ef4b301a5046e4bd7ae485126fa8a0ec38616910c12edc34eb6",
+      "build/assets/texture-build/us/runtime/4321/4321.rgba16.png": "ce50ad05107a6fd9bfb4c2fca2ad660c3e2b87de057c9efbd75691a45c28f91b",
+      "build/assets/texture-build/us/runtime/4321/manifest.json": "8c5d3bd5b77386a45dfb6d01370f6bb9eaa6f60317ef9992325ccfd7ea85562c",
+      "build/assets/texture-build/us/runtime/4236/4236.rgba16.png": "ffae8953f803b0bb34759785eef87567b3217ea8e0f8fdbfbeaa95f5d052abe5",
+      "build/assets/texture-build/us/runtime/4236/manifest.json": "8d86211e71353725a6c1945614773b30a01973584fa000b9aa431f937361d8ea",
+      "build/assets/texture-build/us/runtime/3070/manifest.json": "ba7bcd3e3cb34f257eb947a02dcae0f123cb319c200d54740c777aab7f190a8c",
+      "build/assets/texture-build/us/runtime/3070/3070.rgba16.png": "3041fd06b417f38c2d96f3cdb8b51fbb12811fcf7fce2f708eb275ebab6202e3"
+    },
+    "prior_input_count": 27301,
+    "prior_game_objects": 869,
+    "flat_end": 11213121,
+    "stored_bytes": 5130,
+    "decoded_bytes": 13312,
+    "new_manifests": {
+      "2983": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 2983,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 6122738,
+        "rom_end": 6123607,
+        "decoded_size": 2048,
+        "original_decoded_sha256": "67695612a1435cec02519b5d36953c65a641ae033d2ff4a7574fc2cb6fa2e3f0",
+        "original_stored_sha256": "d4f22b8c8c02634413beb3af7964dcf3fbb03fe522daaade9c7d4e8c790495a9",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "2983.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 2985,
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 170,
+              "case_pc": "0x15041D74",
+              "descriptor": "0x8009162C",
+              "descriptor_sha1": "b70b366b78462d5b9b8d512962a6ce935cc17c9e",
+              "pointer": 2148079144,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 32,
+              "height": 32,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                2985
+              ],
+              "frame_sha1": "b13f1d50120a96be44dd2513ec181faafffcee61"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "3742": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 3742,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 7219651,
+        "rom_end": 7220520,
+        "decoded_size": 2048,
+        "original_decoded_sha256": "bc8ace1e488638cd1d816246f57b26f33cfb1c348974a2a3bc6af6268fc62561",
+        "original_stored_sha256": "deedef4a550444d0ca4a9b2c7df72376cde3e79c11c8d049d4c56324ae92bfb8",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "3742.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 3744,
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 171,
+              "case_pc": "0x15041D84",
+              "descriptor": "0x8009163C",
+              "descriptor_sha1": "658d4482fd7caf4039a274b54eec698019c87494",
+              "pointer": 2148079160,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 32,
+              "height": 32,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                3744
+              ],
+              "frame_sha1": "51cbf3e5d39ef11ed909f2a943b09e9fd9785698"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "4693": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 4693,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 8462075,
+        "rom_end": 8462924,
+        "decoded_size": 2048,
+        "original_decoded_sha256": "cb0c05a709cc8f813e5a0324696e8992f813bb5bb627574dc923a32b9bb0b6bc",
+        "original_stored_sha256": "383f680c84da51c8f07bd266dc48953318188473361677a00ffb9ebb954d9263",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "4693.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 4695,
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 172,
+              "case_pc": "0x15041D94",
+              "descriptor": "0x8009164C",
+              "descriptor_sha1": "9ef162a0c18d6016b41a4a33c6fd600e3ec27609",
+              "pointer": 2148079176,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 32,
+              "height": 32,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                4695
+              ],
+              "frame_sha1": "67d3ba8c007092690ea5e4b887c6c72aea3215fa"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "1689": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 1689,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 4292755,
+        "rom_end": 4293621,
+        "decoded_size": 2048,
+        "original_decoded_sha256": "b99ca88a8139a7b58a9d21a999b078b1ba70be2488a55bf8530d1add0dd67c03",
+        "original_stored_sha256": "40f0e8f50e42329da02f38978fbb1d5784b6c9cbe05d1e8bbdd2a6024137b9a1",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "1689.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 1689,
+          "format": "rgba16",
+          "width": 32,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 173,
+              "case_pc": "0x15041DA4",
+              "descriptor": "0x8009165C",
+              "descriptor_sha1": "f2ea98fb728ad8d37fc55e4c3340b65c15e5376f",
+              "pointer": 2148079192,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 32,
+              "height": 32,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                1689
+              ],
+              "frame_sha1": "44271d97aa4bded1a5923cceda98d53ced9115a5"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "7729": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 7729,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 11173990,
+        "rom_end": 11174482,
+        "decoded_size": 1024,
+        "original_decoded_sha256": "8ba669b13937d3ddceb0a7569f37a0b9f691f8f13f806de6649b5616b4dc9cfd",
+        "original_stored_sha256": "936b072214ffe02292e65809b4ca62ccbc49a3d667df353f61e8e237f8a3253c",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "7729.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 7731,
+          "format": "rgba16",
+          "width": 16,
+          "height": 32,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 174,
+              "case_pc": "0x15041D44",
+              "descriptor": "0x800915FC",
+              "descriptor_sha1": "710c8697f528ee51535df01ccb0fd32d11435cc9",
+              "pointer": 2148079096,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 16,
+              "height": 32,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                7731
+              ],
+              "frame_sha1": "24dd3bdf4e1496edd47e254ea674fcc09f038728"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "2939": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 2939,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 6048549,
+        "rom_end": 6049025,
+        "decoded_size": 1024,
+        "original_decoded_sha256": "e67d4936a79467ac473fc6b7590330aadb6c4bd3caeb82be363cba92bfa0c8a7",
+        "original_stored_sha256": "4d1d5e51e0dc0e2ef29873c7dd0a189be4f5db57a6b62d47635a82c61baeb1d3",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "2939.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 2941,
+          "format": "rgba16",
+          "width": 32,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 175,
+              "case_pc": "0x15041D54",
+              "descriptor": "0x8009160C",
+              "descriptor_sha1": "8cc0f3a0227ba75e2892624aa3a4225b9b7950c4",
+              "pointer": 2148079112,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 32,
+              "height": 16,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                2941
+              ],
+              "frame_sha1": "969afa714652f010824b79ac238100f6bdbf20b8"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "3666": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 3666,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 7135341,
+        "rom_end": 7135804,
+        "decoded_size": 1024,
+        "original_decoded_sha256": "f4168fe992d8ef62095ee6a69e3d48fd2d91f793cf97e09f84c2c9ec8a9901ab",
+        "original_stored_sha256": "b10bea27efcbd1fc9cf4555699027174e568c54e3111c5ab9db68eb5ddc833bf",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "3666.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 3668,
+          "format": "rgba16",
+          "width": 32,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 176,
+              "case_pc": "0x15041D64",
+              "descriptor": "0x8009161C",
+              "descriptor_sha1": "89eb99d4ea213c098719461f8bb4ae7ff50793e7",
+              "pointer": 2148079128,
+              "stored_count": 0,
+              "padding": 0,
+              "width": 32,
+              "height": 16,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0
+              ],
+              "resources": [
+                3668
+              ],
+              "frame_sha1": "5a09f583c036a1515c94b84afa51d8bf60681394"
+            },
+            "selected_frame": 0,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "4097": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 4097,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 7715353,
+        "rom_end": 7715412,
+        "decoded_size": 512,
+        "original_decoded_sha256": "6308b0e8adfe57493f92d79d3a17637f22fa4366281789212c5b8e75bbe3c5c3",
+        "original_stored_sha256": "cdbce7b97a26aaa2f0d070ade363cd6330cc498e0ebf662449c3d3b33115e93f",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "4097.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 4099,
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 178,
+              "case_pc": "0x15041DB4",
+              "descriptor": "0x800916AC",
+              "descriptor_sha1": "917a9ad519f46ebb2ae47dfa0ff6dc95754f976f",
+              "pointer": 2148079260,
+              "stored_count": 3,
+              "padding": 0,
+              "width": 16,
+              "height": 16,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "resources": [
+                4096,
+                4097,
+                4098,
+                4099
+              ],
+              "frame_sha1": "62c77fdbeba767acfdcced0ffc6fd390ca848b19"
+            },
+            "selected_frame": 3,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "4321": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 4321,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 8009772,
+        "rom_end": 8009826,
+        "decoded_size": 512,
+        "original_decoded_sha256": "ef9e440419ddcf1dc03e4aaba8054ecb82c7ebee2fa0319b310799ae18d7b65c",
+        "original_stored_sha256": "1985d2d05f1a22583ea293674af93cc0dbf5f5fb9c3982a4dbf89f3c67a8ee4e",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "4321.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 4323,
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 179,
+              "case_pc": "0x15041DE4",
+              "descriptor": "0x800916E4",
+              "descriptor_sha1": "8083328885628602d8433e8b218191dcf0fb76a8",
+              "pointer": 2148079316,
+              "stored_count": 3,
+              "padding": 0,
+              "width": 16,
+              "height": 16,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "resources": [
+                4320,
+                4321,
+                4322,
+                4323
+              ],
+              "frame_sha1": "d26db444a5005e7ff791bf20299f3148024469b0"
+            },
+            "selected_frame": 3,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "4236": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 4236,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 7889767,
+        "rom_end": 7889830,
+        "decoded_size": 512,
+        "original_decoded_sha256": "60fe2a6a9b13e64a0e5c0030d6b6b943f48087f5e2151c4035f42745655822b5",
+        "original_stored_sha256": "dc3a6d055a73d9f5e1893cf8f2c8b15a0f6e904d7b900b127dc79950589a33d8",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "4236.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 4238,
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 180,
+              "case_pc": "0x15041DCC",
+              "descriptor": "0x800916C8",
+              "descriptor_sha1": "f6b4df1c7edba682c3a26a43da287cdf7c58d42f",
+              "pointer": 2148079288,
+              "stored_count": 3,
+              "padding": 0,
+              "width": 16,
+              "height": 16,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "resources": [
+                4235,
+                4236,
+                4237,
+                4238
+              ],
+              "frame_sha1": "6db4af4a7a2b1c52329ae7dbcaa0c35057ec8a72"
+            },
+            "selected_frame": 3,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      },
+      "3070": {
+        "schema_version": 1,
+        "profile": "us",
+        "flat_index": 3070,
+        "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+        "rom_start": 6335955,
+        "rom_end": 6336025,
+        "decoded_size": 512,
+        "original_decoded_sha256": "01b7b9edf0c96db4618981a0de73b63998ee0a49e5d8087e1cda738b999c9744",
+        "original_stored_sha256": "94a33c8f3a7fd859a085522ae5508952db3d24c346f2aed5ca37df361f108e1b",
+        "row_layout": "tmem-odd-row-32bit-swap",
+        "file": "3070.rgba16.png",
+        "encoder": {
+          "format": "rzip-raw-deflate",
+          "level": 9,
+          "window_bits": -15,
+          "memory_level": 8,
+          "strategy": 0
+        },
+        "source_contract": {
+          "identity": "runtime-resource",
+          "runtime_resource_id": 3072,
+          "format": "rgba16",
+          "width": 16,
+          "height": 16,
+          "row_layout": "tmem-odd-row-32bit-swap",
+          "source_origin": "bottom-left",
+          "family": "cpu-glyph-selector",
+          "consumer": {
+            "glyph": {
+              "character": 181,
+              "case_pc": "0x15041DFC",
+              "descriptor": "0x80091700",
+              "descriptor_sha1": "163602b6c2366010177f1454d04e7b953d428c13",
+              "pointer": 2148079344,
+              "stored_count": 3,
+              "padding": 0,
+              "width": 16,
+              "height": 16,
+              "format": 0,
+              "size": 2,
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "resources": [
+                3069,
+                3070,
+                3071,
+                3072
+              ],
+              "frame_sha1": "11135b147129bbb012941b2651ce38c9f733cbb8"
+            },
+            "selected_frame": 3,
+            "native_consumers": {
+              "func_150417AC": "a778546ac55048b14f49c93aa0016b5771218e39",
+              "func_15094F70": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28",
+              "func_15095060": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83",
+              "func_150950D4": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+            },
+            "jump_table_sha1": "bb82701baa65290c194dbfd69518d35c414cecca",
+            "frame_extent_source": "native-glyph-case",
+            "loader_call": "0x150420E4",
+            "pixel_offset": 0,
+            "dxt": 0,
+            "scope": "complete-declared-storage-no-runtime-activation-claim"
+          }
+        }
+      }
+    }
+  },
+  "glyph_data": {
+    "status": "accepted",
+    "plan": {
+      "units": [
+        {
+          "name": "glyph_texture_data",
+          "address": 2148079064,
+          "bytes": 408,
+          "emitted_bytes": 416,
+          "pointers": [
+            {
+              "address": "0x800915DC",
+              "symbol": "D_800915D8",
+              "addend": 0,
+              "native_word": "0x800915d8"
+            },
+            {
+              "address": "0x800915EC",
+              "symbol": "D_800915D8",
+              "addend": 16,
+              "native_word": "0x800915e8"
+            },
+            {
+              "address": "0x800915FC",
+              "symbol": "D_800915D8",
+              "addend": 32,
+              "native_word": "0x800915f8"
+            },
+            {
+              "address": "0x8009160C",
+              "symbol": "D_800915D8",
+              "addend": 48,
+              "native_word": "0x80091608"
+            },
+            {
+              "address": "0x8009161C",
+              "symbol": "D_800915D8",
+              "addend": 64,
+              "native_word": "0x80091618"
+            },
+            {
+              "address": "0x8009162C",
+              "symbol": "D_800915D8",
+              "addend": 80,
+              "native_word": "0x80091628"
+            },
+            {
+              "address": "0x8009163C",
+              "symbol": "D_800915D8",
+              "addend": 96,
+              "native_word": "0x80091638"
+            },
+            {
+              "address": "0x8009164C",
+              "symbol": "D_800915D8",
+              "addend": 112,
+              "native_word": "0x80091648"
+            },
+            {
+              "address": "0x8009165C",
+              "symbol": "D_800915D8",
+              "addend": 128,
+              "native_word": "0x80091658"
+            },
+            {
+              "address": "0x80091690",
+              "symbol": "D_800915D8",
+              "addend": 144,
+              "native_word": "0x80091668"
+            },
+            {
+              "address": "0x800916AC",
+              "symbol": "D_800915D8",
+              "addend": 196,
+              "native_word": "0x8009169c"
+            },
+            {
+              "address": "0x800916C8",
+              "symbol": "D_800915D8",
+              "addend": 224,
+              "native_word": "0x800916b8"
+            },
+            {
+              "address": "0x800916E4",
+              "symbol": "D_800915D8",
+              "addend": 252,
+              "native_word": "0x800916d4"
+            },
+            {
+              "address": "0x80091700",
+              "symbol": "D_800915D8",
+              "addend": 280,
+              "native_word": "0x800916f0"
+            },
+            {
+              "address": "0x80091710",
+              "symbol": "D_800915D8",
+              "addend": 308,
+              "native_word": "0x8009170c"
+            },
+            {
+              "address": "0x80091720",
+              "symbol": "D_800915D8",
+              "addend": 324,
+              "native_word": "0x8009171c"
+            },
+            {
+              "address": "0x80091730",
+              "symbol": "D_800915D8",
+              "addend": 340,
+              "native_word": "0x8009172c"
+            },
+            {
+              "address": "0x80091740",
+              "symbol": "D_800915D8",
+              "addend": 356,
+              "native_word": "0x8009173c"
+            },
+            {
+              "address": "0x80091750",
+              "symbol": "D_800915D8",
+              "addend": 372,
+              "native_word": "0x8009174c"
+            },
+            {
+              "address": "0x80091764",
+              "symbol": "D_800915D8",
+              "addend": 388,
+              "native_word": "0x8009175c"
+            }
+          ],
+          "source": "src/game/data/glyph_texture_data.c",
+          "payload_sha256": "0b7f624afd2fdd1255bec949600835057405474fee77ca06b1630d1874f3b6a9",
+          "pointer_fields": [
+            {
+              "address": "0x800915DC",
+              "symbol": "D_800915D8",
+              "addend": 0,
+              "native_word": "0x800915d8"
+            },
+            {
+              "address": "0x800915EC",
+              "symbol": "D_800915D8",
+              "addend": 16,
+              "native_word": "0x800915e8"
+            },
+            {
+              "address": "0x800915FC",
+              "symbol": "D_800915D8",
+              "addend": 32,
+              "native_word": "0x800915f8"
+            },
+            {
+              "address": "0x8009160C",
+              "symbol": "D_800915D8",
+              "addend": 48,
+              "native_word": "0x80091608"
+            },
+            {
+              "address": "0x8009161C",
+              "symbol": "D_800915D8",
+              "addend": 64,
+              "native_word": "0x80091618"
+            },
+            {
+              "address": "0x8009162C",
+              "symbol": "D_800915D8",
+              "addend": 80,
+              "native_word": "0x80091628"
+            },
+            {
+              "address": "0x8009163C",
+              "symbol": "D_800915D8",
+              "addend": 96,
+              "native_word": "0x80091638"
+            },
+            {
+              "address": "0x8009164C",
+              "symbol": "D_800915D8",
+              "addend": 112,
+              "native_word": "0x80091648"
+            },
+            {
+              "address": "0x8009165C",
+              "symbol": "D_800915D8",
+              "addend": 128,
+              "native_word": "0x80091658"
+            },
+            {
+              "address": "0x80091690",
+              "symbol": "D_800915D8",
+              "addend": 144,
+              "native_word": "0x80091668"
+            },
+            {
+              "address": "0x800916AC",
+              "symbol": "D_800915D8",
+              "addend": 196,
+              "native_word": "0x8009169c"
+            },
+            {
+              "address": "0x800916C8",
+              "symbol": "D_800915D8",
+              "addend": 224,
+              "native_word": "0x800916b8"
+            },
+            {
+              "address": "0x800916E4",
+              "symbol": "D_800915D8",
+              "addend": 252,
+              "native_word": "0x800916d4"
+            },
+            {
+              "address": "0x80091700",
+              "symbol": "D_800915D8",
+              "addend": 280,
+              "native_word": "0x800916f0"
+            },
+            {
+              "address": "0x80091710",
+              "symbol": "D_800915D8",
+              "addend": 308,
+              "native_word": "0x8009170c"
+            },
+            {
+              "address": "0x80091720",
+              "symbol": "D_800915D8",
+              "addend": 324,
+              "native_word": "0x8009171c"
+            },
+            {
+              "address": "0x80091730",
+              "symbol": "D_800915D8",
+              "addend": 340,
+              "native_word": "0x8009172c"
+            },
+            {
+              "address": "0x80091740",
+              "symbol": "D_800915D8",
+              "addend": 356,
+              "native_word": "0x8009173c"
+            },
+            {
+              "address": "0x80091750",
+              "symbol": "D_800915D8",
+              "addend": 372,
+              "native_word": "0x8009174c"
+            },
+            {
+              "address": "0x80091764",
+              "symbol": "D_800915D8",
+              "addend": 388,
+              "native_word": "0x8009175c"
+            }
+          ]
+        }
+      ],
+      "bytes": 408,
+      "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+    }
+  },
+  "omitted_gate_logs": [
+    "base_commit",
+    "catalog_pilot",
+    "compression_pilot",
+    "focused_tests",
+    "validation"
+  ]
+}

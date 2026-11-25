@@ -118,9 +118,11 @@ def target_config(image: dict, directory: Path, binary: Path, code_start: int, c
                         'undefined_funcs_auto_path': relative + '/undefined_funcs.txt',
                         'undefined_syms_auto_path': relative + '/undefined_syms.txt',
                         'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
-                        # Combined-buffer offsets; never apply these declarations
-                        # to standalone code or another overlay.
-                        **({'reloc_addrs_path': ['config/relocs/main-data-us.txt']}
+                        # Combined-buffer offsets; never apply these scalar field
+                        # declarations to standalone code or another overlay.
+                        **({'reloc_addrs_path': ['config/relocs/game-data-us.txt']}
+                           if overlay == 'game' else
+                           {'reloc_addrs_path': ['config/relocs/main-data-us.txt']}
                            if overlay == 'main' else {}),
                         'create_c_files': False, 'asm_emit_size_directive': True,
                         'asm_data_macro': 'glabel', 'asm_jtbl_label_macro': 'glabel',

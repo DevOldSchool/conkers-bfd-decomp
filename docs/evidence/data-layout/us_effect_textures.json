@@ -1,0 +1,1883 @@
+{
+  "status": "accepted",
+  "native": {
+    "status": "native pointer-table and descriptor extents established; frame and source integration pilot pending",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_1502C3BC": {
+        "address": "0x1502c3bc",
+        "bytes": 76,
+        "sha1": "b5f76beaf3bcc33f440804ac786211d6bb3202ca"
+      },
+      "func_1502C408": {
+        "address": "0x1502c408",
+        "bytes": 512,
+        "sha1": "221413725c06ef7931157bbfc5e44b42d1d92f1f"
+      },
+      "func_15168870": {
+        "address": "0x15168870",
+        "bytes": 444,
+        "sha1": "a9b2a7fe0dd487cd9db4e9853ff9867645bad490"
+      },
+      "func_150A6860": {
+        "address": "0x150a6860",
+        "bytes": 1856,
+        "sha1": "f511144b790f4566641da5cb6081ecfa874f1738"
+      },
+      "func_15094F70": {
+        "address": "0x15094f70",
+        "bytes": 120,
+        "sha1": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      },
+      "func_150950D4": {
+        "address": "0x150950d4",
+        "bytes": 1384,
+        "sha1": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+      },
+      "func_1516706C": {
+        "address": "0x1516706c",
+        "bytes": 84,
+        "sha1": "dba52353d7db1fb5a93ffa611169f6f328737b3c"
+      }
+    },
+    "instruction_anchors": {
+      "0x1502c3e8": "0x9063c406",
+      "0x1502c3ec": "0x28610046",
+      "0x1502c3f0": "0x54200003",
+      "0x1502c3f8": "0x2403000b",
+      "0x1502c4bc": "0xd40b0ef",
+      "0x1502c4dc": "0x406825",
+      "0x1502c510": "0xdc880",
+      "0x1502c514": "0x3c058009",
+      "0x1502c518": "0xb92821",
+      "0x1502c52c": "0x8ca5ca4c",
+      "0x1502c554": "0xd4253dc",
+      "0x1516888c": "0x908e00b0",
+      "0x15168898": "0xe7880",
+      "0x151688a0": "0x8f18ca4c",
+      "0x151688a8": "0x93050004",
+      "0x151688ac": "0x51a00",
+      "0x151688c0": "0x2463ffff",
+      "0x15168934": "0x434023",
+      "0x15168938": "0xa4880098",
+      "0x15168940": "0x62082a",
+      "0x15168944": "0x5420fffc",
+      "0x150a688c": "0x24b10010",
+      "0x150a68c4": "0x922900a0",
+      "0x150a68c8": "0x86280088",
+      "0x150a68cc": "0x94880",
+      "0x150a68dc": "0x8d290000",
+      "0x150a6940": "0x1202825",
+      "0x150a6944": "0x86260088",
+      "0x150a6960": "0xd4253dc",
+      "0x15095090": "0x57203",
+      "0x15095094": "0xe7880",
+      "0x1509509c": "0x8f190000"
+    },
+    "selector_cases": 768,
+    "table": {
+      "address": 2148059724,
+      "count": 70,
+      "bytes": 280,
+      "pointers": {
+        "summarized_list": true,
+        "count": 70,
+        "sha256": "e5f97e2c963f77ff6a5fa1bde36291459ff7af478837ae18b715b8a884348521",
+        "first": [
+          2148074812,
+          2148074376,
+          2148074748
+        ]
+      }
+    },
+    "records": [
+      {
+        "address": 2148074376,
+        "bytes": 12,
+        "pointer": 2148074328,
+        "count": 12,
+        "padding": 0,
+        "width": 44,
+        "height": 44,
+        "format": 0,
+        "size": 2,
+        "payload_sha256": "0aa45bd09070cf712168b12ac9177a83cfe23c6c6418cb339dc64753d838e5b7"
+      },
+      {
+        "address": 2148074440,
+        "bytes": 12,
+        "pointer": 1812,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 3,
+        "size": 1,
+        "payload_sha256": "f24f5fc7d96a224f558d6dd6bc0e7af98c96946b501feac1c0a9aa7cc3103ca2"
+      },
+      {
+        "address": 2148074452,
+        "bytes": 12,
+        "pointer": 1202,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "d5516cac9f546369c640482d566eb2328bd906d22a98e11d180d50499c2a88f2"
+      },
+      {
+        "address": 2148074528,
+        "bytes": 12,
+        "pointer": 1327,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 3,
+        "size": 1,
+        "payload_sha256": "e14c7bd27cdb0935bbf9ebaf0d05d9f70ca274701c33c39454373b2f032c9ca0"
+      },
+      {
+        "address": 2148074540,
+        "bytes": 12,
+        "pointer": 2821,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "09906b16d37ebdd64396e368bd5745018b83da595548bf0bd42d8669cfccfdf8"
+      },
+      {
+        "address": 2148074552,
+        "bytes": 12,
+        "pointer": 2822,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "237b15bb17d037591468578d3f89cdc3b9e9b416cd9c68bd22cce52612d93198"
+      },
+      {
+        "address": 2148074564,
+        "bytes": 12,
+        "pointer": 2823,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "1d76e7c1fdb0baec3a0cfe71bdc200e9e342f85aeb94b7d0159d3c1274bf9fdd"
+      },
+      {
+        "address": 2148074576,
+        "bytes": 12,
+        "pointer": 4604,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "e68fb9bfaba1e9357aef9aef39c790b9689884df80e7bd00966fa6f064d269b1"
+      },
+      {
+        "address": 2148074588,
+        "bytes": 12,
+        "pointer": 4606,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "cbc29420ff28f0a8c1b55f69ba335a18de214b34f8438e941a5164a56ff47dd5"
+      },
+      {
+        "address": 2148074600,
+        "bytes": 12,
+        "pointer": 4605,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "1ec3262f71786b422344ba3a03b7674b79d5f89e4e52762a518be06057fce6fd"
+      },
+      {
+        "address": 2148074612,
+        "bytes": 12,
+        "pointer": 4189,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 64,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "081cc0a11f9b8040689a2b25313180c339010a3c9c90c20b0324ed7584cc1964"
+      },
+      {
+        "address": 2148074644,
+        "bytes": 12,
+        "pointer": 2148074624,
+        "count": 5,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "acc07ffbfa63cdc09ecf9a77e82ebe118c5f71035810c9f3c1c10df93d3abaf1"
+      },
+      {
+        "address": 2148074676,
+        "bytes": 12,
+        "pointer": 2148074656,
+        "count": 5,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "fa3e65a5bec3dd0a91a7bcf450c171dbdc791638764e72e6f0ea20ffd719e7e5"
+      },
+      {
+        "address": 2148074688,
+        "bytes": 12,
+        "pointer": 2826,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 64,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "fb2b39958a589a36245be3708e7d5ebcd713236f7274852d8a458568c3b1ffa1"
+      },
+      {
+        "address": 2148074700,
+        "bytes": 12,
+        "pointer": 2750,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "00b7f9ebdcc4d51890ea758147b54e55fa5572eca188626434f58d981c009926"
+      },
+      {
+        "address": 2148074712,
+        "bytes": 12,
+        "pointer": 1665,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "05b9ec75c712b481178f85d0fe124692a9568aa06fbdb135ae9b6e18e185067b"
+      },
+      {
+        "address": 2148074724,
+        "bytes": 12,
+        "pointer": 2718,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "cddffcada71e56296d3fee5bf76fa2d9aae59856438eab407772fcf72d1127ac"
+      },
+      {
+        "address": 2148074736,
+        "bytes": 12,
+        "pointer": 1196,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "4d9e52d722c7ddad15cbbc255fb69d38cc8338289d17036e6b27be33ee2a89df"
+      },
+      {
+        "address": 2148074748,
+        "bytes": 12,
+        "pointer": 4163,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 3,
+        "size": 1,
+        "payload_sha256": "89502547f32d48c470ecf8acf1b43ec584e2c4064277e3e3a7ece8cd1c9d7aac"
+      },
+      {
+        "address": 2148074760,
+        "bytes": 12,
+        "pointer": 7728,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "6f22c23a722161f1bd7d2e80b432ca97c2f3d04a238e9cba1173d9b7b6dfce3e"
+      },
+      {
+        "address": 2148074772,
+        "bytes": 12,
+        "pointer": 2982,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "8da7fe9201804d1923d745fb57501fc5de8b2167092bfb497d4e6c08e183ca3d"
+      },
+      {
+        "address": 2148074784,
+        "bytes": 12,
+        "pointer": 7211,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "148cad3ffd1821d0936fcb80a059fb1cab801ff16fd85de0bdf467a1e92f5957"
+      },
+      {
+        "address": 2148074796,
+        "bytes": 12,
+        "pointer": 1213,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "cd3a74b9e32741c41a1c9a63128a6d6b10dc3c1f225e7e29029e34cc4e37b119"
+      },
+      {
+        "address": 2148074812,
+        "bytes": 12,
+        "pointer": 2148074808,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 3,
+        "size": 1,
+        "payload_sha256": "38ee920c2049610f26338c3d20fbd2684d921e68088712ccd86ec16a7be645f8"
+      },
+      {
+        "address": 2148074920,
+        "bytes": 12,
+        "pointer": 3973,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "2456924bdd40f85ec02d348071290753bbeeddf64d9a9968d64d291d5788aa1e"
+      },
+      {
+        "address": 2148074932,
+        "bytes": 12,
+        "pointer": 4158,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "d1014bc5b9257feee1c66cc882818814ad23af0e688c50ddf95edbb0914627d5"
+      },
+      {
+        "address": 2148074944,
+        "bytes": 12,
+        "pointer": 7266,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "ec5b6697403c41e14923c08e5d7dce1301ef4de4829cdf50457554de3b44b8b9"
+      },
+      {
+        "address": 2148074956,
+        "bytes": 12,
+        "pointer": 3340,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "8b6872b05f3555bea5103c0e73300659d523960fac61e55f4a3a70d9b653542e"
+      },
+      {
+        "address": 2148074968,
+        "bytes": 12,
+        "pointer": 4062,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "a5c9125b493910fe832ef1880e3da879e1c4b7549ee4e587d63df558e85a3c52"
+      },
+      {
+        "address": 2148074980,
+        "bytes": 12,
+        "pointer": 3969,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "bd75b78aa9bce74a5e6151a8231bc4c8d937c19693d892bd359bbd5ddb587934"
+      },
+      {
+        "address": 2148074992,
+        "bytes": 12,
+        "pointer": 1012,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 64,
+        "format": 3,
+        "size": 1,
+        "payload_sha256": "7fc4354f208a375ebec7178d01bf6598f1946b5831c45d51fafad34f53ab73b0"
+      },
+      {
+        "address": 2148075008,
+        "bytes": 12,
+        "pointer": 2148075004,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 2,
+        "payload_sha256": "0212b969ae68204637e5727d271619035c160be5003bb28effe91b1aa0a8754b"
+      },
+      {
+        "address": 2148075060,
+        "bytes": 12,
+        "pointer": 2148075040,
+        "count": 5,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 0,
+        "size": 2,
+        "payload_sha256": "fcd723a273ff4ef184b640939d1dedecb9a181ee3fc4789a1aa7d43d635ee37c"
+      },
+      {
+        "address": 2148075104,
+        "bytes": 12,
+        "pointer": 2148075080,
+        "count": 2,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 2,
+        "size": 0,
+        "payload_sha256": "9f8040fd43c8b676aef3375932026c5574e0ac6d47d2c910c05ad8d1381c5eb8"
+      },
+      {
+        "address": 2148075116,
+        "bytes": 12,
+        "pointer": 2148075072,
+        "count": 2,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 2,
+        "size": 0,
+        "payload_sha256": "41bcc22960ce087afa409e269e140659aefe524206f8ee0a44748de400cee231"
+      },
+      {
+        "address": 2148075128,
+        "bytes": 12,
+        "pointer": 2148075088,
+        "count": 2,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 2,
+        "size": 0,
+        "payload_sha256": "b2263176519baf3e4d91bb58c5f788f3be672478fee1ceee88174fc15120d711"
+      },
+      {
+        "address": 2148075140,
+        "bytes": 12,
+        "pointer": 2148075096,
+        "count": 2,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 2,
+        "size": 0,
+        "payload_sha256": "9f58d42e01dba0f7abc22dac2cda816a7e77bbb15d6303bb8593e0cf5b2fa999"
+      },
+      {
+        "address": 2148075152,
+        "bytes": 12,
+        "pointer": 7208,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 64,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "9b940e6a9830551de8aea205396628f1862259a6369adc06e9e6b690ab921759"
+      },
+      {
+        "address": 2148075204,
+        "bytes": 12,
+        "pointer": 2148075164,
+        "count": 10,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 4,
+        "size": 1,
+        "payload_sha256": "0098993174a58d45f8e7aecef222d86c33fa1530501a89bf3a0c81aaaee49b39"
+      },
+      {
+        "address": 2148075256,
+        "bytes": 12,
+        "pointer": 2148075216,
+        "count": 10,
+        "padding": 0,
+        "width": 64,
+        "height": 64,
+        "format": 4,
+        "size": 1,
+        "payload_sha256": "3e58de16a08b9de94e22045eeba2c6d651219e5d361257bfc9a40ec17cd0b902"
+      },
+      {
+        "address": 2148075268,
+        "bytes": 12,
+        "pointer": 7171,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "ddb7fee214af7ea6450cdafd771eec9ce7cd5c7b38e9a80805ba951da56cb81a"
+      },
+      {
+        "address": 2148075280,
+        "bytes": 12,
+        "pointer": 7170,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 64,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "e3aef5fe403ff91c9a3e34285ada2ac4eef8d21a9fe47c3a883dc896235f57a5"
+      },
+      {
+        "address": 2148075312,
+        "bytes": 12,
+        "pointer": 2148075292,
+        "count": 5,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "2be2bc77f0a716c013efc6811b27cdc2bb622ab82cf9772395177b59cb55114c"
+      },
+      {
+        "address": 2148075356,
+        "bytes": 12,
+        "pointer": 1025,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 64,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "046c49bf2b1733992cc0ebaf4989893b20d60f7e73ebc47c17f36166ac869576"
+      },
+      {
+        "address": 2148075388,
+        "bytes": 12,
+        "pointer": 2148075368,
+        "count": 5,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "4a3ed65c33c101ce1c264e337937af567954fb98f259488bb53f5ada2cd32225"
+      },
+      {
+        "address": 2148075404,
+        "bytes": 12,
+        "pointer": 2148075400,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "1600680b66c62e97a6a14ce36bcbc45b04c4750214ddb6df776a7d43261a26ed"
+      },
+      {
+        "address": 2148075416,
+        "bytes": 12,
+        "pointer": 2148075400,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "1600680b66c62e97a6a14ce36bcbc45b04c4750214ddb6df776a7d43261a26ed"
+      },
+      {
+        "address": 2148075500,
+        "bytes": 12,
+        "pointer": 4142,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 64,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "4abebc74e17edc37ed1beb52eb17039e16ba115d3dc0910e8aa6fafd7dc4a638"
+      },
+      {
+        "address": 2148075516,
+        "bytes": 12,
+        "pointer": 2148075512,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 4,
+        "size": 1,
+        "payload_sha256": "3b34b702fe077309d61bd48e43fb3a237045be377b62d90beed9dc3a49f399a1"
+      },
+      {
+        "address": 2148075532,
+        "bytes": 12,
+        "pointer": 2148075528,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "aa6ebb5b54702ff692bcf72b9a08f6841fcba2b95c91ccf5b7ada9214c887474"
+      },
+      {
+        "address": 2148079668,
+        "bytes": 12,
+        "pointer": 4353,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 0,
+        "size": 3,
+        "payload_sha256": "1df74ead0141a10b40ab668c5699e72da992cc7006b39862f50f7b494335b3d9"
+      },
+      {
+        "address": 2148079692,
+        "bytes": 12,
+        "pointer": 1091,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 64,
+        "format": 4,
+        "size": 1,
+        "payload_sha256": "eb513ebc9fcaade0179fecf38d3e1dfd87718149426e418d550d35a7d4da5fac"
+      },
+      {
+        "address": 2148079704,
+        "bytes": 12,
+        "pointer": 3775,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 64,
+        "format": 4,
+        "size": 0,
+        "payload_sha256": "b0791057b9a225143ccb6cfe6f95b4ac98d353ad09d43f850f27cd1251747cf5"
+      },
+      {
+        "address": 2148079716,
+        "bytes": 12,
+        "pointer": 1218,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 32,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "07833154f0b494cb10d2763d0f78a17bb91c497f943fc708ba85deb54d7a1ba8"
+      },
+      {
+        "address": 2148079728,
+        "bytes": 12,
+        "pointer": 1217,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "9f83ab9d50522cb105cda5568a5dd42751b683bc240846abdf8c25460b3727c1"
+      },
+      {
+        "address": 2148079740,
+        "bytes": 12,
+        "pointer": 1216,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "75a166796f1d5bfadc8a576e229bd97e4304c5f7c2b60a0fc8fc4a1b97925580"
+      },
+      {
+        "address": 2148079752,
+        "bytes": 12,
+        "pointer": 1215,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 32,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "3d29228ff66014410715684b963b135c03c8df2413df4b4fff432a9e8f29721f"
+      },
+      {
+        "address": 2148079764,
+        "bytes": 12,
+        "pointer": 1214,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "3674755951edf932d0b0109d052143ed518d2cea49f442729677c93bb7d87665"
+      },
+      {
+        "address": 2148079776,
+        "bytes": 12,
+        "pointer": 1213,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "cd3a74b9e32741c41a1c9a63128a6d6b10dc3c1f225e7e29029e34cc4e37b119"
+      },
+      {
+        "address": 2148079788,
+        "bytes": 12,
+        "pointer": 1220,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 16,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "54c4d2b7798ce999f35caf4364d1cf9e79a69e14efbff43f9e133023334cbe18"
+      },
+      {
+        "address": 2148079800,
+        "bytes": 12,
+        "pointer": 1219,
+        "count": 1,
+        "padding": 0,
+        "width": 16,
+        "height": 32,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "74d15a2d552d2edd510199549db8098c11c7c5285873835239b569c2e01ad6a6"
+      },
+      {
+        "address": 2148079812,
+        "bytes": 12,
+        "pointer": 1221,
+        "count": 1,
+        "padding": 0,
+        "width": 32,
+        "height": 32,
+        "format": 5,
+        "size": 2,
+        "payload_sha256": "180dff7a097e6427bfcc9d0c92fa0824dec90f24262723c9ae1080c06f1aecb5"
+      },
+      {
+        "address": 2148079824,
+        "bytes": 12,
+        "pointer": 4521,
+        "count": 1,
+        "padding": 0,
+        "width": 64,
+        "height": 64,
+        "format": 4,
+        "size": 1,
+        "payload_sha256": "170f88de8e979387c7d3f637c05c5313e0479f5e2b9f7cc8acc08a01c0b2f9bd"
+      }
+    ],
+    "descriptor_groups": [
+      {
+        "address": 2148074376,
+        "end": 2148074388,
+        "bytes": 12,
+        "payload_sha256": "0aa45bd09070cf712168b12ac9177a83cfe23c6c6418cb339dc64753d838e5b7"
+      },
+      {
+        "address": 2148074440,
+        "end": 2148074464,
+        "bytes": 24,
+        "payload_sha256": "e76863141b5de81ab023b1d83400241f855159548c742f2a95ac56b7635a4e5d"
+      },
+      {
+        "address": 2148074528,
+        "end": 2148074624,
+        "bytes": 96,
+        "payload_sha256": "733516ffd3ed7e4fc85808ea4a813f8fc9b1750022e079646d736658ba50bd70"
+      },
+      {
+        "address": 2148074644,
+        "end": 2148074656,
+        "bytes": 12,
+        "payload_sha256": "acc07ffbfa63cdc09ecf9a77e82ebe118c5f71035810c9f3c1c10df93d3abaf1"
+      },
+      {
+        "address": 2148074676,
+        "end": 2148074808,
+        "bytes": 132,
+        "payload_sha256": "2e4146a21c28fe40f511e49a4b5399a1f2fe0c7ebf2a67c3f8970439c21ab682"
+      },
+      {
+        "address": 2148074812,
+        "end": 2148074824,
+        "bytes": 12,
+        "payload_sha256": "38ee920c2049610f26338c3d20fbd2684d921e68088712ccd86ec16a7be645f8"
+      },
+      {
+        "address": 2148074920,
+        "end": 2148075004,
+        "bytes": 84,
+        "payload_sha256": "9c918e55437c2f79ae523d12c16a91020f24c796401621266a9087f92eb8169d"
+      },
+      {
+        "address": 2148075008,
+        "end": 2148075020,
+        "bytes": 12,
+        "payload_sha256": "0212b969ae68204637e5727d271619035c160be5003bb28effe91b1aa0a8754b"
+      },
+      {
+        "address": 2148075060,
+        "end": 2148075072,
+        "bytes": 12,
+        "payload_sha256": "fcd723a273ff4ef184b640939d1dedecb9a181ee3fc4789a1aa7d43d635ee37c"
+      },
+      {
+        "address": 2148075104,
+        "end": 2148075164,
+        "bytes": 60,
+        "payload_sha256": "b2279c38051289324c39fba4453c76deaaef05da5c13ed0fbe9bb419819bbc27"
+      },
+      {
+        "address": 2148075204,
+        "end": 2148075216,
+        "bytes": 12,
+        "payload_sha256": "0098993174a58d45f8e7aecef222d86c33fa1530501a89bf3a0c81aaaee49b39"
+      },
+      {
+        "address": 2148075256,
+        "end": 2148075292,
+        "bytes": 36,
+        "payload_sha256": "aad0c0c28e0cde06c4db5114b467a3907eea5be3c56fcefce120967e657f473e"
+      },
+      {
+        "address": 2148075312,
+        "end": 2148075324,
+        "bytes": 12,
+        "payload_sha256": "2be2bc77f0a716c013efc6811b27cdc2bb622ab82cf9772395177b59cb55114c"
+      },
+      {
+        "address": 2148075356,
+        "end": 2148075368,
+        "bytes": 12,
+        "payload_sha256": "046c49bf2b1733992cc0ebaf4989893b20d60f7e73ebc47c17f36166ac869576"
+      },
+      {
+        "address": 2148075388,
+        "end": 2148075400,
+        "bytes": 12,
+        "payload_sha256": "4a3ed65c33c101ce1c264e337937af567954fb98f259488bb53f5ada2cd32225"
+      },
+      {
+        "address": 2148075404,
+        "end": 2148075428,
+        "bytes": 24,
+        "payload_sha256": "f6fbbd468a7269217ace6cec4c7604a712de89279d7919d9d417fac74d8ee3a0"
+      },
+      {
+        "address": 2148075500,
+        "end": 2148075512,
+        "bytes": 12,
+        "payload_sha256": "4abebc74e17edc37ed1beb52eb17039e16ba115d3dc0910e8aa6fafd7dc4a638"
+      },
+      {
+        "address": 2148075516,
+        "end": 2148075528,
+        "bytes": 12,
+        "payload_sha256": "3b34b702fe077309d61bd48e43fb3a237045be377b62d90beed9dc3a49f399a1"
+      },
+      {
+        "address": 2148075532,
+        "end": 2148075544,
+        "bytes": 12,
+        "payload_sha256": "aa6ebb5b54702ff692bcf72b9a08f6841fcba2b95c91ccf5b7ada9214c887474"
+      },
+      {
+        "address": 2148079668,
+        "end": 2148079680,
+        "bytes": 12,
+        "payload_sha256": "1df74ead0141a10b40ab668c5699e72da992cc7006b39862f50f7b494335b3d9"
+      },
+      {
+        "address": 2148079692,
+        "end": 2148079836,
+        "bytes": 144,
+        "payload_sha256": "bc7326f1617fae3be08380fb7ff0b5be8186609ac4eed28589bab7e65b79debf"
+      }
+    ],
+    "frame_intervals": [
+      {
+        "descriptor": 2148074376,
+        "address": 2148074328,
+        "end": 2148074376,
+        "count": 12
+      },
+      {
+        "descriptor": 2148074644,
+        "address": 2148074624,
+        "end": 2148074644,
+        "count": 5
+      },
+      {
+        "descriptor": 2148074676,
+        "address": 2148074656,
+        "end": 2148074676,
+        "count": 5
+      },
+      {
+        "descriptor": 2148074812,
+        "address": 2148074808,
+        "end": 2148074812,
+        "count": 1
+      },
+      {
+        "descriptor": 2148075008,
+        "address": 2148075004,
+        "end": 2148075008,
+        "count": 1
+      },
+      {
+        "descriptor": 2148075060,
+        "address": 2148075040,
+        "end": 2148075060,
+        "count": 5
+      },
+      {
+        "descriptor": 2148075104,
+        "address": 2148075080,
+        "end": 2148075088,
+        "count": 2
+      },
+      {
+        "descriptor": 2148075116,
+        "address": 2148075072,
+        "end": 2148075080,
+        "count": 2
+      },
+      {
+        "descriptor": 2148075128,
+        "address": 2148075088,
+        "end": 2148075096,
+        "count": 2
+      },
+      {
+        "descriptor": 2148075140,
+        "address": 2148075096,
+        "end": 2148075104,
+        "count": 2
+      },
+      {
+        "descriptor": 2148075204,
+        "address": 2148075164,
+        "end": 2148075204,
+        "count": 10
+      },
+      {
+        "descriptor": 2148075256,
+        "address": 2148075216,
+        "end": 2148075256,
+        "count": 10
+      },
+      {
+        "descriptor": 2148075312,
+        "address": 2148075292,
+        "end": 2148075312,
+        "count": 5
+      },
+      {
+        "descriptor": 2148075388,
+        "address": 2148075368,
+        "end": 2148075388,
+        "count": 5
+      },
+      {
+        "descriptor": 2148075404,
+        "address": 2148075400,
+        "end": 2148075404,
+        "count": 1
+      },
+      {
+        "descriptor": 2148075416,
+        "address": 2148075400,
+        "end": 2148075404,
+        "count": 1
+      },
+      {
+        "descriptor": 2148075516,
+        "address": 2148075512,
+        "end": 2148075516,
+        "count": 1
+      },
+      {
+        "descriptor": 2148075532,
+        "address": 2148075528,
+        "end": 2148075532,
+        "count": 1
+      }
+    ],
+    "frame_groups": [
+      {
+        "address": 2148074328,
+        "end": 2148074376,
+        "bytes": 48,
+        "payload_sha256": "2495c0d851de2e5156f2e8ad1282d3c218f4ad4256076ad70ee9f2541cc07e71"
+      },
+      {
+        "address": 2148074624,
+        "end": 2148074644,
+        "bytes": 20,
+        "payload_sha256": "be86a4d54d3991811780a6118eb2dd096e5b31aca56c57070513bd8b66c878dd"
+      },
+      {
+        "address": 2148074656,
+        "end": 2148074676,
+        "bytes": 20,
+        "payload_sha256": "446c5fbde8b999e836398c90612d7f029eddb5215e4e4cc649ebb02da86e3bc4"
+      },
+      {
+        "address": 2148074808,
+        "end": 2148074812,
+        "bytes": 4,
+        "payload_sha256": "b5cffb7c320e0c524c3b37f69cd0038da6f7dc5694e174740f2faa5503d7d865"
+      },
+      {
+        "address": 2148075004,
+        "end": 2148075008,
+        "bytes": 4,
+        "payload_sha256": "b0ac7e7d5ebf15d5885f1d22aee6131cf5f40e324b9a57e853df2de3127c243d"
+      },
+      {
+        "address": 2148075040,
+        "end": 2148075060,
+        "bytes": 20,
+        "payload_sha256": "b233d30f05fae8ac54a1e5f298c5a74a62668060624c14704b0dc386b3bc13aa"
+      },
+      {
+        "address": 2148075072,
+        "end": 2148075104,
+        "bytes": 32,
+        "payload_sha256": "d1e5975e4d1a9808be84bfac4de2cb2983e1efe93bf19bc8aceb55d128a30951"
+      },
+      {
+        "address": 2148075164,
+        "end": 2148075204,
+        "bytes": 40,
+        "payload_sha256": "b54f3f882da4266ab520b91ad432ba6fa1f41e7f5d1adeff3629ac93cd730c3d"
+      },
+      {
+        "address": 2148075216,
+        "end": 2148075256,
+        "bytes": 40,
+        "payload_sha256": "d3625be8882e585ef5f799e6ece21e25a36a3cf9d15cb53f9048ac7b7c17ff97"
+      },
+      {
+        "address": 2148075292,
+        "end": 2148075312,
+        "bytes": 20,
+        "payload_sha256": "1b4bf29b0068e889acfaa6c9e7c1c3aa85e62e352a961f0a7d6c0edf000d770e"
+      },
+      {
+        "address": 2148075368,
+        "end": 2148075388,
+        "bytes": 20,
+        "payload_sha256": "446c5fbde8b999e836398c90612d7f029eddb5215e4e4cc649ebb02da86e3bc4"
+      },
+      {
+        "address": 2148075400,
+        "end": 2148075404,
+        "bytes": 4,
+        "payload_sha256": "cbe2d82460737585eb2c3fa13e783518fa8ab64411c9bfdafc5bad42ba152a0d"
+      },
+      {
+        "address": 2148075512,
+        "end": 2148075516,
+        "bytes": 4,
+        "payload_sha256": "c6f3cfaa53bd7d28518dfeaad7d2975d9c91b68e617b1f4322f23f0635245714"
+      },
+      {
+        "address": 2148075528,
+        "end": 2148075532,
+        "bytes": 4,
+        "payload_sha256": "6c3e7637d978c219e763878faffec2558f82d02d8992a2ec6325e6521383e295"
+      }
+    ],
+    "proposed_groups": [
+      {
+        "address": 2148059724,
+        "end": 2148060004,
+        "bytes": 280,
+        "payload_sha256": "73c131e6796ef6e169f406128a90ae655d2d9fbc3c7d0e2385f0d6e54e9ab884"
+      },
+      {
+        "address": 2148074328,
+        "end": 2148074388,
+        "bytes": 60,
+        "payload_sha256": "2f3f03f669f87d8d6887588a1e4547be4ce958c6c3d7c36b70a588b904b0bf51"
+      },
+      {
+        "address": 2148074440,
+        "end": 2148074464,
+        "bytes": 24,
+        "payload_sha256": "e76863141b5de81ab023b1d83400241f855159548c742f2a95ac56b7635a4e5d"
+      },
+      {
+        "address": 2148074528,
+        "end": 2148074824,
+        "bytes": 296,
+        "payload_sha256": "6051edba91bfd723c772e23a2a980b89c4e2a53845a577b4a1e8e6139fef4a30"
+      },
+      {
+        "address": 2148074920,
+        "end": 2148075020,
+        "bytes": 100,
+        "payload_sha256": "d13a6764d5041de5b1dfc8f833272f05e5ebdc44eb935b8d9e675781fa9ce4bb"
+      },
+      {
+        "address": 2148075040,
+        "end": 2148075324,
+        "bytes": 284,
+        "payload_sha256": "ff51e6f1d201a91f0459c4b8da8aba80488ebe050abfe28e81d0d40516a8c8f2"
+      },
+      {
+        "address": 2148075356,
+        "end": 2148075428,
+        "bytes": 72,
+        "payload_sha256": "d301bed1db02faae3b86f3b827a0db8be8a7daa18d7f5a191ea26bed7d618010"
+      },
+      {
+        "address": 2148075500,
+        "end": 2148075544,
+        "bytes": 44,
+        "payload_sha256": "f5e4aa57afef9879370a6a5c9e387a930a0ecf8b4c0158ac77dbe4f9c5431b45"
+      },
+      {
+        "address": 2148079668,
+        "end": 2148079680,
+        "bytes": 12,
+        "payload_sha256": "1df74ead0141a10b40ab668c5699e72da992cc7006b39862f50f7b494335b3d9"
+      },
+      {
+        "address": 2148079692,
+        "end": 2148079836,
+        "bytes": 144,
+        "payload_sha256": "bc7326f1617fae3be08380fb7ff0b5be8186609ac4eed28589bab7e65b79debf"
+      }
+    ],
+    "proposed_bytes": 1316,
+    "existing_ownership_intersections": [],
+    "effect_type14_callbacks": [
+      "0x15168870",
+      "0x0",
+      "0x150a6860"
+    ],
+    "limits": "Native selector predicate admits 0..69 and substitutes11 for all larger byte values; no runtime activation claim. Five null table slots and shared descriptors retained. All63unique descriptor layouts use byte4 count, alignment byte5, dimensions6/8 and formatA/B consumed by the checked loader. Type14 updater/drawer carry same B0 selector and98phase; normal positive wrap uses(count<<8)-1. Other flags and negative phases are not universal safety evidence. Frame arrays need shared-storage grouping and explicit pointer relocations; no original object boundary claim."
+  },
+  "plan": {
+    "units": [
+      {
+        "name": "effect_texture_roots_8008CA4C",
+        "address": 2148059724,
+        "bytes": 280,
+        "emitted_bytes": 288,
+        "pointers": {
+          "summarized_list": true,
+          "count": 65,
+          "sha256": "e425787d685c22e6b80cd0a76fce3bb1ba99405be551465555a5ccae79408f0c",
+          "first": [
+            {
+              "address": "0x8008ca4c",
+              "symbol": "D_8009053C",
+              "addend": 0,
+              "native_word": "0x8009053c"
+            },
+            {
+              "address": "0x8008ca50",
+              "symbol": "D_80090388",
+              "addend": 0,
+              "native_word": "0x80090388"
+            },
+            {
+              "address": "0x8008ca54",
+              "symbol": "D_800904B4",
+              "addend": 72,
+              "native_word": "0x800904fc"
+            }
+          ]
+        },
+        "source": "src/game/data/effect_textures/effect_texture_roots_8008CA4C.c",
+        "pointer_fields": {
+          "summarized_list": true,
+          "count": 65,
+          "sha256": "e425787d685c22e6b80cd0a76fce3bb1ba99405be551465555a5ccae79408f0c",
+          "first": [
+            {
+              "address": "0x8008ca4c",
+              "symbol": "D_8009053C",
+              "addend": 0,
+              "native_word": "0x8009053c"
+            },
+            {
+              "address": "0x8008ca50",
+              "symbol": "D_80090388",
+              "addend": 0,
+              "native_word": "0x80090388"
+            },
+            {
+              "address": "0x8008ca54",
+              "symbol": "D_800904B4",
+              "addend": 72,
+              "native_word": "0x800904fc"
+            }
+          ]
+        }
+      },
+      {
+        "name": "effect_texture_frames_80090358",
+        "address": 2148074328,
+        "bytes": 48,
+        "emitted_bytes": 48,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090358.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090388",
+        "address": 2148074376,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x80090388",
+            "symbol": "D_80090358",
+            "addend": 0,
+            "native_word": "0x80090358"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090388.c",
+        "pointer_fields": [
+          {
+            "address": "0x80090388",
+            "symbol": "D_80090358",
+            "addend": 0,
+            "native_word": "0x80090358"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_descriptors_800903C8",
+        "address": 2148074440,
+        "bytes": 24,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800903C8.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090420",
+        "address": 2148074528,
+        "bytes": 96,
+        "emitted_bytes": 96,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090420.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_frames_80090480",
+        "address": 2148074624,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090480.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090494",
+        "address": 2148074644,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x80090494",
+            "symbol": "D_80090480",
+            "addend": 0,
+            "native_word": "0x80090480"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090494.c",
+        "pointer_fields": [
+          {
+            "address": "0x80090494",
+            "symbol": "D_80090480",
+            "addend": 0,
+            "native_word": "0x80090480"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_800904A0",
+        "address": 2148074656,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_800904A0.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_800904B4",
+        "address": 2148074676,
+        "bytes": 132,
+        "emitted_bytes": 144,
+        "pointers": [
+          {
+            "address": "0x800904b4",
+            "symbol": "D_800904A0",
+            "addend": 0,
+            "native_word": "0x800904a0"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800904B4.c",
+        "pointer_fields": [
+          {
+            "address": "0x800904b4",
+            "symbol": "D_800904A0",
+            "addend": 0,
+            "native_word": "0x800904a0"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_80090538",
+        "address": 2148074808,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090538.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_8009053C",
+        "address": 2148074812,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x8009053c",
+            "symbol": "D_80090538",
+            "addend": 0,
+            "native_word": "0x80090538"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_8009053C.c",
+        "pointer_fields": [
+          {
+            "address": "0x8009053c",
+            "symbol": "D_80090538",
+            "addend": 0,
+            "native_word": "0x80090538"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_descriptors_800905A8",
+        "address": 2148074920,
+        "bytes": 84,
+        "emitted_bytes": 96,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800905A8.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_frames_800905FC",
+        "address": 2148075004,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_800905FC.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090600",
+        "address": 2148075008,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x80090600",
+            "symbol": "D_800905FC",
+            "addend": 0,
+            "native_word": "0x800905fc"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090600.c",
+        "pointer_fields": [
+          {
+            "address": "0x80090600",
+            "symbol": "D_800905FC",
+            "addend": 0,
+            "native_word": "0x800905fc"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_80090620",
+        "address": 2148075040,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090620.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090634",
+        "address": 2148075060,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x80090634",
+            "symbol": "D_80090620",
+            "addend": 0,
+            "native_word": "0x80090620"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090634.c",
+        "pointer_fields": [
+          {
+            "address": "0x80090634",
+            "symbol": "D_80090620",
+            "addend": 0,
+            "native_word": "0x80090620"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_80090640",
+        "address": 2148075072,
+        "bytes": 32,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090640.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090660",
+        "address": 2148075104,
+        "bytes": 60,
+        "emitted_bytes": 64,
+        "pointers": [
+          {
+            "address": "0x80090660",
+            "symbol": "D_80090640",
+            "addend": 8,
+            "native_word": "0x80090648"
+          },
+          {
+            "address": "0x8009066c",
+            "symbol": "D_80090640",
+            "addend": 0,
+            "native_word": "0x80090640"
+          },
+          {
+            "address": "0x80090678",
+            "symbol": "D_80090640",
+            "addend": 16,
+            "native_word": "0x80090650"
+          },
+          {
+            "address": "0x80090684",
+            "symbol": "D_80090640",
+            "addend": 24,
+            "native_word": "0x80090658"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090660.c",
+        "pointer_fields": [
+          {
+            "address": "0x80090660",
+            "symbol": "D_80090640",
+            "addend": 8,
+            "native_word": "0x80090648"
+          },
+          {
+            "address": "0x8009066c",
+            "symbol": "D_80090640",
+            "addend": 0,
+            "native_word": "0x80090640"
+          },
+          {
+            "address": "0x80090678",
+            "symbol": "D_80090640",
+            "addend": 16,
+            "native_word": "0x80090650"
+          },
+          {
+            "address": "0x80090684",
+            "symbol": "D_80090640",
+            "addend": 24,
+            "native_word": "0x80090658"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_8009069C",
+        "address": 2148075164,
+        "bytes": 40,
+        "emitted_bytes": 48,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_8009069C.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_800906C4",
+        "address": 2148075204,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x800906c4",
+            "symbol": "D_8009069C",
+            "addend": 0,
+            "native_word": "0x8009069c"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800906C4.c",
+        "pointer_fields": [
+          {
+            "address": "0x800906c4",
+            "symbol": "D_8009069C",
+            "addend": 0,
+            "native_word": "0x8009069c"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_800906D0",
+        "address": 2148075216,
+        "bytes": 40,
+        "emitted_bytes": 48,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_800906D0.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_800906F8",
+        "address": 2148075256,
+        "bytes": 36,
+        "emitted_bytes": 48,
+        "pointers": [
+          {
+            "address": "0x800906f8",
+            "symbol": "D_800906D0",
+            "addend": 0,
+            "native_word": "0x800906d0"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800906F8.c",
+        "pointer_fields": [
+          {
+            "address": "0x800906f8",
+            "symbol": "D_800906D0",
+            "addend": 0,
+            "native_word": "0x800906d0"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_8009071C",
+        "address": 2148075292,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_8009071C.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_80090730",
+        "address": 2148075312,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x80090730",
+            "symbol": "D_8009071C",
+            "addend": 0,
+            "native_word": "0x8009071c"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80090730.c",
+        "pointer_fields": [
+          {
+            "address": "0x80090730",
+            "symbol": "D_8009071C",
+            "addend": 0,
+            "native_word": "0x8009071c"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_descriptors_8009075C",
+        "address": 2148075356,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_8009075C.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_frames_80090768",
+        "address": 2148075368,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090768.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_8009077C",
+        "address": 2148075388,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x8009077c",
+            "symbol": "D_80090768",
+            "addend": 0,
+            "native_word": "0x80090768"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_8009077C.c",
+        "pointer_fields": [
+          {
+            "address": "0x8009077c",
+            "symbol": "D_80090768",
+            "addend": 0,
+            "native_word": "0x80090768"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_80090788",
+        "address": 2148075400,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090788.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_8009078C",
+        "address": 2148075404,
+        "bytes": 24,
+        "emitted_bytes": 32,
+        "pointers": [
+          {
+            "address": "0x8009078c",
+            "symbol": "D_80090788",
+            "addend": 0,
+            "native_word": "0x80090788"
+          },
+          {
+            "address": "0x80090798",
+            "symbol": "D_80090788",
+            "addend": 0,
+            "native_word": "0x80090788"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_8009078C.c",
+        "pointer_fields": [
+          {
+            "address": "0x8009078c",
+            "symbol": "D_80090788",
+            "addend": 0,
+            "native_word": "0x80090788"
+          },
+          {
+            "address": "0x80090798",
+            "symbol": "D_80090788",
+            "addend": 0,
+            "native_word": "0x80090788"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_descriptors_800907EC",
+        "address": 2148075500,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800907EC.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_frames_800907F8",
+        "address": 2148075512,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_800907F8.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_800907FC",
+        "address": 2148075516,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x800907fc",
+            "symbol": "D_800907F8",
+            "addend": 0,
+            "native_word": "0x800907f8"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_800907FC.c",
+        "pointer_fields": [
+          {
+            "address": "0x800907fc",
+            "symbol": "D_800907F8",
+            "addend": 0,
+            "native_word": "0x800907f8"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_frames_80090808",
+        "address": 2148075528,
+        "bytes": 4,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_frames_80090808.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_8009080C",
+        "address": 2148075532,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [
+          {
+            "address": "0x8009080c",
+            "symbol": "D_80090808",
+            "addend": 0,
+            "native_word": "0x80090808"
+          }
+        ],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_8009080C.c",
+        "pointer_fields": [
+          {
+            "address": "0x8009080c",
+            "symbol": "D_80090808",
+            "addend": 0,
+            "native_word": "0x80090808"
+          }
+        ]
+      },
+      {
+        "name": "effect_texture_descriptors_80091834",
+        "address": 2148079668,
+        "bytes": 12,
+        "emitted_bytes": 16,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_80091834.c",
+        "pointer_fields": []
+      },
+      {
+        "name": "effect_texture_descriptors_8009184C",
+        "address": 2148079692,
+        "bytes": 144,
+        "emitted_bytes": 144,
+        "pointers": [],
+        "source": "src/game/data/effect_textures/effect_texture_descriptors_8009184C.c",
+        "pointer_fields": []
+      }
+    ],
+    "bytes": 1316,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "omitted_gate_logs": [
+    "asset_build",
+    "base_commit",
+    "mutation_audit",
+    "pilot_audit",
+    "report_audit",
+    "report_timing_seconds",
+    "source_audit",
+    "tests"
+  ]
+}

@@ -1,0 +1,2337 @@
+{
+  "status": "accepted: native comparison, full tests, asset rebuild, preservation and full report pass",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "model_defaults": {
+    "status": "accepted native typed prefix; original array boundary not claimed",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "consumer": {
+      "symbol": "func_150039E0",
+      "address": "0x150039e0",
+      "bytes": 2964,
+      "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66"
+    },
+    "instruction_anchors": {
+      "0x15003e00": "0x240f0003",
+      "0x15003e04": "0xafaf0010",
+      "0x15003e10": "0xafa90014",
+      "0x15003e18": "0xd40adaf",
+      "0x15003e1c": "0xafa900ac",
+      "0x15003e24": "0x8fa900ac",
+      "0x15003ec4": "0x97080",
+      "0x15003ec8": "0x1c97023",
+      "0x15003ed4": "0xe7080",
+      "0x15003ed8": "0x3c0f800a",
+      "0x15003edc": "0x25ef26c0",
+      "0x15003ee0": "0x1cf1021",
+      "0x15003ee4": "0x90580000",
+      "0x15003ef0": "0x90590001",
+      "0x15003ef8": "0x844a0004",
+      "0x15003f00": "0x844b0002",
+      "0x15003f08": "0x904c0008",
+      "0x15003f10": "0x904d0009",
+      "0x15003f1c": "0x944f000a",
+      "0x15003f38": "0x944b0006"
+    },
+    "fields": [
+      {
+        "name": "field00",
+        "type": "u8",
+        "offset": 0,
+        "load_pc": "0x15003ee4"
+      },
+      {
+        "name": "field01",
+        "type": "u8",
+        "offset": 1,
+        "load_pc": "0x15003ef0"
+      },
+      {
+        "name": "field02",
+        "type": "s16",
+        "offset": 2,
+        "load_pc": "0x15003f00"
+      },
+      {
+        "name": "field04",
+        "type": "s16",
+        "offset": 4,
+        "load_pc": "0x15003ef8"
+      },
+      {
+        "name": "field06",
+        "type": "u16",
+        "offset": 6,
+        "load_pc": "0x15003f38"
+      },
+      {
+        "name": "field08",
+        "type": "u8",
+        "offset": 8,
+        "load_pc": "0x15003f08"
+      },
+      {
+        "name": "flags09",
+        "type": "u8",
+        "offset": 9,
+        "load_pc": "0x15003f10"
+      },
+      {
+        "name": "flags0A",
+        "type": "u16",
+        "offset": 10,
+        "load_pc": "0x15003f1c"
+      }
+    ],
+    "base": "0x800a26c0",
+    "stride": 12,
+    "proven_prefix_records": 114,
+    "bytes": 1368,
+    "payload_sha256": "5d20f67e0a49e753bd1f38e501d6d8b102054bf171600ec0f063596681aa86df",
+    "placement_references": {
+      "3": {
+        "summarized_list": true,
+        "count": 165,
+        "sha256": "7c790e9ac468c0ef7ef99838af02c7f2e2e4ff1a510c298841f77bb7aed5d292",
+        "first": [
+          {
+            "scene": 0,
+            "record": 0,
+            "sha1": "408d684d3be3487cf7c56fc6c5e47a7601d46d48"
+          },
+          {
+            "scene": 0,
+            "record": 1,
+            "sha1": "466903f5f4db309902b7706618aaa4bd8d560cc9"
+          },
+          {
+            "scene": 0,
+            "record": 2,
+            "sha1": "a2f503b3b1226fc3652b039db055625c0e433bfe"
+          }
+        ]
+      },
+      "51": {
+        "summarized_list": true,
+        "count": 110,
+        "sha256": "f27edee827611fe7e64929917f78cb1092fa8b9fda7a9168a2fb070f93bf3831",
+        "first": [
+          {
+            "scene": 0,
+            "record": 8,
+            "sha1": "49c5e462d1a086acffc102865fac86cb31593593"
+          },
+          {
+            "scene": 0,
+            "record": 9,
+            "sha1": "573614f3c0285271f1b0f697be76dec03e894450"
+          },
+          {
+            "scene": 0,
+            "record": 10,
+            "sha1": "9178148951c39f733b78d447f2a324d1fd2fcd5e"
+          }
+        ]
+      },
+      "56": [
+        {
+          "scene": 4,
+          "record": 0,
+          "sha1": "074b403c76adcd3ba8bf72c72de7b08bad3327fb"
+        },
+        {
+          "scene": 4,
+          "record": 1,
+          "sha1": "c251a8772d006775588ed261efd2b0977bdc6079"
+        }
+      ],
+      "55": [
+        {
+          "scene": 4,
+          "record": 2,
+          "sha1": "d443aca435b98849fb62fa8d2604af4bdf3b853c"
+        },
+        {
+          "scene": 4,
+          "record": 3,
+          "sha1": "21865e7995c589247f95d45727d7b2f48aa70972"
+        }
+      ],
+      "54": [
+        {
+          "scene": 4,
+          "record": 4,
+          "sha1": "203dca448b1d0fcf25ad72e4e96951ccf3b47db1"
+        },
+        {
+          "scene": 4,
+          "record": 5,
+          "sha1": "bd04504cfd08d42a5b95bf6f5b0320233929c0b9"
+        }
+      ],
+      "53": [
+        {
+          "scene": 4,
+          "record": 6,
+          "sha1": "12c18706e913e1bbe056d6ace267297291f7de92"
+        },
+        {
+          "scene": 4,
+          "record": 7,
+          "sha1": "59d34e802887380753fd3b5155f2937944d85347"
+        },
+        {
+          "scene": 4,
+          "record": 8,
+          "sha1": "a4f9fd103961f0bd86a9e27ea0b3a5150bffa808"
+        }
+      ],
+      "52": [
+        {
+          "scene": 4,
+          "record": 9,
+          "sha1": "034f0fa3f7d0a38b00a8b9a5a058e1c18ecb6028"
+        },
+        {
+          "scene": 4,
+          "record": 10,
+          "sha1": "7d9f22979f07c44e04d5fdb67195211144649d30"
+        }
+      ],
+      "98": [
+        {
+          "scene": 6,
+          "record": 4,
+          "sha1": "94d4b649f642574d5e4efbd2b9a6e2fd37acc88b"
+        },
+        {
+          "scene": 59,
+          "record": 4,
+          "sha1": "5b099c364adaec4745a39bca8b6467b58e5b74e0"
+        }
+      ],
+      "97": [
+        {
+          "scene": 6,
+          "record": 5,
+          "sha1": "e0573903b7e45fbe7ab5c8017b86463ed73e96d6"
+        },
+        {
+          "scene": 26,
+          "record": 12,
+          "sha1": "ed37aa3dbeef6c5dd6041c546adaae509655c7e1"
+        },
+        {
+          "scene": 29,
+          "record": 10,
+          "sha1": "5d5d0d2b581cace72264a3977c2484bbedb45106"
+        },
+        {
+          "scene": 56,
+          "record": 0,
+          "sha1": "44767f147dbdada760291229eb6c330f97cde274"
+        }
+      ],
+      "102": [
+        {
+          "scene": 6,
+          "record": 6,
+          "sha1": "ca0091c7906d67291009eaa25fc565f0c12d84b2"
+        }
+      ],
+      "1": [
+        {
+          "scene": 6,
+          "record": 7,
+          "sha1": "4fd6e090dcb8e6fc81ebf8d66d56dc7ac6819f1f"
+        },
+        {
+          "scene": 6,
+          "record": 8,
+          "sha1": "0434254b73087a46a3f0be1882b9dbb0b406782c"
+        },
+        {
+          "scene": 6,
+          "record": 9,
+          "sha1": "9752d816725c61daf1d6cd6def0587f54fc3aed1"
+        },
+        {
+          "scene": 59,
+          "record": 6,
+          "sha1": "40f75dd001b859e3ef8f327eafb3e692851d4201"
+        },
+        {
+          "scene": 59,
+          "record": 7,
+          "sha1": "22586d3575252189073d6b2db6afd5e85005a921"
+        },
+        {
+          "scene": 59,
+          "record": 8,
+          "sha1": "18c139677c885035dbea688d66e23a03785445df"
+        },
+        {
+          "scene": 65,
+          "record": 1,
+          "sha1": "5335512d020fb11e9a4c8c4df6de65d0432a181c"
+        },
+        {
+          "scene": 65,
+          "record": 2,
+          "sha1": "29775c08e210fe513dadb029247a86746d26110d"
+        },
+        {
+          "scene": 65,
+          "record": 3,
+          "sha1": "309e52cd10fa3f8a977b58be4d18958a0626d74c"
+        },
+        {
+          "scene": 65,
+          "record": 4,
+          "sha1": "396c6e7999f1ece363d7095d2764032beee47bb6"
+        },
+        {
+          "scene": 65,
+          "record": 5,
+          "sha1": "e84e19fcef4632c3bd660ee50d281f5efba40049"
+        },
+        {
+          "scene": 65,
+          "record": 6,
+          "sha1": "4d6b3468f21a654384d7460c254dc30636b68aaf"
+        }
+      ],
+      "46": [
+        {
+          "scene": 7,
+          "record": 0,
+          "sha1": "6c1a7ecb710f25068242b804a47ba7f86769df8d"
+        }
+      ],
+      "45": [
+        {
+          "scene": 7,
+          "record": 1,
+          "sha1": "97b5fd4fe3b2d99d891f02defbe0456a07e92060"
+        }
+      ],
+      "44": [
+        {
+          "scene": 7,
+          "record": 3,
+          "sha1": "4b06f5cec7f52b999a61d0bb884977a412f9e79d"
+        }
+      ],
+      "99": [
+        {
+          "scene": 10,
+          "record": 3,
+          "sha1": "e8629a046d3a8399fba0387af57288225a915076"
+        },
+        {
+          "scene": 10,
+          "record": 5,
+          "sha1": "73e955a8ef185b81c1aaa6ab98c242ba1db9a2b8"
+        },
+        {
+          "scene": 41,
+          "record": 2,
+          "sha1": "4e6c1dd0b7e7c2b644625219b3125a4c53297521"
+        },
+        {
+          "scene": 49,
+          "record": 0,
+          "sha1": "4b18f77b4fa62d7ab15e903a3e3b2a10968123dd"
+        }
+      ],
+      "103": [
+        {
+          "scene": 10,
+          "record": 4,
+          "sha1": "a1bbc984fd78dd0c68eb30bc41632eafb9ff2942"
+        }
+      ],
+      "108": [
+        {
+          "scene": 11,
+          "record": 6,
+          "sha1": "4af04d4af34edc595a350049a38d6e3d642a445f"
+        }
+      ],
+      "47": [
+        {
+          "scene": 18,
+          "record": 0,
+          "sha1": "2ff8abc1c6c42ce52397d0dc63104136ee26d937"
+        }
+      ],
+      "49": [
+        {
+          "scene": 18,
+          "record": 1,
+          "sha1": "4caf8a6d12c300f346e680ef0fa40139afd71d28"
+        }
+      ],
+      "50": [
+        {
+          "scene": 18,
+          "record": 2,
+          "sha1": "03bb3b2be6b9d2753fdd765a088c03c45dd8d0a0"
+        }
+      ],
+      "48": [
+        {
+          "scene": 18,
+          "record": 3,
+          "sha1": "19096b983f2070af1e016626586608f4eb588a53"
+        }
+      ],
+      "58": [
+        {
+          "scene": 26,
+          "record": 0,
+          "sha1": "dd0cc0f80512cedeeab78c28406bb0741a5ff40e"
+        },
+        {
+          "scene": 45,
+          "record": 5,
+          "sha1": "b0193c56cc4cbb8d916429d3272befa8facd71c2"
+        },
+        {
+          "scene": 48,
+          "record": 0,
+          "sha1": "b425dc2e14393ed72c7504499f4defbb9b3cc735"
+        },
+        {
+          "scene": 52,
+          "record": 2,
+          "sha1": "da90c999c509bd764edaf8d0812a57e2d4a97fd0"
+        },
+        {
+          "scene": 52,
+          "record": 4,
+          "sha1": "e3c18661b2b2e43784e9209229f5ac913b4d6e57"
+        },
+        {
+          "scene": 62,
+          "record": 19,
+          "sha1": "38805f4867119821510de4cc62df93a44183c9f2"
+        }
+      ],
+      "60": [
+        {
+          "scene": 26,
+          "record": 1,
+          "sha1": "c9bd88f28110e2300b32fa13cd36ab3c611b4673"
+        },
+        {
+          "scene": 45,
+          "record": 1,
+          "sha1": "8107db7c60426e49081b0a97d66aca7d6402a597"
+        },
+        {
+          "scene": 45,
+          "record": 3,
+          "sha1": "d5d105934371a5756381ece73ef53d46433fe07a"
+        },
+        {
+          "scene": 48,
+          "record": 10,
+          "sha1": "06ccc3752d4be099220cd14995120989d0a5bb0c"
+        },
+        {
+          "scene": 48,
+          "record": 14,
+          "sha1": "fdf1d1cc0102249808d15b93dcac7ae4ba6e7a39"
+        },
+        {
+          "scene": 52,
+          "record": 7,
+          "sha1": "ce59b214bbe4339a8f6f2731550789563730c5fd"
+        },
+        {
+          "scene": 62,
+          "record": 10,
+          "sha1": "31ea756d60f4b0bd2a107dc89c8cf8229227547e"
+        },
+        {
+          "scene": 62,
+          "record": 12,
+          "sha1": "06a1a274e1f4604e9fb265768c5f6814156e78e7"
+        },
+        {
+          "scene": 62,
+          "record": 14,
+          "sha1": "fd28ef8fc8ac97c244cf60c1fb752540d4bc927c"
+        },
+        {
+          "scene": 62,
+          "record": 16,
+          "sha1": "e7bd7d45df861ea29e7495ccef80ce58dc89f121"
+        },
+        {
+          "scene": 62,
+          "record": 22,
+          "sha1": "94cdad54418ec7b738d73ca42afb0a9067abedeb"
+        }
+      ],
+      "61": [
+        {
+          "scene": 26,
+          "record": 2,
+          "sha1": "731431ea0fc68109b5e9409e92963323e8081f52"
+        },
+        {
+          "scene": 26,
+          "record": 3,
+          "sha1": "a1ff475b5f1c0aebc3c08cd2413227d12b0e981a"
+        },
+        {
+          "scene": 26,
+          "record": 4,
+          "sha1": "dc43dec0ad77b2be75b2ebd3eb9990bbd793216f"
+        },
+        {
+          "scene": 26,
+          "record": 5,
+          "sha1": "683c7189b8f2168aa793dc46548940441cb30841"
+        },
+        {
+          "scene": 26,
+          "record": 6,
+          "sha1": "391adb15da0ed517a1d342cb02b689dcd78edad4"
+        },
+        {
+          "scene": 52,
+          "record": 6,
+          "sha1": "c77ecd0e43a38c69606914fd319b1f0b3750f165"
+        },
+        {
+          "scene": 62,
+          "record": 9,
+          "sha1": "fd8c647958f7310ad3feda4413336a1156375ba5"
+        },
+        {
+          "scene": 62,
+          "record": 11,
+          "sha1": "d682e775d2982967c4c6982b7858d01ba61a81c2"
+        },
+        {
+          "scene": 62,
+          "record": 13,
+          "sha1": "e8e0a3b089ac3b7e0c9c6fafb278cb3174ea8ed1"
+        },
+        {
+          "scene": 62,
+          "record": 15,
+          "sha1": "98c67f0b12adc2e52f26e2be9b2756209d588c90"
+        },
+        {
+          "scene": 62,
+          "record": 17,
+          "sha1": "495c8c3d8959ec676b32f60b922849a9f5d72a59"
+        },
+        {
+          "scene": 62,
+          "record": 21,
+          "sha1": "06e26d913cdd0a4b056fe6973e6070126c013e5c"
+        }
+      ],
+      "86": [
+        {
+          "scene": 26,
+          "record": 7,
+          "sha1": "edfb5fe1da539b4fa46e7e171a445081ba714b90"
+        },
+        {
+          "scene": 26,
+          "record": 8,
+          "sha1": "070134144a0e719744923ab3d26dad6e9d6de0f1"
+        },
+        {
+          "scene": 45,
+          "record": 17,
+          "sha1": "08a8a7174f315768bd369f2efa87f90fa8093abd"
+        },
+        {
+          "scene": 45,
+          "record": 18,
+          "sha1": "3d7ab883c502cb11385675cbe0009ea8e70fc771"
+        },
+        {
+          "scene": 48,
+          "record": 2,
+          "sha1": "730cf8e2c7f6650870710ff86fd717049113a3f1"
+        },
+        {
+          "scene": 48,
+          "record": 3,
+          "sha1": "1d7e578c7fb6db3441e9ad8e45dfda0c0667185d"
+        },
+        {
+          "scene": 52,
+          "record": 0,
+          "sha1": "e172a93b4c1b58a7f96abe0eb0032c9cf6f7ac0c"
+        },
+        {
+          "scene": 62,
+          "record": 24,
+          "sha1": "60d36362e8b103ece1ed1707aef583290c01d3f4"
+        },
+        {
+          "scene": 63,
+          "record": 5,
+          "sha1": "66279b7f34629eff6d544c67a138fa63f9b7cbb1"
+        }
+      ],
+      "93": [
+        {
+          "scene": 26,
+          "record": 9,
+          "sha1": "b3419d14219b81d24352cb982340f942981da2b9"
+        }
+      ],
+      "87": [
+        {
+          "scene": 26,
+          "record": 10,
+          "sha1": "76d1125070a50e131c8a854d89ae0e1bbe7c2ce8"
+        },
+        {
+          "scene": 26,
+          "record": 11,
+          "sha1": "22f3c17e9bd731fe6ce96aa2d29c819c048b4d78"
+        },
+        {
+          "scene": 45,
+          "record": 21,
+          "sha1": "1fc3a614fdb69a017a4a07a263bc1e941027399f"
+        },
+        {
+          "scene": 45,
+          "record": 23,
+          "sha1": "af554338165a5c9a11655abea09055b3dfc6fc40"
+        },
+        {
+          "scene": 48,
+          "record": 12,
+          "sha1": "3d9b8ca82cf1489e2a21febabc3d5cc95fabc182"
+        },
+        {
+          "scene": 48,
+          "record": 13,
+          "sha1": "be52e52dddc51458c099eb5520c09a628f778f7f"
+        },
+        {
+          "scene": 48,
+          "record": 15,
+          "sha1": "0aa9f0e72681b252ee1df1b89f59b3f899910aa0"
+        },
+        {
+          "scene": 48,
+          "record": 16,
+          "sha1": "6421cf5411baa16a628b55a6bd0259e4b6998aac"
+        },
+        {
+          "scene": 50,
+          "record": 0,
+          "sha1": "e732289e7f885fda5d407536510c0514129280fd"
+        },
+        {
+          "scene": 50,
+          "record": 1,
+          "sha1": "d0cb77c841ccc805a31e9bbfd605833f4be62bd2"
+        },
+        {
+          "scene": 50,
+          "record": 5,
+          "sha1": "dc2da3213038fbdead17978fedc9c046e89e65df"
+        },
+        {
+          "scene": 52,
+          "record": 14,
+          "sha1": "c8c02317bff0cd0bf7af459747700d54098f8d50"
+        },
+        {
+          "scene": 52,
+          "record": 15,
+          "sha1": "cc01f131dd5112f472bb938b266906f275774e9f"
+        },
+        {
+          "scene": 62,
+          "record": 7,
+          "sha1": "81930ec0b819e7acbefcf9840a9206a869055567"
+        },
+        {
+          "scene": 62,
+          "record": 8,
+          "sha1": "2cc40ed93e0e6d9955669003d373466bba985ce6"
+        }
+      ],
+      "111": [
+        {
+          "scene": 27,
+          "record": 9,
+          "sha1": "251aa63e8723195845b53758883543dc61a13db0"
+        }
+      ],
+      "63": [
+        {
+          "scene": 29,
+          "record": 0,
+          "sha1": "1a7a633d1ea19564cebca77bb7b06d7544f55aec"
+        }
+      ],
+      "66": [
+        {
+          "scene": 29,
+          "record": 1,
+          "sha1": "d5694405d5e06cfef8ab675d8b1c0da219191a8f"
+        }
+      ],
+      "68": [
+        {
+          "scene": 29,
+          "record": 2,
+          "sha1": "1f32d625a5b571ea543c0a93b420a651d5a63f3e"
+        }
+      ],
+      "69": [
+        {
+          "scene": 29,
+          "record": 3,
+          "sha1": "7476054b84603b9fba267f3bf05cc5e70624fffd"
+        }
+      ],
+      "73": [
+        {
+          "scene": 29,
+          "record": 4,
+          "sha1": "e55bcc2a080ce3cb7b4b27b6b1586a186c4c2150"
+        }
+      ],
+      "74": [
+        {
+          "scene": 29,
+          "record": 5,
+          "sha1": "86b6fc506995bba5e392d7d484d93814bf218182"
+        }
+      ],
+      "75": [
+        {
+          "scene": 29,
+          "record": 6,
+          "sha1": "7abe43dd9e654b635328ad8bb892bf0b1ccc087f"
+        }
+      ],
+      "77": [
+        {
+          "scene": 29,
+          "record": 7,
+          "sha1": "cf4c77f91fc13171b560973a8a7880bf60c9f2ff"
+        }
+      ],
+      "78": [
+        {
+          "scene": 29,
+          "record": 8,
+          "sha1": "bd56875d507a0b3679f09ef29755473563196958"
+        }
+      ],
+      "96": [
+        {
+          "scene": 29,
+          "record": 9,
+          "sha1": "4c579166da5207e6aae7a86dd8085b0c45812d63"
+        }
+      ],
+      "62": [
+        {
+          "scene": 33,
+          "record": 0,
+          "sha1": "1e522ed1b7dfefdbb3c8e1ec301f57c656f458e5"
+        },
+        {
+          "scene": 45,
+          "record": 22,
+          "sha1": "ebc3047e1edc1b0c76226b5a506b3f25963de660"
+        },
+        {
+          "scene": 45,
+          "record": 24,
+          "sha1": "6d183182ad9c490cf5419d93d60b20305e421289"
+        },
+        {
+          "scene": 48,
+          "record": 1,
+          "sha1": "cfb39407484f6690ad635e61faad52eafb6223f7"
+        },
+        {
+          "scene": 52,
+          "record": 3,
+          "sha1": "cd60958415f17641648423cf323c76c5b96f0eb4"
+        },
+        {
+          "scene": 62,
+          "record": 27,
+          "sha1": "682e51645fd8dd9affa20bd447f74f782566c7ac"
+        },
+        {
+          "scene": 63,
+          "record": 3,
+          "sha1": "afe22031a45ecd3f148d1835da3dad79b6eb1144"
+        }
+      ],
+      "95": [
+        {
+          "scene": 35,
+          "record": 0,
+          "sha1": "0615424ddcf44d171596ee388a2183ec92f62269"
+        },
+        {
+          "scene": 36,
+          "record": 9,
+          "sha1": "d8cbdc3b0ad07b6f28d44246024b2a4c9c72f0d5"
+        },
+        {
+          "scene": 36,
+          "record": 10,
+          "sha1": "71b4d0965aad4ec5c991fb92670b04bddf7aae36"
+        },
+        {
+          "scene": 36,
+          "record": 11,
+          "sha1": "181410c855d04171496f6e6b2e881efa2d827aca"
+        },
+        {
+          "scene": 36,
+          "record": 12,
+          "sha1": "8ef46a5f736ca47688f0f40959be518b4edc4441"
+        },
+        {
+          "scene": 36,
+          "record": 13,
+          "sha1": "23c301d5bb296183cf9e0b13e79ee940df58e961"
+        },
+        {
+          "scene": 36,
+          "record": 14,
+          "sha1": "d40a5660c06b7044e216ccda816be12be224e5a7"
+        },
+        {
+          "scene": 36,
+          "record": 15,
+          "sha1": "3653026f7a1c24548dd8a735bea6ff80938b719a"
+        },
+        {
+          "scene": 36,
+          "record": 16,
+          "sha1": "026390ade129b9dd6f7c9894e4025e79e59a9ff5"
+        },
+        {
+          "scene": 36,
+          "record": 17,
+          "sha1": "912fba6c205740e8d9b6c9f9db9d76da4dcb8445"
+        },
+        {
+          "scene": 36,
+          "record": 18,
+          "sha1": "3458b7bff1e334b06565131d0155af199b6079bb"
+        },
+        {
+          "scene": 36,
+          "record": 19,
+          "sha1": "23ed60f136bbe7652b4c630e37f724516203d525"
+        },
+        {
+          "scene": 36,
+          "record": 20,
+          "sha1": "7027dbbb5946492b79300959d1dfacbe42d3295d"
+        },
+        {
+          "scene": 36,
+          "record": 21,
+          "sha1": "4c9eaf8770dcd07d902ccc6737f3379894638261"
+        },
+        {
+          "scene": 36,
+          "record": 22,
+          "sha1": "151c9b42ca245926a8249eb367c311c32fe31173"
+        },
+        {
+          "scene": 36,
+          "record": 23,
+          "sha1": "d6b3c28e8b6e258276db66ce8be182a9581378d9"
+        },
+        {
+          "scene": 36,
+          "record": 24,
+          "sha1": "785b87a4a35c8f474a8074ab7163074fca0445bd"
+        },
+        {
+          "scene": 36,
+          "record": 25,
+          "sha1": "a159042bc22739a6bf9896f5e339663cbbb34635"
+        }
+      ],
+      "71": [
+        {
+          "scene": 36,
+          "record": 0,
+          "sha1": "1b8702c13972cee3c5410a5cb2cea6668d1782e2"
+        },
+        {
+          "scene": 36,
+          "record": 7,
+          "sha1": "0dd3a7bf7b13ab58b840fb40ff55a082814c3cc9"
+        }
+      ],
+      "72": [
+        {
+          "scene": 36,
+          "record": 1,
+          "sha1": "4f4415e523d43c16d68879a03c9367e3ff07f2bb"
+        },
+        {
+          "scene": 36,
+          "record": 5,
+          "sha1": "00e3b9ac67f3f49f6f2212d932cc0ede4124108b"
+        },
+        {
+          "scene": 50,
+          "record": 2,
+          "sha1": "34421882fd515d4b7f597a7843c17da06216f420"
+        },
+        {
+          "scene": 50,
+          "record": 3,
+          "sha1": "02eabf67a12a1b187ccb754749fc5a01d82e4e00"
+        },
+        {
+          "scene": 50,
+          "record": 4,
+          "sha1": "68642e8bbae84058d77941b4d6a0a53c7e062798"
+        },
+        {
+          "scene": 50,
+          "record": 6,
+          "sha1": "7c5ed62fe12e7529418f4472f5edf24525c6a565"
+        }
+      ],
+      "81": [
+        {
+          "scene": 36,
+          "record": 2,
+          "sha1": "38170654fa9e282acdf64166049750806cfe78a2"
+        }
+      ],
+      "70": [
+        {
+          "scene": 36,
+          "record": 3,
+          "sha1": "407097fce735da07c1306dc8356f9d67d3733791"
+        }
+      ],
+      "80": [
+        {
+          "scene": 36,
+          "record": 4,
+          "sha1": "7763a46856b05e4a92c34a781a9fa55b1e0a1172"
+        },
+        {
+          "scene": 36,
+          "record": 6,
+          "sha1": "82cd4bdbabedef0e43affe1b67d963bc4eecb3ae"
+        }
+      ],
+      "88": [
+        {
+          "scene": 36,
+          "record": 8,
+          "sha1": "5de8a70bca09e4b3404aa94188dc288159752ef9"
+        }
+      ],
+      "91": [
+        {
+          "scene": 43,
+          "record": 0,
+          "sha1": "b7558da5b6decf2373ed1acd7cc9408af814c266"
+        },
+        {
+          "scene": 43,
+          "record": 1,
+          "sha1": "4cb5883af15120d6ea5d828fec622b3947f5c3cd"
+        }
+      ],
+      "57": [
+        {
+          "scene": 45,
+          "record": 0,
+          "sha1": "b4509dab7abb2af194a2474fcb46365f365b4390"
+        },
+        {
+          "scene": 45,
+          "record": 2,
+          "sha1": "bf3aeb7883a4ba8ef0f17893f4dc17466330cbdd"
+        },
+        {
+          "scene": 48,
+          "record": 8,
+          "sha1": "ca17debd3d4bd75af5c8df273b1a0404d6c709c6"
+        },
+        {
+          "scene": 48,
+          "record": 9,
+          "sha1": "5aee556ce7d94103d75f17ccb40d346d9e715993"
+        },
+        {
+          "scene": 52,
+          "record": 8,
+          "sha1": "993b5dcd38aa887c19ec73d4a0745dac4650af81"
+        },
+        {
+          "scene": 52,
+          "record": 9,
+          "sha1": "b2fdc1ad94e8341378dacff6fb33544828a3ec0d"
+        },
+        {
+          "scene": 62,
+          "record": 25,
+          "sha1": "10577b1397a0b9d1f53c68c8188cf4d11dd942b8"
+        },
+        {
+          "scene": 63,
+          "record": 6,
+          "sha1": "0a2872d19c7ffe70bd874df73c5d30be4ca3ee8a"
+        }
+      ],
+      "83": [
+        {
+          "scene": 45,
+          "record": 4,
+          "sha1": "289c30554b392a57cf8dcfd13b5e9fadc7c78b24"
+        },
+        {
+          "scene": 45,
+          "record": 8,
+          "sha1": "61626e134b41088281421d5b97625fa15faf2325"
+        },
+        {
+          "scene": 48,
+          "record": 4,
+          "sha1": "1c2ec82cbe6c6b7d7cbddf3ee7eb1b56e8d3f3f9"
+        },
+        {
+          "scene": 48,
+          "record": 5,
+          "sha1": "bd6e61faa6fe70a91d9183b3a9bb1697e393506d"
+        },
+        {
+          "scene": 52,
+          "record": 1,
+          "sha1": "15de5133372357006d778e80b8d07ffaf49e661c"
+        },
+        {
+          "scene": 52,
+          "record": 11,
+          "sha1": "1e4367e2f7467717116eee6cd5bb34f0dc630afb"
+        },
+        {
+          "scene": 62,
+          "record": 5,
+          "sha1": "475b6d882fd0f06560cc48c3ec3e2a09754a8e3c"
+        },
+        {
+          "scene": 62,
+          "record": 6,
+          "sha1": "e1b11349cdca7cbc05423c34420458f0a406e46a"
+        },
+        {
+          "scene": 63,
+          "record": 4,
+          "sha1": "c30afcbe683577bac6e0775efe03cb1a247ff5bc"
+        }
+      ],
+      "59": [
+        {
+          "scene": 45,
+          "record": 6,
+          "sha1": "ea4f1b5106d43d5ec27c4d711f8cc81f00c4a2c9"
+        },
+        {
+          "scene": 45,
+          "record": 7,
+          "sha1": "20566d3524159ae1a8b361f35f15d55e15f336a9"
+        },
+        {
+          "scene": 48,
+          "record": 11,
+          "sha1": "1b495c1c95808382820bde1b976d94ed1cce7a7f"
+        },
+        {
+          "scene": 52,
+          "record": 5,
+          "sha1": "6aa0c0293ca42c1b3131b6f94de820a8a01cb896"
+        },
+        {
+          "scene": 62,
+          "record": 26,
+          "sha1": "cff0fd66d1504e1ce9390044c618cdc76e1c6b75"
+        },
+        {
+          "scene": 63,
+          "record": 10,
+          "sha1": "b27e0d8c46675aa04ef4bafc8126367d73d60680"
+        }
+      ],
+      "84": [
+        {
+          "scene": 45,
+          "record": 9,
+          "sha1": "942a92d604573b78e81d9babfa2c3dd2b4bad087"
+        },
+        {
+          "scene": 45,
+          "record": 10,
+          "sha1": "975e0049cb4ff4408b012d9f5961916af4a5403e"
+        },
+        {
+          "scene": 45,
+          "record": 11,
+          "sha1": "5fb8d2d676a4ace7e915a46603975a5909c94b29"
+        },
+        {
+          "scene": 45,
+          "record": 12,
+          "sha1": "96af61f1d9e83370b1b14a4127741b971d6ea6f7"
+        },
+        {
+          "scene": 45,
+          "record": 13,
+          "sha1": "99653d089affa09d62ff59f8ce7fc91c77df4422"
+        },
+        {
+          "scene": 45,
+          "record": 14,
+          "sha1": "1a0615c34cf9849e01b77ca5dba65ec4236024e8"
+        }
+      ],
+      "85": [
+        {
+          "scene": 45,
+          "record": 15,
+          "sha1": "84e8f4b8a5c457e1f609e23e916091f5d76e0fc6"
+        },
+        {
+          "scene": 45,
+          "record": 16,
+          "sha1": "6ceec8dcb840bf179df28d39e72575159ca4cd43"
+        },
+        {
+          "scene": 45,
+          "record": 25,
+          "sha1": "0a4bf8373c16edcc586f522df8d26c560a4c4639"
+        },
+        {
+          "scene": 63,
+          "record": 0,
+          "sha1": "ecc6fc8fbd6f70743bca78648c21410ff51c4f78"
+        },
+        {
+          "scene": 63,
+          "record": 1,
+          "sha1": "9e130c0e7dbf1239e94f7c8f1ad563b4b4d24914"
+        },
+        {
+          "scene": 63,
+          "record": 2,
+          "sha1": "35adc53dd49302bab9a8aff8d4ea10069514257a"
+        }
+      ],
+      "82": [
+        {
+          "scene": 45,
+          "record": 19,
+          "sha1": "b1809ee3ba54517430f78710c9f68b93f8dddd1e"
+        },
+        {
+          "scene": 45,
+          "record": 20,
+          "sha1": "ce22f30e84b892ac52f1d74714a349eff3e42e9f"
+        },
+        {
+          "scene": 48,
+          "record": 6,
+          "sha1": "97f447d7130b59751c9c71144e808f789a611ac8"
+        },
+        {
+          "scene": 48,
+          "record": 7,
+          "sha1": "636df8d2e9438f173773d74ee7924aa4cb122588"
+        },
+        {
+          "scene": 52,
+          "record": 10,
+          "sha1": "a1d0358f2e6d94706f086cd2766672c3a55c7998"
+        },
+        {
+          "scene": 62,
+          "record": 0,
+          "sha1": "a6ba725387e8f9f022c355587a098f78382521e4"
+        },
+        {
+          "scene": 62,
+          "record": 1,
+          "sha1": "a2f51ffd8d4cae3362890b76ba5b96b05f573e9b"
+        },
+        {
+          "scene": 62,
+          "record": 2,
+          "sha1": "16b70e1b662b4774f8cb2db6efcbd95b2b0b68f7"
+        },
+        {
+          "scene": 62,
+          "record": 3,
+          "sha1": "73071508806f7e2ca41069a8e98777482f0e9115"
+        },
+        {
+          "scene": 62,
+          "record": 4,
+          "sha1": "0aba3cb17c8cb6c6e2a30ae7bad95dda6023ae11"
+        },
+        {
+          "scene": 62,
+          "record": 20,
+          "sha1": "0bb4e54d34b6e3dcd09ae3f0b2dbdfffaae4c7cf"
+        },
+        {
+          "scene": 62,
+          "record": 29,
+          "sha1": "783d6f872ed8289045264a57f8ab369c5694b637"
+        },
+        {
+          "scene": 63,
+          "record": 7,
+          "sha1": "d851b2ff56e23b12e6468bef128bff0cde4557ec"
+        }
+      ],
+      "92": [
+        {
+          "scene": 45,
+          "record": 26,
+          "sha1": "0d1d4ad48ca356dad0365d9d2030e2c6526bf27d"
+        },
+        {
+          "scene": 45,
+          "record": 27,
+          "sha1": "32e78f8367c7df3355a64adfa8607bce3b9052f3"
+        },
+        {
+          "scene": 52,
+          "record": 12,
+          "sha1": "f8371c9a7da9e5400ce54e8da93b9e02fe1f37ad"
+        },
+        {
+          "scene": 62,
+          "record": 23,
+          "sha1": "6ad305c13dcc5291423556e6f780b065bd654a64"
+        },
+        {
+          "scene": 63,
+          "record": 9,
+          "sha1": "3cee3af0ae2bf70bb533f27ae40f48e52eee90b5"
+        }
+      ],
+      "89": [
+        {
+          "scene": 48,
+          "record": 17,
+          "sha1": "0ae3c748f1f76f4cc14544d08662b9123cf1fdd1"
+        }
+      ],
+      "90": [
+        {
+          "scene": 48,
+          "record": 18,
+          "sha1": "0540aea929e5c7a88fbbb64984d9f7aca5be5543"
+        }
+      ],
+      "100": [
+        {
+          "scene": 51,
+          "record": 0,
+          "sha1": "cd593ee40fde467a6c589626ee8cca3ee59517c3"
+        },
+        {
+          "scene": 51,
+          "record": 1,
+          "sha1": "d5dc6aa1f1788907e468b36fff3fd38dc59ba3c6"
+        },
+        {
+          "scene": 51,
+          "record": 5,
+          "sha1": "1c6272331e9bf0f64b6bae7ba68247f0b2d3f2d8"
+        }
+      ],
+      "101": [
+        {
+          "scene": 51,
+          "record": 2,
+          "sha1": "3320bd554aafb08a1d3531fa70a361689229d3c5"
+        },
+        {
+          "scene": 51,
+          "record": 3,
+          "sha1": "5299933c1cdceaca2c0b7661b0dba7bec3f00595"
+        },
+        {
+          "scene": 51,
+          "record": 4,
+          "sha1": "b878fe05d1504b96a55d1d24f1524f1e33b4b850"
+        },
+        {
+          "scene": 51,
+          "record": 6,
+          "sha1": "1236556eda6b7412ea281c83a073b3df70c337a4"
+        }
+      ],
+      "94": [
+        {
+          "scene": 52,
+          "record": 13,
+          "sha1": "d2a0063a417a38b7efdeafad5258a321cc673388"
+        },
+        {
+          "scene": 62,
+          "record": 18,
+          "sha1": "5b3820fbd91a9c391100062f2db26354115e1d58"
+        },
+        {
+          "scene": 62,
+          "record": 28,
+          "sha1": "0094b5fed017ad69ead888ac9179f4abc6e3a7d8"
+        },
+        {
+          "scene": 63,
+          "record": 8,
+          "sha1": "7142e642af5e8f747f21a301186f964b55387743"
+        },
+        {
+          "scene": 65,
+          "record": 0,
+          "sha1": "418cd0c4b397daf1afbd87e59b1e00f1a1ff32ae"
+        }
+      ],
+      "113": [
+        {
+          "scene": 52,
+          "record": 18,
+          "sha1": "51d2bb98fda41eb091981bd93aaf4ff3dd9d16fc"
+        },
+        {
+          "scene": 52,
+          "record": 19,
+          "sha1": "4b48bc858540827965dffe387fc733e8e2cab376"
+        }
+      ],
+      "104": [
+        {
+          "scene": 54,
+          "record": 4,
+          "sha1": "931e37b86439e8eaf7951bc4de6967b627f37d8a"
+        },
+        {
+          "scene": 54,
+          "record": 7,
+          "sha1": "fdc04160bba5829879de44dd35ec908ec9c2dc47"
+        },
+        {
+          "scene": 58,
+          "record": 0,
+          "sha1": "07327d3a525298177f9e5e8772ddd7dd215eea59"
+        }
+      ],
+      "105": [
+        {
+          "scene": 54,
+          "record": 5,
+          "sha1": "0adf04ab5e7b61095de3df66b9d312c4d58b0946"
+        },
+        {
+          "scene": 54,
+          "record": 6,
+          "sha1": "194aa33a737ba34fc67b94eb724d1baa6a85cdb5"
+        },
+        {
+          "scene": 58,
+          "record": 1,
+          "sha1": "12306c1f6aba64ea2306d39276a5504ef19a704b"
+        }
+      ],
+      "112": [
+        {
+          "scene": 54,
+          "record": 8,
+          "sha1": "1e383298e0e5a1ea72a0ca1e413c0e8302cc39e8"
+        },
+        {
+          "scene": 56,
+          "record": 1,
+          "sha1": "d5685ec20c7e478197ab506faafa2a85efcb5d91"
+        },
+        {
+          "scene": 64,
+          "record": 0,
+          "sha1": "64ce98685565d9c4fd9536650a07b150bb707bfe"
+        }
+      ],
+      "107": [
+        {
+          "scene": 63,
+          "record": 11,
+          "sha1": "c7cb7d7146b0a6b09c125c14f55d32d6276b8818"
+        },
+        {
+          "scene": 63,
+          "record": 12,
+          "sha1": "7418e6d1ff07481e1ceda7192fe900a7dd059a8e"
+        },
+        {
+          "scene": 63,
+          "record": 15,
+          "sha1": "b7197bc84813c36ae6f28a9458dadea6eea777b3"
+        },
+        {
+          "scene": 63,
+          "record": 16,
+          "sha1": "20e26a1f334c60e540ad67c49e30707cf92a4493"
+        }
+      ],
+      "106": [
+        {
+          "scene": 63,
+          "record": 13,
+          "sha1": "206331c2eb63da94d7bdec22994051288e4ba138"
+        },
+        {
+          "scene": 63,
+          "record": 14,
+          "sha1": "9e40323010cb473e7a53708e58aab1983b8ff52b"
+        },
+        {
+          "scene": 63,
+          "record": 17,
+          "sha1": "73fc59d4c0f43817ba4398003018f7f670ae30d0"
+        },
+        {
+          "scene": 63,
+          "record": 18,
+          "sha1": "033ea61759eb2b2c88ec1d48f0d23aae230137ea"
+        }
+      ],
+      "110": [
+        {
+          "scene": 63,
+          "record": 19,
+          "sha1": "3a5d4b89539db4a8f6a75b3cc9fe72457fd5f16c"
+        },
+        {
+          "scene": 63,
+          "record": 20,
+          "sha1": "7056828832132ea1ff2972d0ca8a2355d1de8111"
+        }
+      ]
+    },
+    "limits": "A proven prefix through the highest ROM placement selector, not a claim of original C-array boundaries. All twelve bytes have native typed loads. Runtime visibility and later mutations are separate."
+  },
+  "drawing_lists": {
+    "status": "accepted: original submitting functions, SDK fields, actual objects and independent native comparison verified",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_1502BAD0": {
+        "address": "0x1502bad0",
+        "bytes": 692,
+        "sha1": "d74ac63e03b19a2ceee7f83bd3c21248cc3296ca"
+      },
+      "func_150368C4": {
+        "address": "0x150368c4",
+        "bytes": 940,
+        "sha1": "e96e5057c4ad77c4f8411029b049167221a1da74"
+      },
+      "func_1516C934": {
+        "address": "0x1516c934",
+        "bytes": 804,
+        "sha1": "20936c05b95eb29379e17a68a56d2f9d51bc6689"
+      },
+      "func_1507DB6C": {
+        "address": "0x1507db6c",
+        "bytes": 736,
+        "sha1": "55454c9011182da625ebaf0c7c49fb7b1c6f224b"
+      },
+      "func_150918EC": {
+        "address": "0x150918ec",
+        "bytes": 7980,
+        "sha1": "da0fd8ba0b3e3d3872fab60a19f3377e9b04fe28"
+      },
+      "func_1517D074": {
+        "address": "0x1517d074",
+        "bytes": 1284,
+        "sha1": "7c381cc0b6592078750cd64487f81bfdedb01936"
+      },
+      "func_15180580": {
+        "address": "0x15180580",
+        "bytes": 3964,
+        "sha1": "f168760af2baa81b9cbff9598bf6cee031f86d2a"
+      },
+      "func_15184FA4": {
+        "address": "0x15184fa4",
+        "bytes": 1200,
+        "sha1": "87e9098d44db54c3a41260244ceea5997557bd69"
+      },
+      "func_151E89A0": {
+        "address": "0x151e89a0",
+        "bytes": 3276,
+        "sha1": "b7e9e8e0348a19a7891a8eafa2352808dec49d2c"
+      }
+    },
+    "units": [
+      {
+        "name": "direct_graphics_80084160",
+        "address": 2148024672,
+        "bytes": 48,
+        "commands": [
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "DA",
+            "fields": {
+              "matrix": "D_80089470",
+              "address_space": "physical",
+              "relocation_addend": "0x80000000"
+            },
+            "sdk_expression": "gsSPMatrix((u32)&D_80089470 - 0x80000000U, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 0,
+              "set": 6422532
+            },
+            "sdk_expression": "gsSPGeometryMode(0x0, 0x620004)"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 1114112,
+              "set": 0
+            },
+            "sdk_expression": "gsSPGeometryMode(0x110000, 0x0)"
+          },
+          {
+            "opcode": "EC",
+            "fields": {
+              "k0": 0,
+              "k1": 0,
+              "k2": 0,
+              "k3": 0,
+              "k4": 0,
+              "k5": 255
+            },
+            "sdk_expression": "gsDPSetConvert(0, 0, 0, 0, 0, 255)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [
+          {
+            "address": "0x8008416c",
+            "symbol": "D_80089470",
+            "addend": "0x80000000",
+            "native_word": "0x89470"
+          }
+        ],
+        "payload_sha256": "e27c5ff347c1d0442ee50a614532fdd85d168bc6081f02d0751127125eb90cef",
+        "producer": "func_1502BAD0",
+        "producer_anchors": {
+          "0x1502bb18": "0x3c188008",
+          "0x1502bb1c": "0x27184160",
+          "0x1502bb20": "0x3c0fde00",
+          "0x1502bb24": "0xac4f0000",
+          "0x1502bb28": "0xac580004"
+        }
+      },
+      {
+        "name": "direct_graphics_80084190",
+        "address": 2148024720,
+        "bytes": 40,
+        "commands": [
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 5701632,
+              "set": 0
+            },
+            "sdk_expression": "gsSPGeometryMode(0x570000, 0x0)"
+          },
+          {
+            "opcode": "FB",
+            "fields": {
+              "red": 0,
+              "green": 0,
+              "blue": 0,
+              "alpha": 0
+            },
+            "sdk_expression": "gsDPSetEnvColor(0, 0, 0, 0)"
+          },
+          {
+            "opcode": "FA",
+            "fields": {
+              "red": 0,
+              "green": 0,
+              "blue": 0,
+              "alpha": 255,
+              "min_level": 0,
+              "lod_fraction": 0
+            },
+            "sdk_expression": "gsDPSetPrimColor(0, 0, 0, 0, 0, 255)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "34d7e8f21e0436861fa049ef7ca830cf39a0589c9c4dc6772529feaaf20374a5",
+        "producer": "func_1502BAD0",
+        "producer_anchors": {
+          "0x1502bd30": "0x3c188008",
+          "0x1502bd34": "0x27184190",
+          "0x1502bd38": "0x3c0fde00",
+          "0x1502bd3c": "0xac6f0000",
+          "0x1502bd40": "0xac780004"
+        }
+      },
+      {
+        "name": "direct_graphics_80084350",
+        "address": 2148025168,
+        "bytes": 48,
+        "commands": [
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 0,
+              "on": 1
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 1508864,
+              "set": 0
+            },
+            "sdk_expression": "gsSPGeometryMode(0x170600, 0x0)"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                1,
+                4,
+                7,
+                7
+              ],
+              "cycle1_word0_selectors": [
+                1,
+                4
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                7,
+                7,
+                4
+              ],
+              "cycle1_word1_selectors": [
+                15,
+                7,
+                7,
+                7,
+                7,
+                4
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(1, 4, 7, 7) | GCCc1w0(1, 4), GCCc0w1(15, 7, 7, 4) | GCCc1w1(15, 7, 7, 7, 7, 4))"
+          },
+          {
+            "opcode": "EF",
+            "fields": {
+              "mode_high": 535615,
+              "mode_low": 5579312
+            },
+            "sdk_expression": "gsDPSetOtherMode(0x82C3F, 0x552230)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "235fbda65f11cfcda617ef0203a1ddd388e5241b93ed78c0684ee41eff2e9749",
+        "producer": "func_150368C4",
+        "producer_anchors": {
+          "0x15036aa8": "0x3c0b8008",
+          "0x15036aac": "0x256b4350",
+          "0x15036ab0": "0x3c0ade00",
+          "0x15036ab4": "0xac4a0000",
+          "0x15036ab8": "0xac4b0004"
+        }
+      },
+      {
+        "name": "direct_graphics_800859A0",
+        "address": 2148030880,
+        "bytes": 40,
+        "commands": [
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "EF",
+            "fields": {
+              "mode_high": 11279,
+              "mode_low": 5259844
+            },
+            "sdk_expression": "gsDPSetOtherMode(0x2C0F, 0x504244)"
+          },
+          {
+            "opcode": "F5",
+            "fields": {
+              "format": 4,
+              "size": 2,
+              "line": 0,
+              "tmem": 0,
+              "tile": 1,
+              "palette": 0,
+              "clamp_mirror_t": 2,
+              "mask_t": 0,
+              "shift_t": 0,
+              "clamp_mirror_s": 2,
+              "mask_s": 0,
+              "shift_s": 0
+            },
+            "sdk_expression": "gsDPSetTile(4, 2, 0, 0, 1, 0, 2, 0, 0, 2, 0, 0)"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                15,
+                31,
+                3,
+                1
+              ],
+              "cycle1_word0_selectors": [
+                15,
+                31
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                3,
+                7,
+                7
+              ],
+              "cycle1_word1_selectors": [
+                15,
+                3,
+                1,
+                3,
+                7,
+                7
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 3, 1) | GCCc1w0(15, 31), GCCc0w1(15, 3, 7, 7) | GCCc1w1(15, 3, 1, 3, 7, 7))"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "436fb11ef07a7f855141d6385837127ab969a31ddf78414ae5e6de655978b471",
+        "producer": "func_1516C934",
+        "producer_anchors": {
+          "0x1516c9b4": "0x3c0f8008",
+          "0x1516c9b8": "0x25ef59a0",
+          "0x1516c9bc": "0x3c0ede00",
+          "0x1516c9c0": "0xac4e0000",
+          "0x1516c9c4": "0xac4f0004"
+        }
+      },
+      {
+        "name": "direct_graphics_80086B80",
+        "address": 2148035456,
+        "bytes": 32,
+        "commands": [
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 0,
+              "on": 1
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                15,
+                31,
+                7,
+                7
+              ],
+              "cycle1_word0_selectors": [
+                15,
+                31
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                1,
+                7,
+                1
+              ],
+              "cycle1_word1_selectors": [
+                15,
+                7,
+                7,
+                1,
+                7,
+                1
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 1) | GCCc1w1(15, 7, 7, 1, 7, 1))"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "ffd3bb793c81e0ca20d3db60f9b0459bb3cb3ed49d3bb3386e7aaca810c42852",
+        "producer": "func_1507DB6C",
+        "producer_anchors": {
+          "0x1507db88": "0x3c0f8008",
+          "0x1507db8c": "0x25ef6b80",
+          "0x1507db90": "0x3c0ede00",
+          "0x1507db94": "0xac4e0000",
+          "0x1507db98": "0xac4f0004"
+        }
+      },
+      {
+        "name": "direct_graphics_80087390",
+        "address": 2148037520,
+        "bytes": 32,
+        "commands": [
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 0,
+              "on": 1
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                15,
+                31,
+                7,
+                7
+              ],
+              "cycle1_word0_selectors": [
+                15,
+                31
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                1,
+                7,
+                1
+              ],
+              "cycle1_word1_selectors": [
+                15,
+                7,
+                7,
+                1,
+                7,
+                1
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 1, 7, 1) | GCCc1w1(15, 7, 7, 1, 7, 1))"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "ffd3bb793c81e0ca20d3db60f9b0459bb3cb3ed49d3bb3386e7aaca810c42852",
+        "producer": "func_150918EC",
+        "producer_anchors": {
+          "0x15091944": "0x3c0e8008",
+          "0x15091954": "0x25ce7390",
+          "0x15091958": "0x3c19de00",
+          "0x15091978": "0xac790000",
+          "0x1509197c": "0xac6e0004"
+        }
+      },
+      {
+        "name": "direct_graphics_8008CFA0",
+        "address": 2148061088,
+        "bytes": 72,
+        "commands": [
+          {
+            "opcode": "DA",
+            "fields": {
+              "matrix": "D_80089470",
+              "address_space": "physical",
+              "relocation_addend": "0x80000000"
+            },
+            "sdk_expression": "gsSPMatrix((u32)&D_80089470 - 0x80000000U, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 65535,
+              "set": 0
+            },
+            "sdk_expression": "gsSPGeometryMode(0xFFFF, 0x0)"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 0,
+              "set": 1048581
+            },
+            "sdk_expression": "gsSPGeometryMode(0x0, 0x100005)"
+          },
+          {
+            "opcode": "EF",
+            "fields": {
+              "mode_high": 1584191,
+              "mode_low": 202918736
+            },
+            "sdk_expression": "gsDPSetOtherMode(0x182C3F, 0xC184B50)"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                1,
+                4,
+                7,
+                7
+              ],
+              "cycle1_word0_selectors": [
+                0,
+                4
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                7,
+                7,
+                2
+              ],
+              "cycle1_word1_selectors": [
+                5,
+                0,
+                4,
+                3,
+                7,
+                7
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(1, 4, 7, 7) | GCCc1w0(0, 4), GCCc0w1(15, 7, 7, 2) | GCCc1w1(5, 0, 4, 3, 7, 7))"
+          },
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 1,
+              "on": 1
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 1, 1)"
+          },
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 0,
+              "on": 1
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [
+          {
+            "address": "0x8008cfa4",
+            "symbol": "D_80089470",
+            "addend": "0x80000000",
+            "native_word": "0x89470"
+          }
+        ],
+        "payload_sha256": "34d85df7da1ce7187b962537ef89906f9743b2e22601c03e54527ef6d857514f",
+        "producer": "func_1517D074",
+        "producer_anchors": {
+          "0x1517d0e4": "0x3c188009",
+          "0x1517d0e8": "0x2718cfa0",
+          "0x1517d0ec": "0x3c0fde00",
+          "0x1517d0f0": "0xac6f0000",
+          "0x1517d0f4": "0xac780004"
+        }
+      },
+      {
+        "name": "direct_graphics_8008D018",
+        "address": 2148061208,
+        "bytes": 56,
+        "commands": [
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 4130309,
+              "set": 0
+            },
+            "sdk_expression": "gsSPGeometryMode(0x3F0605, 0x0)"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 0,
+              "set": 2097157
+            },
+            "sdk_expression": "gsSPGeometryMode(0x0, 0x200005)"
+          },
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 0,
+              "t": 0,
+              "level": 0,
+              "tile": 0,
+              "on": 0
+            },
+            "sdk_expression": "gsSPTexture(0, 0, 0, 0, 0)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                15,
+                31,
+                7,
+                7
+              ],
+              "cycle1_word0_selectors": [
+                15,
+                31
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                4,
+                7,
+                4
+              ],
+              "cycle1_word1_selectors": [
+                15,
+                7,
+                7,
+                4,
+                7,
+                4
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(15, 31, 7, 7) | GCCc1w0(15, 31), GCCc0w1(15, 4, 7, 4) | GCCc1w1(15, 7, 7, 4, 7, 4))"
+          },
+          {
+            "opcode": "EC",
+            "fields": {
+              "k0": 175,
+              "k1": -33,
+              "k2": 7,
+              "k3": 222,
+              "k4": 114,
+              "k5": 42
+            },
+            "sdk_expression": "gsDPSetConvert(175, -33, 7, 222, 114, 42)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "f43a99a92023ce793ec315e5c0d14249f5e9925e459effb39d191c887f1a3769",
+        "producer": "func_15180580",
+        "producer_anchors": {
+          "0x151806bc": "0x3c0f8009",
+          "0x151806c0": "0x25efd018",
+          "0x151806cc": "0x3c0ede00",
+          "0x151806e8": "0xac4e0000",
+          "0x151806ec": "0xac4f0004"
+        }
+      },
+      {
+        "name": "direct_graphics_8008D448",
+        "address": 2148062280,
+        "bytes": 80,
+        "commands": [
+          {
+            "opcode": "F7",
+            "fields": {
+              "fill_colour": "0xffffffff"
+            },
+            "sdk_expression": "gsDPSetFillColor(0xFFFFFFFF)"
+          },
+          {
+            "opcode": "EF",
+            "fields": {
+              "mode_high": 3157055,
+              "mode_low": 0
+            },
+            "sdk_expression": "gsDPSetOtherMode(0x302C3F, 0x0)"
+          },
+          {
+            "opcode": "D9",
+            "fields": {
+              "clear": 3080193,
+              "set": 0
+            },
+            "sdk_expression": "gsSPGeometryMode(0x2F0001, 0x0)"
+          },
+          {
+            "opcode": "ED",
+            "fields": {
+              "mode": 0,
+              "ulx_quarters": 0,
+              "uly_quarters": 0,
+              "lrx_quarters": 260,
+              "lry_quarters": 260
+            },
+            "sdk_expression": "gsDPSetScissorFrac(0, 0, 0, 260, 260)"
+          },
+          {
+            "opcode": "F6",
+            "fields": {
+              "ulx": 0,
+              "uly": 0,
+              "lrx": 63,
+              "lry": 63
+            },
+            "sdk_expression": "gsDPFillRectangle(0, 0, 63, 63)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "ED",
+            "fields": {
+              "mode": 0,
+              "ulx_quarters": 4,
+              "uly_quarters": 4,
+              "lrx_quarters": 252,
+              "lry_quarters": 252
+            },
+            "sdk_expression": "gsDPSetScissorFrac(0, 4, 4, 252, 252)"
+          },
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 0,
+              "on": 0
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 0)"
+          },
+          {
+            "opcode": "EF",
+            "fields": {
+              "mode_high": 535615,
+              "mode_low": 0
+            },
+            "sdk_expression": "gsDPSetOtherMode(0x82C3F, 0x0)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "601d0539ff645642de292949d3e8fabbc6bcaeb9c8feb72000a14ade0b54adbf",
+        "producer": "func_15184FA4",
+        "producer_anchors": {
+          "0x1518504c": "0x3c198009",
+          "0x15185050": "0x2739d448",
+          "0x15185054": "0x3c18de00",
+          "0x15185058": "0xac980000",
+          "0x1518505c": "0xac990004"
+        }
+      },
+      {
+        "name": "direct_graphics_80090028",
+        "address": 2148073512,
+        "bytes": 48,
+        "commands": [
+          {
+            "opcode": "D7",
+            "fields": {
+              "s": 65535,
+              "t": 65535,
+              "level": 0,
+              "tile": 0,
+              "on": 1
+            },
+            "sdk_expression": "gsSPTexture(65535, 65535, 0, 0, 1)"
+          },
+          {
+            "opcode": "E7",
+            "fields": {},
+            "sdk_expression": "gsDPPipeSync()"
+          },
+          {
+            "opcode": "FB",
+            "fields": {
+              "red": 255,
+              "green": 255,
+              "blue": 255,
+              "alpha": 255
+            },
+            "sdk_expression": "gsDPSetEnvColor(255, 255, 255, 255)"
+          },
+          {
+            "opcode": "FC",
+            "fields": {
+              "cycle0_word0_selectors": [
+                1,
+                5,
+                5,
+                1
+              ],
+              "cycle1_word0_selectors": [
+                1,
+                5
+              ],
+              "cycle0_word1_selectors": [
+                15,
+                7,
+                7,
+                7
+              ],
+              "cycle1_word1_selectors": [
+                15,
+                5,
+                1,
+                7,
+                7,
+                7
+              ]
+            },
+            "sdk_expression": "gsDPSetCombine(GCCc0w0(1, 5, 5, 1) | GCCc1w0(1, 5), GCCc0w1(15, 7, 7, 7) | GCCc1w1(15, 5, 1, 7, 7, 7))"
+          },
+          {
+            "opcode": "EF",
+            "fields": {
+              "mode_high": 11327,
+              "mode_low": 5259844
+            },
+            "sdk_expression": "gsDPSetOtherMode(0x2C3F, 0x504244)"
+          },
+          {
+            "opcode": "DF",
+            "fields": {},
+            "sdk_expression": "gsSPEndDisplayList()"
+          }
+        ],
+        "pointers": [],
+        "payload_sha256": "d43475547c61f691ea1b7ca166c72b96de751a6b5ac7c95843a0ba371df0723f",
+        "producer": "func_151E89A0",
+        "producer_anchors": {
+          "0x151e89f8": "0x3c0d8009",
+          "0x151e89fc": "0x25ad0028",
+          "0x151e8a08": "0x3c0cde00",
+          "0x151e8a0c": "0xaf0c0000",
+          "0x151e8a10": "0xaf0d0004"
+        }
+      }
+    ],
+    "bytes": 496
+  },
+  "omitted_gate_logs": [
+    "acceptance",
+    "source_audit"
+  ]
+}

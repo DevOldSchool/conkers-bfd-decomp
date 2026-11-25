@@ -1,0 +1,148 @@
+{
+  "status": "accepted",
+  "native": {
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "native_functions": {
+      "func_1517AA20": {
+        "address": "0x1517aa20",
+        "bytes": 348,
+        "sha1": "e61eb8f23e1c8471ecc0ee451d0a079703ea5691"
+      },
+      "func_1517A644": {
+        "address": "0x1517a644",
+        "bytes": 520,
+        "sha1": "1a8a5a0c9aab08b87419014e5babc32aab5198b5"
+      },
+      "func_1517A3A0": {
+        "address": "0x1517a3a0",
+        "bytes": 676,
+        "sha1": "481a5e9845d62d08c41584c880ab54eae8d43d4d"
+      },
+      "func_1517A9A8": {
+        "address": "0x1517a9a8",
+        "bytes": 120,
+        "sha1": "e15203d563d0d968caef5b92e4665ff4d909221b"
+      },
+      "func_1517A84C": {
+        "address": "0x1517a84c",
+        "bytes": 268,
+        "sha1": "3ced56e67025ea740fb7adc3d557865cd46a5df1"
+      },
+      "func_15167A68": {
+        "address": "0x15167a68",
+        "bytes": 112,
+        "sha1": "0825b0b974ca67a92c0a6e7d8665230b02e2b181"
+      },
+      "func_15168A4C": {
+        "address": "0x15168a4c",
+        "bytes": 80,
+        "sha1": "41a70fd6b122eeb005b9c01d21f215c154765b9d"
+      },
+      "func_151674F8": {
+        "address": "0x151674f8",
+        "bytes": 1392,
+        "sha1": "1a4cc2434666765a39feb16096d26a83d4b8fcc3"
+      },
+      "func_15094F70": {
+        "address": "0x15094f70",
+        "bytes": 120,
+        "sha1": "feaf43a9d43b1baf9c70caf21784a0a4a3cd8a28"
+      },
+      "func_15095060": {
+        "address": "0x15095060",
+        "bytes": 116,
+        "sha1": "29ae9b967b84e38fc29b3ae88ecfc3d3bed7ed83"
+      },
+      "func_150950D4": {
+        "address": "0x150950d4",
+        "bytes": 1384,
+        "sha1": "d8a2113e6fa9599a3110d2f404dadee24165ef7a"
+      }
+    },
+    "instruction_anchors": {
+      "0x1517ab08": "0x402825",
+      "0x1517ab1c": "0x30a80001",
+      "0x1517ab28": "0x1002825",
+      "0x1517ab34": "0xd45e991",
+      "0x1517a658": "0xafa50064",
+      "0x1517a668": "0x24040009",
+      "0x1517a694": "0xd459e9a",
+      "0x1517a6a0": "0x408025",
+      "0x1517a758": "0x93b80067",
+      "0x1517a760": "0xa218009f",
+      "0x15167a70": "0xafa40028",
+      "0x15167ab0": "0xd45a293",
+      "0x15167ab4": "0x8fa50028",
+      "0x15168a88": "0xa0850000",
+      "0x151677d8": "0x8e990008",
+      "0x151677f4": "0x2002825",
+      "0x151677f8": "0x320f809",
+      "0x1517a3ac": "0xa08025",
+      "0x1517a4bc": "0xd45ea6a",
+      "0x1517a4c0": "0x9205009f",
+      "0x1517a9b0": "0xafa5004c",
+      "0x1517a9c0": "0x3c058009",
+      "0x1517a9c4": "0x24a50614",
+      "0x1517a9cc": "0x8fa6004c",
+      "0x1517a9d0": "0x6c200",
+      "0x1517a9e4": "0x3003025",
+      "0x1517a9f4": "0xd4253dc",
+      "0x15095090": "0x57203",
+      "0x15095094": "0xe7880",
+      "0x1509509c": "0x8f190000"
+    },
+    "producer_cases": 1024,
+    "selected_frames": [
+      0,
+      1
+    ],
+    "address": 2148075020,
+    "bytes": 20,
+    "descriptor": 2148075028,
+    "resources": [
+      2990,
+      2988
+    ],
+    "type9_callbacks": [
+      "0x1517a84c",
+      "0x0",
+      "0x1517a3a0"
+    ],
+    "payload_sha256": "562c98e661e90397011f4fb8e47c5ab8a07e25c4d5fe16a6a1d7716b9b1e2d68",
+    "scope": "The random-mask constructor path supplies both frame values, stored at object+9F and used by the type-nine renderer on a cache miss. Calls obey the existing ABI and successful allocation is assumed. This proves the two referenced frame words and descriptor layout; it does not prove gameplay activation, global lifetime invariance, or safety of other callers/constructors."
+  },
+  "plan": {
+    "units": [
+      {
+        "name": "two_frame_effect_texture",
+        "address": 2148075020,
+        "bytes": 20,
+        "emitted_bytes": 32,
+        "source": "src/game/data/two_frame_effect_texture.c",
+        "pointers": [
+          {
+            "address": "0x80090614",
+            "symbol": "D_8009060C",
+            "addend": 0,
+            "native_word": "0x8009060C"
+          }
+        ],
+        "pointer_fields": [
+          {
+            "address": "0x80090614",
+            "symbol": "D_8009060C",
+            "addend": 0,
+            "native_word": "0x8009060C"
+          }
+        ]
+      }
+    ],
+    "bytes": 20,
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "omitted_gate_logs": [
+    "acceptance",
+    "base_commit",
+    "pilot"
+  ]
+}

@@ -210,7 +210,7 @@ void func_10004514(s32, s32, s32, s32);
 void func_10006240(s32, void *, s32);
 u8 *func_1510D374(s32);
 u8 *func_10003C6C(s32, s32, s32, s32, s32);
-extern u8 D_80091D20;
+extern const u16 D_80091D20[7762];
 extern u16 D_800B87A0[];
 extern u8 D_800D9F68[];
 extern s32 D_800B0E58[];
@@ -244,7 +244,7 @@ s32 func_1510D0EC(s32 arg0, s32 *arg1, volatile s32 arg2, s32 arg3) {
         return (s32)0x80000000U;
     }
     offset = arg0 * 2;
-    compressedSize = *(u16 *)(&D_80091D20 + offset);
+    compressedSize = *(const u16 *)((const u8 *)D_80091D20 + offset);
     if (compressedSize == 0) {
         entry = &D_800B0E58[arg0];
         *entry = (s32)0x80000000U;
@@ -308,7 +308,7 @@ ready:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510D0EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D0EC.s")
 extern u8 D_1A37E0;
-extern u8 D_80091D20;
+extern const u16 D_80091D20[7762];
 
 /* Descriptive role: flat_asset_rom_address.
  * Evidence: docs/evidence/assets/naming/model_resource_role_names.md.
