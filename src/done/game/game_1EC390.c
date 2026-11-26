@@ -4,10 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1EC390.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1EC390Selector {
