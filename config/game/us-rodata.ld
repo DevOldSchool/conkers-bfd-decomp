@@ -651,11 +651,11 @@ SECTIONS
     .game_rodata_blood_0 0x800A4350 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_0) }
     .game_rodata_blood_204 0x800A4554 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_204) }
     .game_rodata_blood_260 0x800A45B8 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_260) }
-    .game_rodata_blood_2b4 0x800A4650 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_2b4) }
-    .game_rodata_blood_480 0x800A4874 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_480) }
-    .game_rodata_blood_4d0 0x800A48C4 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_4d0) }
-    .game_rodata_blood_504 0x800A4900 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_504) }
-    .game_rodata_blood_53c 0x800A4950 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_53c) }
+    .game_rodata_blood_2c4 0x800A4650 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_2c4) }
+    .game_rodata_blood_490 0x800A4874 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_490) }
+    .game_rodata_blood_4e0 0x800A48C4 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_4e0) }
+    .game_rodata_blood_514 0x800A4900 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_514) }
+    .game_rodata_blood_54c 0x800A4950 (INFO) : SUBALIGN(4) { *blood.o(.rodata.blood_54c) }
     /* Six ROM-proven targets: docs/evidence/data-layout/game_c98f0_jump_table.md. */
     .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_39750_float_constants.md. */
@@ -793,11 +793,11 @@ __game_rodata_173d40_58_base = ADDR(.game_rodata_173d40_58) - 0x58;
 __game_rodata_blood_0_base = ADDR(.game_rodata_blood_0);
 __game_rodata_blood_204_base = ADDR(.game_rodata_blood_204) - 0x204;
 __game_rodata_blood_260_base = ADDR(.game_rodata_blood_260) - 0x260;
-__game_rodata_blood_2b4_base = ADDR(.game_rodata_blood_2b4) - 0x2B4;
-__game_rodata_blood_480_base = ADDR(.game_rodata_blood_480) - 0x480;
-__game_rodata_blood_4d0_base = ADDR(.game_rodata_blood_4d0) - 0x4D0;
-__game_rodata_blood_504_base = ADDR(.game_rodata_blood_504) - 0x504;
-__game_rodata_blood_53c_base = ADDR(.game_rodata_blood_53c) - 0x53C;
+__game_rodata_blood_2c4_base = ADDR(.game_rodata_blood_2c4) - 0x2C4;
+__game_rodata_blood_490_base = ADDR(.game_rodata_blood_490) - 0x490;
+__game_rodata_blood_4e0_base = ADDR(.game_rodata_blood_4e0) - 0x4E0;
+__game_rodata_blood_514_base = ADDR(.game_rodata_blood_514) - 0x514;
+__game_rodata_blood_54c_base = ADDR(.game_rodata_blood_54c) - 0x54C;
 __game_rodata_effects_sight_0_base = ADDR(.game_rodata_effects_sight_0);
 __game_rodata_effects_sight_24_base = ADDR(.game_rodata_effects_sight_24) - 0x24;
 __game_rodata_effects_sight_f0_base = ADDR(.game_rodata_effects_sight_f0) - 0xF0;
@@ -1268,12 +1268,12 @@ __game_rodata_1b0740_payload_size = 0x54;
 
 ASSERT(SIZEOF(.game_rodata_blood_0) == 0x204, "effects/blood first table extent changed")
 ASSERT(SIZEOF(.game_rodata_blood_204) == 0x5C, "effects/blood second table extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_260) == 0x54, "effects/blood func_151356D4/func_15135DD0 literal extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_2b4) == 0x1CC, "effects/blood func_15137610 table extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_480) == 0x50, "effects/blood func_15138C80 table extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_4d0) == 0x34, "effects/blood func_15138E98 literal extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_504) == 0x38, "effects/blood func_15139768/func_15139D74 literal extent changed")
-ASSERT(SIZEOF(.game_rodata_blood_53c) == 0x68, "effects/blood spray and burst literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_260) == 0x64, "effects/blood func_151356D4/func_15135DD0 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_2c4) == 0x1CC, "effects/blood func_15137610 table extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_490) == 0x50, "effects/blood func_15138C80 table extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_4e0) == 0x34, "effects/blood func_15138E98 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_514) == 0x38, "effects/blood func_15139768/func_15139D74 literal extent changed")
+ASSERT(SIZEOF(.game_rodata_blood_54c) == 0x68, "effects/blood spray and burst literal extent changed")
 
 ASSERT(SIZEOF(.game_rodata_camera_camera) == 0x10,
        "camera_camera angle literal extent changed")

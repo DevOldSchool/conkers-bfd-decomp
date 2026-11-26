@@ -993,16 +993,15 @@
       "symbol": "func_15135DD0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1329,
-        "reason": "Best CURRENT (1329): complete 36-byte collision hit and two vectors; persistent register ownership recovered, but frame F0 versus E0, local buffers +24, FP constant order and word-to-byte home scheduling remain. Three manual candidates exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15136404",
           "vram": "0x15136404"
         }

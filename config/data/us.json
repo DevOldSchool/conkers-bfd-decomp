@@ -1927,7 +1927,7 @@
       },
       {
         "address": "0x800A4650",
-        "section": ".rodata.blood_2b4",
+        "section": ".rodata.blood_2c4",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1937,7 +1937,7 @@
       },
       {
         "address": "0x800A4874",
-        "section": ".rodata.blood_480",
+        "section": ".rodata.blood_490",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1947,7 +1947,7 @@
       },
       {
         "address": "0x800A48C4",
-        "section": ".rodata.blood_4d0",
+        "section": ".rodata.blood_4e0",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1957,7 +1957,7 @@
       },
       {
         "address": "0x800A4900",
-        "section": ".rodata.blood_504",
+        "section": ".rodata.blood_514",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1967,7 +1967,7 @@
       },
       {
         "address": "0x800A4950",
-        "section": ".rodata.blood_53c",
+        "section": ".rodata.blood_54c",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
