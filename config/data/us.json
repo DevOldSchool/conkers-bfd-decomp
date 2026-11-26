@@ -352,6 +352,16 @@
         }
       },
       {
+        "address": "0x8008ADD0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_185560.c",
+            "src/done/game/game_185560.c"
+          ]
+        }
+      },
+      {
         "address": "0x80091970",
         "section": ".data",
         "owner": {

@@ -677,6 +677,8 @@ SECTIONS
     /* ROM-verified constants: docs/evidence/data-layout/game_ec420_float_constants.md. */
     .game_rodata_ec420_0 0x800A0110 (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_0) }
     .game_rodata_ec420_14 0x800A014C (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_14) }
+    /* Unit-owned initialized data: docs/evidence/data-layout/game_185560_data.md. */
+    .game_rodata_185560_data 0x8008ADD0 (INFO) : SUBALIGN(4) { *game_185560.o(.data) }
 }
 __game_rodata_b4080_0_base = ADDR(.game_rodata_b4080_0);
 __game_rodata_b4080_8_base = ADDR(.game_rodata_b4080_8) - 0x8;
@@ -1330,3 +1332,6 @@ __game_rodata_1e9820_payload_size = 0x14;
 
 ASSERT(SIZEOF(.game_rodata_light) == 0xC0, "light switch table extent changed")
 __game_rodata_light_payload_size = 0xBC;
+
+ASSERT(SIZEOF(.game_rodata_185560_data) == 0x200, "game_185560 .data extent changed")
+__game_rodata_185560_data_payload_size = 0x1FC;

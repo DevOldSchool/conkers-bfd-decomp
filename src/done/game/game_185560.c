@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 
 /*
@@ -125,7 +129,7 @@ typedef struct Game185560Command {
 
 typedef s32 (*Game185560DrawCallback)(void *, Game185560RenderActor *);
 extern Game185560DrawCallback D_8008AE0C[];
-extern u32 D_8008AFB8[];
+extern Gfx *D_8008AFB8[];
 extern Game185560RenderPreset D_800A4AC8[];
 extern u8 D_800BE9C0;
 s32 *func_15142B7C(s32 *, s32, s32);
@@ -175,7 +179,7 @@ Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor 
             (s32) arg1->owner, arg1->generation, *((s16 *) &arg2 + 1), arg1->position, attached, 0);
     }
     { Game185560Command *command = arg0++; command->opcode = 0xDA380003; command->data = (u32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x58); }
-    { Game185560Command *command = arg0++; command->opcode = 0xDE000000; command->data = D_8008AFB8[arg1->listIndex]; }
+    { Game185560Command *command = arg0++; command->opcode = 0xDE000000; command->data = (u32)D_8008AFB8[arg1->listIndex]; }
     return arg0;
 }
 
@@ -355,3 +359,115 @@ void func_15158B3C(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
+
+/* This unit's complete .data section, 0x8008ADD0-0x8008AFCC plus end-of-object
+ * padding to 0x8008AFD0. Evidence: docs/evidence/data-layout/game_185560_data.md
+ */
+extern Mtx D_80089470;
+extern Vtx D_800A6080[];
+extern Vtx D_800A60D0[];
+extern Vtx D_800A6110[];
+extern Vtx D_800A6170[];
+extern Vtx D_800A61C0[];
+s32 func_1518A5F4(void *);
+s32 func_1518A914(void *, Game185560RenderActor *);
+
+Gfx D_8008ADD0[] = {
+    gsDPPipeSync(),
+    gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH),
+    gsSPTexture(32768, 32768, 0, 0, 1),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_8008ADF0[] = {
+    gsSPTexture(0, 0, 0, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+Game185560Callback D_8008AE00[] = {
+    (Game185560Callback)func_15158684,
+    (Game185560Callback)func_1518A5F4,
+    func_15158AFC,
+};
+
+Game185560DrawCallback D_8008AE0C[] = {
+    (Game185560DrawCallback)func_1515858C,
+    func_1518A914,
+    (Game185560DrawCallback)func_15158920,
+};
+
+Game185560Matrix D_8008AE18 = { {
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f,
+} };
+
+/* Unreferenced by native code; eight zero bytes before the geometry lists. */
+s32 D_8008AE58[] = { 0, 0 };
+
+Gfx D_8008AE60[] = {
+    gsDPPipeSync(),
+    gsSPVertex(D_800A6080, 5, 0),
+    gsSP1Triangle(0, 1, 2, 0),
+    gsSP1Triangle(0, 2, 3, 0),
+    gsSP1Triangle(0, 3, 1, 0),
+    gsSP1Triangle(1, 4, 2, 0),
+    gsSP1Triangle(2, 4, 3, 0),
+    gsSP1Triangle(3, 4, 1, 0),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_8008AEA8[] = {
+    gsDPPipeSync(),
+    gsSPVertex(D_800A60D0, 4, 0),
+    gsSP1Triangle(0, 1, 2, 0),
+    gsSP1Triangle(0, 3, 1, 0),
+    gsSP1Triangle(1, 3, 2, 0),
+    gsSP1Triangle(2, 3, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_8008AEE0[] = {
+    gsDPPipeSync(),
+    gsSPVertex(D_800A6110, 6, 0),
+    gsSP1Triangle(0, 1, 5, 0),
+    gsSP1Triangle(0, 5, 3, 0),
+    gsSP1Triangle(0, 3, 4, 0),
+    gsSP1Triangle(0, 4, 1, 0),
+    gsSP1Triangle(5, 1, 2, 0),
+    gsSP1Triangle(3, 5, 2, 0),
+    gsSP1Triangle(4, 3, 2, 0),
+    gsSP1Triangle(1, 4, 2, 0),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_8008AF38[] = {
+    gsDPPipeSync(),
+    gsSPVertex(D_800A6170, 5, 0),
+    gsSP1Triangle(0, 1, 2, 0),
+    gsSP1Triangle(0, 2, 3, 0),
+    gsSP1Triangle(0, 3, 1, 0),
+    gsSP1Triangle(1, 4, 2, 0),
+    gsSP1Triangle(2, 4, 3, 0),
+    gsSP1Triangle(3, 4, 1, 0),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_8008AF80[] = {
+    gsDPPipeSync(),
+    gsSPVertex(D_800A61C0, 4, 0),
+    gsSP1Triangle(0, 1, 2, 0),
+    gsSP1Triangle(0, 3, 1, 0),
+    gsSP1Triangle(1, 3, 2, 0),
+    gsSP1Triangle(2, 3, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+Gfx *D_8008AFB8[] = {
+    D_8008AE60,
+    D_8008AEA8,
+    D_8008AF38,
+    D_8008AF80,
+    D_8008AEE0,
+};
