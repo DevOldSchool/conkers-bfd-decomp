@@ -19812,17 +19812,16 @@
       "symbol": "func_1506D570"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 465,
-        "reason": "CURRENT (465): full conversion/call behavior and frame match; remaining one delayed channel mask plus global-address/register allocation difference after bounded lifetime and width revisions; unrelated dirty-file candidates preserved",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 304,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506D584",
           "vram": "0x1506D584"
         }
@@ -29479,17 +29478,16 @@
       "symbol": "func_150045BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2577,
-        "reason": "Manual budget exhausted after three finishes and two revision probe batches: 3682 to 2592 to 2577. Frame E0 and scratch offsets recovered; callback spill 68 versus 6C, buffer index/GPR allocation, vertex-loop initialization scheduling and second-pass global-address hoisting/control flow remain nonexact.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 992,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150045C4",
           "vram": "0x150045C4"
         }
@@ -41810,17 +41808,16 @@
       "symbol": "func_15044A28"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4435,
-        "reason": "useful-typed-collision-volume-candidate-current-4435-after-stack-layout-variants",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15044B78",
           "vram": "0x15044B78"
         }
@@ -45036,17 +45033,16 @@
       "symbol": "func_151EDBDC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 611,
-        "reason": "Bounded structural pass 1721/1096/611. Direct owner-global initialization restores address bases; ordered opcode EF word updates restore constant allocation. Remaining frame/spill -8, w1 store forwarding versus raw reload, ID initialization scheduling and loader constant setup. Real owner/resource/vertex extents and KSEG0 arithmetic preserved; three candidate forms exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 568,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151EDF4C",
           "vram": "0x151EDF4C"
         }
@@ -78835,17 +78831,16 @@
       "symbol": "func_15116D7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3253,
-        "reason": "best CURRENT 3253 (from 21256): body matches after per-operand (f32) casts and s32 count/index; residual is frame 0x38 vs 0x58. Raw spills size/current/frames/step into named homes (0x54/0x34/0x2C/0x28), so some named local needs memory; dead address-of/array probes reach 0x60/0x68 (rejected as fake). Need a natural memory-resident local plus 13 named words with size 1st, current 9th, frames 11th, step 12th; rom is an expression (temp spill 0x20)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1076,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15116EA4",
           "vram": "0x15116EA4"
         }

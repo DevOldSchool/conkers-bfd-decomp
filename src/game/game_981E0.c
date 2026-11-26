@@ -10,7 +10,6 @@
  * - func_1506BF5C
  * - func_1506C460
  * - func_1506CE6C
- * - func_1506D584
  * - func_1506E46C
  * - func_15070300
  * - func_15072B44
@@ -181,7 +180,9 @@ void func_1506B268(void) {
 typedef struct Game981E0ActorRecord {
     u8 pad0[0x65];
     u8 field_65;
-    u8 pad66[0x10];
+    u8 pad66[0xA];
+    u8 field_70;
+    u8 pad71[0x5];
     s16 field_76;
     u8 pad78[0xAD];
     u8 field_125;
@@ -193,7 +194,9 @@ typedef struct Game981E0ActorRecord {
     u8 field_232;
     u8 pad233[0x41];
     u8 field_274;
-    u8 pad275[0xB7];
+    u8 pad275[0x5B];
+    struct197 *field_2D0;
+    u8 pad2D4[0x58];
 } Game981E0ActorRecord;
 
 void *func_150721E8(void *);
@@ -785,35 +788,29 @@ void func_1506D538(void) {
 void func_1506D570(void) {
     D_800D154C[0x6E] = 0;
 }
-void func_1507E7E4(u8 *, s32, s32, s32, s32);
+void func_1507E7E4(u8 *, u8, u8, u16, s32);
 extern f32 D_80099D48;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506D584 CURRENT (465) */
 void func_1506D584(void) {
     f32 scale;
-    s32 packed;
-    s32 channel1;
-    s32 channel2;
-    s32 *packed_ptr;
+    u16 packed;
+    u8 channel1;
+    u8 channel2;
 
-    packed_ptr = &D_800D1580;
-    if (D_800D154C[0x70] != 0x2A) {
-        scale = *(f32 *)(*(u8 **)(D_800D154C + 0x2D0) + 0x10);
-        packed = *packed_ptr;
-        channel1 = (packed >> 24) & 0xFF;
-        channel2 = packed >> 16;
-        packed &= 0xFFFF;
+    if (((Game981E0ActorRecord *)D_800D154C)->field_70 != 0x2A) {
+        channel1 = D_800D1580 >> 24;
+        channel2 = (D_800D1580 >> 16) & 0xFF;
+        packed = D_800D1580 & 0xFFFF;
+        scale = ((Game981E0ActorRecord *)D_800D154C)->field_2D0->unk10;
         if (scale == 0.0f) {
             scale = D_80099D48;
         }
         if (packed != 0xFFFF) {
-            packed = (u32)((f32)(u32)packed / scale) & 0xFFFF;
+            packed = packed / scale;
         }
-        func_1507E7E4(D_800D154C, channel1, channel2 & 0xFF, packed, 0);
+        func_1507E7E4(D_800D154C, channel1, channel2, packed, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506D584 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506D584.s")
 extern f32 D_80099D4C;
 void func_1506D6B4(void)
 {

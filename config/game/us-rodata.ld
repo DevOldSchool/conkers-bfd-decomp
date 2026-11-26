@@ -14,6 +14,8 @@ SECTIONS
     {
         *game_18A8F0.o(.rodata)
     }
+    /* ROM-verified constants: docs/evidence/data-layout/game_30e90_float_constants.md. */
+    .game_rodata_30e90 0x800959D0 (INFO) : SUBALIGN(4) { *game_30E90.o(.rodata) }
     /* ROM-verified constants: docs/evidence/data-layout/game_32740_float_constants.md. */
     .game_rodata_32740 0x800959E0 (INFO) : SUBALIGN(4) { *game_32740.o(.rodata) }
     /* Entrypoint dispatch: docs/evidence/data-layout/entrypoint_jump_table.md. */
@@ -948,6 +950,8 @@ ASSERT(SIZEOF(.game_rodata_981e0_144) == 0x80, "game_981E0 func_15070898 literal
 
 ASSERT(SIZEOF(.game_rodata_entrypoint) == 0x20, "entrypoint table extent changed")
 __game_rodata_entrypoint_payload_size = 0x14;
+ASSERT(SIZEOF(.game_rodata_30e90) == 0x10, "game_30E90 literal extent changed")
+__game_rodata_30e90_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_32740) == 0x20, "game_32740 constant pool extent changed")
 __game_rodata_32740_payload_size = 0x14;
 ASSERT(SIZEOF(.game_rodata_34f20) == 0xC0, "game_34F20 table extent changed")

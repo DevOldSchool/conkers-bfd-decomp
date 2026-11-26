@@ -18,6 +18,7 @@ Jump tables, literal pools and private storage have their own proof requirements
 - [US jump tables exposed by the September 18 automation batch](automation_jump_tables.md)
 - [Recovered US switch table placement](blocked_switch_jump_tables.md)
 - [Entrypoint switch table](entrypoint_jump_table.md)
+- [US game_30E90 collision probe constants](game_30e90_float_constants.md)
 - [US game_32740 view reset constants](game_32740_float_constants.md)
 - [US game_10BC70 float constant](game_10bc70_float_constant.md)
 - [US game_476D0 view angle constants](game_476d0_float_constants.md)
