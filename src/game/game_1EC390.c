@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151BF340
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -241,7 +240,6 @@ void func_151BF0C8(f32 *arg0) {
     func_15153634(&second, 255, 255, 1);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF340.s")
 typedef struct Game1EC390Animation {
     void *primary;
     void *secondary[2];
@@ -250,13 +248,204 @@ typedef struct Game1EC390Animation {
     u8 flags;
 } Game1EC390Animation;
 
+typedef struct Game1EC390AnimationOwner {
+    u8 unk_0[0x28];
+    Game1EC390Animation animation;
+} Game1EC390AnimationOwner;
+
+typedef struct Game1EC390Model {
+    u8 flags;
+    s8 mode;
+    u8 type, extra, field04, unk_5;
+    s16 id;
+    s32 field08, field0C, field10, field14, field18;
+    s32 field1C, field20, field24, field28;
+    u8 field2C, field2D, unk_2E[2];
+    u8 colors[8];
+    u8 field38, unk_39[3];
+    s32 field3C;
+    u8 field40, field41, unk_42[2];
+    Vec3f position;
+    s32 field50;
+    s16 field54, field56;
+} Game1EC390Model;
+
+typedef struct Game1EC390Sprite {
+    f32 x, y, width, height;
+    u8 kind, unk_11;
+    s16 id, flags, field16, field18;
+    u8 field1A, colors[9];
+    s32 field24, field28, field2C, field30, field34, field38, field3C;
+    u8 field40, field41, unk_42[2];
+    u8 field44, unk_45[3];
+    f32 field48, field4C, field50, field54;
+} Game1EC390Sprite;
+
+typedef struct Game1EC390Placement {
+    Vec3f position;
+    f32 scaleX;
+    f32 scaleY;
+} Game1EC390Placement;
+
+typedef struct Game1EC390ModelObject {
+    u8 unk_0[0x120];
+    Game1EC390Placement placement;
+} Game1EC390ModelObject;
+
+s32 func_150859AC(s16, s16);
+void func_100226F0(void *, s32);
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 f32 func_15047D60(f32);
+
+typedef struct Game1EC390Kinds {
+    s32 values[10];
+} Game1EC390Kinds;
+
+extern Vec3f D_800A5480;
+extern f32 D_800AA910;
+extern Game1EC390Kinds D_800AA8B4;
+extern u8 D_800D2458;
+
+void func_151BF340(u8 arg0, s32 arg1) {
+    Game1EC390Animation animation;
+    s32 count;
+    Game1EC390AnimationOwner *object;
+    s32 digits[2];
+    Game1EC390Animation *resources;
+
+    func_151494E0(NULL, 0x57);
+    count = func_150859AC(0, 3);
+    if (count != 0) {
+        count--;
+    }
+    if (count >= 100) {
+        count = 99;
+    }
+    digits[0] = count / 10;
+    digits[1] = count % 10;
+    animation.primary = NULL;
+    func_100226F0(animation.secondary, 8);
+    animation.timer = 110.0f;
+    animation.amount = func_15047D60(D_800AA910);
+    animation.flags = 0;
+    object = func_15149130(300, -1, 0x60, -1, 0, 0x49, 0x18, arg0, arg1);
+    if (object == NULL) {
+        return;
+    }
+    resources = &object->animation;
+    func_10022EC0(resources, &animation, 0x18);
+    {
+        Game1EC390Model model;
+        Game1EC390Placement placement;
+
+        model.flags = 0xC0;
+        model.mode = -1;
+        model.type = 5;
+        model.extra = 3;
+        model.id = 300;
+        model.field08 = 0xA3;
+        model.field0C = 8;
+        model.field10 = 0x100000;
+        model.field18 = 0x60601;
+        model.field2D = 8;
+        model.field1C = 1;
+        model.field20 = 0x38;
+        model.field24 = 0x80;
+        model.field38 = 0;
+        model.field04 = 0;
+        model.field14 = 0x200004;
+        model.field2C = 0;
+        model.field28 = 0x20;
+        model.colors[0] = 0xFF;
+        model.colors[1] = 0xFF;
+        model.colors[2] = 0xFF;
+        model.colors[3] = 0xFF;
+        model.colors[4] = 0xFF;
+        model.colors[5] = 0xFF;
+        model.colors[6] = 0xFF;
+        model.colors[7] = 0xFF;
+        model.field3C = 0;
+        model.field40 = 0;
+        model.field41 = 1;
+        model.field54 = 1;
+        model.field56 = 0xFF;
+        model.position.x = 300.0f;
+        if (D_800D2458 != 0) {
+            model.position.y = 32.0f;
+        } else {
+            model.position.y = 79.0f;
+        }
+        model.position.z = 0.0f;
+        placement.position = D_800A5480;
+        placement.scaleX = 0.30100003f;
+        placement.scaleY = 0.30100003f;
+        resources->primary = (void *)func_15157010((s32)&model, 0, 1, 0, 0, 0x14, arg0, arg1);
+        if (resources->primary != NULL) {
+            func_10022EC0(&((Game1EC390ModelObject *)resources->primary)->placement, &placement, 0x14);
+        }
+        {
+            u8 i;
+            Game1EC390Sprite sprite;
+            Game1EC390Kinds kinds;
+
+            kinds = D_800AA8B4;
+            sprite.x = -500.0f;
+            if (D_800D2458 != 0) {
+                sprite.y = -15.0f;
+            } else {
+                sprite.y = -62.0f;
+            }
+            sprite.id = 300;
+            sprite.flags = 0x20;
+            sprite.field16 = 1;
+            sprite.field18 = 0xFF;
+            sprite.colors[0] = 0xFF;
+            sprite.colors[1] = 0xFF;
+            sprite.colors[2] = 0xFF;
+            sprite.colors[3] = 0xFF;
+            sprite.field1A = 0;
+            sprite.colors[4] = 0xFF;
+            sprite.colors[5] = 0xFF;
+            sprite.colors[6] = 0xFF;
+            sprite.colors[7] = 0xFF;
+            sprite.colors[8] = 0xFF;
+            sprite.field24 = 0;
+            sprite.field28 = 0x200004;
+            sprite.field2C = 0x9F0601;
+            sprite.field40 = 0;
+            sprite.field41 = 0;
+            sprite.field30 = 0x19;
+            sprite.field34 = 0x13;
+            sprite.field38 = 0x80;
+            sprite.field3C = 0x20;
+            sprite.field44 = 0;
+            sprite.field50 = 0.0f;
+            sprite.field54 = 0.0f;
+            sprite.height = 16.0f;
+            sprite.width = 16.0f;
+            sprite.field48 = 1.0f;
+            sprite.field4C = 1.0f;
+            if (digits[0] == 0) {
+                sprite.kind = kinds.values[digits[1]];
+                resources->secondary[0] = func_1515548C(&sprite, 0, 0, 0, 0, arg0, arg1);
+                resources->secondary[1] = NULL;
+                return;
+            }
+            for (i = 0; i < 2; i++) {
+                sprite.kind = kinds.values[digits[i]];
+                resources->secondary[i] = func_1515548C(&sprite, 0, 0, 0, 0, arg0, arg1);
+            }
+        }
+    }
+}
+
 s32 func_1517EF00(s32);
 s32 func_15181CC8(s32);
 extern f32 D_800AA918, D_800AA91C, D_800AA920;
 extern f32 D_800AA924, D_800AA928, D_800AA92C;
 extern f32 D_800BE9A4;
-extern u8 D_800BE9B4, D_800BEAC0, D_800BEAC1, D_800C35EA, D_800D2458;
+extern u8 D_800BE9B4, D_800BEAC0, D_800BEAC1, D_800C35EA;
 
 void func_151BF81C(void *arg0) {
     f32 amount;
