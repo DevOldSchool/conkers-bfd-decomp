@@ -43,7 +43,7 @@ typedef struct {
 typedef struct { u8 pad00[0x37C]; f32 yaw; u8 pad380[0x620]; } GameFBBF0Camera;
 typedef struct { u16 buttons; s8 x, y; } GameFBBF0Input;
 
-void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15052F9C(void *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 s32 func_1505A630(f32, f32, s32);
 

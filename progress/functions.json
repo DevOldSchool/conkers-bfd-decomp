@@ -32639,17 +32639,16 @@
       "symbol": "func_1515C2F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2434,
-        "reason": "CURRENT (2434): effect loop and callback candidate retains frame 0x50 versus raw 0x40, 56 register-only and 8 control-flow rows; callback ABI and copy/FP-order revisions did not align caller-register lifetime",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515C388",
           "vram": "0x1515C388"
         }
@@ -40807,17 +40806,16 @@
       "symbol": "func_1502EEF4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2693,
-        "reason": "CURRENT2693: frame98vs88, selected94vs80 and values7Cvs68. Crosscall index*3 CSE occupiesS3 and shifts saved registers; tablebase nothoisted. Separate nested arms reproduce raw duplicated branch/store, but shared command pointer worsensoutputregisters despiteframe88; retained best2.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 584,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502F01C",
           "vram": "0x1502F01C"
         }
@@ -50885,17 +50883,16 @@
       "symbol": "func_151D7A38"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1565,
-        "reason": "Corrected CURRENT1565, frameB0 vs B8. Single total lifetime eliminates invalid unconditional savedTotal read (old2054 attempt explicitly invalidated). Remaining clipping FPR/operand and loop-tail scheduling plus stack-home differences. Six finishes including two correctness repairs; eleven probe batches32variants. Preserve safe candidate; canonical ASM.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1012,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D7CD0",
           "vram": "0x151D7CD0"
         }
@@ -89074,17 +89071,16 @@
       "symbol": "func_15052F58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2443,
-        "reason": "Best CURRENT 2443 after three bounded comparisons; register pointer removes duplicate address, but extra S1 save/frame50, argument homes, register and control schedules remain. Caller D7CC0 uses residual V0 requiring wider return-contract audit before acceptance.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 736,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15052F9C",
           "vram": "0x15052F9C"
         }

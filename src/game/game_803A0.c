@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_803A0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_isolated_selectors_and_calls.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15052F9C
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 /* Call context: func_1505E650: unique active project prototype */
@@ -38,90 +33,138 @@ extern s32 D_800BE9F0;
 extern u8 D_800C3E78;
 extern s32 D_800D1580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15052F9C CURRENT (2443) */
-void func_15052F9C(u8 *arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
+typedef struct Game803A0Child {
+    u8 unk_0[0x27];
+    u8 unk_27;
+    u8 unk_28[8];
+    u8 unk_30;
+    u8 unk_31[0x1D];
+    u8 unk_4E;
+} Game803A0Child;
+typedef struct Game803A0Actor {
+    s32 unk_0;
+    u8 unk_4;
+    u8 unk_5[0x13];
+    f32 unk_18;
+    u8 unk_1C[4];
+    f32 unk_20;
+    u8 unk_24[0x1C];
+    f32 unk_40;
+    u8 unk_44[0x18];
+    s32 unk_5C;
+    u8 unk_60[5];
+    u8 unk_65;
+    u8 unk_66[0x10];
+    u16 unk_76;
+    u16 unk_78;
+    u16 unk_7A;
+    u8 unk_7C[7];
+    u8 unk_83;
+    u8 unk_84[5];
+    u8 unk_89;
+    u8 unk_8A[0x77];
+    u8 unk_101;
+    u8 unk_102[0x22];
+    u8 unk_124;
+    u8 unk_125;
+    u8 unk_126[0x16];
+    u8 unk_13C;
+    u8 unk_13D[0x13];
+    f32 unk_150;
+    u8 unk_154[0x78];
+    f32 unk_1CC;
+    u8 unk_1D0[0x48];
+    s32 unk_218;
+    u8 unk_21C[0x16];
+    u8 unk_232;
+    u8 unk_233[6];
+    u8 unk_239;
+    u8 unk_23A[0xE2];
+    Game803A0Child *unk_31C;
+    u8 unk_320[0xC];
+} Game803A0Actor;
+typedef struct Game803A0Info {
+    u8 unk_0[6];
+    u8 unk_6;
+} Game803A0Info;
+
+void func_15052F9C(Game803A0Actor *arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
-    register u8 *actor;
+    Game803A0Actor *actor;
     s32 subtype;
     s32 removeOwner;
-    register s32 mode;
-    s32 actorIndex;
-    u8 *child;
-    void *info;
+    Game803A0Info *info;
 
     removeOwner = 0;
     subtype = -1;
-    if (arg0[4] == 0x48) {
+    if (arg0->unk_4 == 0x48) {
         info = func_15033E84(arg0);
-        if (info != 0) {
-            subtype = *(u8 *)((u8 *)info + 6);
+        if (info != NULL) {
+            subtype = info->unk_6;
         }
     }
-    actorIndex = arg0[0x124];
-    actor = D_800CC2D0 + actorIndex * 0x32C;
-    if (arg8 != 0 || (*(f32 *)(actor + 0x18) < *(f32 *)(arg0 + 0x18) + arg1 * *(f32 *)(arg0 + 0x150) && *(f32 *)(actor + 0x20) < 0.0f)) {
-        arg0[0x13C] = actorIndex + 100;
+    actor = &((Game803A0Actor *)D_800CC2D0)[arg0->unk_124];
+    if (arg8 != 0 || (actor->unk_18 < arg0->unk_18 + arg1 * arg0->unk_150 && actor->unk_20 < 0.0f)) {
+        arg0->unk_13C = arg0->unk_124 + 100;
         if (arg9 != 0) {
             D_800D1580 = arg9;
             func_1506E5FC();
         }
-        child = *(u8 **)(actor + 0x31C);
-        *(f32 *)(actor + 0x1CC) = *(f32 *)(actor + 0x18);
-        *(u16 *)(actor + 0x76) = *(u16 *)(arg0 + 0x7A);
-        child[0x30] = 0;
-        if (*(s32 *)arg0 == 0x20) {
-            *(f32 *)(actor + 0x20) = 0.0f;
+        actor->unk_1CC = actor->unk_18;
+        actor->unk_76 = arg0->unk_7A;
+        actor->unk_31C->unk_30 = 0;
+        if (arg0->unk_0 == 0x20) {
+            s32 angle;
+            s32 mode;
+
+            actor->unk_20 = 0.0f;
             mode = 2;
-            *(f32 *)(arg0 + 0x20) = 0.0f;
-            if (arg0[4] == 0x48) {
+            arg0->unk_20 = 0.0f;
+            if (arg0->unk_4 == 0x48) {
                 if (subtype == 0x7A) {
-                    arg0[0x65] = arg0[0x124] + 1;
-                    *(s32 *)(arg0 + 0x5C) = arg2;
-                    arg0[0x101] |= arg3;
-                    func_1505E650(actor, 5, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+                    arg0->unk_65 = arg0->unk_124 + 1;
+                    arg0->unk_5C = arg2;
+                    arg0->unk_101 |= arg3;
+                    func_1505E650((u8 *)actor, 5, 1.0f, 0.0f, 0.0f, 0.0f, 0);
                     func_15083568((s32)actor, 0x79, 1.0f, 0);
                     removeOwner = 1;
                 }
             } else {
-                *(f32 *)(arg0 + 0x150) = 0.75f;
-                *(f32 *)(actor + 0x18) = *(f32 *)(arg0 + 0x18);
+                arg0->unk_150 = 0.75f;
+                actor->unk_18 = arg0->unk_18;
                 mode = 1;
                 if (D_800BE9F0 == 6) {
                     mode = 0x81;
                 }
             }
-            actorIndex = *(u16 *)(arg0 + 0x7A);
-            child = *(u8 **)(actor + 0x31C);
-            *(u16 *)(actor + 0x76) = actorIndex;
-            *(u16 *)(actor + 0x78) = actorIndex;
-            *(u16 *)(actor + 0x7A) = actorIndex;
-            *(f32 *)(actor + 0x40) = (f32)(s16)(actorIndex + 0x4000) * 0.0054931640625f;
-            child[0x4E] = mode;
-            actor[0x83] = 0;
-            actor[0x89] = 0;
+            actor->unk_76 = arg0->unk_7A;
+            angle = actor->unk_76;
+            actor->unk_78 = angle;
+            actor->unk_7A = angle;
+            actor->unk_40 = (f32)(s16)(angle + 0x4000) * 0.0054931640625f;
+            actor->unk_31C->unk_4E = mode;
+            actor->unk_83 = 0;
+            actor->unk_89 = 0;
         } else {
-            actor[0x65] = D_800C3E78 + 1;
-            *(s32 *)(actor + 0x5C) = arg2;
-            actor[0x89] = 0;
-            actor[0x101] |= arg3;
+            actor->unk_65 = D_800C3E78 + 1;
+            actor->unk_5C = arg2;
+            actor->unk_101 |= arg3;
+            actor->unk_89 = 0;
         }
-        child = *(u8 **)(actor + 0x31C);
-        actor[0x125] = arg6;
-        actor[0x239] = arg7;
-        child[0x27] = 0;
-        *(s32 *)(arg0 + 0x218) = 0;
-        arg0[0x232] = arg5;
+        actor->unk_125 = arg6;
+        actor->unk_239 = arg7;
+        actor->unk_31C->unk_27 = 0;
+        arg0->unk_232 = arg5;
+        arg0->unk_218 = 0;
         if (arg4 != 0) {
-            func_1506160C(actor, 1, 0, 0, 0);
-            actor[0x101] |= 0x40;
+            func_1506160C((u8 *)actor, 1, 0, 0, 0);
+            actor->unk_101 |= 0x40;
         }
     }
     if (removeOwner != 0) {
-        func_15060F28(arg0, 0);
+        func_15060F28((u8 *)arg0, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15052F9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_803A0/func_15052F9C.s")
 
 void func_1505327C(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4) {
     u8 *source;

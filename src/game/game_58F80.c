@@ -10,7 +10,6 @@
  * - func_1502DB84
  * - func_1502DF38
  * - func_1502E4C4
- * - func_1502F01C
  * - func_1502F9FC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -166,9 +165,14 @@ typedef struct Game58F80Actor {
     u8 pad20[0x45];
     u8 owner65;
     u8 flags66;
-    u8 pad67[0x5];
+    u8 pad67;
+    u8 unk_68;
+    u8 unk_69;
+    u8 pad6A[2];
     u8 field6C[2];
-    u8 pad6E[0x16];
+    u8 unk_6E;
+    u8 unk_6F;
+    u8 pad70[0x14];
     u16 unk_84;
     u8 unk_86[2];
     u8 field88;
@@ -681,7 +685,7 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
  */
 #define SHL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 s32 func_1503DA9C(void *, s32, s32, s32);
-void *func_1502F01C(void *, s32);
+void *func_1502F01C(Game58F80Command *, s32);
 void *func_1502F9FC(void *, s32);
 void func_1502FD70(void *);
 s32 func_15030F94(s32, void *, s32, s32);
@@ -1245,74 +1249,59 @@ typedef struct Game58F80TileCommand {
 extern Game58F80TileExtent *D_800C5338[];
 
 u8 *func_1507E908(void *, s32);
-extern void *D_800D1C90[];
+typedef struct Game58F80SkinTable {
+    u8 pad0[8];
+    u8 choices[2][3];
+} Game58F80SkinTable;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F01C CURRENT (2693) */
-void *func_1502F01C(Game58F80TileCommand *arg0, s32 arg1) {
+extern Game58F80SkinTable *D_800D1C90[];
+
+void *func_1502F01C(Game58F80Command *arg0, s32 arg1) {
+    Game58F80TileExtent *tiles;
     u8 selected[2];
-    u8 *actor;
+    Game58F80Actor *actor;
     u8 *record;
     u8 kind;
     s32 index;
-    s32 values[2];
-    void **slot;
-    Game58F80TileExtent *tiles;
 
-    actor = &D_800CC2D0 + arg1 * 0x32C;
-    kind = actor[4];
-    record = 0;
-    index = 0;
-    do {
-        u8 selection = actor[index + 0x6C];
-        slot = &D_800D1C90[kind];
+    actor = &GAME58F80_ACTORS[arg1];
+    kind = actor->model;
+    record = NULL;
+    for (index = 0; index != 2; index++) {
+        s32 values[2];
+        u8 selection = actor->field6C[index];
+
         if (selection >= 10) {
             selected[index] = selection - 10;
         } else {
-            u8 animation = actor[0x6F];
-            selected[index] = ((u8 *)*slot)[index * 3 + selection + 8];
-            if (animation != 0 && record == 0) {
-                record = func_1507E908(actor, animation);
+            selected[index] = D_800D1C90[kind]->choices[index][selection];
+            if (actor->unk_6F && !record) {
+                record = func_1507E908(actor, actor->unk_6F);
             }
-            if (record != 0) {
+            if (record) {
                 values[0] = record[0];
                 values[1] = record[1];
-                if (record != 0) {
-                    if (values[index] == ((u8 *)*slot)[index * 3 + 10] ||
-                        actor[index + 0x6C] == 0) {
+                if (record) {
+                    if (values[index] != D_800D1C90[kind]->choices[index][2]) {
+                        if (!actor->field6C[index]) {
+                            selected[index] = values[index];
+                        }
+                    } else {
                         selected[index] = values[index];
                     }
                 }
             }
         }
-        index++;
-    } while (index != 2);
-    tiles = D_800C5338[actor[4]];
-    if (tiles != 0) {
-        {
-            Game58F80TileCommand *command = arg0++;
-            command->word0 = 0xDB060018;
-            command->word1 = tiles[selected[0]].words[0];
-        }
-        {
-            Game58F80TileCommand *command = arg0++;
-            command->word0 = 0xDB06001C;
-            command->word1 = tiles[selected[1]].words[0];
-        }
-        {
-            Game58F80TileCommand *command = arg0++;
-            command->word0 = 0xDB060028;
-            command->word1 = tiles[actor[0x68]].words[0];
-        }
-        {
-            Game58F80TileCommand *command = arg0++;
-            command->word0 = 0xDB06002C;
-            command->word1 = tiles[actor[0x69]].words[0];
-        }
+    }
+    tiles = D_800C5338[actor->model];
+    if (tiles) {
+        { Game58F80Command *g = arg0++; g->first = 0xDB060018; g->second = tiles[selected[0]].words[0]; }
+        { Game58F80Command *g = arg0++; g->first = 0xDB06001C; g->second = tiles[selected[1]].words[0]; }
+        { Game58F80Command *g = arg0++; g->first = 0xDB060028; g->second = tiles[actor->unk_68].words[0]; }
+        { Game58F80Command *g = arg0++; g->first = 0xDB06002C; g->second = tiles[actor->unk_69].words[0]; }
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502F01C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F01C.s")
 
 extern s32 D_80082FA0;
 

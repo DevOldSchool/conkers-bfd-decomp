@@ -8,11 +8,6 @@
 /*
  * Reviewed source unit: src/game/game_204660.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_render_effect_lifecycles.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151D7CD0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_10022EC0(void *, const void *, u32);
@@ -384,6 +379,7 @@ typedef struct Game204660TrailState {
     Vec3f previous;
     f32 time;
     f32 phase;
+    f32 angle;
 } Game204660TrailState;
 
 typedef struct Game204660TrailPoint {
@@ -398,7 +394,9 @@ typedef struct Game204660TrailPoint {
 typedef struct Game204660Trail {
     u8 unknown0[0x10];
     Vec3f position;
-    u8 unknown1C[9];
+    u8 unknown1C[2];
+    u16 flags;
+    u8 unknown20[5];
     u8 capacity;
     u8 unknown26[6];
     s8 count;
@@ -481,38 +479,30 @@ s32 func_151D7A38(Game204660Trail *trail) {
 f32 func_15144528(f32, f32, f32);
 extern f32 D_800AB2DC, D_800AB2E0, D_800AB2E4, D_800AB2E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7CD0 CURRENT (1565) */
 s32 func_151D7CD0(Game204660Trail *trail) {
     f32 fraction;
-    f32 length;
+    f32 inverse;
+    f32 total;
     f32 fadeStart;
     f32 fadeSpan;
     Vec3f delta;
-    f32 total;
     f32 walkDistance;
     f32 fadeDistance;
-    f32 remainder;
-    Game204660TrailPoint *point;
     Vec3f *previous;
     Game204660TrailPoint *points;
     Game204660TrailState *state;
-    Game204660TrailPoint *walkPoint;
-    Game204660TrailPoint *fadePoint;
     s32 index;
     s32 walkIndex;
     s32 fadeIndex;
-    f32 unit;
     f32 reciprocal;
     f32 measuredLength;
 
-    unit = 1.0f;
     state = trail->state;
     points = trail->points;
     if (trail->count >= 2) {
         total = 0.0f;
-        walkDistance = 80.0f;
         index = trail->end;
-        if (*(u16 *)((u8 *)trail + 0x1E) & 2) {
+        if (trail->flags & 2) {
             previous = &trail->position;
         } else {
             index--;
@@ -520,6 +510,8 @@ s32 func_151D7CD0(Game204660Trail *trail) {
             previous = &points[index].position;
         }
         do {
+            Game204660TrailPoint *point;
+
             index--;
             if (index < 0) index = trail->capacity - 1;
             point = &points[index];
@@ -529,19 +521,22 @@ s32 func_151D7CD0(Game204660Trail *trail) {
             measuredLength = func_15143E64(&delta);
             total += measuredLength;
             point->value10 = measuredLength;
-            if (total > walkDistance) {
-                length = point->value10;
-                if (length != 0) {
-                    fraction = (total - walkDistance) * (unit / length);
+            if (total > 80.0f) {
+                if (point->value10 != 0) {
+                    f32 excess;
+
+                    inverse = 1.0f / point->value10;
+                    excess = total - 80.0f;
+                    fraction = excess * inverse;
                     point->position.x -= delta.x * fraction;
                     point->position.y -= delta.y * fraction;
                     point->position.z -= delta.z * fraction;
-                    point->value10 = length * (unit - fraction);
+                    point->value10 *= 1.0f - fraction;
                 }
-                total = walkDistance;
+                total = 80.0f;
                 while (index != trail->start) {
                     trail->start++;
-                    if (trail->capacity == trail->start) trail->start = 0;
+                    if (trail->start == trail->capacity) trail->start = 0;
                     trail->count--;
                 }
             }
@@ -549,34 +544,43 @@ s32 func_151D7CD0(Game204660Trail *trail) {
         } while (index != trail->start);
     }
     if (trail->count >= 2) {
-        *(f32 *)((u8 *)state + 0x18) += -41.0f * D_800BE9A4;
-        *(f32 *)((u8 *)state + 0x18) = func_15144528(*(f32 *)((u8 *)state + 0x18), D_800AB2DC, -16384.0f);
+        state->angle += -41.0f * D_800BE9A4;
+        state->angle = func_15144528(state->angle, D_800AB2DC, -16384.0f);
         walkDistance = 0.0f;
         walkIndex = trail->end;
         do {
+            Game204660TrailPoint *walkPoint;
+            f32 phase;
+
             walkIndex--;
             if (walkIndex < 0) walkIndex = trail->capacity - 1;
             walkPoint = &points[walkIndex];
             walkDistance += walkPoint->value10;
-            walkPoint->value18 = func_15144528(*(f32 *)((u8 *)state + 0x18) + walkDistance * D_800AB2E0,
+            phase = state->angle + walkDistance * D_800AB2E0;
+            walkPoint->value18 = func_15144528(phase,
                                                D_800AB2E4, -16384.0f);
         } while (walkIndex != trail->start);
     }
     if (trail->count >= 2) {
-        walkDistance = 60.0f;
         fadeDistance = 0.0f;
         fadeStart = total * D_800AB2E8;
         fadeIndex = trail->end;
         fadeSpan = total - fadeStart;
-        reciprocal = unit / fadeSpan;
+        reciprocal = 1.0f / fadeSpan;
         do {
+            Game204660TrailPoint *fadePoint;
+
             fadeIndex--;
             if (fadeIndex < 0) fadeIndex = trail->capacity - 1;
             fadePoint = &points[fadeIndex];
             if (fadeStart < fadeDistance) {
+                f32 remainder;
+                f32 alpha;
+
                 remainder = fadeDistance - fadeStart;
                 if (fadeSpan < remainder) remainder = fadeSpan;
-                fadePoint->active = (u32)((fadeSpan - remainder) * reciprocal * walkDistance);
+                alpha = (fadeSpan - remainder) * reciprocal * 60.0f;
+                fadePoint->active = (u32)alpha;
             } else {
                 fadePoint->active = 60;
             }
@@ -585,8 +589,7 @@ s32 func_151D7CD0(Game204660Trail *trail) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7CD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7CD0.s")
+
 
 typedef struct Game204660TrailVertex {
     s16 x, y, z;

@@ -56,7 +56,7 @@ typedef struct GameEB020Actor {
     u8 pad320[0xC];
 } GameEB020Actor;
 
-void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15052F9C(void *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 void *func_15072208(void *, s32);
 extern f32 D_8009FFF0;
