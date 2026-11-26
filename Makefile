@@ -1023,12 +1023,15 @@ $(GAME_INTEGRATED_DATA): $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.
 GAME_DATA_LINK_DIR := $(GAME_INTEGRATED_BUILD_DIR)/data-link
 GAME_DATA_LINK_ELF := $(GAME_DATA_LINK_DIR)/game.data.linked.elf
 
-$(GAME_DATA_LINK_DIR)/layout.json: $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT) scripts/game_data_link.py \
-		scripts/link_game_data.py scripts/data_boundaries.py scripts/rom_span.py
-	python3 scripts/game_data_link.py --output-dir $(GAME_DATA_LINK_DIR)
+$(GAME_DATA_LINK_DIR)/layout.json: $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT) scripts/game_data_link.py $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld \
+		scripts/link_game_data.py scripts/data_boundaries.py scripts/rom_span.py \
+		$(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS)
+	@mkdir -p $(GAME_DATA_LINK_DIR)
+	$(file >$(GAME_DATA_LINK_DIR)/objects.in,$(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS))
+	python3 scripts/game_data_link.py --output-dir $(GAME_DATA_LINK_DIR) --objects $(GAME_DATA_LINK_DIR)/objects.in
 
-$(GAME_DATA_LINK_ELF): $(GAME_DATA_LINK_DIR)/layout.json $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB)
-	$(LD) -m elf32btsmip -T $(GAME_DATA_LINK_DIR)/sdk.ld -T $(GAME_DATA_LINK_DIR)/rodata.ld -T $(GAME_DATA_LINK_DIR)/gaps.ld -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
+$(GAME_DATA_LINK_ELF): $(GAME_DATA_LINK_DIR)/layout.json $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_LIB) $(GAME_RARE_LIB)
+	$(LD) -m elf32btsmip -T $(GAME_DATA_LINK_DIR)/sdk.ld -T $(GAME_DATA_LINK_DIR)/rodata.ld -T $(GAME_DATA_LINK_DIR)/gaps.ld -T $(GAME_DATA_LINK_DIR)/integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ @$(GAME_DATA_LINK_DIR)/objects.args --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
 
 $(GAME_DATA_LINK_DIR)/game.data.bin: $(GAME_DATA_LINK_ELF)
 	$(OBJCOPY) -O binary @$(GAME_DATA_LINK_DIR)/sections.args $< $@
