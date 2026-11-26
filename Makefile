@@ -208,6 +208,9 @@ GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0G.a
 GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
 GAME_LIB_SYMBOLS := config/game/us-sdk.ld
 GAME_RODATA_SCRIPT := config/game/us-rodata.ld
+# Objects whose whole .rodata has a reviewed placement; the compile step trims
+# that section to its asserted size with 4-byte alignment (scripts/trim_game_rodata.py).
+GAME_TRIM_RODATA_OBJS := $(shell python3 scripts/trim_game_rodata.py --list)
 GAME_SPLIT_RODATA_OBJS := game_B4080.o game_11D830.o game_1E73B0.o game_209B50.o game_16EE20.o game_1C1150.o game_83300.o game_64120.o game_49D30.o game_1F2730.o game_90840.o game_173D40.o game_131F30.o game_177B50.o game_58F80.o game_111670.o game_114B80.o game_200930.o game_DC6B0.o game_1A20A0.o game_1FA770.o game_179F30.o holtenrope.o characterflamethrower.o game_2062D0.o game_1D6E80.o game_F3BA0.o game_F3270.o game_EC420.o game_115F30.o game_17CAF0.o game_121A20.o game_981E0.o blood.o effects_sight.o game_197F20.o game_1865D0.o game_100810.o game_127060.o game_1EF500.o game_1E37D0.o game_1AC2F0.o
 GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/G/libultra_rom/src/,\
 	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
@@ -1023,15 +1026,12 @@ $(GAME_INTEGRATED_DATA): $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.
 GAME_DATA_LINK_DIR := $(GAME_INTEGRATED_BUILD_DIR)/data-link
 GAME_DATA_LINK_ELF := $(GAME_DATA_LINK_DIR)/game.data.linked.elf
 
-$(GAME_DATA_LINK_DIR)/layout.json: $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT) scripts/game_data_link.py $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld \
-		scripts/link_game_data.py scripts/data_boundaries.py scripts/rom_span.py \
-		$(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS)
-	@mkdir -p $(GAME_DATA_LINK_DIR)
-	$(file >$(GAME_DATA_LINK_DIR)/objects.in,$(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS))
-	python3 scripts/game_data_link.py --output-dir $(GAME_DATA_LINK_DIR) --objects $(GAME_DATA_LINK_DIR)/objects.in
+$(GAME_DATA_LINK_DIR)/layout.json: $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT) scripts/game_data_link.py \
+		scripts/link_game_data.py scripts/data_boundaries.py scripts/rom_span.py
+	python3 scripts/game_data_link.py --output-dir $(GAME_DATA_LINK_DIR)
 
-$(GAME_DATA_LINK_ELF): $(GAME_DATA_LINK_DIR)/layout.json $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_LIB) $(GAME_RARE_LIB)
-	$(LD) -m elf32btsmip -T $(GAME_DATA_LINK_DIR)/sdk.ld -T $(GAME_DATA_LINK_DIR)/rodata.ld -T $(GAME_DATA_LINK_DIR)/gaps.ld -T $(GAME_DATA_LINK_DIR)/integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ @$(GAME_DATA_LINK_DIR)/objects.args --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
+$(GAME_DATA_LINK_ELF): $(GAME_DATA_LINK_DIR)/layout.json $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB)
+	$(LD) -m elf32btsmip -T $(GAME_DATA_LINK_DIR)/sdk.ld -T $(GAME_DATA_LINK_DIR)/rodata.ld -T $(GAME_DATA_LINK_DIR)/gaps.ld -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
 
 $(GAME_DATA_LINK_DIR)/game.data.bin: $(GAME_DATA_LINK_ELF)
 	$(OBJCOPY) -O binary @$(GAME_DATA_LINK_DIR)/sections.args $< $@
@@ -1053,8 +1053,10 @@ $(GAME_INTEGRATED_BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(GAME_PROFILE) --output $@ $<
 	$(if $(filter $(GAME_SPLIT_RODATA_OBJS),$(notdir $@)),python3 scripts/split_game_rodata.py $@)
+	$(if $(filter $(GAME_TRIM_RODATA_OBJS),$(notdir $@)),python3 scripts/trim_game_rodata.py $@)
 
 $(filter $(addprefix %/,$(GAME_SPLIT_RODATA_OBJS)),$(GAME_INTEGRATED_C_OBJS)): scripts/split_game_rodata.py
+$(filter $(addprefix %/,$(GAME_TRIM_RODATA_OBJS)),$(GAME_INTEGRATED_C_OBJS)): scripts/trim_game_rodata.py $(GAME_RODATA_SCRIPT)
 
 $(GAME_INTEGRATED_NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@

@@ -19,18 +19,10 @@ Outputs, under --output-dir:
                      changed from INFO to allocated sections
   gaps.ld            gap sections with the preserved bytes
   sections.args      objcopy `-j` arguments in address order
-  objects.args       the link's object list, with trimmed copies substituted
-  integrated.ld      the integrated script, selecting the trimmed copies
-  objects/           .rodata-trimmed copies of reviewed source objects
   layout.json        the resulting ranges and their provenance
 
-IDO objects here align .rodata to 16 bytes and pad its size to 16, but the
-original link packed each object's .rodata on a 4-byte boundary directly after
-the previous one (for example game_1C02A0's constants start at 0x800A8194,
-where game_1BFDD0's end). For the data link, each reviewed whole-object
-.rodata placement uses a copy of its object whose .rodata is trimmed to the
-reviewed payload with 4-byte alignment. Trimming is refused unless the
-removed tail is zero and holds no symbol or relocation.
+Whole-object .rodata placements are already trimmed to their asserted size by
+scripts/trim_game_rodata.py in the compile step, so they link back to back.
 """
 
 from __future__ import annotations
@@ -39,14 +31,12 @@ import argparse
 import json
 from pathlib import Path
 import re
-import struct
 import sys
 
 import link_game_data
 import rom_span
 
 ROOT = Path(__file__).resolve().parent.parent
-INTEGRATED_SCRIPT = "build/game-integrated/us/conker.game.us.integrated.ld"
 SCRIPTS = {"rodata.ld": "config/game/us-rodata.ld", "sdk.ld": "config/game/us-sdk.ld"}
 
 
@@ -82,74 +72,6 @@ def layout(mappings: list[dict], original: bytes, base: int) -> tuple[list[dict]
     return ranges, kept_info
 
 
-def trim_rodata(data: bytes, size: int) -> bytes:
-    """Return a big-endian ELF32 object whose .rodata is `size` bytes, 4-byte aligned."""
-    if data[:6] != b"\x7fELF\x01\x02":
-        raise ValueError("not a big-endian ELF32 object")
-    shoff, = struct.unpack_from(">I", data, 0x20)
-    shentsize, shnum, shstrndx = struct.unpack_from(">HHH", data, 0x2E)
-    headers = [list(struct.unpack_from(">10I", data, shoff + i * shentsize)) for i in range(shnum)]
-    strtab = headers[shstrndx]
-
-    def name(header: list[int]) -> str:
-        start = strtab[4] + header[0]
-        return data[start:data.index(b"\0", start)].decode()
-
-    index = next((i for i, h in enumerate(headers) if name(h) == ".rodata"), None)
-    if index is None:
-        raise ValueError("object has no .rodata")
-    rodata = headers[index]
-    if size > rodata[5] or size % 4:
-        raise ValueError(f".rodata payload 0x{size:X} does not fit 0x{rodata[5]:X} on a word boundary")
-    if any(data[rodata[4] + size:rodata[4] + rodata[5]]):
-        raise ValueError(".rodata tail beyond the payload is not zero")
-    for header in headers:
-        if header[1] == 2:  # SHT_SYMTAB
-            for offset in range(header[4], header[4] + header[5], 16):
-                _, value, _, _, _, shndx = struct.unpack_from(">IIIBBH", data, offset)
-                if shndx == index and value > size:
-                    raise ValueError(".rodata symbol beyond the payload")
-        if header[1] in (9, 4) and header[7] == index:  # REL/RELA targeting .rodata
-            step = 8 if header[1] == 9 else 12
-            for offset in range(header[4], header[4] + header[5], step):
-                if struct.unpack_from(">I", data, offset)[0] >= size:
-                    raise ValueError(".rodata relocation beyond the payload")
-    result = bytearray(data)
-    rodata[5], rodata[8] = size, 4
-    struct.pack_into(">10I", result, shoff + index * shentsize, *rodata)
-    return bytes(result)
-
-
-def trim_objects(mappings: list[dict], objects: list[str], output_dir: Path, root: Path) -> list[str]:
-    """Trim each reviewed whole-object .rodata placement; return the trimmed outputs."""
-    by_name = {Path(path).name: path for path in objects}
-    substitutes, trimmed = {}, []
-    for mapping in mappings:
-        match = re.fullmatch(r"\*(\w+\.o)\(\.rodata\)", mapping["input_selector"])
-        size = mapping["end"] - mapping["start"]
-        if not match or size == mapping["emitted_size"] or match[1] not in by_name:
-            continue
-        source = by_name[match[1]]
-        target = (output_dir / "objects" / match[1]).resolve()
-        target.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            target.write_bytes(trim_rodata((root / source).read_bytes(), size))
-        except ValueError as error:
-            raise ValueError(f"{mapping['output']}: {error}") from None
-        substitutes[source] = target.relative_to(root.resolve()).as_posix()
-        mapping["emitted_size"] = size
-        trimmed.append(mapping["output"])
-    (output_dir / "objects.args").write_text("".join(substitutes.get(p, p) + "\n" for p in objects))
-    # The integrated script selects objects by path; point it at the copies.
-    text = (root / INTEGRATED_SCRIPT).read_text()
-    for source, target in substitutes.items():
-        text, count = re.subn(re.escape(source) + r"(?=\()", target, text)
-        if not count:
-            raise ValueError(f"{source}: not selected by {INTEGRATED_SCRIPT}")
-    (output_dir / "integrated.ld").write_text(text)
-    return trimmed
-
-
 def gap_section(name: str, start: int, payload: bytes) -> str:
     lines = [f"    {name} 0x{start:08X} : {{"]
     offset = 0
@@ -167,14 +89,9 @@ def gap_section(name: str, start: int, payload: bytes) -> str:
     return "\n".join(lines)
 
 
-def allocate(text: str, outputs: set[str], trimmed: dict[str, int]) -> tuple[str, int]:
+def allocate(text: str, outputs: set[str]) -> tuple[str, int]:
     """Drop the INFO type from the linked placements' output section headers."""
     count = 0
-    for output, size in trimmed.items():
-        text, found = re.subn(r"(ASSERT\(SIZEOF\(" + re.escape(output) + r"\)\s*==\s*)0x[0-9A-Fa-f]+",
-                              lambda match: f"{match[1]}0x{size:X}", text)
-        if found > 1:
-            raise ValueError(f"{output}: more than one extent assertion")
 
     def replace(match: re.Match) -> str:
         nonlocal count
@@ -187,18 +104,16 @@ def allocate(text: str, outputs: set[str], trimmed: dict[str, int]) -> tuple[str
     return pattern.sub(replace, text), count
 
 
-def generate(output_dir: Path, objects: list[str], root: Path = ROOT) -> dict:
+def generate(output_dir: Path, root: Path = ROOT) -> dict:
     original, base, digest = rom_span.game_data(root)
     mappings = link_game_data.placements(root, base, len(original))
     output_dir.mkdir(parents=True, exist_ok=True)
-    trimmed = trim_objects(mappings, objects, output_dir, root)
     ranges, kept_info = layout(mappings, original, base)
     outputs = {r["output"] for r in ranges if r["kind"] == "linked"}
-    sizes = {m["output"]: m["emitted_size"] for m in mappings if m["output"] in trimmed}
 
     converted = 0
     for name, source in SCRIPTS.items():
-        text, count = allocate((root / source).read_text(), outputs, sizes)
+        text, count = allocate((root / source).read_text(), outputs)
         converted += count
         (output_dir / name).write_text(text)
     if converted != len(outputs):
@@ -221,7 +136,6 @@ def generate(output_dir: Path, objects: list[str], root: Path = ROOT) -> dict:
         "linked_sections": len(outputs), "linked_bytes": linked_bytes,
         "gap_sections": sum(r["kind"] == "gap" for r in ranges),
         "gap_bytes": len(original) - linked_bytes,
-        "trimmed_rodata": trimmed,
         "kept_info": [m["output"] for m in kept_info],
         "ranges": ranges,
     }
@@ -232,19 +146,15 @@ def generate(output_dir: Path, objects: list[str], root: Path = ROOT) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--objects", type=Path, required=True,
-                        help="file listing the integrated link's objects, one per line")
     arguments = parser.parse_args()
     try:
-        objects = arguments.objects.read_text().split()
-        summary = generate(arguments.output_dir, objects)
+        summary = generate(arguments.output_dir)
     except (ValueError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
     print(f"{arguments.output_dir}: {summary['linked_sections']} linked sections "
           f"({summary['linked_bytes']} bytes, padding included), {summary['gap_sections']} gap sections "
-          f"({summary['gap_bytes']} bytes); {len(summary['trimmed_rodata'])} .rodata objects trimmed; "
-          f"{len(summary['kept_info'])} placements kept INFO")
+          f"({summary['gap_bytes']} bytes); {len(summary['kept_info'])} placements kept INFO")
     return 0
 
 
