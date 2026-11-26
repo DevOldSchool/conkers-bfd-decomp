@@ -30362,17 +30362,16 @@
       "symbol": "func_15048B10"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2955,
-        "reason": "Bounded source-valid union trial: initial CURRENT 5533; coherent union value/word snapshot 3996; guarded rational branch 2955. Best retains real initialized representation union, two-float ABI, fixed coefficient views and ordered expressions. Remaining local 8-byte frame, unused-formal spill, FP operands/registers and return layout require new source evidence. No parameter-home or pointer-punning workaround.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 752,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15048C30",
           "vram": "0x15048C30"
         }
@@ -58206,17 +58205,16 @@
       "symbol": "func_150969A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4205,
-        "reason": "Manual budget exhausted; retain best CURRENT 4205, frame and state/helper scheduling differ.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 672,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15096A68",
           "vram": "0x15096A68"
         }
@@ -60275,17 +60273,16 @@
       "symbol": "func_15176B84"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2296,
-        "reason": "Round14 2026-10-20: natural typed rewrite (u32 *gdl/u8 *state, f32 matrices, one-line GBI blocks, block-scoped u8 loaded then s32 target) matches the full frame plan; remaining: raw keeps three color locals stored/reloaded across func_15142FBC while IDO copy-propagates them into brightness (struct, scalars, chained and reordered assignments, u8 brightness all tried).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 728,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15176DF0",
           "vram": "0x15176DF0"
         }
@@ -85830,17 +85827,16 @@
       "symbol": "func_1512C200"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2316,
-        "reason": "Best 2316 after three bounded candidates; complete vector buffers and raw point readbacks retained. Frame78 versus70, homes+8, late saved point address, aggregate rematerialization and FP scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 624,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512C20C",
           "vram": "0x1512C20C"
         }

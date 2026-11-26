@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_C3E20.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_record_command_controller.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15096A68
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_100226F0(void *arg0, s32 arg1);
@@ -85,65 +80,59 @@ extern u8 D_800DBFF4[];
 extern f32 D_800D2DB8;
 extern GameC3E20Packet D_800C3600;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15096A68 CURRENT (4205) */
 s32 func_15096A68(s32 arg0) {
-    GameC3E20Command *entry;
     GameC3E20Pose *pose;
-    s32 actorIndex;
-    s32 flags;
 
-    entry = (GameC3E20Command *)(&D_800D2DC0 + arg0 * 0x24);
-    switch (entry->state) {
+    switch (((GameC3E20Command *)&D_800D2DC0)[arg0].state) {
     case 1: {
+        GameC3E20Packet *packet = &D_800C3600;
         GameC3E20Actor *actor;
-        s32 poseIndex;
-        actorIndex = entry->actor;
-        poseIndex = entry->pose;
-        actor = (GameC3E20Actor *)(D_800DBFF0 + actorIndex * 0x9A0);
+
+        actor = (GameC3E20Actor *)(D_800DBFF0 + ((GameC3E20Command *)&D_800D2DC0)[arg0].actor * 0x9A0);
+        pose = (GameC3E20Pose *)D_800DC020;
+        pose = &pose[((GameC3E20Command *)&D_800D2DC0)[arg0].pose & 0xFFF];
         D_800D2DB8 = actor->value;
         D_800D2DB4 = 1;
-        D_800DBFF4[actorIndex] = 3;
-        D_800C3600.enabled = 1;
-        D_800C3600.state = 0;
-        pose = (GameC3E20Pose *)(D_800DC020 + poseIndex * 0x18);
-        D_800C3600.x = (f32)pose->x;
-        D_800C3600.y = (f32)pose->y;
-        D_800C3600.z = (f32)pose->z;
-        D_800C3600.value20 = pose->value14;
-        D_800C3600.value24 = pose->valueC;
-        D_800C3600.time = 0.0f;
-        D_800C3600.value28 = pose->value10;
+        D_800DBFF4[((GameC3E20Command *)&D_800D2DC0)[arg0].actor] = 3;
+        packet->enabled = 1;
+        packet->state = 0;
+        packet->x = pose->x;
+        packet->y = pose->y;
+        packet->z = pose->z;
+        packet->value20 = pose->value14;
+        packet->value24 = pose->valueC;
+        packet->value28 = pose->value10;
+        packet->time = 0.0f;
         func_1512D560(actor, 5, 0);
-        func_1512D560(actor, 7, (s32)&D_800C3600);
-        if (!(entry->flags & 1)) {
+        func_1512D560(actor, 7, packet);
+        if (!(((GameC3E20Command *)&D_800D2DC0)[arg0].flags & 1)) {
             actor->child->mode = 0;
             actor->child->flags |= 0x200;
         }
-        D_800D2E30[arg0] = (s32)entry->duration;
-        entry->state = 2;
-        return 1;
+        D_800D2E30[arg0] = ((GameC3E20Command *)&D_800D2DC0)[arg0].duration;
+        ((GameC3E20Command *)&D_800D2DC0)[arg0].state = 2;
     }
+        break;
     case 2: {
         GameC3E20Actor *actor;
-        entry->timer -= D_800BE9A0;
-        actor = (GameC3E20Actor *)(D_800DBFF0 + entry->actor * 0x9A0);
+
+        actor = (GameC3E20Actor *)(D_800DBFF0 + ((GameC3E20Command *)&D_800D2DC0)[arg0].actor * 0x9A0);
+        ((GameC3E20Command *)&D_800D2DC0)[arg0].timer -= D_800BE9A0;
         if (actor->child->active == 0) {
-            entry->timer = 0;
+            ((GameC3E20Command *)&D_800D2DC0)[arg0].timer = 0;
         }
-        if (entry->timer <= 0) {
-            actor->speed = entry->finalSpeed;
-            flags = entry->flags;
-            if (!(flags & 2)) {
+        if (((GameC3E20Command *)&D_800D2DC0)[arg0].timer <= 0) {
+            actor->speed = ((GameC3E20Command *)&D_800D2DC0)[arg0].finalSpeed;
+            if (!(((GameC3E20Command *)&D_800D2DC0)[arg0].flags & 2)) {
                 func_1512D560(actor, 6, 0);
-                flags = entry->flags;
             }
             D_800D2DB4 = 0;
-            if (!(flags & 1)) {
+            if (!(((GameC3E20Command *)&D_800D2DC0)[arg0].flags & 1)) {
                 actor->child->flags &= ~0x200;
                 actor->child->mode = 0xFF;
             }
-            entry->timer = 0;
-            entry->state = 0;
+            ((GameC3E20Command *)&D_800D2DC0)[arg0].timer = 0;
+            ((GameC3E20Command *)&D_800D2DC0)[arg0].state = 0;
             actor->value = D_800D2DB8;
             return 0;
         }
@@ -152,8 +141,6 @@ s32 func_15096A68(s32 arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15096A68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_15096A68.s")
 
 s32 func_15096A68(s32);                             /* extern */
 extern u8 D_800C35EA;

@@ -10,7 +10,6 @@
  * - func_1512A390
  * - func_1512AD54
  * - func_1512B730
- * - func_1512C20C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -558,73 +557,62 @@ f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 extern f32 D_800895B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512C20C CURRENT (2316) */
 void func_1512C20C(GameC20CActor *arg0) {
-    struct {
-        GameC20CVector *anchor;
-        GameC20CVector *destination;
-        f32 angle;
-        f32 opposite;
-        GameC20CVector previous;
-        u8 pad1C[4];
-        GameC20CVector unused;
-        GameC20CVector direction;
-        GameC20CVector point;
-        f32 distance;
-    } work;
-    f32 dx;
-    f32 dz;
 
-    if (arg0->pending != 0) {
-        dx = arg0->current.value[0] - arg0->anchor.value[0];
-        dz = arg0->current.value[2] - arg0->anchor.value[2];
-        work.point = arg0->current;
-        if (sqrtf(dx * dx + dz * dz) < arg0->radius) {
-            work.previous = arg0->previous;
-            work.previous.value[1] = 0.0f;
-            work.point.value[1] = 0.0f;
+    if (arg0->pending) {
+        f32 distance;
+        GameC20CVector point;
+        GameC20CVector direction;
+        GameC20CVector unused;
+        f32 delta;
+        GameC20CVector previous;
+        f32 opposite;
+
+        distance = sqrtf((arg0->current.value[2] - arg0->anchor.value[2]) * (arg0->current.value[2] - arg0->anchor.value[2]) + (arg0->current.value[0] - arg0->anchor.value[0]) * (arg0->current.value[0] - arg0->anchor.value[0]));
+        point = arg0->current;
+        if (distance < arg0->radius) {
+            f32 angle;
+
+            previous = arg0->previous;
+            previous.value[1] = 0.0f;
+            point.value[1] = 0.0f;
             arg0->anchor.value[1] = 0.0f;
-            work.anchor = &arg0->anchor;
-            work.destination = &arg0->current;
-            func_150491EC(work.anchor, &work.point, &work.direction);
-            work.opposite = func_15048FC8(work.direction.value) - 180.0f;
-            func_15048758(&work.opposite);
-            func_150491EC(&work.previous, &work.point, &work.unused);
-            func_15049148(&work.direction, arg0->radius, &work.direction);
-            dx = arg0->anchor.value[0] + work.direction.value[0];
-            work.point.value[1] = 0.0f;
-            work.point.value[0] = dx;
-            work.point.value[2] = arg0->anchor.value[2] + work.direction.value[2];
-            dx = work.previous.value[0] - *(volatile f32 *)&work.point.value[0];
-            dz = work.previous.value[2] - *(volatile f32 *)&work.point.value[2];
-            work.distance = sqrtf(dx * dx + dz * dz);
-            func_15048F90(&work.point, &work.previous, &work.direction);
-            work.angle = func_15048FC8(work.direction.value);
-            func_15048758(&work.angle);
-            arg0->angle = work.angle;
-            dx = func_15048A70(work.opposite, work.angle);
-            if (fabsf(dx) < 35.0f) {
-                if (dx <= 0.0f) dx = 5.0f;
-                else dx = -5.0f;
-                func_1508EF80(work.point.value, work.anchor->value, dx, work.point.value);
+            func_150491EC(&arg0->anchor, &point, &direction);
+            opposite = func_15048FC8(direction.value) - 180.0f;
+            func_15048758(&opposite);
+            func_150491EC(&previous, &point, &unused);
+            func_15049148(&direction, arg0->radius, &direction);
+            point.value[0] = direction.value[0] + arg0->anchor.value[0];
+            point.value[1] = 0.0f;
+            point.value[2] = direction.value[2] + arg0->anchor.value[2];
+            distance = sqrtf((previous.value[2] - point.value[2]) * (previous.value[2] - point.value[2]) +
+                             (previous.value[0] - point.value[0]) * (previous.value[0] - point.value[0]));
+            func_15048F90(&point, &previous, &direction);
+            angle = func_15048FC8(direction.value);
+            func_15048758(&angle);
+            arg0->angle = angle;
+            delta = func_15048A70(opposite, angle);
+            if (fabsf(delta) < 35.0f) {
+                if (delta <= 0.0f) {
+                    delta = 5.0f;
+                } else {
+                    delta = -5.0f;
+                }
+                func_1508EF80(point.value, arg0->anchor.value, delta, point.value);
             }
-            D_800895B0 = work.distance;
-            work.point.value[1] = arg0->current.value[1];
-            *work.destination = work.point;
-            arg0->pending = 0;
+            D_800895B0 = distance;
+            point.value[1] = arg0->current.value[1];
+            arg0->current = point;
         } else {
             D_800895B0 = 0.0f;
             arg0->angle = arg0->fallback_angle;
-            arg0->pending = 0;
         }
     } else {
         D_800895B0 = 0.0f;
         arg0->angle = 0.0f;
-        arg0->pending = 0;
     }
+    arg0->pending = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1512C20C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512C20C.s")
 
 s32 func_1512C47C(s32 arg0) {
     return 1;

@@ -23,7 +23,7 @@ void func_151220D0(void *arg0) {
     }
     func_15122980(arg0);
 }
-f32 func_15048C30(f32, f32);
+f32 func_15048C30(f32);
 void func_15049688(void *, f32, void *, f32, f32, f32);
 void func_15125330(void *);
 void func_15123A54(void *);
@@ -61,7 +61,7 @@ void func_15122170(void *arg0) {
         func_15122980(arg0);
         return;
     }
-    angle = func_15048C30(-deltaX / distance, 0.0f);
+    angle = func_15048C30(-deltaX / distance);
     if (deltaZ > 0.0f) {
         heading = 270.0f - angle * D_800A3474;
     } else {
