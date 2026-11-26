@@ -10240,7 +10240,7 @@
         "us": {
           "end": "0x177F90",
           "start": "0x177410",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1A48C0.c"
