@@ -148,3 +148,9 @@ void func_150C7E00(GameF52B0Camera *arg0) {
         }
     }
 }
+
+/*
+ * This unit's complete .data section, 0x80088800-0x80088804 plus end-of-object padding to 0x80088810.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 D_80088800 = 0;

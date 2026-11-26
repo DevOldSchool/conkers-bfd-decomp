@@ -382,3 +382,26 @@ void func_151D343C(s32 arg0, u8 arg1) {
     sp1C = D_800AB168;
     func_15169260(&sp1C.value, 1, arg0, arg1);
 }
+
+/*
+ * This unit's complete .data section, 0x8008FC40-0x8008FC6C plus end-of-object padding to 0x8008FC70.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 func_1518FC04(void *, void *);
+s32 func_1518FC44(void *, void *);
+void func_1518FC84(u8 *, f32 *);
+s32 func_1518F7C4(void *);
+void func_1518F89C(void *);
+void func_151D33B8(void *);
+void func_1518F858(void *);
+void func_151904BC(void *);
+void func_15190550(void *, void *, u8);
+
+s32 (*D_8008FC40[])(void *, void *) = { func_1518FC04, func_1518FC44 };
+void (*D_8008FC48[])(void *, void *) = { (void (*)(void *, void *))func_1518FC84 };
+s32 (*D_8008FC4C[])(void *) = { func_1518F7C4 };
+void (*D_8008FC50[])(void *) = { func_1518F89C };
+void (*D_8008FC54[])(void *) = { func_151D33B8 };
+void (*D_8008FC58[])(void *) = { func_1518F858 };
+void (*D_8008FC5C[])(s32) = { NULL, (void (*)(s32))func_151904BC };
+void (*D_8008FC64[])(void *, void *, u8) = { NULL, func_15190550 };

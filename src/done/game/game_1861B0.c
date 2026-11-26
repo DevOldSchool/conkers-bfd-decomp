@@ -130,3 +130,64 @@ s32 func_15159084(void *arg0, u8 arg1) {
     }
     return result;
 }
+
+/*
+ * This unit's complete .data section, 0x8008AFD0-0x8008B040.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+void func_151A99D0(void *);
+void func_151A9AA4(void *);
+void func_151A9BA0(void *);
+void func_151A9CA0(void *);
+void func_151A9DC0(void *);
+void func_151A9EC0(void *);
+void func_151A9FC8(void *);
+void func_151AA09C(void *);
+void func_151AA170(s32);
+void func_151AA17C(void *);
+void func_151AA1D0(void);
+void func_151AA1F0(void);
+void func_151AA210(void *);
+void func_151AAABC(void *);
+void func_151AADF8(void *);
+void func_151AB1C4(void *);
+void func_151AB828(void *);
+void func_150C5DC0(void *);
+void func_150C5F40(void *);
+void func_150C66F0(void *);
+void func_150C6870(void *);
+void func_151AB854(u8 *);
+void func_151AE6B0(void *);
+extern s8 D_800A62E0[];
+extern s8 D_800A62FC[];
+extern s8 D_800A6318[];
+extern s8 D_800A6334[];
+extern s8 D_800A6350[];
+
+void (*D_8008AFD0[])(void *) = {
+    func_151A99D0,
+    func_151A9AA4,
+    func_151A9BA0,
+    func_151A9CA0,
+    func_151A9DC0,
+    func_151A9EC0,
+    func_151A9FC8,
+    func_151AA09C,
+    (void (*)(void *))func_151AA170,
+    func_151AA17C,
+    (void (*)(void *))func_151AA1D0,
+    (void (*)(void *))func_151AA1F0,
+    func_151AA210,
+    func_151AAABC,
+    func_151AADF8,
+    func_151AB1C4,
+    func_151AB828,
+    func_150C5DC0,
+    func_150C5F40,
+    func_150C66F0,
+    func_150C6870,
+    (void (*)(void *))func_151AB854,
+    func_151AE6B0,
+};
+
+s8 *D_8008B02C[] = { D_800A62E0, D_800A62FC, D_800A6318, D_800A6334, D_800A6350 };

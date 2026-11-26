@@ -58,3 +58,12 @@ void func_15008930(s32 arg0) {
     }
     D_800DD1B0 = -1;
 }
+
+/*
+ * This unit's complete .data section, 0x80082BD0-0x80082BD8 plus end-of-object padding to 0x80082BE0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+void func_150089D0(void);
+
+Game35D20Callback D_80082BD0 = func_150089D0;
+Game35D20Callback D_80082BD4 = func_150089D0;

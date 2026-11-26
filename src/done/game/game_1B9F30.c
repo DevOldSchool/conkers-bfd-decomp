@@ -115,3 +115,11 @@ void func_1518CCA8(Game1B9F30State *arg0) {
         }
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008D5D0-0x8008D5D8 plus end-of-object padding to 0x8008D5E0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+void func_151927C0(s8 *);
+
+void (*D_8008D5D0[])(void) = { NULL, (void (*)(void))func_151927C0 };

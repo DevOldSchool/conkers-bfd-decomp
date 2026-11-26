@@ -123,3 +123,12 @@ GameF5800Command *func_150C8600(GameF5800Command *arg0) {
     }
     return arg0;
 }
+
+/*
+ * This unit's complete .data section, 0x80088810-0x80088818 plus end-of-object padding to 0x80088820.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+extern s32 D_80090230[];
+extern s32 D_80090244[];
+
+s32 *D_80088810[2] = { D_80090230, D_80090244 };

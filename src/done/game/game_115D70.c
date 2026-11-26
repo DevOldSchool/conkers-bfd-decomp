@@ -75,3 +75,9 @@ void func_150E8930(void) {
     func_10010F30(0x4CD, 0x5DC0, 0x40,
                    (s16)(0x200 - (func_150ADA20() & 0x400)), 0);
 }
+
+/*
+ * This unit's complete .data section, 0x80088A80-0x80088A88 plus end-of-object padding to 0x80088A90.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+Game115D70Pair D_80088A80 = { 25, 72 };

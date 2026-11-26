@@ -71,3 +71,9 @@ Game12D7F0Command *func_15100464(Game12D7F0Command *arg0) {
     } while (command != 0x24);
     return arg0;
 }
+
+/*
+ * This unit's complete .data section, 0x80088BC0-0x80088BC5 plus end-of-object padding to 0x80088BD0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+Game12D7F0Copy5 D_80088BC0 = { { 9, 10, 11, 12, 13 } };

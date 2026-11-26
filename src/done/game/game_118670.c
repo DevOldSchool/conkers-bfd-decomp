@@ -88,3 +88,9 @@ void func_150EB1C0(GameEB1C0Actor *arg0) {
         arg0->flags &= ~0x80;
     }
 }
+
+/*
+ * This unit's complete .data section, 0x80088A90-0x80088A94 plus end-of-object padding to 0x80088AA0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 D_80088A90 = 0;

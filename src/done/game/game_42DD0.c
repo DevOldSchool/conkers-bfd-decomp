@@ -82,3 +82,9 @@ void func_15015A38(void *arg0, s32 glyph, s32 bank) {
         D_80085990[bank][glyph][x + y * row_stride] = 0;
     }
 }
+
+/*
+ * This unit's complete .data section, 0x80082F80-0x80082F88 plus end-of-object padding to 0x80082F90.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+Game42DD0Range D_80082F80[] = { { (u8 *)0x40F10, (u8 *)0x42450 } };
