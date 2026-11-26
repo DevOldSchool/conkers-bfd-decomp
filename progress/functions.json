@@ -7452,17 +7452,16 @@
       "symbol": "func_15122AE0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 795,
-        "reason": "Manual raw pass2455 to795: struct vector copies, shared blend snapshot, typed table indexing and target pointer lifetime. Seven revisions; final sharedindex and vectorfield forms neutral. Preserve795; GPR sequence, index call copy, FP ADD operands unresolved. Evidence camera-raw-manual-20260930.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1044,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15122C5C",
           "vram": "0x15122C5C"
         }
@@ -8873,17 +8872,16 @@
       "symbol": "func_151C8FCC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 760,
-        "reason": "CURRENT (760), round22 pass1 move sweep (dependency-checked: moved statement crosses only independent statements) (stored 1147). Earlier: CURRENT1147 after two finishes and two bounded probe batches; frame and addressed locals match, but initial float scheduling, temporary-register allocation and shared loop-bound hoisting differ. Const scale and for-loop probes unchanged. Best candidate preserved; no shared dependencies.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 828,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C9198",
           "vram": "0x151C9198"
         }
@@ -30986,17 +30984,16 @@
       "symbol": "func_150900F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2940,
-        "reason": "Typed two-pass display candidate with verified cursor-return contracts scores 3135. Actual sprite extent 0x14 and entry stride 0x10 are grounded; frame 0xC0 differs from raw 0xB8, plus packet scheduling, scalar and global-address lifetimes. Preserve first form and flush pending batch after session interruption; no synthetic storage changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 780,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15090630",
           "vram": "0x15090630"
         }

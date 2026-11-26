@@ -7,7 +7,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15122C5C
  * - func_15123568
  * - func_15123A54
  * - func_15126378
@@ -19,7 +18,8 @@
  */
 
 s32 func_150859AC(s16, s16);
-void func_15122C5C(void *);
+typedef struct CameraCameraControl CameraCameraControl;
+void func_15122C5C(CameraCameraControl *);
 void func_1512C490(void *);
 extern s32 D_80082FA0;
 extern s32 D_800894B0;
@@ -75,7 +75,6 @@ void func_1512D390(void *);
 void func_1512D980(void *);
 void func_1512E8E0(void *);
 void func_15125A6C(struct108 *);
-typedef struct CameraCameraControl CameraCameraControl;
 void func_15125DB4(CameraCameraControl *);
 void func_15125C40();
 void func_151284C4();
@@ -83,130 +82,174 @@ void func_1512317C(u8 *);
 void func_15123568(u8 *);
 void func_15125924(u8 *);
 extern f32 D_800A34D4;
-extern s32 D_800BE728;
+extern u16 **D_800BE728;
 extern s32 D_800BE9F0;
 extern u8 D_800DBFF4[];
 extern u16 D_800BE710[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122C5C CURRENT (795) */
-void func_15122C5C(void *arg0) {
-    f32 temp_fv0;
-    f32 temp_fv1;
+typedef struct CameraCameraPlayerState {
+    u8 unk_0[0x27];
+    u8 unk_27;
+    u8 unk_28[0x50];
+    u8 unk_78;
+    u8 unk_79[0x4];
+    u8 unk_7D;
+    u8 unk_7E[0x17];
+    u8 unk_95;
+    u8 unk_96[0x8A];
+    u8 unk_120;
+    u8 unk_121[0x76];
+    u8 unk_197;
+    u8 unk_198[0x14];
+    u8 unk_1AC;
+    u8 unk_1AD[0x6];
+    u8 unk_1B3;
+} CameraCameraPlayerState;
+
+struct CameraCameraControl {
+    u8 unk_0[0x2C];
+    s32 unk_2C;
+    u8 unk_30[0x54];
+    s32 unk_84;
+    u8 unk_88[0x114];
+    f32 unk_19C;
+    f32 unk_1A0;
+    f32 unk_1A4;
+    f32 unk_1A8;
+    u8 unk_1AC[0x90];
+    u8 unk_23C;
+    u8 unk_23D;
+    u8 unk_23E;
+    u8 unk_23F[0x7D];
+    Vec3f unk_2BC;
+    Vec3f unk_2C8;
+    u8 unk_2D4[0xC];
+    Vec3f unk_2E0;
+    Vec3f unk_2EC;
+    Vec3f unk_2F8;
+    Vec3f unk_304;
+    u8 unk_310[0x48];
+    f32 unk_358;
+    f32 unk_35C;
+    u8 unk_360[0x8];
+    s16 unk_368;
+    u16 unk_36A;
+    u16 *unk_36C;
+    u8 unk_370[0x60];
+    struct CameraCameraTarget *unk_3D0;
+    CameraCameraPlayerState *unk_3D4;
+    u8 unk_3D8[0x218];
+    s32 unk_5F0;
+    u8 unk_5F4[0x8];
+    s16 unk_5FC;
+    u8 unk_5FE[0x13E];
+    s16 unk_73C;
+    u8 unk_73E[0xB6];
+    u16 unk_7F4;
+    u8 unk_7F6[0x54];
+    s16 unk_84A;
+};
+
+void func_15122C5C(CameraCameraControl *arg0) {
     f32 var_fv0;
     f32 blend;
-    s16 temp_v1;
-    s32 temp_v0_5;
-    s32 temp_v0_6;
-    u8 temp_v0_2;
-    u8 temp_v0_3;
-    void *temp_a0;
-    void *temp_a1;
-    void *temp_v0;
+    f32 x;
+    f32 y;
+    s32 flags;
 
-    if ((*(u8 *)((u8 *)(arg0) + 0x23C)) != 0) {
-        *(Vec3f *)((u8 *)arg0 + 0x2E0) = *(Vec3f *)((u8 *)(u8 *)arg0 + 0x2BC);
-        *(Vec3f *)((u8 *)arg0 + 0x2EC) = *(Vec3f *)((u8 *)(u8 *)arg0 + 0x2F8);
+    if (arg0->unk_23C) {
+        arg0->unk_2E0 = arg0->unk_2BC;
+        arg0->unk_2EC = arg0->unk_2F8;
     }
-    temp_v0 = (*(void **)((u8 *)(arg0) + 0x3D4));
-    temp_a0 = (u8 *)arg0 + 0x2BC;
-    temp_a1 = (u8 *)arg0 + 0x2F8;
-    if (temp_v0 != 0) {
-        temp_v1 = (*(s16 *)((u8 *)(arg0) + 0x73C));
-        if ((temp_v1 != 3) && (((*(s32 *)((u8 *)(arg0) + 0x2C)) != 0x100) || (temp_v1 != 0))) {
-            (*(u8 *)((u8 *)(arg0) + 0x23E)) = (u8) (*(u8 *)((u8 *)(temp_v0) + 0x78));
-        }
+    if (arg0->unk_3D4 != NULL && arg0->unk_73C != 3 && (arg0->unk_2C != 0x100 || arg0->unk_73C != 0)) {
+        arg0->unk_23E = arg0->unk_3D4->unk_78;
     }
-    if (D_800DBFF4[(*(u8 *)((u8 *)(arg0) + 0x23D))] != 4) {
-        (*(s32 *)((u8 *)(arg0) + 0x5F0)) = (s32) ((*(s32 *)((u8 *)(arg0) + 0x5F0)) & ~4);
+    if (D_800DBFF4[arg0->unk_23D] != 4) {
+        arg0->unk_5F0 &= ~4;
     }
-    if (!(*(s32 *)((u8 *)arg0 + 0x2C) & 0x400000)) {
-        *(Vec3f *)temp_a0 = *(Vec3f *)((u8 *)arg0 + 0x2E0);
-        *(Vec3f *)temp_a1 = *(Vec3f *)((u8 *)arg0 + 0x2EC);
+    if (!(arg0->unk_2C & 0x400000)) {
+        arg0->unk_2BC = arg0->unk_2E0;
+        arg0->unk_2F8 = arg0->unk_2EC;
     }
-    temp_v0_2 = (*(u8 *)((u8 *)(arg0) + 0x23D));
-    (*(s32 *)((u8 *)(arg0) + 0x36C)) = (s32) ((s32 *)D_800BE728)[temp_v0_2];
-    (*(u16 *)((u8 *)(arg0) + 0x36A)) = (u16) D_800BE710[temp_v0_2];
-    *(Vec3f *)((u8 *)arg0 + 0x304) = *(Vec3f *)temp_a1;
-    *(f32 *)((u8 *)arg0 + 0x358) = *(f32 *)((u8 *)arg0 + 0x35C);
-    *(Vec3f *)((u8 *)arg0 + 0x2C8) = *(Vec3f *)temp_a0;
-    if ((*(u8 *)((u8 *)(arg0) + 0x23C)) != 0) {
-        (*(f32 *)((u8 *)(arg0) + 0x19C)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x1A4));
-        (*(f32 *)((u8 *)(arg0) + 0x1A0)) = (f32) (*(f32 *)((u8 *)(arg0) + 0x1A8));
+    arg0->unk_36C = D_800BE728[arg0->unk_23D];
+    arg0->unk_36A = D_800BE710[arg0->unk_23D];
+    arg0->unk_304 = arg0->unk_2F8;
+    arg0->unk_358 = arg0->unk_35C;
+    arg0->unk_2C8 = arg0->unk_2BC;
+    if (arg0->unk_23C) {
+        arg0->unk_19C = arg0->unk_1A4;
+        arg0->unk_1A0 = arg0->unk_1A8;
     } else {
-        temp_fv0 = (*(f32 *)((u8 *)(arg0) + 0x19C));
-        temp_fv1 = (*(f32 *)((u8 *)(arg0) + 0x1A0));
+        x = arg0->unk_19C;
+        y = arg0->unk_1A0;
         blend = D_800A34D4;
-        (*(f32 *)((u8 *)(arg0) + 0x19C)) = (f32) ((((*(f32 *)((u8 *)(arg0) + 0x1A4)) - temp_fv0) * blend) + temp_fv0);
-        (*(f32 *)((u8 *)(arg0) + 0x1A0)) = (f32) ((((*(f32 *)((u8 *)(arg0) + 0x1A8)) - temp_fv1) * blend) + temp_fv1);
+        arg0->unk_19C += (arg0->unk_1A4 - x) * blend;
+        arg0->unk_1A0 += (arg0->unk_1A8 - y) * blend;
     }
-    if ((*(s32 *)((u8 *)(arg0) + 0x2C)) & 0x100) {
+    if (arg0->unk_2C & 0x100) {
         var_fv0 = 16.0f;
     } else {
         var_fv0 = 0.0f;
     }
-    temp_v0_3 = (*(u8 *)((u8 *)(arg0) + 0x23D));
-    func_1510B128((s32) temp_v0_3, (*(f32 *)((u8 *)(arg0) + 0x19C)), (*(f32 *)((u8 *)(arg0) + 0x1A0)), D_800BE628[temp_v0_3].field84, var_fv0);
-    func_15097798((s32) (*(u8 *)((u8 *)(arg0) + 0x23D)));
-    func_15125A6C((u8 *) arg0);
+    func_1510B128(arg0->unk_23D, arg0->unk_19C, arg0->unk_1A0, D_800BE628[arg0->unk_23D].field84, var_fv0);
+    func_15097798(arg0->unk_23D);
+    func_15125A6C((struct108 *)arg0);
     func_15128CB0(arg0);
     func_15125DB4(arg0);
-    temp_v0 = (*(void **)((u8 *)(arg0) + 0x3D4));
-    if (((*(u8 *)((u8 *)(temp_v0) + 0x120)) != 0) && ((*(u8 *)((u8 *)(temp_v0) + 0x197)) != 0)) {
-        func_15127EB8(arg0);
+    if (arg0->unk_3D4->unk_120 != 0 && arg0->unk_3D4->unk_197 != 0) {
+        func_15127EB8((struct108 *)arg0);
     }
-    if (func_15128540((u8 *) arg0) == 0) {
-        temp_v0_5 = (*(s32 *)((u8 *)(arg0) + 0x84));
-        if ((temp_v0_5 & 0x08000000) && !(temp_v0_5 & 0x400)) {
+    if (func_15128540((u8 *)arg0) == 0) {
+        flags = arg0->unk_84;
+        if ((flags & 0x08000000) && !(flags & 0x400)) {
             func_1512E8E0(arg0);
         }
-        func_15130230(arg0, (void *) D_800BE9F0);
-        func_15126138((u8 *) arg0);
-        func_15125C40((void *) arg0);
-        func_15128680((s32) arg0);
-        func_1512317C((u8 *) arg0);
+        func_15130230(arg0, (void *)D_800BE9F0);
+        func_15126138((u8 *)arg0);
+        func_15125C40(arg0);
+        func_15128680((s32)arg0);
+        func_1512317C((u8 *)arg0);
         func_15125394(arg0);
-        temp_v0_6 = (*(s32 *)((u8 *)(arg0) + 0x84));
-        if (!(temp_v0_6 & 0x08000000) && !(temp_v0_6 & 0x400)) {
+        flags = arg0->unk_84;
+        if (!(flags & 0x08000000) && !(flags & 0x400)) {
             func_1512E8E0(arg0);
         }
-        func_15123568((u8 *) arg0);
-        func_1512C200((s32) arg0);
-        func_15125924((u8 *) arg0);
+        func_15123568((u8 *)arg0);
+        func_1512C200((s32)arg0);
+        func_15125924((u8 *)arg0);
         func_151283B8(arg0);
-        if ((*(u8 *)((u8 *)(arg0) + 0x23C)) != 0) {
+        if (arg0->unk_23C) {
             func_15125594(arg0);
-            func_15123070(arg0);
+            func_15123070((struct108 *)arg0);
             func_151283B8(arg0);
             func_151283B8(arg0);
         }
         func_15123508(arg0);
-        if (((*(s32 *)((u8 *)(arg0) + 0x84)) & 2) && ((*(u8 *)((u8 *)((*(void **)((u8 *)(arg0) + 0x3D4))) + 0x120)) == 0)) {
+        if ((arg0->unk_84 & 2) && arg0->unk_3D4->unk_120 == 0) {
             func_1512D390(arg0);
         }
         func_15125594(arg0);
-        func_151256BC((u8 *) arg0);
+        func_151256BC((u8 *)arg0);
         func_1512D980(arg0);
         func_1512C068(arg0);
         func_1512B100(arg0);
         func_1512C20C(arg0);
         func_1512BB10(arg0);
-        if ((*(u8 *)((u8 *)(arg0) + 0x23C)) != 0) {
+        if (arg0->unk_23C) {
             func_1512C068(arg0);
             func_1512B100(arg0);
             func_1512C20C(arg0);
             func_1512BB10(arg0);
         }
         func_15125594(arg0);
-        func_15123070(arg0);
-        if ((*(u16 *)((u8 *)(arg0) + 0x7F4)) == 0) {
-            func_151287E0(arg0, 0, 0);
+        func_15123070((struct108 *)arg0);
+        if (arg0->unk_7F4 == 0) {
+            func_151287E0(arg0, NULL, NULL);
         }
         func_1512C150(arg0);
-        func_151284C4((void *) arg0);
+        func_151284C4(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15122C5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122C5C.s")
 
 void func_15123070(struct108 *arg0) {
     f32 temp_f0;
@@ -1476,46 +1519,6 @@ void func_15125C40(CameraCameraTransition *arg0) {
 extern s16 D_80084480;
 extern u16 D_800BE710[];
 extern u8 D_800C3671;
-
-typedef struct CameraCameraPlayerState {
-    u8 unk_0[0x27];
-    u8 unk_27;
-    u8 unk_28[0x55];
-    u8 unk_7D;
-    u8 unk_7E[0x17];
-    u8 unk_95;
-    u8 unk_96[0x8A];
-    u8 unk_120;
-    u8 unk_121[0x8B];
-    u8 unk_1AC;
-    u8 unk_1AD[0x6];
-    u8 unk_1B3;
-} CameraCameraPlayerState;
-
-struct CameraCameraControl {
-    u8 unk_0[0x2C];
-    s32 unk_2C;
-    u8 unk_30[0x54];
-    s32 unk_84;
-    u8 unk_88[0x1B6];
-    u8 unk_23E;
-    u8 unk_23F[0x129];
-    s16 unk_368;
-    u16 unk_36A;
-    u16 *unk_36C;
-    u8 unk_370[0x60];
-    CameraCameraTarget *unk_3D0;
-    CameraCameraPlayerState *unk_3D4;
-    u8 unk_3D8[0x218];
-    s32 unk_5F0;
-    u8 unk_5F4[0x8];
-    s16 unk_5FC;
-    u8 unk_5FE[0x13E];
-    s16 unk_73C;
-    u8 unk_73E[0x10C];
-    s16 unk_84A;
-};
-
 
 void func_15125DB4(CameraCameraControl *arg0) {
     s32 mode;

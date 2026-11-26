@@ -573,6 +573,8 @@ SECTIONS
     .game_rodata_cd860 0x8009F550 (INFO) : SUBALIGN(4) { *game_CD860.o(.rodata) }
     /* ROM-verified constant: docs/evidence/data-layout/game_cde80_float_constant.md. */
     .game_rodata_cde80 0x8009F5A8 (INFO) : SUBALIGN(4) { *game_CDE80.o(.rodata) }
+    /* ROM-verified constants: docs/evidence/data-layout/game_bc510_float_constants.md. */
+    .game_rodata_bc510 0x8009DD20 (INFO) : SUBALIGN(4) { *game_BC510.o(.rodata) }
     /* game_179F30 switch tables, setup literals and switch table:
      * docs/evidence/data-layout/game_179f30_jump_tables.md and
      * docs/evidence/data-layout/game_179f30_float_constants.md. */
@@ -837,6 +839,8 @@ ASSERT(SIZEOF(.game_rodata_49be0) == 0x20, "game_49BE0 table extent changed")
 ASSERT(SIZEOF(.game_rodata_cd860) == 0x20, "game_CD860 table extent changed")
 ASSERT(SIZEOF(.game_rodata_cde80) == 0x10, "game_CDE80 func_150A0D8C literal extent changed")
 __game_rodata_cde80_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_bc510) == 0x10, "game_BC510 func_15090630 literal extent changed")
+__game_rodata_bc510_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_179f30_0) == 0x2EC, "game_179F30 func_1514CA80 first table extent changed")
 ASSERT(SIZEOF(.game_rodata_179f30_2ec) == 0xD8, "game_179F30 func_1514CA80 second table extent changed")
 ASSERT(SIZEOF(.game_rodata_179f30_3c4) == 0x4C, "game_179F30 func_1514CA80 third table extent changed")

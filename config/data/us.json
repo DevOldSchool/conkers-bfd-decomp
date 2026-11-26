@@ -956,6 +956,16 @@
         }
       },
       {
+        "address": "0x8009DD20",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_BC510.c",
+            "src/done/game/game_BC510.c"
+          ]
+        }
+      },
+      {
         "address": "0x8009DEC0",
         "section": ".rodata",
         "owner": {
