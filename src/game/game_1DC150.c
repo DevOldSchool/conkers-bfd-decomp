@@ -31,7 +31,7 @@ typedef struct { u8 pad00[0x14]; Vec3f position; } Game1DC150Actor;
 void func_1504715C(void *, void *);
 s32 func_15046C80(void *, u16, f32, void *);
 f32 func_150ADA68(void);
-void func_15153F18(s16 *, void *, void *, s32, s32);
+void func_15153F18(s16 *, void *, void *, u8, s32);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 void *func_15136698(f32, f32, u8, u8, s16, void *, void *, u8, u8, u8, s32);
 extern f32 D_800A9DA8, D_800A9DAC, D_800A9DB0, D_800A9DB4, D_800A9DB8;

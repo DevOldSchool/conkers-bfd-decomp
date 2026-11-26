@@ -1559,7 +1559,7 @@ typedef struct {
     s32 field40;
 } Game153CCCConfig;
 
-void func_15153CCC(void *, Game153CCCConfig *, void *, s32, s32);
+void func_15153CCC(void *, Game153CCCConfig *, void *, u8, s32);
 
 void func_15153C84(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     u8 sp24[0x30];
@@ -1570,7 +1570,7 @@ void func_15153C84(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
 
 void *func_151DA6F8(f32 *, f32 *, f32, s16, u8, f32, s32, u8, f32, f32, u8, u8, void *, s16, s16, s32, u8, s32);
 
-void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32 arg4) {
+void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, u8 arg3, s32 arg4) {
     s32 count;
     f32 direction[3];
 
@@ -1587,7 +1587,7 @@ void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32
                     (func_150ADA20() % (u32)(arg1->variantRange + 1)) + arg1->variantBase,
                     func_150ADA68() < arg1->chance, 1.7f, 1.7f, 1,
                     arg1->kind, arg2, arg1->field3C, arg1->field3E,
-                    arg1->field40, ((u8 *)&arg3)[3], arg4);
+                    arg1->field40, arg3, arg4);
                 count--;
             } while (count != 0);
         }
@@ -1602,7 +1602,7 @@ typedef struct Game17CAF0AngleRanges {
 } Game17CAF0AngleRanges;
 
 void func_15153F18(Game17CAF0AngleRanges *arg0, Game153CCCConfig *arg1, void *arg2,
-                   s32 arg3, s32 arg4) {
+                   u8 arg3, s32 arg4) {
     s32 count;
     f32 direction[3];
 
@@ -1620,7 +1620,7 @@ void func_15153F18(Game17CAF0AngleRanges *arg0, Game153CCCConfig *arg1, void *ar
                 (func_150ADA20() % (u32)(arg1->variantRange + 1)) + arg1->variantBase,
                 func_150ADA68() < arg1->chance, 1.7f, 1.7f, 1,
                 arg1->kind, arg2, arg1->field3C, arg1->field3E, arg1->field40,
-                ((u8 *)&arg3)[3], arg4);
+                arg3, arg4);
             count--;
         } while (count != 0);
     }

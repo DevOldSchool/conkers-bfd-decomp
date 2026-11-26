@@ -10,7 +10,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_owner_mode_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A7A90
  * - func_151A8624
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -30,10 +29,13 @@ typedef struct {
     f32 field10;
     Game1D4E00Colour colour;
     f32 field18;
-    u8 mode;
+    s8 mode;
     s8 type;
     u8 pad1E[2];
-    f32 field20[10];
+    Vec3f start;
+    Vec3f end;
+    Vec3f axis;
+    f32 field44;
     f32 field48;
     u8 field4C;
     u8 pad4D[3];
@@ -78,72 +80,71 @@ extern s32 (*D_8008F948[])(Game1D4E00Curve *);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7A90 CURRENT (1970) */
-void func_1516972C(s32);
 void func_151A7A90(Game1D4E00Curve *arg0) {
-    Game1D4E00Curve *countOwner;
-    struct { u8 expired; } state;
-    Vec3f cross;
-    Vec3f axis;
-    Vec3f delta;
-    f32 (*point)[6];
-    f32 x, y, z;
-    s32 callbackIndex;
+    Game1D4E00Curve *self = arg0;
+    u8 expired;
+    s8 mode;
+    s8 type;
 
-    countOwner = arg0;
-    state.expired = 0;
-    if (arg0->pad0[0x1C] & 1) {
-        *(s16 *)((u8 *)arg0 + 0x10) -= D_800BE9E4;
-        if (*(s16 *)((u8 *)arg0 + 0x10) < 0) {
-            state.expired = 1;
+    expired = 0;
+    if (arg0->descriptor.timed & 1) {
+        arg0->descriptor.lifetime -= D_800BE9E4;
+        if (arg0->descriptor.lifetime < 0) {
+            expired = 1;
         }
     }
-    callbackIndex = *(s8 *)((u8 *)arg0 + 0x2C);
-    if (callbackIndex != -1 && state.expired == 0) {
-        state.expired = D_8008F940[callbackIndex](arg0) == 0;
+    mode = arg0->descriptor.mode;
+    if (mode != -1 && !expired) {
+        expired = D_8008F940[mode](arg0) == 0;
     }
-    callbackIndex = *(s8 *)((u8 *)arg0 + 0x2D);
-    if (callbackIndex != -1 && state.expired == 0) {
-        state.expired = D_8008F948[callbackIndex](arg0) == 0;
+    type = arg0->descriptor.type;
+    if (type != -1 && !expired) {
+        expired = D_8008F948[type](arg0) == 0;
     }
-    if (state.expired == 0) {
-        *(f32 *)((u8 *)arg0 + 0x68) -= D_800BE9A4;
-        if (*(f32 *)((u8 *)arg0 + 0x68) < 0.0f) {
-            func_151A8340(arg0, 0, (s16)(*(s16 *)((u8 *)arg0 + 0x12) - 1),
-                          *(f32 *)((u8 *)arg0 + 0x20), 100);
-            *(f32 *)((u8 *)arg0 + 0x68) = func_150ADA68() * *(f32 *)((u8 *)arg0 + 0x18) + *(f32 *)((u8 *)arg0 + 0x14);
+    if (!expired) {
+        arg0->unk_68 -= D_800BE9A4;
+        if (arg0->unk_68 < 0.0f) {
+            func_151A8340(arg0, 0, arg0->descriptor.count - 1, arg0->descriptor.field10, 100);
+            arg0->unk_68 = func_150ADA68() * arg0->descriptor.field08 + arg0->descriptor.field04;
         }
-        if (arg0->pad0[0x1C] & 2) {
-            delta.x = *(f32 *)((u8 *)arg0 + 0x3C) - *(f32 *)((u8 *)arg0 + 0x30);
-            delta.y = *(f32 *)((u8 *)arg0 + 0x40) - *(f32 *)((u8 *)arg0 + 0x34);
-            delta.z = *(f32 *)((u8 *)arg0 + 0x44) - *(f32 *)((u8 *)arg0 + 0x38);
-            axis = *(Vec3f *)((u8 *)arg0 + 0x48);
+        if (arg0->descriptor.timed & 2) {
+            Vec3f cross;
+            Vec3f axis;
+            Vec3f delta;
+
+            delta.x = arg0->descriptor.end.x - arg0->descriptor.start.x;
+            delta.y = arg0->descriptor.end.y - arg0->descriptor.start.y;
+            delta.z = arg0->descriptor.end.z - arg0->descriptor.start.z;
+            axis = arg0->descriptor.axis;
             func_151450B4(&delta, &axis, &cross);
-            cross.x *= *(f32 *)((u8 *)arg0 + 0x58);
-            cross.y *= *(f32 *)((u8 *)arg0 + 0x58);
-            cross.z *= *(f32 *)((u8 *)arg0 + 0x58);
-            callbackIndex = 0;
-            point = arg0->points;
-            if (*(s16 *)((u8 *)arg0 + 0x12) > 0) {
-                do {
+            {
+                f32 (*point)[6];
+                f32 x;
+                f32 y;
+                f32 z;
+                s32 i;
+
+                cross.x *= arg0->descriptor.field48;
+                cross.y *= arg0->descriptor.field48;
+                cross.z *= arg0->descriptor.field48;
+                point = arg0->points;
+                for (i = 0; i < self->descriptor.count; i++) {
                     x = (*point)[0];
                     y = (*point)[1];
                     z = (*point)[2];
-                    callbackIndex++;
+                    (*point)[3] = arg0->descriptor.start.x + x * cross.x + y * axis.x + z * delta.x;
+                    (*point)[4] = arg0->descriptor.start.y + x * cross.y + y * axis.y + z * delta.y;
+                    (*point)[5] = arg0->descriptor.start.z + x * cross.z + y * axis.z + z * delta.z;
                     point++;
-                    point[-1][3] = *(f32 *)((u8 *)arg0 + 0x30) + x * cross.x + y * axis.x + z * delta.x;
-                    point[-1][4] = *(f32 *)((u8 *)arg0 + 0x34) + x * cross.y + y * axis.y + z * delta.y;
-                    point[-1][5] = *(f32 *)((u8 *)arg0 + 0x38) + x * cross.z + y * axis.z + z * delta.z;
-                } while (callbackIndex < *(s16 *)((u8 *)countOwner + 0x12));
+                }
             }
         }
     }
-    if (state.expired != 0) {
-        func_1516972C((s32)arg0);
+    if (expired) {
+        func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A7A90 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7A90.s")
+
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
@@ -430,16 +431,16 @@ void *func_151A8624(u8 *arg0, Vec3f *arg1, s32 arg2, s32 arg3,
     } else {
         descriptor.mode = 1;
     }
-    descriptor.field20[0] = 0.0f;
-    descriptor.field20[1] = 0.0f;
-    descriptor.field20[2] = 0.0f;
-    descriptor.field20[3] = 0.0f;
-    descriptor.field20[4] = 0.0f;
-    descriptor.field20[5] = 0.0f;
-    descriptor.field20[6] = 0.0f;
-    descriptor.field20[7] = 0.0f;
-    descriptor.field20[8] = 0.0f;
-    descriptor.field20[9] = 0.0f;
+    descriptor.start.x = 0.0f;
+    descriptor.start.y = 0.0f;
+    descriptor.start.z = 0.0f;
+    descriptor.end.x = 0.0f;
+    descriptor.end.y = 0.0f;
+    descriptor.end.z = 0.0f;
+    descriptor.axis.x = 0.0f;
+    descriptor.axis.y = 0.0f;
+    descriptor.axis.z = 0.0f;
+    descriptor.field44 = 0.0f;
     descriptor.field4C = 2;
     descriptor.type = arg11;
     descriptor.field48 = 1.0f;

@@ -10,7 +10,6 @@
  * - func_15135480
  * - func_15136404
  * - func_15136F50
- * - func_151382E0
  * - func_1513A594
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1834,7 +1833,7 @@ typedef struct Blood382E0Packet {
     s32 field_48;
 } Blood382E0Packet;
 
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, void *, u8, s32);
 extern u8 D_800A3FE6[];
 extern f32 D_800A4830;
 extern f32 D_800A4834;
@@ -1842,10 +1841,9 @@ extern f32 D_800A4838;
 extern f32 D_800A483C;
 extern f32 D_800A4840;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151382E0 CURRENT (1000) */
 void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
     Blood382E0Packet packet;
-    u8 kind;
+    s32 kind;
 
     kind = D_800A3FE6[arg1 * 0x10];
     if (kind != 2) {
@@ -1877,12 +1875,10 @@ void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
         } else {
             packet.field_3C = 0;
         }
-        func_15153F18(&packet.field_00, &packet.position, (s32)arg2,
+        func_15153F18(&packet.field_00, &packet.position, arg2,
                        arg3, arg4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151382E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151382E0.s")
 typedef struct {
     f32 first, second, width, height;
     Vec3f angles, scale, position, velocity;

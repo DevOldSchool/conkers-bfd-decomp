@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_137ED0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_subranges.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1510AA44
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_1510AA20(s32 arg0) {
@@ -18,88 +13,78 @@ void func_15114D24(s32, s32, s32, s16, s32, s32);
 extern s32 D_800BE3E4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510AA44 CURRENT (3310) */
-void func_1510AA44(void *arg0) {
-    volatile s32 *counter;
-    s32 sp38;
-    f32 sp24;
-    f32 temp_fv1;
-    s32 temp_ft0;
-    s32 temp_lo;
-    s32 temp_lo_2;
-    s32 temp_lo_3;
-    s32 temp_t2;
-    s32 temp_t9;
-    s32 temp_v0;
-    s32 var_t0;
-    s32 var_v0;
-    s32 var_v0_2;
-    s32 var_v1;
-    u32 temp_hi;
+typedef struct Game137ED0Clock {
+    u8 unk_0[0x8];
+    f32 minuteAngle;
+    u8 unk_C[0x3C - 0xC];
+    s32 time;
+    u8 unk_40[0x68 - 0x40];
+    f32 unk_68;
+    u8 unk_6C[0x7C - 0x6C];
+    s32 chimes;
+    s32 lastChimeSecond;
+    s32 initialised;
+    u8 unk_88[0xA8 - 0x88];
+    f32 hourAngle;
+    u8 unk_AC[0x108 - 0xAC];
+    f32 unk_108;
+} Game137ED0Clock;
 
-    counter = (volatile s32 *)((u8 *)arg0 + 0x3C);
-    var_v0 = *counter;
-    var_v1 = (s32) (var_v0 / 3600) % 60;
-    if ((*(s32 *)((u8 *)arg0 + 0x84) == 0) && (D_800BE3E4 != 0)) {
-        *(s32 *)((u8 *)arg0 + 0x84) = 1;
-        temp_hi = (u32) (D_800BE3E4 * 0xB4) % 43200U;
-        *counter = (s32) temp_hi;
-        temp_lo = temp_hi * 0x3C;
-        var_v0 = temp_lo;
-        *counter = temp_lo;
-        var_v1 = (s32) (temp_lo / 3600) % 60;
+void func_1510AA44(Game137ED0Clock *clock) {
+    s32 lastMinute;
+    s32 minute;
+    s32 seconds;
+    f32 angle;
+    s32 quarter;
+
+    lastMinute = clock->time / 3600 % 60;
+    if ((clock->initialised == 0) && (D_800BE3E4 != 0)) {
+        clock->initialised = 1;
+        clock->time = (u32)(D_800BE3E4 * 180) % 43200U;
+        clock->time *= 60;
+        lastMinute = clock->time / 3600 % 60;
     }
-    if (var_v1 < 0) {
-        var_v1 += 0x3C;
+    if (lastMinute < 0) {
+        lastMinute += 60;
     }
-    temp_t9 = var_v0 + D_800BE9E4;
-    *counter = temp_t9;
-    var_v0_2 = temp_t9;
-    if (temp_t9 >= 0x278D00) {
-        temp_t2 = var_v0_2 + 0xFFD87300;
-        *counter = temp_t2;
-        var_v0_2 = temp_t2;
+    clock->time += D_800BE9E4;
+    if (clock->time >= 0x278D00) {
+        clock->time -= 0x278D00;
     }
-    temp_lo_2 = var_v0_2 / 60;
-    var_t0 = temp_lo_2 / 60;
-    temp_fv1 = (f32) (temp_lo_2 / 300) * 2.5f;
-    if (temp_fv1 > 360.0f) {
-        *counter = (s32) (var_v0_2 + 0xFFD87300);
+    seconds = clock->time / 60;
+    angle = (f32)(seconds / 300) * 2.5f;
+    minute = seconds / 60;
+    if (angle > 360.0f) {
+        clock->time -= 0x278D00;
     }
-    var_t0 %= 60;
-    if (var_t0 < 0) {
-        var_t0 += 0x3C;
+    minute %= 60;
+    if (minute < 0) {
+        minute += 60;
     }
-    if (var_v1 != var_t0) {
-        temp_lo_3 = var_t0 / 15;
-        if (temp_lo_3 != (var_v1 / 15)) {
-            if (!(temp_lo_3 & 3)) {
-                temp_ft0 = (s32) (temp_fv1 / 30.0f);
-                *(s32 *)((u8 *)arg0 + 0x7C) = temp_ft0;
-                if (temp_ft0 == 0) {
-                    *(s32 *)((u8 *)arg0 + 0x7C) = 0xC;
+    if (lastMinute != minute) {
+        quarter = minute / 15;
+        if (lastMinute / 15 != quarter) {
+            if (!(quarter & 3)) {
+                clock->chimes = angle / 30.0f;
+                if (clock->chimes == 0) {
+                    clock->chimes = 12;
                 }
             } else {
-                *(s32 *)((u8 *)arg0 + 0x7C) = 1;
+                clock->chimes = 1;
             }
-            *(s32 *)((u8 *)arg0 + 0x80) = -1;
+            clock->lastChimeSecond = -1;
         }
     }
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x7C);
-    if ((temp_v0 != 0) && (temp_lo_2 != *(s32 *)((u8 *)arg0 + 0x80))) {
-        *(s32 *)((u8 *)arg0 + 0x80) = temp_lo_2;
-        *(s32 *)((u8 *)arg0 + 0x7C) = (s32) (temp_v0 - 1);
-        sp24 = temp_fv1;
-        sp38 = var_t0;
-        func_15114D24((s32) arg0, 0x4CC, 0x7FFF, 0xC8, 0x3E8, 0xC);
+    if ((clock->chimes != 0) && (seconds != clock->lastChimeSecond)) {
+        clock->lastChimeSecond = seconds;
+        clock->chimes -= 1;
+        func_15114D24((s32)clock, 0x4CC, 0x7FFF, 0xC8, 0x3E8, 0xC);
     }
-    *(f32 *)((u8 *)arg0 + 0x68) = 5.0f;
-    *(f32 *)((u8 *)arg0 + 0x108) = 5.0f;
-    *(f32 *)((u8 *)arg0 + 0xA8) = (f32) -temp_fv1;
-    *(f32 *)((u8 *)arg0 + 8) = (f32) -((f32) var_t0 * 6.0f);
+    clock->unk_68 = 5.0f;
+    clock->unk_108 = 5.0f;
+    clock->minuteAngle = -((f32)minute * 6.0f);
+    clock->hourAngle = -angle;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510AA44 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_137ED0/func_1510AA44.s")
 
 /* Call context: func_15114D24: unique active project prototype */
 void func_15114D24(s32, s32, s32, s16, s32, s32);

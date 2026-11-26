@@ -3071,7 +3071,7 @@
         "us": {
           "end": "0xBE850",
           "start": "0xBDE90",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/effects/effects_sfx_w1_bee_cavern.c"
@@ -11256,7 +11256,7 @@
         "us": {
           "end": "0x1A6350",
           "start": "0x1A5F70",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1D3420.c"
@@ -12054,7 +12054,7 @@
         "us": {
           "end": "0x10AEE0",
           "start": "0x10AA20",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_137ED0.c"
@@ -15211,7 +15211,7 @@
         "us": {
           "end": "0x103430",
           "start": "0x102D90",
-          "state": "in_progress"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_130240.c"
@@ -18550,7 +18550,7 @@
         "us": {
           "end": "0xB0A60",
           "start": "0xB06B0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_DDB60.c"

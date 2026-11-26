@@ -82,7 +82,7 @@ typedef struct Game194408Packet {
 } Game194408Packet;
 
 void func_1504715C(void *, void *);
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, s32, u8, s32);
 void *func_151AE7B0(void *, f32, s16, u8, s32);
 
 void func_15194408(s32 arg0, Game1C1150Event *arg1) {
@@ -459,7 +459,7 @@ typedef struct {
     u8 field_4;
 } Game1C1150Data;
 
-void func_150B06B0(void *, s32, s32, s32);
+void func_150B06B0(void *, s32, u8, s32);
 
 void func_15194E54(s32 arg0, Game1C1150Data *arg1, s32 arg2) {
     u8 temp_v0;
