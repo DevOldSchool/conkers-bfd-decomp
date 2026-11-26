@@ -1017,6 +1017,29 @@ $(GAME_INTEGRATED_DATA): $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.
 		scripts/elf_sections.py scripts/rom_span.py scripts/list_integrated_sources.py
 	python3 scripts/link_game_data.py $< --output $@ --manifest $(GAME_INTEGRATED_DATA_MANIFEST)
 
+# Prototype: the same GAME data image emitted by a link instead of composed.
+# Reviewed placements become allocated sections, unowned ranges become gap
+# sections of preserved bytes, and objcopy writes the image in address order.
+GAME_DATA_LINK_DIR := $(GAME_INTEGRATED_BUILD_DIR)/data-link
+GAME_DATA_LINK_ELF := $(GAME_DATA_LINK_DIR)/game.data.linked.elf
+
+$(GAME_DATA_LINK_DIR)/layout.json: $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT) scripts/game_data_link.py \
+		scripts/link_game_data.py scripts/data_boundaries.py scripts/rom_span.py
+	python3 scripts/game_data_link.py --output-dir $(GAME_DATA_LINK_DIR)
+
+$(GAME_DATA_LINK_ELF): $(GAME_DATA_LINK_DIR)/layout.json $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB)
+	$(LD) -m elf32btsmip -T $(GAME_DATA_LINK_DIR)/sdk.ld -T $(GAME_DATA_LINK_DIR)/rodata.ld -T $(GAME_DATA_LINK_DIR)/gaps.ld -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
+
+$(GAME_DATA_LINK_DIR)/game.data.bin: $(GAME_DATA_LINK_ELF)
+	$(OBJCOPY) -O binary @$(GAME_DATA_LINK_DIR)/sections.args $< $@
+
+.PHONY: game-data-link
+game-data-link: $(GAME_DATA_LINK_DIR)/game.data.bin $(GAME_INTEGRATED_DATA)
+	@cmp -s $(GAME_DATA_LINK_DIR)/game.data.bin $(GAME_INTEGRATED_DATA) || { \
+		printf '%s\n' "linked GAME data image differs from the ROM: $(GAME_DATA_LINK_DIR)/game.data.bin" >&2; exit 1; \
+	}
+	@printf '%s\n' "$(GAME_DATA_LINK_DIR)/game.data.bin: linked GAME data image matches US ROM"
+
 $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRATED_C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/game_integrated/$(GAME_PROFILE) $(GAME_INTEGRATED_C_SRCS)
 
