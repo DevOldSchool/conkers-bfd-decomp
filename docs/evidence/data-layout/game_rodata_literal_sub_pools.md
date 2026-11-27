@@ -50,12 +50,12 @@ ROM SHA1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, game-data base
 | game_83300 | 0x14 | 0x4 | 0x80099694 | pool (func_150623F4) | `469C4000` (20000.0) |
 | blood | 0x0 | 0x204 | 0x800A4350 | table, sites 0x1C / 0x24 | `d321edfc…19b509` |
 | blood | 0x204 | 0x5C | 0x800A4554 | table, sites 0x3C / 0x44 | `5147d2f6…6188c3` |
-| blood | 0x260 | 0x54 | 0x800A45B8 | pool (func_151356D4, func_15135DD0) | 8 + 13 words (round-23, below) |
-| blood | 0x2B4 | 0x1CC | 0x800A4650 | table, sites 0x3604 / 0x360C | func_15137610 switch (nov14) |
-| blood | 0x480 | 0x50 | 0x800A4874 | table, sites 0x4CB0 / 0x4CB8 | 20 targets ([func_15138C80](game_blood_jump_tables.md)) |
-| blood | 0x4D0 | 0x34 | 0x800A48C4 | pool (func_15138E98) | 13 words (round-23, below) |
-| blood | 0x504 | 0x38 | 0x800A4900 | pool (func_15139768, func_15139D74) | `3DEF9DB3 BE49BA5F 3F2624DE C175F7D0 41F5F7D0 40C3D70A 3E54FDF4 BF353F7D`, `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` (round-23) |
-| blood | 0x53C | 0x68 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0, func_1513A6E0, func_1513ABB8, func_1513B0F8) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA`, then `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` ×3 (round-23) |
+| blood | 0x260 | 0x64 | 0x800A45B8 | pool (func_151356D4, func_15135DD0, func_15136404) | 8 + 13 + 4 words (round-23, round-31, below) |
+| blood | 0x2C4 | 0x1CC | 0x800A4650 | table, sites 0x3604 / 0x360C | func_15137610 switch (nov14) |
+| blood | 0x490 | 0x50 | 0x800A4874 | table, sites 0x4CB0 / 0x4CB8 | 20 targets ([func_15138C80](game_blood_jump_tables.md)) |
+| blood | 0x4E0 | 0x34 | 0x800A48C4 | pool (func_15138E98) | 13 words (round-23, below) |
+| blood | 0x514 | 0x38 | 0x800A4900 | pool (func_15139768, func_15139D74) | `3DEF9DB3 BE49BA5F 3F2624DE C175F7D0 41F5F7D0 40C3D70A 3E54FDF4 BF353F7D`, `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` (round-23) |
+| blood | 0x54C | 0x68 | 0x800A4950 | pool (func_1513A48C, func_1513A5E0, func_1513A6E0, func_1513ABB8, func_1513B0F8) | `3D8F5C29 BF808313 3E820C4A 41BB9169 3CA4A8C1 BEDC28F6 3E8B4396 41A17EFA`, then `3F2624DE BF353F7D 3E54FDF4 40C3D70A C175F7D0 41F5F7D0` ×3 (round-23) |
 | game_1C1150 | 0x28 | 0x14 | 0x800A8280 | table, sites 0x78C / 0x794 | `15194440` ×5 |
 | game_1C1150 | 0x3C | 0x28 | 0x800A8294 | pool (func_15194408, func_151945CC) | `3E570A3D 3ECFDF3B 3E99999A` (0.21, 0.406, 0.3), then `4070E000 00000000` (f64 270.0) `40D66666 40151EB8 3F2E147B 408CCCCD 40A9999A` (round-28, [record](game_1c1150_jump_tables.md)) |
 | game_1C1150 | 0x64 | 0x14 | 0x800A82BC | table, sites 0xB40 / 0xB48 | `151947F4` ×5 |
@@ -234,6 +234,15 @@ keep their runtime addresses.
   table ranges follow: the 0x800A4650 and 0x800A4874 tables
   moved to object offsets 0x2B4 and 0x480 with their runtime addresses and
   HI16/LO16 sites unchanged.
+  Round-31: `func_15136404` loads `3.1415927f`, `305.0f`, `0.000001f` and
+  `5000.0f` (`40490FDB 43988000 358637BD 459C4000`) from 0x800A460C..0x800A461B,
+  directly after the `func_15135DD0` words, so `.rodata.blood_260` grows to
+  0x64. Every later range moves 0x10 in the object (sections renamed
+  `.rodata.blood_2c4`, `_490`, `_4e0`, `_514` and `_54c`; runtime addresses
+  and HI16/LO16 sites unchanged). The object `.rodata` is 0x5C0 bytes: 0x5B4 of
+  payload and 0xC zero alignment bytes. Both `func_151D9B8C` prototypes in
+  blood.c take `void *` and `u8` for the fourth and tenth arguments, as in
+  game_17CAF0.c.
 - **game_1C1150:** `func_15194408` adds a five-case switch. The raw dispatch
   loads `jtbl_800A8280_game` at 0x1519442C/0x15194434 (text offsets
   0x78C/0x794). All five entries are 0x15194440, the shared spawn block. Its

@@ -11,7 +11,6 @@
  * Boundary evidence: docs/evidence/boundaries/effects/effects_characterflamethrower.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15195868
  * - func_15195AA8
  * - func_15195DD4
  * - func_15195FF0
@@ -179,59 +178,44 @@ void func_1519582C(void) {
 }
 extern u32 D_800B0E58[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195868 CURRENT (5715) */
-s32 func_15195868(s32 commands, s32 texture, s32 occurrence, s32 *count) {
-    s32 first;
-    s32 remaining;
-    s32 scan;
+s32 func_15195868(Gfx *commands, s32 texture, s32 occurrence, s32 *count) {
     s32 index;
-    s8 tile;
+    s32 scan;
     s8 opcode;
+    s8 tile;
+    s8 next;
 
-    remaining = occurrence;
     *count = 0;
     index = -1;
-scan_image:
-    index++;
-    opcode = *(s8 *)(index * 8 + commands);
-    if (opcode != -3 && opcode != -0x21) {
-scan_command:
+    for (;;) {
         index++;
-        opcode = *(s8 *)(index * 8 + commands);
-        if (opcode != -3) {
-            if (opcode != -0x21) {
-                goto scan_command;
+        while (*(s8 *)&commands[index] != -3 && *(s8 *)&commands[index] != -0x21) {
+            index++;
+        }
+        if (*(s8 *)&commands[index] == -0x21) {
+            return -1;
+        }
+        if (commands[index].words.w1 == D_800B0E58[texture] || texture == 0) {
+            if (occurrence-- < 1) {
+                break;
             }
         }
     }
-    if (opcode == -0x21) {
-        return -1;
+    opcode = *(s8 *)&commands[index];
+    while (opcode != -0xE) {
+        index++;
+        opcode = *(s8 *)&commands[index];
     }
-    if (*(u32 *)(commands + index * 8 + 4) == D_800B0E58[texture] || texture == 0) {
-        if (remaining-- < 1) {
-            if (opcode != -0xE) {
-        do {
-                    index++;
-                } while (*(s8 *)(index * 8 + commands) != -0xE);
-            }
-            scan = index;
-scan_tile:
-            first = scan + 1;
-            (*count)++;
-            tile = *(s8 *)(first * 8 + commands);
-            scan = first + 1;
-            if (tile == -0xB) {
-                if (*(s8 *)(scan * 8 + commands) == -0xE) {
-                    goto scan_tile;
-                }
-            }
-            return index;
-        }
-    }
-    goto scan_image;
+    scan = index;
+    do {
+        (*count)++;
+        scan++;
+        tile = *(s8 *)&commands[scan];
+        scan++;
+        next = *(s8 *)&commands[scan];
+    } while (tile == -0xB && next == -0xE);
+    return index;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15195868 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195868.s")
 typedef struct CharacterFlamethrowerPanel {
     CharacterFlamethrowerListNode links;
     s16 identity;
@@ -289,7 +273,7 @@ CharacterFlamethrowerPanel *func_15195984(s32 identity, s32 dimensions, s32 posi
 s16 func_15195A84(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return arg0;
 }
-s32 func_15195868(s32, s32, s32, s32 *);
+s32 func_15195868(Gfx *, s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195AA8 CURRENT (1786) */
 s32 func_15195AA8(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
@@ -416,7 +400,7 @@ void func_15195D00(CharacterFlamethrowerDispatch *owner, s32 identity, s32 kind,
     node->next = 0;
 }
 extern u8 D_800BEAC0;
-s32 func_15195868(s32, s32, s32, s32 *);
+s32 func_15195868(Gfx *, s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195DD4 CURRENT (1720) */
 CharacterFlamethrowerPanel *func_15195DD4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {

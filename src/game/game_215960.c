@@ -13,7 +13,6 @@
  * - func_151EB06C
  * - func_151EC3E8
  * - func_151EC648
- * - func_151EDF4C
  * - func_151EE184
  * - func_151EEFF0
  *
@@ -1069,7 +1068,7 @@ typedef struct {
 
 s32 func_10003C40(s32, s32, s32, s32);
 s32 func_1502B6BC(u32 *, s32, s32 *, s32, ...);
-s32 func_1510CE60(s32, s32, s32, s32, void *);
+s32 func_1510CE60(s32, s32, u32, s32, void *);
 extern Game215960Resource *D_80090138;
 extern Game215960ResourceState *D_800E0C7C;
 extern s8 D_800E0C80;
@@ -1084,22 +1083,17 @@ extern s8 D_800E0C84;
  * are dereferenced without a local failure check.
  * Evidence: docs/evidence/assets/naming/text_entry_model_role_names.md.
  */
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDF4C CURRENT (611) */
 void func_151EDF4C(void) {
     s32 resourceId;
     s32 index;
     Game215960ResourceHeader *resource;
     Game215960Command *command;
-    Game215960Vertex *vertex;
-    u32 opcode;
-
+    s32 opcode;
     D_80090138 = 0;
     D_800E0C7C = (Game215960ResourceState *)func_10003C40(0x1A8, 1, 0, 0);
     if (D_800E0C7C != 0) {
         D_80090138 = D_800E0C7C->resources;
-        resourceId = 0x1C5;
-        index = 0;
-        do {
+        for (resourceId = 0x1C5, index = 0; resourceId != 0x1E3; resourceId++, index++) {
             resource = (Game215960ResourceHeader *)func_1502B6BC(0, 1, 0, 2, 9, resourceId);
             D_80090138[index].allocation = resource;
             D_80090138[index].commands = resource->commands;
@@ -1110,16 +1104,23 @@ void func_151EDF4C(void) {
                 opcode = (command->w0 >> 24) & 0xFF;
                 if (opcode == 1) {
                     command->w1 += (u32)resource;
-                    vertex = (Game215960Vertex *)(command->w1 | 0x80000000U);
-                    vertex->color[0] = 0;
-                    vertex->color[1] = 0;
-                    vertex->color[2] = 0;
-                    vertex->color[3] = 0xFF;
-                    vertex++;
-                    vertex->color[0] = 0;
-                    vertex->color[1] = 0;
-                    vertex->color[2] = 0;
-                    vertex->color[3] = 0xFF;
+                    {
+                        Game215960Vertex *vertex = (Game215960Vertex *)(command->w1 | 0x80000000U);
+                        u8 *color;
+                        u8 *nextColor;
+
+                        color = vertex->color;
+                        color[0] = 0;
+                        color[1] = 0;
+                        color[2] = 0;
+                        color[3] = 0xFF;
+                        vertex++;
+                        nextColor = vertex->color;
+                        nextColor[0] = 0;
+                        nextColor[1] = 0;
+                        nextColor[2] = 0;
+                        nextColor[3] = 0xFF;
+                    }
                 }
                 if (opcode == 0xFC) {
                     command->w0 = 0xFC127E05;
@@ -1131,9 +1132,7 @@ void func_151EDF4C(void) {
                 }
                 command++;
             } while (opcode != 0xDF);
-            resourceId++;
-            index++;
-        } while (resourceId != 0x1E3);
+        }
         D_800E0C80 = 0;
         D_800E0C81 = 0;
         D_800E0C82 = 0;
@@ -1143,8 +1142,7 @@ void func_151EDF4C(void) {
         D_800E0C84 = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151EDF4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDF4C.s")
+
 /* Descriptive role: ui_text_entry_update_and_draw.
  * Updates selection/text, evaluates submitted text against loaded tables,
  * and submits all thirty key display lists with selected-key state.

@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150039E0
- * - func_150045C4
  * - func_150049A4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -49,95 +48,103 @@ extern s16 D_800D37E0;
 extern u8 D_800DBF08[], D_800DBF48[];
 extern s32 D_800DBEF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150045C4 CURRENT (2577) */
+typedef struct Game30E90Vertex {
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 unk_06[0xA];
+} Game30E90Vertex;
+
+typedef struct Game30E90Object {
+    u8 unk_00[0x10];
+    s16 x;
+    s16 y;
+    s16 z;
+    u16 vertexCount;
+    u8 unk_18[0x8];
+    Game30E90Vertex *vertices;
+    Game30E90Vertex *verticesCopy;
+    Game30E90Vertex *sourceVertices;
+    u8 unk_2C[0xC];
+    void *callback;
+    u8 unk_3C[0x12];
+    u8 unk_4E;
+    u8 unk_4F;
+    u8 unk_50[0x1E];
+    u8 unk_6E;
+    u8 unk_6F;
+    u8 unk_70;
+    u8 unk_71[0xF];
+    s32 hit;
+    f32 height;
+    u8 unk_88[0x18];
+} Game30E90Object;
+
 void func_150045C4(s32 arg0) {
     s32 index;
-    s32 count;
+    Game30E90Object *object;
     f32 matrix[16];
-    s32 offset;
+    s32 vertexIndex;
     s32 flags;
     f32 height;
     s32 hit;
     f32 x, y, z;
-    s32 vertexIndex;
-    s32 vertexOffset;
-    u8 *object;
+    s32 other;
 
     func_15004A4C();
     func_150A7BC0(D_800DBF08);
     func_150A7BC0(D_800DBF48);
-    count = D_800DBEF0;
-    index = 0;
-    offset = 0;
-    if (count > 0) {
-        do {
-            object = (u8 *)(offset + D_800DBEF4);
-            if (*(s32 *)(object + 0x38) == 0 ||
-                (s32)func_15116058 == *(s32 *)(object + 0x38) ||
-                (s32)func_15116110 == *(s32 *)(object + 0x38)) {
-                object[0x4E] = 3;
+    for (index = 0; index < D_800DBEF0; index++) {
+        object = (Game30E90Object *)(index * 0xA0 + D_800DBEF4);
+        if (object->callback == NULL ||
+            object->callback == (void *)func_15116058 ||
+            object->callback == (void *)func_15116110) {
+            object->unk_4E = 3;
+        }
+        if (!(object->unk_70 & 1)) {
+            func_1511490C(matrix, object);
+            func_150A7790(matrix, *D_80089250[D_800BE9C0] + (index << 6));
+            other = D_800BE9C0 == 0;
+            func_10023A10((void *)(*D_80089250[D_800BE9C0] + (index << 6)),
+                         (void *)(*D_80089250[other] + (index << 6)), 0x40);
+        }
+        if (object->callback == (void *)func_151150B0) {
+            object->callback = NULL;
+        }
+        if ((object->unk_70 & 1) == 1) {
+            func_1511490C(matrix, object);
+            for (vertexIndex = 0; vertexIndex < object->vertexCount; vertexIndex++) {
+                func_150A7960(matrix, object->sourceVertices[vertexIndex].x,
+                              object->sourceVertices[vertexIndex].y,
+                              object->sourceVertices[vertexIndex].z, &x, &y, &z);
+                object->vertices[vertexIndex].x = x;
+                object->vertices[vertexIndex].y = y;
+                object->vertices[vertexIndex].z = z;
             }
-            if (!(object[0x70] & 1)) {
-                func_1511490C(matrix, object);
-                vertexOffset = index << 6;
-                func_150A7790(matrix, *D_80089250[D_800BE9C0] + vertexOffset);
-                vertexIndex = D_800BE9C0;
-                count = vertexIndex == 0;
-                func_10023A10((void *)(*D_80089250[vertexIndex] + vertexOffset),
-                             (void *)(*D_80089250[count] + vertexOffset), 0x40);
-            }
-            if ((s32)func_151150B0 == *(s32 *)(object + 0x38)) {
-                *(s32 *)(object + 0x38) = 0;
-            }
-            if ((object[0x70] & 1) == 1) {
-                vertexIndex = 0;
-                func_1511490C(matrix, object);
-                vertexOffset = 0;
-                if (*(u16 *)(object + 0x16) > 0) {
-                    do {
-                        func_150A7960(matrix, *(s16 *)(*(u8 **)(object + 0x28) + vertexOffset + 0), *(s16 *)(*(u8 **)(object + 0x28) + vertexOffset + 2), *(s16 *)(*(u8 **)(object + 0x28) + vertexOffset + 4), &x, &y, &z);
-                        vertexIndex++;
-                        *(s16 *)(*(u8 **)(object + 0x20) + vertexOffset) = (s32)x;
-                        *(s16 *)(*(u8 **)(object + 0x20) + vertexOffset + 2) = (s32)y;
-                        *(s16 *)(*(u8 **)(object + 0x20) + vertexOffset + 4) = (s32)z;
-                        vertexOffset += 0x10;
-                    } while (vertexIndex < *(u16 *)(object + 0x16));
-                }
-                func_10023A10(*(void **)(object + 0x20), *(void **)(object + 0x24),
-                             *(u16 *)(object + 0x16) * 0x10);
-            }
-            func_1510F800(2);
-            if ((object[0x6F] & 0x80) == 0x80 && (object[0x4F] & 0x60) != 0x20) {
-                D_800D37E0 = index;
-                func_150A44F0(1, &D_800D37E0, 1);
-            }
-            count = D_800DBEF0;
-            index++;
-            offset += 0xA0;
-        } while (index < count);
-        index = 0;
+            func_10023A10(object->vertices, object->verticesCopy,
+                          object->vertexCount * sizeof(Game30E90Vertex));
+        }
+        func_1510F800(2);
+        if ((object->unk_6F & 0x80) == 0x80 && (object->unk_4F & 0x60) != 0x20) {
+            D_800D37E0 = index;
+            func_150A44F0(1, &D_800D37E0, 1);
+        }
     }
-    offset = 0;
-    if (count > 0) {
-        do {
-            object = (u8 *)(offset + D_800DBEF4);
-            if (object[0x6E] == 1) {
-            } else if ((object[0x6F] & 0x20) == 0x20) {
-                func_1510E7A4((s32)&hit, 0, (s32)&height, 0, (s32)&flags, 0,
-                             *(s16 *)(object + 0x10), (f32)*(s16 *)(object + 0x12), *(s16 *)(object + 0x14),
-                             (f32)*(s16 *)(object + 0x12), (u16)(index + 1), 0, D_800959D0, D_800959D4);
-                *(s32 *)(object + 0x80) = hit;
-                *(f32 *)(object + 0x84) = height;
-                count = D_800DBEF0;
-            }
-            vertexIndex = index + 1;
-            index = vertexIndex;
-            offset += 0xA0;
-        } while (vertexIndex < count);
+    for (index = 0; index < D_800DBEF0; index++) {
+        object = (Game30E90Object *)(index * 0xA0 + D_800DBEF4);
+        if (object->unk_6E == 1) {
+            continue;
+        }
+        if ((object->unk_6F & 0x20) == 0x20) {
+            func_1510E7A4((s32)&hit, 0, (s32)&height, 0, (s32)&flags, 0,
+                          object->x, object->y, object->z, object->y,
+                          index + 1, 0, -10000.0f, 20000.0f);
+            object->hit = hit;
+            object->height = height;
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150045C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150045C4.s")
+
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150049A4 CURRENT (1375) */
 void func_150049A4(s8 *arg0, s32 arg1, s32 arg2) {

@@ -9,7 +9,6 @@
  * - func_151A1010
  * - func_151A11E4
  * - func_151A1998
- * - func_151A1FB4
  * - func_151A26EC
  * - func_151A2C24
  *
@@ -225,7 +224,142 @@ void func_151A1EE8(u8 *arg0) {
         func_10022EC0((void *)(result + 0x28), &params, 0x24);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A1FB4.s")
+f32 func_150ADA68(void);
+extern u8 D_80090B60[];
+extern u8 D_80090D34[];
+extern f32 D_800BE9A4;
+
+typedef struct Game1CE2F0SparkSource {
+    f32 x, y, z;
+    f32 radius;
+    f32 pending;
+    f32 rate;
+    s16 delayBase, delayRange;
+    s16 lifeBase, lifeRange;
+    s16 field20, field22;
+} Game1CE2F0SparkSource;
+
+typedef struct Game1CE2F0SparkOwner {
+    u8 unk_00;
+    u8 group;
+    u8 unk_02[0xA];
+    u8 mode;
+    u8 unk_0D[0x1B];
+    Game1CE2F0SparkSource source;
+} Game1CE2F0SparkOwner;
+
+typedef struct Game1CE2F0SparkEmit {
+    u8 *data;
+    s32 flags;
+    u8 unk_08[4];
+    s16 fieldC, delay;
+    s16 pos[3];
+    s16 field16, field18;
+    u8 unk_1A[2];
+    s8 frac[3];
+    s8 unk_1F;
+    s16 field20, field22, field24, field26;
+    s16 scale;
+    s8 field2A;
+    u8 unk_2B;
+    s8 field2C, field2D, field2E, field2F, field30, field31, field32;
+    u8 unk_33;
+    u16 flags34;
+    u8 unk_36[2];
+} Game1CE2F0SparkEmit;
+
+typedef struct Game1CE2F0SparkFade {
+    Game1CE2F0RampSet ramp;
+    s16 unk_14;
+    s16 unk_16;
+    s16 unk_18;
+    s16 unk_1A;
+} Game1CE2F0SparkFade;
+
+void func_151A1FB4(Game1CE2F0SparkOwner *arg0) {
+    Game1CE2F0SparkSource *src;
+    Game1CE2F0SparkEmit emit;
+    Game1CE2F0SparkFade fade;
+    u8 a;
+    u8 b;
+    f32 cosA, sinA, cosB, sinB;
+    f32 x, y, z;
+    s16 life;
+    s16 half;
+    u8 *result;
+
+    arg0->source.pending += arg0->source.rate * D_800BE9A4;
+    src = &arg0->source;
+    if (arg0->source.pending > 1.0f) {
+        emit.field2C = 5;
+        emit.field2D = 0;
+        emit.field2E = 0;
+        emit.field30 = 0;
+        emit.field31 = 0;
+        emit.field32 = 0;
+        emit.unk_1F = 0x12;
+        emit.flags34 = 0x120;
+        emit.flags = 0xC0001;
+        emit.fieldC = 0;
+        emit.data = D_80090D34;
+        emit.field16 = 0;
+        emit.field20 = 0;
+        emit.field18 = 0;
+        emit.field22 = 0;
+        emit.field2A = 0;
+        emit.field2F = 0;
+        emit.field26 = 0x7D0;
+        emit.field24 = 0x7D0;
+        do {
+            f32 r;
+            a = func_150ADA20() & 0xFF;
+            b = func_150ADA20() & 0xFF;
+            cosA = func_151423D8(a - 0x40);
+            sinA = func_151423D8(a);
+            cosB = func_151423D8(b - 0x40);
+            sinB = func_151423D8(b);
+            r = func_150ADA68() * src->radius;
+            x = src->x + r * sinB * cosA;
+            y = src->y - r * cosB;
+            z = src->z + r * sinB * sinA;
+            if (func_150ADA20() & 1) {
+                emit.flags34 |= 4;
+            }
+            if (func_150ADA20() & 1) {
+                emit.flags34 |= 8;
+            }
+            emit.delay = func_150ADA20() % (src->delayRange + 1) + src->delayBase;
+            life = func_150ADA20() % (src->lifeRange + 1) + src->lifeBase;
+            emit.scale = D_80090B60[0x1D8] * (0x100 / emit.delay);
+            fade.ramp.a.base = emit.scale;
+            fade.ramp.a.lim = emit.scale - (emit.scale >> 2);
+            fade.ramp.b.base = emit.scale;
+            fade.ramp.a.mul = 0xFF / (emit.scale - fade.ramp.a.lim);
+            half = emit.scale >> 1;
+            fade.ramp.b.lim = half;
+            fade.ramp.b.mul = life / (emit.scale - half);
+            fade.ramp.c.lim = emit.scale >> 1;
+            fade.ramp.c.mul = 0xFF / (emit.scale >> 1);
+            fade.ramp.d.lim = emit.scale >> 2;
+            fade.ramp.d.mul = 0xFF / (emit.scale >> 2);
+            fade.unk_14 = emit.scale >> 1;
+            fade.unk_16 = func_150ADA20() % (src->field22 + 1) + src->field20;
+            fade.unk_18 = emit.scale >> 1;
+            fade.unk_1A = func_150ADA20() % 81 + 0x50;
+            emit.pos[0] = x;
+            emit.pos[1] = y;
+            emit.pos[2] = z;
+            emit.frac[0] = (s32)(x * 256.0f) & 0xFF;
+            emit.frac[2] = (s32)(y * 256.0f) & 0xFF;
+            emit.frac[1] = (s32)(z * 256.0f) & 0xFF;
+            result = func_15167D84(&emit, 0, 0x1C, -1, arg0->mode, arg0->group);
+            if (result != NULL) {
+                func_10022EC0(result + 0x50, &fade, sizeof(fade));
+            }
+            src->pending -= 1.0f;
+        } while (src->pending > 1.0f);
+    }
+}
 extern s32 D_800BE9E4;
 
 void func_151A24A8(u8 *arg0) {

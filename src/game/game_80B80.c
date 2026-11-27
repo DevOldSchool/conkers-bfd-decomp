@@ -238,7 +238,7 @@ void func_15054A94(u8 *arg0) {
         func_151027E8(other);
     }
 }
-void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15052F9C(void *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_1505A630(f32, f32, s32);

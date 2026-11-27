@@ -9,7 +9,6 @@
  * - func_1508F0D4
  * - func_1508F9F4
  * - func_150900F0
- * - func_15090630
  * - func_1509093C
  * - func_150911F4
  * - func_150918EC
@@ -19,7 +18,20 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern u8 D_800D2460[][0x10];
+typedef struct GameBC510Entry {
+    s16 x;
+    s16 y;
+    s16 originX;
+    s16 size;
+    s16 radius;
+    s16 timer;
+    u8 acceleration;
+    u8 state;
+    u8 angle;
+    u8 phase;
+} GameBC510Entry;
+
+extern GameBC510Entry D_800D2460[];
 extern s8 D_800D246D;
 extern s8 D_800D247D;
 extern s32 D_800D24C0;
@@ -28,7 +40,7 @@ void func_1508F060(void) {
     s32 i;
 
     for (i = 0; i < 6; i++) {
-        D_800D2460[i][13] = 0;
+        D_800D2460[i].state = 0;
     }
     D_800D24C0 = 0;
 }
@@ -97,18 +109,6 @@ void func_1508F9C4(void) {
     D_800D2410[D_800D2456] = 0.0f;
     D_800D2456 += 1;
 }
-typedef struct GameBC510Entry {
-    s16 x;
-    s16 y;
-    s16 originX;
-    s16 size;
-    s16 radius;
-    s16 timer;
-    u8 acceleration;
-    u8 state;
-    u8 angle;
-    u8 phase;
-} GameBC510Entry;
 
 extern u8 D_800CC2D0[];
 extern s32 D_800BE9E4;
@@ -299,72 +299,49 @@ extern f32 D_8009DD20;
 extern f32 D_8009DD24;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15090630 CURRENT (2940) */
 GameBC510Command *func_15090630(GameBC510Command *dl) {
     GameBC510Sprite sprite;
-    f32 scaleY;
-    f32 scaleX;
-    GameBC510Entry *entry;
+    s32 i;
     s32 first;
-    s32 loaded;
     f32 wave;
-    f32 size;
     s16 x;
     s16 y;
     s32 flags;
     s32 remaining;
+    s16 dim;
+    s32 loaded;
 
     sprite.alpha = 0xFF;
     sprite.flags = 0;
-    {
-        GameBC510Command *packet = dl;
-        packet->w0 = 0xE7000000;
-        packet->w1 = 0;
-        dl++;
-    }
-    {
-        GameBC510Command *packet = dl;
-        packet->w0 = 0xFCFFB5FF;
-        packet->w1 = 0xFFFCFE38;
-        dl++;
-    }
-    {
-        GameBC510Command *packet = dl;
-        packet->w0 = 0xEF102C0F;
-        packet->w1 = 0x0C184244;
-        dl++;
-    }
-    scaleY = D_8009DD20;
-    scaleX = D_8009DD24;
+    { GameBC510Command *packet = dl++; packet->w0 = 0xE7000000; packet->w1 = 0; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xFCFFB5FF; packet->w1 = 0xFFFCFE38; }
+    { GameBC510Command *packet = dl++; packet->w0 = 0xEF102C0F; packet->w1 = 0x0C184244; }
     first = 1;
-    entry = (GameBC510Entry *)D_800D2460;
-    do {
-        if (entry->state == 1 || entry->state == 2) {
+    for (i = 0; i < 6; i++) {
+        if (D_800D2460[i].state == 1 || D_800D2460[i].state == 2) {
             if (first != 0) {
-                first = 0;
                 func_1510D0EC(D_80091840, &loaded, 3, 0);
+                first = 0;
                 dl = (GameBC510Command *)func_15094F70((s32)dl, &D_800903D4,
                                                        0, &sprite, 0, 0, 0, 2, 3);
             }
-            wave = func_15048A40(entry->phase);
-            size = (f32)entry->size;
-            x = entry->x;
-            y = entry->y;
-            sprite.width = (s32)(size * ((scaleX * wave) + 1.0f));
-            sprite.height = (s32)(size * ((scaleY * wave) + 1.0f));
+            wave = func_15048A40(D_800D2460[i].phase);
+            x = D_800D2460[i].x;
+            y = D_800D2460[i].y;
+            sprite.width = D_800D2460[i].size * ((0.2f * wave) + 1.0f);
+            sprite.height = D_800D2460[i].size * ((-0.2f * wave) + 1.0f);
             dl = (GameBC510Command *)func_15095A48((s32)dl, &sprite, (f32)x, (f32)y);
         }
-        entry++;
-    } while ((u32)entry < (u32)&D_800D24C0);
+    }
     first = 1;
-    entry = (GameBC510Entry *)D_800D2460;
-    do {
+    for (i = 0; i < 6; i++) {
         flags = 0;
-        if (entry->state == 3) {
-            sprite.width = entry->size;
-            sprite.height = entry->size;
-            x = entry->x;
-            y = entry->y;
+        if (D_800D2460[i].state == 3) {
+            dim = D_800D2460[i].size;
+            x = D_800D2460[i].x;
+            y = D_800D2460[i].y;
+            sprite.width = dim;
+            sprite.height = dim;
             if ((func_150ADA20() & 0xFFU) < 0x80U) {
                 flags = 1;
             }
@@ -378,18 +355,16 @@ GameBC510Command *func_15090630(GameBC510Command *dl) {
                                                        0, &sprite, 0, 0, 0, 2, 3);
             }
             dl = (GameBC510Command *)func_15095A48((s32)dl, &sprite, (f32)x, (f32)y);
-            remaining = entry->timer - D_800BE9E4;
+            remaining = D_800D2460[i].timer;
+            remaining -= D_800BE9E4;
             if (remaining < 0) {
                 remaining = 0;
             }
-            entry->timer = remaining;
+            D_800D2460[i].timer = remaining;
         }
-        entry++;
-    } while (entry != (GameBC510Entry *)&D_800D24C0);
+    }
     return dl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15090630 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15090630.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1509093C.s")
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 extern u8 D_80083440[], D_800835C0[], D_80084160[], D_80084190[];

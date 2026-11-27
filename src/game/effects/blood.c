@@ -8,9 +8,7 @@
  * TODO: Implement these source-unit functions:
  * - func_15134E48
  * - func_15135480
- * - func_15136404
  * - func_15136F50
- * - func_151382E0
  * - func_1513A594
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -1013,58 +1011,38 @@ typedef struct Blood364Hit {
 } Blood364Hit;
 
 void func_1504715C(void *, void *);
-void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+void func_151D9B8C(u8, f32, s32, void *, f32 *, s32, s32, s32, s32, u8, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 f32 func_150ADA68(void);
-extern f32 D_800A460C;
-extern f32 D_800A4610;
-extern f32 D_800A4614;
-extern f32 D_800A4618;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136404 CURRENT (1329) */
-void func_15136404(Blood364Actor *actor, f32 radius, volatile s32 kind, s32 mode) {
+void func_15136404(Blood364Actor *actor, f32 radius, u8 kind, s32 mode) {
+    f32 scale;
+    f32 count;
     Blood364Hit hit;
     Vec3f probe;
     Vec3f output;
-    register f32 scale;
-    register f32 count;
-    register f32 cutoff;
-    register u32 random;
-    register u32 spread = 201;
-    register s16 *vertices;
-    register f32 *position;
 
-    if (actor != 0) {
-        scale = D_800A460C * radius * radius;
-        count = ((func_150ADA68() * D_800A4610) + 108.0f) * D_800A4614 * scale;
+    if (actor != NULL) {
+        scale = 3.1415927f * radius * radius;
+        count = ((func_150ADA68() * 305.0f) + 108.0f) * 0.000001f * scale;
         func_1504715C(&hit, actor);
-        vertices = hit.vertices;
-        position = &output.x;
-        if (count > 1.0f) {
-            cutoff = D_800A4618;
-            do {
-                random = func_150ADA20();
-                func_15143874((s16)(random & 0xFF), func_150ADA68() * radius, &probe.x, &probe.z);
-                probe.x += actor->position.x;
-                probe.z += actor->position.z;
-                probe.y = actor->position.y + 500.0f;
-                if ((func_15046C80(&probe.x, 0, actor->position.y - cutoff, &hit) != 0) && (hit.type != 3)) {
-                    output.x = probe.x;
-                    output.y = hit.height;
-                    output.z = probe.z;
-                    scale = func_150ADA68();
-                    random = func_150ADA20();
-                    func_151D9B8C(0, (scale * 20.0f) + 10.0f, ((random % 101U) + 100) & 0xFF,
-                        (s32)vertices, position, (func_150ADA20() % spread) + 400,
-                        1, 1, 0, (u8)kind, mode);
-                }
-                count -= 1.0f;
-            } while (count > 1.0f);
+        while (count > 1.0f) {
+            func_15143874(func_150ADA20() & 0xFF, func_150ADA68() * radius, &probe.x, &probe.z);
+            probe.x += actor->position.x;
+            probe.z += actor->position.z;
+            probe.y = actor->position.y + 500.0f;
+            if ((func_15046C80(&probe.x, 0, actor->position.y - 5000.0f, &hit) != 0) && (hit.type != 3)) {
+                output.x = probe.x;
+                output.y = hit.height;
+                output.z = probe.z;
+                func_151D9B8C(0, func_150ADA68() * 20.0f + 10.0f, ((func_150ADA20() % 101U) + 100) & 0xFF,
+                              hit.vertices, &output.x, (func_150ADA20() % 201U) + 400,
+                              1, 1, 0, kind, mode);
+            }
+            count -= 1.0f;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15136404 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136404.s")
 
 typedef struct {
     s32 values[4];
@@ -1834,7 +1812,7 @@ typedef struct Blood382E0Packet {
     s32 field_48;
 } Blood382E0Packet;
 
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, void *, u8, s32);
 extern u8 D_800A3FE6[];
 extern f32 D_800A4830;
 extern f32 D_800A4834;
@@ -1842,10 +1820,9 @@ extern f32 D_800A4838;
 extern f32 D_800A483C;
 extern f32 D_800A4840;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151382E0 CURRENT (1000) */
 void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
     Blood382E0Packet packet;
-    u8 kind;
+    s32 kind;
 
     kind = D_800A3FE6[arg1 * 0x10];
     if (kind != 2) {
@@ -1877,12 +1854,10 @@ void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
         } else {
             packet.field_3C = 0;
         }
-        func_15153F18(&packet.field_00, &packet.position, (s32)arg2,
+        func_15153F18(&packet.field_00, &packet.position, arg2,
                        arg3, arg4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151382E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151382E0.s")
 typedef struct {
     f32 first, second, width, height;
     Vec3f angles, scale, position, velocity;
@@ -2053,7 +2028,7 @@ typedef struct Blood39578Particle {
     s32 flags;
 } Blood39578Particle;
 
-void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+void func_151D9B8C(u8, f32, s32, void *, f32 *, s32, s32, s32, s32, u8, s32);
 extern f32 D_800A486C;
 extern f32 D_800A4870;
 
@@ -2097,7 +2072,7 @@ s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
         func_151D9B8C((u8)mode,
             ((randomScale * D_800A486C) + D_800A4870) *
                 ((arg0->size0 + arg0->size1) * 0.5f),
-            ((random % 101U) + 0x64) & 0xFF, arg5, &position.x,
+            ((random % 101U) + 0x64) & 0xFF, (void *)arg5, &position.x,
             (func_150ADA20() % 101U) + 0x50, 1, 1, 0,
             arg0->kind, arg0->color);
         *(f32 *)((u8 *)arg0 + 0x2C) = 0.0f;
@@ -2433,7 +2408,7 @@ s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
         func_151D9B8C((u8)mode,
             ((randomScale * D_800A48F8) + D_800A48FC) *
                 ((arg0->size0 + arg0->size1) * 0.5f),
-            ((random % 101U) + 100) & 0xFF, arg5, &position.x,
+            ((random % 101U) + 100) & 0xFF, (void *)arg5, &position.x,
             (func_150ADA20() % 144U) + 80, 1, 1, 0, arg0->kind, arg0->color);
     }
     return 1;

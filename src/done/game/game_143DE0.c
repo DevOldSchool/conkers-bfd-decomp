@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_143DE0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_selected_segments_extended.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15116EA4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15116930(void *arg0, void *arg1) {
@@ -190,41 +185,70 @@ void func_15116D7C(f32 *arg0) {
         }
     }
 }
+typedef struct Game143DE0MorphVertex {
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 unk_06[0xA];
+} Game143DE0MorphVertex;
+
+typedef struct Game143DE0Morph {
+    u8 unk_00[0x10];
+    s16 unk_10;
+    s16 unk_12;
+    s16 unk_14;
+    u8 unk_16[0xA];
+    Game143DE0MorphVertex *vertices[2];
+    u8 unk_28[0x14];
+    s32 animation;
+    u8 unk_40[0x3C];
+    s32 target;
+    s32 buffer;
+    s32 current;
+} Game143DE0Morph;
+
+typedef struct Game143DE0MorphAnim {
+    u8 bank;
+    u8 frames;
+} Game143DE0MorphAnim;
+
+typedef struct Game143DE0RomRange {
+    s32 start;
+    s32 end;
+} Game143DE0RomRange;
+
 s32 func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
-extern u8 D_8002AAD0[];
-extern u8 D_80089320[];
+extern Game143DE0RomRange D_8002AAD0[];
+extern Game143DE0MorphAnim D_80089320[];
 extern f32 D_800A2FD4;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116EA4 CURRENT (3253) */
-void func_15116EA4(u8 *arg0) {
+void func_15116EA4(Game143DE0Morph *arg0) {
     s32 size;
-    u8 *anim;
-    s32 *rom;
-    s32 current;
-    s32 frames;
-    s32 step;
+    u16 id;
+    u8 bank;
     f32 position;
     s32 frame;
     f32 fraction;
-    u32 frameSize;
+    s32 frameSize;
     s32 count;
     s16 *from;
+    s32 current;
     s16 *to;
-    s32 offset;
+    int frames;
+    s32 step;
     s32 i;
-    s32 target;
 
-    anim = &D_80089320[(*(s32 *)(arg0 + 0x3C) & 0xFFFF) * 2];
-    rom = (s32 *)&D_8002AAD0[anim[0] * 8];
-    current = *(s32 *)(arg0 + 0x84);
-    frames = anim[1];
-    size = rom[1] - rom[0];
-    step = *(s32 *)(arg0 + 0x3C) >> 16;
-    if (*(s32 *)(arg0 + 0x80) == 0) {
-        *(s32 *)(arg0 + 0x80) = func_10003C40(size, 1, 2, 0);
-        func_10004514(rom[0], *(s32 *)(arg0 + 0x80), size, 1);
+    id = arg0->animation;
+    bank = D_80089320[id].bank;
+    current = arg0->current;
+    frames = D_80089320[id].frames;
+    size = D_8002AAD0[bank].end - D_8002AAD0[bank].start;
+    step = arg0->animation >> 16;
+    if (arg0->buffer == 0) {
+        arg0->buffer = func_10003C40(size, 1, 2, 0);
+        func_10004514(D_8002AAD0[bank].start, arg0->buffer, size, 1);
     }
     position = frames * (current * D_800A2FD4);
     frame = position;
@@ -234,37 +258,31 @@ void func_15116EA4(u8 *arg0) {
         frame--;
     }
     frameSize = (size / frames) & ~1;
-    count = frameSize / 6;
-    from = (s16 *)(*(s32 *)(arg0 + 0x80) + frame * frameSize);
-    to = from;
+    count = (u32)frameSize / 6;
+    from = (s16 *)(arg0->buffer + frame * frameSize);
     if (frames != frame + 1) {
-        to = (s16 *)(*(s32 *)(arg0 + 0x80) + (frame + 1) * frameSize);
+        to = (s16 *)(arg0->buffer + (frame + 1) * frameSize);
+    } else {
+        to = from;
     }
-    offset = 0;
     for (i = 0; i < count; i++) {
-        *(s16 *)(*(s32 *)(arg0 + 0x20 + D_800BE9C0 * 4) + offset + 0) = ((f32)to[0] - (f32)from[0]) * fraction + (f32)from[0] + *(s16 *)(arg0 + 0x10);
-        *(s16 *)(*(s32 *)(arg0 + 0x20 + D_800BE9C0 * 4) + offset + 4) = ((f32)to[2] - (f32)from[2]) * fraction + (f32)from[2] + *(s16 *)(arg0 + 0x12);
-        *(s16 *)(*(s32 *)(arg0 + 0x20 + D_800BE9C0 * 4) + offset + 2) = ((f32)to[1] - (f32)from[1]) * fraction + (f32)from[1] + *(s16 *)(arg0 + 0x14);
-        offset += 0x10;
-        from += 3;
-        to += 3;
+        arg0->vertices[D_800BE9C0][i].x = arg0->unk_10 + ((f32)from[i * 3] + ((f32)to[i * 3] - (f32)from[i * 3]) * fraction);
+        arg0->vertices[D_800BE9C0][i].z = arg0->unk_12 + ((f32)from[i * 3 + 2] + ((f32)to[i * 3 + 2] - (f32)from[i * 3 + 2]) * fraction);
+        arg0->vertices[D_800BE9C0][i].y = arg0->unk_14 + ((f32)from[i * 3 + 1] + ((f32)to[i * 3 + 1] - (f32)from[i * 3 + 1]) * fraction);
     }
-    target = *(s32 *)(arg0 + 0x7C);
-    if (target < current) {
+    if (arg0->target < current) {
         current -= step;
-        if (current < target) {
-            current = target;
+        if (current < arg0->target) {
+            current = arg0->target;
         }
-    } else if (current < target) {
+    } else if (current < arg0->target) {
         current += step;
-        if (target < current) {
-            current = target;
+        if (arg0->target < current) {
+            current = arg0->target;
         }
     }
-    *(s32 *)(arg0 + 0x84) = current;
+    arg0->current = current;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15116EA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116EA4.s")
 typedef struct Game143DE0Motion {
     u8 pad0[0x3C];
     s32 packedTarget;

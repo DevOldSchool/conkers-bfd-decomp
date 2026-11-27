@@ -9,7 +9,6 @@
  * - func_151D9014
  * - func_151D9B8C
  * - func_151DB5D0
- * - func_151DBAA8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1455,13 +1454,12 @@ typedef struct {
     s32 field6C;
 } Game2062D0Params;
 
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, s32, u8, s32);
 extern f32 D_800AB4C0;
 extern f32 D_800AB4C4;
 extern f32 D_800AB4C8;
 extern f32 D_800AB4CC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBAA8 CURRENT (630) */
 void func_151DBAA8(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     Game2062D0Params params;
 
@@ -1491,8 +1489,6 @@ void func_151DBAA8(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4
     params.field60 = arg2;
     func_15153F18(&params.field24, &params.vector, 0, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151DBAA8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBAA8.s")
 f32 func_150ADA68(void);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 

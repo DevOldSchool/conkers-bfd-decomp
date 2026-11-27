@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/effects/effects_sfx_w1_bee_cavern.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_beta_camera_rope_bee.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150BE494
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -251,7 +246,7 @@ typedef struct BeeCavernParticles {
 void func_1504715C(void *, void *);
 void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
-void func_15153F18(s16 *, void *, void *, s32, s32);
+void func_15153F18(s16 *, void *, void *, u8, s32);
 extern s32 D_800A0010[], D_800A0060[];
 extern f32 D_800A0038[], D_800A0064[];
 extern f32 D_800A006C, D_800A0070, D_800A0074, D_800A0078;
@@ -259,7 +254,6 @@ extern f32 D_800A007C, D_800A0080, D_800A0084, D_800A0088;
 extern f32 D_800A008C, D_800A0090, D_800A0094, D_800A0098;
 extern f32 D_800A009C, D_800A00A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE494 CURRENT (3231) */
 void func_150BE494(void *arg0, u8 arg1, s32 arg2) {
     Vec3i position;
     f32 upper;
@@ -268,8 +262,6 @@ void func_150BE494(void *arg0, u8 arg1, s32 arg2) {
     BeeCavernHit hit;
     BeeCavernPrimary primary;
     BeeCavernSecondary secondary;
-    BeeCavernParticles particles;
-    struct { s16 yaw, yawRange, pitch, pitchRange; } angles;
 
     if (arg0 != NULL) {
         radius = (((BeeCavernBounds *)arg0)->lower + ((BeeCavernBounds *)arg0)->upper) * 0.5f;
@@ -278,21 +270,21 @@ void func_150BE494(void *arg0, u8 arg1, s32 arg2) {
         primary.count = 10;
         primary.countRange = 0;
         primary.position = position;
-        primary.speed = 13.0f;
-        primary.speedRange = 9.0f;
-        primary.field24 = D_800A006C;
         primary.yaw = 0;
         primary.yawRange = 0xFF;
         primary.pitch = -0x40;
         primary.pitchRange = 0x32;
+        primary.speed = 13.0f;
+        primary.speedRange = 9.0f;
+        primary.field24 = D_800A006C;
+        primary.field28 = D_800A0070;
         primary.timer = 0x4B;
         primary.timerRange = 0x28;
-        primary.kind = 0xB;
+        primary.radius = radius;
         primary.field34 = 0.0f;
-        primary.field28 = D_800A0070;
         primary.field38 = D_800A0074;
         primary.field3C = 1.0f;
-        primary.radius = radius;
+        primary.kind = 0xB;
         func_1515080C(&primary, D_800A0010, D_800A0038, 10, NULL, 0, 0, 1, -1, &hit, 55.0f, 0, 0, arg1, arg2);
         secondary.count = 0x11;
         secondary.countRange = 9;
@@ -311,36 +303,39 @@ void func_150BE494(void *arg0, u8 arg1, s32 arg2) {
         secondary.field34 = D_800A0084;
         secondary.field38 = D_800A0088;
         func_15152190(&secondary, D_800A0060, D_800A0064, 1, 10.0f, 0, arg1, arg2);
-        particles.position = position;
-        particles.fieldC = D_800A008C;
-        particles.count = 4;
-        particles.countRange = 3;
-        angles.yawRange = 0xFF;
-        angles.yaw = 0;
-        angles.pitch = -0x2B;
-        angles.pitchRange = 0x1A;
-        particles.timer = 3;
-        particles.timerRange = 3;
-        particles.field2C = 0x1E;
-        particles.field2E = 0x14;
-        particles.field30 = 0x9B;
-        particles.field32 = 0x64;
-        particles.field3C = 0x10;
-        particles.field3E = 0xF;
-        particles.field40 = 0;
-        particles.kind = 0;
-        particles.field10 = D_800A0090;
-        particles.field14 = D_800A0094;
-        particles.field18 = D_800A0098;
-        particles.field1C = D_800A009C;
-        particles.field20 = D_800A00A0;
-        particles.field38 = 0.5f;
-        func_15153F18(&angles.yaw, &particles, &hit, (u8)arg1, arg2);
-        particles.kind = 2;
-        func_15153F18(&angles.yaw, &particles, &hit, (u8)arg1, arg2);
-        particles.kind = 0xA;
-        func_15153F18(&angles.yaw, &particles, &hit, (u8)arg1, arg2);
+        {
+            BeeCavernParticles particles;
+            s16 angles[4];
+
+            particles.position = position;
+            particles.fieldC = D_800A008C;
+            particles.count = 4;
+            particles.countRange = 3;
+            angles[0] = 0;
+            angles[1] = 0xFF;
+            angles[2] = -0x2B;
+            angles[3] = 0x1A;
+            particles.timer = 3;
+            particles.timerRange = 3;
+            particles.field2C = 0x1E;
+            particles.field2E = 0x14;
+            particles.field30 = 0x9B;
+            particles.field32 = 0x64;
+            particles.field3C = 0x10;
+            particles.field3E = 0xF;
+            particles.field40 = 0;
+            particles.kind = 0;
+            particles.field10 = D_800A0090;
+            particles.field14 = D_800A0094;
+            particles.field18 = D_800A0098;
+            particles.field1C = D_800A009C;
+            particles.field20 = D_800A00A0;
+            particles.field38 = 0.5f;
+            func_15153F18(angles, &particles, &hit, arg1, arg2);
+            particles.kind = 2;
+            func_15153F18(angles, &particles, &hit, arg1, arg2);
+            particles.kind = 0xA;
+            func_15153F18(angles, &particles, &hit, arg1, arg2);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BE494 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE494.s")

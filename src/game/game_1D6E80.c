@@ -627,7 +627,7 @@ typedef struct Game1D6E80ImpactHit {
     u8 geometry[0x20];
 } Game1D6E80ImpactHit;
 
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, s32, u8, s32);
 u8 func_151D8E20(void);
 s32 func_1504697C(void *, u16, f32, void *);
 void func_1504715C(void *, void *);

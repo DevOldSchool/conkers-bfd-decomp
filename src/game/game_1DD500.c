@@ -74,7 +74,7 @@ typedef struct Game1DD500Hit { f32 height; u8 geometry[0x20]; } Game1DD500Hit;
 void func_1504715C(void *, void *);
 s32 func_15134070(void *);
 void func_15143134(f32 *, f32 *, s32);
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, s32, u8, s32);
 extern u8 D_800A3FD8[];
 extern f32 D_800AA120;
 extern f32 D_800AA2A0;

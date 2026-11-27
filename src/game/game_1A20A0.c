@@ -8,7 +8,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15175958
  * - func_1517685C
- * - func_15176DF0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -19,7 +18,8 @@ typedef struct Game17725CEntry {
 } Game17725CEntry;
 extern Game17725CEntry D_800DDE88[];
 typedef struct Game174BF0Actor {
-    u8 pad0[0x90];
+    u8 pad0[0x10];
+    s32 matrices[2][16];
     s8 group, phase;
     s16 flags;
     u8 *model;
@@ -31,9 +31,10 @@ typedef struct Game174BF0Actor {
     u8 padCC[0x1C];
     u32 surfaceFlags;
     u8 brightness;
-    s8 modelIndex;
+    u8 modelIndex;
     u16 sound;
-    s8 opacity, fieldF1;
+    u8 opacity;
+    s8 fieldF1;
 } Game174BF0Actor;
 u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
@@ -498,71 +499,65 @@ extern u8 D_800BE9C0, D_800DDE80[], D_800A7170[];
 extern s32 D_800BE9E4, D_800DDF78[];
 extern u32 D_800DDE8C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15176DF0 CURRENT (2296) */
-void *func_15176DF0(u32 *gdl, u8 *state, s16 arg2) {
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
+void *func_15176DF0(u32 *gdl, Game174BF0Actor *state, s16 arg2) {
     s32 model;
     f32 second[4][4];
     f32 first[4][4];
-    struct { s32 red, green, blue; } color;
-    f32 zero;
+    s32 color[3];
     s32 brightness;
+    s32 target;
 
-    model = state[0xED];
+    model = state->modelIndex;
     if (*(s32 *)(D_800DDE80 + model * 0x14) == 0 || D_800DDF78[model] == 0) {
         return gdl;
     }
-    zero = 0.0f;
-    func_150A8050(first, zero, *(f32 *)(state + 0xAC), zero);
-    func_150A8050(second, *(f32 *)(state + 0xA8), 0, *(f32 *)(state + 0xB0));
+    func_150A8050(first, 0.0f, state->yaw, 0.0f);
+    func_150A8050(second, state->pitch, 0.0f, state->roll);
     func_150A7A48(second, first, first);
-    first[3][0] = *(f32 *)(state + 0x98);
-    first[3][1] = *(f32 *)(state + 0x9C);
-    first[3][2] = *(f32 *)(state + 0xA0);
-    first[0][0] *= *(f32 *)(state + 0xC0);
-    first[0][1] *= *(f32 *)(state + 0xC0);
-    first[0][2] *= *(f32 *)(state + 0xC0);
-    first[1][0] *= *(f32 *)(state + 0xC0);
-    first[1][1] *= *(f32 *)(state + 0xC0);
-    first[1][2] *= *(f32 *)(state + 0xC0);
-    first[2][0] *= *(f32 *)(state + 0xC0);
-    first[2][1] *= *(f32 *)(state + 0xC0);
-    first[2][2] *= *(f32 *)(state + 0xC0);
-    func_150A7790(first, (s32)((state + 0x10) + (D_800BE9C0 << 6)));
-    { u32 *g = gdl; gdl += 2; g[0] = 0xDA380003; g[1] = (u32)((state + 0x10) + (D_800BE9C0 << 6)); }
-    { u32 *g = gdl; gdl += 2; g[0] = 0xDB060004; g[1] = *(u32 *)(state + 0x94); }
+    first[3][0] = state->x;
+    first[3][1] = state->y;
+    first[3][2] = state->z;
+    first[0][0] *= state->scale;
+    first[0][1] *= state->scale;
+    first[0][2] *= state->scale;
+    first[1][0] *= state->scale;
+    first[1][1] *= state->scale;
+    first[1][2] *= state->scale;
+    first[2][0] *= state->scale;
+    first[2][1] *= state->scale;
+    first[2][2] *= state->scale;
+    func_150A7790(first, (s32)state->matrices[D_800BE9C0]);
+    { u32 *g = gdl; gdl += 2; g[0] = 0xDA380003; g[1] = (u32)state->matrices[D_800BE9C0]; }
+    { u32 *g = gdl; gdl += 2; g[0] = 0xDB060004; g[1] = (u32)state->model; }
     { u32 *g = gdl; gdl += 2; g[0] = 0xE7000000; g[1] = 0; }
+    brightness = state->brightness;
+    target = D_800A7170[(state->surfaceFlags >> 5) & 3];
+    if (brightness != target) {
+        if (brightness < target) {
+            brightness += D_800BE9E4 * 4;
+            if (target < brightness) {
+                brightness = target;
+            }
+        } else {
+            brightness -= D_800BE9E4 * 4;
+            if (brightness < 0) {
+                brightness = 0;
+            }
+        }
+        state->brightness = brightness;
+    }
+    color[0] = color[1] = color[2] = brightness;
     {
         u8 loaded;
-        s32 target;
 
-        brightness = state[0xEC];
-        target = D_800A7170[(*(u32 *)(state + 0xE8) >> 5) & 3];
-        if (brightness != target) {
-            if (brightness < target) {
-                brightness += D_800BE9E4 * 4;
-                if (target < brightness) {
-                    brightness = target;
-                }
-            } else {
-                brightness -= D_800BE9E4 * 4;
-                if (brightness < 0) {
-                    brightness = 0;
-                }
-            }
-            state[0xEC] = brightness;
-        }
-        color.green = brightness;
-        color.red = brightness;
         loaded = 0;
-        color.blue = brightness;
         gdl = func_15142FBC(gdl, 0x82CA0, 0x504A50, &loaded);
     }
-    { u32 *g = gdl; gdl += 2; g[0] = 0xFB000000; g[1] = ((color.red & 0xFF) << 24) | ((color.green & 0xFF) << 16) | ((color.blue & 0xFF) << 8) | state[0xF0]; }
-    { u32 *g = gdl; gdl += 2; g[0] = 0xDE000000; g[1] = D_800DDE8C[state[0xED] * 5]; }
+    { u32 *g = gdl; gdl += 2; g[0] = 0xFB000000; g[1] = _SHIFTL(color[0], 24, 8) | _SHIFTL(color[1], 16, 8) | _SHIFTL(color[2], 8, 8) | _SHIFTL(state->opacity, 0, 8); }
+    { u32 *g = gdl; gdl += 2; g[0] = 0xDE000000; g[1] = *(u32 *)((u8 *)D_800DDE8C + state->modelIndex * 0x14); }
     return gdl;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15176DF0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15176DF0.s")
 typedef struct Game1770C8Packet {
     f32 m[4][4];
 } Game1770C8Packet;
@@ -570,7 +565,7 @@ typedef struct Game1770C8Packet {
 void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
-void *func_15176DF0(u32 *, u8 *, s16);
+void *func_15176DF0(u32 *, Game174BF0Actor *, s16);
 extern u8 D_800BE9C0;
 extern f32 D_800D35E0, D_800D35E4;
 extern f32 D_800D9B20;
@@ -600,7 +595,7 @@ void *func_151770C8(u32 *gdl, u8 *arg1, s16 arg2) {
         case 2:
         case 3:
         default:
-            gdl = func_15176DF0(gdl, arg1, arg2);
+            gdl = func_15176DF0(gdl, (Game174BF0Actor *)arg1, arg2);
             break;
         }
     }

@@ -7,7 +7,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15044660
- * - func_15044B78
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -301,42 +300,45 @@ void func_15044A28(void) {
         current = next;
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044B78 CURRENT (4435) */
 s32 func_15044B78(Game71820Volume *arg0) {
     Game71820Global *global;
+    f32 angle_sin;
+    f32 angle_cos;
     f32 delta_x;
     f32 adjusted_y;
     f32 delta_z;
-    f32 angle_sin;
-    f32 angle_cos;
-    f32 rotated_x;
-    f32 rotated_z;
+    f32 temp;
+    f32 distance;
+    Game71820Bounds *bounds;
     s32 vertical_offset;
     s32 horizontal_extent;
     s32 depth_extent;
-    s32 result;
 
     global = (Game71820Global *)D_800CC2D0;
-    horizontal_extent = global->bounds->horizontal_extent;
-    vertical_offset = global->bounds->vertical_offset >> 1;
-    depth_extent = global->bounds->depth_extent;
+    bounds = global->bounds;
+    vertical_offset = bounds->vertical_offset >> 1;
+    horizontal_extent = bounds->horizontal_extent;
+    depth_extent = bounds->depth_extent;
     delta_x = global->x - arg0->x;
     adjusted_y = (global->y - arg0->y) + vertical_offset;
     delta_z = global->z - arg0->z;
     angle_sin = func_15048A40(arg0->type);
-    angle_cos = func_150489B0(arg0->type, arg0);
-    rotated_z = (delta_z * angle_cos) + (delta_x * angle_sin);
-    rotated_x = (delta_x * angle_cos) - (delta_z * angle_sin);
-    result = 0;
-    if ((fabsf(adjusted_y) < (f32)(arg0->height + vertical_offset)) &&
-        (fabsf(rotated_x) < (f32)(arg0->width + horizontal_extent)) &&
-        (fabsf(rotated_z) < (f32)(arg0->depth + depth_extent))) {
-        result = 1;
+    angle_cos = func_150489B0(arg0->type);
+    temp = (delta_z * angle_cos) + (delta_x * angle_sin);
+    delta_x = (delta_x * angle_cos) - (delta_z * angle_sin);
+    delta_z = temp;
+    distance = fabsf(adjusted_y);
+    if (distance < (f32)(arg0->height + vertical_offset)) {
+        distance = fabsf(delta_x);
+        if (distance < (f32)(arg0->width + horizontal_extent)) {
+            distance = fabsf(delta_z);
+            if (distance < (f32)(arg0->depth + depth_extent)) {
+                return 1;
+            }
+        }
     }
-    return result;
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15044B78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044B78.s")
 
 void func_15044CE4(void *arg0) {
     s32 temp_t0;

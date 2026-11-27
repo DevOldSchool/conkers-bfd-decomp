@@ -368,6 +368,16 @@
         }
       },
       {
+        "address": "0x800959D0",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_30E90.c",
+            "src/done/game/game_30E90.c"
+          ]
+        }
+      },
+      {
         "address": "0x800959E0",
         "section": ".rodata",
         "owner": {
@@ -942,6 +952,16 @@
           "sources": [
             "src/game/game_B4080.c",
             "src/done/game/game_B4080.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8009DD20",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_BC510.c",
+            "src/done/game/game_BC510.c"
           ]
         }
       },
@@ -1907,7 +1927,7 @@
       },
       {
         "address": "0x800A4650",
-        "section": ".rodata.blood_2b4",
+        "section": ".rodata.blood_2c4",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1917,7 +1937,7 @@
       },
       {
         "address": "0x800A4874",
-        "section": ".rodata.blood_480",
+        "section": ".rodata.blood_490",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1927,7 +1947,7 @@
       },
       {
         "address": "0x800A48C4",
-        "section": ".rodata.blood_4d0",
+        "section": ".rodata.blood_4e0",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1937,7 +1957,7 @@
       },
       {
         "address": "0x800A4900",
-        "section": ".rodata.blood_504",
+        "section": ".rodata.blood_514",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -1947,7 +1967,7 @@
       },
       {
         "address": "0x800A4950",
-        "section": ".rodata.blood_53c",
+        "section": ".rodata.blood_54c",
         "owner": {
           "sources": [
             "src/game/effects/blood.c",
@@ -2892,6 +2912,16 @@
           "sources": [
             "src/game/game_1EB6C0.c",
             "src/done/game/game_1EB6C0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800AA914",
+        "section": ".rodata",
+        "owner": {
+          "sources": [
+            "src/game/game_1EC390.c",
+            "src/done/game/game_1EC390.c"
           ]
         }
       },

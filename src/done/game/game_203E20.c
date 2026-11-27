@@ -70,7 +70,7 @@ typedef struct {
 } Game203E20Secondary;
 
 void func_1504715C(void *, void *);
-void func_15153F18(s16 *, void *, void *, s32, s32);
+void func_15153F18(s16 *, void *, void *, u8, s32);
 void func_15150178(s16 *, f32 *, void *, u8, s32);
 extern f32 D_800AB25C;
 extern f32 D_800AB260;

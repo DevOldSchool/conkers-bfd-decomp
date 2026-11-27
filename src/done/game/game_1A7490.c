@@ -4,11 +4,6 @@
 /*
  * Reviewed source unit: src/game/game_1A7490.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_quad_actor_effect_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1517A1EC
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1A7490Motion {
@@ -77,63 +72,48 @@ void func_15179FE0(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4,
 
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A1EC CURRENT (1975) */
 void func_1517A1EC(Game1A7490Motion *arg0) {
-    s16 oldA2;
-    s16 velocity;
-    u16 timer;
-    u32 random;
-    s32 signA;
-    s32 signB;
-    s32 fade;
-    s32 fadedAlpha;
-    u8 phase;
+    s32 timer;
 
-    oldA2 = arg0->speedA2;
     arg0->pos90 += arg0->speedA0;
-    arg0->pos92 -= oldA2;
+    arg0->pos92 -= arg0->speedA2;
     arg0->pos94 += arg0->speedA4;
     arg0->pos96 += arg0->inc9C;
     arg0->pos98 += arg0->inc9D;
     arg0->pos9A += arg0->inc9E;
     if (arg0->stateAC == 5) {
-        arg0->speedA2 = oldA2 + 1;
+        arg0->speedA2++;
+    }
+    if (arg0->timerA6 < arg0->stateAC) {
+        u32 random;
+
+        random = func_150ADA20() % arg0->divisorAE;
+        arg0->speedA0 += -((arg0->speedA0 < 0) ? -1 : 1) * random;
+        random = func_150ADA20() % arg0->divisorAE;
+        arg0->speedA4 += -((arg0->speedA4 < 0) ? -1 : 1) * random;
     }
     timer = arg0->timerA6;
-    if (timer < arg0->stateAC) {
-        random = func_150ADA20() % arg0->divisorAE;
-        velocity = arg0->speedA0;
-        signA = 1;
-        if (velocity < 0) {
-            signA = -1;
+    timer -= D_800BE9E4;
+    if (timer < 0) {
+        s32 alpha = arg0->fadeB3;
+
+        alpha -= D_800BE9E4 << 2;
+        timer = 0;
+        if (alpha < 0) {
+            alpha = 0;
         }
-        arg0->speedA0 = velocity + (-signA * random);
-        random = func_150ADA20() % arg0->divisorAE;
-        velocity = arg0->speedA4;
-        signB = 1;
-        if (velocity < 0) {
-            signB = -1;
+        arg0->fadeB3 = alpha;
+    }
+    arg0->timerA6 = timer;
+    if (arg0->fadeB3 != 0) {
+        u8 phase = arg0->phaseB2;
+
+        if (!phase || ((phase >> 4) != (phase & 0xF))) {
+            return;
         }
-        arg0->speedA4 = velocity + (-signB * random);
-        timer = arg0->timerA6;
     }
-    fade = (s32)((u32)timer - (u32)D_800BE9E4);
-    if (fade < 0) {
-        fade = 0;
-        fadedAlpha = (s32)((u32)arg0->fadeB3 - ((u32)D_800BE9E4 << 2));
-        if (fadedAlpha < 0) {
-            fadedAlpha = 0;
-        }
-        arg0->fadeB3 = fadedAlpha;
-    }
-    arg0->timerA6 = fade;
-    if (arg0->fadeB3 == 0 ||
-        ((phase = arg0->phaseB2) != 0 && (phase & 0xF) == (phase >> 4))) {
-        func_1516972C((u8 *)arg0);
-    }
+    func_1516972C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517A1EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A1EC.s")
 s32 func_1517A394(s32 arg0) {
     return arg0;
 }

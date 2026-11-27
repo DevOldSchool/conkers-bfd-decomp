@@ -10,7 +10,6 @@
  * - func_151ACBD4
  * - func_151AD174
  * - func_151AD92C
- * - func_151AE3A8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -415,54 +414,61 @@ void func_151AE2BC(void *arg0, void *arg1, f32 x, f32 y, f32 z) {
 }
 s32 func_15143E08(u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE3A8 CURRENT (5407) */
 void func_151AE3A8(s32 arg0) {
     f32 oldZ;
     f32 oldY;
-    f32 interpolatedY;
+    f32 oldX;
+    f32 radius;
+    f32 interpY;
+    f32 interpX;
+    f32 interpZ;
+    f32 progress;
+    f32 fraction;
     Game1D9F10Actor *actor;
     Game1D9F10MotionModel *model;
     u8 angle;
     f32 cosine;
-    f32 first[3];
-    f32 next[3];
     f32 sine;
-    f32 fraction;
-    f32 progress;
-    f32 oldX;
-    f32 radius;
     s32 reserve;
-    s32 frame;
     Game1D9F10NestedState *state;
+    Game1D9F10Record *record = (Game1D9F10Record *)arg0;
 
-    actor = ((Game1D9F10Record *)arg0)->field1C;
+    actor = record->field1C;
     model = actor->nested->model;
     angle = func_15143E08((u16 *)actor) - 0x80;
-    cosine = func_151423D8((angle - 0x40) & 0xFF);
+    cosine = func_151423D8(angle - 0x40);
     sine = func_151423D8(angle);
     state = actor->nested;
-    oldY = actor->y;
+    radius = record->field28;
     oldX = actor->x;
-    radius = ((Game1D9F10Record *)arg0)->field28;
     progress = state->progress;
+    oldY = actor->y;
     oldZ = actor->z;
     reserve = (s32)(140.0f / model->spacing);
-    frame = (s32)((f32)(model->count - reserve - 1) * progress);
-    state->frame = frame;
-    first[0] = model->keys[frame].x;
-    fraction = (f32)(model->count - reserve - 1) * progress - (f32)frame;
-    first[1] = model->keys[frame].y;
-    first[2] = model->keys[frame].z;
-    next[0] = model->keys[frame + 1].x;
-    next[1] = model->keys[frame + 1].y;
-    next[2] = model->keys[frame + 1].z;
-    interpolatedY = (next[1] - first[1]) * fraction + first[1];
-    actor->x = (((next[0] - first[0]) * fraction + first[0] + radius * cosine) - oldX) + oldX;
-    actor->y = (interpolatedY - oldY) + oldY;
-    actor->z = (((next[2] - first[2]) * fraction + first[2] + radius * sine) - oldZ) + oldZ;
+    {
+        s32 frame;
+        f32 first[3];
+        f32 next[3];
+
+        frame = (s32)((f32)(model->count - reserve - 1) * progress);
+        state->frame = frame;
+        fraction = (f32)(model->count - reserve - 1) * progress - (f32)frame;
+        first[0] = model->keys[frame].x;
+        first[1] = model->keys[frame].y;
+        first[2] = model->keys[frame].z;
+        next[0] = model->keys[frame + 1].x;
+        next[1] = model->keys[frame + 1].y;
+        next[2] = model->keys[frame + 1].z;
+        interpX = first[0] + (next[0] - first[0]) * fraction;
+        interpY = first[1] + (next[1] - first[1]) * fraction;
+        interpZ = first[2] + (next[2] - first[2]) * fraction;
+        interpX += radius * cosine;
+        interpZ += radius * sine;
+    }
+    actor->x = (interpX - oldX) + oldX;
+    actor->y = (interpY - oldY) + oldY;
+    actor->z = (interpZ - oldZ) + oldZ;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AE3A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE3A8.s")
 extern s32 D_800A9270[];
 extern void *D_800DCE50[][104];
 

@@ -352,7 +352,7 @@ s32 func_151420F8(s32 arg0) {
     }
     return 1;
 }
-void func_15153F18(s16 *, void *, s32, s32, s32);
+void func_15153F18(s16 *, void *, s32, u8, s32);
 extern f32 D_800A5470;
 extern f32 D_800A5474;
 

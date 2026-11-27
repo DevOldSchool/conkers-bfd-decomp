@@ -8,7 +8,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C756C
- * - func_151C9198
  * - func_151C9F38
  * - func_151CA6A0
  * - func_151CAD28
@@ -667,16 +666,20 @@ typedef struct SightSpawnCommands {
     SightSpawnCommand entries[2];
 } SightSpawnCommands;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9198 CURRENT (760) */
-void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1,
-                   void *arg2, s32 arg3, s32 arg4, volatile u8 arg5, u8 arg6, u8 arg7, s32 arg8) {
+typedef struct SightSpawnedEffect {
+    u8 pad0[0x90];
+    u8 unk_90[2][0x40];
+    u8 pad110[0x60];
+    u8 unk_170[0x14];
+} SightSpawnedEffect;
+
+void func_151C9198(SightSpawnedEffect **arg0, Sight8FCCVector *arg1,
+                   void *arg2, s32 arg3, s32 arg4, u8 arg5, u8 arg6, u8 arg7, s32 arg8) {
     Sight8FCCVector vector0, vector1, vector2;
     SightSpawnDescriptor descriptor;
-    struct Game15F680TransformState *result;
+    SightSpawnedEffect *result;
     SightSpawnCommands commands;
-    s32 offset;
-    s32 flags;
-    struct Game15F680TransformState *effect;
+    s32 i;
 
     if (func_15144E80(arg2, &vector0, &vector1, &vector2) != 0) {
         func_15145974(&vector2, &descriptor.yaw, &descriptor.pitch);
@@ -697,15 +700,11 @@ void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1
         descriptor.motion[4] = 0.0f;
         descriptor.motion[5] = 0.0f;
         descriptor.motion[6] = 0.0f;
-        if (arg6 != 0) {
-            flags = 0x400;
-        } else {
-            flags = 0;
-        }
-        descriptor.flags = flags | 0x900 | 0x10000 | 0x4000 | 0x40000 | 0x80000;
+        descriptor.flags = (arg6 ? 0x400 : 0) | 0x800 | 0x100 | 0x10000 | 0x4000 | 0x40000 | 0x80000;
         descriptor.lifetime = 0x12C;
         descriptor.kind = 0x36;
         descriptor.field58 = 0;
+        descriptor.owner = arg4;
         descriptor.channels[0] = 0xFF;
         descriptor.channels[1] = 0;
         descriptor.channels[2] = 0;
@@ -721,16 +720,12 @@ void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1
         descriptor.field72 = 1;
         descriptor.field74 = 0xFF;
         descriptor.field69 = -1;
-        descriptor.owner = arg4;
         result = func_15132A4C(&descriptor, 3, 0xFF, 0, arg7, arg8);
         arg0[0] = result;
         if (result != 0) {
-            offset = 0;
-            do {
-                effect = arg0[0];
-                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
-                offset += 0x40;
-            } while (offset != 0x80);
+            for (i = 0; i < 2; i++) {
+                func_15133760((s32)arg0[0]->unk_90[i], (struct Game15F680TransformState *)arg0[0]);
+            }
         }
         descriptor.field69 = 2;
         commands.count = 2;
@@ -738,7 +733,7 @@ void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1
         commands.entries[1].mode = 6;
         commands.entries[0].value = 0x3E;
         commands.entries[1].value = 0x3E;
-        if (arg5 != 0) {
+        if (arg5) {
             commands.entries[0].id = 0x87;
             commands.entries[1].id = 0x88;
         } else {
@@ -750,16 +745,13 @@ void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1
         result = func_15132A4C(&descriptor, 3, 0xFF, 0x14, arg7, arg8);
         arg0[1] = result;
         if (result != 0) {
-            offset = 0;
-            do {
-                effect = arg0[1];
-                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
-                offset += 0x40;
-            } while (offset != 0x80);
-            func_10022EC0((u8 *)arg0[1] + 0x170, &commands, 0x14);
+            for (i = 0; i < 2; i++) {
+                func_15133760((s32)arg0[1]->unk_90[i], (struct Game15F680TransformState *)arg0[1]);
+            }
+            func_10022EC0(arg0[1]->unk_170, &commands, 0x14);
         }
         descriptor.kind = 0x38;
-        if (arg5 != 0) {
+        if (arg5) {
             commands.entries[0].id = 0x89;
             commands.entries[1].id = 0x8A;
         } else {
@@ -769,18 +761,13 @@ void func_151C9198(struct Game15F680TransformState **arg0, Sight8FCCVector *arg1
         result = func_15132A4C(&descriptor, 3, 0xFF, 0x14, arg7, arg8);
         arg0[2] = result;
         if (result != 0) {
-            offset = 0;
-            do {
-                effect = arg0[2];
-                func_15133760((s32)((u8 *)effect + offset + 0x90), effect);
-                offset += 0x40;
-            } while (offset != 0x80);
-            func_10022EC0((u8 *)arg0[2] + 0x170, &commands, 0x14);
+            for (i = 0; i < 2; i++) {
+                func_15133760((s32)arg0[2]->unk_90[i], (struct Game15F680TransformState *)arg0[2]);
+            }
+            func_10022EC0(arg0[2]->unk_170, &commands, 0x14);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C9198 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9198.s")
 void func_1000FD38(void *, void *, s32);
 
 void func_151C94D4(void *arg0) {

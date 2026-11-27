@@ -6,7 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_audio_owner_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B4294
  * - func_150B4710
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -107,20 +106,43 @@ typedef struct GameE1280TimedEntry {
     f32 velocity18;
     s16 state1C;
     s16 life1E;
-    u8 pad20[4];
+    u8 alpha20;
+    u8 pad21[3];
 } GameE1280TimedEntry;
 
 typedef struct GameE1280TimedState {
-    u8 pad0[0xC];
+    Vec3f direction;
     f32 speedC;
-    u8 pad10[0xC];
+    u8 phaseRange10;
+    u8 pad11[3];
+    f32 widthBase14;
+    f32 widthRange18;
     u8 flags1C;
-    u8 pad1D[0xB];
+    u8 pad1D[3];
+    f32 rate20;
+    u8 pad24[4];
     f32 speed28;
+    f32 width2C;
+    u8 alphaBase30;
+    u8 alphaRange31;
+    u8 pad32[4];
+    s16 life36;
+    u8 pad38[4];
+    f32 spawnRate3C;
+    f32 scale40;
+    f32 accum44;
+    u8 alpha48;
+    u8 pad49[3];
+    f32 target4C;
+    u8 phase50;
+    u8 pad51[3];
+    f32 spawn54;
 } GameE1280TimedState;
 
 typedef struct GameE1280TimedObject {
-    u8 pad0[0x25];
+    u8 pad0[0x10];
+    Vec3f position;
+    u8 pad1C[9];
     u8 capacity;
     u8 pad26[6];
     s8 count;
@@ -185,7 +207,69 @@ s32 func_150B40E8(GameE1280TimedObject *arg0) {
     }
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B4294.s")
+f32 func_150ADA68(void);
+void func_150B5088(void *arg0);
+
+s32 func_150B4294(GameE1280TimedObject *arg0) {
+    GameE1280TimedState *state = arg0->state;
+    GameE1280TimedEntry *entries = arg0->entries;
+    f32 inverse;
+    f32 difference;
+    f32 step;
+    Vec3f direction;
+    f32 scale;
+    f32 stepDelta;
+    f32 scaleDelta;
+
+    state->phase50 += (func_150ADA20() % (state->phaseRange10 + 1)) * D_800BE9E4;
+    state->target4C = func_151423D8(state->phase50 - 0x40) * state->widthRange18 + state->widthBase14;
+    state->accum44 += state->rate20 * D_800BE9A4;
+    if (state->accum44 > 1.0f) {
+        inverse = 1.0f / state->accum44;
+        step = D_800BE9A4;
+        direction = state->direction;
+        scale = state->scale40;
+        difference = state->target4C - state->scale40;
+        stepDelta = D_800BE9A4 * inverse;
+        scaleDelta = difference * inverse;
+        do {
+            state->spawn54 += state->spawnRate3C;
+            if (state->spawn54 > 1.0f) {
+                func_150B5088(arg0);
+            }
+            entries[arg0->head].position = arg0->position;
+            entries[arg0->head].velocityC = direction.x * scale;
+            entries[arg0->head].velocity10 = direction.y * scale;
+            entries[arg0->head].velocity14 = direction.z * scale;
+            entries[arg0->head].velocity18 = state->width2C;
+            entries[arg0->head].state1C = 0xFF;
+            entries[arg0->head].life1E = state->life36;
+            entries[arg0->head].alpha20 = state->alpha48;
+            state->alpha48 += state->alphaBase30 + func_150ADA68() * state->alphaRange31;
+            entries[arg0->head].velocity10 += state->speedC * step;
+            entries[arg0->head].position.x += entries[arg0->head].velocityC * step;
+            entries[arg0->head].position.y += entries[arg0->head].velocity10 * step;
+            entries[arg0->head].position.z += entries[arg0->head].velocity14 * step;
+            arg0->head++;
+            if (arg0->head == arg0->capacity) {
+                arg0->head = 0;
+            }
+            arg0->count++;
+            if (arg0->head == arg0->tail) {
+                arg0->tail++;
+                if (arg0->tail == arg0->capacity) {
+                    arg0->tail = 0;
+                }
+                arg0->count--;
+            }
+            scale += scaleDelta;
+            step -= stepDelta;
+            state->accum44 -= 1.0f;
+        } while (state->accum44 > 1.0f);
+        state->scale40 = scale;
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B4710.s")
 void func_150B5060(void *arg0) {
     void *temp_v0;

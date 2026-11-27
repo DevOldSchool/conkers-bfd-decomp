@@ -9,7 +9,6 @@
  * - func_15086D94
  * - func_15087350
  * - func_150883B0
- * - func_150888A8
  * - func_1508907C
  * - func_150891E8
  * - func_1508A1BC
@@ -193,7 +192,7 @@ f32 func_15086D94(f32 arg0, f32 arg1, volatile f32 arg2, volatile f32 arg3, f32 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D94.s")
 
 s32 func_15086D48(s32);
-s32 func_150888A8(u8, u8, s8);
+u8 func_150888A8(u8, u8, s8);
 void func_15088824(void *);
 s32 func_10003C40(s32, s32, s32, s32);
 extern s32 D_800872A0, D_800D2394;
@@ -314,11 +313,11 @@ void func_15087CC0(void) {
         }
     }
 }
-s32 func_150888A8(u8, u8, s8);
+u8 func_150888A8(u8, u8, s8);
 
 void func_15087DCC(s32 arg0, s32 arg1) {
     u8 *temp_v1;
-    s8 temp_v0;
+    u8 temp_v0;
 
     if (D_800872A0 != 0) {
         temp_v1 = (void *)((arg0 * 0x84) + D_800872A0);
@@ -326,7 +325,7 @@ void func_15087DCC(s32 arg0, s32 arg1) {
             if (arg1 != 0) {
                 temp_v0 = func_150888A8((s32) *(u8 *)((u8 *)temp_v1 + 0x2B), *(u8 *)((u8 *)temp_v1 + 0x2C), 1);
                 *(s8 *)((u8 *)temp_v1 + 0x2D) = temp_v0;
-                *(s8 *)((u8 *)temp_v1 + 0x2E) = func_150888A8((s32) *(u8 *)((u8 *)temp_v1 + 0x2C), temp_v0 & 0xFF, 1);
+                *(s8 *)((u8 *)temp_v1 + 0x2E) = func_150888A8((s32) *(u8 *)((u8 *)temp_v1 + 0x2C), temp_v0, 1);
             }
             *(s8 *)((u8 *)temp_v1 + 0x2F) = (s8) arg1;
         }
@@ -729,89 +728,49 @@ void func_15088824(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x49) = 0;
     *(f32 *)((u8 *)arg0 + 0x10) = 1.0f;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150888A8 CURRENT (1432) */
-s32 func_150888A8(volatile s32 arg0, volatile u8 arg1, s8 arg2) {
-    s32 temp_s0;
-    s32 var_a0;
-    s32 var_a3;
-    s32 var_t0;
-    s32 var_t4;
-    s32 var_v1;
-    s32 temp_a2_2;
-    s32 temp_a2_3;
-    s32 temp_t0;
-    s32 temp_t2;
-    s32 temp_t3_2;
-    u8 *temp_a2;
-    u8 *temp_t1;
-    u8 *temp_t2_2;
-    u8 *temp_t3;
-    u8 *var_t1;
+typedef struct GameB4080PathNode {
+    /* 0x0 */ s16 pos[3];
+    /* 0x6 */ u8 unk_06[3];
+    /* 0x9 */ u8 links[5];
+    /* 0xE */ u8 type;
+    /* 0xF */ u8 unk_0F;
+} GameB4080PathNode;
 
-    temp_s0 = arg0 & 0xFF;
-    var_v1 = 0xFF;
-    var_a3 = 0xFF;
+u8 func_150888A8(u8 arg0, u8 arg1, s8 arg2) {
+    u8 best;
+    u8 alternate;
+    s32 wanted;
+    s32 i;
+    GameB4080PathNode *node;
+    GameB4080PathNode *other;
+
+    best = 0xFF;
+    alternate = 0xFF;
     if (arg2 != 0) {
-        var_a0 = 1;
+        wanted = 1;
     } else {
-        var_a0 = 2;
+        wanted = 2;
     }
-    temp_a2 = (void *)((arg1 * 0x10) + D_800D2350);
-    temp_t0 = *(u8 *)((u8 *)temp_a2 + 9);
-    if ((temp_t0 != 0xFF) && (temp_s0 != temp_t0)) {
-        temp_t1 = (void *)((temp_t0 * 0x10) + D_800D2350);
-        if (*(u8 *)((u8 *)temp_t1 + 0xE) == 0) {
-            if (var_a0 != *(u8 *)((u8 *)temp_t1 + 0xF)) {
-                var_v1 = temp_t0 & 0xFF;
-            } else {
-                var_a3 = temp_t0 & 0xFF;
-            }
-        }
-    }
-    var_t0 = 1;
-    var_t1 = (void *)(temp_a2 + 1);
-    var_t4 = var_v1;
-    do {
-        temp_a2_2 = *(u8 *)((u8 *)var_t1 + 9);
-        var_t0 += 2;
-        if ((temp_a2_2 != 0xFF) && (temp_s0 != temp_a2_2)) {
-            temp_t3 = (void *)((temp_a2_2 * 0x10) + D_800D2350);
-            if (*(u8 *)((u8 *)temp_t3 + 0xE) == 0) {
-                temp_t2 = *(u8 *)((u8 *)temp_t3 + 0xF);
-                if (var_a0 != temp_t2) {
-                    if ((var_t4 == 0xFF) || (temp_t2 != 0)) {
-                        var_v1 = temp_a2_2 & 0xFF;
-                        var_t4 = var_v1;
+    node = (GameB4080PathNode *)(D_800D2350 + arg1 * 0x10);
+    for (i = 0; i < 5; i++) {
+        if (node->links[i] != 0xFF && node->links[i] != arg0) {
+            other = &((GameB4080PathNode *)D_800D2350)[node->links[i]];
+            if (other->type == 0) {
+                if (wanted != other->unk_0F) {
+                    if (best == 0xFF || other->unk_0F != 0) {
+                        best = node->links[i];
                     }
                 } else {
-                    var_a3 = temp_a2_2 & 0xFF;
+                    alternate = node->links[i];
                 }
             }
         }
-        temp_t3_2 = *(u8 *)((u8 *)var_t1 + 0xA);
-        if ((temp_t3_2 != 0xFF) && (temp_s0 != temp_t3_2)) {
-            temp_t2_2 = (void *)((temp_t3_2 * 0x10) + D_800D2350);
-            if (*(u8 *)((u8 *)temp_t2_2 + 0xE) == 0) {
-                temp_a2_3 = *(u8 *)((u8 *)temp_t2_2 + 0xF);
-                if (var_a0 != temp_a2_3) {
-                    if ((var_t4 == 0xFF) || (temp_a2_3 != 0)) {
-                        var_v1 = temp_t3_2 & 0xFF;
-                        var_t4 = var_v1;
-                    }
-                } else {
-                    var_a3 = temp_t3_2 & 0xFF;
-                }
-            }
-        }
-        var_t1 += 2;
-    } while (var_t0 != 5);
-    if (var_t4 == 0xFF) {
-        var_v1 = var_a3 & 0xFF;
     }
-    return var_v1;
+    if (best == 0xFF) {
+        best = alternate;
+    }
+    return best;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150888A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150888A8.s")
 typedef struct GameB4080ProgressEntry {
     u8 pad0[8];
     f32 phase;
@@ -1002,13 +961,6 @@ void func_15088D58(GameB4080SearchActor *arg0) {
         arg0->rotation76 = rotation;
     }
 }
-typedef struct GameB4080PathNode {
-    /* 0x0 */ s16 pos[3];
-    /* 0x6 */ u8 unk_06[3];
-    /* 0x9 */ u8 links[5];
-    /* 0xE */ u8 type;
-    /* 0xF */ u8 unk_0F;
-} GameB4080PathNode;
 
 void func_15088F30(GameB4080SearchEntry *entry, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 x_delta;

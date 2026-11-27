@@ -37,59 +37,77 @@ typedef struct Game1897A0Position {
     s32 values[3];
 } Game1897A0Position;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C388 CURRENT (2434) */
-s32 func_1515C388(void *arg0) {
-    u8 *actor = arg0;
-    u8 *settings = *(u8 **)(actor + 0x98);
-    u8 *points = *(u8 **)(actor + 0x94);
-    Game1897A0Position initial;
-    Game1897A0Position *position;
-    f32 *point;
-    f32 old_velocity;
-    s32 callback_failed = 0;
-    s32 index;
-    s32 callback_index;
-    s32 result = 1;
+typedef struct Game1897A0TrailPoint {
+    Vec3f position;
+    f32 width;
+} Game1897A0TrailPoint;
 
-    if (*(s8 *)(actor + 0x2C) != 0) {
-        position = (Game1897A0Position *)(points + (*(s8 *)(actor + 0x2D) * 0x10));
-        initial.values[0] = position->values[0];
-        initial.values[1] = position->values[1];
-        initial.values[2] = position->values[2];
-        index = *(s8 *)(actor + 0x2D);
-        if (index != *(s8 *)(actor + 0x2E)) {
+typedef struct Game1897A0TrailSettings {
+    u8 unk_00[4];
+    f32 velocityX;
+    u8 unk_08[4];
+    f32 velocityZ;
+    f32 gravity;
+    u8 unk_14[0x24];
+    s8 callbackIndex;
+} Game1897A0TrailSettings;
+
+typedef struct Game1897A0Trail {
+    u8 pad0[0x10];
+    Vec3f position;
+    u8 pad1C[9];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    s8 tail;
+    s8 head;
+    u8 pad2F[0x25];
+    Vec3f unk_54;
+    u8 unk_60[0x34];
+    Game1897A0TrailPoint *points;
+    Game1897A0TrailSettings *settings;
+} Game1897A0Trail;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C388 */
+s32 func_1515C388(Game1897A0Trail *arg0) {
+    Game1897A0TrailSettings *settings = arg0->settings;
+    u8 callbackFailed = 0;
+    Game1897A0TrailPoint *points = arg0->points;
+    Vec3f initial;
+    s32 index;
+
+    if (arg0->count) {
+        initial = points[arg0->tail].position;
+        index = arg0->tail;
+        if (index != arg0->head) {
             do {
-                point = (f32 *)(points + (index * 0x10));
-                old_velocity = point[3];
-                index += 1;
-                point[0] += *(f32 *)(settings + 4) * D_800BE9A4;
-                point[1] += old_velocity * D_800BE9A4 +
-                            (*(f32 *)(settings + 0x10) * D_800BE9A4 * D_800BE9A4 * 0.5f);
-                point[2] += *(f32 *)(settings + 0xC) * D_800BE9A4;
-                point[3] = *(f32 *)(settings + 0x10) * D_800BE9A4 + old_velocity;
-                if (index == *(u8 *)(actor + 0x25)) {
+                points[index].position.x += settings->velocityX * D_800BE9A4;
+                points[index].position.y += points[index].width * D_800BE9A4 + settings->gravity * D_800BE9A4 * D_800BE9A4 * 0.5f;
+                points[index].position.z += settings->velocityZ * D_800BE9A4;
+                points[index].width += settings->gravity * D_800BE9A4;
+                index++;
+                if (index == arg0->capacity) {
                     index = 0;
                 }
-            } while (index != *(s8 *)(actor + 0x2E));
+            } while (index != arg0->head);
         }
     }
-
-    callback_index = *(s8 *)(settings + 0x38);
-    if (callback_index != -1) {
-        callback_failed = (D_8008B080[callback_index](actor) == 0);
+    if (settings->callbackIndex != -1) {
+        callbackFailed = D_8008B080[settings->callbackIndex](arg0) == 0;
     }
-    if (*(s8 *)(actor + 0x2C) > 0) {
-        position = (Game1897A0Position *)(points + (*(s8 *)(actor + 0x2D) * 0x10));
-        *(Game1897A0Position *)(actor + 0x54) = *position;
+    if (arg0->count > 0) {
+        arg0->unk_54 = points[arg0->tail].position;
     } else {
-        *(f32 *)(actor + 0x54) = 0.0f;
-        *(f32 *)(actor + 0x58) = 0.0f;
-        *(f32 *)(actor + 0x5C) = 0.0f;
+        Vec3f *dest = &arg0->unk_54;
+
+        dest->x = 0.0f;
+        dest->y = 0.0f;
+        dest->z = 0.0f;
     }
-    if (callback_failed != 0) {
-        result = 0;
+    if (callbackFailed != 0) {
+        return 0;
     }
-    return result;
+    return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515C388 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C388.s")
@@ -157,24 +175,6 @@ s32 func_1515C534(void *arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C6F4.s")
-
-typedef struct Game1897A0TrailPoint {
-    Vec3i position;
-    f32 width;
-} Game1897A0TrailPoint;
-
-typedef struct Game1897A0Trail {
-    u8 pad0[0x10];
-    Vec3i position;
-    u8 pad1C[9];
-    u8 capacity;
-    u8 pad26[6];
-    s8 count;
-    u8 pad2D;
-    s8 head;
-    u8 pad2F[0x65];
-    Game1897A0TrailPoint *points;
-} Game1897A0Trail;
 
 s32 func_1515CF9C(Game1897A0Trail *arg0, u8 *arg1) {
     s8 count;
