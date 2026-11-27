@@ -259,7 +259,8 @@ and the linked rodata must equal checksum-validated ROM game data in addition to
 the complete text. The placement's `ASSERT(SIZEOF(...))` states the exact
 `.rodata` size: the original link packed each object's `.rodata` on a 4-byte
 boundary, so the integrated compile step trims IDO's 16-byte padding to that size
-(`scripts/trim_game_rodata.py`). Units without such a placement,
+(`scripts/trim_game_rodata.py`; evidence in
+`docs/evidence/data-layout/game_rodata_word_packing.md`). Units without such a placement,
 split-rodata units and other data sections stay symbolic. Unsupported relocations, and member spans that cannot
 be proven (such as an unregistered symbol inside one), retain symbolic
 comparison; original objects still supply switch-table evidence. Watch
