@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_177480.c
@@ -63,10 +64,6 @@ void *func_15149FD0(Game177480Owner *arg0, s16 arg1) {
     return result;
 }
 f32 func_150ADA68();                                /* extern */
-extern f32 D_800A5794;
-extern f32 D_800A5798;
-extern f32 D_800A579C;
-extern s32 D_800BE9E4;
 
 typedef struct Game177480Interpolation {
     f32 high0, low0, target0;
@@ -113,11 +110,6 @@ s32 func_1514A19C(Game177480InterpolationOwner *arg0) {
     arg0->integer += (s32)((state->target2 - arg0->integer) * D_800A579C);
     return 1;
 }
-
-extern f32 D_800A57A0;
-extern f32 D_800A57A4;
-extern f32 D_800A57A8;
-extern f32 D_800A57AC;
 
 s32 func_1514A380(void *arg0) {
     u8 *ext;

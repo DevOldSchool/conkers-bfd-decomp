@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_76710.c
@@ -14,7 +15,6 @@ s32 func_150AAD98(Game76710CallArgs);
 s32 func_15049260(Game76710CallArgs arg0) {
     return func_150AAD98(arg0);
 }
-extern f32 D_80099080;
 
 
 
@@ -22,14 +22,6 @@ extern f32 D_80099080;
 
 
 
-extern f32 D_800CC220;
-extern f32 D_800CC224;
-extern f32 D_800CC228;
-extern f32 D_800CC22C;
-extern f32 D_800CC230;
-extern f32 D_800CC234;
-extern f32 D_800CC238;
-extern f32 D_800CC23C;
 void func_150492CC(f32 arg0, f32 arg1, f32 arg2) {
     D_800CC220 = arg0;
     D_800CC224 = arg1;
@@ -43,10 +35,6 @@ void func_150492CC(f32 arg0, f32 arg1, f32 arg2) {
     D_800CC238 = arg1 / arg0;
     D_800CC23C = arg2 / arg0;
 }
-extern f32 D_800CC210;
-extern f32 D_800CC214;
-extern f32 D_800CC218;
-extern f32 D_800CC21C;
 
 void func_15049350(Game76710CallArgs args) {
     f32 x;

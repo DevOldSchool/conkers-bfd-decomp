@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B1600.c
@@ -110,9 +111,6 @@ typedef struct Game184DF0Camera {
 s32 func_150AD9A0(s32, s32, s32);
 void func_15184150(s32, f32 *, f32 *, f32 *);
 extern Game184DF0Camera *D_800DBFF0;
-extern f32 D_800A7378;
-extern f32 D_800D3688;
-extern f32 D_800D368C;
 
 s32 func_15184DF0(s32 arg0, s32 arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
     f32 x;
@@ -151,14 +149,6 @@ void *func_1501A490(void *, s16, s32, s32, s32, s32);
 void *func_1501A680(void *);
 void *func_1502CCFC(void *, s32, s32, Game184150Matrix *, s32, s32 *, s32, s32);
 void *func_1510B7B4(void *, s32);
-extern s16 D_80082FA6;
-extern u8 D_8008D3E8[];
-extern u8 D_8008D448[];
-extern u8 D_800BE9C0;
-extern s32 D_800DF088;
-extern u16 D_800DF0D0[];
-extern u8 D_800DF2F8[];
-extern u8 D_89470[];
 
 void func_15184FA4(Game1B1600Command *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 count;
@@ -278,7 +268,6 @@ void *func_151857DC(u8 *arg0, u8 *arg1, u8 *arg2) {
 s32 func_151858D4(void *arg0) {
     return *(f32 *)((u8 *)arg0 + 8) < *(f32 *)((u8 *)arg0 + 0);
 }
-extern f32 D_800D3688;
 
 void *func_151858FC(u8 *arg0, u8 *arg1, u8 *arg2) {
     f32 ratio;
@@ -292,12 +281,10 @@ void *func_151858FC(u8 *arg0, u8 *arg1, u8 *arg2) {
     *(s16 *)(arg2 + 0x10) = (s32)((f32)(*(s16 *)(arg1 + 0x10) - *(s16 *)(arg0 + 0x10)) * ratio + (f32)*(s16 *)(arg0 + 0x10));
     return arg2 + 0x14;
 }
-extern f32 D_800D3688;
 
 s32 func_151859FC(void *arg0) {
     return D_800D3688 < *(f32 *)((u8 *)arg0 + 8);
 }
-extern f32 D_800D368C;
 
 void *func_15185A28(u8 *arg0, u8 *arg1, u8 *arg2) {
     f32 ratio;
@@ -311,7 +298,6 @@ void *func_15185A28(u8 *arg0, u8 *arg1, u8 *arg2) {
     *(s16 *)(arg2 + 0x10) = (s32)((f32)(*(s16 *)(arg1 + 0x10) - *(s16 *)(arg0 + 0x10)) * ratio + (f32)*(s16 *)(arg0 + 0x10));
     return arg2 + 0x14;
 }
-extern f32 D_800D368C;
 
 s32 func_15185B28(void *arg0) {
     return *(f32 *)((u8 *)arg0 + 8) < D_800D368C;
@@ -398,10 +384,7 @@ void func_100226F0(void *, s32);
 s32 func_1510F720(s32, s32, s32, void **);
 s32 func_150A5B90(u32 *, s32, s32, s32);
 extern u8 *D_800D3668;
-extern u32 *D_800D3694;
-extern u8 D_800DE041;
-extern s32 D_800D3690, D_800DBE3C;
-extern s32 D_800DF0E8, D_800DF0EC, D_800DF0F0, D_800DF0F4;
+extern s32 D_800DBE3C;
 
 s32 func_1518652C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     void *items[16];
@@ -471,14 +454,6 @@ s32 func_1518652C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15186794.s")
-extern s32 D_800DE01C;
-extern s32 D_800DE020;
-extern s32 D_800DE024;
-extern s32 D_800DE030;
-extern s32 D_800DE034;
-extern s32 D_800DE038;
-extern f32 D_800DE03C;
-extern u8 D_800DE040;
 
 void func_151872B0(s32 arg0) {
     D_800DE01C = 0x258;
@@ -522,16 +497,9 @@ void func_150A44F0(s32, void *, s32);
 
 s32 func_150A5E44(void *, s32, s32, s32);
 void func_1510F800(s32);
-extern s32 D_800D3690;
 extern u8 D_800D37E0[];
 extern s32 D_800DBE3C;
-extern s32 D_800DBEF0;
 extern void *D_800DBEF4;
-extern s32 D_800DF0E4;
-extern s32 D_800DF0E8;
-extern s32 D_800DF0EC;
-extern s32 D_800DF0F0;
-extern s32 D_800DF0F4;
 
 typedef struct {
     u8 pad0[0x10];

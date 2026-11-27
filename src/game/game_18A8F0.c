@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_18A8F0.c
@@ -33,7 +34,6 @@ typedef struct Game18A8F0ValueNode {
 
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern void func_100226F0(void *arg0, s32 arg1);
-extern void *D_800DCD78;
 
 void *func_1515D440(void) {
     void *temp_v0;
@@ -52,9 +52,7 @@ void *func_1515D480(s32 arg0) {
     func_100226F0(allocation, (arg0 * 0x60));
     return allocation;
 }
-extern u8 D_800DCD20[];
 extern u8 D_800DCD27;
-extern s32 D_800DCD7C;
 
 void func_1515D4D4(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
     if (arg3 >= D_800DCD27) {
@@ -131,8 +129,6 @@ void func_1515D6C8(void) {
 
 }
 extern s32 D_800BE628;
-extern u8 D_800BE9C0;
-extern s32 D_800DCD10[];
 void func_1515EF74(s32);
 
 typedef struct Game18A8F0Command {
@@ -172,7 +168,6 @@ typedef struct {
 Game18A8F0ColorResult *func_1515EB84(s32, s32, s32, s32,
                                      struct Game18A8F0SearchNode *);
 void func_1515E43C(s32, s32, s32, s32, u8 *, u8 *, u8 *, u8 *);
-extern u8 D_800DCD23;
 extern struct Game18A8F0SearchNode *D_800DCD80;
 
 void func_1515E278(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4, u32 arg5, s32 arg6) {
@@ -217,10 +212,6 @@ void func_1515E278(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4, u32 arg5, s
         }
     }
 }
-extern u8 D_800DCD24[];
-extern u8 D_800DCD28[];
-extern u8 D_800DCD3C;
-extern u8 D_800DCD3D;
 extern struct Game18A8F0SearchNode *D_800DCD84;
 
 void func_1515E43C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4,
@@ -248,7 +239,6 @@ void func_1515E43C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4,
         *arg7 = D_800DCD3D;
     }
 }
-extern u8 D_800DCD40[];
 
 u32 *func_1515E544(u32 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     s32 count;
@@ -274,7 +264,6 @@ u32 *func_1515E544(u32 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
 }
 
 void func_1515E278(s32, s32, s32, s32, u8 *, u32, s32);
-extern u8 D_800D9E21;
 extern u8 *D_800D9E28[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515E888 CURRENT (12477) */
@@ -499,7 +488,6 @@ f32 func_1515F008(s32 arg0, s32 arg1) {
     value = *(u16 *)temp_v1 | (value * 0x10000);
     return (f32)value * 0.000015258789f;
 }
-extern s32 D_800DCD10[];
 
 void func_1515F040(f32 arg0, s32 arg1) {
     f32 var_fv0;
@@ -513,7 +501,6 @@ void func_1515F040(f32 arg0, s32 arg1) {
     arg0 *= 65536.0f;
     D_800DCD10[arg1] = (s32) arg0;
 }
-extern s32 D_800DCD10[];
 
 void func_1515F0AC(f32 arg0, s32 arg1) {
     f32 var_fv0;
@@ -588,7 +575,6 @@ void func_1515F25C(Game18A8F0Node **arg0, Game18A8F0Node *arg1) {
     arg1->next = *arg0;
     *arg0 = arg1;
 }
-extern void (*D_8008B090[])(void *, void *);
 
 void func_1515F270(void *arg0, void *arg1) {
     void (*temp_v1)(void *, void *);
@@ -617,8 +603,6 @@ typedef struct {
     s32 field_1C;
 } Game18A8F0Selection;
 
-extern void (*D_8008B0C0[])(void);
-
 void func_1515F2E8(Game18A8F0State *arg0, Game18A8F0Selection *arg1) {
     s32 temp_v0;
 
@@ -629,9 +613,6 @@ void func_1515F2E8(Game18A8F0State *arg0, Game18A8F0Selection *arg1) {
         }
     }
 }
-extern f32 D_800DCD94;
-extern f32 D_800DCD98;
-extern f32 D_800DCD9C;
 
 void func_1515F338(s32 arg0, s32 arg1) {
     u8 r;
@@ -680,9 +661,7 @@ void func_1515F5C4(s32 arg0, s32 arg1) {
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                        /* extern */
-extern f32 D_800A6530;
 extern f32 D_800BE9A4;
-extern f32 D_800DCDA0;
 
 void func_1515F850(s32 arg0, s32 arg1) {
     f32 temp_fv0;
@@ -765,7 +744,6 @@ void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15145A50(u8 *);
 void func_1507CD64(u8 *, s32);
 s32 func_150AD960(s16, s16, s32, s32);
-extern f32 D_800A6534;
 
 void func_1515FC60(u8 *arg0, u8 *arg1) {
     s32 distance;

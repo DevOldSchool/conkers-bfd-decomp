@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B9F30.c
@@ -97,8 +98,6 @@ typedef struct Game1B9F30State {
     u8 pad3A;
     u8 callback_flags;
 } Game1B9F30State;
-
-extern void (*D_8008D5D0[])(void);
 
 void func_1518CCA8(Game1B9F30State *arg0) {
     s32 packed_delta;

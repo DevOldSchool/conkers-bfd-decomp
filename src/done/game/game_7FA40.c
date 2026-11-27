@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_7FA40.c
@@ -18,9 +19,7 @@ void func_15053750(u8 *);
 void func_15054F74(u8 *);
 void func_150562FC(u8 *);
 void func_150597FC();
-extern f32 D_80099344;
 extern u8 D_800C35EA;
-extern u8 D_800C3654;
 extern u8 D_800C3E78;
 
 typedef struct Game7FA40Owner {

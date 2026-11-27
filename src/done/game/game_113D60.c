@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_113D60.c
@@ -44,9 +45,6 @@ extern Game113D60StartCallback D_80088A20[];
 extern Game113D60EndCallback D_80088A2C[];
 extern Game113D60MotionCallback D_80088A34[];
 extern Game113D60Source D_800A1190[];
-extern f32 D_800A12F8;
-extern f32 D_800A12FC;
-extern f32 D_800A1300;
 extern u8 D_800C35E8;
 extern u8 D_800C35EA;
 f32 func_150ADA68();
@@ -181,7 +179,6 @@ typedef struct Game113D60Segment {
 extern Game113D60Segment *D_80088A44[];
 extern Game113D60Segment *D_80088A3C;
 extern Game113D60Segment *D_80088A40;
-extern f32 D_800A130C;
 
 void func_150E6E34(Vec3f *arg0) {
     Game113D60Segment *segment;
@@ -246,11 +243,6 @@ void func_150E70CC(f32 *arg0, f32 *arg1) {
 }
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_150484A0(f32, f32);
-extern f32 D_800A1310;
-extern f32 D_800A1314;
-extern f32 D_800A1318;
-extern f32 D_800A131C;
-extern f32 D_800A1320;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
@@ -270,13 +262,6 @@ void func_150E70EC(s32 arg0, s32 arg1, void *arg2, void *arg3) {
     *(f32 *)((u8 *)arg3 + 0x1C) = (f32) (func_150ADA68() * 0.5f);
 }
 f32 func_150484A0(f32, f32);                        /* extern */
-extern f32 D_800A1324;
-extern f32 D_800A1328;
-extern f32 D_800A132C;
-extern f32 D_800A1330;
-extern f32 D_800A1334;
-extern f32 D_800A1338;
-extern f32 D_800A133C;
 
 void func_150E71E4(s32 arg0, s32 arg1, void *arg2, void *arg3) {
     *(f32 *)((u8 *)arg3 + 0) = func_150484A0(*(f32 *)((u8 *)arg2 + 0), *(f32 *)((u8 *)arg2 + 8));

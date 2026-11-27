@@ -1,12 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E8710.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_pointer_table_runs.md
  */
-
-extern s32 D_800BE9E4;
 
 s32 func_150BB260(f32 *arg0, s32 arg1) {
     s32 count;
@@ -99,12 +98,6 @@ typedef struct GameE8710Packet {
 
 f32 func_150ADA68(void);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-
-extern const f32 D_8009FE7C;
-extern const f32 D_8009FE80;
-extern const f32 D_8009FE84;
-extern const f32 D_8009FE88;
-extern const f32 D_8009FE8C;
 
 s32 func_150BB498(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                  s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,

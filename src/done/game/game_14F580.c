@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_14F580.c
@@ -7,7 +8,6 @@
  */
 
 void func_15122980(void *);
-extern f32 D_800A3460;
 
 void func_151220D0(void *arg0) {
     f32 vector[3];
@@ -31,7 +31,6 @@ void func_1512A390(void *);
 void func_1512E140(void *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A3470, D_800A3474, D_800A3478, D_800A347C;
 
 void func_15122170(void *arg0) {
     f32 deltaZ;

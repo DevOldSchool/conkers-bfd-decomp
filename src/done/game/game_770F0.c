@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_770F0.c
@@ -22,7 +23,6 @@ typedef struct {
 
 f32 func_10026530(f32);
 extern Game770F0IndexCycle D_80085FF0;
-extern f32 D_80099090;
 
 void func_15049CB8(f32 matrix[4][4], f32 *result) {
     f32 root;
@@ -66,8 +66,6 @@ void func_15049CB8(f32 matrix[4][4], f32 *result) {
 /* Call context: func_15048360: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15048360(f32);
-extern f32 D_80099094;
-extern f32 D_80099098;
 
 void func_15049EDC(f32 *q0, f32 *q1, f32 t, f32 *out) {
     f32 dot;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_33990.c
@@ -19,13 +20,9 @@
  */
 
 extern void func_15017790(void);
-extern s8 D_800BE3DF;
-extern s32 D_800BE3E8;
 extern s32 D_800C3A60;
 extern s32 D_800C3A64;
-extern s32 D_800C3A68[];
 extern s32 D_800C3C88[];
-extern s8 D_800D2E45;
 
 void func_150064E0(void) {
     s32 index;
@@ -45,9 +42,6 @@ void func_150064E0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15006BEC.s")
 void func_10024F10(void);
 s32 func_151DD4E0(u8 *, u8, u8 *);
-extern u8 D_8002AC5C;
-extern u16 D_800BE358;
-extern u8 D_800BE3D8[];
 extern u8 D_800BE900[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1500707C CURRENT (993) */
@@ -99,7 +93,6 @@ typedef struct Game33990Slot {
     s8 f8;
     s8 f9;
 } Game33990Slot;
-extern u8 D_800BE2F0[];
 extern Game33990Slot *D_80082BBC;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15007168 CURRENT (10) */
 void func_15007168(void) {
@@ -158,8 +151,6 @@ void func_1500727C(void) {
     }
 }
 s32 func_151DCEF0();
-extern u8 D_8002AC5C;
-extern u8 D_800BE2F0[];
 extern u8 D_800BE900[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15007360 CURRENT (140) */
@@ -181,10 +172,7 @@ void func_15007360(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15007360 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007360.s")
-extern u8 D_800BE35A;
 extern s8 D_800E0BE0;
-extern s8 D_800E0BFC;
-extern s8 D_8008FE30;
 void func_151DD9E4(s8 *, s8, s8 *);
 void func_151E7EF8(void);
 
@@ -289,8 +277,6 @@ loop:
 void func_15007644(void) {
 
 }
-extern s8 D_80082BB4;
-extern s8 D_800BE3EC;
 
 void func_1500764C(void) {
     D_80082BB4 = 6;
@@ -309,7 +295,6 @@ void func_150076A0(void) {
     D_800BE3EC = 0;
 }
 void func_150064E0(void);
-extern u8 D_800BE616;
 
 void func_150076BC(s32 arg0) {
     if (arg0 < 0) {
@@ -333,12 +318,6 @@ void func_15007750(s32 arg0) {
     }
 }
 extern u8 D_800BE3F8[];
-extern s16 D_800BE3DC;
-extern s8 D_800BE3DE;
-extern s8 D_80082BC0;
-extern s8 D_800BE3DB;
-extern u8 D_800BE3D8[];
-extern u8 D_800D2E60[];
 extern u8 D_800D2E69[];
 extern u8 *D_800D2E4C;
 

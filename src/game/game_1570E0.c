@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1570E0.c
@@ -32,23 +33,6 @@ f32 sqrtf(f32);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1510E7A4(s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32);
-
-extern f32 D_80089560[];
-extern f32 D_80089570[];
-extern f32 D_80089580[];
-extern f32 D_800A3620;
-extern f32 D_800A3624;
-extern f32 D_800A3628;
-extern f32 D_800A362C;
-extern f32 D_800A3630;
-extern f32 D_800A3634;
-extern f32 D_800A3638;
-extern f32 D_800A363C;
-extern f32 D_800A3640;
-extern f32 D_800A3644;
-extern f32 D_800A3648;
-extern f32 D_800A364C;
-extern s32 D_800BEA08;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15129C30 CURRENT (9177) */
 void func_15129C30(Game1570E0Camera *arg0) {

@@ -1,20 +1,13 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_2DDF0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_medium_single_function_units.md
  */
 
-extern u8 D_800A2CD0[][3];
-extern u8 D_800A2CE8[][3];
-extern u8 D_800A2CEC[][3];
-extern u8 D_800A2D04[][3];
 extern u8 *D_800B0DF0;
 extern s16 D_800D9E70[4][3];
-extern u8 D_800D9E88[4][3];
-extern u8 D_800D9E98[4][3];
-extern u8 D_800D9EA8[4][3];
-extern u8 D_800D9EB4[3];
 extern u8 D_800D9EB8[4][3];
 
 void func_15000940(s32 arg0) {

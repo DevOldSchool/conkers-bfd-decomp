@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_119370.c
@@ -25,14 +26,6 @@ f32 func_150ADA68(void);
 void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 s32 func_151C229C(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8,
                   u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
-extern f32 D_800A1500[3];
-extern f32 D_800A150C[3];
-extern u8 D_800A1518[];
-extern u8 D_800A1530[];
-extern u8 D_800A1548[];
-extern f32 D_800A154C;
-extern f32 D_800A1550, D_800A1554, D_800A1558;
-extern f32 D_800A155C, D_800A1560, D_800A1564;
 
 s32 func_150EBEC0(Game119370Actor *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 value;

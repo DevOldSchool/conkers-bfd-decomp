@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_100810.c
@@ -18,8 +19,6 @@ void func_150D4C2C(void *arg0);
 void *func_1503195C(void *, s32, s32);
 s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3);
 s32 func_150D5124(u8 *, s32, u32 *, s32, s32 *, s32, u16 *);
-extern s8 D_8008FD8C;
-extern s32 D_800A09C0[];
 
 typedef struct Game100810Link {
     u8 *id;
@@ -255,7 +254,6 @@ void func_150D3360(void *arg0, u8 arg1, s32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D3A68.s")
-extern f32 D_800A0A10;
 extern u8 D_800C35EA;
 extern void *D_800DBFF0;
 
@@ -408,8 +406,6 @@ void func_150D49C0(u8 *arg0, Game100810Msg *arg1, u8 arg2) {
     }
 }
 s32 func_1514654C(void *, s32, s32, void **, void **, s32);
-extern u8 D_800A09D0;
-extern u8 D_800A09DC;
 
 s32 func_150D4AE0(f32 *arg0, f32 *arg1, void *arg2, s32 arg3) {
     void *sp30[2];
@@ -459,8 +455,6 @@ void func_150D4C2C(void *arg0) {
         func_1516972C(*(void **)((u8 *)temp_s0 + 0x10));
     }
 }
-extern s32 D_800BE9E4;
-extern f32 D_800A0A14;
 
 s32 func_150D4CC4(void *arg0) {
     f32 temp_fv0;

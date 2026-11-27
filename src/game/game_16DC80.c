@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_16DC80.c
@@ -33,7 +34,6 @@ typedef struct Game16DC80Object {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D524();
-extern s32 D_800DC9F0;
 
 s32 func_151407D0(void *arg0, u32 arg1, Game16DC80Descriptor *arg2,
     u8 arg3, u8 arg4, u8 arg5, u8 arg6, s8 arg7, u8 arg8, s32 arg9) {
@@ -74,8 +74,6 @@ typedef struct Game1411E4State {
 } Game1411E4State;
 
 void func_1517E134(void *);
-extern u8 D_80089F9C[];
-extern s32 D_800DC9F0;
 
 void func_151411E4(Game1411E4State *arg0) {
     void **attached = &arg0->field_154;
@@ -86,7 +84,6 @@ void func_151411E4(Game1411E4State *arg0) {
     D_800DC9F0 -= 1;
     (*(void (**)(Game1411E4State *))(D_80089F9C + (arg0->field_168 * 4)))(arg0);
 }
-extern u8 D_80089FE4[];
 
 void func_15141250(Game1411E4State *arg0) {
     void **attached = &arg0->field_154;
@@ -97,10 +94,7 @@ void func_15141250(Game1411E4State *arg0) {
     D_800DC9F0 -= 1;
     (*(void (**)(Game1411E4State *))(D_80089FE4 + (arg0->field_168 * 4)))(arg0);
 }
-extern s32 D_80082FA0;
 extern s32 D_800A5168[];
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 extern u16 *D_800BE9C4;
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];

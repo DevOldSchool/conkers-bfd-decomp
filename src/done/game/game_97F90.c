@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_97F90.c
@@ -6,7 +7,6 @@
  */
 
 void func_15137610(void *, void *, void *, s32, u8, s32);
-extern s32 D_800CC260;
 extern u8 D_800CC2D0;
 extern u8 D_800D1560;
 extern u8 D_800D1570;
@@ -59,10 +59,6 @@ void *func_151CEAAC(s32 arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4);
 void func_1506AC58(s32 arg0, s32 arg1) {
     func_151CEAAC(arg0, 0, 1, 0xFF, 1);
 }
-extern void (*D_80086110[])(void *, s32);
-extern f32 D_800CC254;
-extern f32 D_800CC258;
-extern f32 D_800CC25C;
 
 void func_1506AC8C(void *arg0, s32 arg1, s32 arg2) {
     void (*callback)(void *, s32);

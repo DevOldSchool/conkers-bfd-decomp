@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_179F30.c
@@ -13,8 +14,6 @@ enum {
     ACTION_SELECTOR_35 = 35,
     ACTION_SELECTOR_68 = 68
 };
-
-extern s32 D_800BE9F0;
 
 s32 func_1514CA80(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     u8 flags = 0;
@@ -369,13 +368,7 @@ s32 func_1514CA80(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
 }
 void *func_15155FD4(s32);
 s32 func_1514CA80(void *, s32 *, s32 *, s32 *);
-extern void (*D_8008AACC)(void *);
-extern void (*D_8008AA70[])(void *);
-extern u8 *D_8008AB90[];
-extern u8 D_800A5EC0[];
-extern u8 D_800A5ED8[];
 extern u8 D_800CC2D0[];
-extern u8 D_800BE616;
 
 s32 func_1514D15C(u8 *arg0) {
     s32 first;
@@ -438,7 +431,6 @@ typedef struct {
     s16 dispatch_id;
 } Game179F30DispatchEntry;
 
-extern void (*D_8008AB58[])(s32);
 extern Game179F30DispatchEntry *D_8008ABE8[];
 
 s32 func_1514D310(void *arg0) {
@@ -464,7 +456,6 @@ s32 func_1514D310(void *arg0) {
     return 1;
 }
 s32 func_1514D4B8(s16, s16);
-extern s32 (*D_8008AB64[])(s32, s32, s32);
 
 s32 func_1514D3B0(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     s32 result;
@@ -500,10 +491,6 @@ s32 func_1514D4B8(s16 arg0, s16 arg1) {
 }
 void *func_10022EC0(void *, const void *, u32);
 s32 func_150C5370(f32 *, s32);
-extern f32 D_800A5DE4;
-extern f32 D_800A5DE8;
-extern f32 D_800A5DEC;
-extern f32 D_800A5DF0;
 
 typedef struct {
     void *sp1C;
@@ -558,10 +545,6 @@ void func_1514D564(u8 *arg0) {
 /* Raw US callees establish pointer arguments and the stack byte parameters. */
 s32 func_15189FF0(void *, void *, void *, u8, u8, u8, u8);
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
-extern u8 D_800A58D0[];
-extern u8 D_800A58E4[];
-extern u8 D_800A58F8[];
-extern u8 D_800A590C[];
 
 struct225 *func_15160A58();
 
@@ -826,7 +809,6 @@ void func_1514DB64(void *arg0) {
 void func_1514DB98(void) {
     func_1514F194();
 }
-extern u8 D_800A58A0[];
 struct225 *func_15160A58();
 
 void func_1514DBB8(void *arg0) {
@@ -913,11 +895,6 @@ void func_1514DE88(s32 arg0) {
 
 }
 s32 func_15160CDC(s32, u8, void *, void *, f32, u8, s16, s32, s32, s32, s32, u8, u8, u8, u8, s32);
-extern u8 D_800A58AC[];
-extern u8 D_800A58B8[];
-extern u8 D_800A58C4[];
-extern f32 D_800A5E04;
-extern u8 D_800BE9B4;
 
 void func_1514DE94(s32 arg0) {
     void *effect;
@@ -939,8 +916,6 @@ void func_1514DFD0(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x65) = (s8) (func_15083FB0(9U) + 1);
     *(u8 *)((u8 *)arg0 + 0x101) = (u8) (*(u8 *)((u8 *)arg0 + 0x101) | 0x34);
 }
-extern f32 D_800A5E08;
-extern f32 D_800A5E0C;
 
 void func_1514E00C(void *arg0) {
     struct {
@@ -1042,9 +1017,6 @@ void func_1514E00C(void *arg0) {
     func_151D74B0(arg0, 5, -1, 0xFF, 1);
 }
 
-extern f32 D_800A5E10;
-extern f32 D_800A5E14;
-
 void func_1514E194(void *arg0) {
     struct {
         f32 sp2C;
@@ -1144,9 +1116,6 @@ void func_1514E194(void *arg0) {
     func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0(arg0, 5, -1, 0xFF, 1);
 }
-
-extern f32 D_800A5E18;
-extern f32 D_800A5E1C;
 
 void func_1514E31C(void *arg0) {
     struct {
@@ -1300,7 +1269,6 @@ void func_1514E718(s32 arg0) {
 
 
 void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
-extern u8 D_800A5920;
 
 void func_1514E7C8(s32 arg0) {
     void *temp_v0;
@@ -1592,7 +1560,6 @@ void func_1514EE70(u8 *arg0) {
     temp_v0 = func_1515BE50(&sp20, 0, 0xFF, 1);
     func_1514EC1C((s32)temp_v0, (s32)arg0, 0x16);
 }
-extern Vec3i D_800A5934, D_800A5940, D_800A594C;
 
 typedef struct {
     u8 spC4;
@@ -1757,9 +1724,6 @@ void func_151BB044(void *);
 void func_151BC074(s32);
 void func_151BD2F8(void *, s32, s32);
 void *func_151B9F00(void *, u8, s32);
-extern u8 D_800A5958;
-extern u8 D_800A5964;
-extern u8 D_800BE616;
 
 void func_1514F194(void *arg0) {
     void *effect;
@@ -1781,9 +1745,6 @@ void func_1514F194(void *arg0) {
     }
 }
 s32 func_15160CDC(s32, u8, void *, void *, f32, u8, s16, s32, s32, s32, s32, u8, u8, u8, u8, s32);
-extern s32 D_800A5970[];
-extern s32 D_800A597C[];
-extern f32 D_800A5E58;
 
 typedef struct {
     s32 first;
@@ -1819,7 +1780,6 @@ void func_1514F3CC(void *arg0) {
         func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0xC);
     }
 }
-extern u8 D_800A5988;
 
 void func_1514F44C(s32 arg0) {
     void *temp_v0;
@@ -1867,7 +1827,6 @@ typedef struct Game179F30EffectPacket {
     u8 field_18;
 } Game179F30EffectPacket;
 
-extern f32 D_800A5E5C;
 void *func_150C0AC0(Game179F30EffectPacket *, u8, s32);
 
 void func_1514F5CC(Game179F30Actor *arg0) {

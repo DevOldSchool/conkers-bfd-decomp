@@ -1,6 +1,7 @@
 #include "types.h"
 #include <PR/gbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_215960.c
@@ -40,12 +41,7 @@ struct Game215960Command {
 
 Game215960Command *func_151ED1E0(Game215960Command *);
 extern s32 D_8003C8E0;
-extern s32 D_80000300;
-extern s8 D_8008FD90;
 extern Game215960Dispatch D_8008FFF4[];
-extern u8 D_800BE616;
-extern u8 D_800BE740;
-extern s8 D_800E0BD3;
 extern Game215960State *D_800E0BD8;
 extern u8 D_800E0B94;
 
@@ -87,12 +83,8 @@ typedef s32 (*Game215960Callback)(s32, s32);
 
 extern s32 D_8003C8E0;
 extern Game215960Callback D_8008FFC0[];
-extern s32 D_80090058;
-extern u8 D_800BE9C0;
 extern s32 D_800BE9C8[];
-extern s32 D_800BEBA4;
 extern u8 D_800E0B94;
-extern s16 D_800E0C78;
 
 s32 func_151E8620(s32 arg0) {
     Game215960Callback callback;
@@ -122,8 +114,6 @@ s32 func_151E8620(s32 arg0) {
     }
     return arg0;
 }
-extern f32 D_8008FE1C;
-extern f32 D_8008FE20;
 
 Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh, s32 yh, s32 tile, s32 sStart, s32 tStart, s32 dsdx, s32 dtdy) {
     f32 sx;
@@ -147,13 +137,6 @@ Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh
 s32 func_150859AC(s16, s16);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern s8 D_80087268;
-extern s8 D_8008FD8C;
-extern u8 D_800ABA90[][4];
-extern s16 D_800E0AA0[];
-extern s8 D_800E0BB0;
-extern s8 D_800E0C00[];
-extern u8 D_D14[];
 extern u8 D_D16[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151E966C CURRENT (7949) */
@@ -257,13 +240,7 @@ typedef struct {
 } Game215960Menu;
 
 extern Game215960Menu *D_8008FDD4;
-extern u16 D_8008FDC0;
-extern s8 D_8008FD8C;
-extern u8 D_D10[];
-extern s16 D_800E0AA0[];
-extern s8 D_800E0C00[];
 extern u8 D_800CC2D0[];
-extern char D_800ABAA0[], D_800ABAA4[];
 s32 func_150859AC(s16, s16);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -360,7 +337,6 @@ Game215960Command *func_151E9D18(Game215960Command *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EA15C.s")
 typedef struct GameEADFCPowers { s32 value[7]; } GameEADFCPowers;
 extern GameEADFCPowers D_8009009C;
-extern s32 D_80090074[];
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
@@ -397,7 +373,6 @@ Game215960Command *func_151EADFC(Game215960Command *arg0, s32 arg1, s32 arg2, s3
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB06C.s")
-extern s16 D_8008FDCC;
 extern s32 func_151EA15C(s32, s32, s16, s32);
 
 s32 func_151EB930(s32 arg0) {
@@ -406,8 +381,6 @@ s32 func_151EB930(s32 arg0) {
     }
     return arg0;
 }
-extern s16 D_800E0A80;
-extern s32 D_800E0A90;
 
 s32 func_151EB96C(s32 arg0) {
     s16 alpha;
@@ -469,16 +442,9 @@ s32 func_151EB96C(s32 arg0) {
 void *func_1501A6CC(void *, s32, s32, s32, s32);
 void func_150432BC(f32);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
-extern s32 D_800E0A90;
-extern s32 D_800BE620;
-extern s32 D_800BE624;
-extern u8 D_80090028[];
 extern u8 D_800917F8[];
 extern u8 D_800917EC[];
-extern u8 D_89C[];
-extern u8 D_85D[];
 extern s32 D_80090060;
-extern f32 D_800ABAE8;
 
 Game215960Command *func_151EBB50(Game215960Command *arg0) {
     s32 alpha;
@@ -591,7 +557,6 @@ Game215960Command *func_151EBB50(Game215960Command *arg0) {
     return arg0;
 }
 
-extern s32 D_800E0A90;
 extern Game215960State *D_800E0BD8;
 
 s32 func_151EC178(s32 arg0) {
@@ -612,14 +577,8 @@ s32 func_151EC178(s32 arg0) {
 /* Raw helper15096934 returns its incoming command pointer plus eight bytes. */
 void *func_15096934(void *);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
-extern u8 D_80090028[];
 extern u8 D_800917F8[];
-extern u8 D_80091804[];
-extern u8 D_80091810[];
-extern s32 D_800BE9F0;
-extern s32 D_800E0A74;
 extern u8 D_800E0B97;
-extern u8 D_800E0B96;
 
 Game215960Command *func_151EC1F0(Game215960Command *arg0) {
     s32 alpha;
@@ -661,14 +620,9 @@ typedef struct {
     u8 pad05[0xB];
 } Game215960MenuOption;
 
-extern s8 D_8008FEF8;
 extern s32 D_80090060;
-extern s32 D_800900BC[];
-extern u8 D_800900D4;
 extern u8 D_800BE3F8[];
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
-extern u8 D_800E0A95;
 void *func_151EC648(void *);
 void *func_151EE184(void *);
 Game215960Command *func_151EEBE8(Game215960Command *, s32);
@@ -736,9 +690,6 @@ Game215960Command *func_151EC3E8(Game215960Command *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC648.s")
 void *func_15096934(void *);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
-extern u8 D_80090028[];
-extern u8 D_8009181C[];
-extern u8 D_80091828[];
 extern u8 D_800E0B97;
 
 Game215960Command *func_151ED09C(Game215960Command *arg0) {
@@ -755,9 +706,6 @@ Game215960Command *func_151ED09C(Game215960Command *arg0) {
     return func_15096934(func_151ED430(arg0, D_80091828, 146, 108, 8, 3, 1.0f, 0));
 }
 void *func_1501A6CC(void *, s32, s32, s32, s32);
-extern s32 D_800BE620;
-extern s32 D_800BE624;
-extern u8 D_800E0B96;
 
 Game215960Command *func_151ED1E0(Game215960Command *arg0) {
     if (D_800E0B96 == 0) {
@@ -769,10 +717,6 @@ Game215960Command *func_151ED1E0(Game215960Command *arg0) {
     { Game215960Command *command = arg0++; command->w0 = 0xFB000000; command->w1 = _SHIFTL(0, 24, 8) | _SHIFTL(0, 16, 8) | _SHIFTL(0, 8, 8) | _SHIFTL(D_800E0B96, 0, 8); }
     return func_1501A6CC(arg0, 0, 0, D_800BE620, D_800BE624);
 }
-extern u8 D_8009DEB0[];
-extern u8 D_8009DEB4[];
-extern u8 D_8009DEB8[];
-extern u8 D_8009DEBC[];
 
 void *func_151ED29C(Gfx *arg0, u8 *arg1, s32 *arg2) {
     s32 masks;
@@ -815,7 +759,6 @@ typedef struct Game215960Sprite {
     u8 size;
 } Game215960Sprite;
 
-extern u8 D_8009DEBC[];
 void *func_151ED29C(Gfx *, u8 *, s32 *);
 
 Game215960Command *func_151ED430(Game215960Command *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, s32 arg7) {
@@ -992,8 +935,7 @@ void func_151EDB58(void *uiModel) {
     }
 }
 void func_1503F4B0(void *);
-extern u8 D_507[], D_508[], D_80089470[], D_80090110[], D_80090128[], D_800E0C38[];
-extern s16 D_800E0C30;
+extern u8 D_80089470[];
 
 Gfx *func_151EDBDC(Gfx *arg0, Game1ED90CObject *arg1,
                                 f32 arg2, f32 arg3, f32 arg4) {
@@ -1072,11 +1014,6 @@ s32 func_1502B6BC(u32 *, s32, s32 *, s32, ...);
 s32 func_1510CE60(s32, s32, s32, s32, void *);
 extern Game215960Resource *D_80090138;
 extern Game215960ResourceState *D_800E0C7C;
-extern s8 D_800E0C80;
-extern s8 D_800E0C81;
-extern s8 D_800E0C82;
-extern s8 D_800E0C83;
-extern s8 D_800E0C84;
 
 /* Descriptive role: ui_text_entry_key_models_load.
  * Loads bank-09 entries 453..482 into thirty 12-byte resource records and
@@ -1152,10 +1089,6 @@ void func_151EDF4C(void) {
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")
 u32 func_1502B7F0(s32 *, s32, s32);
-extern u8 D_7FB[], D_887[];
-extern u8 D_800E0A94;
-extern u8 D_800E0C85;
-extern s32 D_8009013C;
 
 Game215960Command *func_151EEBE8(Game215960Command *arg0, s32 arg1) {
     s32 texture;

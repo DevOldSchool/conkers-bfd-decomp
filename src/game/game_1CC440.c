@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1CC440.c
@@ -50,8 +51,6 @@ typedef struct Game1CC440AttachmentOwner {
 /* Call context: func_151423D8: unique active project prototype */
 /* Call context: func_15143E08: unique active project prototype */
 s32 func_15143E08(u16 *);
-extern f32 D_800A8CE0;
-extern f32 D_800A8CE4;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
@@ -180,8 +179,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 u8 func_151D8E20(void);
 s32 func_1519EF90(u8 *, u8, u8 *);
-extern f32 D_800A8CE8;
-extern f32 D_800A8CEC;
 extern u8 D_800AB414[][3];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F1C8 CURRENT (2508) */
@@ -313,7 +310,6 @@ typedef struct Game1CC440TrailPoint {
 
 s32 func_15045800(Vec3f *, u16, f32, void *);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_1519F4F0(u8 *arg0) {
     Game1CC440TrailPoint *base;

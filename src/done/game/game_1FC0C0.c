@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FC0C0.c
@@ -22,9 +23,6 @@ s32 func_151CEC10(void *arg0, void *arg1, void *arg2) {
 }
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800AB00C;
-extern f32 D_800AB010;
-extern s32 D_800BE9E4;
 
 typedef struct { f32 x, y, z; } TrailVec3;
 typedef struct { f32 x, z; } TrailVec2;

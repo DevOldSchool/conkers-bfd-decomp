@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_CDE80.c
@@ -62,10 +63,8 @@ typedef struct {
 extern u32 D_800D3094;
 extern s32 D_800D3098;
 extern s32 D_800DBFF0;
-extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 extern u8 D_800C35EA;
-extern u8 D_800DDF5C[];
 s32 func_1000E46C(s32, s32, s32, s32);
 void func_1000FC18(s32, s16, s16, s16, s32);
 void func_150A23E4(void *);
@@ -169,8 +168,6 @@ reload_count:
 
 f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
-extern f32 D_8009F5A0;
-extern f32 D_8009F5A4;
 
 void func_150A0D14(void *arg0) {
     f32 temp_fs0;
@@ -231,7 +228,6 @@ void func_150A0D8C(void) {
 s32 func_150A1040(s32 arg0) {
     return arg0 + 0x400;
 }
-extern f32 D_8009F5AC;
 
 void func_150A104C(u8 *arg0, u8 **arg1, s32 arg2) {
     GameCDE80Actor actor;
@@ -354,8 +350,6 @@ void func_151C8674(void *, s32);
 void func_1515F270(void *, void *);
 void func_151CE51C(void *, void *);
 extern GameA25D4Color D_800D9EB8[];
-extern u8 D_800D3090;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A25D4 CURRENT (1950) */
 void func_150A25D4(GameA25D4Event *arg0, void *arg1, s32 arg2,
@@ -444,7 +438,6 @@ void func_150A278C(void *arg0) {
     }
 }
 u64 func_100268A4(u64, u64);
-extern u8 D_800D30F0[];
 extern u8 D_800D3270[];
 
 void func_150A2864(u32 arg0, s32 arg1) {
@@ -480,7 +473,6 @@ void func_150A2940(s32 arg0, s32 arg1, s32 arg2) {
 }
 u64 func_10026800(u64, u64);
 extern u16 D_800D2340;
-extern u8 D_800D30F4[];
 extern u8 D_800CC2D0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A29C8 */

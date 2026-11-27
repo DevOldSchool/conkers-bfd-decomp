@@ -5,6 +5,7 @@
 #include <PR/mbi.h>
 #include "game_view.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D0840.c
@@ -46,8 +47,6 @@ void func_151A4590(void *, u8);
 void func_151A499C(void *, u8);
 void func_10010154(s32, void *, s32, s32, s32);
 struct225 *func_15160A58();
-extern f32 D_800A8D50;
-extern f32 D_800A8D54;
 
 void func_151A3390(u8 *arg0, u8 arg1) {
     Game1D0840LaunchPacket packet;
@@ -136,7 +135,6 @@ void *func_151A3504(void *arg0, u8 arg1) {
     }
     return result;
 }
-extern s32 D_800BE9E4;
 extern f32 D_800BE9A4;
 
 typedef struct Game1D0840TimedEntry {
@@ -246,7 +244,6 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
 void func_151A4E9C(void *);
 f32 sqrtf(f32);
 f32 fabsf(f32);
-extern f32 D_800A8D58;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A37C0 CURRENT (12270) */
 s32 func_151A37C0(Game1D0840TimedObject *object) {
@@ -381,8 +378,6 @@ Gfx *func_15142CF0(Gfx *, s32, s32, s32, s32, s32, s32, u8 *);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090CD4[];
-extern s32 D_800D2C9C;
 
 Gfx *func_151A3BE4(u8 *arg0, Gfx *arg1, s16 arg2) {
     Vtx_t *vtx;
@@ -593,7 +588,6 @@ Gfx *func_151A3BE4(u8 *arg0, Gfx *arg1, s16 arg2) {
     }
     return arg1;
 }
-extern f32 D_800A8D5C;
 
 void func_151A4590(void *arg0, u8 arg1) {
     struct {
@@ -673,8 +667,6 @@ typedef struct Game1D0840EmitterPacket {
 
 f32 func_150ADA68(void);
 void *func_15130374(s32, u8, s32, u8, s32);
-extern f32 D_800A8D60;
-extern f32 D_800BE9A8;
 
 void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
                    f32 velocityZ, u8 *owner) {
@@ -734,7 +726,6 @@ void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
         func_10022EC0(result + 0xA8, parameters, 0xC);
     }
 }
-extern s32 D_800BE9E4;
 
 s32 func_151A483C(u8 *arg0, s32 arg1) {
     u8 *temp_v0 = arg0 + 0xA8;
@@ -757,7 +748,6 @@ s32 func_151A483C(u8 *arg0, s32 arg1) {
     }
     return 1;
 }
-extern s32 D_800BE9E4;
 
 s32 func_151A4900(u8 *arg0, s32 arg1) {
     u8 *temp_v1 = arg0 + 0xA8;
@@ -775,7 +765,6 @@ s32 func_151A4900(u8 *arg0, s32 arg1) {
     return 1;
 }
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A8D64;
 
 typedef struct Game1D0840EffectPacket {
     void *field_0;

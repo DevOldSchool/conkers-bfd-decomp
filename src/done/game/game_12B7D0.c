@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_12B7D0.c
@@ -9,7 +10,6 @@
 f32 func_150ADA68();
 void func_15145740(void *, void *, void *, void *, f32);
 s32 func_151C229C(Vec3f *, Vec3f *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
-extern f32 D_800A1FEC;
 
 s32 func_150FE320(void *arg0, u8 arg1, s32 arg2) {
     u32 random;
@@ -42,9 +42,6 @@ void func_15145EA4(s32 *, s32 *, s32, s32);
 void func_151D3E6C(void *, Vec3f *, Vec3f *, s32);
 void func_150FE604(void *, Vec3f *, u8, s32);
 void func_150FE7D4(void *);
-extern s32 D_800A1FC8;
-extern s32 D_800A1FD4;
-extern u8 D_80088B94;
 
 void func_150FE49C(void *arg0, u8 arg1, s32 arg2,
                    Vec3f *arg3, Vec3f *arg4) {
@@ -85,7 +82,6 @@ void func_150FE49C(void *arg0, u8 arg1, s32 arg2,
     }
 }
 void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
-extern s32 D_800A1FE0;
 
 void func_150FE604(void *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     f32 values[2];
@@ -116,8 +112,6 @@ void func_150FE604(void *arg0, Vec3f *arg1, u8 arg2, s32 arg3) {
     }
 }
 void func_151D3E04(void *, f32 *, f32 *, u8, f32);
-extern u8 D_80088B94;
-extern s32 D_800A1FC8;
 
 void func_150FE794(s32 arg0, s32 arg1, s32 arg2) {
     func_151D3E04((void *) arg0, (f32 *) arg2, (f32 *) &D_800A1FC8, D_80088B94, 0.0f);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1308E0.c
@@ -19,7 +20,6 @@ typedef struct {
     Game1308E0State *state;
 } Game1308E0Actor;
 
-extern s32 D_800BE9F0;
 s32 func_1509BE40(s32, s32, s32, s32);
 
 void func_15103430(Game1308E0Actor *arg0) {

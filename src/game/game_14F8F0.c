@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_14F8F0.c
@@ -43,7 +44,6 @@ void func_15123A54(void *);
 void func_1512A390(void *);
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 void func_1512E140(void *);
-extern f32 D_800A34A0;
 
 void func_15122980(Game14F8F0Actor *arg0) {
     f32 sp44[3];

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E8C10.c
@@ -61,11 +62,6 @@ typedef struct GameE8C10Particle {
 
 f32 func_150ADA68(void);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_8009FE94;
-extern f32 D_8009FE98;
-extern f32 D_8009FE9C;
-extern f32 D_8009FEA0;
-extern f32 D_8009FEA4;
 
 s32 func_150BB760(u8 *arg0) {
     GameE8C10Particle particle;
@@ -438,7 +434,6 @@ s32 func_150BCBBC(u8 *arg0) {
         }
     }
 }
-extern f32 D_8009FEF8;
 
 s32 func_150BCFB8(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     f32 temp_fv0;
@@ -465,9 +460,6 @@ s32 func_150BCFB8(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 f32 func_150ADA68(void);
 void func_15143134(f32 *, f32 *, s32);
 void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, u8);
-extern f32 D_8009FF40[12];
-extern f32 D_8009FF70[12];
-extern f32 D_8009FFA0[12];
 
 void func_150BD740(u8 *arg0, u8 arg1, s32 arg2) {
     f32 pointsA[12];
@@ -510,7 +502,6 @@ void func_150BD740(u8 *arg0, u8 arg1, s32 arg2) {
     }
 }
 f32 func_150ADA68(void);
-extern f32 D_8009FFD0, D_8009FFD4, D_8009FFD8, D_8009FFDC, D_8009FFE0, D_8009FFE4;
 
 typedef struct GameE8C10Emission {
     s32 zero, enabled, flags, kind, field10, field14, field18;

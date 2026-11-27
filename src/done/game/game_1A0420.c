@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A0420.c
@@ -18,7 +19,6 @@ typedef struct Game1A0420ViewportPrefix {
     f32 right30;
 } Game1A0420ViewportPrefix;
 
-extern s8 D_800DD2D0;
 extern u8 *D_800BE628;
 
 Game1A0420Command *func_15172F70(Game1A0420Command *cursor) {

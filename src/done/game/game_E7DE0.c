@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E7DE0.c
@@ -8,7 +9,6 @@
 
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);
-extern f32 D_8009FE60;
 
 s32 func_150BA930(f32 *arg0, u8 *arg1, void *arg2, s32 arg3) {
     f32 position[3];
@@ -40,7 +40,6 @@ void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, s32, u8);
 /* The raw caller supplies two additional words beyond the consumed prefix. */
 f32 func_150ADA68();
 extern s32 D_80082FA4;
-extern f32 D_8009FE64;
 extern u8 *D_800DBFF0;
 
 void func_150BAA14(u8 *arg0, u8 arg1, s32 arg2) {

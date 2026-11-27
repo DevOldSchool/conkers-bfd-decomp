@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E9A30.c
@@ -56,8 +57,6 @@ typedef struct Game1E9A30Trail {
     f32 texture;
 } Game1E9A30Trail;
 
-extern s32 D_800BE9E4;
-
 s32 func_151BC64C(u8 *actor) {
     Game1E9A30Trail *entries;
     Game1E9A30Trail *entry;
@@ -106,8 +105,6 @@ s32 func_151BC64C(u8 *actor) {
     }
     return 1;
 }
-extern f32 D_800AA848;
-extern f32 D_800AA84C;
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC794 CURRENT (2670) */
@@ -214,9 +211,7 @@ Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090CD4[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_151BCA90(u8 *arg0, Gfx *arg1, s16 arg2) {
     Vtx_t *vtx;
@@ -447,7 +442,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15134DAC(void *, s32);
-extern f32 D_800AA850;
 
 void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
     Game1E9A30Spawn spawn;
@@ -513,7 +507,6 @@ typedef struct Game1E9A30Owner {
 
 void *func_15130374(void *, u8, s32, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_800AA854, D_800AA858, D_800AA85C;
 
 typedef struct Game1E9A30Emitter {
     u8 pad00;
@@ -588,9 +581,6 @@ void func_151BD43C(Vec3f *arg0, Vec3f *arg1, s32 arg2, s32 arg3, f32 arg4, Game1
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BD43C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD43C.s")
-extern f32 D_800AA860;
-extern f32 D_800AA864;
-extern s32 D_800BE9E4;
 
 f32 func_151BD750(void *arg0) {
     s16 temp_v0;
@@ -921,7 +911,6 @@ typedef struct Game1E9A30GlowObject {
 } Game1E9A30GlowObject;
 
 void func_15145EA4(f32 **, f32 **, s32, s32);
-extern Vec3f D_800AA778, D_800AA784, D_800AA790, D_800AA79C;
 extern u16 **D_800BE728;
 extern Game1E9A30BurstActor D_800CC2D0[];
 

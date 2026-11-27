@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_37F0.c
@@ -30,7 +31,6 @@ typedef struct ThreadState {
 
 s32 func_80022DC0(void);
 void func_80022DE0(s32);
-extern u8 D_10007BF8;
 extern ThreadState *D_8002BDFC;
 
 void func_800037F0(ThreadState *thread, s32 id, void (*entry)(void *),

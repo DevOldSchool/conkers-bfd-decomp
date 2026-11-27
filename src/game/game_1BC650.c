@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1BC650.c
@@ -13,10 +14,6 @@
 
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800BE9A4;
-extern f32 D_800A7B68;
-extern f32 D_800A7B6C;
-extern f32 D_800A7B70;
-extern s32 D_800BE9E4;
 
 typedef struct Game1BC650Interpolation {
     f32 high0, low0, target0;
@@ -62,8 +59,6 @@ s32 func_1518F1A0(Game1BC650InterpolationOwner *arg0) {
     arg0->integer += (s32)((state->target2 - arg0->integer) * D_800A7B70);
     return 1;
 }
-extern f32 D_800A7B74;
-extern f32 D_800A7B78;
 
 s32 func_1518F384(u8 *arg0) {
     struct RangeState {
@@ -120,7 +115,6 @@ void func_1518F49C(u8 *arg0, s32 arg1, u8 arg2) {
         }
     }
 }
-extern s32 D_8008D630;
 s32 func_1518FDC4(void *, s8 *, u8);
 s32 func_1518F5D0(void *, s32, s16, s8, s8, s8, u8, s32, u8, s32);
 
@@ -221,7 +215,6 @@ s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
     }
     return (s32)result;
 }
-extern s32 (*D_8008D67C[])(void *);
 extern void func_1518F8E0(void *arg0);
 
 s32 func_1518F7C4(void *arg0) {
@@ -234,7 +227,6 @@ s32 func_1518F7C4(void *arg0) {
     }
     return 1;
 }
-extern void (*D_8008D680[])(void);
 
 void func_1518F858(void *arg0) {
     s8 *field;
@@ -256,8 +248,6 @@ void *func_1514B8E4(Vec3f *, f32 *, s16, u8, Vec3f *, f32, f32, f32,
                     u8, u8, u8, s32, u8, s16, s16, s32, u8, s32);
 void *func_151D2BA4(void *, void *, s32, u8, s32);
 extern u8 D_800A5480[];
-extern s16 D_800E0968[];
-extern s32 D_800E0990[];
 
 typedef struct {
     void *source;
@@ -528,25 +518,6 @@ s32 func_1518FDC4(void *arg0, s8 *arg1, u8 arg2) {
         return 0;
     }
 }
-extern u8 D_800A7AC8;
-extern u8 D_800A7ACC;
-extern u8 D_800A7AD0;
-extern u8 D_800A7AD4;
-extern u8 D_800A7AD8;
-extern u8 D_800A7ADC;
-extern u8 D_800A7AE0;
-extern u8 D_800A7AE4;
-extern u8 D_800A7AE8;
-extern u8 D_800A7AEC;
-extern u8 D_800A7AF0;
-extern u8 D_800A7AF4;
-extern u8 D_800A7AF8;
-extern u8 D_800A7AFC;
-extern u8 D_800A7B00;
-extern u8 D_800A7B04;
-extern u8 D_800A7B08;
-extern u8 D_800A7B0C;
-extern u8 D_800A7B10;
 
 u8 *func_1519003C(u8 *arg0, s32 *arg1) {
     u8 *var_v1;
@@ -667,10 +638,6 @@ typedef struct Game19021CLocals {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A6760[];
-extern f32 D_800A67C0[];
-extern f32 D_800A6820[];
-extern f32 D_800A8004;
 
 s32 func_1519021C(s32 arg0, u8 *arg1, u8 arg2, s16 arg3, u8 arg4,
                    s32 arg5) {

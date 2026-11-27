@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_305D0.c
@@ -63,7 +64,6 @@ typedef struct {
 } Game305D0Scene;
 
 extern s32 D_800B0E10[4];
-extern s32 D_800B0E20[4];
 extern u32 D_800B0E40[4];
 extern s8 D_800B0E38;
 extern Game305D0AssetEntry *D_800B0E50;
@@ -165,11 +165,6 @@ void func_150031EC(s32 level) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150031EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150031EC.s")
 extern s32 D_800B0E58[];
-extern s8 D_800BC448[];
-extern s32 D_800BE9F0;
-extern s32 D_800D9F58;
-extern s32 D_800D9F5C;
-extern u8 D_800D9F60;
 
 void func_150034B4(void) {
     s32 i;
@@ -189,10 +184,8 @@ void func_150034B4(void) {
 void func_10004074(s32);
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
-extern u8 D_1A37E0;
 extern u16 D_80091D20;
 extern s16 D_800B87A0;
-extern s16 D_800BC444;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15003570 CURRENT (605) */
 void func_15003570(void) {
@@ -242,14 +235,9 @@ typedef struct {
 void func_150026E8(s32);
 s32 func_15002878(void);
 extern s32 D_8003809C;
-extern s32 D_800D2C2C;
-extern s8 D_800D2C68;
 extern s32 D_800D3668[1];
-extern s32 D_800D366C;
-extern s32 D_800DBE38;
 extern s32 D_800DBE3C;
 extern s8 D_800DBE62;
-extern s32 D_800DBEF0;
 extern Game305D0Record *D_800DBEF4;
 
 void func_15003668(s32 arg0) {
@@ -310,8 +298,6 @@ void func_15001A08(void);
 void func_15001BC8(s32, s16 *, s16 *);
 void func_15001CEC(s32);
 void func_150025FC(void);
-extern s16 D_800DBE2A;
-extern s16 D_800DBE2C;
 extern s8 D_800DBE62;
 
 void func_150038A0(void) {

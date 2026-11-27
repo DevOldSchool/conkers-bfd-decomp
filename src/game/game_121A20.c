@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_121A20.c
@@ -176,7 +177,6 @@ typedef struct GameF4A38Actor {
 s32 func_15144B34(s32);
 void func_1000F9D4(s32, s32, s32, s32);
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f64 D_800A1A88, D_800A1A90;
 
 s32 func_150F4A38(GameF4A38Actor *arg0) {
     Game121A20NestedState *nested = &arg0->nested;
@@ -266,7 +266,6 @@ typedef struct GameF4DECChoices {
 
 void func_150F4570(Vec3f *, Vec3f *, u8, f32, f32, f32, u8, s32, u8, s32);
 extern GameF4DECChoices D_80088B20[];
-extern s32 (*D_80088B38[])(void);
 
 void func_150F4DEC(u8 *arg0) {
     GameF4DECChoices *choices;

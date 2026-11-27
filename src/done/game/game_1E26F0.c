@@ -5,6 +5,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E26F0.c
@@ -13,7 +14,6 @@
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15083E90(u8);
-extern f32 D_800AA418;
 
 s32 func_151B5240(s16 arg0, u8 arg1, s32 arg2) {
     s32 temp_v0;
@@ -67,14 +67,7 @@ Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern u8 D_8008FB80;
-extern u8 D_8008FB84;
-extern u8 D_80090F68[];
 extern s32 D_800A4AC8[][2];
-extern f32 D_800AA400[];
-extern f32 D_800AA40C[];
-extern u8 D_800BE9C0;
-extern s32 D_800D2C9C;
 
 Gfx *func_151B5328(Gfx *gdl, u8 *arg1, s16 arg2) {
     Game1E26F0State *state;

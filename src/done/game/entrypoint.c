@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/entrypoint.c
@@ -28,19 +29,10 @@ void func_151DD970(void);
 void func_151E50C8(void);
 void func_151EEFF0(void);
 
-extern u8 D_800BE615;
 extern s8 D_800BE617;
-extern s32 D_800BE9E8;
-extern s32 D_800BE9F4;
-extern s32 D_800BEA00;
-extern s32 D_800BEA04;
 extern u8 D_800BEA10[];
-extern u8 D_800BEA28[];
 extern s16 D_800BEA68[];
-extern s16 D_800BEAA8;
-extern u8 D_800BEAAA;
 extern s8 D_800BEAAB;
-extern s32 D_800D2C28;
 extern u8 D_800E0B94;
 
 void func_15007830(void) {

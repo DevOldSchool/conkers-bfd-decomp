@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1BB950.c
@@ -80,8 +81,6 @@ typedef struct Game1BB950State {
 } Game1BB950State;
 
 void *func_1518D1C0(s32, s16, s16, u8, u8, s32, void *);
-extern u8 D_800A7460;
-extern u8 D_800A749C;
 
 s32 func_1518E66C(Game1BB950State *arg0) {
     func_1518D1C0(arg0->owner, 3, 0, 0, arg0->intensity, arg0->variant, &D_800A7460);
@@ -102,9 +101,6 @@ f32 sqrtf(f32);
 void *func_10022EC0(void *, const void *, u32);
 void func_151D5D60(void *, s16, s32, void **, u8 *);
 
-extern f32 D_800A7B60;
-extern f32 D_800A7B64;
-extern f32 D_800BE9A8;
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 

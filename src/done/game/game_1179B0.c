@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1179B0.c
@@ -25,8 +26,6 @@ typedef struct {
     s8 field2C;
     s8 field2D;
 } Game1179B0Packet;
-
-extern f32 D_800A1438;
 
 void func_150EA500(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     Game1179B0Packet packet;
@@ -86,8 +85,6 @@ typedef struct Game1179B0BurstMotion {
 } Game1179B0BurstMotion;
 
 void *func_151303BC(s32, u8, s32);
-extern f32 D_800A143C, D_800A1440, D_800A1444, D_800A1448;
-extern f32 D_800A144C, D_800A1450, D_800A1454, D_800A1458;
 
 void func_150EA5CC(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, f32 arg5) {

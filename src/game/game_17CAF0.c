@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_17CAF0.c
@@ -1092,7 +1093,6 @@ void func_15152874(Game152874Config *arg0, u8 arg1, s32 arg2) {
         } while (count != 0);
     }
 }
-extern u8 D_800A5FE0[];
 
 void func_15152ABC(Game17CAF0Color *arg0) {
     struct {
@@ -1633,8 +1633,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A6004, D_800A6008, D_800A600C;
-extern f32 D_800A6010, D_800A6014, D_800A6018;
 
 void *func_151541B8(void *arg0, f32 arg1, f32 arg2, f32 arg3,
                     f32 arg4, u8 arg5, s32 arg6) {
@@ -1799,7 +1797,6 @@ void func_15154684(s16 *arg0, u8 arg1, s32 arg2) {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A601C, D_800A6020, D_800A6024, D_800A6028, D_800A602C;
 
 void *func_15154884(Vec3f *arg0, f32 arg1, f32 arg2,
                     f32 arg3, u8 arg4, s32 arg5) {

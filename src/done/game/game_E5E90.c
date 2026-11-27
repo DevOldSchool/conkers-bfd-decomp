@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E5E90.c
@@ -88,11 +89,6 @@ void func_150A8050(void *, f32, f32, f32);
 f32 func_150ADA68(void);
 void *func_1513D594(s32, s32, u8, u8, u8, u8, s16, f32, f32, s32, s32, s32, s32, u8, s32, u8, s32);
 void func_15151A38(GameE5E90Burst *, u8, s32);
-extern s32 D_80088734[];
-extern s32 D_8008873C;
-extern f32 D_8009FDB0;
-extern f32 D_8009FDB4;
-extern f32 D_8009FDB8;
 extern u8 D_800A4AA0[];
 
 s32 func_150B89E0(GameE5E90Object *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
@@ -254,12 +250,6 @@ s32 func_15145C90(s32);
 void func_15151670(GameE5E90SurfaceBurst *, u8, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_8009FDBC;
-extern f32 D_8009FDC0;
-extern f32 D_8009FDC4;
-extern f32 D_8009FDC8;
-extern f32 D_8009FDCC;
-extern f32 D_8009FDD0;
 
 s32 func_150B8F44(GameE5E90Object *arg0, GameE5E90Target *arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 height;

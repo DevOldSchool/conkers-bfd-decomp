@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_79F10.c
@@ -73,9 +74,6 @@ void func_1505A250(f32, f32, f32, f32 *, f32 *);
 f32 fabsf(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(fabsf, sqrtf)
-extern f32 D_800992D8, D_800992DC, D_800992E0;
-extern f32 D_800992E4, D_800992E8, D_800992EC;
-extern f32 D_800992F0, D_800992F4, D_800992F8, D_800992FC, D_80099300;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150511E8 CURRENT (4619) */
 void func_150511E8(Game79F10Actor *arg0) {
@@ -166,9 +164,6 @@ apply:
 f32 func_150484A0(f32, f32);
 f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
-extern f32 D_80099330;
-extern f32 D_80099334;
-extern f32 D_80099338;
 
 f32 func_1505210C(void *arg0, f32 arg1, f32 arg2, f32 *arg3, f32 arg4) {
     f32 sp34;

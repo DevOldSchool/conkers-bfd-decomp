@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_135D00.c
@@ -141,10 +142,6 @@ f32 func_15047D60(f32);
 void func_15108B80(u8 *);
 void func_15108BC0(u8 *);
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800A2470;
-extern f32 D_800A2474;
-extern f32 D_800A2478;
-extern f32 D_800A247C;
 extern f32 D_800BE9A4;
 
 s32 func_15108AB4(u8 *arg0) {
@@ -163,7 +160,6 @@ s32 func_15108AB4(u8 *arg0) {
     func_15108BC0(arg0);
     return 1;
 }
-extern s32 D_800BE9E4;
 
 void func_15108B80(u8 *arg0) {
     u8 *temp_v0;
@@ -200,10 +196,6 @@ void func_15108BC0(u8 *arg0) {
     }
 }
 /* Call context: func_15047D60: unique active project prototype */
-extern f32 D_800A2480;
-extern f32 D_800A2484;
-extern f32 D_800A2488;
-extern f32 D_800A248C;
 
 s32 func_15108C38(u8 *arg0) {
     u8 *temp_s0;
@@ -236,8 +228,6 @@ typedef struct Game135D00MatrixWork {
 
 void func_150A8050(f32 *, f32, f32, f32);
 void func_150A7790(void *, s32);
-extern f32 D_800A2490;
-extern u8 D_800BE9C0;
 
 s32 func_15108D24(u8 *arg0, s32 arg1) {
     f32 matrix[16];
@@ -265,7 +255,6 @@ s32 func_15108D24(u8 *arg0, s32 arg1) {
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
-extern f32 D_800A2494;
 
 s32 func_15108E10(u8 *arg0) {
     u8 *base;

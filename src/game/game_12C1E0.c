@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_12C1E0.c
@@ -21,8 +22,6 @@ void func_150FF474(void *, void *, u8, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
 void *func_151C229C(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, f32 *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
-extern f32 D_800A2110;
-extern u8 D_800BE616;
 
 typedef struct Game12C1E0EmissionOwner {
     u8 pad0[4];
@@ -96,7 +95,6 @@ void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
 }
 extern s32 func_1503195C(void *arg0, s32 arg1, s32 arg2);
 s32 func_1514654C(void *, s32, s32, void **, void **, s32);
-extern u8 D_800A2050;
 
 void func_150FEFD0(void *arg0, s16 arg1, void *arg2) {
     u8 *sp34;
@@ -128,7 +126,6 @@ void func_150FF474(void *, void *, u8, s32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
 void func_150F7470(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, void *, u8, u8, u8, u8, s32, s8, s32, u8, u8, s32);
-extern f32 D_800A2114, D_800A2118;
 
 void func_150FF084(u8 *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
@@ -176,7 +173,6 @@ s32 func_150FF288(void *arg0) {
     return func_1503195C(arg0, 0x82, 0);
 }
 void func_15145740(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4);
-extern f32 D_800A211C;
 
 void func_150FF2AC(void *arg0, void *arg1, void *arg2, void *arg3) {
     func_15145740(arg0, arg1, arg2, arg3, D_800A211C);
@@ -240,7 +236,6 @@ typedef struct Game12C1E0Particle {
 
 f32 func_150ADA68(void);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern f32 D_800A2124, D_800A2128, D_800A212C;
 extern u8 D_800A4AA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF474 CURRENT (1272) */
@@ -299,10 +294,6 @@ s32 func_150FF6B4(void *arg0, s32 arg1, s32 arg2) {
     }
     return 1;
 }
-extern u8 D_800A205C;
-extern u8 D_800A2068;
-extern u8 D_800A2074;
-extern u8 D_800A2080;
 
 typedef struct Game12C1E0Pointers {
     void *head[4];

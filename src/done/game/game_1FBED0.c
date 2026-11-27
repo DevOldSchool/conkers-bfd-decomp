@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FBED0.c
@@ -61,7 +62,6 @@ typedef struct Game1FBED0Spawn {
 f32 func_150ADA68(void);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800AB008;
 
 void *func_151CEAAC(void *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     f32 random;

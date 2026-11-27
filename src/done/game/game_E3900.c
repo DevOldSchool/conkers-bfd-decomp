@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E3900.c
@@ -41,12 +42,6 @@ typedef struct {
 
 void func_15143794(s16, s16, f32, void *);
 void *func_150B3F5C(GameE3900Spawn *, Vec3f *, s16);
-extern Vec3f D_8009FC3C[];
-extern f32 D_8009FC60[], D_8009FC6C[], D_8009FC78[];
-extern s16 D_8009FC84[];
-extern s16 D_8009FC8E[][2];
-extern f32 D_8009FCCC, D_8009FCD0, D_8009FCD4;
-extern f32 D_8009FCD8, D_8009FCDC, D_8009FCE0, D_8009FCE4;
 
 void func_150B648C(u8 arg0) {
     GameE3900Spawn spawn;

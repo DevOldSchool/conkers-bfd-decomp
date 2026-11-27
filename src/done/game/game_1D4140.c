@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D4140.c
@@ -27,7 +28,6 @@ f32 func_150ADA68(void);
 void func_151D5514(f32 *, u8, s32);
 void *func_151541B8(void *, f32, f32, f32, f32, u8, s32);
 void func_151D5334(f32 *, f32, f32, f32, s32, s32, s32);
-extern f32 D_800A8DB0;
 
 void func_151A6C90(void *arg0, u8 arg1, s32 arg2) {
     Vec3f position;

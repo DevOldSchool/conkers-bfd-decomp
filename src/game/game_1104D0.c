@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1104D0.c
@@ -39,8 +40,6 @@ typedef struct {
 } Game1104D0Slot;
 
 extern Game1104D0Slot *D_800D99D0[8];
-
-extern f32 D_800A1030;
 
 void *func_150E3020(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                    s32 arg4, s32 arg5, s32 arg6, f32 arg7, s32 arg8,

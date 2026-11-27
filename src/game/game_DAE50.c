@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DAE50.c
@@ -13,8 +14,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s64 D_800885B0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD9A0 CURRENT (2775) */
 s32 func_150AD9A0(s32 arg0, s32 arg1, s32 arg2) {
@@ -67,7 +66,6 @@ u32 func_150ADA20(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150ADA20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DAE50/func_150ADA20.s")
-extern f32 D_8009F740;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150ADA68 CURRENT (5000) */
 f32 func_150ADA68(void) {

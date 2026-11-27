@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D9F10.c
@@ -138,7 +139,6 @@ typedef struct Game1D9F10Line {
 void *func_10022EC0(void *, const void *, u32);
 void *func_10003C40(s32, s32, s32, s32);
 extern Game1D9F10LineTexture D_80090B60[];
-extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACBD4 CURRENT (15046) */
 Game1D9F10Line *func_151ACBD4(void *arg0, s32 arg1) {
@@ -297,7 +297,6 @@ void func_151AE06C(Game1D9F10Actor *arg0, Game1D9F10Event *arg1) {
 }
 void *func_151AE590(u8);
 void func_151AE2BC(void *, void *, f32, f32, f32);
-extern f32 D_800A9290;
 
 void func_151AE0E4(void *arg0, u8 arg1) {
     u8 *record;
@@ -339,7 +338,6 @@ void func_151AE0E4(void *arg0, u8 arg1) {
     *(u8 **)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x9C) = record;
     *(void **)(record + 0x44) = arg0;
 }
-extern f32 D_800A9294;
 
 void func_151AE264(void *arg0) {
     f32 temp_fv0;
@@ -463,7 +461,6 @@ void func_151AE3A8(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AE3A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE3A8.s")
-extern s32 D_800A9270[];
 extern void *D_800DCE50[][104];
 
 void *func_151AE590(u8 arg0) {

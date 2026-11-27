@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F4D20.c
@@ -86,8 +87,6 @@ void func_150C7968(GameF4D20State *arg0) {
 void func_1000D96C(s32, s32, s32);
 void func_1000DE1C(s32, s32);
 void func_15179FE0(u8, s16, s16, s16, s8, u16, u16, u8, u8, u8, s32);
-extern s32 D_800887F4;
-extern f32 D_800A04D0, D_800A04D4;
 extern u8 *D_800DBFF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C79BC CURRENT (983) */

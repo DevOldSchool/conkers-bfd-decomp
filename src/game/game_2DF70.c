@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_2DF70.c
@@ -21,7 +22,6 @@ typedef struct {
 } ConkerGfx;
 
 extern signed char D_800D9E64;
-extern s8 *D_800B0DE0;
 s32 func_150027F8();
 
 void func_15000AC0(void) {
@@ -30,17 +30,7 @@ void func_15000AC0(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15000AD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001460.s")
-extern s32 D_800B0DE4;
-extern s8 D_800DBE63;
-extern s32 D_800BE9F0;
-extern s32 D_800DBE18[];
-extern s32 D_800DBE1C[3];
-extern s32 D_800DBE20;
-extern s32 D_800DBE24;
 extern s32 D_800B0DC0[];
-extern s32 D_800B0DC4;
-extern s32 D_800B0DC8;
-extern s32 D_80091C04[];
 s32 func_10003C40(s32, s32, s32, s32);
 
 void func_15001970(void) {
@@ -62,15 +52,7 @@ void func_15001970(void) {
     D_800B0DC4 = temp_v0;
 }
 extern s32 D_80000308;
-extern s32 D_800B0DCC;
-extern s32 D_800B0DD0;
-extern s32 D_800B0DDC;
 extern s16 D_800DBE30;
-extern s16 D_800DBE32;
-extern s16 D_800DBE34;
-extern s16 D_800DBE36;
-extern s32 D_80091AF0[];
-extern u8 D_A0000000;
 void func_10023720(s32);
 void func_10023764(s32);
 s32 func_10003C40(s32, s32, s32, s32);
@@ -109,7 +91,6 @@ void func_15001A08(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15001A08 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001A08.s")
-extern s32 D_800B0DCC;
 
 s16 *func_15001B10(void) {
     s16 *temp_v0;
@@ -140,10 +121,6 @@ void func_1510F800();
 void *func_15001DE0(s32, s32, s32, s32, s32, s16 *);
 void func_15002560(void *, void *);
 void func_10004074(s32);
-extern s32 D_800DBE4C;
-extern void *D_800DBE08[];
-extern s32 D_800B0DD4;
-extern s16 D_800B0DD8;
 
 void func_15001BC8(s32 arg0, s16 *arg1, s16 *arg2) {
     s16 *sp20;
@@ -318,9 +295,6 @@ void func_15002008(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 *arg4) {
     func_15001B5C(0);
 }
 
-extern s32 D_80082FA0;
-extern s16 *D_800DBE44;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15002248 CURRENT (3769) */
 s32 func_15002248(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                  s32 *arg4, s32 *arg5, s16 *arg6, s16 **arg7) {
@@ -432,9 +406,6 @@ loop_1:
     }
 }
 extern s32 D_800BE5D0;
-extern s16 D_800DBE2A;
-extern s16 D_800DBE2C;
-extern s16 D_800DBE28;
 s32 func_1502B5C8(u32 *, s32, s32, s32);
 void func_150183D0(s16, s32, s32, s32);
 
@@ -456,11 +427,6 @@ void func_150025FC(void) {
     func_150183D0(D_800DBE28, sp20, sp1C, temp_a3);
     func_10004074(temp_a3);
 }
-extern s32 D_800DBE38;
-extern s32 D_800B0DE4;
-extern s32 D_800DBE18[];
-extern s32 D_800DBE1C[3];
-extern s32 D_800DBE4C;
 
 void func_150026C4(s32 arg0) {
     D_800DBE38 = 0;
@@ -475,9 +441,6 @@ void func_15002724(s32 arg0) {
     D_800DBE38 += func_150027F8(arg0);
 }
 extern s32 D_800DBDD8[];
-extern s32 D_800DBDE8[];
-extern s32 D_800DBDF8[];
-extern s32 D_800DBE50;
 
 void func_15002754(void) {
     D_800B0DC0[0] = (D_800B0DC0[0] + 3) & ~3;
@@ -532,8 +495,6 @@ s32 func_15002878(void) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150028BC.s")
-extern u8 D_800BE616;
-extern f32 D_800DBE64;
 
 void func_15002F40(s32 arg0) {
     if ((arg0 == 0x32) || (arg0 == 0x33)) {
@@ -552,9 +513,7 @@ s32 func_15002FA0(s32 arg0) {
 }
 
 extern s32 D_8003C8E0;
-extern s8 D_8008FD90;
 extern void *D_800B0DF0;
-extern u8 D_800D2F3C;
 extern s32 D_800D2F40;
 s32 func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 void func_150AD770(void);

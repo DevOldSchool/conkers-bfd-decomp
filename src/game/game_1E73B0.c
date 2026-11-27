@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E73B0.c
@@ -31,12 +32,7 @@ void func_15160CDC(
     s32 arg14,
     s32 arg15
 );
-extern u8 D_800AA760;
-extern u8 D_800AA76C;
-extern f32 D_800AA82C;
 
-extern s8 D_8008FD90;
-extern s8 D_800E0BCE[];
 extern u8 D_800CC2D0[];
 void *func_1513B5E0(s8 *, u8, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
@@ -124,10 +120,8 @@ void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {
 void func_150A7790(void *, s32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151EFEB8(void *, s32);
-extern f32 D_800AA7B8;
-extern u8 D_800BE616, D_800BE9C0, D_800C3E90;
-extern void *D_800CC5E8, *D_800CC5EC;
-extern u8 D_800D9D10[];
+extern u8 D_800C3E90;
+extern void *D_800CC5EC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BA084 CURRENT (5050) */
 s32 func_151BA084(void *arg0, s16 arg1) {
@@ -310,16 +304,6 @@ typedef struct Game1E73B0Spray {
     f32 field54;
 } Game1E73B0Spray;
 
-extern f32 D_800AA7E0;
-extern f32 D_800AA7E4;
-extern f32 D_800AA7E8;
-extern f32 D_800AA7EC;
-extern f32 D_800AA7F0;
-extern f32 D_800AA7F8;
-extern f32 D_800AA7FC;
-extern f32 D_800AA800;
-extern f32 D_800AA804;
-extern f32 D_800AA808;
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 s32 func_15145C90(s32);
@@ -461,18 +445,6 @@ void func_151BBFBC(s32, s32, u8, s32);
 void func_151C0644(void *, u8, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);
-extern s32 D_80082FA0;
-extern Vec3f D_8008FBA0;
-extern Vec3f D_8008FBAC;
-extern s8 D_8008FD8C;
-extern f32 D_800AA80C;
-extern f32 D_800AA810;
-extern f32 D_800AA814;
-extern f32 D_800AA818;
-extern f32 D_800AA81C;
-extern f32 D_800AA820;
-extern f32 D_800AA824;
-extern f32 D_800AA828;
 
 void func_151BBA9C(s32 arg0, f32 *arg1, f32 *arg2, u8 arg3, s32 arg4) {
     Vec3f center;
@@ -662,8 +634,6 @@ typedef struct Game1E73B0Glow {
 
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 s32 func_15163414(u8 *, f32 *, f32 *, f32 *, s8, u8, u8, u8, u8, u8, u8, u8, s32, u8, s32);
-extern f32 D_800AA830;
-extern f32 D_800DCA24;
 
 void func_151BC104(Game1E73B0Owner *arg0, u8 arg1, s32 arg2) {
     if (D_80082FA0 < 2 && D_8008FD8C < 5) {

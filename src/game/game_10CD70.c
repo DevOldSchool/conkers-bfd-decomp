@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10CD70.c
@@ -43,8 +44,6 @@ void func_150A2864(u32, s32);
 void func_150A3444(s32, s16, s16, s16);
 void func_151749A0(s32, s32);
 extern Game10CD70Command *D_800B0E00;
-extern s32 D_800BE9E4;
-extern u8 D_800D9950[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF920 CURRENT (5) */
 void func_150DF920(s32 arg0) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1368C0.c
@@ -59,13 +60,8 @@ void *func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
 void func_15143134(f32 *, f32 *, s32);
 s32 func_15145128(void *, void *, f32 *, f32 *);
 f32 func_150ADA68(void);
-extern void (*D_80088C60[])(void *);
-extern void (*D_80088C64[])(void *, Vec3f *,
-    Vec3f *, Vec3f *,
-    Vec3f *, Vec3f *);
-extern Vec3f D_800A24B0[], D_800A2520[];
 extern struct { f32 weights[6]; f32 total; } D_800A2504;
-extern f32 D_800A251C, D_800BE9A4;
+extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151094FC CURRENT (1575) */
 void func_151094FC(void *arg0) {
@@ -207,13 +203,6 @@ typedef struct Game1368C0EmitterOwner {
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15152B38(void *, u8, s32);
 f32 func_150ADA68();
-extern f32 D_800A2634;
-extern f32 D_800A2638;
-extern f32 D_800A263C;
-extern f32 D_800A2640;
-extern f32 D_800A2644;
-extern f32 D_800A2648;
-extern f32 D_800A264C;
 
 void func_15109848(Game1368C0EmitterOwner *arg0, Vec3f *arg1,
                    s32 arg2, s32 arg3, s32 arg4, Vec3f *arg5) {
@@ -346,8 +335,6 @@ typedef struct {
     u8 pad76[6];
 } Game1368C0Burst;
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A2650, D_800A2654, D_800A2658, D_800A265C, D_800A2660, D_800A2664;
-extern f32 D_800A2668, D_800A266C, D_800A2670, D_800A2674, D_800A2678, D_800A267C, D_800A2680;
 
 void func_15109C20(Game1368C0BurstOwner *arg0, Vec3f *arg1,
                    s32 arg2, s32 arg3, s32 arg4, Vec3f *arg5) {
@@ -444,7 +431,6 @@ s32 func_15109ED4(s32 arg0, s16 arg1, s8 arg2, s8 arg3,
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1511490C(void *, void *);
-extern Vec3f D_800A2568[], D_800A25BC[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15109FB8 CURRENT (5111) */
 void func_15109FB8(u8 *arg0) {
@@ -521,8 +507,6 @@ void func_15109FB8(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109FB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109FB8.s")
-extern f32 D_800A2684;
-extern f32 D_800A2688;
 
 typedef struct Game1368C0Locals {
     void *source;
@@ -559,7 +543,6 @@ void *func_1510A344(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
     }
     return value;
 }
-extern Vec3f D_800A2604, D_800A2610, D_800A261C, D_800A2628;
 
 void func_1510A40C(u8 *arg0) {
     Game1368C0Locals *state;

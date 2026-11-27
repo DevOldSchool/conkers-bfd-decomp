@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_200930.c
@@ -32,26 +33,7 @@ s32 func_15145C90(s32);
 
 void func_15152B38(void *, u8, s32);
 extern u8 D_1000EC24[];
-extern s32 D_80082FA0;
-extern f32 D_800AB188;
-extern f32 D_800AB18C;
-extern f32 D_800AB190;
-extern f32 D_800AB194;
-extern f32 D_800AB198;
-extern f32 D_800AB19C;
-extern f32 D_800AB1A0;
-extern f32 D_800AB1A4;
-extern f32 D_800AB1A8;
-extern f32 D_800AB1AC;
-extern f32 D_800AB1B0;
-extern f32 D_800AB1B4;
-extern f32 D_800AB1B8;
-extern f32 D_800AB1BC;
-extern f32 D_800AB1C0;
-extern f32 D_800AB1C4;
-extern f32 D_800AB1C8;
 extern u8 D_800DCA20;
-extern f32 D_800DCA24;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3480 CURRENT (17614) */
 void func_151D3480(void *arg0, f32 *arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5) {
@@ -368,7 +350,6 @@ block_9:
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_151D3D50(u8 *arg0) {
     typedef struct { s32 words[3]; } Copy3;
@@ -484,7 +465,6 @@ void func_151D3FF4(f32 *arg0, u8 arg1, s32 arg2) {
 }
 f32 func_150484A0(f32, f32);
 void func_1507C3E0(void *, s16 *, s16 *, s16 *);
-extern f32 D_800AB1CC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D40D4 CURRENT (1532) */
 void func_151D40D4(void *arg0, void *arg1, s32 arg2, void *arg3,
@@ -518,7 +498,6 @@ void func_151D40D4(void *arg0, void *arg1, s32 arg2, void *arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D40D4.s")
 
 f32 func_150484A0(f32, f32);
-extern f32 D_800AB1D0;
 
 void func_151D42E8(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
     f32 f;
@@ -640,7 +619,6 @@ void func_151D4668(void *arg0) {
     func_151494E0(&sp, 0x3C);
 }
 void *func_10022EC0(void *, const void *, u32);
-extern void (*D_8008FC70[])(u8 *, s16, void *);
 
 typedef struct Game200930SpawnPacket {
     u8 *owner;
@@ -678,14 +656,6 @@ void func_151D469C(u8 *arg0, u8 arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(result + 0x28, &packet, 0x20U);
     }
 }
-extern f32 D_800AB1FC;
-extern f32 D_800AB200;
-extern f32 D_800AB204;
-extern f32 D_800AB208;
-extern f32 D_800AB20C;
-extern f32 D_800AB210;
-extern f32 D_800AB214;
-extern f32 D_800BE9A8;
 
 typedef struct Game200930TrailDescriptor {
     s32 field00;
@@ -894,7 +864,6 @@ void func_15138C80(void *, u8, s32);
 struct Game1C2050Owner;
 struct Game1EF500EmitterVector;
 void func_151C2050(struct Game1C2050Owner *, struct Game1EF500EmitterVector *, struct Game1EF500EmitterVector *, s32, f32);
-extern f32 D_800AB218;
 
 void func_151D4DAC(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
     s32 sp24;
@@ -1001,7 +970,6 @@ void func_151D5174(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4,
     }
 }
 void func_15164F0C(u8, u8, void *, u8, s32);
-extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5334 CURRENT (928) */
 void func_151D5334(void *arg0, f32 arg1, f32 arg2, f32 arg3, u8 arg4,
@@ -1293,7 +1261,6 @@ void func_151D5A18(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32
 }
 s32 func_151452C4(void *, void *, Vec3f *, f32, Vec3f *, Vec3f *, f32 *, f32 *);
 extern s32 (*D_80086C90[])(void *, void *, s32);
-extern s32 D_800BE9F0;
 
 s32 func_151D5B6C(void *arg0, void *arg1, void *arg2, s8 arg3, s32 arg4) {
     s32 index;
@@ -1350,7 +1317,6 @@ s32 func_151D5B6C(void *arg0, void *arg1, void *arg2, s8 arg3, s32 arg4) {
     return result;
 }
 s32 func_10003C40(s32, s32, s32, s32);
-extern u8 D_800BE9C0;
 
 void func_151D5D60(void **arg0, s16 arg1, s32 arg2, void **arg3, u8 *arg4) {
     u8 fallback;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_12560.c
@@ -22,7 +23,6 @@ void func_85016170(s32);
 void func_85043A00(Mp3TextTransport *, s32, s32);
 void func_851F3C1C(void (*)(s32, u8 *, s32));
 void D_10012560(s32, u8 *, s32);
-extern u8 D_800427B0[];
 
 void func_80012588(s32 arg0) {
     func_85016170(arg0);
@@ -32,7 +32,6 @@ void func_80012588(s32 arg0) {
 s32 func_851F2CDC(void);
 void func_851F2D6C(s32, s32);
 void func_851F2BA8(void);
-extern s32 D_800BE9F8;
 
 void func_800125CC(s32 arg0) {
     s32 state;

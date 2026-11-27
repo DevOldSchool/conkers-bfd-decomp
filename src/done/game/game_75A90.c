@@ -1,13 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_75A90.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
-
-extern u16 D_80085EC0[];
-extern u16 D_80085F3C[];
-extern u16 D_80085FBC[];
 
 s32 func_150485E0(s32 arg0) {
     s32 var_a1;

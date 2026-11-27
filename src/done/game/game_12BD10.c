@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_12BD10.c
@@ -13,18 +14,12 @@ typedef struct Game12BD10State {
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
 
-extern u8 D_80088BA0;
-extern s32 D_800A2000;
-
 f32 func_150ADA68(void);
 void func_150FEC28(void *, s32, void *, void *, void *, s32, s32);
 void func_15145740(void *, void *, void *, void *, f32);
 void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
 void func_151D5148(void *);
 void *func_151C229C(void *, void *, void *, void *, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
-extern u8 D_800A200C[];
-extern u8 D_800A2018[];
-extern u8 D_800A2024[];
 f32 fabsf(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(fabsf)
@@ -103,11 +98,6 @@ void func_150FEBC8(Game12BD10State *arg0, s32 arg1, s32 arg2) {
 f32 func_150ADA68(void);
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                    s32, s32, s32, s32, s32);
-extern f32 D_800A203C;
-extern f32 D_800A2040;
-extern f32 D_800A2044;
-extern f32 D_800A2048;
-extern f32 D_800A204C;
 
 void func_150FEC28(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4,
                    s32 arg5, s32 arg6) {

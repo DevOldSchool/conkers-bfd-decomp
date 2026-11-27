@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10E510.c
@@ -24,7 +25,6 @@ typedef struct Game10E510Payload1060 {
 void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
 s32 func_1510FD20(s32, s32);
-extern u8 D_800A0FE0[];
 
 s32 func_150E1060(u8 arg0, u8 arg1, s32 arg2) {
     s32 result;
@@ -85,9 +85,6 @@ typedef struct Game10E510Descriptor {
 f32 func_150ADA68(void);
 void func_15145CD0(Game10E510Object1060 *, f32 **, f32 **, s32);
 void *func_15130374(void *, u8, s32, u8, s32);
-extern s32 D_80082FA0;
-extern f32 D_800A0FE4[][3];
-extern f32 D_800A0FFC[][3];
 extern f32 D_800BE9A4;
 
 void func_150E114C(u8 *arg0) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FB060.c
@@ -9,7 +10,6 @@
 void func_1514C678(f32, f32, f32, f32, s16, s16, s16, u8, s32, f32, s32, u8);
 s32 func_15046C80(f32 *, u16, f32, f32 *);
 void func_1504715C(f32 *, void *);
-extern f32 D_800A07B0;
 
 void func_150CDBB0(void *arg0, u8 arg1, s32 arg2) {
     f32 position[3];
@@ -57,7 +57,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 f32 func_150ADA68(void);
-extern f32 D_800A07B4, D_800A07B8, D_800A07BC, D_800A07C0;
 
 s32 func_150CDCF4(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -135,8 +134,6 @@ typedef struct GameFB060TransformParticle {
 } GameFB060TransformParticle;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A07C4, D_800A07C8, D_800A07CC, D_800A07D0;
-extern f32 D_800A07D4, D_800A07D8, D_800A07DC, D_800A07E0;
 
 s32 func_150CDF10(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,

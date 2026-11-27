@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_B4080.c
@@ -27,8 +28,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern u8 *D_800D2350;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
@@ -66,7 +65,6 @@ void func_15086C70(s32 arg0) {
     temp_v1 = *(s16 *)((u8 *)temp_v0 + 4);
     func_150A3194(3, 0xB, *(s16 *)((u8 *)temp_v0 + 0), *(s16 *)((u8 *)temp_v0 + 2), temp_v1);
 }
-extern s16 D_80087290;
 
 s32 func_15086CBC(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     s32 temp_v1;
@@ -196,8 +194,6 @@ s32 func_15086D48(s32);
 s32 func_150888A8(u8, u8, s8);
 void func_15088824(void *);
 s32 func_10003C40(s32, s32, s32, s32);
-extern s32 D_800872A0, D_800D2394;
-extern s8 D_800D23A8, D_800D2398, D_800D2399, D_800D239A, D_8008FD90;
 
 void func_150870D0(s32 arg0, s32 arg1, s32 arg2) {
     u8 *base;
@@ -285,9 +281,6 @@ void func_150870D0(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087350.s")
 void func_150891E8(void *, void *);
 void func_150896EC(void *, void *, s32);
-extern s32 D_800872A0;
-extern s8 D_800D2398;
-extern s8 D_800D23A9;
 extern u8 D_800CC2D0;
 
 void func_15087CC0(void) {
@@ -356,7 +349,6 @@ void func_15087E54(s32 arg0, u8 *arg1) {
     }
 }
 /* Call context: func_1505A630: unique active declaration in the allowed source */
-extern s8 D_800D23A8;
 
 void func_15087EF0(s32 arg0, u8 *arg1) {
     union { u8 *entry; s32 angle; } value;
@@ -381,7 +373,6 @@ void func_15087EF0(s32 arg0, u8 *arg1) {
         *(s16 *)((u8 *)arg1 + 0x76) = value.angle;
     }
 }
-extern s32 D_800872A0;
 
 void func_15087FC4(s32 arg0, s32 arg1) {
     u8 *entry;
@@ -391,7 +382,6 @@ void func_15087FC4(s32 arg0, s32 arg1) {
         *(s8 *)(entry + 0x31) = arg1;
     }
 }
-extern s32 D_800872A0;
 
 void func_15087FEC(s32 arg0, s32 arg1) {
     u8 *entry;
@@ -405,7 +395,6 @@ s32 func_1507BB28(s32, s32);
 extern u8 D_800CC2D0;
 extern s8 D_800C3E78;
 extern void *D_800D154C;
-extern u16 D_800D18A0;
 
 s32 func_1508802C(u8 *arg0, u8 *arg1, s32 arg2) {
     void *object;
@@ -428,7 +417,6 @@ s32 func_1508802C(u8 *arg0, u8 *arg1, s32 arg2) {
     *(s8 *)(arg0 + 0x30) = 2;
     return 0;
 }
-extern s8 D_800D239A;
 
 s32 func_150880F8(s32 arg0, s32 arg1) {
     u8 *entry;
@@ -453,7 +441,6 @@ s32 func_150880F8(s32 arg0, s32 arg1) {
     D_800D239A++;
     return result;
 }
-extern s32 D_800872A0;
 
 s32 func_150881CC(u8 *arg0) {
     f32 *entry;
@@ -464,7 +451,6 @@ s32 func_150881CC(u8 *arg0) {
     entry = (f32 *)(((s32) arg0 * 0x84) + D_800872A0);
     return (s32) (*entry * 256.0f);
 }
-extern s32 D_800872A0;
 
 s32 func_15088218(s32 arg0) {
     u8 *temp_a0;
@@ -498,7 +484,6 @@ s8 func_150882B0(s32 arg0) {
     entry = (u8 *)((arg0 * 0x84) + D_800872A0);
     return *(s8 *)(entry + 0x27);
 }
-extern s8 D_800D2398;
 
 s32 func_150882E4(s32 arg0, s32 arg1) {
     s32 var_a0;
@@ -558,8 +543,6 @@ typedef struct GameB4080SearchActor {
     u8 pad7C[0xA8];
     u8 field124;
 } GameB4080SearchActor;
-
-extern f32 D_8009DA00;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150883B0 CURRENT (1234) */
 void *func_150883B0(s32 arg0, s32 arg1, f32 *arg2, s32 *arg3) {
@@ -621,7 +604,6 @@ void *func_150883B0(s32 arg0, s32 arg1, f32 *arg2, s32 *arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150883B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150883B0.s")
 extern u8 D_800CC2D0;
-extern s8 D_800D2399;
 
 s32 func_1508855C(s32 arg0) {
     s32 index;
@@ -657,7 +639,6 @@ void func_150885EC(s32 arg0, s32 arg1) {
     }
 }
 void func_15088824(void *);
-extern s32 D_800D2394;
 
 /* Keep slot addresses inline: a named offset local changes IDO stack layout. */
 s32 func_1508868C(u8 *arg0) {
@@ -687,7 +668,6 @@ s32 func_1508868C(u8 *arg0) {
     return -1;
 }
 s32 func_1508855C(s32);                             /* extern */
-extern s32 D_800D2394;
 
 void func_15088780(s32 arg0) {
     s32 temp_v0;
@@ -830,11 +810,6 @@ typedef struct GameB4080ProgressEntry {
     s8 actor;
 } GameB4080ProgressEntry;
 
-extern u8 D_800BE616;
-extern s8 D_800D2390, D_800E0BE7;
-extern s16 D_800E0C10[];
-extern s32 D_800E0C18[];
-
 s32 func_15088A08(void *arg0, f32 arg1) {
     GameB4080ProgressEntry *entry = arg0;
     f32 phase;
@@ -944,7 +919,6 @@ void func_15088F30(GameB4080SearchEntry *, f32 *, f32 *, f32 *);
 f32 func_150497E0(f32 *, s32, f32);
 f32 func_150498A4(f32 *, s32, f32, f32 *);
 f32 func_15144BC8(f32);
-extern f32 D_8009DA04;
 
 void func_15088D58(GameB4080SearchActor *arg0) {
     GameB4080SearchEntry *entry;
@@ -1136,9 +1110,6 @@ u8 func_1508907C(u8, u8, u8, u8);
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1512D560(void *, s32, void *);
-extern f32 D_8009DA0C;
-extern f32 D_8009DA10;
-extern s32 D_800BE9E4;
 
 void func_150896EC(void *arg0, void *arg1, s32 arg2) {
     u8 *model;
@@ -1258,9 +1229,6 @@ void func_15089BB0(void) {
 }
 void *func_1509B570(s32);
 void func_1508BC20(void);
-extern f32 D_800872B0[], D_800872F8[];
-extern s8 D_800872F0[], D_800E0BD0;
-extern s32 D_800D2E48;
 
 s32 func_15089BC0(void) {
     f32 *scales;
@@ -1379,7 +1347,6 @@ s32 func_15089F9C(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508A1BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508A6FC.s")
-extern s8 D_8008FD90;
 extern s32 D_8008FDD4;
 
 s16 func_1508B194(s32 arg0) {
@@ -1391,7 +1358,6 @@ s16 func_1508B194(s32 arg0) {
     offset = arg0 * 0xC;
     return *(s16 *)((u8 *)(D_8008FDD4 + offset) + 0x70);
 }
-extern s8 D_8008FD90;
 extern s32 D_8008FDD4;
 
 void func_1508B1D4(s32 arg0) {
@@ -1536,7 +1502,6 @@ s32 func_1508B9BC(void) {
 }
 
 f32 func_150ADA68(void);
-extern s8 D_8008FD8C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BC20 CURRENT (3749) */
 void func_1508BC20(void) {
@@ -1749,7 +1714,6 @@ void *func_1505EEF4(s32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 f32 func_15086D94(f32, f32, f32, f32, f32);
-extern s16 D_800872C4[];
 
 void func_1508C1A4(s32 arg0, s32 arg1) {
     s32 blocked;
@@ -1834,8 +1798,6 @@ void func_1508C1A4(s32 arg0, s32 arg1) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C5B8.s")
-extern s8 D_8008FD8C;
-extern u16 D_800D18A0;
 extern GameB4080Table *D_800D23B0;
 extern u8 D_800CC2D0;
 
@@ -1868,7 +1830,6 @@ s32 func_1508C9CC(void) {
     *(s8 *)((u8 *)D_800D23B0 + 0x1702) = current;
     return found;
 }
-extern s8 D_8008FD90;
 
 s8 func_1508CA88(void) {
     (*(s8 *)((u8 *)D_800D23B0 + 0x1703))++;
@@ -1895,9 +1856,6 @@ typedef struct GameB4080TargetActor {
 
 void func_1508EB90(s32, s32, s32);
 f32 func_150ADA68(void);
-extern s8 D_800872E8[];
-extern s16 D_80087320[][3];
-extern s8 D_800E0BD0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508D850 CURRENT (1752) */
 s32 func_1508D850(s32 arg0) {
@@ -2169,7 +2127,6 @@ void func_1508EC5C(s32 arg0, s32 arg1) {
     func_1509BFB0(1, temp_v0 | 0x2000, 0x61, arg1);
 }
 extern u32 D_80087380;
-extern void *D_800D23C0;
 
 typedef struct GameB4080Group {
     u16 unk0;
@@ -2200,7 +2157,6 @@ s32 func_1508ECC0(u16 arg0, u16 arg1, u16 arg2) {
     return -1;
 }
 extern u32 D_80087380;
-extern void *D_800D23C0;
 
 void func_1508EDBC(u32 arg0) {
     s32 temp_v0;

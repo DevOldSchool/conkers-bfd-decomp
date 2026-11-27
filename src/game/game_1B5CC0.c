@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B5CC0.c
@@ -20,8 +21,6 @@ void func_10004074(s32);
 void func_100226F0(void *, s32);
 void func_15188A58(void *, void **);
 void func_10023A10(void *, void *, s32);
-extern void *D_800DF7CC;
-extern u8 D_800BE9C0;
 
 void func_15188810(void *arg0, s32 arg1, s32 arg2) {
     u8 *var_s0;
@@ -185,7 +184,6 @@ typedef struct Game1B5CC0Item {
 
 extern void (*D_8008D580[])(Game1B5CC0Item *);
 extern void (*D_8008D588[])(Game1B5CC0Item *);
-extern s32 D_800BE9E4;
 
 void func_15188B74(s32 arg0) {
     Game1B5CC0Item **head;
@@ -240,7 +238,6 @@ void func_15188B74(s32 arg0) {
     }
 }
 extern u8 D_80089470[];
-extern void *(*D_8008D590[])(void *, void *, s16);
 
 typedef struct Game1B5CC0Command {
     u32 w0;
@@ -301,9 +298,7 @@ void func_15188E48(u8 *arg0) {
         arg0[2]++;
     }
 }
-extern u8 **D_80089240;
 extern u8 **D_80089250[];
-extern u16 D_800DBEE8[];
 extern u8 *D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15188F84 CURRENT (3198) */
@@ -375,7 +370,6 @@ s32 func_1502C974(s32, s32, s32, s32, s32);
 s32 func_1503DA9C(void *, s32, s32, s32);
 u8 func_150849CC(u8 *, s32 *);
 extern u8 D_800CC2D0;
-extern s32 D_800DF7C0;
 extern s8 D_800DF7C4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151895F4 CURRENT (3031) */

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E2880.c
@@ -58,7 +59,6 @@ typedef struct {
 f32 func_150ADA68(void);
 void *func_15107700(void *, s16, s16, s16, s32, f32, f32, s16, s16, u8 *, u8, s32);
 void func_15107B78(void *, s16, s16, u8, s32);
-extern f32 D_8009FC20, D_8009FC24, D_8009FC28, D_8009FC2C;
 extern f32 D_800BE9A4;
 
 void func_150B54A8(u8 *arg0) {

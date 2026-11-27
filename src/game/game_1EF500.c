@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1EF500.c
@@ -30,9 +31,7 @@ void func_1000E7A0(u32, s32);
 s32 func_100114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 s32 func_1510F8CC(s32);
 s32 func_1000B060(f32, f32, u32);
-extern f32 D_800AAA30, D_800AAA34;
 extern Game1C2050Scene *D_800B0DF0;
-extern u8 D_800BE616;
 
 void func_151C2050(Game1C2050Owner *arg0, Vec3f *arg1,
                     Vec3f *arg2, s32 arg3, f32 arg4) {
@@ -287,7 +286,6 @@ void func_1000F85C(u16, s16, s32);
 s32 func_10010F30(s32, u16, u8, s16, s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern s32 D_80082FA0, D_800BE9E4;
 extern Game1C2734Sound D_8008FBE8[];
 extern f32 D_800BE9A4;
 extern Game1C2734Listener *D_800DBFF0;
@@ -560,10 +558,7 @@ s32 func_15102920(f32, u8, void *, void *, s16, u8, u8, s32, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15152B38(void *, u8, s32);
 f32 func_150ADA68();
-extern f32 D_800AAA3C;
-extern f32 D_800AAA40;
 extern u8 D_800DCA20;
-extern f32 D_800DCA24;
 
 void func_151C2F48(Game1EF500EmitterOwner *arg0) {
     Game1EF500EmitterState *state;
@@ -672,16 +667,6 @@ typedef struct Game1EF500EmitterSpawn {
     /* The constructor copies a full 0x70-byte record; these fields are unused here. */
     u8 fields66[0xA];
 } Game1EF500EmitterSpawn;
-
-extern f32 D_800AAA54;
-extern f32 D_800AAA58;
-extern f32 D_800AAA5C;
-extern f32 D_800AAA60;
-
-extern f32 D_800AAA44;
-extern f32 D_800AAA48;
-extern f32 D_800AAA4C;
-extern f32 D_800AAA50;
 
 void func_151C329C(Vec3f *arg0, u8 arg1, s32 arg2) {
     Game1EF500EmitterParticle descriptor;
@@ -1012,10 +997,6 @@ typedef struct Game1EF500TimedOwner {
     u8 padD[0x1B];
     Game1EF500TimedEmitter emitter;
 } Game1EF500TimedOwner;
-
-extern f32 D_800AAA80;
-extern f32 D_800AAA84;
-extern s32 D_800BE9E4;
 
 void func_151C4644(Game1EF500TimedOwner *arg0) {
     u8 *object;

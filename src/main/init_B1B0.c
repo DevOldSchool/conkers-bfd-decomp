@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_B1B0.c
@@ -118,10 +119,7 @@ typedef struct {
 } SequenceVolumeEntry;
 
 extern SequenceVolumeEntry D_8002B074[];
-extern u8 __osRdbWriteOK[];
-extern u8 D_8002B9F4[];
 extern SequenceRecordState D_800419A8[];
-extern u8 D_80041E58[];
 void func_800226F0(void *, s32);
 
 SequenceRecordState *func_8000B2F4(s32 arg0) {
@@ -215,8 +213,6 @@ s32 func_8000B548(s32 (*arg0)[]) {
     }
     return count;
 }
-extern s32 D_80041F04;
-extern s32 D_800BE9F0;
 void func_800085B8(u8, s32, u8);
 void func_800088F0(u8, s32, s32);
 void func_80008790(u8, s32, u8, s32);
@@ -282,9 +278,6 @@ s32 func_8000B830(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-extern s32 D_800BE9F0;
-extern s32 D_80041F08;
-extern s32 D_80041F0C;
 s32 func_8000C530(s32, u8, f32, f32, f32);
 s32 func_8000E46C(s32, s32, s32, s32);
 s32 func_8000E588(s32, s32, s32);
@@ -388,12 +381,6 @@ s32 func_8000BC28(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-extern f32 D_8002C220;
-extern f32 D_8002C224;
-extern f32 D_8002C228;
-extern f32 D_8002C22C;
-extern f32 D_8002C230;
-extern f32 D_8002C234;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 s32 func_850A29C8(s32, s32);
@@ -442,7 +429,6 @@ s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     return arg0;
 }
 extern u8 D_800C35EA;
-extern s32 D_800BE9E4;
 void func_800086FC(u8, u8, u8);
 void func_80008744(u8, u8, u8);
 void func_8000886C(u8, s32, u8);
@@ -592,7 +578,6 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-extern s32 D_800BE9E4;
 void func_800085F8(u8, s32);
 void func_800086FC(u8, u8, u8);
 void func_80008744(u8, u8, u8);
@@ -669,9 +654,6 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     D_80041F08 = 0;
     return (countdown * 4) | mode | (low << 8) | (high << 16) | fade;
 }
-extern s32 D_8002B070;
-extern s32 D_800BE9F0;
-extern f32 D_8002C238;
 f32 sqrtf(f32);
 s32 *func_8000B1B0(s32);
 void func_8000D96C(s32, s32, s32);
@@ -708,7 +690,6 @@ s32 func_8000C7E8(s32 arg0, s32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     func_8000E40C(0x3E, (s32)value);
     return arg0;
 }
-extern s32 D_800BE9F0;
 
 s32 func_8000C934(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     union {
@@ -739,7 +720,6 @@ s32 func_8000C934(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return result.value | 0x80000000;
 }
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
-extern s32 D_800BE9F0;
 
 s32 func_8000CA18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 value;
@@ -763,7 +743,6 @@ s32 func_8000CA18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 void func_80011FA0(s32);
 void func_80008790(u8, s32, u8, s32);
-extern s32 D_800BE9F0;
 
 s32 func_8000CAE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 bit2;
@@ -839,7 +818,6 @@ void func_8000CC54(s32 arg0) {
         }
     }
 }
-extern s32 D_800BE9E4;
 
 s32 func_8000CD40(s32 arg0, s32 arg1, s32 arg2) {
     if (arg1 != arg0) {
@@ -865,7 +843,6 @@ typedef struct {
 
 extern SequenceModeEntry D_8002B078[];
 
-extern u8 D_800418AC[];
 s32 func_8000853C(u8);
 
 s32 func_8000CDA0(u8 arg0, SequenceRecordState *record) {
@@ -892,13 +869,6 @@ s32 func_8000CDA0(u8 arg0, SequenceRecordState *record) {
     }
     return arg0 == 0;
 }
-extern s32 D_800417C0[][16];
-extern s32 D_800418B0[][16];
-extern s32 D_80041880[];
-extern s32 D_80041890[];
-extern s32 D_800418A0[];
-extern u8 D_80041970[][16];
-extern u8 D_800419A0;
 extern u8 D_800CC2D0[];
 void func_8507E7E4(void *, u8, u8, s32, s32);
 void func_800084D8(u8);
@@ -1152,7 +1122,6 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
         }
     }
 }
-extern s8 D_80041F00;
 extern u16 D_800427F4;
 s32 func_851F2CDC(void);
 void func_8000CEAC(s32);
@@ -1421,7 +1390,6 @@ void func_8000DE1C(s32 arg0, s32 arg1) {
 }
 s32 func_8000853C(u8);
 extern SequenceRecordState D_800419A8[];
-extern u8 D_80041E58[];
 
 void func_8000DEC4(void) {
     s32 index;
@@ -1561,7 +1529,6 @@ void func_8000E17C(void) {
         index++;
     } while ((SequenceRecordState *)D_80041E58 != &D_800419A8[index]);
 }
-extern s8 D_80041F00;
 
 void func_8000E2F4(s32 arg0) {
     s32 i;
@@ -1705,14 +1672,10 @@ s32 func_8000E704(s32 arg0, s32 arg1, s32 arg2) {
     }
     return 0;
 }
-extern s32 D_8002B070;
 
 void func_8000E75C(s32 arg0) {
     D_8002B070 = arg0 >> 1;
 }
-extern s32 D_80041F04;
-extern s32 D_80041F08;
-extern s32 D_80041F0C;
 
 s32 func_8000E770(s32 *arg0, s32 *arg1) {
     if (arg0 != 0) {
@@ -1751,7 +1714,6 @@ void func_8000E8C4(s32 arg0) {
         D_80041F04 &= ~1;
     }
 }
-extern u8 D_800418AC[];
 
 s32 func_8000E8F0(s32 arg0) {
     s32 *record;
@@ -1762,12 +1724,6 @@ s32 func_8000E8F0(s32 arg0) {
     }
     return 0;
 }
-extern s32 D_800417C0[][16];
-extern s32 D_800418B0[][16];
-extern s32 D_80041880[];
-extern s32 D_80041890[];
-extern s32 D_800418A0[];
-extern u8 D_800419A0;
 void func_80008F24(u8);
 
 void func_8000E934(void) {

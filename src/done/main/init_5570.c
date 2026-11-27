@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_5570.c
@@ -27,10 +28,6 @@ typedef struct PakReply {
 void func_80025750(void);
 void func_80025794(void);
 s32 func_800257C0(s32, void *);
-extern u8 D_8003BC30[][64];
-extern u8 D_8003BD30[][64];
-extern u8 D_800429D0[64];
-extern u8 D_80042A50;
 
 s32 func_80005570(PakDevice *device) {
     u8 *ptr;

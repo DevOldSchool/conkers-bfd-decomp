@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/blood.c
@@ -218,11 +219,7 @@ typedef struct {
     f32 accumulator;
 } BloodDrip;
 
-extern s32 D_800BE9E4;
-extern u8 D_800BE9C0;
 extern u8 D_800C35EA;
-extern void (*D_80089A70[])(f32, f32, f32, f32, f32, f32, void *);
-extern s32 (*D_80089AA0[])(void *);
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
@@ -330,7 +327,6 @@ void func_151346EC(void *arg0) {
 void func_1513470C(void *arg0) {
     func_15169824(arg0);
 }
-extern void (*D_80089AAC[])(void);
 
 void func_1513472C(BloodState *arg0) {
     s32 temp_v0;
@@ -344,7 +340,6 @@ void func_1513472C(BloodState *arg0) {
     }
     D_80089AAC[temp_v0]();
 }
-extern void (*D_80089AD4[])(void);
 
 void func_1513477C(BloodState *arg0) {
     s32 temp_v0;
@@ -455,10 +450,6 @@ typedef struct {
     f32 accumulator;
 } BloodTrail;
 
-extern s32 (*D_80089B18[])(void *);
-extern void (*D_80089AFC[])(f32, f32, f32, f32, f32, f32, void *);
-
-extern s32 D_800BE9E4;
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
 void func_151349D0(BloodTrail *trail) {
@@ -529,8 +520,6 @@ void func_15134C98(BloodState *arg0, s32 arg1, u8 arg2) {
 void func_15134CD4(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 
 }
-extern f32 D_800A45B0;
-extern s32 D_800BE9E4;
 
 s32 func_15134CEC(void *arg0) {
     s32 temp_v1;
@@ -708,9 +697,6 @@ s32 func_15135658(f32 *arg0) {
     arg0[0x1D] = 1.0f;
     return 1;
 }
-extern u8 D_800A3FB4;
-extern u8 D_800A3FBC;
-extern f32 D_800A45B4;
 
 f32 func_15135670(s32 arg0) {
     return (f32)func_151422DC(0, &D_800A3FB4, 0, 0x7D0, 0x3E8,
@@ -746,7 +732,6 @@ typedef struct {
 } Blood356D4Kinds;
 
 extern Blood356D4Kinds D_80089BA0;
-extern s32 D_80089BA4;
 extern Blood356D4Kinds D_80089BA8;
 
 void *func_151356D4(Blood356D4Position *arg0, f32 arg1, f32 arg2, f32 arg3, u8 arg4, u8 arg5, s16 arg6, s16 arg7, s16 arg8, s16 arg9, u8 arg10, s32 arg11) {
@@ -1016,10 +1001,6 @@ void func_1504715C(void *, void *);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 s32 func_15046C80(f32 *, u16, f32, void *);
 f32 func_150ADA68(void);
-extern f32 D_800A460C;
-extern f32 D_800A4610;
-extern f32 D_800A4614;
-extern f32 D_800A4618;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15136404 CURRENT (1329) */
 void func_15136404(Blood364Actor *actor, f32 radius, volatile s32 kind, s32 mode) {
@@ -1225,8 +1206,6 @@ s32 func_15136A1C(BloodState *arg0) {
     }
     return 1;
 }
-extern f32 D_800A461C;
-extern f32 D_800A4620;
 
 void func_15136A50(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
     struct {
@@ -1258,9 +1237,6 @@ void func_15136A50(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
 f32 func_150ADA68(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, u8, s32);
-extern f32 D_800A4624;
-extern f32 D_800A4628;
-extern f32 D_800A462C;
 
 void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, void *arg6) {
@@ -1329,15 +1305,10 @@ void func_15150D1C(Blood36C3CSpray *, u8, s32);
 void func_151A9834(Vec3f *, f32, f32, void *, s32, u8, s8 *, u8, s32);
 void func_151C61A0(s32, s32, u8, s32);
 void func_1513A48C(Vec3i *, u8, s32);
-extern s32 *D_80089A20[];
-extern f32 D_800A3C30;
-extern s32 D_800A3F14[];
-extern s32 D_800A3F64[];
 extern Blood1380B4Vector D_800A3FD8[];
 extern Blood1380B4Vector D_800A3FF8;
 extern Blood1380B4Vector D_800A40C8;
 extern Blood1380B4Vector D_800A40F8;
-extern f32 D_800A4630;
 
 void func_15136C3C(Blood36C3CActor *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
                    u8 arg5, u8 arg6, s32 arg7) {
@@ -1531,10 +1502,6 @@ void *func_151B5BF0(Vec3f *, Vec3f *, f32, Vec3f *, Vec3f *, f32, s32, s32,
                     s32, f32, s32, s32, s32, s32);
 void *func_151B6010(Vec3f *, Vec3f *, f32, Vec3f *, Vec3f *, f32, s32, s32,
                     s32, f32, s32, s32, s32, s32);
-extern f32 D_800A481C;
-extern f32 D_800A4820;
-extern f32 D_800A4824;
-extern u8 D_800A3FE6[];
 
 void func_1513783C(Blood36C3CActor *arg0, u8 arg1, s32 arg2) {
     Vec3f position;
@@ -1651,7 +1618,6 @@ s32 func_15137C64(Vec3f *arg0, Vec3f *arg1, Vec3f *arg2,
     return 1;
 }
 f32 func_150ADA68();                                /* extern */
-extern f32 D_800A4828;
 
 s32 func_15137E10(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x74) = (f32) (((func_150ADA68() * 50.0f) + 580.0f) * D_800A4828);
@@ -1678,7 +1644,6 @@ void func_15137E60(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
     func_151D9014(position, vector, 0, value, count, (u8)alpha, scale, 0,
                    1.0f, 1.0f, 1, 0, 1, 0, arg5[0xC], arg5[1]);
 }
-extern f32 D_800A482C;
 
 void func_15137F30(
     f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
@@ -1736,9 +1701,6 @@ s32 func_151380B4(Blood1380B4State *actor, s32 effectProfileIndex, f32 *outPosit
     func_15143134(D_800A3FD8[effectProfileIndex].values, outPosition, (s32)(actorMatrices + 0x300));
     return 1;
 }
-extern u8 D_800A4058;
-extern u8 D_800A4068;
-extern u8 D_1000EBC4;
 void *func_15134DAC(void *, s32);
 
 void func_15138120(Blood1380B4State *arg0, s32 arg1, u8 arg2) {
@@ -1835,12 +1797,6 @@ typedef struct Blood382E0Packet {
 } Blood382E0Packet;
 
 void func_15153F18(s16 *, void *, s32, s32, s32);
-extern u8 D_800A3FE6[];
-extern f32 D_800A4830;
-extern f32 D_800A4834;
-extern f32 D_800A4838;
-extern f32 D_800A483C;
-extern f32 D_800A4840;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151382E0 CURRENT (1000) */
 void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
@@ -1925,17 +1881,6 @@ extern Blood38424Ids4 D_800A4130;
 extern Blood38424Ids4 D_800A4140;
 extern Blood38424Ids2 D_800A4150;
 extern Blood38424Ids2 D_800A4158;
-
-extern f32 D_800A4844;
-extern f32 D_800A4848;
-extern f32 D_800A484C;
-extern f32 D_800A4850;
-extern f32 D_800A4854;
-extern f32 D_800A4858;
-extern f32 D_800A485C;
-extern f32 D_800A4860;
-extern f32 D_800A4864;
-extern f32 D_800A4868;
 
 void func_15138424(Blood1380B4State *arg0, f32 *arg1, s32 arg2, void *arg3, u8 arg4, s32 arg5) {
     Vec3f angles;
@@ -2054,8 +1999,6 @@ typedef struct Blood39578Particle {
 } Blood39578Particle;
 
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A486C;
-extern f32 D_800A4870;
 
 s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
                   s32 arg3, f32 arg4, s32 arg5) {
@@ -2222,12 +2165,6 @@ void func_1503F404(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 
-extern u8 D_800A4160[];
-extern s32 D_800A4168[];
-extern s32 D_800A4178[];
-extern Vec3f D_800A4188[];
-extern Vec3f D_800A41B8;
-
 void func_15138E98(Blood1380B4State *arg0, f32 *arg1, u8 arg2, void *arg3, u8 arg4, s32 arg5) {
     u8 index;
     Vec3f position;
@@ -2390,8 +2327,6 @@ void func_15138E98(Blood1380B4State *arg0, f32 *arg1, u8 arg2, void *arg3, u8 ar
         func_1513264C(&spray, 3, 0xFF, (s32)arg3, 0, arg4, arg5);
     }
 }
-extern f32 D_800A48F8;
-extern f32 D_800A48FC;
 
 s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
                    s32 arg3, f32 arg4, s32 arg5) {
@@ -2440,10 +2375,6 @@ s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
 }
 
 s32 func_151C5F44(f32 *, Vec3f *, f32, f32, u8, s16, f32, u8, void *, u8, s32);
-extern u8 D_800A41C4[];
-extern s32 D_800A41C8[];
-extern s32 D_800A41D8[];
-extern Vec3f D_800A41E8[];
 
 void func_15139768(Blood1380B4State *arg0, f32 *arg1, f32 arg2, void *arg3, u8 arg4, s32 arg5) {
     u8 index;
@@ -2576,11 +2507,6 @@ void func_15139768(Blood1380B4State *arg0, f32 *arg1, f32 arg2, void *arg3, u8 a
         }
     }
 }
-
-extern u8 D_800A4218[];
-extern s32 D_800A421C[];
-extern s32 D_800A4228[];
-extern Vec3f D_800A4234[];
 
 void func_15139D74(Blood1380B4State *arg0, f32 *arg1, void *arg2, u8 arg3, s32 arg4) {
     u8 index;
@@ -2731,10 +2657,6 @@ void func_15133E3C(s32, u8);
 void func_1515080C(BloodA24CDescriptor *, s32 *, f32 *, s32,
                    void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
 extern BloodA24CLookup D_800A4258;
-extern f32 D_800A4938, D_800A493C, D_800A4940;
-extern f32 D_800A4944, D_800A4948, D_800A494C;
-extern u8 D_800BE616;
-extern s32 D_800BE9F0;
 
 void func_1513A24C(Vec3f *arg0, s32 *arg1, f32 *arg2, s32 arg3,
                    f32 arg4, u8 arg5, u8 arg6, u8 *arg7, void *arg8,
@@ -2825,8 +2747,6 @@ typedef struct {
 } BloodA48CConfig;
 
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
-extern u8 D_800A4260[];
-extern u8 D_800A4264[];
 
 void func_1513A48C(Vec3i *arg0, u8 arg1, s32 arg2) {
     BloodA48CConfig config;
@@ -2883,8 +2803,6 @@ typedef struct {
 } BloodA5E0Config;
 
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
-extern u8 D_800A4268[];
-extern u8 D_800A4270[];
 
 void func_1513A5E0(s32 arg0, u8 arg1, s32 arg2) {
     BloodA5E0Config config;
@@ -2908,10 +2826,6 @@ void func_1513A5E0(s32 arg0, u8 arg1, s32 arg2) {
     func_15152190(&config, D_800A4268, D_800A4270, 2, 0.0f, 1,
                   arg1, arg2);
 }
-extern u8 D_800A4278[];
-extern s32 D_800A4280[];
-extern s32 D_800A4290[];
-extern Vec3f D_800A42A0[];
 
 void func_1513A6E0(Blood1380B4State *arg0, f32 *arg1, void *arg2, u8 arg3, s32 arg4) {
     u8 index;
@@ -3035,11 +2949,6 @@ void func_1513A6E0(Blood1380B4State *arg0, f32 *arg1, void *arg2, u8 arg3, s32 a
         }
     }
 }
-
-extern u8 D_800A42D0[];
-extern s32 D_800A42D4[][2];
-extern s32 D_800A42E4[][2];
-extern Vec3f D_800A42F4[][2];
 
 void func_1513ABB8(Blood1380B4State *arg0, f32 *arg1, u8 arg2, void *arg3, u8 arg4, s32 arg5) {
     u8 index;
@@ -3174,10 +3083,6 @@ void func_1513B0B8(BloodState *arg0, s32 arg1, u8 arg2) {
     }
 }
 
-extern u8 D_800A4324[];
-extern s32 D_800A4328[];
-extern s32 D_800A4330[];
-extern f32 D_800A4338[][3];
 void func_1513B0F8(Blood1380B4State *arg0, f32 *arg1, void *arg2, u8 arg3, s32 arg4) {
     u8 index;
     Vec3f rotation;

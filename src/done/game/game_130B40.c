@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_130B40.c
@@ -16,11 +17,6 @@ typedef struct Game130B40Word {
 
 extern Game130B40Word D_800A2350;
 extern Game130B40Word D_800A2354;
-extern f32 D_800A2358;
-extern f32 D_800A235C;
-extern f32 D_800A2360;
-extern f32 D_800A2364;
-extern f32 D_800A2368;
 
 typedef struct Game130B40Params {
     s32 field_0;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_42DD0.c
@@ -11,7 +12,6 @@ typedef struct Game42DD0Range {
 } Game42DD0Range;
 
 extern Game42DD0Range D_80082F80[];
-extern u8 (*D_80085990[])[224];
 extern u8 *D_80085994[];
 u8 *func_10003C6C(s32, s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DDF10.c
@@ -7,7 +8,6 @@
  */
 
 f32 func_150ADA68();                                /* extern */
-extern f32 D_8009F870;
 
 void func_150B0A60(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4, s16 *arg5) {
     f32 roll;
@@ -72,7 +72,6 @@ void func_1514373C(f32, f32, f32 *, f32 *);
 void func_15143794(s16, s16, f32, void *);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
                   f32, f32, s32, s32, s32, s32, s32, s32);
-extern f32 D_8009F860[], D_8009F868[];
 extern f32 D_800A5480[3], D_800BE9A4;
 extern u8 D_800CC2D0[];
 

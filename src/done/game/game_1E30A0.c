@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E30A0.c
@@ -30,8 +31,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 void func_15002FB4(s32);
 void D_1500310C(void);
-extern s8 D_8008FDA8;
-extern f32 D_800AA430;
 
 void *func_151B5BF0(Vec3f *arg0, Vec3f *arg1,
                    f32 arg2, Vec3f *arg3, Vec3f *arg4,
@@ -128,10 +127,6 @@ void func_151B5E8C(void) {
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_15047D60(f32);
 void func_15133894(void *);
-extern f32 D_800AA434;
-extern f32 D_800AA438;
-extern f32 D_800AA43C;
-extern f32 D_800AA440;
 extern f32 D_800BE9A4;
 
 typedef struct Game1E30A0Wobble { f32 a; f32 b; } Game1E30A0Wobble;

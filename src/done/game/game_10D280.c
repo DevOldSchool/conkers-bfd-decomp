@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10D280.c
@@ -91,7 +92,6 @@ f32 func_150ADA68(void);
 void *func_15107700(void *, s16, s16, s16, s32, f32, f32, s16, s16, u8 *, u8, s32);
 void func_15107B78(void *, s16, s16, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_800BE9E4;
 
 void func_150DFEFC(Game10D280Effect *arg0) {
     Game10D280EffectState *state;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_203340.c
@@ -10,9 +11,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 typedef struct Game203340Command { u32 first, second; } Game203340Command;
 
@@ -52,9 +50,6 @@ Game203340Command *func_151D5E90(Game203340Command *arg0, s32 arg1, s32 arg2, s3
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5E90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D5E90.s")
-
-extern s32 D_800BE620;
-extern s32 D_800BE624;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D61B0 CURRENT (90) */
 void func_151D61B0(void *arg0) {
@@ -124,11 +119,7 @@ Game203340Command *func_151D6418(Game203340Command *arg0, s32 arg1, s32 arg2, s3
     return arg0;
 }
 void func_100043B4(void *, s32);
-extern u8 D_80038080;
-extern s32 D_800BE570;
-extern s8 D_800BE574;
 extern s8 D_800BE575;
-extern s32 D_800BE9F0;
 
 void func_151D66F0(s32 arg0, s32 arg1) {
     if ((D_800BE9F0 != 6) || (D_80038080 != 0)) {
@@ -152,8 +143,6 @@ s32 func_10003C40(s32, s32, s32, s32);
 Game203340Command *func_151D6418(Game203340Command *, s32, s32, s32);
 Game203340Command *func_151D5E90(Game203340Command *, s32, s32, s32);
 extern s32 D_8002AAE8[];
-extern u8 D_800BE9C0;
-extern u8 D_800BEAC0;
 
 
 Game203340Command *func_151D6778(Game203340Command *arg0) {

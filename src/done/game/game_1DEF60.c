@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DEF60.c
@@ -68,8 +69,6 @@ f32 func_150ADA68(void);
 void *func_15130374(void *, u8, s32, u8, s32);
 void func_15143134(f32 *, f32 *, s32);
 extern f32 D_800BE9A4;
-extern Vec3f D_8008FAD0;
-extern Vec3f D_8008FADC;
 
 void func_151B1B34(Game1DEF60Emitter *arg0) {
     struct Game1DEF60Link *link;

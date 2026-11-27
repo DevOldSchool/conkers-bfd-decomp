@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DF930.c
@@ -27,12 +28,6 @@ void func_150B2494(void *arg0, s32 arg1, s32 arg2) {
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_15156190(s32, u8, s32, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_8009F900;
-extern f32 D_8009F904;
-extern f32 D_8009F908;
-extern f32 D_8009F90C;
-extern f32 D_8009F910;
-extern f32 D_8009F914;
 
 typedef struct GameDF930Particle {
     f32 position[3];

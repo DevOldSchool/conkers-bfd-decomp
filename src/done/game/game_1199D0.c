@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1199D0.c
@@ -223,15 +224,6 @@ typedef struct Game1199D0Camera {
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 s32 func_1509BE40(s32, s32, s32, ...);
 void func_1509BFB0(s32, s32, s32, ...);
-extern f32 D_80088AD0;
-extern f32 D_80088AD4;
-extern f32 D_80088AD8;
-extern f32 D_80088ADC;
-extern f32 D_80088AE0;
-extern f32 D_80088AE4;
-extern f32 D_80088AE8;
-extern f32 D_80088AEC;
-extern f32 D_80088AF0;
 
 void func_150ECC70(Game1199D0Camera *arg0) {
     s32 value;

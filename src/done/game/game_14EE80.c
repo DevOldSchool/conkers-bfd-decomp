@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_14EE80.c
@@ -24,7 +25,6 @@ typedef struct {
     f32 eye_z;
 } Game14EE80Bounds;
 
-extern s8 D_8008FD8C;
 extern Game14EE80Actor D_800CC2D0[];
 
 void func_151219D0(Game14EE80Bounds *arg0) {
@@ -105,7 +105,6 @@ typedef struct {
 } Game14EE80State;
 
 void func_15049688(void *, f32, void *, f32, f32, f32);
-extern f32 D_800A3430;
 
 void func_15121C00(Game14EE80State *arg0, f32 arg1, s32 arg2, f32 arg3, f32 arg4) {
     func_15049688(&arg0->field_37C, arg1, &arg0->field_8C0, arg3,

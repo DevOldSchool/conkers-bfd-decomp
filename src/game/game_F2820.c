@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_vec.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F2820.c
@@ -56,8 +57,6 @@ typedef struct {
     u8 field_38;
 } GameF2820State;
 
-extern void (*D_800887B8[])(void *);
-
 void func_150C5470(GameF2820State *arg0) {
     s32 temp_v0;
 
@@ -69,7 +68,6 @@ void func_150C5470(GameF2820State *arg0) {
     }
     D_800887B8[temp_v0](arg0);
 }
-extern void (*D_800887C0[])(void *);
 
 void func_150C54C0(GameF2820State *arg0) {
     s32 temp_v0;
@@ -96,7 +94,6 @@ void func_150C553C(void *arg0) {
     func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0xC8));
     func_150C5450(arg0);
 }
-extern s32 (*D_80088760[])(u8 *);
 
 void func_150C5568(u8 *arg0) {
     s32 result;
@@ -179,7 +176,6 @@ void func_150C5C74(void *arg0) {
 void func_150C5C9C(void *arg0) {
     func_1514D3B0(arg0, 0x15, 2, 0);
 }
-extern void (*D_800887C8[])(void *, void *, u8);
 
 void func_150C5CC4(void *arg0, void *arg1, u8 arg2) {
     void (*temp_v0)(void *, void *, u8);

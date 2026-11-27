@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_CB3D0.c
@@ -10,11 +11,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern f32 D_800D2FC0[];
-extern f32 D_800D2FD8[];
-extern u8 D_800D2FEC[];
-extern s32 D_800D3840;
 
 typedef struct GameCB3D0Record {
     s32 pad0;
@@ -64,7 +60,6 @@ s32 func_150882E4(s32, s32);
 s32 func_150887F8(void);
 s16 func_1508B194(s32);
 void *func_15083E90(u8);
-extern s8 D_800E0BD0;
 extern s8 D_800E0BE0[];
 extern u16 D_8008FDBC;
 

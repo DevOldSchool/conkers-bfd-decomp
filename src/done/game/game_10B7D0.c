@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10B7D0.c
@@ -61,7 +62,6 @@ typedef struct GameDE458State {
 
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 void func_1510D874(s32, s32, s32, s32, s32);
-extern s32 D_800BE9E4, D_80090204[];
 
 void func_150DE458(void *arg0) {
     GameDE458State *state = arg0;
@@ -116,11 +116,6 @@ void func_150DE458(void *arg0) {
         }
     }
 }
-extern f32 D_800A0D48;
-extern f32 D_800A0D4C;
-extern f32 D_800A0D50;
-extern f32 D_800A0D54;
-extern s32 D_800BE9E4;
 
 void func_150DE6D8(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x12) = (s16) (s32) ((func_15048A40((s32) *(s32 *)((u8 *)arg0 + 0x7C) >> 3) * D_800A0D48) + D_800A0D4C);

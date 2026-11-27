@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_30E90.c
@@ -14,9 +15,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150039E0.s")
 extern s32 D_800DBEF4;
-extern u8 D_800DBF88;
-extern s32 D_800DBF8C;
-extern s32 D_800DBF90;
 
 void func_15004574(void) {
     void *temp_v1;
@@ -43,11 +41,7 @@ void func_151150B0(s32);
 void func_15116058(void *);
 void func_15116110(void *);
 extern s32 *D_80089250[];
-extern f32 D_800959D0, D_800959D4;
-extern u8 D_800BE9C0;
 extern s16 D_800D37E0;
-extern u8 D_800DBF08[], D_800DBF48[];
-extern s32 D_800DBEF0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150045C4 CURRENT (2577) */
 void func_150045C4(s32 arg0) {
@@ -173,9 +167,6 @@ void func_150049A4(s8 *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150049A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150049A4.s")
-extern s32 D_800DBEF0;
-extern s32 D_800DBEF8;
-extern s32 D_800DBEFC;
 
 /* Semantic role: placed_object_reset_vertex_cache_slots.
  * Clear per-object cache-pointer/countdown slots without freeing payloads.
@@ -196,9 +187,6 @@ void func_15004A4C(void) {
         } while (objectIndex < D_800DBEF0);
     }
 }
-extern u16 D_800BE2A0;
-extern u16 D_800BE2A2;
-extern u16 D_800BE2A4;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
@@ -266,8 +254,6 @@ void func_15004AAC(void *arg0, s32 arg1) {
         D_800BE2A4 += 1;
     }
 }
-extern s32 D_800DBEF0;
-extern u8 D_800DBF00;
 
 /* Semantic role: placed_object_choose_id.
  * Exhaustion returns 255 in ascending mode or the starting ID in descending

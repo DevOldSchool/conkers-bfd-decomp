@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_D36C0.c
@@ -14,9 +15,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern f32 D_8009F6A0;
 extern f32 D_800D35E0[2];
-extern f32 D_800D9B20;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6210 CURRENT (10295) */
 s32 func_150A6210(u8 *arg0, f32 arg1, f32 arg2, f32 arg3,
@@ -60,7 +59,6 @@ void func_150A6354(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A6354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6354.s")
-extern f32 D_800D9B20;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6360 CURRENT (10115) */
 s32 func_150A6360(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
@@ -114,8 +112,6 @@ typedef struct GameD36C0TargetNode {
 } GameD36C0TargetNode;
 
 extern u8 *D_800BE5D0;
-extern u8 *D_800BE5D4;
-extern u8 *D_800BE5D8;
 extern s16 D_800DBE30[];
 extern u8 *D_800DBE48;
 
