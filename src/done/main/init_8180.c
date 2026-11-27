@@ -89,7 +89,6 @@ s32 func_8502B8E0(void *, s32, s32, ...);
 s32 func_8502B9B4(s32, ...);
 extern AudioBank *D_8003E368;
 extern AudioHeap D_8003E370;
-extern u8 D_80044B20[];
 s32 func_80003C40(s32, s32, s32, s32);
 void func_80004074(void *);
 extern SequencePlayer *D_8003C900[];

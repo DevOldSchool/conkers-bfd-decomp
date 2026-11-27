@@ -618,7 +618,6 @@ void func_151BD7F4(void *arg0) {
 }
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
-extern u8 D_800A4AA0[];
 extern Vec3f D_800A5480;
 
 typedef struct Game1E9A30BurstData {
@@ -911,7 +910,6 @@ typedef struct Game1E9A30GlowObject {
 } Game1E9A30GlowObject;
 
 void func_15145EA4(f32 **, f32 **, s32, s32);
-extern u16 **D_800BE728;
 extern Game1E9A30BurstActor D_800CC2D0[];
 
 void func_151BDD8C(Game1E9A30BurstObject *arg0) {

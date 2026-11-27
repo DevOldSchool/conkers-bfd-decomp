@@ -37,8 +37,6 @@ void func_1509C120(void);
 void func_1509C3A0(void);
 GameC8950Node *func_1509B5AC(s32, s32);
 s32 func_1509CBD4(s32);
-extern s32 D_8003C8E0;
-extern u16 *D_800D2F40;
 
 void func_1509B4A0(s16 arg0, s32 arg1) {
     s32 context;
@@ -234,7 +232,6 @@ void *func_1509B950(void *arg) {
     return new;
 }
 void func_1509C228(void);
-extern u8 D_800D2E69;
 
 void func_1509BA04(s32 arg0) {
     GameC8950Node *node;
@@ -461,8 +458,6 @@ void func_1509C228(void) {
     }
     func_1509BFB0(2, 0x2000, 0x36, 1, 1);
 }
-
-extern u8 D_800D2E44;
 
 s32 func_1509C2A4(void) {
     if ((D_800BE9F0 == 3) || (D_800BE9F0 == 5) || (D_800BE9F0 == 9) || (D_800BE9F0 == 0xD) || (D_800BE9F0 == 0xF) || (D_800BE9F0 == 0x11) || (D_800BE9F0 == 0x15) || (D_800BE9F0 == 0x16) || (D_800BE9F0 == 0x18) || (D_800BE9F0 == 0x1A) || (D_800BE9F0 == 0x1D) || (D_800BE9F0 == 0x1F) || (D_800BE9F0 == 0x20) || (D_800BE9F0 == 0x21) || (D_800BE9F0 == 0x22) || (D_800BE9F0 == 0x24) || (D_800BE9F0 == 0x25) || (D_800BE9F0 == 0x2A) || (D_800BE9F0 == 0x2B) || (D_800BE9F0 == 0x2D) || (D_800BE9F0 == 0x30) || (D_800BE9F0 == 0x33) || (D_800BE9F0 == 0x34) || (D_800BE9F0 == 0x38) || (D_800BE9F0 == 0x3E) || (D_800BE9F0 == 0x3F) || (D_800D2E44 != 0)) {

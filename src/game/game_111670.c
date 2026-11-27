@@ -53,7 +53,6 @@ s32 func_1510F8CC(s32);
 void func_150E4550(f32, f32, f32, s32, s32, s32, s32); /* extern */
 s32 func_1510F8D8(s32, s32, s32, s32 *);        /* extern */
 extern s32 D_800DBE3C;
-extern s32 *D_800DBE5C;
 
 void func_150E42F8(s32 arg0) {
     s32 x;

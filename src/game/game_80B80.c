@@ -112,7 +112,6 @@ void func_150836CC(u8 *, s32);
 void func_1507C324(void *, void *);
 s32 func_151026BC(void *, s16, u8, u8, u8, s32);
 void func_15188810(u8 *, s32, s32);
-extern u16 **D_800BE728;
 
 void func_15054A94(u8 *arg0) {
     u8 *anim;
@@ -244,7 +243,6 @@ void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_1505A630(f32, f32, s32);
 void func_1508B20C(f32, f32, f32, f32);
 void func_10010154(s32, void *, s32, s32, s32);
-extern u8 D_800C3E78;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15054F74 CURRENT (989) */
 void func_15054F74(u8 *arg0) {

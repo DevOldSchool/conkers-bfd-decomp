@@ -355,8 +355,6 @@ typedef struct Game1AC2F0Player {
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 extern Game1AC2F0Player D_800CC2D0[];
 extern f32 D_800DDDD8[];
-extern u8 D_800DDE20[];
-extern u8 D_800DDE3C[];
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 
@@ -561,7 +559,6 @@ void func_15181D00(s32 arg0, s32 arg1) {
 }
 extern f32 D_800DDDD8[];
 extern f32 D_800DDDC8[];
-extern u8 D_800DDE20[];
 
 void func_15181D70(s32 arg0) {
     void *temp_v1;
@@ -574,7 +571,6 @@ void func_15181D70(s32 arg0) {
     D_800DDE20[arg0] = 1;
 }
 extern f32 D_800DDDD8[];
-extern u8 D_800DDE20[];
 
 void func_15181DC8(s32 arg0) {
     f32 temp_ft0;
@@ -588,7 +584,6 @@ void func_15181DC8(s32 arg0) {
     pair[1] = temp_ft0;
     D_800DDE20[arg0] = 0;
 }
-extern u8 D_800DDE3C[];
 
 void func_15181E18(s32 arg0) {
     Game1AC2F0Color *temp_v0;

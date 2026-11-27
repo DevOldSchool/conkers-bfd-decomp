@@ -25,7 +25,6 @@ void func_15094EA0(s32 arg0) {
     func_151EFEB8(sp18, (s32)((u8 *)D_800BE628 + (arg0 * 0x180) + (D_800BE9C0 << 6) + 0x100));
     func_150A7A48(sp58, sp18, D_800D2CA8 + arg0 * 0x40);
 }
-extern s32 D_800873D0;
 
 typedef struct GameC2350Command {
     u32 w0;
@@ -317,8 +316,6 @@ void func_15095D0C(s32 arg0, void *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095D34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_1509629C.s")
-extern s32 D_80087408;
-extern s8 D_800D2DAB;
 
 GameC2350Command *func_15096934(GameC2350Command *arg0) {
     { GameC2350Command *command = arg0++; command->w0 = 0xDE000000; command->w1 = (u32)&D_80087408; }

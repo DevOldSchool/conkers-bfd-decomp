@@ -172,7 +172,6 @@ void func_1519582C(void) {
     D_800E08E8 = D_800E08EC = 0;
     D_800E08F0 = -2;
 }
-extern s32 D_800B0E58[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195868 CURRENT (5715) */
 s32 func_15195868(s32 commands, s32 texture, s32 occurrence, s32 *count) {
@@ -2304,7 +2303,6 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_800D9C10[];
 extern s32 D_800A4AC8[][2];
 
 Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {

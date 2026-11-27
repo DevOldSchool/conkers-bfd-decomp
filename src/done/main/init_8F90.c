@@ -548,7 +548,6 @@ void func_80009B90(void *arg0) {
     }
 }
 void func_850AD770(void);
-extern s32 D_8003C8E0;
 
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;

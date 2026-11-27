@@ -53,12 +53,9 @@ void func_151DD8C0(void);
 extern Game48FD0Queue D_800BE900;
 extern u8 D_80084060[4];
 extern u16 D_800BE710[4];
-extern u16 D_800BE720[4];
 extern Game48FD0Pad *D_800BE730[4];
 extern Game48FD0Pad D_800BE748[4];
 extern Game48FD0Pad D_800BE918[4];
-extern u16 D_800BE930;
-extern u8 D_800E0B94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501BBB8 CURRENT (13530) */
 s32 func_1501BBB8(void) {
@@ -247,10 +244,7 @@ s32 func_100057E0(Game48FD0Queue *, Game48FD0Pak *, s32);
 s32 func_10005570(Game48FD0Pak *);
 s32 func_100056A0(Game48FD0Pak *);
 extern Game48FD0Pak D_800BE760[4];
-extern u8 D_800BE938;
 extern f32 D_800BE9A4;
-extern u8 D_800BEAC1;
-extern u8 D_800E0A00;
 
 void func_1501C1B0(void) {
     s32 channel;

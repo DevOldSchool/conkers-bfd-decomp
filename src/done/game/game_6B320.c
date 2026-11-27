@@ -569,7 +569,6 @@ void func_1503F2B0(s32 arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void func_151EFEB8(void *, s32);
 void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_800C3E90;
 
 void func_1503F404(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {

@@ -204,7 +204,6 @@ void func_15155EF8(void *arg0) {
 }
 /* Call context: func_15155FD4: unique active project prototype */
 void * func_15155FD4(s32);
-extern u8 D_800C3E78;
 
 void func_15155F3C(void) {
     Game182C30Effect *effect;
@@ -221,7 +220,6 @@ void func_15155F3C(void) {
     }
 }
 void *func_15155FD4(s32);                           /* extern */
-extern u8 D_800C3E78;
 
 void func_15155F90(void) {
     void *temp_v0;

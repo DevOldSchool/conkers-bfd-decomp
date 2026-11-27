@@ -16,14 +16,7 @@ void func_15012470(void);
 void func_15008A10(void);
 void func_15012770(void);
 void func_100226F0(void *, s32);
-extern s8 D_800D9921;
-extern s8 D_800D9920;
-extern u8 D_800D9890;
-extern s32 D_800D98D0[];
-extern u8 D_80088980;
 extern s32 D_800D9AA0[];
-extern s32 *D_800BE4F0;
-extern u8 D_80088B40;
 
 void func_1500E5C0(void) {
     s32 i;
@@ -66,7 +59,6 @@ void func_1500E70C(s32 arg0) {
         func_15011C70();
     }
 }
-extern u8 D_800DCA20;
 
 void func_1500E738(void) {
     switch (D_80082FA0) {                           /* switch 1; irregular */

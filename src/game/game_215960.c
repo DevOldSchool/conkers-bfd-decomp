@@ -40,10 +40,8 @@ struct Game215960Command {
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 Game215960Command *func_151ED1E0(Game215960Command *);
-extern s32 D_8003C8E0;
 extern Game215960Dispatch D_8008FFF4[];
 extern Game215960State *D_800E0BD8;
-extern u8 D_800E0B94;
 
 void *func_151E84B0(void *arg0) {
     s32 effect = 0;
@@ -81,10 +79,8 @@ void *func_151E84B0(void *arg0) {
 }
 typedef s32 (*Game215960Callback)(s32, s32);
 
-extern s32 D_8003C8E0;
 extern Game215960Callback D_8008FFC0[];
 extern s32 D_800BE9C8[];
-extern u8 D_800E0B94;
 
 s32 func_151E8620(s32 arg0) {
     Game215960Callback callback;
@@ -137,7 +133,6 @@ Game215960Command *func_151E86E4(Game215960Command *arg0, s32 xl, s32 yl, s32 xh
 s32 func_150859AC(s16, s16);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 Game215960Command *func_151E86E4(Game215960Command *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_D16[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151E966C CURRENT (7949) */
 Game215960Command *func_151E966C(Game215960Command *arg0, s32 arg1, s32 arg2, s8 arg3, u8 arg4) {
@@ -442,8 +437,6 @@ s32 func_151EB96C(s32 arg0) {
 void *func_1501A6CC(void *, s32, s32, s32, s32);
 void func_150432BC(f32);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
-extern u8 D_800917F8[];
-extern u8 D_800917EC[];
 extern s32 D_80090060;
 
 Game215960Command *func_151EBB50(Game215960Command *arg0) {
@@ -577,8 +570,6 @@ s32 func_151EC178(s32 arg0) {
 /* Raw helper15096934 returns its incoming command pointer plus eight bytes. */
 void *func_15096934(void *);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
-extern u8 D_800917F8[];
-extern u8 D_800E0B97;
 
 Game215960Command *func_151EC1F0(Game215960Command *arg0) {
     s32 alpha;
@@ -690,7 +681,6 @@ Game215960Command *func_151EC3E8(Game215960Command *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC648.s")
 void *func_15096934(void *);
 Game215960Command *func_151ED430(Game215960Command *, void *, s32, s32, s32, s32, f32, s32);
-extern u8 D_800E0B97;
 
 Game215960Command *func_151ED09C(Game215960Command *arg0) {
     s32 alpha;

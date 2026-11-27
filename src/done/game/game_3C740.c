@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3C740.c
@@ -74,8 +75,6 @@ typedef struct Game3C740Descriptor {
 
 f32 func_150484A0(f32, f32);
 void func_15189900(void *, u8);
-
-extern s32 D_800D98D0[];
 
 void func_1500F40C(void) {
     func_1500F378(0x1612, -0x553, -0x2DC, -0x69F);

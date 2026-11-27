@@ -6,9 +6,6 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  */
 
-extern u8 D_800DD405;
-extern u8 D_800DD406;
-
 void func_151749A0(s32 arg0, s32 arg1) {
     D_800DD406 += D_800BE9E4;
     if (D_800DD406 > arg0) {

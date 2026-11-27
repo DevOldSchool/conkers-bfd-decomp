@@ -21,7 +21,6 @@ void func_150F33B0(Game120860Flags *arg0) {
     }
     arg0->flag = 1;
 }
-extern s16 *D_800D9A40;
 
 void func_150F33F8(s32 arg0) {
     u8 *temp_v0;

@@ -120,7 +120,6 @@ void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {
 void func_150A7790(void *, s32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151EFEB8(void *, s32);
-extern u8 D_800C3E90;
 extern void *D_800CC5EC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BA084 CURRENT (5050) */

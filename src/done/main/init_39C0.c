@@ -16,7 +16,6 @@ void func_80024830(void *);
 void func_85015FBC(s32, s32);
 extern VideoMode D_8002AB90;
 extern VideoMode D_8002ABE0;
-extern s32 D_800BE9C4;
 
 void func_800039C0(void) {
     D_800BE620 = 0x124;

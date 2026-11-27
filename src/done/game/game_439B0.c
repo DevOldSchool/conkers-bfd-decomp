@@ -7,14 +7,8 @@
  */
 
 void func_100226F0(void *, s32);
-extern u8 D_800D1940;
-extern u8 D_800D1941;
 extern s32 D_800D1948;
-extern s32 D_800D1950;
 extern u8 D_800D1958[];
-extern u8 D_800D1994;
-extern u8 D_800D1995;
-extern u16 *D_800D1998;
 
 void func_15016500(void) {
     D_800D1940 = 0;
@@ -34,8 +28,6 @@ void func_15016500(void) {
 
 void func_100226F0(void *arg0, s32 arg1);
 s32 func_1502B020(s32 *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4);
-
-extern u8 D_800BEAAB;
 
 void func_15016588(void) {
     s32 i;

@@ -17,9 +17,6 @@
  */
 
 extern void *D_800DBFF0;
-extern u8 D_8008CEB0;
-extern u8 D_800DDD1C;
-extern u32 D_8003809C;
 extern s32 D_800DD478[];
 extern s32 D_800DDA90;
 
@@ -197,7 +194,6 @@ void func_1517CFC4(void) {
     }
 }
 extern Vtx *D_800DDD10[];
-extern u32 D_800DDD0C;
 extern Gfx D_8008CFA0[];
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
@@ -297,7 +293,6 @@ typedef struct Game1A89B0StateSlot {
 } Game1A89B0StateSlot;
 void func_1517BBAC(s32, s32, s32, s32, f32, s32, s32, s32);
 extern u8 D_800CC2D0[];
-extern s16 D_800DDB80[][2];
 
 void func_1517DE5C(void) {
     s32 i;

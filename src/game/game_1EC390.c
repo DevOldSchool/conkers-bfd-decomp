@@ -253,7 +253,6 @@ f32 func_15047D60(f32);
 s32 func_1517EF00(s32);
 s32 func_15181CC8(s32);
 extern f32 D_800BE9A4;
-extern u8 D_800BEAC1;
 extern u8 D_800C35EA;
 
 void func_151BF81C(void *arg0) {

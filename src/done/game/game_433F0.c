@@ -28,7 +28,6 @@ void func_15015F40(s16 arg0, s32 arg1) {
     }
 }
 
-extern s32 D_800BE638[5];
 extern s16 D_800BE668[10][4];
 
 void func_15015FBC(s32 arg0, s32 arg1) {

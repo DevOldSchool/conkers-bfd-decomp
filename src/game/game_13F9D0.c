@@ -100,7 +100,6 @@ void *func_151733D8(void *, s32);
 struct Game13F9D0Model;
 s32 func_151137D4(s32, struct Game13F9D0Model *, s32, s32, s32, s32);
 s32 func_1515E544(s32, s32, u8, u8, void *);
-extern s32 *D_80089250[];
 extern u8 D_80089470;
 extern u8 D_800D9BD0[];
 
@@ -274,7 +273,6 @@ s32 func_1510D8C0(s32, Game13F9D0Model *);
 s32 func_150CF5E8(s32);
 s32 func_150A50C0(s32, s32, u8 *, s32, s32, s32);
 extern s32 D_800BE9C8[];
-extern u8 D_800D9C10[];
 
 s32 func_151137D4(s32 arg0, Game13F9D0Model *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     s32 alpha;
@@ -403,7 +401,6 @@ void func_15113C88(void) {
         }
     }
 }
-extern s32 D_80087380;
 
 typedef struct Game13F9D0Group {
     u16 unk0;
@@ -470,8 +467,6 @@ typedef struct Game13F9D0Entry {
     u8 unk_92;
     u8 pad93[0xD];
 } Game13F9D0Entry;
-
-extern u32 *D_800DBF94;
 
 /* Semantic role: placed_object_test_actor_mask.
  * Require flag 0x80; -1 accepts that flag without consulting the actor mask.
@@ -848,7 +843,6 @@ void func_15114F04(s32 arg0, s32 arg1, s32 arg2) {
 }
 /* Call context: func_150AD770: unique active project prototype */
 void func_150AD770(void);
-extern s32 D_8003C8E0;
 typedef struct {
     s32 a;
     s32 b;

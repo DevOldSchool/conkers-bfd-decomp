@@ -17,9 +17,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504A730.s")
 void func_100226F0(void *, s32);
 void func_150ED578(void *);
-extern u16 **D_800BE728;
 extern u8 D_800C35EA;
-extern u8 D_800C3E78;
 extern u8 D_800CC2D0[];
 extern void *D_800CC284;
 extern void *D_800D154C;
@@ -262,7 +260,6 @@ void func_1504BC38(Game77BE0State *arg0) {
 }
 
 f32 func_150AD78C(f32);
-extern s16 D_800CC2B2;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BE2C CURRENT (1853) */
 void func_1504BE2C(Game77BE0State *arg0, u16 *arg1, f32 *arg2, s8 *arg3) {

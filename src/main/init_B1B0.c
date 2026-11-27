@@ -1122,7 +1122,6 @@ void func_8000D2F8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
         }
     }
 }
-extern u16 D_800427F4;
 s32 func_851F2CDC(void);
 void func_8000CEAC(s32);
 void func_8000D2F8(s32, f32, f32, f32);

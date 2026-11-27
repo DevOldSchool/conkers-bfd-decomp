@@ -34,7 +34,6 @@ s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern u8 *D_800BE628;
-extern u8 D_800D9C10[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151787AC CURRENT (4852) */
 void func_151787AC(void *arg0) {

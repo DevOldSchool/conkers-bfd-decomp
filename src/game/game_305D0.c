@@ -64,11 +64,8 @@ typedef struct {
 } Game305D0Scene;
 
 extern s32 D_800B0E10[4];
-extern s32 D_800B0E40[4];
-extern u8 D_800B0E38;
 extern Game305D0AssetEntry *D_800B0E50;
 extern Game305D0Scene *D_800B0DF0;
-extern s32 D_80082B20;
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 void func_15003120(s32, s32, s32);
@@ -164,7 +161,6 @@ void func_150031EC(s32 level) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150031EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150031EC.s")
-extern s32 D_800B0E58[];
 
 void func_150034B4(void) {
     s32 i;
@@ -184,8 +180,6 @@ void func_150034B4(void) {
 void func_10004074(s32);
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004514(s32, s32, s32, s32);
-extern u16 D_80091D20;
-extern u16 D_800B87A0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15003570 CURRENT (605) */
 void func_15003570(void) {
@@ -234,10 +228,8 @@ typedef struct {
 
 void func_150026E8(s32);
 s32 func_15002878(void);
-extern u32 D_8003809C;
 extern s32 D_800D3668[1];
 extern s32 D_800DBE3C;
-extern u8 D_800DBE62;
 extern Game305D0Record *D_800DBEF4;
 
 void func_15003668(s32 arg0) {
@@ -298,7 +290,6 @@ void func_15001A08(void);
 void func_15001BC8(s32, s16 *, s16 *);
 void func_15001CEC(s32);
 void func_150025FC(void);
-extern u8 D_800DBE62;
 
 void func_150038A0(void) {
     func_15001A08();
@@ -325,7 +316,6 @@ s32 func_1500390C(s32 cachedAddress) {
 void func_150039B0(s32 arg0) {
 
 }
-extern s32 *D_800DBE5C;
 
 void func_150039BC(s32 arg0) {
     s32 v;

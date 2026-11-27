@@ -94,8 +94,6 @@ void func_15141250(Game1411E4State *arg0) {
     D_800DC9F0 -= 1;
     (*(void (**)(Game1411E4State *))(D_80089FE4 + (arg0->field_168 * 4)))(arg0);
 }
-extern s32 D_800A5168[];
-extern s32 D_800BE9C4;
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];
 

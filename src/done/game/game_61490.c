@@ -80,7 +80,6 @@ void func_15033FE0(GameCommand *arg0, s32 arg1) {
     first = func_1503DA3C(actor->type, 0);
     *func_15034860(cursor, actor, first, func_1503DA3C(actor->type, 1)) = 0x1000;
 }
-extern u8 D_800C3E78;
 
 GameCommand *func_150341BC(GameCommand *arg0, s32 arg1) {
     Game61490Actor *actor = &D_800CC2D0[arg1];

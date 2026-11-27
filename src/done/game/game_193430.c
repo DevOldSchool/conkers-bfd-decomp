@@ -246,8 +246,6 @@ Gfx *func_15166268(Gfx *gdl, u8 *effect, s32 arg2) {
 void *func_15142FBC(void *, s32, s32, u8 *);
 s32 func_15094F70();
 extern s32 D_800A4AC8[][2];
-extern s32 D_800DD228;
-extern s32 D_800DD230;
 
 void func_151668B8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 changed;

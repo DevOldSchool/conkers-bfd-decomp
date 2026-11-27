@@ -316,7 +316,6 @@ loop_4:
 void func_15024130(s32, s32);
 void func_150241B4(u8 *, s32 *, s32, s32, s32, s32, s32);
 extern u8 D_800C35EA[];
-extern u8 D_800C3638;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150242F8 CURRENT (4995) */
 void func_150242F8(s32 mode, s32 owner) {

@@ -88,7 +88,6 @@ void func_150379DC(f32 *, s32, s32, s32, f32, s32, s32);
 void func_15038620(s32, s32, f32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_800C35EA;
 extern void *D_800D154C;
-extern u8 D_800C3E78;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15036CE8 CURRENT (1995) */
 void func_15036CE8(void) {
@@ -538,7 +537,6 @@ void func_15039ED0(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3,
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A08C.s")
-extern u8 D_800C3E78;
 
 void func_1503A60C(void) {
     Game64120OutputBlock *temp_v0;

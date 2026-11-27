@@ -490,7 +490,6 @@ Game5D2C0Command *func_15035D6C(Game5D2C0Command *, u8 *, s32, s32, s32);
 extern u8 *D_800B0DF0;
 extern s32 D_800BE9C8[];
 extern u8 D_800CC2D0[];
-extern u8 D_800D9E28[];
 
 s32 func_150311C4(Game5D2C0Command *dl, u8 *arg1, u8 *arg2, s32 arg3, s32 arg4) {
     s32 matrix;
@@ -1163,7 +1162,6 @@ s32 func_15033838(u8 *arg0, u8 *arg1) {
 s32 func_150334B8(u8 *, void *);
 void func_1000FD38(void *, void *, s32);
 s32 func_15033BDC();
-extern u8 D_800BEA0C;
 
 s32 func_150339C8(u8 *arg0, void *arg1) {
     func_150334B8(arg0, arg1);

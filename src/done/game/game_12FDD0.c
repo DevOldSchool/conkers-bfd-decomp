@@ -152,7 +152,6 @@ typedef struct Game12FDD0Effect {
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_15103254(s32, s32, f32, s32, s32, s32, s32);
-extern u8 D_800A4AA0[0x28];
 extern s32 D_800A5480[3];
 
 void *func_15102B38(Game12FDD0Object *arg0, u8 arg1, Game12FDD0Copy3 *arg2,

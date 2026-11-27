@@ -104,12 +104,7 @@ void func_15085710(s16, s32, s32);
 void func_151E7EF8(void);
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s8 D_80087270;
-extern u16 D_8008FDBC;
-extern u8 D_800D18A8;
-extern u8 D_800D2E40;
 extern u8 D_800DD2C0;
-extern u8 D_800E0B94;
-extern u8 D_800E0B99;
 extern s32 D_800E9D00;
 
 void func_151E30C4(void) {
@@ -159,19 +154,12 @@ void func_151E30C4(void) {
 /* Call context: func_1501C730: unique active declaration in the allowed source */
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s8 D_80087270;
-extern u16 D_8008FDBC;
-extern u8 D_800BE3E0;
-extern u8 D_800E0B99;
 extern s32 D_800E9D00;
-extern u8 D_800D2E40;
-extern u8 D_800E0B94;
-extern u8 D_8008FD80;
 extern void func_151E2834(void);
 extern s32 func_151F2CDC(void);
 extern void func_151F2D6C(s32 arg0, s32 arg1);
 extern void func_151E530C(void);
 extern u8 D_800C35EA;
-extern u8 D_8008FD74;
 
 void func_151E327C(void) {
     D_80087260 = 3;
@@ -243,7 +231,6 @@ void func_151E4314(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E43DC.s")
 void func_151E557C(void);
 extern Game20F9A0Selection D_800AB7BC[];
-extern u8 D_800BEAC1;
 
 void func_151E4BD8(void) {
     s16 selection;
@@ -290,8 +277,6 @@ void func_151E4BD8(void) {
     D_8008FD90 = 1;
 }
 
-extern u8 D_800E0B94;
-
 void func_151E4DC4(void) {
     D_800E0B94 = 0xA;
 }
@@ -303,7 +288,6 @@ void func_151E4DD8(void) {
 }
 void func_151E557C(void);
 void func_1501C730(s32, s32, s32, s32, s32);
-extern u8 D_800D2E40;
 
 void func_151E4E00(void) {
     D_8008FDCC = 0;
@@ -315,7 +299,6 @@ void func_151E4E00(void) {
     func_1501C730(6, 0x1D, 0, 0, 1);
 }
 void func_151E55A8(void);
-extern u8 D_8008FD74;
 
 void func_151E4E64(void) {
     func_151E530C();
@@ -387,9 +370,6 @@ void func_151E5034(void) {
 void func_15017790(void);
 void func_151E6BFC(void);
 
-extern s8 D_8008FE54[23];
-extern s8 D_800E0BE0[23];
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151E50C8 CURRENT (730) */
 void func_151E50C8(void) {
     s8 *var_v0;
@@ -445,8 +425,6 @@ copy_bytes:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E50C8.s")
 void func_15042D78(u8);
 void func_151E6964(s32);
-extern s32 D_8003C8E0;
-extern u16 D_800BE930;
 
 void func_151E51EC(void) {
     u8 sp1F;
@@ -477,7 +455,6 @@ void func_151E51EC(void) {
     }
     D_8003C8E0 = 0;
 }
-extern u8 D_8008FD74;
 
 void func_151E530C(void) {
     f32 temp_fv0;
@@ -548,8 +525,6 @@ void func_151E557C(void) {
     D_80084060[2] = 2;
     D_80084060[3] = 3;
 }
-extern u8 D_800E0B97;
-extern u8 D_800E0B98;
 
 void func_151E55A8(void) {
     s32 value;
@@ -571,7 +546,6 @@ void func_151E55A8(void) {
     }
     D_800E0B97 = (u8)value;
 }
-extern u8 D_800E0A8C;
 
 void func_151E562C(void) {
     if (D_800E0A8C != 0) {
@@ -610,7 +584,6 @@ s8 func_151E5FAC(void) {
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
 s32 func_1502B5C8(u32 *, s32, ...);
-extern u8 D_800BEAAB;
 extern u8 **D_800E0BD8;
 
 void func_151E6964(s32 kind) {

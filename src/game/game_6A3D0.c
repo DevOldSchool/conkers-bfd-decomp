@@ -62,7 +62,6 @@ void func_1503D45C(s32 *arg0, s32 arg1) {
         } while (var_v0 != 0);
     }
 }
-extern u16 D_800C5A90[];
 
 /* Semantic role: animation_routes_relocate_event_offsets.
  * Eight-byte routes end at descriptor 999; optional event offsets at +4 are
@@ -186,8 +185,6 @@ s32 func_1503D774(s32 arg0, void *arg1) {
     return 0;
 }
 void *func_10003C40(s32, s32, s32, s32);
-extern s32 *D_800C4020[];
-extern s32 D_800C6360[];
 extern s32 D_800D19A0[];
 
 s32 func_1503D804(s32 arg0) {
@@ -222,7 +219,6 @@ s32 func_1503D804(s32 arg0) {
     }
     return 0;
 }
-extern u32 *D_800C4488[];
 
 /* Display-list layers per model; the binary keeps this loop (a1 steps by 4 to 4). */
 #define GAME6A3D0_DL_LAYERS 1

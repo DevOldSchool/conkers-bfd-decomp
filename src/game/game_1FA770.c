@@ -490,7 +490,6 @@ void func_151CE51C(void *arg0, void *arg1) {
         }
     }
 }
-extern s32 D_800A5760[];
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];
 

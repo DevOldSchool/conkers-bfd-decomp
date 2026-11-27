@@ -67,7 +67,6 @@ void func_15049688(void *, f32, void *, f32, f32, f32);
 void func_1512E140(void *);
 void func_15123A54(void *);
 void func_1512A390(void *);
-extern u8 D_800BEA0C;
 
 void func_15121C80(Game14F130Camera *arg0, f32 arg1) {
     f32 angle;

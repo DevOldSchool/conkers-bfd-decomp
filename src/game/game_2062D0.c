@@ -16,7 +16,6 @@
  */
 
 s32 func_150A29C8(s32 arg0, s32 arg1);
-extern s8 D_800E0A10;
 typedef struct {
     u8 values[5];
 } Func151D8F30Bytes;
@@ -1010,7 +1009,6 @@ typedef struct Game1DAB58Extension {
     f32 scaleX, scaleY;
 } Game1DAB58Extension;
 
-extern u8 D_800A4AA0[0x28];
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 
 void func_151DAB58(u8 arg0, f32 arg1, u8 arg2, f32 *arg3, s32 arg4, u8 arg5, s32 arg6) {

@@ -41,7 +41,6 @@ typedef struct {
 extern AllocatorAlignmentTable D_8002AC34;
 extern AllocatorAlignmentTable D_8002AC40;
 extern AllocatorBlock *D_800380B4;
-extern s32 D_8003C8E0;
 void func_850AD770(void);
 void func_8000440C(void);
 

@@ -20,7 +20,6 @@ void func_15054F74(u8 *);
 void func_150562FC(u8 *);
 void func_150597FC();
 extern u8 D_800C35EA;
-extern u8 D_800C3E78;
 
 typedef struct Game7FA40Owner {
     u8 pad0[0x28];

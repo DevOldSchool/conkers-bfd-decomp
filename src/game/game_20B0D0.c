@@ -18,8 +18,6 @@ void func_151DE6CC(void) {
 void func_1501C730(s32, s32, s32, s32, s32);
 void func_151E530C(void);
 extern u8 D_800CC2D0;
-extern u8 D_800E0B94;
-extern u8 D_800D2E40;
 
 void func_151DE6D4(void) {
     s32 var_v0;
@@ -49,9 +47,6 @@ void func_151DE6D4(void) {
         D_800E0B96 = 0xFF;
     }
 }
-extern u8 D_800E0B97;
-extern u8 D_800E0B98;
-extern u8 D_800E0A8C;
 void func_151DE85C(void);
 
 void func_151DE7D4(void) {
@@ -63,7 +58,6 @@ void func_151DE7D4(void) {
     func_151DE85C();
 }
 void func_1500764C(void);
-extern u8 D_8008FD74;
 
 void func_151DE81C(void) {
     D_8008FD74 = 4;
@@ -74,10 +68,7 @@ void func_151DE81C(void) {
 }
 /* Call context: func_1501C730: unique active project prototype */
 void func_1501C730(s32, s32, s32, s32, s32);
-extern u8 D_8008FD80;
 extern void *D_8008FDD4;
-extern u8 D_800D2E40;
-extern u8 D_800E0B94;
 
 void func_151DE85C(void) {
     D_800D2E40 = 0;

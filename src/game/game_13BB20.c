@@ -94,7 +94,6 @@ s32 func_150A43E0(s32, s32, s32, void *);
 void func_150A44F0(s32, void *, s32);
 void func_150A64C8(s16, s16, void *, s32);
 void func_1510F800(s32);
-extern u8 D_800D3830[];
 extern s32 D_800D3300;
 
 f32 func_1510F648(f32 arg0, f32 arg1, f32 arg2) {
@@ -227,7 +226,6 @@ s32 func_1510FE30(Game13BB20Node *);
 void func_150A6760(s32);
 void func_150F33F8(s32);
 extern Game13BB20Node *D_800DBDC8;
-extern s16 D_800DBE30[];
 extern u8 *D_800DBFF0;
 
 void func_1510FC34(s32 arg0) {

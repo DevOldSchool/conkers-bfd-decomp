@@ -8,7 +8,6 @@
  */
 
 void *func_1513BAE8(void);
-extern u8 D_80088980;
 
 void func_150E0300(void) {
     if (D_80088980 == 0) {

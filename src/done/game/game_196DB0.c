@@ -31,7 +31,6 @@ Game196DB0Effect *func_15169900(void *arg0, s32 arg1) {
 void *func_15169968(void *arg0) {
     return func_15169900(arg0, 0xFF);
 }
-extern void (*D_8008CA20[])(void);
 
 void func_15169988(void *arg0) {
     s32 temp_v1;

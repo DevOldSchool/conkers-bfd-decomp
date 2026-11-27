@@ -48,7 +48,6 @@ typedef struct {
 extern Game1A8060Entry **D_800DD460[];
 extern Game1A8060Actor D_800CC2D0[];
 extern s32 D_800D19A0[];
-extern s32 *D_800C4020[];
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 void func_10023D20(void *, s32);

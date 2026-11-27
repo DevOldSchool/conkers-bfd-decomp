@@ -155,7 +155,6 @@ typedef struct Game39750Effect {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[];
 
 #define RANDF() ((f32)((func_10024770() * func_150ADA20()) & 0xFFFF) * inv)
 

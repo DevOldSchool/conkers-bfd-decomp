@@ -89,7 +89,6 @@ void func_150A8050(void *, f32, f32, f32);
 f32 func_150ADA68(void);
 void *func_1513D594(s32, s32, u8, u8, u8, u8, s16, f32, f32, s32, s32, s32, s32, u8, s32, u8, s32);
 void func_15151A38(GameE5E90Burst *, u8, s32);
-extern u8 D_800A4AA0[];
 
 s32 func_150B89E0(GameE5E90Object *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
     GameE5E90Descriptor descriptor;

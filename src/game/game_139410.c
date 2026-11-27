@@ -30,7 +30,6 @@ typedef struct {
 } Game139410Buffers;
 
 extern Game139410Record *D_800D9E60[];
-extern u8 D_800D9E64;
 extern Game139410Buffers D_800B0E10;
 void *func_10003C40(s32, s32, s32, s32);
 u8 func_1510BF60(s32, s32, Game139410Vertex **, s32);

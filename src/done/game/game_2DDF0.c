@@ -7,7 +7,6 @@
  */
 
 extern u8 *D_800B0DF0;
-extern u16 D_800D9E70[][3];
 extern u8 D_800D9EB8[4][3];
 
 void func_15000940(s32 arg0) {

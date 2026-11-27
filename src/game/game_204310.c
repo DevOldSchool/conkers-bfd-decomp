@@ -77,8 +77,6 @@ void func_151D70CC(void *arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, temp_a2, temp_a2 + 4, (s32) arg0);
 }
 s32 func_15133EEC(s32, u16, u8, s32);
-extern u8 D_80083740[];
-extern u8 D_800838C0[];
 
 typedef struct Game204310Command {
     u32 w0;

@@ -102,7 +102,6 @@ typedef struct Game1B6DB0Options {
 } Game1B6DB0Options;
 
 f32 func_150ADA68(void);
-extern u8 D_800BE630[];
 extern f32 D_800BE9A4;
 
 void func_15189A00(Game1B6DB0Effect *arg0) {

@@ -162,8 +162,6 @@ void func_10004074(s32);
 s32 func_10006240(s32, s32, s32);
 void func_150AD770(void);
 s32 func_10003C40(s32, s32, s32, s32);
-extern u32 D_8003809C;
-extern s32 D_8003C8E0;
 
 s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 compression;

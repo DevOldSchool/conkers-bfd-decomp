@@ -137,8 +137,6 @@ typedef struct Game90840Requests {
     u8 pending;
 } Game90840Requests;
 
-extern u8 D_800CC2B0;
-extern u8 D_800C3E78;
 extern Game90840Actor *D_800D154C;
 void func_15063628(Game90840Actor *, f32);
 void func_15063FA0(Game90840Actor *, s32);
@@ -245,7 +243,6 @@ void func_150636F0(void) {
         actor++;
     } while (index != 0x19);
 }
-extern s16 D_800CC2B2;
 
 s16 func_150639BC(Game90840Actor *arg0) {
     D_800CC2B2 = (arg0->field_7A - arg0->field_31C->field_12) - func_15063390(arg0);
@@ -491,7 +488,6 @@ void func_150649A0(u32 arg0, u32 arg1) {
     }
 }
 void func_150649A0(u32, u32);
-extern u8 D_800C3E78;
 
 void func_15064A14(Game90840Actor *arg0) {
     u8 *actor;

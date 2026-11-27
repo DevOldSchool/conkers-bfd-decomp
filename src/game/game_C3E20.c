@@ -77,7 +77,6 @@ typedef struct GameC3E20Packet {
 
 void func_1512D560(void *, s32, void *);
 extern u8 *D_800DBFF0;
-extern s32 D_800DC020;
 extern u8 D_800DBFF4[];
 extern GameC3E20Packet D_800C3600;
 
@@ -380,7 +379,6 @@ u8 *func_1505EEF4(s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern u8 *D_800DBFF0;
-extern s32 D_800DC020;
 
 s32 func_1509759C(s32 arg0, s32 arg1, s32 *arg2) {
     GameC3E20View *view;

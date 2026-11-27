@@ -176,12 +176,9 @@ typedef struct Game74F8Entry {
     u8 pad31[3];
 } Game74F8Entry;
 void func_15168F84(s32, s32 *, s32 *);
-extern s32 D_8003C8E0;
 extern u8 D_80089470[];
 extern s32 D_800BE9C8[];
-extern s8 D_800D2DAB;
 extern u32 D_800DD1B0;
-extern s32 D_800DD228;
 
 s32 func_151674F8(s32 arg0, s32 arg1, s16 arg2, s32 arg3) {
     s32 column;
@@ -334,7 +331,6 @@ void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
     }
 }
 typedef void (*Game1944C0EffectCallback)(void);
-extern void (*D_8008CA20[])(void);
 
 typedef struct Game1944C0AnimatedEffect {
     u8 pad0[0x10];
@@ -893,7 +889,6 @@ void func_15168B44(void *arg0)
   }
 }
 typedef void (*Game1944C0Callback)(void);
-extern void (*D_8008CA20[])(void);
 
 void func_15168BAC(void *arg0) {
     u8 temp_v0;
@@ -1168,7 +1163,6 @@ void func_1516962C(s32 arg0, void *arg1, u8 arg2) {
     descriptor.kind = *(u8 *)((u8 *)arg1 + 0x3B);
     func_1516944C(arg0, (s8 *) &descriptor, arg2);
 }
-extern s8 D_800D2DAB;
 
 s32 func_15169668(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_800D2DAB = 1;

@@ -19,7 +19,6 @@ void func_151E6BFC(void);
 s32 func_1501878C(void);
 s32 func_151DCFD8(s32);
 extern s32 D_800D18A4;
-extern u16 **D_800BE728;
 
 s32 func_1501BBB8(void);
 
@@ -88,15 +87,9 @@ s32 func_151F2CDC(void);
 void func_151F2BE8(void);
 void func_151F2C4C(void);
 extern u8 D_800BEA10[];
-extern u8 D_800BE614;
 extern s32 D_800BE9C8[];
-extern u8 D_800D9AF0;
-extern u8 D_800D9B18;
-extern u8 D_800BEAC1;
 extern s32 D_800BE9D0;
 extern s32 D_80082FA4;
-extern u8 D_800BE630[];
-extern s32 D_800BEB9C;
 extern u8 D_80089470;
 extern u8 D_800D9B90[][0x20];
 
@@ -244,7 +237,6 @@ void func_15085ABC(s16);
 void func_1507C370(void);
 void func_1507C8FC(void);
 extern u8 D_800C35EA;
-extern u16 D_800D2340;
 
 void func_15018DFC(void) {
     func_150A09D0(D_800BE9E4);
@@ -292,7 +284,6 @@ void func_1517F448(s32);
 /* Both callers load a0 before the jal (func_15018F80: or a0,s0,zero; func_15007B3C:
  * or a0,zero,zero) although the definition in game_487D0.c ignores it. */
 void func_1501B640(s32);
-extern s32 D_8003C8E0;
 extern u8 *D_800DBFF0;
 void func_15018F80(s16 arg0) {
     u8 *sp24;
@@ -317,11 +308,8 @@ void func_150ADACC(s32);
 void func_1000D758(f32, f32, s32);
 s32 func_1501BBB8(void);
 void func_15169040(s32, u8);
-extern u8 D_800BEAC1;
 extern void *D_800BE9D8[];
 extern s32 D_800BE9D0;
-extern u16 **D_800BE728;
-extern u8 D_800E0B94;
 
 void func_1501905C(void) {
     D_800BE9D0 = (s32)D_800BE9D8[D_800BE9C0];
@@ -385,8 +373,6 @@ void func_15188B74(s32);
 void func_151738C4(s32);
 void func_150242F8(s32, s32);
 void func_151749F8(s32, s32);
-extern u8 D_800DCD27;
-extern u8 D_800CC2B0;
 typedef struct { s32 value, counter; } Game45B80Counter;
 extern Game45B80Counter D_80043B40[];
 
@@ -512,7 +498,6 @@ s32 func_1502BAD0(void *, s32, s16);
 Game45B80Command *func_15035FE8(s32, s32);
 Game45B80Command *func_15188D00(Game45B80Command *, s32, s16);
 extern u8 D_80089470;
-extern u8 D_800BE575;
 
 s32 func_150195A0(Game45B80Command *arg0, s16 arg1) {
     u8 *sp2C = D_800DBFF0 + (arg1 * 0x9A0);
@@ -559,7 +544,6 @@ Game45B80Command *func_1508FD38(Game45B80Command *);
 void *func_15096934(void *);
 extern s32 D_8002AAE8[];
 extern s32 D_80082FA4;
-extern s32 D_800BE9C4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150198FC CURRENT (1285) */
 void func_150198FC(Game45B80Command *arg0) {
@@ -650,10 +634,7 @@ s32 func_15019E60(Game45B80Command *arg0) {
     return func_15043384(func_151E8620((s32)func_1501A490(arg0, 0xFF, 0, 0, 0, 0)));
 }
 void func_150A019C(void);
-extern s8 D_800BE619;
-extern s8 D_800BE61A;
 extern f32 D_800BE9A4;
-extern u8 D_800BEA0C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15019F20 CURRENT (4090) */
 void func_15019F20(void) {

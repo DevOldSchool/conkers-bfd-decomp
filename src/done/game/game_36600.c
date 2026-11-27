@@ -17,9 +17,7 @@ typedef struct Game36600Result {
 } Game36600Result;
 
 Game36600Result *func_1517E080(s32, s32);
-extern f32 *D_8008CFFC[];
 extern Game36600State *D_800B0DF0;
-extern u8 D_800DCDD0;
 extern s32 D_800DDD64;
 
 void func_15009150(s32 arg0) {

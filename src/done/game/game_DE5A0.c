@@ -178,7 +178,6 @@ s32 func_1505A630(f32, f32, s32);
 f32 func_150AD78C(f32);
 
 void func_1505A770(void *);
-extern u8 D_800C3E78;
 
 void func_150B17DC(u8 *arg0) {
     s32 sp3C;

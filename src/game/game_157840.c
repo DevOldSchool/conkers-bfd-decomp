@@ -62,7 +62,6 @@ void func_1512ABF8(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512AD54.s")
 void func_1512AD54(void);
-extern u8 D_800C3671;
 
 void func_1512B100(void *arg0) {
     u8 *base;
@@ -330,8 +329,6 @@ void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 void func_1510E8BC(s32, s32, f32 *, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32, s32);
 void func_151236D0(u8 *);
 s32 func_15044380(f32, f32, f32, void *, s32, s32);
-extern u8 D_80089120[];
-extern u8 D_800CBDD3;
 
 void func_1512BB10(u8 *arg0) {
     s32 savedDD3;

@@ -13,8 +13,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern u8 D_800BE575;
-
 typedef s32 (*Game40490SimpleCallback)(u8 *);
 
 extern Game40490SimpleCallback D_80082EA0[];
@@ -28,7 +26,6 @@ void func_15012FE0(void) {
 }
 typedef void (*Game40490DispatchCallback)(u8 *, void *);
 extern Game40490DispatchCallback D_80082E30[];
-extern u32 D_800D3094;
 extern u8 *D_800D3098;
 extern void *D_800DCDC4;
 
