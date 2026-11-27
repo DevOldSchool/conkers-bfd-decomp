@@ -53,6 +53,13 @@ Bytes between the last object and the end are zero (object alignment).
 | `game_1CDEC0` (partial) | `0x8008F8D0`-`0x8008F8E0` | 2 (4) | `u8[2]` `{0x80, 0x80}` |
 | `game_1E37D0` (partial) | `0x8008FB90`-`0x8008FBA0` | 12 | two callback tables |
 | `game_1FC830` (partial) | `0x8008FC30`-`0x8008FC40` | 12 | position callback table |
+| `game_90840` (partial) | `0x80086100`-`0x80086110` | 8 | `s32[2]` `{57, 53}`, copied as a pair |
+| `game_F2820` (partial) | `0x80088760`-`0x800887D0` | 112 | callback tables and two unreferenced display lists |
+| `game_F5D80` (partial) | `0x80088820`-`0x80088870` | 72 | count/pointer pair, two unreferenced display lists, callback tables |
+| `game_1570E0` (partial) | `0x80089560`-`0x80089590` | 48 | three zero `f32[4]` |
+| `game_18A8F0` (partial) | `0x8008B090`-`0x8008B0D0` | 60 | 12-entry and 3-entry callback tables |
+| `effects/characterflamethrower` (partial) | `0x8008F870`-`0x8008F8D0` | 88 | 15 callback tables and a three-id group |
+| `game_1E26F0` | `0x8008FB80`-`0x8008FB90` | 5 (8) | two `u8` 1, each 4-byte aligned by IDO |
 
 `game_1861B0` does not meet the end rule on references alone: its last
 referenced address is `0x8008B02C`. The five-entry table there points at the
@@ -65,13 +72,18 @@ are counted as alignment.
 
 ## Deferred
 
-- `game_1E26F0` (`0x8008FB80`-`0x8008FB90`): the two `u8` objects sit four
-  bytes apart, so the IDO alignment of a lone `u8` needs a check first.
 - `game_1865D0`, `game_188440` and `game_188F90`: the unreferenced display
   lists at `0x8008B050`-`0x8008B077` could belong to any of these units.
+- `game_36680` (`0x80082BE0`-`0x80082D90`): fixed extent, but its packed index
+  records, 88-entry callback table and string pointers need typing first.
+- `game_BC510` (`0x80087390`-`0x800873D0`) and `game_1BA670`
+  (`0x8008D5E0`-`0x8008D630`): referenced only from retained assembly so far;
+  `game_1BA670` points into another unit's `.data`.
+- `game_1897A0` (`0x8008B080`-`0x8008B090`): `game_188F90` indexes the table
+  that ends at this extent's start, so the boundary needs a reading of that code.
 
 ## Verification
 
 `make game-integrated-raw`: every placement's payload matches the US ROM, the
-alignment bytes are zero, the GAME data image matches with 38,364 linked bytes,
+alignment bytes are zero, the GAME data image matches with 38,760 linked bytes,
 and `conker.game.us.integrated.bin` is unchanged (OK).

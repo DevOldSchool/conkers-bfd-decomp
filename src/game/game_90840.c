@@ -913,3 +913,9 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     return anim;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15065A5C.s")
+
+/*
+ * This unit's complete .data section, 0x80086100-0x80086108 plus end-of-object padding to 0x80086110.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 D_80086100[] = { 57, 53 };

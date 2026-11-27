@@ -372,12 +372,32 @@
         }
       },
       {
+        "address": "0x80086100",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_90840.c",
+            "src/done/game/game_90840.c"
+          ]
+        }
+      },
+      {
         "address": "0x80088710",
         "section": ".data",
         "owner": {
           "sources": [
             "src/game/game_E3C90.c",
             "src/done/game/game_E3C90.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088760",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_F2820.c",
+            "src/done/game/game_F2820.c"
           ]
         }
       },
@@ -408,6 +428,16 @@
           "sources": [
             "src/game/game_F5800.c",
             "src/done/game/game_F5800.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088820",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_F5D80.c",
+            "src/done/game/game_F5D80.c"
           ]
         }
       },
@@ -502,6 +532,16 @@
         }
       },
       {
+        "address": "0x80089560",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1570E0.c",
+            "src/done/game/game_1570E0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8008ADD0",
         "section": ".data",
         "owner": {
@@ -518,6 +558,16 @@
           "sources": [
             "src/game/game_1861B0.c",
             "src/done/game/game_1861B0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008B090",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_18A8F0.c",
+            "src/done/game/game_18A8F0.c"
           ]
         }
       },
@@ -582,12 +632,32 @@
         }
       },
       {
+        "address": "0x8008F870",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/effects/characterflamethrower.c",
+            "src/done/game/effects/characterflamethrower.c"
+          ]
+        }
+      },
+      {
         "address": "0x8008F8D0",
         "section": ".data",
         "owner": {
           "sources": [
             "src/game/game_1CDEC0.c",
             "src/done/game/game_1CDEC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008FB80",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1E26F0.c",
+            "src/done/game/game_1E26F0.c"
           ]
         }
       },

@@ -3167,3 +3167,30 @@ void func_1519CDB0(CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2) {
         } while (index != arg0->point_index);
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008F870-0x8008F8C8 plus end-of-object padding to 0x8008F8D0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 func_1519897C(CharacterFlamethrowerActor *);
+
+f32 (*D_8008F870[])(void *, s32) = {
+    (f32 (*)(void *, s32))func_151979F8,
+    (f32 (*)(void *, s32))func_15197A0C,
+    (f32 (*)(void *, s32))func_15197A68,
+};
+void (*D_8008F87C[])(void *) = { (void (*)(void *))func_151993E4 };
+s32 (*D_8008F880[])(CharacterFlamethrowerActor *) = { func_15198570, func_1519897C, func_151987CC };
+void (*D_8008F88C[])(void *) = { (void (*)(void *))func_1519944C };
+s16 (*D_8008F890[])(void) = { (s16 (*)(void))func_15198C60 };
+void (*D_8008F894[])(CharacterFlamethrowerActor *) = { func_15198C90 };
+void (*D_8008F898[])(void *) = { (void (*)(void *))func_15198D40 };
+void (*D_8008F89C[])(CharacterFlamethrowerActor *) = { (void (*)(CharacterFlamethrowerActor *))func_15198D7C };
+CharacterFlamethrowerGroups D_8008F8A0 = { { 21, 22, 23 } };
+void (*D_8008F8A4[])(void *) = { (void (*)(void *))func_1519BEB8 };
+s32 (*D_8008F8A8[])(s32) = { func_1519C948, func_1519C970, func_1519C998 };
+void (*D_8008F8B4[])(void *) = { (void (*)(void *))func_1519BF20 };
+s16 (*D_8008F8B8[])(void) = { (s16 (*)(void))func_1519BF8C };
+void (*D_8008F8BC[])(CharacterFlamethrowerActor *) = { func_1519BFBC };
+void (*D_8008F8C0[])(void) = { (void (*)(void))func_1519C06C };
+s32 (*D_8008F8C4[])(CharacterFlamethrowerActor *) = { func_1519C910 };

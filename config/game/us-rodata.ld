@@ -684,6 +684,13 @@ SECTIONS
     .game_rodata_ec420_0 0x800A0110 (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_0) }
     .game_rodata_ec420_14 0x800A014C (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_14) }
     /* Unit-owned initialized data: docs/evidence/data-layout/game_unit_data.md. */
+    .game_rodata_90840_data 0x80086100 (INFO) : SUBALIGN(4) { *game_90840.o(.data) }
+    .game_rodata_F2820_data 0x80088760 (INFO) : SUBALIGN(4) { *game_F2820.o(.data) }
+    .game_rodata_F5D80_data 0x80088820 (INFO) : SUBALIGN(4) { *game_F5D80.o(.data) }
+    .game_rodata_1570E0_data 0x80089560 (INFO) : SUBALIGN(4) { *game_1570E0.o(.data) }
+    .game_rodata_18A8F0_data 0x8008B090 (INFO) : SUBALIGN(4) { *game_18A8F0.o(.data) }
+    .game_rodata_characterflamethrower_data 0x8008F870 (INFO) : SUBALIGN(4) { *characterflamethrower.o(.data) }
+    .game_rodata_1E26F0_data 0x8008FB80 (INFO) : SUBALIGN(4) { *game_1E26F0.o(.data) }
     .game_rodata_E3C90_data 0x80088710 (INFO) : SUBALIGN(4) { *game_E3C90.o(.data) }
     .game_rodata_FD1D0_data 0x800888A0 (INFO) : SUBALIGN(4) { *game_FD1D0.o(.data) }
     .game_rodata_1136E0_data 0x80088A10 (INFO) : SUBALIGN(4) { *game_1136E0.o(.data) }
@@ -1283,3 +1290,15 @@ ASSERT(SIZEOF(.game_rodata_1E37D0_data) == 0x10, "game_1E37D0 .data extent chang
 __game_rodata_1E37D0_data_payload_size = 0xC;
 ASSERT(SIZEOF(.game_rodata_1FC830_data) == 0x10, "game_1FC830 .data extent changed")
 __game_rodata_1FC830_data_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_90840_data) == 0x10, "game_90840 .data extent changed")
+__game_rodata_90840_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_F2820_data) == 0x70, "game_F2820 .data extent changed")
+ASSERT(SIZEOF(.game_rodata_F5D80_data) == 0x50, "game_F5D80 .data extent changed")
+__game_rodata_F5D80_data_payload_size = 0x48;
+ASSERT(SIZEOF(.game_rodata_1570E0_data) == 0x30, "game_1570E0 .data extent changed")
+ASSERT(SIZEOF(.game_rodata_18A8F0_data) == 0x40, "game_18A8F0 .data extent changed")
+__game_rodata_18A8F0_data_payload_size = 0x3C;
+ASSERT(SIZEOF(.game_rodata_characterflamethrower_data) == 0x60, "characterflamethrower .data extent changed")
+__game_rodata_characterflamethrower_data_payload_size = 0x58;
+ASSERT(SIZEOF(.game_rodata_1E26F0_data) == 0x10, "game_1E26F0 .data extent changed")
+__game_rodata_1E26F0_data_payload_size = 0x8;
