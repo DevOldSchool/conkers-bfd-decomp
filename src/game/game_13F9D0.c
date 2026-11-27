@@ -8,6 +8,7 @@
  * TODO: Implement these source-unit functions:
  * - func_15112520
  * - func_15112A80
+ * - func_15113218
  * - func_15114A1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -131,6 +132,7 @@ extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 extern u8 D_800DBF08[];
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113218 */
 void func_15113218(void) {
     s32 i;
     s32 index;
@@ -197,6 +199,8 @@ void func_15113218(void) {
         }
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15113218 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113218.s")
 
 
 typedef struct Game13F9D0Command {

@@ -6,6 +6,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_1515C388
  * - func_1515C6F4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -67,6 +68,7 @@ typedef struct Game1897A0Trail {
     Game1897A0TrailSettings *settings;
 } Game1897A0Trail;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C388 */
 s32 func_1515C388(Game1897A0Trail *arg0) {
     Game1897A0TrailSettings *settings = arg0->settings;
     u8 callbackFailed = 0;
@@ -107,6 +109,8 @@ s32 func_1515C388(Game1897A0Trail *arg0) {
     }
     return 1;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515C388 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C388.s")
 extern s32 D_800BE9E4;
 typedef s32 (*Game1897A0ActionCallback)(void *, void *);
 extern Game1897A0ActionCallback D_8008B084[];

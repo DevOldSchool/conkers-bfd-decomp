@@ -10,6 +10,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_model_owner_mode_cores.md
  *
  * TODO: Implement these source-unit functions:
+ * - func_151A7A90
  * - func_151A8624
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -80,6 +81,7 @@ extern s32 (*D_8008F948[])(Game1D4E00Curve *);
 extern f32 D_800BE9A4;
 extern s32 D_800BE9E4;
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7A90 */
 void func_151A7A90(Game1D4E00Curve *arg0) {
     Game1D4E00Curve *self = arg0;
     u8 expired;
@@ -144,6 +146,8 @@ void func_151A7A90(Game1D4E00Curve *arg0) {
         func_1516972C(arg0);
     }
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A7A90 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7A90.s")
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)

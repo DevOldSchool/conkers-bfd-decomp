@@ -32632,16 +32632,16 @@
       "symbol": "func_1515C2F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "block-scoped Vec3f *dest pointer supplies frame word; rejected in review",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 428,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_1515C388",
           "vram": "0x1515C388"
         }
@@ -56084,16 +56084,16 @@
       "symbol": "func_151A7950"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "once-used self=arg0 loop-bound copy steers register allocation; rejected in review",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 732,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_151A7A90",
           "vram": "0x151A7A90"
         }
@@ -76895,16 +76895,16 @@
       "symbol": "func_15113180"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "once-used temps visible/slot/source exist to size the frame; rejected in review",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 940,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15113218",
           "vram": "0x15113218"
         }
