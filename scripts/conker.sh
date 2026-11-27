@@ -90,6 +90,9 @@ Getting started
                                  identical (0: symbols/labels, 1: +registers, 2: +immediates).
   siblings --all-deferred [--unmatched] [--level 0|1|2] [--limit N]
                                  Queue every raw/deferred item with a matched twin (read-only).
+  data-owners [--status S] [--matched] [--json]
+                                 List GAME units whose .data extent the reference code fixes
+                                 (ready, placed, start-/end-ambiguous, shared, split; read-only).
   matching-history <command>     Show, annotate, export or import saved finish attempts.
   matching-context <id>          Retrieve bounded contract/storage matching hypotheses.
   matching-callers <callee>...   List possible matched direct callers needing review.
@@ -904,6 +907,9 @@ case "$command" in
         ;;
     matching-callers)
         python3 scripts/matching_callers.py "$@"
+        ;;
+    data-owners)
+        python3 scripts/data_owners.py "$@"
         ;;
     siblings)
         [[ $# -ge 1 ]] || die "usage: ./conker siblings <work-item-id> [--level 0|1|2] [--limit N] | --all-deferred [--unmatched] [--level 0|1|2] [--limit N]"
