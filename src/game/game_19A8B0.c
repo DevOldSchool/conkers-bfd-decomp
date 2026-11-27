@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_19A8B0.c
@@ -51,12 +52,6 @@ void func_1516D99C(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s
 void func_1516D4E8(s16 arg0, s16 arg1, s16 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13, u8 arg14, u8 arg15, u8 arg16, u8 arg17, u8 arg18, u8 arg19, u8 arg20, u8 arg21, u8 arg22, s16 arg23, s16 arg24, u8 arg25, s16 arg26, s32 arg27, s32 arg28, u8 arg29, s32 arg30);
 
 s32 func_151EF610();
-
-extern u8 D_800BE9A0;
-extern u8 D_800DD2A0[4];
-extern u8 D_800DD2A1;
-extern u8 D_800DD2A2;
-extern u8 D_800DD2A3;
 
 void func_1516D400(void) {
     s32 i;
@@ -118,7 +113,6 @@ void func_1516D4E8(s16 arg0, s16 arg1, s16 arg2, u8 arg3, u8 arg4, u8 arg5, u8 a
     }
 }
 
-extern s32 D_800BE9E4;
 extern s32 (*D_8008CBA0[])(Game19A8B0Motion *);
 
 void func_1516D678(Game19A8B0Motion *arg0) {
@@ -171,15 +165,6 @@ typedef struct Game19A8B0Sprite {
 } Game19A8B0Sprite;
 
 extern Game19A8B0Resource *D_8008CA4C[];
-extern s32 D_800D2C9C;
-extern u8 D_800D2DA8;
-extern u8 D_800D2DA9;
-extern u8 D_800D2DAA;
-extern s8 D_800D2DAB;
-extern s16 D_800DD1BC;
-extern s16 D_800DD1C8;
-extern s16 D_800DD1CA;
-extern s16 D_800DD1CC;
 s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 void *func_15142FBC(void *, s32, s32, u8 *);
 void *func_15095760(void *, Game19A8B0Sprite *, u8, u8);
@@ -341,8 +326,6 @@ void func_1516E778(u32 arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
         0x1E, 0, 0xFF, 0x28, 0x168, 0x18, 0x21, 4, 0, 1,
         0, 0, 0, 0, 0, arg3, arg4);
 }
-extern u8 D_800A6E00[];
-extern u8 D_800A6E0C[];
 
 s32 func_1516E8CC(Game19A8B0Motion *arg0) {
     s32 value;
@@ -407,10 +390,6 @@ s32 func_1516E8CC(Game19A8B0Motion *arg0) {
 
 void func_1516ECA4(void) {
 }
-
-extern s32 D_800BE9E4;
-
-
 
 s32 func_1516ECAC(Game19A8B0Motion *arg0) {
     s32 size;
@@ -544,7 +523,6 @@ void func_1516F2F8(u8 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
         4, 4, arg0, arg2, 0, 0, 0x81, 5, 0, 1,
         0, 0, 0, 1, arg3, arg4, arg5);
 }
-extern u8 D_1000EBC4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516F548 CURRENT (5360) */
 void func_1516F548(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 arg5, u8 arg6, s32 arg7, s32 arg8, u8 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14, u8 arg15, s32 arg16) {
@@ -578,10 +556,6 @@ void func_1516F548(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s16 arg5, u8
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516F548 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516F548.s")
-
-extern s32 D_800BE9E4;
-
-
 
 void func_1516F864(Game19A8B0Motion *arg0) {
     s32 x;

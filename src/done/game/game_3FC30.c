@@ -1,12 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3FC30.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_units_3D6F0_3FC30.md
  */
-
-extern u8 *D_800DD410[2];
-extern s8 D_800DD418;
 
 void func_15012780(void) {
     s32 i;

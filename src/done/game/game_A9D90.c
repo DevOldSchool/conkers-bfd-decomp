@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_A9D90.c
@@ -59,15 +60,8 @@ void func_1507D4F8(s32);
 void func_1507E1D0(GameA9D90Player *, f32 *, f32 *, f32 *);
 s32 func_150859AC(s32, s32);
 void func_1517F814(s32, f32, f32, f32, s32);
-extern s8 D_8008FD8C;
-extern u16 D_8008FDBC;
-extern s32 D_80082FA0;
 extern u16 D_800BE710[];
-extern u8 D_800BE616;
-extern s32 D_800BE9E4;
-extern u8 D_800BEAC0;
 extern u8 D_800CC2D0;
-extern u16 D_800D18A2;
 
 void func_1507C8FC(void) {
     s32 i;
@@ -158,7 +152,6 @@ void func_1507C8FC(void) {
     }
 }
 void func_15181D70(s32);
-extern s32 D_80082FA0;
 extern u8 D_800CC2D0;
 
 void func_1507CD0C(void *arg0) {
@@ -235,9 +228,6 @@ f32 func_150ADA68(void);
 void *func_150E7994(s16, f32, u8, s32);
 void func_15169040(s32, u8);
 extern void *D_800D154C;
-extern u8 D_800D18A9;
-extern s16 D_800E0AD0[];
-extern s32 D_800BE9F0;
 
 void func_1507CD64(GameA9D90Actor *arg0, s32 arg1) {
     s32 slot;
@@ -416,13 +406,8 @@ s32 func_150859AC(s32, s32);
 void func_15181DC8(s32);
 void func_15082A44(s32, s32, s32, s32, s32);
 void func_15088D58(GameA9D90Object *);
-extern s16 D_800BE9F2;
-extern s32 D_800BE9F0;
 extern s32 D_800D20FC;
 extern u8 *D_800DBFF0;
-extern u8 D_800BE616;
-extern u8 D_800D18A8;
-extern s8 D_8008726C;
 
 void func_1507D1D8(GameA9D90Object *arg0) {
     s32 value;
@@ -504,20 +489,8 @@ s32 func_150859AC(s32, s32);
 void func_1509C3A0(void);
 void func_1507D1D8(GameA9D90Object *);
 void func_15085710(s32, s32, s32);
-extern s8 D_80087260;
-extern s8 D_8008726C;
-extern s8 D_8008FD94;
-extern s8 D_8008FDA8;
-extern u16 D_8008FDBC;
-extern u8 D_800BE616;
-extern s8 D_800BE618;
-extern u16 D_800D18A0;
 extern s8 D_800D2E43;
 extern u8 *D_800D2E4C;
-extern s8 D_800E0C20;
-extern s8 D_800BE3DF;
-extern u8 D_800BE3E0;
-extern u8 D_800D18A8;
 
 void func_1507D4F8(s32 arg0) {
     GameA9D90Object *actor;
@@ -733,10 +706,7 @@ typedef struct { u32 first, second; } GameA9D90Command;
 
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 void func_15181DC8(s32);
-extern u8 D_80086B80[];
-extern u8 D_D0F;
 extern s32 D_800BE628;
-extern u16 D_800D18A2;
 extern u8 D_800D18A4[];
 
 GameA9D90Command *func_1507DB6C(GameA9D90Command *arg0, s32 arg1) {
@@ -838,10 +808,7 @@ void func_1507DF10(void *arg0, s32 arg1) {
 void func_1501D348(s32, s32, s32, u8, s32);
 void func_15022190(s16, s16, s16, f32);
 void func_15084D70(s32, s32, s32, void *, void *, void *, void *, void *, void *, s32, s32 *);
-extern s32 D_800BE9F0;
 extern u8 D_800C35EA;
-extern s8 D_800C3670;
-extern s8 D_800C3671;
 
 void func_1507DFE4(s32 arg0, s32 arg1) {
     s32 sp64;
@@ -876,10 +843,6 @@ play:
         }
     }
 }
-extern s8 D_800BE3DF;
-extern u8 D_800BE3E0;
-extern s32 D_800BE9F4;
-extern u8 D_800D18A8;
 
 s32 func_1507E114(s32 arg0) {
     s32 sp5C;

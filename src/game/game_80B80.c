@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_80B80.c
@@ -70,7 +71,6 @@ void func_150548D8(s32 arg0) {
 
 }
 s32 func_10010344(s32, void *, u32, s16, s32);
-extern s8 D_8008FD8C;
 extern u8 D_800CC2D0;
 
 void func_150548E4(u8 *arg0) {
@@ -112,7 +112,6 @@ void func_150836CC(u8 *, s32);
 void func_1507C324(void *, void *);
 s32 func_151026BC(void *, s16, u8, u8, u8, s32);
 void func_15188810(u8 *, s32, s32);
-extern u16 **D_800BE728;
 
 void func_15054A94(u8 *arg0) {
     u8 *anim;
@@ -244,8 +243,6 @@ void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 s32 func_1505A630(f32, f32, s32);
 void func_1508B20C(f32, f32, f32, f32);
 void func_10010154(s32, void *, s32, s32, s32);
-extern u8 D_800BE616, D_800C3E78;
-extern s32 D_800CC268, D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15054F74 CURRENT (989) */
 void func_15054F74(u8 *arg0) {
@@ -323,7 +320,6 @@ void func_15055260(void *arg0, void *arg1, s32 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_1505528C.s")
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u16 D_8009919C[];
 
 void func_15055A2C(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     s32 snd;
@@ -348,8 +344,6 @@ void func_15055B0C(u8 *arg0, s32 arg1) {
     *(s16 *)((u8 *)arg0 + 0x21C) = (s16) arg1;
 }
 /* Call context: func_15060F28: unique active project prototype */
-extern u8 D_800BE9A0;
-extern s32 D_800BE9E4;
 
 void func_15055B64(u8 *arg0) {
     u16 temp_v0;
@@ -381,7 +375,6 @@ void func_1506160C(u8 *, u8, u8, u8, u8);
 s32 func_1506E46C(u8 *, s32 *, s32);
 void func_15060A30();
 void func_1507CD64(u8 *, s32);
-extern f32 D_80099418;
 
 void func_15055C88(u8 *arg0) {
     s32 sp2C;
@@ -402,9 +395,7 @@ void func_15055C88(u8 *arg0) {
     func_1507CD64(arg0, 9);
 }
 void func_1506D538(void);
-extern f32 D_8009941C;
 extern u8 D_800CC2D0;
-extern u16 D_800D18A0;
 
 void func_15055D48(u8 *arg0) {
     f32 scale;

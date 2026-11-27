@@ -1,14 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FA240.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_directly_called_families.md
  */
-
-extern f32 D_800A0700;
-extern f32 D_800A0704;
-extern f32 D_800A0708;
-extern f32 D_800A070C;
 
 void func_150CCD90(f32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 temp_fv0;

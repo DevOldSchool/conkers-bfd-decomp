@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1CDEC0.c
@@ -65,7 +66,6 @@ typedef struct Game1CDEC0Emitter {
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32,
                    s32, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A8D10;
 extern f32 D_800BE9A4;
 
 void func_151A0AF8(Game1CDEC0Emitter *arg0) {
@@ -115,12 +115,6 @@ typedef struct {
     u8 pad33;
     s16 field34;
 } Game1CDEC0Particle;
-
-extern u8 D_8008F8D0[];
-extern u8 D_8009187C[];
-extern u8 D_800918A0[];
-extern f32 D_800A8D14;
-extern f32 D_800A8D18;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A0C0C CURRENT (1179) */
 s32 func_151A0C0C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,

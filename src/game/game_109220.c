@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_109220.c
@@ -132,8 +133,6 @@ typedef struct Game109220Spawn {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 void *func_15083E90(u8);
-extern u8 D_800903C8[];
-extern u8 D_80090414[];
 
 void *func_150DBD70(u8 arg0) {
     Game109220Spawn spawn;

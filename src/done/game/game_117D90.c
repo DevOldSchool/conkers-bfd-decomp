@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_117D90.c
@@ -24,7 +25,6 @@ void func_150EA904(s32 arg0, s32 arg1) {
         *tmp1 = (u8) (tmp3 | 3);
     }
 }
-extern s32 D_800BE9E4;
 
 void func_150EA944(void *arg0) {
     f32 temp_fv0;

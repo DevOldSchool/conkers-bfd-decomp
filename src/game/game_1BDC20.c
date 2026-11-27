@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1BDC20.c
@@ -52,7 +53,6 @@ void func_1519086C(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190898.s")
 /* Call context: func_151423D8: unique active project prototype */
-extern s32 D_800BE9E4;
 
 s32 func_15190F9C(u8 *arg0) {
     u8 angle;
@@ -74,7 +74,6 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A8018, D_800BE9A8;
 extern u8 D_800DD1D8[], D_800DD1E8[];
 
 void *func_1519108C(u8 *arg0, s16 arg1) {
@@ -137,7 +136,6 @@ void *func_1519108C(u8 *arg0, s16 arg1) {
     *(s16 *)((u8 *)vertices + 0x36) = 0;
     return base;
 }
-extern u8 D_800A9D40[];
 
 typedef struct {
     s16 base;
@@ -171,7 +169,7 @@ s32 func_1514672C(f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-extern f32 D_800BE9A4, D_800A801C, D_800A8020;
+extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15191520 CURRENT (5362) */
 s32 func_15191520(u8 *arg0) {
@@ -336,7 +334,6 @@ void func_15191A84(void *arg0, void *arg1, u8 arg2) {
     }
 }
 void func_15169260(s32 *, s32, void *, u8);
-extern s32 D_800A8010;
 
 void func_15191B8C(void *arg0, u8 arg1) {
     s32 sp1C;

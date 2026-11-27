@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FC830.c
@@ -44,7 +45,6 @@ Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF380 */
 Gfx *func_151CF380(u8 *arg0, Gfx *arg1, s16 arg2) {
@@ -157,8 +157,6 @@ s32 func_15046C80(Vec3f *, u16, f32, Game71820Hit *);
 f32 func_15144AA8(s32);
 s32 func_15144B34(s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800AB020;
-extern f32 D_800AB024;
 extern Game71820Hit D_800D9860;
 
 void func_151CF898(void *arg0, f32 arg1, f32 arg2) {
@@ -343,7 +341,6 @@ typedef struct {
 } Game1FC830State;
 
 void func_15143134(f32 *, f32 *, s32);
-extern f32 D_800AAF9C[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D10E4 CURRENT (845) */
 s32 func_151D10E4(s32 arg0, s32 arg1, u8 arg2) {
@@ -459,7 +456,6 @@ void func_151D13E0(Game1FC830ActorContext *arg0) {
         temp_v0->actor = 0;
     }
 }
-extern s32 D_80082FA0;
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 
 void func_151D1448(u8 *arg0) {

@@ -1,11 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15AA10.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_preserved_helper_groups.md
  */
-
-extern s32 D_800DC2B0;
 
 void func_1512D560(void *arg0, s32 arg1, void *arg2) {
     void *temp_v0;
@@ -41,7 +40,6 @@ void func_1512D66C(void *arg0) {
     *(s32 *)(((u8 (*)[0xB0])*temp_t6)[*(u8 *)((u8 *)arg0 + 0x23D)] + 0xA8) = 0;
     *(s32 *)(((u8 (*)[0xB0])*temp_t6)[*(u8 *)((u8 *)arg0 + 0x23D)] + 0xAC) = 0;
 }
-extern s32 D_800DC2B0;
 
 s32 func_1512D6B0(void *arg0) {
     u8 *temp_v1;

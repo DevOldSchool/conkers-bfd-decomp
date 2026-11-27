@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_209B50.c
@@ -14,7 +15,6 @@ void func_15103254(s32, s32, f32, void *, s32, s32, s32);
 void func_15150178(s16 *, f32 *, s32, u8, s32);
 void func_15182670(s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
-extern f32 D_800AB518, D_800AB51C, D_800AB520, D_800AB524;
 
 typedef struct Game209B50Secondary {
     s16 field00, field02, field04, field06;
@@ -116,7 +116,6 @@ typedef struct Game209B50SpawnState {
     f32 counter;
     u8 useTable;
 } Game209B50SpawnState;
-extern f32 D_800AB528, D_800AB52C, D_800AB530, D_800AB534;
 extern f32 D_800BE9A4;
 
 void func_151DC97C(u8 *arg0) {

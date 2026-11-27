@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_123FB0.c
@@ -36,8 +37,6 @@ f32 func_150AD900(f32 *, f32 *);
 f32 func_150AD930(void *);
 s32 func_1509BE40(s32, ...);
 void func_1509BFB0(s32, ...);
-extern f32 D_800A1B80[3], D_800A1B8C[3], D_800D9A50[3];
-extern f32 D_800A1B98, D_800A1B9C, D_800A1BA0;
 
 #define LERP(a, b, t) (((b) - (a)) * (t) + (a))
 void func_150F6B00(Game123FB0Actor *actor) {

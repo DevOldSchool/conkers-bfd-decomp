@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3F4D0.c
@@ -18,8 +19,6 @@ typedef struct Game3F4D0Descriptor {
 } Game3F4D0Descriptor;
 
 void *func_151A8B20(void *, s16, s32, u8, s32);
-extern f32 D_80096530;
-extern f32 D_80096534;
 
 void func_15012020(s32 arg0, s32 arg1) {
     Game3F4D0Descriptor descriptor;

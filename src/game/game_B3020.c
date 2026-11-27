@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_B3020.c
@@ -19,9 +20,6 @@ typedef struct {
 
 GameB3020Image *func_1502B5C8(u32 *, s32, s32, void *);
 s32 func_15085BE8(void);
-extern s16 D_80087290;
-extern s16 D_80087294;
-extern u8 *D_800D2350;
 
 void func_15085B70(void *arg0) {
     GameB3020Image *image;
@@ -38,9 +36,6 @@ void func_15085B70(void *arg0) {
     }
     func_15085BE8();
 }
-extern u8 D_800D2358;
-extern f32 D_800D2360;
-extern u8 D_800D237C[];
 
 s32 func_15085BE8(void) {
     s32 overlap;
@@ -95,10 +90,6 @@ u8 func_15085DA8(f32 arg0) {
     return D_800D237C[i];
 }
 f32 func_15086D94(f32, f32, f32, f32, f32);         /* extern */
-extern s16 D_80087290;
-extern u8 D_8008729C;
-extern f32 D_8009D9CC;
-extern s32 D_800D2354;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)

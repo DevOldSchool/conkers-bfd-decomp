@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FE340.c
@@ -11,14 +12,8 @@ void func_15145A50(u8 *);
 void func_10010154(s32, void *, s32, s32, s32);
 void func_1507CD64(void *, s32);
 void func_151951E0(u8 *);
-extern s32 D_80088890;
-extern s32 D_80088894;
-extern s32 D_80088898;
-extern s32 D_8008889C;
-extern s32 D_800BE9E4;
 extern u8 D_800CC2D0[];
 extern u8 *D_800DBEF4;
-extern u32 *D_800DBF94;
 
 void func_150D0E90(s32 arg0) {
     s32 i;
@@ -76,7 +71,6 @@ typedef struct GameFE340Packet {
 } GameFE340Packet;
 
 void *func_15134DAC();
-extern f32 D_800A0890;
 
 void func_150D10E4(u8 *arg0, u8 arg1, void *arg2, s32 arg3) {
     GameFE340Packet packet;
@@ -108,7 +102,6 @@ void func_150D10E4(u8 *arg0, u8 arg1, void *arg2, s32 arg3) {
     func_15134DAC(&packet.id, 0, arg2, arg3);
 }
 f32 func_150ADA68();                                /* extern */
-extern f32 D_800A0894;
 
 s32 func_150D11B4(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x74) = (f32) (((func_150ADA68() * 150.0f) + 350.0f) * D_800A0894);
@@ -116,10 +109,6 @@ s32 func_150D11B4(void *arg0) {
 }
 
 void func_151DB5D0(s32, void *, void *, f32, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A0898;
-extern f32 D_800A089C;
-extern f32 D_800A08A0;
-extern f32 D_800A08A4;
 
 typedef struct { u8 unk0; u8 unk1; u8 pad2[0xA]; u8 unkC; u8 padD[0x67]; f32 unk74; } Fx150D1204;
 

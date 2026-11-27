@@ -1,5 +1,6 @@
 #include "types.h"
 #include <PR/gbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_C1D70.c
@@ -8,7 +9,6 @@
 
 void func_1509499C(u8 *, u8 *);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-extern void *D_800D2C20;
 
 void func_150948C0(u8 *arg0, s32 arg1) {
     s16 *items[16];
@@ -48,7 +48,6 @@ void func_1509499C(u8 *arg0, u8 *arg1) {
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);                             /* extern */
-extern f32 D_8009DEA0;
 
 void func_15094AB8(Vtx *arg0, s16 (*arg1)[2], s32 arg2, f32 arg3, s32 arg4, s32 arg5) {
     s32 halfWidth;

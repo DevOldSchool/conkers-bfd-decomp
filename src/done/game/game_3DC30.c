@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3DC30.c
@@ -25,7 +26,6 @@ void *func_10022EC0(void *, const void *, u32);
 void func_150DE32C(void);
 extern u8 *D_800D2E4C;
 extern s32 D_800D3098;
-extern void (*D_800E0934)(void);
 
 typedef struct Game3DC30Temp { s16 unk0; s16 pad2; s32 unk4; s32 unk8; } Game3DC30Temp;
 

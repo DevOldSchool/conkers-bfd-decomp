@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10ED10.c
@@ -15,8 +16,6 @@ typedef struct {
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 s32 func_1509BE40(s32, ...);
 void func_1509BFB0(s32, ...);
-extern f32 D_80088990[], D_800889A0[], D_800889B0[];
-extern s32 D_800889C0[], D_800889D0[], D_800889E0;
 
 void func_150E1860(Game10ED10Actor *arg0) {
     s32 index;

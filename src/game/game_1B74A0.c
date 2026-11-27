@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B74A0.c
@@ -85,9 +86,6 @@ s32 func_1518A094(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518A094 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A094.s")
-extern f32 D_800A73C0;
-extern f32 D_800A73C4;
-extern f32 D_800A73C8;
 
 s32 func_1518A214(void *arg0, s8 *arg1) {
     s32 mode;

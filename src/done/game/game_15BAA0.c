@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15BAA0.c
@@ -8,9 +9,6 @@
 typedef struct Game12E5F0Command { u32 first, second; } Game12E5F0Command;
 void *func_1501A490(void *, s16, s32, s32, s32, s32);
 void *func_1501A680(void *);
-extern s16 D_80082FA6;
-extern s32 D_800BE620;
-extern s32 D_800BE9C4;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))

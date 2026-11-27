@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_117940.c
@@ -17,8 +18,6 @@ typedef struct Game117940State {
     u8 pad0[0x80];
     Game117940Phase phase;
 } Game117940State;
-
-extern s32 D_800BE9E4;
 
 f32 func_150EA490(Game117940State *arg0) {
     Game117940Phase *phase = &arg0->phase;

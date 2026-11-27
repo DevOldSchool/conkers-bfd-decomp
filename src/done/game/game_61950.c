@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_61950.c
@@ -56,7 +57,6 @@ void func_15034EB4(void *, s32, s32);
 void func_150DFDA4(void *);
 void func_150F1A00(void *);
 void func_15036310(s32, s32, s32, s32);
-extern u8 D_800BE616;
 
 void func_150345E4(s32 arg0) {
     if (D_800CC2D0[arg0].matrices != 0) {
@@ -114,7 +114,6 @@ void func_15034728(Game61950Actor *arg0) {
         }
     }
 }
-extern u8 D_800BEAC0;
 extern Game61950Actor D_800D121C;
 
 void func_150347E8(void) {

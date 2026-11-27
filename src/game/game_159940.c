@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_159940.c
@@ -21,9 +22,7 @@ typedef struct Game159940Object {
 
 typedef struct Game159940Resource Game159940Resource;
 
-extern s32 D_800BE9E4;
 extern Game159940Resource *D_800DC280[];
-extern u32 D_800DC290[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_159940/func_1512C490.s")
 typedef struct Game159940Motion {
@@ -50,15 +49,6 @@ void func_150A7790(void *, s32);
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
 void func_151F00E0(void *, void *, void *);
-extern f32 D_800A36C0;
-extern f32 D_800A36C4;
-extern f32 D_800A36C8;
-extern f32 D_800A36CC;
-extern f32 D_800A36D0;
-extern f32 D_800A36D4;
-extern f32 D_800A36D8;
-extern u8 D_800BE9C0;
-extern u8 *D_800DC2A0[];
 
 void func_1512D070(Game159940Motion *arg0) {
     u32 fixedMatrix[16];

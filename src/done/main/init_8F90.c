@@ -1,6 +1,7 @@
 #include "types.h"
 #include "libultra_os.h"
 #include "../lib/ultralib/include/PR/abi.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_8F90.c
@@ -128,25 +129,12 @@ void D_10009B2C(void *);
 void D_10009B90(void *);
 void D_10009B4C(void *);
 extern AudioHeap D_8003E370;
-extern void *D_8003E380;
 extern AudioEffectParameters D_8002AE54;
-extern s32 D_80040F90;
-extern s32 D_80040F94;
-extern void *D_8003E620[];
-extern void *D_8003E5E8[];
-extern void *D_800412B0[];
-extern void *D_80041708[];
 void func_800226F0(void *, s32);
-extern u8 D_8002AE40;
-extern u8 D_8003E3A0[];
 extern AudioTaskRecord *D_8003E390[3];
 extern OSMesgQueue D_8003E5D0;
 extern OSMesgQueue D_8003E608;
-extern u8 D_8003E640[];
 extern Acmd *D_8003E388[];
-extern u8 D_80040F84;
-extern s32 D_80040F88;
-extern u32 D_80040F8C;
 extern AudioDmaNode D_800406B8[];
 extern AudioBufferState D_80040AC8[];
 extern OSMesgQueue D_80041298;
@@ -257,8 +245,6 @@ typedef struct AudioSchedulerClient {
 void func_800051C8(AudioSchedulerClient *, OSMesgQueue *);
 s32 func_800095A0(AudioTaskRecord *, AudioTaskRecord *);
 void func_80018E0C(void *);
-extern u8 D_8002AC5C;
-extern u32 D_8002AE44;
 
 void func_80009400(s32 arg0) {
     u32 done;
@@ -316,10 +302,6 @@ void func_800099BC(void);
 void func_8000A03C(void);
 Acmd *func_80019498(Acmd *, s32 *, s16 *, s32);
 void func_80024F10(void);
-extern u8 D_100290D0[];
-extern u8 D_100291A0[];
-extern u8 D_8002C960[];
-extern s32 D_8002AE4C;
 extern OSMesgQueue D_8003B200;
 
 s32 func_800095A0(AudioTaskRecord *info, AudioTaskRecord *lastInfo) {
@@ -392,8 +374,6 @@ typedef struct {
 extern AudioDmaManager D_80040F78;
 s32 D_100097CC(s32, s32, void *);
 
-
-extern u32 D_8002AE48;
 
 typedef struct {
     u16 type;
@@ -568,7 +548,6 @@ void func_80009B90(void *arg0) {
     }
 }
 void func_850AD770(void);
-extern s32 D_8003C8E0;
 
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;
@@ -614,7 +593,6 @@ s32 func_80003C40(s32, s32, s32, s32);
 void func_800043B4(void *, s32);
 void func_80022D10(void *, s32);
 void func_80023D20(void *, s32);
-extern u32 D_8002AE50;
 extern TransferIoMessage D_80041330[];
 
 void *func_80009CBC(void *arg0, s32 mode) {
@@ -764,7 +742,6 @@ typedef struct {
 
 void func_80004074(s32);
 void func_8000A348(void);
-extern s32 D_8003E384;
 
 void func_8000A03C(void) {
     u32 i;

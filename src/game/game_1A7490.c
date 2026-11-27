@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A7490.c
@@ -35,8 +36,6 @@ typedef struct Game1A7490Motion {
     u8 phaseB2;
     u8 fadeB3;
 } Game1A7490Motion;
-
-extern f32 D_800A7220;
 
 void func_15179FE0(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4,
                    u16 arg5, u16 arg6, u8 arg7, u8 arg8, u8 arg9, s32 arg10) {
@@ -74,8 +73,6 @@ void func_15179FE0(u8 arg0, s16 arg1, s16 arg2, s16 arg3, s8 arg4,
     }
 }
 
-
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A1EC CURRENT (1975) */
 void func_1517A1EC(Game1A7490Motion *arg0) {
@@ -141,14 +138,6 @@ s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
 s32 func_1517A9A8(s32, s32);
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 void *func_15142FBC(void *, s32, s32, u8 *);
-extern u8 D_800D9C10[];
-extern f32 D_800D35E0, D_800D35E4;
-extern f32 D_800D9B20;
-extern f32 D_800D9B1C;
-extern u8 D_800BE9C0;
-extern s16 D_800DD450;
-extern s32 D_800D2C9C;
-extern u8 D_8008CDF0[];
 
 void *func_1517A3A0(u32 *gdl, void *arg1, s16 view) {
     Game1A7490Motion *effect;
@@ -194,8 +183,6 @@ void *func_1517A3A0(u32 *gdl, void *arg1, s16 view) {
 }
 void func_1510E82C(s32, s32, s32, s32, s32, s32,
                    f32, f32, f32, f32, u16, s32);
-extern f32 D_800A7224;
-extern f32 D_800A7228;
 
 void func_1517A644(f32 arg0, u8 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s32 divisor;
@@ -232,7 +219,6 @@ void func_1517A644(f32 arg0, u8 arg1, s16 arg2, s16 arg3, s16 arg4) {
         }
     }
 }
-extern s32 D_800BE9E4;
 
 void func_1517A84C(u8 *arg0) {
     s16 temp_v0_2;
@@ -274,7 +260,6 @@ void func_1517A84C(u8 *arg0) {
     }
     func_1516972C(arg0);
 }
-extern s16 D_800DD450;
 
 s32 func_1517A958(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_800DD450 = -1;

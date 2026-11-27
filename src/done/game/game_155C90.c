@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_155C90.c
@@ -38,8 +39,6 @@ typedef struct Game155C90Camera {
 void func_150495B0(f32 *, f32, f32 *, f32, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_800894F0[][5];
-extern s32 D_800D2DB4;
 
 void func_151287E0(Game155C90Camera *arg0, f32 *arg1, f32 *arg2) {
     f32 angle;

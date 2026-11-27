@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1228D0.c
@@ -35,11 +36,6 @@ typedef struct Game1228D0Spawn {
     u8 byte5C;
     u8 byte5D;
 } Game1228D0Spawn;
-
-extern u8 D_800917F8;
-extern u8 D_80091930;
-extern u8 D_8009193C;
-extern u8 D_80091948;
 
 void func_150F5420(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     Game1228D0Spawn spawn;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10CCD0.c
@@ -6,8 +7,6 @@
  */
 
 void func_15124B18(void *arg0);
-extern f32 D_800A0F60;
-extern f32 D_800A0F64;
 
 void func_150DF820(void *arg0) {
     *(s32 *)((u8 *)arg0 + 0x84) &= ~0x4000;

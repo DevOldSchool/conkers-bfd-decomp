@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_2062D0.c
@@ -15,8 +16,6 @@
  */
 
 s32 func_150A29C8(s32 arg0, s32 arg1);
-extern s32 D_800BE9F0;
-extern u8 D_800E0A10;
 typedef struct {
     u8 values[5];
 } Func151D8F30Bytes;
@@ -68,8 +67,6 @@ s32 func_151D8EFC(void) {
     }
     return var_v1 & 0xFF;
 }
-extern f32 D_800AB4B0;
-extern s32  D_800BE9E4;
 u8 func_151D8F30(void) {
     Func151D8F30Bytes sp20;
     u32 index;
@@ -101,7 +98,6 @@ s32 func_151D8FC8(void) {
 s32 func_151D8FD4(void) {
     return 0x75;
 }
-extern s32 D_800AB34C;
 s32 func_151D8FE0(void) {
     s32 sp1C;
 
@@ -147,10 +143,7 @@ typedef struct Game1D9014Motion {
     u8 pad1A[2];
 } Game1D9014Motion;
 
-extern s32 (*D_8008FCD0[])(void);
-extern u8 D_800AB330[];
 extern f32 D_800A5480;
-extern f32 D_800AB43C, D_800AB440, D_800AB444, D_800AB448;
 void *func_10022EC0(void *, const void *, u32);
 f32 func_150ADA68(void);
 
@@ -304,7 +297,6 @@ void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 void func_151D9FC0(u8, f32, u8, s32, f32 *, u8, s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_800AB44C, D_800AB450, D_800AB454, D_800AB458, D_800AB45C, D_800AB460;
 
 s32 func_151D9534(u8 *actor, s32 arg1) {
     typedef struct {
@@ -480,8 +472,6 @@ typedef union Game2062D0Word {
     u8 bytes[4];
 } Game2062D0Word;
 
-extern s32 D_800AB3C8;
-
 u8 func_151D9AC0(void) {
     Game2062D0Word word;
 
@@ -520,8 +510,6 @@ typedef struct {
     u8 color, mode, kind, pad17;
 } Game2062D0Secondary;
 extern s32 (*D_8008FD04[])(void);
-extern u8 D_800AB330[];
-extern Vec3f D_800AB3E8;
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 f32 func_15144A74(void *, void *);
@@ -598,8 +586,6 @@ f32 func_150ADA68(void);
 void *func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A5480;
-extern f32 D_800AB464;
-extern f32 D_800AB468;
 
 void func_151D9EB0(u8 *arg0) {
     u8 *temp_v1;
@@ -621,7 +607,6 @@ void func_151D9EB0(u8 *arg0) {
 }
 void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
 void *func_151DA08C(u8, f32, f32, u8, s16, s32, f32 *, s32, s32);
-extern f32 D_800AB46C;
 
 void func_151D9FC0(u8 arg0, f32 arg1, u8 arg2, s32 arg3, f32 *arg4,
                    u8 arg5, s32 arg6) {
@@ -854,8 +839,6 @@ typedef struct {
 } Game1DA6F8Object;
 
 void *func_10022EC0(void *, const void *, u32);
-extern u8 D_800AB3F4[], D_800AB404[], D_800AB330[];
-extern f32 D_800AB498;
 
 void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
                     f32 arg2, s16 arg3, u8 arg4, f32 arg5, s32 arg6,
@@ -1026,9 +1009,6 @@ typedef struct Game1DAB58Extension {
     f32 scaleX, scaleY;
 } Game1DAB58Extension;
 
-extern s32 (*D_8008FCD0[])(void);
-extern u8 D_800A4AA0[0x28];
-extern f32 D_800AB4A0, D_800AB4A4, D_800AB4A8, D_800AB4AC;
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 
 void func_151DAB58(u8 arg0, f32 arg1, u8 arg2, f32 *arg3, s32 arg4, u8 arg5, s32 arg6) {
@@ -1304,9 +1284,6 @@ typedef struct Game1DB5D0Extension {
     Vec3f amplitude;
 } Game1DB5D0Extension;
 
-extern void (*D_8008FD38[])(void *);
-extern f32 D_800AB4B4, D_800AB4B8, D_800AB4BC;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DB5D0 CURRENT (2232) */
 void *func_151DB5D0(s32 arg0, f32 *arg1, f32 *arg2, f32 arg3, f32 arg4,
                     f32 arg5, f32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -1456,10 +1433,6 @@ typedef struct {
 } Game2062D0Params;
 
 void func_15153F18(s16 *, void *, s32, s32, s32);
-extern f32 D_800AB4C0;
-extern f32 D_800AB4C4;
-extern f32 D_800AB4C8;
-extern f32 D_800AB4CC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBAA8 CURRENT (630) */
 void func_151DBAA8(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
@@ -1620,8 +1593,6 @@ void func_151DBE80(u8 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
                    func_150ADA20() & 0xFF, arg1, arg1, 0, arg5,
                    0, 0, arg8, arg9);
 }
-extern u8 D_800AB320[];
-extern u8 D_800AB330[];
 
 void func_151DC034(Game2062D0Vector3 *arg0, f32 arg1, u8 arg2,
                    s16 arg3, u8 arg4, u8 arg5, s32 arg6) {
@@ -1704,17 +1675,6 @@ typedef struct {
 } Game2062D0SecondaryParams;
 
 void func_15150178(s16 *, f32 *, s32, u8, s32);
-extern f32 D_800AB4E4;
-extern f32 D_800AB4E8;
-extern f32 D_800AB4EC;
-extern f32 D_800AB4F0;
-extern f32 D_800AB4F4;
-
-extern f32 D_800AB4D0;
-extern f32 D_800AB4D4;
-extern f32 D_800AB4D8;
-extern f32 D_800AB4DC;
-extern f32 D_800AB4E0;
 
 void func_151DC260(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     Game2062D0Params params;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_127060.c
@@ -40,10 +41,8 @@ typedef struct Game127060Event {
 } Game127060Event;
 void *func_151D8868(void *, s32, u8, s32);
 struct225 *func_15160A58(struct127 *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 argA, s8 argB, s32 argC, u8 argD, u8 argE, s32 argF);
-extern u8 D_800A1CC0[];
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 s32 func_151407D0(void *, u32, void *, u8, u8, u8, u8, s8, u8, s32);
-extern u8 D_800A4AA0[];
 extern Vec3f D_800A5480;
 
 typedef struct Game127060BurstData {
@@ -353,8 +352,6 @@ typedef struct {
 } Game127060Effect;
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
-extern Vec3f D_800A1CCC, D_800A1CD8, D_800A1CE4, D_800A1CF0;
-extern f32 D_800A1D94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FA1B8 CURRENT (2446) */
 void func_150FA1B8(Game127060Effect *effect) {
@@ -474,7 +471,6 @@ void func_150FA468(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
-extern u8 D_80088B60;
 extern u8 *D_800D3098;
 
 void func_150FAA40(u8 arg0, s32 arg1) {
@@ -503,11 +499,6 @@ typedef struct Game127060Emission {
 f32 func_150ADA68(void);
 void func_1514470C(s32, void *);
 void func_150F4570(Vec3f *, Vec3f *, u8, f32, f32, f32, u8, s32, u8, s32);
-extern u8 D_80088B2C;
-extern u8 *D_80088B30;
-extern f32 *D_80088B34;
-extern f32 D_800A1DB8;
-extern f32 D_800A1DBC;
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FAAEC CURRENT (2754) */

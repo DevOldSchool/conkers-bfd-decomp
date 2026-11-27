@@ -1,13 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F5800.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_narrow_effect_record_cores.md
  */
-
-extern u8 D_800BE9A0;
-extern s32 D_800BE9E4;
 
 typedef struct GameF5800Record {
     u8 state;
@@ -91,7 +89,6 @@ void func_150C851C(s32 arg0) {
     }
 }
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern s32 *D_80088810[2];
 
 typedef struct GameF5800Command {
     u32 w0;

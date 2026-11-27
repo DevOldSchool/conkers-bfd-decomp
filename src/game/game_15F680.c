@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15F680.c
@@ -64,7 +65,6 @@ extern Game15F680Update D_800898B0[];
 extern Game15F680Update D_80089914[];
 extern Game15F680Update D_80089988[];
 extern Game15F680Cleanup D_8008997C[];
-extern s32 D_800BE9E4;
 s32 func_1514672C(f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151321D0 CURRENT (260) */
@@ -115,7 +115,6 @@ void func_151321D0(Game15F680TransformState *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151321D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151321D0.s")
-extern void (*D_800899B0[])(void);
 
 void func_151323AC(void *arg0) {
     u8 var_v0;
@@ -127,7 +126,6 @@ void func_151323AC(void *arg0) {
     }
     D_800899B0[var_v0]();
 }
-extern void (*D_800899D4[])(void);
 
 void func_151323F8(void *arg0) {
     u8 var_v0;
@@ -159,8 +157,6 @@ void func_151325C8(void *);
 extern Game15F680ListNode *D_800DC460;
 extern Game15F680ListNode *D_800DC464;
 extern s16 D_800DC468[];
-extern s32 D_800DC63C;
-extern u8 D_800DC640[];
 
 void func_15132444(u8 *arg0) {
     Game15F680Owner *owner;
@@ -208,7 +204,6 @@ void func_1513259C(void *arg0) {
     func_15169824(arg0);
 }
 void func_100043B4(void *, s32);
-extern s32 D_80082FA0;
 
 void func_151325C8(void *arg0) {
     s32 i;
@@ -267,9 +262,6 @@ typedef struct {
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A3868;
-extern u8 D_800BE616;
-extern s32 D_800BE9F0;
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(void *);
 void *func_10022EC0(void *, const void *, u32);
@@ -384,7 +376,6 @@ void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5)
 }
 typedef s32 (*Game15F680Callback)(void *, void *);
 extern Game15F680Callback D_8008998C[];
-extern u8 D_800BE9C0;
 
 void func_15132A88(Game15F680TransformState *arg0) {
     s32 temp_a0;
@@ -416,8 +407,6 @@ void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
 s32 func_151462C8(s32, u8 *, u8, u8 *, u8, s16, f32 *, u8, s32);
 typedef s32 *(*Game15F680Draw)(s32 *, Game15F680TransformState *, s32);
 extern Game15F680Draw D_800899A4[];
-extern u8 D_80083740;
-extern u8 D_800838C0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15132B80 CURRENT (3377) */
 s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
@@ -501,11 +490,6 @@ s32 func_15046C80(f32 *, u16, f32, void *);
 f32 func_150484A0(f32, f32);
 s32 func_15044380(f32, f32, f32, void *, s32, s32);
 extern f32 D_800BE9A4;
-extern f32 D_800A386C;
-extern f32 D_800A3870;
-extern s32 (*D_80089934[])(void *, f32, f32, f32, f32, void *);
-extern s32 (*D_80089970[])(void *, f32, f32, f32, f32);
-extern s32 (*D_80089974[])(void *, void *, f32, f32, f32);
 
 typedef struct {
     s16 v[9];
@@ -631,7 +615,6 @@ s32 func_15132DDC(Game15F680TransformState *arg0) {
 }
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_151332DC(Game15F680TransformState *arg0) {
     s32 unused;
@@ -722,8 +705,6 @@ void func_15133588(void *arg0, void *arg1, u8 arg2) {
 s32 *func_1502B6BC(u32 *, s32, s32 *, s32, s32, s32);
 s32 func_1510CE60(s32, s32, s32, s32, void *);
 void func_15168E54(s8 *, s32);
-extern s32 D_800A3880[];
-extern u8 D_800DC640[];
 
 /*
  * Descriptive role: model_resource_load_by_lookup_selector.
@@ -768,7 +749,6 @@ s32 func_151337C0(void *arg0) {
 s32 func_151337C0(void *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 typedef s32 (*Game15F680MotionCallback)(void *, f32, f32, f32, f32, void *);
-extern Game15F680MotionCallback D_80089934[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15133894 CURRENT (15) */
 s8 func_15133894(void *arg0) {
@@ -831,7 +811,6 @@ s32 func_15133A50(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     return 1;
 }
 void func_150A7790(void *, s32);
-extern u8 D_800C3E90;
 
 s32 func_15133A94(void *arg0, void *arg1) {
     f32 matrix[18];

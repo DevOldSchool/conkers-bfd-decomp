@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_90840.c
@@ -136,8 +137,6 @@ typedef struct Game90840Requests {
     u8 pending;
 } Game90840Requests;
 
-extern s8 D_800CC2B0;
-extern u8 D_800C3E78;
 extern Game90840Actor *D_800D154C;
 void func_15063628(Game90840Actor *, f32);
 void func_15063FA0(Game90840Actor *, s32);
@@ -244,7 +243,6 @@ void func_150636F0(void) {
         actor++;
     } while (index != 0x19);
 }
-extern s16 D_800CC2B2;
 
 s16 func_150639BC(Game90840Actor *arg0) {
     D_800CC2B2 = (arg0->field_7A - arg0->field_31C->field_12) - func_15063390(arg0);
@@ -257,9 +255,7 @@ s16 func_150639BC(Game90840Actor *arg0) {
     return D_800CC2B2;
 }
 
-extern s16 D_800CC264;
 extern void *D_800CC284;
-extern f32 D_800CC2B4;
 
 s32 func_15063A38(Game90840Actor *arg0, s32 arg1, s32 arg2) {
     s16 temp_v1;
@@ -396,10 +392,6 @@ void *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32,
                        f32 *, s32, s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_80099790;
-extern f32 D_80099794;
-extern f32 D_80099798;
-extern f32 D_8009979C;
 
 void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
     f32 horizontal;
@@ -496,7 +488,6 @@ void func_150649A0(u32 arg0, u32 arg1) {
     }
 }
 void func_150649A0(u32, u32);
-extern u8 D_800C3E78;
 
 void func_15064A14(Game90840Actor *arg0) {
     u8 *actor;
@@ -552,9 +543,6 @@ void func_15064A14(Game90840Actor *arg0) {
 s32 func_1504C078(void);
 s32 func_1504C0B8(void);
 void func_1506E5FC(void);
-extern u8 D_800B85A4[];
-extern u8 D_800BE616;
-extern s32 D_800D1580;
 
 s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     s32 anim;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1F2730.c
@@ -17,9 +18,6 @@ void func_151C56A4(void *, u8, s32);
 void func_151C5588(s32, s32, s16, u8, s32);
 s32 func_151C229C(f32 *, f32 *, s32, s32, u8, s32, f32, f32, f32, f32, f32, u8, void *, u8, u8, u8, u8, u8, u8, s8, s32, f32, u8, s8, s32, u8, s32);
 f32 func_150ADA68(void);
-extern s32 D_800AAA90;
-extern u8 D_800AAAA8[];
-extern u8 D_800BE616;
 
 void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
     Vec3f position;
@@ -89,12 +87,6 @@ void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
 }
 void *func_15102B38(s32, u8, s32, s32, f32 *, s16, u8, f32, s32, u8, s32, s16, u8, s32);
 f32 func_150ADA68(void);
-extern s32 D_800AAA90;
-extern s32 D_800AAA9C;
-extern f32 D_800AAABC;
-extern f32 D_800AAAC0;
-extern f32 D_800AAAC4;
-extern f32 D_800AAAC8;
 
 void func_151C5588(s32 arg0, s32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     f32 scale[2];
@@ -295,7 +287,6 @@ typedef struct {
 } Game1F2730SpawnExtra;
 
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800AAAF0;
 
 s32 func_151C5F44(Vec3f *arg0, Vec3f *arg1,
                    f32 arg2, f32 arg3, u8 arg4, s16 arg5,
@@ -391,9 +382,6 @@ typedef struct {
 } Game1F2730Packet;
 
 void func_15154684(s16 *, u8, s32);
-extern f32 D_800AAAF4;
-extern f32 D_800AAAF8;
-extern f32 D_800AAAFC;
 
 void func_151C61A0(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     Game1F2730Packet packet;

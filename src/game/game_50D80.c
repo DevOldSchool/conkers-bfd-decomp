@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_50D80.c
@@ -36,8 +37,8 @@ typedef struct Game50D80FadeOwner {
     Game50D80Fade *fade;
 } Game50D80FadeOwner;
 void func_10004074(s32);
-extern s32 D_800BE9E4, D_800C35B0[], D_800C3640[];
-extern u8 D_800C35E8[], D_800C3C88, D_800C3C89;
+extern u8 D_800C35E8[];
+extern u8 D_800C3C88;
 extern Game50D80DispatchState *D_800C3958[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150238D8 CURRENT (1150) */
@@ -113,10 +114,6 @@ typedef struct {
     s8 field5;
     u8 pad6[2];
 } Game50D80Record;
-
-extern u16 *D_800C35D8[];
-extern s32 D_800C3640[];
-extern u8 D_800C3688[];
 
 s32 func_15023BB0(u32 arg0, s32 arg1, s32 arg2, void **arg3, s32 arg4, s32 arg5,
                   s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
@@ -256,7 +253,6 @@ void func_15023DE0(void **arg0, void **arg1, s32 *arg2, s32 *arg3,
 }
 
 void func_1502A8A0(void *, s32, s32, s32, s32);
-extern s32 D_800C3D50;
 
 void func_15024130(s32 arg0, s32 arg1) {
     s32 i;
@@ -267,7 +263,6 @@ void func_15024130(s32 arg0, s32 arg1) {
         func_1502A8A0(*(void **)entry, entry[8], *(u16 *)(entry + 0xA), *(s32 *)(entry + 4), arg1);
     }
 }
-extern u16 D_800C3C9A;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150241B4 CURRENT (865) */
 void func_150241B4(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
@@ -320,9 +315,7 @@ loop_4:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150241B4.s")
 void func_15024130(s32, s32);
 void func_150241B4(u8 *, s32 *, s32, s32, s32, s32, s32);
-extern s32 D_800C35B8[];
-extern u8 D_800C35C0[], D_800C35EA[], D_800C363A[], D_800C3C8C;
-extern s8 D_800C3638;
+extern u8 D_800C35EA[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150242F8 CURRENT (4995) */
 void func_150242F8(s32 mode, s32 owner) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_111670.c
@@ -15,7 +16,6 @@
 
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-extern s16 D_800D99F0[];
 extern void *D_800DBFF0;
 
 void func_150E41C0(void) {
@@ -53,8 +53,6 @@ s32 func_1510F8CC(s32);
 void func_150E4550(f32, f32, f32, s32, s32, s32, s32); /* extern */
 s32 func_1510F8D8(s32, s32, s32, s32 *);        /* extern */
 extern s32 D_800DBE3C;
-extern s32 D_800DBE4C;
-extern s32 *D_800DBE5C;
 
 void func_150E42F8(s32 arg0) {
     s32 x;
@@ -116,9 +114,6 @@ void func_150E4E04(f32, f32, f32, s32, s32, s32, s32);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32, s32);
 void func_15171F04(f32, f32, f32, s32, s16, u16, u8, s32, s32, s32, s32, u8, s32);
 extern GameE4550Material D_800A1070[];
-extern u16 D_800A1110[][2];
-extern f32 D_800A111C[];
-extern u8 D_800D9963[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E4550 CURRENT (1457) */
 void func_150E4550(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
@@ -213,10 +208,8 @@ void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1510F800(s32);
 s32 func_151EF610(void);
 void func_1511490C(void *, void *);
-extern f32 D_800A1128;
-extern u8 D_800BE9C0;
 extern u8 D_800D3300[];
-extern s32 D_800DBEF0, D_800DBEF4;
+extern s32 D_800DBEF4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E4928 CURRENT (3705) */
 void func_150E4928(GameE4928State *arg0) {
@@ -317,8 +310,6 @@ void func_150E4928(GameE4928State *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E4928 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4928.s")
 
-extern s32 D_800BE9E4;
-
 typedef struct {
     u8 pad0[0x90];
     s32 f90;
@@ -377,9 +368,6 @@ void func_150440A0(void *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 f32 func_150ADA68(void);
 void func_15049350();
 void func_150E5558(f32, f32, f32, f32, f32, f32, s32, s32);
-extern f32 D_800CC210, D_800CC214, D_800CC218;
-extern u8 D_8009187C[], D_800918A0[], D_800918AC[], D_80090520[];
-extern u8 D_800D9960[];
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 f32 fabsf(f32);
@@ -647,8 +635,6 @@ void func_15049148(void *, f32, void *);
 f32 func_150AD900(f32 *, f32 *);
 f32 func_150AD930(void *);
 void func_15049350(Game111670Triangle);
-extern f32 D_800A1160, D_800A1164, D_800A1168;
-extern f32 D_800CC210, D_800CC214, D_800CC218;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150E5810 CURRENT (942) */
 s32 func_150E5810(Game111670Motion *motion, s32 unused1, s32 unused2, s32 unused3,

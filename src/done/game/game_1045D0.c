@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1045D0.c
@@ -27,9 +28,6 @@ typedef struct Game1045D0Effect {
 } Game1045D0Effect;
 
 void func_1514FCE8(s16 *, u8, s32);
-extern f32 D_800A0AE0;
-extern f32 D_800A0AE4;
-extern f32 D_800A0AE8;
 
 void func_150D7120(Game1045D0Position *arg0, u8 arg1, s32 arg2) {
     Game1045D0Effect effect;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1355D0.c
@@ -10,8 +11,6 @@ struct Blood36C3CActor;
 void func_15136C3C(struct Blood36C3CActor *, u8, u8, u8, u8, u8, u8, s32);
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_150E83AC(void *, s16, u8, s32);
-extern u8 D_800A2430;
-extern u8 D_800A2434;
 
 typedef struct Game1355D0Packet {
     s32 field00;

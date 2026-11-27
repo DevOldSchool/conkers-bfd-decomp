@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_39750.c
@@ -9,9 +10,6 @@
 extern s32 D_800DC460;
 extern s32 D_800DC464;
 extern s16 D_800DC468;
-extern u8 D_800DC46A[];
-extern u8 D_800DC63A[];
-extern s32 D_800DC63C;
 
 void func_1500C2A0(void) {
     s32 i;
@@ -157,7 +155,6 @@ typedef struct Game39750Effect {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[];
 
 #define RANDF() ((f32)((func_10024770() * func_150ADA20()) & 0xFFFF) * inv)
 

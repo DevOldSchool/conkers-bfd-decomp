@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_4470.c
@@ -29,16 +30,10 @@ void func_80022D10(void *, s32);
 s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32, OSMesgQueue *);
 
 extern OSMesgQueue D_800388C8;
-extern u8 D_8003A571;
 
 void func_800030A0(s32, OSMesgQueue *, void **, s32);
 extern OSMesgQueue D_800388B0;
-extern void *D_800380E0[];
-extern void *D_80038400[];
-extern void *D_800388F8[3];
-extern void *D_80038904[];
 extern OSMesgQueue D_80038908[];
-extern u8 D_8003A570;
 
 void func_80004470(void) {
     s32 index;
@@ -138,11 +133,7 @@ typedef union {
     u16 half[2];
 } TransferWord;
 
-extern u32 D_80000308;
 extern TransferThread D_80035910;
-extern volatile u8 D_8003A572;
-extern volatile u8 D_8003A573;
-extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
 void func_8000480C(u32 source, void *destination, u32 size) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_AEB40.c
@@ -57,8 +58,6 @@ void func_100226F0(void *, s32);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 s32 func_1508114C(GameAEB40State *, void *, void *, void *, void *, void *, f32 *, s32 *, s32 *, s32 *, void *);
 s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2, s32 arg3, s32 arg4, f32 *arg5, f32 *arg6);
-extern s32 (*D_80086C90[])(GameAEB40State *, void *, s32);
-extern f32 D_8009CBE0;
 extern u8 *D_800DBEF4;
 extern s32 D_800CC2D0;
 
@@ -261,7 +260,6 @@ s32 func_15081C20(void *arg0, void *arg1, GameAEB40State *arg2,
     return 1;
 }
 void func_1507DF10(void *, s32);
-extern u8 D_800BE616;
 
 void func_15081E0C(GameAEB40State *arg0, u16 arg1, u8 arg2) {
     if (D_800BE616 == 0) {
@@ -276,17 +274,10 @@ void func_15081E0C(GameAEB40State *arg0, u16 arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081E78.s")
 s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
 s32 func_15082A44(void *, s32, s32, s32, s32);
-extern s8 D_8008FD8C;
-extern f32 D_8009CC30, D_8009CC34, D_8009CC38, D_8009CC3C;
 extern s32 D_800BE628;
-extern u8 D_800BE9A0;
-extern u8 *D_800D210C;
-extern s16 *D_800D2110;
 extern u8 D_800D2138[];
-extern u8 D_800D9C10[];
 extern u8 *D_800D20FC;
 extern s32 D_800CC2D0;
-extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150825C0 CURRENT (1876) */
 s32 func_150825C0(s32 arg0, s32 arg1) {
@@ -403,9 +394,6 @@ advance_actor:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150825C0.s")
 s32 func_150825C0(s32, s32);
 
-extern u8 D_800D2100;
-extern u8 D_800D2101;
-
 void func_1508295C(s32 arg0, s32 arg1, s32 arg2) {
     s32 current;
     s32 end;
@@ -426,8 +414,6 @@ void func_1508295C(s32 arg0, s32 arg1, s32 arg2) {
         } while (current != end);
     }
 }
-
-extern s32 D_800BE9F0;
 
 void func_150829D8(GameAEB40State *arg0) {
     arg0->flags_F8 &= 0xF7FFFFFD;
@@ -456,7 +442,6 @@ void func_150829D8(GameAEB40State *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15082A44.s")
 void *func_1515D480(s32);                              /* extern */
-extern s32 D_80082FA0;
 
 void func_150832AC(u8 *arg0) {
     void *obj;
@@ -635,7 +620,6 @@ void func_150836CC(void *arg0, s32 arg1) {
     }
 }
 extern u8 *D_800D1C90[];
-extern u16 D_800C5A90[];
 s32 func_1502B020(s32, s32, s32, s32);
 s32 func_15084D00(void *);
 
@@ -676,7 +660,6 @@ void func_150837D4(s32 arg0, s32 arg1, s32 arg2) {
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 void func_1505E650(u8 *, s32, s32, f32, f32, f32, s32);
-extern u16 D_800C5A90[];
 extern void *D_800D1588[];
 
 s32 func_150838EC(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
@@ -697,7 +680,6 @@ s32 func_150838EC(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
     func_1505E650(arg0, arg1, arg3, 0.0f, 0.0f, 0.0f, arg2);
     return 0;
 }
-extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 
 /* Semantic role: actor_apply_character_defaults (shared, not character-specific).
@@ -751,7 +733,6 @@ u8 *func_1505ED34(void);
 void func_150615DC(void *);
 void func_150837D4(s32, s32, s32);
 extern u8 D_800C35EA;
-extern s8 D_800C3638;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15083AC8 CURRENT (3475) */
 s32 func_15083AC8(s32 arg0, u8 arg1, u8 arg2, s32 arg3,
@@ -843,7 +824,6 @@ s32 func_15083AC8(s32 arg0, u8 arg1, u8 arg2, s32 arg3,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15083AC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083AC8.s")
 extern u8 *D_800D20FC;
-extern u8 D_800D2100;
 
 s32 func_15083DA0(void) {
     s32 var_v0;
@@ -886,8 +866,6 @@ s32 func_15083E0C(u8 arg0) {
     return -1;
 }
 extern s32 D_800CC2D0;
-extern u8 D_800CC30B;
-extern s32 D_800CC5FC;
 
 void *func_15083E90(u8 arg0) {
     u8 *actor;
@@ -929,10 +907,7 @@ s32 func_15084000(s32 arg0) {
 }
 void func_10004074(s32);
 void func_10023A10(void *, void *, s32);
-extern u16 D_800C57A0[];
-extern u8 D_800CC0E8[];
 extern void *D_800D19A0[];
-extern u8 D_800D1F80[];
 
 s32 func_15084044(GameAEB40State *arg0, s32 arg1) {
     GameAEB40Config *config;
@@ -1037,7 +1012,6 @@ void func_1508434C(GameAEB40State *arg0) {
 }
 void func_100043B4(s32, s32);
 extern void *D_800D19A0[];
-extern u8 D_800D1F80[];
 
 void func_150843AC(GameAEB40State *arg0, s32 arg1) {
     s32 i;
@@ -1063,7 +1037,6 @@ void func_150843AC(GameAEB40State *arg0, s32 arg1) {
 }
 s32 func_1503D660(s32, s32);
 s32 func_1503D774(s32, s32);
-extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 
 /* Semantic role: actor_load_representation_resources.
@@ -1105,7 +1078,6 @@ void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
 }
 extern s32 D_800C5C08[];
 extern s32 D_800C6070[];
-extern s32 D_800C6360[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15084558 CURRENT (2213) */
 void func_15084558(GameAEB40State *arg0) {
@@ -1234,7 +1206,6 @@ u8 func_150849CC(u8 *arg0, s32 *arg1) {
 void func_10004074(s32);
 void func_1510D720(s32);
 extern u8 *D_800C5338[];
-extern u16 D_800C5628[];
 extern s32 D_800C5C08[];
 extern u8 D_800D2040[];
 
@@ -1293,7 +1264,6 @@ void func_15084C30(void *arg0) {
         *(f32 *)((u8 *)local.ptr + 8) = value;
     }
 }
-extern u8 D_800BE590;
 extern u16 D_800BE598;
 
 s32 func_15084CB0(s32 arg0) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_14F130.c
@@ -66,9 +67,6 @@ void func_15049688(void *, f32, void *, f32, f32, f32);
 void func_1512E140(void *);
 void func_15123A54(void *);
 void func_1512A390(void *);
-extern f32 D_800A3440, D_800A3444, D_800A3448;
-extern f32 D_800A344C, D_800A3450, D_800A3454;
-extern u8 D_800BE616, D_800BEA0C;
 
 void func_15121C80(Game14F130Camera *arg0, f32 arg1) {
     f32 angle;

@@ -1,11 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_43B20.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
-
-extern s8 D_800D18C0;
 
 typedef struct Game43B20Target {
     s16 x;
@@ -29,9 +28,6 @@ typedef struct Game43B20Source {
 } Game43B20Source;
 
 extern Game43B20Source *D_800D20FC;
-extern s32 D_800D2120;
-extern s32 D_800D2124;
-extern u32 D_800D2128;
 extern Game43B20Target *D_800D212C;
 
 void func_15016670(void) {

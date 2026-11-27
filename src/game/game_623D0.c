@@ -3,6 +3,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_623D0.c
@@ -13,8 +14,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s8 D_800C3F00;
 
 void func_15034F20(void) {
     D_800C3F00 = 0;
@@ -131,7 +130,6 @@ void func_15034F30(u8 *arg0, u8 *arg1, s32 arg2, f32 (*arg3)[4][4], f32 (*arg4)[
         *(void **)(arg0 + 0x1D4) = saved;
     }
 }
-extern u8 D_800C3F08[];
 
 void *func_150356C8(void) {
     u8 count;
@@ -144,7 +142,6 @@ void *func_150356C8(void) {
 s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
 extern s32 D_800BE628;
 extern void *D_800D1C90[];
-extern u8 D_800D9C10;
 
 s32 func_15035714(s32 arg0, u8 *arg1, u8 *arg2, f32 arg3) {
     f32 temp_fa0;
@@ -182,7 +179,6 @@ s32 func_15035714(s32 arg0, u8 *arg1, u8 *arg2, f32 arg3) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035808.s")
 typedef struct Game35D6CCommand { u32 word0, word1; } Game35D6CCommand;
-extern u8 D_80082FC0[], D_80083140[];
 
 Gfx *func_15035D6C(Gfx *gdl, u8 *arg1, s32 r, s32 g, s32 b) {
     u8 *entry;

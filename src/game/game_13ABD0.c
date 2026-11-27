@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_13ABD0.c
@@ -11,10 +12,6 @@
  */
 
 void func_1510D608(s32, s32);
-extern s8 D_800BC448[];
-extern s32 D_800D9F58;
-extern s32 D_800D9F5C;
-extern u8 D_800D9F68[];
 
 void func_1510D720(s32 arg0) {
     u8 *temp_v0;
@@ -36,7 +33,6 @@ void func_1510D720(s32 arg0) {
     }
 }
 void func_10004074(s32);
-extern u32 D_800B0E58[];
 
 void func_1510D7AC(s32 arg0) {
     s8 value;
@@ -62,7 +58,6 @@ typedef struct {
     u8 pad[2];
 } Game13ABD0Binding;
 
-extern u8 D_800D9ED0;
 extern Game13ABD0Binding D_800D9ED8[];
 
 /* Semantic role: placed_object_reset_texture_binding_count.

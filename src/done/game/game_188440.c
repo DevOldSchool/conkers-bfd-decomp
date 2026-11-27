@@ -2,6 +2,7 @@
 #include "game_functions.h"
 #include "game_collision.h"
 #include "game_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_188440.c
@@ -18,12 +19,6 @@ typedef struct GameAF90Packet {
 } GameAF90Packet;
 
 s32 func_1504697C(Vec3f *, u16, f32, Game71820Hit *);
-extern f32 D_800A6420;
-extern f32 D_800A6424;
-extern f32 D_800A6428;
-extern f32 D_800A642C;
-extern f32 D_800A6430;
-extern f32 D_800A6434;
 
 void func_1515AF90(s16 arg0) {
     if (!(func_150ADA20() & 0xF)) {

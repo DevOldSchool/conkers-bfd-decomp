@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1CE2F0.c
@@ -34,7 +35,6 @@ void func_151A0F28(f32 arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
         1, 2.019f, 0x87, 0x44, 0x41F, 0x4F6, 2, 1, 2.019f, 0x46,
         0x42, 0x41F, 0x4F6, 7, 0x41, 4, 1, arg3, arg4);
 }
-extern f32 D_800A8D28;
 typedef void (*Game1CE2F0ScaledSetupFn)(f32, f32, s32, f32, f32, s32, s32, s32,
                                         s32, s32, f32, s32, s32, s32, s32, s32,
                                         s32, f32, s32, s32, s32, s32, s32, s32,
@@ -76,7 +76,6 @@ void func_151A11CC(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   s32 arg24, s32 arg25, s32 arg26, s32 arg27) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A11E4.s")
-extern s32 D_800BE9E4;
 
 void func_151A175C(u8 *arg0) {
     s16 temp_lo;
@@ -226,7 +225,6 @@ void func_151A1EE8(u8 *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A1FB4.s")
-extern s32 D_800BE9E4;
 
 void func_151A24A8(u8 *arg0) {
     s16 temp_lo;
@@ -264,7 +262,6 @@ void func_151A24A8(u8 *arg0) {
         *(s16 *)((u8 *)temp_v0 + 0x18) = -0x270F;
     }
 }
-extern s32 D_800BE9E4;
 
 void func_151A25E0(u8 *arg0) {
     s16 temp_lo;
@@ -298,10 +295,7 @@ void func_151A25E0(u8 *arg0) {
     *(s8 *)((u8 *)arg0 + 0x40) = temp_lo_3;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A26EC.s")
-extern u8 D_800BE616;
 s32 func_1513170C(u8 *, s32);
-
-extern void (*D_8008F8E0[])(u8 *);
 
 void func_151A2960(u8 *arg0, s32 arg1) {
     struct State {
@@ -403,9 +397,6 @@ typedef struct Game1CE2F0EmitterOwner {
 } Game1CE2F0EmitterOwner;
 
 void func_15152B38(void *, s32, s32, void *);
-extern f32 D_800A8D30;
-extern f32 D_800A8D34;
-extern f32 D_800A8D38;
 
 void func_151A2F0C(Game1CE2F0EmitterOwner *arg0) {
     Game1CE2F0EmitterParticle descriptor;

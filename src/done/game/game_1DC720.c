@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DC720.c
@@ -31,9 +32,6 @@ typedef struct Game1DC720Actor {
     u8 pad0[0x3B];
     u8 field3B;
 } Game1DC720Actor;
-
-extern f32 D_800A9DCC;
-extern f32 D_800A9DD0;
 
 void *func_151AF270(Game1DC720Actor *arg0, u8 arg1, s32 arg2) {
     void *result;
@@ -80,10 +78,6 @@ void func_151AF338(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
 f32 func_150ADA68(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
                    f32, f32, s32, s32, s32, s32, s32, s32);
-extern const f32 D_800A9DD4;
-extern const f32 D_800A9DD8;
-extern const f32 D_800A9DDC;
-extern const f32 D_800A9DE0;
 
 void func_151AF388(f32 *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     f32 factor = 0.13000001f;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1AB530.c
@@ -66,10 +67,6 @@ typedef struct Game1AB530Node {
     u16 field_2A;
 } Game1AB530Node;
 
-extern s32 D_800BE620;
-extern s32 D_800BE624;
-extern s32 D_800BE9C4;
-
 void func_1517E1AC(void) {
     f32 temp_fv0;
     f32 temp_fv1;
@@ -98,11 +95,8 @@ typedef union Game1AB530BytePair {
 s32 func_1517E4A8(s32, void *, s32, s32, s32, s32, s8 *);
 s32 func_1517EAAC(f32, f32, f32, f32 *, f32 *);
 s32 func_1517EC1C(void *, s32 *);
-extern f32 *D_8008CFFC[];
 extern Game1AB530BytePair D_8008D004, D_8008D008, D_8008D00C;
 extern void *D_800B0DF0;
-extern u8 D_800DCDD0;
-extern s8 D_800DD2D0, D_800DDD60;
 
 s32 func_1517E28C(s32 arg0, s32 arg1) {
     s32 depth;
@@ -189,15 +183,6 @@ s32 func_150950D4(s32, void *, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_15095A48(s32, void *, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_800380A0;
-extern f32 D_800380A4;
-extern u8 D_800903AC[];
-extern u8 D_800A7250[][7];
-extern s32 D_800BE9E4;
-extern u8 D_800D2DA8;
-extern u8 D_800D2DA9;
-extern u8 D_800D2DAA;
-extern u8 D_800D2DAB;
 
 s32 func_1517E4A8(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s8 *arg6) {
     Game1AB530Glow *glow = arg1;
@@ -394,7 +379,6 @@ s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
 f32 sqrtf(f32);
 __pragma(1, sqrtf);
 extern Game1AB530DepthEncoding D_80089630[];
-extern u8 D_800BE9C0;
 
 s32 func_1517EC1C(void *arg0, s32 *arg1) {
     f32 dx;

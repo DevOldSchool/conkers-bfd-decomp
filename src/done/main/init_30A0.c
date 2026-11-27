@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_30A0.c
@@ -30,10 +31,8 @@ void D_10002E50(void *);
 s32 D_10023850(s32, u32, void *, u32);
 s32 D_10023930(PiHandle *, s32, u32, void *, u32);
 extern DeviceManager D_8002AB50;
-extern u32 D_8002BD60;
 extern ThreadState D_80035910;
 extern OSMesgQueue D_80036B40;
-extern void *D_80036B58[1];
 extern OSMesgQueue D_800428F8;
 
 void func_800030A0(s32 priority, OSMesgQueue *commandQueue,

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_108E90.c
@@ -72,16 +73,6 @@ typedef struct Game108E90Config {
 void func_15152F70(void *, u8);
 void func_15153298(Game108E90Config *, u8, s32);
 void *func_15196438(void *, s32, u8, s32);
-extern u8 D_80090514[];
-extern f32 D_800A0C00;
-extern f32 D_800A0C04;
-extern f32 D_800A0C08;
-extern f32 D_800A0C0C;
-extern f32 D_800A0C10;
-extern f32 D_800A0C14;
-extern f32 D_800A0C18;
-extern f32 D_800A0C1C;
-extern f32 D_800A0C20;
 
 void func_150DB9E0(void *arg0, s32 arg1, u8 arg2) {
     Game108E90Packet packet;
@@ -157,11 +148,6 @@ void func_150DB9E0(void *arg0, s32 arg1, u8 arg2) {
         }
     }
 }
-
-extern f32 D_800A0C24;
-extern f32 D_800A0C28;
-extern f32 D_800A0C2C;
-extern f32 D_800A0C30;
 
 void func_150DBC60(void *arg0) {
     Game108E90Packet packet;

@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B6DB0.c
@@ -101,12 +102,7 @@ typedef struct Game1B6DB0Options {
 } Game1B6DB0Options;
 
 f32 func_150ADA68(void);
-extern s32 D_80082FA0;
-extern f32 D_800A73A0;
-extern f32 D_800A73A4;
-extern u8 D_800BE630[];
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 void func_15189A00(Game1B6DB0Effect *arg0) {
     Game1B6DB0Effect *effect;
@@ -242,8 +238,6 @@ typedef struct Game1B6DB0RouteObject {
 u8 func_151D8E20(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 f32 func_150ADA68(void);
-extern f64 D_800A73A8;
-extern f32 D_800A73B0;
 
 s32 func_15189EBC(Game1B6DB0RouteObject *arg0) {
     f64 chance;

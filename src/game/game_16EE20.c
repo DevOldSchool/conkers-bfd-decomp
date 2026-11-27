@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 /* Keep the initial shared headers visible to declaration discovery.
  * The encoding check below rejects an incompatible earlier GBI include. */
 #ifndef F3DEX_GBI_2
@@ -61,10 +62,6 @@ void func_151419B0(void **arg0) {
     func_15141970(arg0);
 }
 
-extern f32 D_800A56A4;
-extern s32  D_80082FA0;
-extern f32 D_800A56C4;
-extern f32 D_800A56C8;
 void func_151419D0(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
     s32 first;
@@ -90,9 +87,6 @@ s32 func_15141C0C(void *);
 s32 func_15141CC0(u32);
 void func_15141E38(void *, s32);
 s32 func_1514ECE0(void *, s16, void **);
-extern u8 D_800BE616;
-extern s32 D_8008A084[];
-extern s32 D_8008A0B4[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15141A7C CURRENT (3828) */
 void func_15141A7C(void *arg0, s32 arg1) {
@@ -181,7 +175,6 @@ s32 func_15141C0C(void *actor) {
         return 0xB;
     }
 }
-extern s32 D_800BE9F0;
 
 s32 func_15141CC0(u32 arg0) {
     if (D_800BE9F0 == 0x2F) {
@@ -224,9 +217,6 @@ s32 func_15141CC0(u32 arg0) {
     }
 }
 void func_15141E38(void *, s32);
-extern s32 D_8008A084[];
-extern s32 D_8008A0B4[];
-extern u8 D_800BE616;
 
 /*
  * Descriptive role: actor_request_timed_effect_handler.
@@ -338,7 +328,6 @@ void func_15141F78(u8 arg0, void *arg1, f32 arg2, u8 arg3,
                    *(f32 *)arg4, *(f32 *)arg1, *(f32 *)((u8 *)arg4 + 8),
                    scale, scale, arg3, arg5 == 2 ? 1 : 0, 3, 1, 0, 0xFF, 1);
 }
-extern s32 D_800A5200[];
 extern u8 D_800CC2D0[];
 s32 func_150A2AEC(s32, s32, s32 *, s32);
 
@@ -353,8 +342,6 @@ s32 func_151420F8(s32 arg0) {
     return 1;
 }
 void func_15153F18(s16 *, void *, s32, s32, s32);
-extern f32 D_800A5470;
-extern f32 D_800A5474;
 
 typedef struct Game16EE20EffectPacket {
     s16 field00;
@@ -422,7 +409,6 @@ s32 func_151422DC(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, void *arg5
 s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     return arg4;
 }
-extern u8 D_800C3E90;
 
 void func_15142314(void *arg0, s32 arg1, f32 *arg2) {
     u8 *p;
@@ -442,7 +428,6 @@ void func_15142314(void *arg0, s32 arg1, f32 *arg2) {
     arg2[1] = *((f32 *)(p + 0x34));
     arg2[2] = *((f32 *)(p + 0x38));
 }
-extern f32 D_8009A220[];
 
 f32 func_151423D8(u8 arg0) {
     u8 temp_t0;
@@ -597,7 +582,6 @@ void func_15142914(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)arg0 + 0x24) * arg1);
     *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)arg0 + 0x28) * arg1);
 }
-extern u8 D_8008A160[];
 
 void func_151429E0(u8 arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     u8 *entry;
@@ -615,7 +599,6 @@ s32 func_15142A5C(void *arg0) {
     }
     return 0;
 }
-extern f32 D_800A5624;
 
 f32 func_15142A80(f32 arg0) {
     return (1.0f - arg0) * (arg0 - 2.0f) * arg0 * D_800A5624;
@@ -626,18 +609,12 @@ f32 func_15142AC0(f32 arg0) {
 f32 func_15142B04(f32 arg0) {
     return (2.0f - arg0) * (arg0 + 1.0f) * arg0 * 0.5f;
 }
-extern f32 D_800A5628;
 
 f32 func_15142B44(f32 arg0) {
     return (arg0 + 1.0f) * (arg0 - 1.0f) * arg0 * D_800A5628;
 }
-extern s32 D_800DD1FC;
-extern s32 D_800DD200;
 
 Gfx *func_15142B7C(Gfx *gdl, s32 arg1, s32 arg2) {
-    extern s32 D_800DD200;
-    extern s32 D_800DD1FC;
-
     if ((~D_800DD200) & arg2) {
         gSPClearGeometryMode(gdl++, arg2);
         D_800DD200 |= arg2;
@@ -648,17 +625,8 @@ Gfx *func_15142B7C(Gfx *gdl, s32 arg1, s32 arg2) {
     }
     return gdl;
 }
-extern s16 D_800DD1C8;
-extern s16 D_800DD1CA;
-extern s16 D_800DD1CC;
-extern s16 D_800DD1CE;
 
 Gfx *func_15142C10(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5) {
-    extern s16 D_800DD1C8;
-    extern s16 D_800DD1CA;
-    extern s16 D_800DD1CC;
-    extern s16 D_800DD1CE;
-
     if ((arg1 != D_800DD1C8) || (arg2 != D_800DD1CA) || (arg3 != D_800DD1CC) || (arg4 != D_800DD1CE)) {
         if (*arg5 == 1) {
             gDPPipeSync(gdl++);
@@ -672,21 +640,8 @@ Gfx *func_15142C10(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5) {
     }
     return gdl;
 }
-extern s16 D_800DD1C0;
-extern s16 D_800DD1C2;
-extern s16 D_800DD1C4;
-extern s16 D_800DD1C6;
-extern s16 D_800DD204;
-extern s16 D_800DD206;
 
 Gfx *func_15142CF0(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u8 *arg7) {
-    extern s16 D_800DD204;
-    extern s16 D_800DD206;
-    extern s16 D_800DD1C0;
-    extern s16 D_800DD1C2;
-    extern s16 D_800DD1C4;
-    extern s16 D_800DD1C6;
-
     if ((arg1 != D_800DD204) || (arg2 != D_800DD206) || (arg3 != D_800DD1C0) || (arg4 != D_800DD1C2) || (arg5 != D_800DD1C4) || (arg6 != D_800DD1C6)) {
         if (*arg7 == 1) {
             gDPPipeSync(gdl++);
@@ -704,12 +659,7 @@ Gfx *func_15142CF0(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
 }
 s32 func_15094FE8();
 s32 func_1514306C(s32, s32, s32, u8);               /* extern */
-extern s32 D_800BE9F0;
 extern s32 D_800DD1B0;
-extern s32 D_800DD208;
-extern s32 D_800DD20C;
-extern s32 D_800DD210;
-extern s32 D_800DD214;
 
 s32 func_15142E24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u8 arg7, s32 arg8, u8 *arg9, s32 arg10) {
     s32 temp_v0;
@@ -733,13 +683,8 @@ s32 func_15142E24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s3
     }
     return arg0;
 }
-extern s32 D_800DD218;
-extern s32 D_800DD21C;
 
 Gfx *func_15142FBC(Gfx *gdl, s32 arg1, s32 arg2, u8 *arg3) {
-    extern s32 D_800DD218;
-    extern s32 D_800DD21C;
-
     if ((arg1 != D_800DD218) || (arg2 != D_800DD21C)) {
         if (*arg3 == 1) {
             gDPPipeSync(gdl++);
@@ -755,8 +700,6 @@ s16 func_15143044(u8 arg0, s32 arg1) {
     return (s16) (0x7FFF - arg0);
 }
 extern s32 D_800915B0;
-extern s32 D_80091514;
-extern s32 D_80091564[];
 typedef struct {
     s32 *field0;
     s32 *field4;
@@ -803,11 +746,6 @@ s32 func_1514306C(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514306C.s")
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_151EFEB8(void *, s32);
-extern s32 D_800DCA00;
-extern s32 D_800DCA04;
-extern f32 D_800DCA08;
-extern f32 D_800DCA0C;
-extern f32 D_800DCA10;
 
 void func_15143134(f32 *arg0, f32 *arg1, s32 arg2) {
     D_800DCA00 = 1;
@@ -851,8 +789,6 @@ typedef struct Game16EE20Emitter {
     u8 pad14;
     u8 flags;
 } Game16EE20Emitter;
-
-extern f32 D_800A5644;
 
 void func_151432BC(Game16EE20Emitter *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4) {
     switch (arg0->flags & 3) {
@@ -988,7 +924,6 @@ void func_15143874(s16 arg0, f32 arg1, f32 *arg2, f32 *arg3) {
     *arg2 = arg1 * cosine;
     *arg3 = arg1 * sp1C;
 }
-extern s32 D_800D3094;
 extern s32 D_800D3098;
 
 void func_15143D18(s32 *, s32 *, s32, s32);
@@ -1208,7 +1143,6 @@ s32 func_150A29C8(s32, s32);
 void func_1512D748(void *, s32, s32);
 void *func_151D8868(Game143E94Packet *, s32, u8, s32);
 
-extern s32 D_800BE9E8;
 extern s32 D_800DBFF0;
 
 u8 func_15143E94(s32 arg0, s32 arg1) {
@@ -1254,7 +1188,6 @@ u8 func_15143E94(s32 arg0, s32 arg1) {
     return success;
 }
 extern u8 D_80090B64[];
-extern s32 D_800BE9E4;
 
 s32 func_1514401C(u8 arg0, s32 *arg1, s32 *arg2, u8 arg3) {
     s32 boundary;
@@ -1457,7 +1390,6 @@ f32 func_15144528(f32 arg0, f32 arg1, f32 arg2) {
     }
     return arg0;
 }
-extern f32 D_800A5694;
 
 f32 func_15144598(void *arg0) {
     f32 var_fv1;
@@ -1480,8 +1412,6 @@ f32 func_15144598(void *arg0) {
     }
     return var_fv1;
 }
-extern f32 D_800A5698;
-extern f32 D_800A569C;
 
 f32 func_1514462C(void *arg0) {
     typedef struct {
@@ -1492,8 +1422,6 @@ f32 func_1514462C(void *arg0) {
         u8 padC[9];
         u8 unk15;
     } Local;
-    extern f32 D_800A5698;
-    extern f32 D_800A569C;
     Local *a = (Local *)arg0;
     s16 v0;
     f32 f0;
@@ -1691,8 +1619,6 @@ s16 func_15144C2C(s16 arg0) {
     }
     return var_v1;
 }
-extern f32 D_800A56A8;
-extern f32 D_800A56AC;
 f32 func_15144B68(f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
@@ -1711,9 +1637,6 @@ f32 func_15144C8C(f32 arg0, f32 arg1) {
     }
 }
 void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
-extern f32 D_800A56B0;
-extern f32 D_800D9B20;
-extern u8 D_800D9D10[];
 
 s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
                   f32 *arg4, u8 arg5) {
@@ -1987,8 +1910,6 @@ typedef struct {
 } Game145740Actor;
 
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
-extern f32 D_800A56B4;
-extern f32 D_800A56B8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15145740 CURRENT (1849) */
 void func_15145740(Game145740Actor *arg0, Vec3f *arg1,
@@ -2041,8 +1962,6 @@ void func_15145740(Game145740Actor *arg0, Vec3f *arg1,
 
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_150484A0(f32, f32);
-extern f32 D_800A56BC;
-extern f32 D_800A56C0;
 
 void func_15145974(void *arg0, f32 *arg1, f32 *arg2) {
     f32 temp_ft4;
@@ -2055,7 +1974,6 @@ void func_15145974(void *arg0, f32 *arg1, f32 *arg2) {
         *arg2 = (func_150484A0(sqrtf((temp_fv1 * temp_fv1) + (temp_ft4 * temp_ft4)), *(f32 *)((u8 *)arg0 + 4)) * D_800A56C0) - 90.0f;
     }
 }
-extern f32 D_800A548C[];
 
 f32 func_15145A0C(f32 arg0, f32 arg1, f32 arg2) {
     return D_800A548C[(s32) (arg0 * arg2 * 100.0f)] * arg1;
@@ -2334,11 +2252,7 @@ s32 func_15146078(f32 *direction, Vec3f *first,
 s32 func_1515D914(s32, s32, s32, s32, s32, s32, s32, s32,
                    s32, void *, s32, s32, s32, s32);
 s32 func_1515E544(s32, s32, u8, u8, void *);
-extern u8 D_800BE9C0;
 extern u8 D_800D9BD0[];
-extern s32 D_800D9E10[];
-extern u8 D_800D9E20;
-extern u8 D_800D9E21;
 
 s32 func_151462C8(s32 arg0, u8 *arg1, u8 arg2, u8 *arg3,
                    u8 arg4, s16 arg5, f32 *arg6, u8 arg7, s32 arg8) {
@@ -2426,7 +2340,6 @@ typedef struct Game16EE20TransformNode {
 s32 func_15031070(void *, void *, s32 *, s32 *);
 void *func_1503195C(void *, s32, s32);
 void func_15145EA4(f32 **, f32 **, s32, s32);
-extern u8 D_800BE9C0;
 
 s32 func_1514654C(u8 *arg0, Game16EE20TransformNode *arg1, s32 arg2,
                    f32 **arg3, f32 **arg4, s32 arg5) {

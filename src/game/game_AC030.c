@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_AC030.c
@@ -11,8 +12,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern s32 D_800BE9F0;
 
 void func_1507EB80(u8 *arg0, s32 *arg1, u8 arg2) {
     s32 temp_v0;
@@ -26,8 +25,6 @@ void func_1507EB80(u8 *arg0, s32 *arg1, u8 arg2) {
     }
 }
 void func_10023A10(void *, void *, s32);
-extern void *D_80086C24[];
-extern u8 D_8009BBF0[];
 
 void func_1507EBB8(s32 arg0, s32 *arg1, s32 arg2) {
     struct { s32 count; void *source; } copy;
@@ -173,8 +170,6 @@ u8 func_1515942C(void *, s16, s16, s16, s16, s16);
 s32 func_1507FFD8(void *);
 s32 func_1507F4C0(s32);
 void func_1507FF94(void *);
-extern u8 D_800C3E78;
-extern u8 D_800D18C0;
 extern u8 D_800CC2D0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EFD0 CURRENT (6886) */
@@ -304,8 +299,6 @@ typedef struct GameAC030RootState {
     GameAC030NestedState *nested;
 } GameAC030RootState;
 
-extern u8 *D_80086BA0[];
-
 s32 func_1507F454(void) {
     GameAC030AnimationState *animation;
     u8 sequence;
@@ -349,7 +342,6 @@ s32 func_1507F4C0(s32 arg0) {
     return (random % range) + base;
 }
 void func_1505E650(u8 *, s32, s32, s32, f32, f32, s32);
-extern u8 D_800B85A4[];
 
 void func_1507F54C(u8 *arg0) {
     s32 id;
@@ -386,9 +378,6 @@ void func_1507F54C(u8 *arg0) {
 typedef struct GameFC2CFrame { u8 pad0[6]; u8 flags; u8 pad7; } GameFC2CFrame;
 typedef struct GameFC2CSequence { u8 pad0[4]; u8 id; u8 frame; u8 flags; u8 pad7; } GameFC2CSequence;
 extern GameFC2CFrame D_8009B8B0[];
-extern s32 D_800418B0[][16];
-extern u8 D_800419A0;
-extern s32 D_800D18C4;
 void func_1000E7A0(u32, s32);
 void func_1000E8C4(s32);
 void func_1000D96C(s32, s32, s32);
@@ -455,7 +444,6 @@ void func_1507FC2C(void *arg0) {
 
 void func_1507FC2C(void *);
 void func_1507FF94(void *);
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
 
 void func_1507FEA0(GameAC030RootState *arg0) {

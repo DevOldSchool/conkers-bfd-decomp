@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_117FC0.c
@@ -46,7 +47,6 @@ s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A1460;
 extern f32 D_800BE9A4;
 
 void func_150EAB10(Game117FC0Actor *arg0) {

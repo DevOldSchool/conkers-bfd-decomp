@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FA770.c
@@ -120,9 +121,6 @@ typedef struct Game1CD4C0Locals {
 } Game1CD4C0Locals;
 
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
-extern f32 D_800AAFB4;
-extern f32 D_800AAFB8;
-extern f32 D_800AAFBC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD4C0 CURRENT (7714) */
 s32 func_151CD4C0(void *arg0, u8 arg1, s32 arg2, u8 arg3,
@@ -236,13 +234,6 @@ s32 func_151CD674(u8 *actor) {
 f32 func_15047D60(f32);
 f32 func_150ADA68();                                /* extern */
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800AAFC8;
-extern f32 D_800AAFCC;
-extern f32 D_800AAFD0;
-extern f32 D_800AAFD4;
-extern f32 D_800AAFD8;
-extern f32 D_800AAFDC;
-extern f32 D_800AAFE0;
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD7BC CURRENT (5037) */
@@ -499,7 +490,6 @@ void func_151CE51C(void *arg0, void *arg1) {
         }
     }
 }
-extern s32 D_800A5760[];
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];
 

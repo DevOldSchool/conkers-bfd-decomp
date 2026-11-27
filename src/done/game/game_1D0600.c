@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D0600.c
@@ -51,9 +52,6 @@ typedef struct Game1D0600Owner {
 } Game1D0600Owner;
 
 void func_15152B38(void *, s32, s32, void *);
-extern f32 D_800A8D3C;
-extern f32 D_800A8D40;
-extern f32 D_800A8D44;
 
 void func_151A3150(Game1D0600Owner *arg0) {
     Game1D0600Particle descriptor;

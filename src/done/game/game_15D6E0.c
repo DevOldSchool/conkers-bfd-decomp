@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15D6E0.c
@@ -11,7 +12,6 @@ typedef struct {
 } Game15D6E0State;
 
 extern Game15D6E0State *D_800B0DF0;
-extern void (*D_80089670[])(void *);
 
 void func_15130230(void *arg0, void *arg1) {
     u8 temp_v0;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_123960.c
@@ -47,8 +48,6 @@ s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15143134(f32 *, f32 *, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A1B30[3];
-extern s32 D_800BE9E4;
 
 void func_150F64DC(Game123960Object *arg0) {
     Game123960Effect *effect;

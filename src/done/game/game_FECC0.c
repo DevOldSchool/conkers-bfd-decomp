@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_render_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FECC0.c
@@ -31,11 +32,7 @@ void func_150A7A48(void *, void *, void *);
 void func_151102CC(void *, f32, f32, f32);
 extern GameFECC0Index D_80082FA4;
 extern u8 D_80089470[];
-extern u8 D_800BE9C0;
-extern s32 D_800BE9F0;
-extern void *D_800DBE80;
 extern GameFECC0Vertex *D_800DBE88[][2];
-extern u8 *D_800DBEB0;
 
 GameFECC0Command *func_150D1810(GameFECC0Command *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, s32 arg5, f32 arg6) {
     f32 spC0[16];

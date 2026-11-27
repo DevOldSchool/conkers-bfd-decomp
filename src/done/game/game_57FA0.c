@@ -1,5 +1,6 @@
 #include "types.h"
 #include "../lib/ultralib/include/compiler/ido/stdarg.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_57FA0.c
@@ -47,7 +48,6 @@ void func_1502AB04(s32 arg0, s32 *arg1, s32 arg2, s32 arg3) {
     }
 }
 void func_10004514(s32, s32, s32, s32);
-extern s32 D_800C3D60;
 extern Game2AB04Entry D_800C3E58;
 
 s32 func_1502AC88(u8 *arg0, s32 arg1, s32 *arg2) {
@@ -103,7 +103,6 @@ s32 func_1502AF04(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     return aligned + (source & 0xFU);
 }
 s32 func_1502AC88(u8 *, s32, s32 *);
-extern u8 D_AB1950[];
 
 u8 *func_1502B020(s32 *arg0, s32 arg1, ...) {
     va_list cursor;
@@ -163,8 +162,6 @@ void func_10004074(s32);
 s32 func_10006240(s32, s32, s32);
 void func_150AD770(void);
 s32 func_10003C40(s32, s32, s32, s32);
-extern s32 D_8003809C;
-extern s32 D_8003C8E0;
 
 s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 compression;
@@ -359,7 +356,6 @@ s32 func_1502B7F0(s32 *arg0, s32 arg1, ...) {
 }
 s32 func_1502AC88(u8 *, s32, s32 *);
 s32 func_1502B224(u8 *, s32, s32, s32);
-extern u8 D_AB1950[];
 
 s32 func_1502B8E0(s32 arg0, s32 arg1, s32 arg2, ...) {
     u8 *output;

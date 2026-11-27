@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D9A00.c
@@ -60,7 +61,6 @@ f32 func_150ADA68(void);
 void func_15143794(s16, s16, f32, void *);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32,
                    s32, f32, f32, s32, s32, s32, s32, s32, s32);
-extern s8 D_800A9023[];
 extern Game1D9A00EmitterConfig D_800A9180[];
 
 /* D_8008AA00[12] points here; its existing callback declaration fixes the slots. */

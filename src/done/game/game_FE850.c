@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FE850.c
@@ -21,11 +22,6 @@ typedef struct GameFE850State {
 void func_15059C84(GameFE850State *);
 void func_151467A4(f32 *, f32, f32 *, f32, f32, f32, f32, f32 *);
 void func_1515D4D4(s32, s32, s32, u8);
-extern f32 D_800A08B0;
-extern f32 D_800A08B4;
-extern f32 D_800A08B8;
-extern f32 D_800A08C0;
-extern u8 D_800DCD20[];
 
 void func_150D13A0(GameFE850State *arg0) {
     f32 velocity_x;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1765E0.c
@@ -65,7 +66,6 @@ typedef struct Game1765E0Effect {
     s8 callback_tick;
 } Game1765E0Effect;
 
-extern s32 D_800BE9E4;
 extern void (*D_8008A4C0[])(Game1765E0Effect *);
 extern void (*D_8008A4E8[])(Game1765E0Effect *);
 
@@ -116,8 +116,6 @@ typedef struct {
     u8 callbackSetIndex;
 } Game1765E0State;
 
-extern void (*D_8008A688[])(void);
-
 void func_15149394(Game1765E0State *arg0) {
     s32 temp_v0;
 
@@ -129,7 +127,6 @@ void func_15149394(Game1765E0State *arg0) {
     }
     D_8008A688[temp_v0]();
 }
-extern void (*D_8008A7B0[])(void);
 
 void func_151493E4(Game1765E0State *arg0) {
     s32 temp_v0;
@@ -142,7 +139,6 @@ void func_151493E4(Game1765E0State *arg0) {
     }
     D_8008A7B0[temp_v0]();
 }
-extern void (*D_8008A8D8[])(void *, void *, u8);
 
 void func_15149434(void *arg0, void *arg1, u8 arg2) {
     s32 var_v0;
@@ -172,7 +168,6 @@ s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
     return arg0;
 }
 void func_15169260(void *, s32, void *, u8);
-extern u8 D_800A5770;
 
 void func_151494E0(void *arg0, u8 arg1) {
     func_15169260(&D_800A5770, 2, arg0, arg1);

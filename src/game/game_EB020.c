@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_EB020.c
@@ -59,11 +60,7 @@ typedef struct GameEB020Actor {
 void func_15052F9C(u8 *, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1505327C(u8 *, f32, f32, s32, s32);
 void *func_15072208(void *, s32);
-extern f32 D_8009FFF0;
-extern u8 D_800BE616;
-extern s32 D_800CC268;
 extern u8 D_800CC2D0[];
-extern u16 D_800D18A0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BDB70 CURRENT (1520) */
 void func_150BDB70(GameEB020Actor *arg0) {

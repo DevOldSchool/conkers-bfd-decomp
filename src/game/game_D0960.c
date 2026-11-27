@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_D0960.c
@@ -30,9 +31,6 @@ f32 sqrtf(f32);
 /* Call context: func_150AD78C: unique active project prototype */
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
-
-extern f32 D_8009F674;
-extern f32 D_8009F678;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A3504 CURRENT (16606) */
 s32 func_150A3504(void *arg0, void *arg1, void *arg2, void *arg3) {

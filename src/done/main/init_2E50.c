@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_2E50.c
@@ -32,9 +33,6 @@ typedef struct IoMessage {
 
 void func_80022E00(ThreadState *);
 extern ThreadState D_80035910;
-extern volatile u8 D_8003A572;
-extern volatile u8 D_8003A573;
-extern volatile u8 D_8003A575;
 
 void func_80002E50(void *argument) {
     IoMessage *message;

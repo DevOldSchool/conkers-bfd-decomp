@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_176A00.c
@@ -76,9 +77,6 @@ void *func_10022EC0(void *, const void *, u32);
 void func_1510F800(s32);
 s32 func_1510FD20(s32, s32);
 void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
-extern f32 D_800A5780;
-extern f32 D_800A5784;
-extern f32 D_800A5788;
 
 void *func_15149550(Game176A00Emitter *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
     void *result;
@@ -184,7 +182,6 @@ typedef struct Game176A00Motion {
 } Game176A00Motion;
 
 f32 func_150ADA68(void);
-extern s32 D_800BE9E4;
 
 s32 func_15149838(u8 *arg0) {
     Game176A00Motion *motion;
@@ -223,8 +220,6 @@ s32 func_15149838(u8 *arg0) {
     }
     return 1;
 }
-extern f32 D_800A578C;
-extern f32 D_800A5790;
 
 s32 func_15149A94(u8 *arg0) {
     Game176A00Motion *motion = (Game176A00Motion *)(arg0 + 0x110);

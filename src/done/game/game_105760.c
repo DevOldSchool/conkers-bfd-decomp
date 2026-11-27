@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_105760.c
@@ -8,8 +9,6 @@
 void func_150D82B0(s32 arg0) {
 
 }
-extern s32 D_80090298[];
-extern f32 D_800A0B10;
 
 s32 func_150D82BC(u8 *arg0, u8 *arg1) {
     s32 index;
@@ -60,9 +59,6 @@ typedef struct GameD83D8Owner {
     u8 pad86[0x24A];
     u8 *position;
 } GameD83D8Owner;
-
-extern f32 D_800A0B14;
-extern s32 D_800BE9E4;
 
 s32 func_150D83D8(GameD83D8State *arg0, GameD83D8Owner *arg1) {
     s32 index;

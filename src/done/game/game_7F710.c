@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_7F710.c
@@ -35,8 +36,6 @@ typedef struct Game7F710MotionObject {
 
 void func_1505E650(Game7F710MotionObject *, s32, f32, f32, f32, f32, s32);
 void func_1505A770(Game7F710MotionObject *);
-extern f32 D_8009933C;
-extern f32 D_80099340;
 
 void func_15052260(Game7F710MotionObject *arg0) {
     Game7F710MotionController *controller;
@@ -123,7 +122,6 @@ void func_15052464(u8 *arg0) {
         func_15060F28(arg0, 1);
     }
 }
-extern f32 D_800D1550;
 
 void func_15052490(void *arg0, u16 arg1, f32 arg2, f32 arg3) {
     u16 temp_v0;

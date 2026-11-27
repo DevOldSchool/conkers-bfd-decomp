@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F21D0.c
@@ -21,7 +22,6 @@ typedef struct GameF21D0Mover {
 } GameF21D0Mover;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_800BE9E4;
 
 void func_150C4D20(GameF21D0Mover *arg0) {
     f32 velocity;
@@ -71,8 +71,6 @@ void *func_10003C40(s32, s32, s32, s32);
 s32 func_1511A410(s8 *, s32 *);
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 void func_1510D874(s32, s32, s32, s32, s32);
-extern u8 D_1C0[], D_2C1[];
-extern u8 D_800BE9C0;
 
 typedef struct GameF21D0Vertex {
     s16 ob[3];
@@ -157,9 +155,6 @@ void func_150C4E9C(u8 *arg0) {
     }
     func_1510D874((s32)arg0, result, adjustment, 4, 5);
 }
-
-extern void *D_800D98D0;
-extern void *D_800D98E0;
 
 void func_150C522C(void) {
     void **var_s0;

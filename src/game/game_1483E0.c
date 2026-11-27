@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1483E0.c
@@ -19,10 +20,6 @@
 
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_800A3188;
-extern f32 D_800A318C;
-extern f32 D_800A3190;
-extern f32 D_800A3194;
 
 void func_1511AF30(void *arg0) {
     f32 scale = (f32) *(s32 *)((u8 *)arg0 + 0x3C);
@@ -62,8 +59,6 @@ typedef struct Game1483E0Rotation {
 f32 func_15048A70(f32, f32);
 void func_15173C60(s32, s32);
 void func_1518804C(s32, f32);
-extern f32 D_800A31BC, D_800A31C0, D_800A31C4, D_800A31C8;
-extern u8 D_800BE9B4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1511B51C CURRENT (1528) */
 void func_1511B51C(Game1483E0Rotation *arg0) {
@@ -141,10 +136,6 @@ void func_1511B51C(Game1483E0Rotation *arg0) {
 
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
-extern u8 D_800A2F70;
-extern u8 D_800A2F71[];
-extern f32 D_800A31CC;
-extern u8 D_800BE9C0;
 
 typedef struct Game1483E0RotateVertex {
     s16 x, y, z;
@@ -273,11 +264,6 @@ typedef struct Game1483E0State {
 } Game1483E0State;
 
 void *func_10003C40(s32, s32, s32, s32);
-extern u8 D_800BE9C0;
-extern f32 D_800A31D0;
-extern f32 D_800A31D4;
-extern f32 D_800A31D8;
-extern f32 D_800A31DC;
 
 void func_1511BB04(Game1483E0State *arg0, f32 arg1, f32 arg2,
                    f32 arg3, f32 arg4) {
@@ -346,7 +332,6 @@ void func_1511BDF4(Game1483E0State *arg0) {
     }
 }
 f32 func_150484A0(f32, f32);                        /* extern */
-extern f32 D_800A31E0;
 extern void *D_800DBFF0;
 
 void func_1511BE5C(void *arg0) {
@@ -358,8 +343,6 @@ void func_1511C540(void) {
 }
 f32 func_15047D60(f32);                             /* extern */
 f32 func_15144B68(f32);                             /* extern */
-extern f32 D_800A31EC;
-extern f32 D_800A31F0;
 extern f32 D_800BE9A4;
 
 void func_1511C548(void *arg0) {
@@ -390,8 +373,6 @@ void func_150B2740(s32, s32);
 void func_15170F4C(u8 *, u8, s32);
 void D_1000EC24(void);
 extern Game1483E0SoundSet D_800A2F84;
-extern s32 D_800BE9E4;
-extern s32 D_800BE9F0;
 
 void func_1511C638(void *arg0) {
     s32 state;
@@ -495,7 +476,6 @@ void func_1511C638(void *arg0) {
     *((u8 *)arg0 + 0x73) &= 0xFFFC;
     *((u8 *)arg0 + 0x73) |= state;
 }
-extern f32 D_800A31F4;
 
 void func_1511CB2C(s32 arg0, f32 *arg1) {
     *arg1 = D_800A31F4;
@@ -522,7 +502,6 @@ typedef struct Game1483E0WaveMesh {
 } Game1483E0WaveMesh;
 
 void func_1511A494(void *, void *, void *);
-extern s32 D_800BE9E4;
 
 void func_1511D7BC(Game1483E0WaveMesh *arg0) {
     f32 sine;
@@ -591,9 +570,6 @@ typedef struct Game1483E0Mesh {
 } Game1483E0Mesh;
 void *func_10003C40(s32, s32, s32, s32);
 void func_15094AB8(void *, void *, s32, f32, s32, s32);
-extern f64 D_800A3208;
-extern u8 D_800BE9C0;
-extern s32 D_800BE9E4;
 
 void func_1511D9E4(Game1483E0Mesh *arg0) {
     Game1483E0Texcoord *coords;
@@ -626,9 +602,6 @@ void func_1511D9E4(Game1483E0Mesh *arg0) {
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);
 f32 func_15047C00(f32);                             /* extern */
-extern f32 D_800A3210;
-extern f32 D_800A3214;
-extern s32 D_800BE9E4;
 
 void func_1511DBC4(void *arg0) {
     s32 mode;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_DDB60.c
@@ -49,10 +50,6 @@ void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_1504715C(void *, void *);
 void func_15153F18(s16 *, void *, void *, s32, s32);
 void func_151C329C(void *, u8, s32);
-extern u8 D_8009F810[], D_8009F814[], D_8009F818[], D_8009F81C[];
-extern f32 D_8009F820, D_8009F824, D_8009F828, D_8009F82C, D_8009F830;
-extern f32 D_8009F834, D_8009F838, D_8009F83C, D_8009F840, D_8009F844;
-extern f32 D_8009F848, D_8009F84C, D_8009F850, D_8009F854, D_8009F858, D_8009F85C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B06B0 CURRENT (4624) */
 void func_150B06B0(GameDDB60Actor *arg0, void *arg1, s32 arg2, s32 arg3) {

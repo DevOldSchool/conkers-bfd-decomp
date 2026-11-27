@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_render_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/effects_sight.c
@@ -38,7 +39,6 @@ s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
 s32 func_151C756C(f32 *, s16 *, f32 *, s16 *, void *, void *,
                   s32, s32, s32, s32, s32, s32, s32, s32, s32, s32,
                   s32, s32, s32, f32, f32, s32, s32, s32);
-extern f32 D_800AAC38, D_800AAC3C;
 
 s32 func_151C71A0(Sight71Parameters *arg0) {
     Vec3f origin;
@@ -235,8 +235,7 @@ typedef struct SightOscillation {
 
 f32 func_150AD78C(f32);
 f32 func_15144B68(f32);
-extern f32 D_800BE9A4, D_800AAC50, D_800AAC54;
-extern s32 D_800BE9E4;
+extern f32 D_800BE9A4;
 
 s32 func_151C82D0(void *arg0) {
     SightOscillation *state = (SightOscillation *)((u8 *)arg0 + 0x110);
@@ -438,7 +437,6 @@ void *func_151D8868(s8 *, s32, u8, s32);
 s32 func_1505D024(void *, s32, u16, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1514FBFC(void *, u8, s32);
-extern s32 D_800AAC30[];
 extern u8 D_1000EC24[];
 
 typedef struct SightBurstTriangle {
@@ -630,7 +628,6 @@ s32 func_151C8FCC(s32 arg0, Sight8FCCVector *arg1, Sight8FCCVector *arg2,
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 s32 func_15144E80(void *, void *, void *, void *);
 void func_15145974(void *, f32 *, f32 *);
-extern f32 D_800AAC7C;
 
 /* func_1513264C copies all 0x7C bytes into the spawned effect. */
 typedef struct SightSpawnDescriptor {
@@ -995,9 +992,6 @@ void func_151CCE94(struct SightSpawnOwner *);
 void func_151CCD1C(void *, u8, u8, u8);
 void func_151C9DE8(s32, u8, s8, u8, s32);
 void func_151CAB78(u8 *, u8);
-extern u8 D_800CBFA8[];
-extern s32 D_80082FA0;
-extern s32 D_800BE9F0;
 s32 func_151C9F38(s32, u8, u8, s8, u8);
 void func_151CB5FC(s32, u8, u8, s8, u8);
 void func_151CC524(s32, u8, u8, u8, u8, u8);
@@ -1062,7 +1056,6 @@ void func_151C9BA0(u8 *arg0, s32 arg1) {
 }
 void func_150BDE90(s32, u8, s32);
 void func_151CCF08(s32, u8, s8, u8);
-extern s8 D_8008CD00;
 
 void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
     func_151C9F38(arg0, 4, arg1, arg2, arg3);
@@ -1077,7 +1070,6 @@ void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
 }
 void func_15160274(void *, u8);
 void func_1515572C();
-extern s8 D_8008CD00;
 
 void func_151C9ED4(void *arg0) {
     void *sp24;
@@ -1091,7 +1083,6 @@ void func_151C9ED4(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
-extern void (*D_8008FC10[])(void *, void **, u8);
 
 void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
     s32 type;
@@ -1210,8 +1201,6 @@ void func_151CAB78(u8 *arg0, u8 arg1) {
     }
 }
 void *func_1515FF74(void *, s32, u8, s32);
-extern s32 D_800BE620;
-extern u8 D_800BE616;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAD28 CURRENT (5806) */
 void func_151CAD28(u8 *arg0, s32 arg1) {
@@ -1367,9 +1356,6 @@ typedef struct SightWarpState {
 f32 func_15145A0C(f32, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern f32 D_800AAE9C, D_800AAEA0, D_800AAEA4;
-extern s32 D_800BE620;
-extern u8 D_800BEAC0, D_800BEAC1, D_800BEAC2;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB110 CURRENT (8774) */
 void func_151CB110(u8 *arg0, u16 *arg1) {
@@ -1486,7 +1472,6 @@ void func_151CB49C(SightEffect *arg0, SightMessage *arg1, u8 arg2) {
         }
     }
 }
-extern f32 D_800AAEA8;
 
 void func_151CB510(void *arg0) {
     f32 temp_fv1;
@@ -1559,9 +1544,6 @@ typedef struct SightCrosshairSpawn {
     u8 field44;
     u8 pad45[3];
 } SightCrosshairSpawn;
-
-extern f32 D_800AAD84[];
-extern f32 D_800AADAC[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB5FC CURRENT (6057) */
 void func_151CB5FC(s32 arg0, u8 arg1, u8 arg2, s8 arg3, u8 arg4) {
@@ -1666,9 +1648,6 @@ void func_151CB918(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
-extern f32 D_800AAEAC;
-extern f32 D_800AAEB0;
-extern f32 D_800AAEB4;
 extern f32 D_800BE9A4;
 f32 func_151CC1D4(void *);
 
@@ -1724,7 +1703,6 @@ void func_151CBB6C(SightEffect20 *arg0, SightMessage *arg1, u8 arg2) {
     }
 }
 void func_1514373C(f32, f32, f32 *, f32 *);
-extern f32 D_800AAEB8;
 
 f32 func_151CC1D4(void *);
 
@@ -1945,8 +1923,6 @@ void func_151CC524(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5) {
     }
 }
 void func_15145974(void *, f32 *, f32 *);
-extern f32 D_800AAED4;
-extern f32 D_800AAED8;
 
 s32 func_151CC77C(void *arg0) {
     u8 *temp_a3;
@@ -2067,7 +2043,6 @@ void func_151CCD1C(void *arg0, u8 arg1, u8 arg2, u8 arg3) {
         func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
     }
 }
-extern u8 D_800BE616;
 void *func_10022EC0(void *, const void *, u32);
 
 void func_151CCE94(SightSpawnOwner *arg0) {
@@ -2141,8 +2116,6 @@ typedef struct SightPanelSpawn {
 } SightPanelSpawn;
 
 extern SightPanelColors D_8008FC28;
-extern f32 D_800AAD8C[];
-extern f32 D_800AADB4[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCF08 */
 void func_151CCF08(s32 arg0, u8 arg1, s8 arg2, u8 arg3) {

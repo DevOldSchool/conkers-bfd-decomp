@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_B21B0.c
@@ -23,9 +24,6 @@ typedef struct GameB21B0Object {
     u8 pad5[0x317];
     GameB21B0Inner *inner;
 } GameB21B0Object;
-
-extern u8 *D_80087240[];
-extern u8 D_8009D954[];
 
 /* Semantic role: actor_get_animation_model_representative.
  * Scans seven model-sharing groups, returning the first member of the first
@@ -70,7 +68,6 @@ typedef struct GameB21B0PlayerRecord {
 } GameB21B0PlayerRecord;
 
 extern GameB21B0PlayerRecord D_800D213C[];
-extern u16 D_800D2340;
 
 s32 func_150859AC(s16 arg0, s16 arg1) {
     if (arg0 >= 0xFF) {
@@ -96,7 +93,6 @@ s32 func_150859AC(s16 arg0, s16 arg1) {
 
 void func_15085710(s16, s32, u8);
 extern u8 D_800CC2D0[];
-extern u8 D_800D18A8;
 
 void func_15085ABC(s16 arg0) {
     s32 i;

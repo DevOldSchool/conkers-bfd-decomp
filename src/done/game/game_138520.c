@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_138520.c
@@ -7,14 +8,7 @@
 
 void func_151EF954(void *, f32, f32, f32, f32, f32, f32, f32);
 
-extern f32 D_800A2C20;
-extern f32 D_800D3670;
-extern f32 D_800D9B1C;
-extern f32 D_800D9B20;
-extern u8 D_800D9B28[];
 extern s32 D_800BE628;
-extern s16 D_800DD2F2;
-extern s16 D_800DD2F4;
 
 void func_1510B070(s32 arg0) {
     D_800D9B20 = (f32)D_800DD2F2;
@@ -26,8 +20,6 @@ void func_1510B070(s32 arg0) {
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);
-extern f32 D_800A2C24, D_800A2C28;
-extern f32 D_800C3648, D_800C364C, D_800C3650;
 
 void func_1510B128(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 field_of_view;
@@ -73,9 +65,6 @@ void func_1510B128(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                   field_of_view, depth, arg3);
 }
 void func_1510B128(s32, f32, f32, f32, f32);
-extern f32 D_800D9AC0[];
-extern s8 D_800D9AF0;
-extern s32 D_80082FA0;
 
 void func_1510B32C(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     void *temp_v0;
@@ -99,8 +88,6 @@ void func_1510B3B0(void) {
     D_800D9AF0 = 0;
 }
 void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);
-extern f32 D_800D9AF8[];
-extern s8 D_800D9B18;
 
 void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
     s32 temp_v1;
@@ -141,7 +128,6 @@ void func_1510B51C(void) {
 void func_150A7790(void *, s32);
 void func_15047F00(void *, void *, f32, f32, f32, f32, f32);
 extern s32 D_800BE628;
-extern u8 D_800BE9C0;
 
 void func_1510B5F8(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     func_15047F00((u8 *)D_800BE628 + arg0 * 0x180 + 0xBC, arg1, arg2, arg3, arg4, arg5, arg6);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_33660.c
@@ -13,13 +14,8 @@ void func_10023790(void *, void *, s32);
 void func_100237C0(s32, void *, s32);
 void func_15007644(void);
 extern u8 D_800BE900[];
-extern u8 D_800BE2D0[];
-extern s32 D_800BE9E0;
 extern Game33660Table D_800BE730;
 extern u8 D_800BE748[];
-extern u8 D_800BE74E[];
-extern u8 D_800BE754[];
-extern u8 D_800BE75A[];
 
 void func_150061B0(void) {
     func_10023790(D_800BE900, D_800BE2D0, 8);
@@ -57,20 +53,8 @@ s32 func_10025340(void *, u8 *, Game33660ControllerStatus *);
 s32 func_10027660(void *, Game33660Pak *, s32);
 s32 func_100057E0(void *, Game33660Pak *, s32);
 s32 func_10005570(Game33660Pak *);
-extern u8 D_8002AAE4;
 extern Game33660ControllerStatus D_800BE2C0[4];
-extern s16 D_800BE720[4];
-extern s32 D_800BE72C;
-extern u8 D_800BE740;
 extern Game33660Pak D_800BE760[4];
-extern u8 D_800BE93C[4];
-extern u8 D_800BE940[4];
-extern u8 D_800BE944[4];
-extern u8 D_800BE948[4];
-extern f32 D_800BE950[4];
-extern f32 D_800BE960[4];
-extern f32 D_800BE970[4];
-extern f32 D_800BE980[4];
 
 void func_15006234(void) {
     s32 channel;

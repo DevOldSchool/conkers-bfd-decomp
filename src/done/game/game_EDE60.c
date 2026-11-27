@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_EDE60.c
@@ -139,9 +140,7 @@ typedef struct GameEDE60Emitter {
     s16 last_index;
 } GameEDE60Emitter;
 
-extern f32 D_800A01C0;
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 f32 func_150ADA68(void);
 
 void func_150C0C38(GameEDE60Emitter *arg0) {

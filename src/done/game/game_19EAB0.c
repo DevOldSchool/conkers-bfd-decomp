@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_19EAB0.c
@@ -6,8 +7,6 @@
  */
 
 void func_151717FC(void *, f32, f32, f32, f32, f32, s32, s32, s32, s32, f32, u8, s32);
-extern f32 D_800A6FC0;
-extern f32 D_800A6FC4;
 
 void func_15171600(void *arg0, u8 arg1, s32 arg2) {
     switch (*((u8 *)arg0 + 0x72)) { /* irregular */

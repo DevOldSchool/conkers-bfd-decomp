@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_40440.c
@@ -6,8 +7,6 @@
  */
 
 extern s8 D_800DF7D0;
-extern s8 D_800DF7D1;
-extern s8 D_800DF7D2;
 typedef struct Game40440Entry {
     s8 pad0[4];
 } Game40440Entry;

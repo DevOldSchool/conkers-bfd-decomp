@@ -1,12 +1,12 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A0100.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_slot_view_controller_groups.md
  */
 
-extern s8 D_800DD2B0[];
 extern u8 D_800DD2C0[];
 
 void func_15172C50(s32 arg0) {
@@ -30,7 +30,6 @@ void func_15172CA8(s32 arg0) {
     }
 }
 void func_15085430(void *, s32, s32);
-extern u8 D_800BE9B4;
 
 void func_15172D28(void *arg0, s32 arg1) {
     void *temp_v0;
@@ -46,7 +45,6 @@ void func_15172D28(void *arg0, s32 arg1) {
 }
 void func_1501C730(s32, s32, s32, s32, s32);
 s32 func_1517F40C(s32);
-extern s32 D_800BE9F0;
 typedef struct Game1A0100Attachment {
     u8 pad0[0x23];
     s8 state;

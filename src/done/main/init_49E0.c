@@ -1,5 +1,6 @@
 #include "types.h"
 #include "libultra_os.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_49E0.c
@@ -17,13 +18,10 @@ typedef struct {
 } SchedulerTask;
 
 extern SchedulerTask *D_8002AC50;
-extern u8 D_8002AC5C;
 void func_8515FDA0(s32);
 void func_80024830(void *);
 
 void func_80005020(void);
-extern u8 D_8003A582;
-extern u8 D_8003B238;
 
 typedef struct SchedulerClient {
     struct SchedulerClient *next;
@@ -41,18 +39,9 @@ u32 func_80024B20(u8 *);
 void func_80024BA0(void);
 void func_80024BC0(void *);
 extern SchedulerTask *D_8002AC54;
-extern s8 D_8002AC6C;
-extern s8 D_8003A580;
-extern u8 D_8003A581;
-extern u8 D_8003A583;
-extern u8 D_8003A584;
-extern u8 D_8003A588;
-extern u16 D_8003A5C8;
 extern OSMesgQueue D_8003B200;
 extern OSMesgQueue D_8003B218;
 extern SchedulerClient *D_8003B234;
-extern u8 D_8003B23A;
-extern u8 D_8003B240[];
 extern u8 D_800BE900[];
 
 void func_800049E0(void *arg0) {
@@ -161,8 +150,6 @@ void func_80004FE0(void);
 void *func_80024E20(void);
 void *func_80024E60(void);
 extern OSMesgQueue D_8003B1E8;
-extern u8 D_8003B239;
-extern u8 D_8003B23A;
 
 void func_80004DB0(void) {
     if (D_8003A582 == 0) {
@@ -190,12 +177,7 @@ void func_80004DB0(void) {
 void func_80003330(u8 *);
 void func_8000349C(u8 *);
 extern SchedulerTask *D_8002AC58;
-extern s8 D_8003A580;
-extern u8 D_8003A583;
-extern u8 D_8003A584;
 extern OSMesgQueue *D_8003B230;
-extern u8 D_8003B240[];
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
 
 void func_80004F00(void) {

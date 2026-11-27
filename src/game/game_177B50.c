@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_177B50.c
@@ -171,8 +172,6 @@ typedef struct {
 
 void *func_15149550(f32 *, u8, u8, u8, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A57B0, D_800A57B4, D_800A57B8, D_800A57BC;
-extern f32 D_800A57C0, D_800A57C4, D_800A57C8;
 
 void func_1514AB5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
                    f32 arg5, f32 arg6, f32 arg7, f32 arg8,
@@ -223,11 +222,6 @@ void func_1514AB5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
         } while (arg4 != 0);
     }
 }
-
-extern f32 D_800A57CC, D_800A57D0, D_800A57D4, D_800A57D8;
-extern f32 D_800A57DC, D_800A57E0, D_800A57E4, D_800A57E8;
-extern f32 D_800A57EC, D_800A57F0, D_800A57F4, D_800A57F8;
-extern f32 D_800A57FC, D_800A5800, D_800A5804;
 
 void func_1514AD9C(Vec3f *arg0, s32 arg1, s32 arg2) {
     Game177B50Particle particle;
@@ -570,7 +564,6 @@ s32 func_1514B8B0(void *arg0) {
 }
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0[];
 
 typedef struct {
     s8 kind, mode;
@@ -669,9 +662,6 @@ void *func_1514B8E4(Vec3f *arg0, f32 *arg1, s16 arg2, u8 arg3,
     }
     return result;
 }
-extern f32 D_800A5888;
-extern f32 D_800A588C;
-extern f32 D_800A5890;
 
 s32 func_1514BC08(void *arg0, void *arg1) {
     f32 temp_fv0;

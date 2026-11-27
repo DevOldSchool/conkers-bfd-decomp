@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_11D030.c
@@ -128,8 +129,6 @@ typedef struct Game11D030SpawnOwner {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151407D0();
-extern s32 (*D_8008FD00)(void *, u8);
-extern f32 D_800A1830, D_800A1834;
 
 s32 func_150EFEC8(u8 *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
                    s32 arg5, u8 arg6, s32 arg7) {

@@ -1,12 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DBC60.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_direct_call_singletons.md
  */
-
-extern f32 D_800A9D80;
 
 typedef struct Game1DBC60Packet {
     s32 field_00;

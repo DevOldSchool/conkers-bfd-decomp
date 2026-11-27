@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10BC70.c
@@ -66,10 +67,7 @@ void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 void func_1514470C(s32, void *);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 extern Game10BC70Pair D_800A0D00;
-extern f32 D_800A0D58;
-extern u8 D_800A4AA0;
 extern Vec3f D_800A5480;
-extern s32 D_800BE9E4;
 
 void func_150DE7C0(Game10BC70Emitter *arg0) {
     Game10BC70Link *link;
@@ -159,7 +157,6 @@ s32 func_150DEACC(void *arg0) {
     return 1;
 }
 s32 func_15140410(s32, s32, s32, s16);
-extern s32 D_80082FA0;
 extern void *D_800DBFF0;
 
 s32 func_150DEB58(s32 arg0, s16 arg1) {

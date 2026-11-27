@@ -5,6 +5,7 @@
 #include "PR/mbi.h"
 #include "game_functions.h"
 #include "game_render_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_138B40.c
@@ -19,12 +20,6 @@ typedef struct {
 void func_150A7A48(void *, void *, void *);
 void func_151EFEB8(void *, s32);
 void func_1501B22C(s32);
-
-extern s32 D_80082FA0;
-extern u8 D_800BE9C0;
-extern u8 D_800D9C10[];
-extern u8 D_800D9D10[];
-extern u8 *D_800DC2A0[];
 
 void func_1510B690(void) {
     s16 i;
@@ -59,7 +54,6 @@ Game138B40Command *func_1510B7B4(Game138B40Command *arg0, s32 arg1) {
     { Game138B40Command *command = arg0++; command->word0 = 0xEF082C3F; command->word1 = 0x552230; }
     return arg0;
 }
-extern f32 D_800D35E0, D_800D35E4;
 
 void func_1510B958(s32 arg0) {
     GameRenderView *record;
@@ -69,20 +63,9 @@ void func_1510B958(s32 arg0) {
     D_800D35E4 = (((record->value_y / record->scale_y) - 1.0f) * -1.0f) + record->base_y;
 }
 extern u8 *D_800DBFF0;
-extern u8 D_800BEBA0;
 extern u8 D_800C35EA;
-extern u8 D_800C3662;
-extern u16 D_800D18A0;
 extern LookAt D_800D9B90[];
-extern s32 D_800BE9F0;
-extern s32 D_800DCD7C;
 extern u8 D_800D9BD0[][2][8];
-extern s32 D_800D9E10[];
-extern u8 D_800D9E20;
-extern u8 D_800D9E21;
-extern u8 D_800D9E28[];
-extern u8 D_800BEAAA;
-extern u8 D_800DBE62;
 extern Gfx *D_800B0E00;
 extern Gfx *D_800B0E04;
 extern Gfx *D_800B0E08;

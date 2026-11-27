@@ -1,12 +1,11 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_433F0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_next_compact_units.md
  */
 
-extern u8 D_800BE616;
-extern s32 D_800BE9E8;
 s8 func_151E5FAC(void);
 
 void func_15015F40(s16 arg0, s32 arg1) {
@@ -29,8 +28,6 @@ void func_15015F40(s16 arg0, s32 arg1) {
     }
 }
 
-extern s32 D_800BE638[5];
-extern s32 D_800BE650[5];
 extern s16 D_800BE668[10][4];
 
 void func_15015FBC(s32 arg0, s32 arg1) {

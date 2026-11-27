@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_6B320.c
@@ -45,9 +46,6 @@ typedef struct {
 } Game6B320Slot;
 
 extern Game6B320Slot D_800C6660[];
-extern u8 D_80098914[];
-extern s32 D_800BE9E4;
-extern s8 *D_80084454[];
 
 void func_1503DF0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     void *temp_v0;
@@ -63,9 +61,6 @@ s32 func_1503E1F4(s32, s32);
 void func_1503E3C4(s32, s32, s32, s32, s32);
 void func_1503EA54(s32);
 void func_1503E82C(s32);
-extern void (*D_80084430[])(void *, s32);
-extern void (*D_8008443C[])(s32);
-extern void (*D_80084448[])(s32);
 
 void func_1503DF48(s32 arg0) {
     Game6B320Slot *slot;
@@ -144,7 +139,6 @@ s32 func_1503E1F4(s32 arg0, s32 arg1) {
     }
     return 0;
 }
-extern u8 *D_80084460[];
 void func_10004074(s32);
 
 void func_1503E260(s32 arg0) {
@@ -392,8 +386,6 @@ void func_1503EB78(Game6B320Particle *arg0, f32 arg1, f32 arg2, s32 arg3) {
 }
 void func_1510F800(s32);
 s32 func_1510F8D8(s32, s32, s32, s32 *);
-extern f32 D_80098928;
-extern f32 D_8009892C;
 
 void func_1503ECA0(s32 arg0) {
     Game6B320Particle *entity;
@@ -454,7 +446,6 @@ void func_1503EEB8(void) {
 }
 void func_15060F28(u8 *, s32);
 void func_1503ECA0(s32);
-extern s32 D_800BE9E4;
 extern u8 D_800CC2D0[];
 
 void func_1503EEC0(s32 arg0) {
@@ -486,7 +477,6 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     }
     return 0;
 }
-extern u8 D_80098914[];
 
 void func_1503EFC4(s32 arg0) {
     Game6B320Slot *slot;
@@ -530,7 +520,6 @@ void func_1503F108(s32 arg0) {
     D_800C6660[arg0].entity[4].field_48[1] = 10.0f;
 }
 s32 func_1503EF4C(s32, s32, s32);
-extern s16 D_800C666C;
 
 void func_1503F16C(s32 arg0) {
     u8 *entity;
@@ -580,7 +569,6 @@ void func_1503F2B0(s32 arg0) {
 void *func_10022EC0(void *, const void *, u32);
 void func_151EFEB8(void *, s32);
 void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern u8 D_800C3E90;
 
 void func_1503F404(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {

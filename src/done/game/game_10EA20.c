@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10EA20.c
@@ -30,7 +31,6 @@ s32 func_15049440(f32 *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 s32 func_1505D1C4(f32, f32, s32, s32, s32, s32, s32, s32);
 f32 sqrtf(f32);
 __pragma(1, sqrtf);
-extern u8 D_800C3E78;
 extern u8 D_800CC2D0[];
 
 s32 func_150E1570(Game10EA20Actor *arg0, f32 arg1, f32 arg2, f32 arg3,

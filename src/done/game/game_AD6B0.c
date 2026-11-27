@@ -1,13 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_AD6B0.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_parser_actor_state_groups.md
  */
-
-extern s32 D_800D1928;
-extern s32 D_800D192C;
-extern s32 D_800D1930;
 
 void func_15080200(void) {
     D_800D1930 = D_800D1928 = D_800D192C = 0;
@@ -15,7 +12,6 @@ void func_15080200(void) {
 void func_15080430(u8 *, s32, s32);
 s32 func_100126E8(u8 *, s32);
 extern u8 D_800CC2D0;
-extern u8 D_800D18D0;
 
 void func_15080228(void) {
     u8 buffer[0x100];
@@ -39,9 +35,6 @@ void func_15080228(void) {
     }
 }
 s32 func_151EF610(void);
-extern s32 D_800427F0;
-extern s32 D_8009BD10;
-extern s32 D_800BE9E4;
 
 void func_15080348(u8 *arg0) {
     s32 var_v1;

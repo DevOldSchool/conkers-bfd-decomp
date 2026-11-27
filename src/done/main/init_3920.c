@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_3920.c
@@ -10,8 +11,6 @@
  * -g3 assemble to the raw bytes exactly. Maintainer-approved 2026-10-18.
  */
 /* CONKER_COMPILE_WITHOUT: -g3 */
-
-extern u8 D_80038080;
 
 void func_80003920(void) {
     D_80038080 = 0;

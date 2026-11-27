@@ -1,13 +1,10 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A1E50.c
  * Boundary evidence: docs/evidence/boundaries/game/families/game_raw_structural_families_continued.md
  */
-
-extern s32 D_800BE9E4;
-extern u8 D_800DD405;
-extern u8 D_800DD406;
 
 void func_151749A0(s32 arg0, s32 arg1) {
     D_800DD406 += D_800BE9E4;
@@ -28,9 +25,6 @@ typedef struct {
 
 extern void *D_800B0DF0;
 extern s32 D_800B0E00[];
-extern u8 D_800BE616;
-extern u16 D_800CBD4E;
-extern void (*D_8008CD04[])(s32);
 void func_15165F70(void);
 void func_15195FF0(s32, s32);
 void func_1510C8A8(void);

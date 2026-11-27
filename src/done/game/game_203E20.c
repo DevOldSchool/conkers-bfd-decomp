@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_203E20.c
@@ -6,7 +7,6 @@
  */
 
 extern void func_150D6730(s32 arg0, s32 arg1, s32 arg2);
-extern s32 D_800BE9F0;
 
 void func_151D6970(s32 arg0, s32 arg1) {
     if ((D_800BE9F0 == 0x32) || (D_800BE9F0 == 0x33)) {
@@ -72,13 +72,6 @@ typedef struct {
 void func_1504715C(void *, void *);
 void func_15153F18(s16 *, void *, void *, s32, s32);
 void func_15150178(s16 *, f32 *, void *, u8, s32);
-extern f32 D_800AB25C;
-extern f32 D_800AB260;
-extern f32 D_800AB264;
-extern f32 D_800AB268;
-extern f32 D_800AB26C;
-extern f32 D_800AB270;
-extern f32 D_800AB274;
 
 void func_151D69B4(void *arg0, void *arg1) {
     struct { u32 words[9]; } hit;
@@ -173,7 +166,6 @@ s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 void *func_1509B570(s32);
 void *func_150CFF10(u8, u8 *, s16, s32, s8, u8, u8, s32);
 extern Game203E20Copy3 D_800A5480;
-extern s32 D_800AB250;
 
 void func_151D6BFC(u8 *arg0, u8 arg1, s32 arg2) {
     Game203E20Spawn packet;

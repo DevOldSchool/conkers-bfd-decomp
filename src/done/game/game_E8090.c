@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E8090.c
@@ -32,9 +33,7 @@ f32 func_150ADA68(void);
 s32 func_15046C80(f32 *, u16, f32, void *);
 void func_1504715C(void *, void *);
 s32 func_1518ABD0(void *, void *, u8);
-extern void *D_80088750;
 extern s32 D_80082FA4;
-extern f32 D_8009FE70;
 extern struct108 *D_800DBFF0;
 
 void func_150BABE0(u8 *arg0, u8 arg1, u8 arg2) {
@@ -136,8 +135,6 @@ typedef union GameBAFECAngle { s16 value; u8 byte[2]; } GameBAFECAngle;
 void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_8009FE74;
-extern f32 D_8009FE78;
 
 s32 func_150BAFEC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s32 arg6, s32 arg7,
                   s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {

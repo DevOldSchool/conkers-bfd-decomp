@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_10A350.c
@@ -13,7 +14,6 @@
 
 f32 func_150ADA68(void);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 typedef struct Game10A350Emission {
     s32 texture;

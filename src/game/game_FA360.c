@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_FA360.c
@@ -150,7 +151,6 @@ typedef struct GameFA360Drifter {
 
 f32 func_15047D60(f32);
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_150CD17C(GameFA360Drifter *arg0) {
     GameFA360Drift *drift;
@@ -342,9 +342,6 @@ void func_150CD7F8(u8 *arg0) {
         } while (*pending > 1.0f);
     }
 }
-
-extern s32 D_80088870;
-extern f32 D_800A07A4;
 
 void func_150CDB6C(s32 arg0) {
     f32 *value;

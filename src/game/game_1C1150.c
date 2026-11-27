@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1C1150.c
@@ -26,7 +27,6 @@ typedef struct Game1C1150Event {
     u8 type;
 } Game1C1150Event;
 
-extern u8 D_800A8210;
 void *func_1518D1C0(Game1C1150Event *, s16, s16, u8, u8, s32, void *);
 
 void func_15194320(void *arg0, Game1C1150Event *arg1, s32 arg2) {
@@ -40,7 +40,6 @@ void func_15194320(void *arg0, Game1C1150Event *arg1, s32 arg2) {
             break;
     }
 }
-extern u8 D_800A822C;
 
 void func_15194394(void *arg0, Game1C1150Event *arg1, s32 arg2) {
     switch (arg1->type) {
@@ -144,7 +143,6 @@ void func_15194588(s32 arg0, s32 arg1, s32 arg2) {
     func_15194408(arg0, (Game1C1150Event *)arg1);
 }
 
-extern u8 D_800A3FE6[];
 s32 func_15134070(void *);
 
 void func_151945CC(void *arg0, u8 *arg1, s32 arg2) {
@@ -227,9 +225,6 @@ typedef struct {
     u8 pad7;
 } Game1C1150EventPacket;
 
-extern f32 D_800A82E4;
-extern f32 D_800A82E8;
-extern f32 D_800A82EC;
 void *func_151D8868(Game1C1150EventPacket *, s32, u8, s32);
 
 void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
@@ -303,7 +298,6 @@ typedef struct Game1C1150ActorState {
 } Game1C1150ActorState;
 
 void func_15104170(s32, s32, s32);
-extern s8 D_8008FD90;
 extern s32 D_800E9D00;
 
 void func_151949F4(s32 arg0, Game1C1150ActorState *arg1, s32 arg2) {
@@ -439,8 +433,6 @@ void func_15194D80(s32 arg0, s32 arg1, s32 arg2) {
 void func_15194DA4(s32 arg0, s32 arg1, s32 arg2) {
     func_15194FF4(arg0, arg1, 1);
 }
-extern u8 D_800A8244;
-extern u8 D_800BE616;
 void func_1514B364(f32 *, void *, u8, s32);
 
 void func_15194DC8(s32 arg0, s32 arg1, s32 arg2) {
@@ -595,7 +587,6 @@ void func_15194FF4(s32 arg0, s32 arg1, u8 arg2) {
 void func_15137610(void *, void *, void *, s32, u8, s32);
 void func_1514373C(f32, f32, f32 *, f32 *);
 f32 func_150ADA68(void);
-extern f32 D_800A8708;
 
 typedef struct Game1C1150BoundsLocals {
     Vec3f direction;

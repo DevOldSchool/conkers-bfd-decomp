@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_204310.c
@@ -13,8 +14,6 @@
 
 f32 func_15144AA8(s32);
 void func_150A8050(void *, f32, f32, f32);
-extern f32 D_800AB278;
-extern u8 D_800BE9C0;
 
 s32 func_151D6E60(u8 *arg0) {
     f32 scale;
@@ -41,7 +40,6 @@ s32 func_151D6E60(u8 *arg0) {
 }
 void func_15042D78(u8);
 void func_150432CC(s32, s32);
-extern s32 D_800AB254;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7000 CURRENT (626) */
 s32 func_151D7000(u8 *arg0) {
@@ -79,8 +77,6 @@ void func_151D70CC(void *arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, temp_a2, temp_a2 + 4, (s32) arg0);
 }
 s32 func_15133EEC(s32, u16, u8, s32);
-extern u8 D_80083740[];
-extern u8 D_800838C0[];
 
 typedef struct Game204310Command {
     u32 w0;
