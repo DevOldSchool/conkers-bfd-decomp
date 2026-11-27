@@ -24,18 +24,18 @@ void func_15008BE0(void);
 void func_1500ABA0(s32);
 void func_15012FE0(void);
 void func_15178EB0(void);
-extern s8 D_80088B60;
-extern s8 D_8008CD00;
+extern u8 D_80088B60;
+extern u8 D_8008CD00;
 extern void *D_800B0DF0;
 extern s32 D_800BE4E0;
 extern u8 *D_800D2E4C;
 extern s8 D_800DD190;
 extern s32 D_800DD198;
-extern s8 D_800DD405;
-extern s8 D_800DD406;
-extern s32 D_800E0930;
-extern s32 D_800E0934;
-extern s32 D_800E0940;
+extern u8 D_800DD405;
+extern u8 D_800DD406;
+extern s32 (*D_800E0930)(void *, f32 *, f32 *);
+extern void (*D_800E0934)(s32, s32, s32);
+extern void (*D_800E0940)(s32, s32);
 extern s8 D_800E0A10;
 
 void func_1500E470(s32 arg0) {

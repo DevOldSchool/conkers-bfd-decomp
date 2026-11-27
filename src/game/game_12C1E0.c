@@ -236,7 +236,7 @@ typedef struct Game12C1E0Particle {
 
 f32 func_150ADA68(void);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800A4AA0;
+extern u8 D_800A4AA0[0x28];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF474 CURRENT (1272) */
 void func_150FF474(void *arg0, void *arg1, u8 arg2, s32 arg3) {

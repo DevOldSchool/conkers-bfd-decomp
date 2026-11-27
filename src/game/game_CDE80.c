@@ -438,7 +438,7 @@ void func_150A278C(void *arg0) {
     }
 }
 u64 func_100268A4(u64, u64);
-extern u8 D_800D3270[];
+extern s32 *D_800D3270;
 
 void func_150A2864(u32 arg0, s32 arg1) {
     s32 i;

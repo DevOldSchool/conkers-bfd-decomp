@@ -334,7 +334,7 @@ void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
     }
 }
 typedef void (*Game1944C0EffectCallback)(void);
-extern Game1944C0EffectCallback D_8008CA20[];
+extern void (*D_8008CA20[])(void);
 
 typedef struct Game1944C0AnimatedEffect {
     u8 pad0[0x10];
@@ -893,7 +893,7 @@ void func_15168B44(void *arg0)
   }
 }
 typedef void (*Game1944C0Callback)(void);
-extern Game1944C0Callback D_8008CA20[];
+extern void (*D_8008CA20[])(void);
 
 void func_15168BAC(void *arg0) {
     u8 temp_v0;

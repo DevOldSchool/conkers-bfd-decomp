@@ -6,7 +6,7 @@
  */
 
 struct Game1188E0Vector;
-extern void (*D_800E0930)(struct Game1188E0Vector *, struct Game1188E0Vector *, void *);
+extern s32 (*D_800E0930)(void *, f32 *, f32 *);
 void func_150EB430(struct Game1188E0Vector *, struct Game1188E0Vector *, void *);
 
 void func_150106B0(void) {

@@ -186,8 +186,8 @@ s32 func_1503D774(s32 arg0, void *arg1) {
     return 0;
 }
 void *func_10003C40(s32, s32, s32, s32);
-extern void *D_800C4020[];
-extern void *D_800C6360[];
+extern s32 *D_800C4020[];
+extern s32 D_800C6360[];
 extern s32 D_800D19A0[];
 
 s32 func_1503D804(s32 arg0) {
@@ -222,7 +222,7 @@ s32 func_1503D804(s32 arg0) {
     }
     return 0;
 }
-extern u32 **D_800C4488[];
+extern u32 *D_800C4488[];
 
 /* Display-list layers per model; the binary keeps this loop (a1 steps by 4 to 4). */
 #define GAME6A3D0_DL_LAYERS 1

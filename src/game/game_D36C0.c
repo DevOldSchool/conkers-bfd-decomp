@@ -15,7 +15,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern f32 D_800D35E0[2];
+extern f32 D_800D35E0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6210 CURRENT (10295) */
 s32 func_150A6210(u8 *arg0, f32 arg1, f32 arg2, f32 arg3,
@@ -111,7 +111,7 @@ typedef struct GameD36C0TargetNode {
     s16 next_offset;
 } GameD36C0TargetNode;
 
-extern u8 *D_800BE5D0;
+extern s32 D_800BE5D0;
 extern s16 D_800DBE30[];
 extern u8 *D_800DBE48;
 

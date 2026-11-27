@@ -1378,7 +1378,7 @@ f32 func_1505D34C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4) {
     *arg4 = rotation.output;
     return (arg1 * rotation.sine) + (arg2 * rotation.cosine);
 }
-extern s8 D_800CC26D;
+extern u8 D_800CC26D;
 
 void func_1505D408(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
     f32 scale;
@@ -3181,7 +3181,7 @@ void func_15062BDC(u8 *arg0, f32 arg1, f32 arg2) {
         func_15062B84(arg0);
     }
 }
-extern u8 D_800C4488[];
+extern u32 *D_800C4488[];
 extern u8 D_800D19A0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15062D10 CURRENT (385) */
@@ -3236,7 +3236,7 @@ void func_15062D10(s32 arg0, volatile s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062D10.s")
 void func_15094AB8(s32, s32, s32, f32, s32, s32);
 extern u8 *D_800C5338[];
-extern void *D_800C6360[];
+extern s32 D_800C6360[];
 
 typedef struct Game83300Slot62E24 {
     s32 active;

@@ -12,7 +12,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s8 **D_800BE728;
+extern u16 **D_800BE728;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F9F0 CURRENT (2050) */
 void func_1503F9F0(s16 arg0, s16 *arg1, s16 *arg2) {

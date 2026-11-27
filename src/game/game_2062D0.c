@@ -16,7 +16,7 @@
  */
 
 s32 func_150A29C8(s32 arg0, s32 arg1);
-extern u8 D_800E0A10;
+extern s8 D_800E0A10;
 typedef struct {
     u8 values[5];
 } Func151D8F30Bytes;

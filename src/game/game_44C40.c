@@ -16,7 +16,7 @@ void func_100226F0(void *, s32);
 void func_1509BA04(s32);
 void func_1509C120(void);
 void func_150A00F0(void);
-extern s8 D_800D2E44;
+extern u8 D_800D2E44;
 extern void *D_800D2E4C;
 extern u8 D_800D2F48[];
 
@@ -45,7 +45,7 @@ typedef struct Game44C40Node {
 
 void func_1509B4A0(s16, s32);
 Game44C40Node *func_1509B704(s16);
-extern s16 *D_800D2F40;
+extern u16 *D_800D2F40;
 
 void func_15017868(void) {
     s32 index;

@@ -920,7 +920,7 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
     }
     D_800DDBD0[arg2] = 0x21;
 }
-extern s32 D_800DDD0C;
+extern u32 D_800DDD0C;
 extern s32 D_800DDD10[];
 
 void func_1500BE40(s32 arg0) {
@@ -929,8 +929,8 @@ void func_1500BE40(s32 arg0) {
     D_800DDD0C = 0x6E;
 }
 /* Call context: func_1500BE40: unique active project prototype */
-extern s8 D_8008CEB0;
-extern s8 D_800DDD1C;
+extern u8 D_8008CEB0;
+extern u8 D_800DDD1C;
 
 void func_1500BE68(void) {
     D_800DDD1C = 0;
@@ -955,7 +955,7 @@ void func_1517B89C(s32, s32);
 extern Game36680Creator D_8008CEB8[];
 extern Game36680CreationChoice D_8008CF00[][8];
 extern s16 **D_800DBE3C;
-extern u32 *D_800DBE5C;
+extern s32 *D_800DBE5C;
 
 void func_1500BEC0(void) {
     s32 i;

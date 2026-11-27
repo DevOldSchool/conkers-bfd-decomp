@@ -7,7 +7,7 @@
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_compact_multi_function_units.md
  */
 
-extern s8 D_80088980;
+extern u8 D_80088980;
 
 void func_150104F0(void) {
     typedef struct {

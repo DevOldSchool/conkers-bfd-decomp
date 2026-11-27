@@ -52,7 +52,7 @@ void func_100226F0(void *arg0, s32 arg1);
 void *func_10022EC0(void *, const void *, u32);
 Game3F1F0Position *func_151438D8(s32 arg0, s32 arg1, u16 arg2, Game3F1F0Descriptor *arg3);
 
-extern s32 D_800D3094;
+extern u32 D_800D3094;
 
 s32 func_15011D60(void *arg0) {
     Game3F1F0State state;

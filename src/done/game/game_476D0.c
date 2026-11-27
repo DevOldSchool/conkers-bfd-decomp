@@ -12,9 +12,9 @@ s32 func_10003C40(s32, s32, s32, s32);
 void func_150006E0(s32);
 void func_1501A8C0(s32, s32, s32, s16);
 void func_1510B070(s32);
-extern s8 D_800BE614;
-extern s8 D_800BE617;
-extern s8 D_800BE635;
+extern u8 D_800BE614;
+extern u8 D_800BE617;
+extern u8 D_800BE635;
 
 void func_1501A220(s32 arg0, s32 arg1) {
     f32 temp_fv0;
@@ -171,7 +171,7 @@ f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 void func_1510B32C(s32, f32, f32, f32);
 extern s32 D_800BE638[];
-extern s8 D_800BE630[];
+extern u8 D_800BE630[];
 extern s16 D_800BE668[][5][2];
 
 void func_1501A8C0(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {

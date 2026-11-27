@@ -945,7 +945,7 @@ typedef void (*Game1EF500TimerCallback)(void *, s32);
 typedef void (*Game1EF500DoneCallback)(s32);
 extern Game1EF500DoneCallback D_8008FBD0[];
 extern s32 D_800DBEF4;
-extern Game1EF500TimerCallback D_800E0940;
+extern void (*D_800E0940)(s32, s32);
 
 s32 func_151C455C(s32 arg0, u8 *arg1, f32 arg2) {
     s32 temp_v1;

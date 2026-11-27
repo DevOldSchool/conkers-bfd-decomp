@@ -15,8 +15,8 @@ void func_1512ABF8(void);
 void func_1512D238(void);
 
 extern u8 D_800DBFF4[];
-extern u8 *D_800DC020;
-extern u8 *D_800DC2B0;
+extern s32 D_800DC020;
+extern s32 D_800DC2B0;
 
 void func_15005290(s32 resource, s32 mode) {
     u32 index;
@@ -155,7 +155,7 @@ void func_1512D66C(void *);
 void func_1512D6F0(void *);
 void func_151298C0(u8 *, s16, void *);
 extern void *D_800B0DF0;
-extern s8 D_800C3671;
+extern u8 D_800C3671;
 extern u8 D_800CC2D0[];
 
 void func_150054C4(u8 *view, u32 index, s16 resource, s32 mode) {

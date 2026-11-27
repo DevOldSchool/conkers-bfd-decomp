@@ -187,7 +187,7 @@ s32 func_150950D4(s32, void *, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_15095A48(s32, void *, f32, f32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
-extern u8 D_800D2DAB;
+extern s8 D_800D2DAB;
 
 s32 func_1517E4A8(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s8 *arg6) {
     Game1AB530Glow *glow = arg1;

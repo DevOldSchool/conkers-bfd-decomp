@@ -407,8 +407,8 @@ void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
 s32 func_151462C8(s32, u8 *, u8, u8 *, u8, s16, f32 *, u8, s32);
 typedef s32 *(*Game15F680Draw)(s32 *, Game15F680TransformState *, s32);
 extern Game15F680Draw D_800899A4[];
-extern u8 D_80083740;
-extern u8 D_800838C0;
+extern u8 D_80083740[];
+extern u8 D_800838C0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15132B80 CURRENT (3377) */
 s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
@@ -752,7 +752,7 @@ s32 func_151337C0(void *arg0) {
 s32 func_151337C0(void *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 typedef s32 (*Game15F680MotionCallback)(void *, f32, f32, f32, f32, void *);
-extern Game15F680MotionCallback D_80089934[];
+extern s32 (*D_80089934[])(void *, f32, f32, f32, f32, void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15133894 CURRENT (15) */
 s8 func_15133894(void *arg0) {

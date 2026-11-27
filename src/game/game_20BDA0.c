@@ -37,7 +37,8 @@ s32 func_1507BB28(s32, s32);
 void *func_15083E90(u8);
 s32 func_151F2CDC(void);
 void func_151E7E9C(void);
-extern s8 D_800BE9EC, D_800C3E78;
+extern s8 D_800BE9EC;
+extern u8 D_800C3E78;
 extern u8 D_800CC2D0[];
 extern void *D_800D154C;
 extern s32 D_800E9D00;
@@ -130,10 +131,10 @@ void func_15017790(void);
 void func_150432BC(f32);
 void func_150432FC(s16, s16);
 void func_151E327C(void);
-extern s8 D_8008FD74;
-extern s8 D_800BE3E0;
+extern u8 D_8008FD74;
+extern u8 D_800BE3E0;
 extern Game20BDA0Record D_800BE3F8[];
-extern s8 D_800E0B94;
+extern u8 D_800E0B94;
 
 void func_151DFF38(void) {
     s32 slot;
@@ -298,8 +299,8 @@ void func_10010F30(s32, s32, s32, s32, s32);
 void func_150432FC(s16, s16);
 void func_151E2834(void);
 void func_151E4314(void);
-extern s8 D_8008FD74;
-extern s8 D_800E0B94;
+extern u8 D_8008FD74;
+extern u8 D_800E0B94;
 
 void func_151E1214(void) {
     s32 alpha;
@@ -390,7 +391,7 @@ void func_151E1214(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20BDA0/func_151E1744.s")
 void func_151E530C(void);
 void func_151E43DC(void);
-extern s8 D_8008FD80;
+extern u8 D_8008FD80;
 
 void func_151E2284(void) {
     D_8008FD80 = 3;
@@ -398,7 +399,7 @@ void func_151E2284(void) {
     func_151E43DC();
     D_8008FD80 = 0;
 }
-extern volatile s8 D_800E0BE0[];
+extern s8 D_800E0BE0[23];
 extern u8 *D_8008FDD4;
 extern s8 *D_80082BBC;
 void func_151DD9E4();
@@ -464,7 +465,7 @@ void func_151E22BC(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151E22BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20BDA0/func_151E22BC.s")
-extern volatile s8 D_800E0BE0[];
+extern s8 D_800E0BE0[23];
 extern u8 *D_8008FDD4;
 extern s8 *D_80082BBC;
 /* Unprototyped: the raw call passes D_800E0BE0, which the callee ignores. */

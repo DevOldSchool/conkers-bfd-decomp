@@ -57,7 +57,7 @@ extern u16 D_800BE720[4];
 extern Game48FD0Pad *D_800BE730[4];
 extern Game48FD0Pad D_800BE748[4];
 extern Game48FD0Pad D_800BE918[4];
-extern u16 D_800BE930[4];
+extern u16 D_800BE930;
 extern u8 D_800E0B94;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501BBB8 CURRENT (13530) */

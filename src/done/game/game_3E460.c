@@ -14,7 +14,7 @@ s32 func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
 extern s32 D_800B0E00;
 extern s32 D_800B0E04;
 extern s32 *D_800BE4F0;
-extern s32 D_800D9A40;
+extern s16 *D_800D9A40;
 
 void func_15010FB0(void) {
     D_800BE4F0 = func_10003C40(0x10, 1, 0, 0);

@@ -13,7 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s8 D_800BE575;
+extern u8 D_800BE575;
 
 typedef s32 (*Game40490SimpleCallback)(u8 *);
 

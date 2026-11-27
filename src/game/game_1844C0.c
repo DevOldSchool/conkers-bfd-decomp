@@ -291,7 +291,7 @@ s32 func_15157860(s32 arg0) {
     return 1;
 }
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
-extern u8 D_800A6060;
+extern s32 D_800A6060[];
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
 

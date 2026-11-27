@@ -6,7 +6,7 @@
  */
 
 void func_100226F0(void *arg0, s32 arg1);
-extern u8 D_80044B20;
+extern u8 D_80044B20[];
 extern u8 D_800B0DC0;
 extern u8 D_800E9D00;
 

@@ -104,12 +104,12 @@ void func_15085710(s16, s32, s32);
 void func_151E7EF8(void);
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s8 D_80087270;
-extern s16 D_8008FDBC;
-extern s8 D_800D18A8;
-extern s8 D_800D2E40;
+extern u16 D_8008FDBC;
+extern u8 D_800D18A8;
+extern u8 D_800D2E40;
 extern u8 D_800DD2C0;
 extern u8 D_800E0B94;
-extern s8 D_800E0B99;
+extern u8 D_800E0B99;
 extern s32 D_800E9D00;
 
 void func_151E30C4(void) {
@@ -159,11 +159,11 @@ void func_151E30C4(void) {
 /* Call context: func_1501C730: unique active declaration in the allowed source */
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s8 D_80087270;
-extern s16 D_8008FDBC;
+extern u16 D_8008FDBC;
 extern u8 D_800BE3E0;
-extern s8 D_800E0B99;
+extern u8 D_800E0B99;
 extern s32 D_800E9D00;
-extern s8 D_800D2E40;
+extern u8 D_800D2E40;
 extern u8 D_800E0B94;
 extern u8 D_8008FD80;
 extern void func_151E2834(void);
@@ -243,7 +243,7 @@ void func_151E4314(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E43DC.s")
 void func_151E557C(void);
 extern Game20F9A0Selection D_800AB7BC[];
-extern s8 D_800BEAC1;
+extern u8 D_800BEAC1;
 
 void func_151E4BD8(void) {
     s16 selection;
@@ -303,7 +303,7 @@ void func_151E4DD8(void) {
 }
 void func_151E557C(void);
 void func_1501C730(s32, s32, s32, s32, s32);
-extern s8 D_800D2E40;
+extern u8 D_800D2E40;
 
 void func_151E4E00(void) {
     D_8008FDCC = 0;
@@ -387,8 +387,8 @@ void func_151E5034(void) {
 void func_15017790(void);
 void func_151E6BFC(void);
 
-extern s8 D_8008FE54;
-extern s8 D_800E0BE0;
+extern s8 D_8008FE54[23];
+extern s8 D_800E0BE0[23];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151E50C8 CURRENT (730) */
 void func_151E50C8(void) {

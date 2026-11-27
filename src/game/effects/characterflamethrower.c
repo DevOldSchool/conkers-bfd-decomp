@@ -172,7 +172,7 @@ void func_1519582C(void) {
     D_800E08E8 = D_800E08EC = 0;
     D_800E08F0 = -2;
 }
-extern u32 D_800B0E58[];
+extern s32 D_800B0E58[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195868 CURRENT (5715) */
 s32 func_15195868(s32 commands, s32 texture, s32 occurrence, s32 *count) {

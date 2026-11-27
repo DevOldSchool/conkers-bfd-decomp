@@ -63,10 +63,10 @@ void *func_151733D8(void *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151733D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A0790/func_151733D8.s")
 s8 func_15173994(s32);
-extern s16 D_800DD2E8;
-extern s16 D_800DD2EC;
-extern u16 D_800DD2F2;
-extern u16 D_800DD2F4;
+extern u16 D_800DD2E8;
+extern u16 D_800DD2EC;
+extern s16 D_800DD2F2;
+extern s16 D_800DD2F4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151733E4 CURRENT (12429) */
 void func_151733E4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {

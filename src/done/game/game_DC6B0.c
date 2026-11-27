@@ -19,7 +19,7 @@ typedef struct GameCollisionHeightActor {
 extern GameCollisionHeightActor D_800CC2D0[];
 extern u8 D_800CC3D4;
 extern s32 D_800DBEF4;
-extern s32 D_800DBF94;
+extern u32 *D_800DBF94;
 
 void func_150AF200(s32 arg0, s32 arg1) {
     s32 delta;

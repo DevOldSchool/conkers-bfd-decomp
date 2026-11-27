@@ -9,7 +9,7 @@
 
 void func_150F4D5C(s32, s8, u8, u8, s32);
 extern u8 D_1000EF40;
-extern s8 D_80088B40;
+extern u8 D_80088B40;
 extern s32 D_800DBFF0;
 
 void func_15011170(void) {

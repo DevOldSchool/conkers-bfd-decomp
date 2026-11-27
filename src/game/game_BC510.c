@@ -21,8 +21,8 @@
  */
 
 extern u8 D_800D2460[][0x10];
-extern s8 D_800D246D;
-extern s8 D_800D247D;
+extern u8 D_800D246D;
+extern u8 D_800D247D;
 
 void func_1508F060(void) {
     s32 i;
@@ -381,8 +381,8 @@ GameBC510Command *func_15090630(GameBC510Command *dl) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15090630.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_1509093C.s")
 void func_15043D90(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-extern u8 D_80084160[];
-extern u8 D_80084190[];
+extern u32 D_80084160[];
+extern u32 D_80084190[];
 
 typedef struct GameBC510DisplayState {
     u8 matrices[0x80];
@@ -395,7 +395,7 @@ typedef struct GameBC510DisplayState {
     u8 padB8[2];
     u8 alpha;
 } GameBC510DisplayState;
-extern u8 D_800D24C8[];
+extern u8 D_800D24C8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150911F4 CURRENT (2853) */
 GameBC510Command *func_150911F4(GameBC510Command *dl) {
@@ -454,7 +454,7 @@ GameBC510Command *func_150911F4(GameBC510Command *dl) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150911F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150911F4.s")
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern u8 D_D16;
+extern u8 D_D16[];
 
 GameBC510Command *func_15091534(GameBC510Command *arg0, s32 arg1, s8 *arg2) {
     s32 address;

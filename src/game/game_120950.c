@@ -101,13 +101,13 @@ void func_15073FA0(void);
 f32 fabsf(f32);
 #pragma intrinsic (fabsf)
 extern u16 D_800BE710;
-extern void **D_800BE728;
+extern u16 **D_800BE728;
 extern u8 D_800C3E78;
-extern s8 D_800CBDD3;
+extern u8 D_800CBDD3;
 extern u8 D_800CC26D;
 extern void *D_800CC284;
 extern u8 D_800CC2D0[];                             /* unknown layout; byte-addressed storage */
-extern u8 D_800CC5FC[];                             /* unknown layout; byte-addressed storage */
+extern s32 D_800CC5FC; /* unknown layout; byte-addressed storage */
 extern u8 D_800D121C[];                             /* unknown layout; byte-addressed storage */
 extern void *D_800D154C;
 extern f32 D_800DDDC8[];                             /* unknown layout; byte-addressed storage */
