@@ -185,3 +185,10 @@ s32 func_1518A914(s32 arg0, u8 *arg1) {
     func_150A7790(matrix, arg0);
     return 1;
 }
+
+/*
+ * This unit's complete .data section, 0x8008D5B0-0x8008D5C0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 D_8008D5B0[] = { 0, 1 };
+s32 D_8008D5B8[] = { 2, 3 };

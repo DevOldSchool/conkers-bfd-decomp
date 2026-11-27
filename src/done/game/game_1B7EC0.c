@@ -146,3 +146,16 @@ s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {
     }
     return 1;
 }
+
+/*
+ * This unit's complete .data section, 0x8008D5C0-0x8008D5CC plus end-of-object padding to 0x8008D5D0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+void func_150BB408(void *);
+void func_150CBF5C(void *);
+
+void (*D_8008D5C0[])(s32) = {
+    NULL,
+    (void (*)(s32))func_150BB408,
+    (void (*)(s32))func_150CBF5C,
+};

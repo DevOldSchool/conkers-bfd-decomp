@@ -130,3 +130,10 @@ void func_150DE6D8(void *arg0) {
     *(s32 *)((u8 *)arg0 + 0x80) = (s32) (*(s32 *)((u8 *)arg0 + 0x80) + (D_800BE9E4 * 0x10));
     *(s32 *)((u8 *)arg0 + 0x84) = (s32) (*(s32 *)((u8 *)arg0 + 0x84) + (D_800BE9E4 * 0x18));
 }
+
+/*
+ * This unit's complete .data section, 0x80088950-0x80088960.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+Game10B7D0Lookup8 D_80088950 = { { 0x18, 0x19, 0x1A, 0x1B, 0x0D, 0x30, 0x31, 0x32 } };
+Game10B7D0Lookup8 D_80088958 = { { 0xF6, 0xF3, 0xF0, 0xED } };

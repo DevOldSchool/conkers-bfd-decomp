@@ -124,3 +124,9 @@ void func_150FEC28(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4,
                   (func_150ADA68() * 270.0f) + D_800A204C, (s32)arg4, 0xFF, 0,
                   -1, (u8)arg5, arg6);
 }
+
+/*
+ * This unit's complete .data section, 0x80088BA0 plus end-of-object padding to 0x80088BB0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+u8 D_80088BA0 = 9;

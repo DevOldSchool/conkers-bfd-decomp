@@ -218,3 +218,5 @@ record when extending the same claim.
 - [US SDK runtime pointer metadata](us_sdk_pointer_symbols.md): candidate-bounded switches, existing callback aliases, preserved runtime inputs and independent full-span link proofs.
 
 - [US sound strings and declared SDK globals](us_sdk_sound_symbols.md): two bounded format literals, a 16-entry switch and source-proven sound/timer/thread data.
+- [US game_185560 unit-owned initialized data](game_185560_data.md)
+- [US GAME unit-owned initialized data](game_unit_data.md)

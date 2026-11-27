@@ -683,6 +683,27 @@ SECTIONS
     /* ROM-verified constants: docs/evidence/data-layout/game_ec420_float_constants.md. */
     .game_rodata_ec420_0 0x800A0110 (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_0) }
     .game_rodata_ec420_14 0x800A014C (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_14) }
+    /* Unit-owned initialized data: docs/evidence/data-layout/game_unit_data.md. */
+    .game_rodata_35D20_data 0x80082BD0 (INFO) : SUBALIGN(4) { *game_35D20.o(.data) }
+    .game_rodata_42DD0_data 0x80082F80 (INFO) : SUBALIGN(4) { *game_42DD0.o(.data) }
+    .game_rodata_F3270_data 0x800887D0 (INFO) : SUBALIGN(4) { *game_F3270.o(.data) }
+    .game_rodata_F52B0_data 0x80088800 (INFO) : SUBALIGN(4) { *game_F52B0.o(.data) }
+    .game_rodata_F5800_data 0x80088810 (INFO) : SUBALIGN(4) { *game_F5800.o(.data) }
+    .game_rodata_108320_data 0x80088910 (INFO) : SUBALIGN(4) { *game_108320.o(.data) }
+    .game_rodata_10B7D0_data 0x80088950 (INFO) : SUBALIGN(4) { *game_10B7D0.o(.data) }
+    .game_rodata_115D70_data 0x80088A80 (INFO) : SUBALIGN(4) { *game_115D70.o(.data) }
+    .game_rodata_118670_data 0x80088A90 (INFO) : SUBALIGN(4) { *game_118670.o(.data) }
+    .game_rodata_126BD0_data 0x80088B50 (INFO) : SUBALIGN(4) { *game_126BD0.o(.data) }
+    .game_rodata_12BD10_data 0x80088BA0 (INFO) : SUBALIGN(4) { *game_12BD10.o(.data) }
+    .game_rodata_12D7F0_data 0x80088BC0 (INFO) : SUBALIGN(4) { *game_12D7F0.o(.data) }
+    .game_rodata_1861B0_data 0x8008AFD0 (INFO) : SUBALIGN(4) { *game_1861B0.o(.data) }
+    .game_rodata_colourframebuffer_data 0x8008B0D0 (INFO) : SUBALIGN(4) { *colourframebuffer.o(.data) }
+    .game_rodata_1B7870_data 0x8008D5B0 (INFO) : SUBALIGN(4) { *game_1B7870.o(.data) }
+    .game_rodata_1B7EC0_data 0x8008D5C0 (INFO) : SUBALIGN(4) { *game_1B7EC0.o(.data) }
+    .game_rodata_1B9F30_data 0x8008D5D0 (INFO) : SUBALIGN(4) { *game_1B9F30.o(.data) }
+    .game_rodata_1FFF60_data 0x8008FC40 (INFO) : SUBALIGN(4) { *game_1FFF60.o(.data) }
+    /* Unit-owned initialized data: docs/evidence/data-layout/game_185560_data.md. */
+    .game_rodata_185560_data 0x8008ADD0 (INFO) : SUBALIGN(4) { *game_185560.o(.data) }
 }
 __game_rodata_b4080_0_base = ADDR(.game_rodata_b4080_0);
 __game_rodata_b4080_8_base = ADDR(.game_rodata_b4080_8) - 0x8;
@@ -1342,3 +1363,42 @@ __game_rodata_1e9820_payload_size = 0x14;
 
 ASSERT(SIZEOF(.game_rodata_light) == 0xC0, "light switch table extent changed")
 __game_rodata_light_payload_size = 0xBC;
+
+ASSERT(SIZEOF(.game_rodata_185560_data) == 0x200, "game_185560 .data extent changed")
+__game_rodata_185560_data_payload_size = 0x1FC;
+ASSERT(SIZEOF(.game_rodata_35D20_data) == 0x10, "game_35D20 .data extent changed")
+__game_rodata_35D20_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_42DD0_data) == 0x10, "game_42DD0 .data extent changed")
+__game_rodata_42DD0_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_F3270_data) == 0x10, "game_F3270 .data extent changed")
+__game_rodata_F3270_data_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_F52B0_data) == 0x10, "game_F52B0 .data extent changed")
+__game_rodata_F52B0_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_F5800_data) == 0x10, "game_F5800 .data extent changed")
+__game_rodata_F5800_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_108320_data) == 0x40, "game_108320 .data extent changed")
+__game_rodata_108320_data_payload_size = 0x3C;
+ASSERT(SIZEOF(.game_rodata_10B7D0_data) == 0x10, "game_10B7D0 .data extent changed")
+__game_rodata_10B7D0_data_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_115D70_data) == 0x10, "game_115D70 .data extent changed")
+__game_rodata_115D70_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_118670_data) == 0x10, "game_118670 .data extent changed")
+__game_rodata_118670_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_126BD0_data) == 0x10, "game_126BD0 .data extent changed")
+__game_rodata_126BD0_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_12BD10_data) == 0x10, "game_12BD10 .data extent changed")
+__game_rodata_12BD10_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_12D7F0_data) == 0x10, "game_12D7F0 .data extent changed")
+__game_rodata_12D7F0_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_1861B0_data) == 0x70, "game_1861B0 .data extent changed")
+__game_rodata_1861B0_data_payload_size = 0x70;
+ASSERT(SIZEOF(.game_rodata_colourframebuffer_data) == 0x20, "colourframebuffer .data extent changed")
+__game_rodata_colourframebuffer_data_payload_size = 0x20;
+ASSERT(SIZEOF(.game_rodata_1B7870_data) == 0x10, "game_1B7870 .data extent changed")
+__game_rodata_1B7870_data_payload_size = 0x10;
+ASSERT(SIZEOF(.game_rodata_1B7EC0_data) == 0x10, "game_1B7EC0 .data extent changed")
+__game_rodata_1B7EC0_data_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_1B9F30_data) == 0x10, "game_1B9F30 .data extent changed")
+__game_rodata_1B9F30_data_payload_size = 0x8;
+ASSERT(SIZEOF(.game_rodata_1FFF60_data) == 0x30, "game_1FFF60 .data extent changed")
+__game_rodata_1FFF60_data_payload_size = 0x2C;

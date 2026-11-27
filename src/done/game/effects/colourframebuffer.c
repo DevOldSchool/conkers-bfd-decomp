@@ -159,3 +159,30 @@ void func_15160274(s32 arg0, u8 arg1) {
     sp1C = D_800A6670;
     func_15169260(&sp1C, 1, arg0, arg1);
 }
+
+/*
+ * This unit's complete .data section, 0x8008B0D0-0x8008B0F0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 func_151600D8(u8 *);
+s32 func_150CE200(void *);
+void func_150CE450(void *, s32);
+void func_151CB110(u8 *, u16 *);
+void func_150AF790(s32, s32);
+void func_151CB49C(void *, void *, u8);
+void func_150CE694(void *, void *, u8);
+
+ColourFramebufferCallback D_8008B0D0[] = {
+    (ColourFramebufferCallback)func_151600D8,
+    func_150CE200,
+};
+void (*D_8008B0D8[])(ColourFramebufferEffect *, s32) = {
+    (void (*)(ColourFramebufferEffect *, s32))func_150CE450,
+    (void (*)(ColourFramebufferEffect *, s32))func_151CB110,
+    (void (*)(ColourFramebufferEffect *, s32))func_150AF790,
+};
+void (*D_8008B0E4[])(void *, s32, u8) = {
+    NULL,
+    (void (*)(void *, s32, u8))func_151CB49C,
+    (void (*)(void *, s32, u8))func_150CE694,
+};

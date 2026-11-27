@@ -394,3 +394,9 @@ s32 func_150C6460(void *arg0) {
     }
     return (s32)result;
 }
+
+/*
+ * This unit's complete .data section, 0x800887D0-0x800887DC plus end-of-object padding to 0x800887E0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+GameF3270Vector D_800887D0 = { { 0.0f, 0.0f, 0.0f } };
