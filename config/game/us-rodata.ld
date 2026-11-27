@@ -684,6 +684,14 @@ SECTIONS
     .game_rodata_ec420_0 0x800A0110 (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_0) }
     .game_rodata_ec420_14 0x800A014C (INFO) : SUBALIGN(4) { *game_EC420.o(.rodata.ec420_14) }
     /* Unit-owned initialized data: docs/evidence/data-layout/game_unit_data.md. */
+    .game_rodata_E3C90_data 0x80088710 (INFO) : SUBALIGN(4) { *game_E3C90.o(.data) }
+    .game_rodata_FD1D0_data 0x800888A0 (INFO) : SUBALIGN(4) { *game_FD1D0.o(.data) }
+    .game_rodata_1136E0_data 0x80088A10 (INFO) : SUBALIGN(4) { *game_1136E0.o(.data) }
+    .game_rodata_1B5CC0_data 0x8008D580 (INFO) : SUBALIGN(4) { *game_1B5CC0.o(.data) }
+    .game_rodata_1B74A0_data 0x8008D5A0 (INFO) : SUBALIGN(4) { *game_1B74A0.o(.data) }
+    .game_rodata_1CDEC0_data 0x8008F8D0 (INFO) : SUBALIGN(4) { *game_1CDEC0.o(.data) }
+    .game_rodata_1E37D0_data 0x8008FB90 (INFO) : SUBALIGN(4) { *game_1E37D0.o(.data) }
+    .game_rodata_1FC830_data 0x8008FC30 (INFO) : SUBALIGN(4) { *game_1FC830.o(.data) }
     .game_rodata_35D20_data 0x80082BD0 (INFO) : SUBALIGN(4) { *game_35D20.o(.data) }
     .game_rodata_42DD0_data 0x80082F80 (INFO) : SUBALIGN(4) { *game_42DD0.o(.data) }
     .game_rodata_F3270_data 0x800887D0 (INFO) : SUBALIGN(4) { *game_F3270.o(.data) }
@@ -1260,3 +1268,18 @@ ASSERT(SIZEOF(.game_rodata_1B9F30_data) == 0x10, "game_1B9F30 .data extent chang
 __game_rodata_1B9F30_data_payload_size = 0x8;
 ASSERT(SIZEOF(.game_rodata_1FFF60_data) == 0x30, "game_1FFF60 .data extent changed")
 __game_rodata_1FFF60_data_payload_size = 0x2C;
+ASSERT(SIZEOF(.game_rodata_E3C90_data) == 0x10, "game_E3C90 .data extent changed")
+__game_rodata_E3C90_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_FD1D0_data) == 0x20, "game_FD1D0 .data extent changed")
+__game_rodata_FD1D0_data_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_1136E0_data) == 0x10, "game_1136E0 .data extent changed")
+__game_rodata_1136E0_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1B5CC0_data) == 0x20, "game_1B5CC0 .data extent changed")
+__game_rodata_1B5CC0_data_payload_size = 0x18;
+ASSERT(SIZEOF(.game_rodata_1B74A0_data) == 0x10, "game_1B74A0 .data extent changed")
+ASSERT(SIZEOF(.game_rodata_1CDEC0_data) == 0x10, "game_1CDEC0 .data extent changed")
+__game_rodata_1CDEC0_data_payload_size = 0x4;
+ASSERT(SIZEOF(.game_rodata_1E37D0_data) == 0x10, "game_1E37D0 .data extent changed")
+__game_rodata_1E37D0_data_payload_size = 0xC;
+ASSERT(SIZEOF(.game_rodata_1FC830_data) == 0x10, "game_1FC830 .data extent changed")
+__game_rodata_1FC830_data_payload_size = 0xC;

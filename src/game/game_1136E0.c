@@ -227,3 +227,9 @@ s32 func_150E67D0(u8 *arg0) {
                   func_150ADA20() & 0xFF, 0, 0, arg0[0xC], arg0[1]);
     return 0;
 }
+
+/*
+ * This unit's complete .data section, 0x80088A10-0x80088A14 plus end-of-object padding to 0x80088A20.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 (*D_80088A10[])(void *) = { (s32 (*)(void *))func_150E67D0 };

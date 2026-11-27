@@ -2,7 +2,10 @@
 
 [Data layout index](README.md)
 
-These matched units define their complete `.data` section in their own source.
+These units define their complete `.data` section in their own source. Units
+that still contain `GLOBAL_ASM` functions can own their data too: the retained
+assembly references the C definitions by symbol. `./conker data-owners` lists
+the extents the rules below fix.
 Each section is placed by a `.game_rodata_<unit>_data` INFO output section in
 `config/game/us-rodata.ld`; the GAME data image takes the bytes from the linked
 object. The method and the first unit are described in
@@ -42,6 +45,14 @@ Bytes between the last object and the end are zero (object alignment).
 | `game_1B7EC0` | `0x8008D5C0`-`0x8008D5D0` | 12 | callback table |
 | `game_1B9F30` | `0x8008D5D0`-`0x8008D5E0` | 8 | callback table |
 | `game_1FFF60` | `0x8008FC40`-`0x8008FC70` | 44 | eight callback tables |
+| `game_E3C90` (partial) | `0x80088710`-`0x80088720` | 4 | `s32` 999 |
+| `game_FD1D0` (partial) | `0x800888A0`-`0x800888C0` | 24 | entry and per-state callback tables |
+| `game_1136E0` (partial) | `0x80088A10`-`0x80088A20` | 4 | callback table |
+| `game_1B5CC0` (partial) | `0x8008D580`-`0x8008D5A0` | 24 | three two-entry callback tables |
+| `game_1B74A0` (partial) | `0x8008D5A0`-`0x8008D5B0` | 16 | four-entry callback table |
+| `game_1CDEC0` (partial) | `0x8008F8D0`-`0x8008F8E0` | 2 (4) | `u8[2]` `{0x80, 0x80}` |
+| `game_1E37D0` (partial) | `0x8008FB90`-`0x8008FBA0` | 12 | two callback tables |
+| `game_1FC830` (partial) | `0x8008FC30`-`0x8008FC40` | 12 | position callback table |
 
 `game_1861B0` does not meet the end rule on references alone: its last
 referenced address is `0x8008B02C`. The five-entry table there points at the
@@ -62,5 +73,5 @@ are counted as alignment.
 ## Verification
 
 `make game-integrated-raw`: every placement's payload matches the US ROM, the
-alignment bytes are zero, the GAME data image matches with 38,228 linked bytes,
+alignment bytes are zero, the GAME data image matches with 38,364 linked bytes,
 and `conker.game.us.integrated.bin` is unchanged (OK).

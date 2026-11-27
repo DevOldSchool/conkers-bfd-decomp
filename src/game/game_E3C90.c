@@ -135,3 +135,9 @@ void func_150B67E0(ScriptCameraActor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B67E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E3C90/func_150B67E0.s")
+
+/*
+ * This unit's complete .data section, 0x80088710-0x80088714 plus end-of-object padding to 0x80088720.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 D_80088710 = 999;

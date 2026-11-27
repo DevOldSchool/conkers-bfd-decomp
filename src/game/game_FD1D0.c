@@ -371,3 +371,20 @@ s32 func_150D0534(u8 * volatile arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D0534 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0534.s")
+
+/*
+ * This unit's complete .data section, 0x800888A0-0x800888B8 plus end-of-object padding to 0x800888C0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 func_150D01A0(u8 *);
+s32 func_150D0534(u8 *);
+s32 func_151D7000(u8 *);
+void func_151D70CC(void *, s32, u8);
+
+GameFD1D0EntryCallback D_800888A0[] = {
+    (GameFD1D0EntryCallback)func_150D01A0,
+    func_150D032C,
+    (GameFD1D0EntryCallback)func_150D0534,
+    (GameFD1D0EntryCallback)func_151D7000,
+};
+GameFD1D0Callback D_800888B0[] = { NULL, (GameFD1D0Callback)func_151D70CC };
