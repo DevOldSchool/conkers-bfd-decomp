@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_142560.c
@@ -14,7 +15,6 @@
 void func_151150B0(s32 arg0) {
 
 }
-extern s32 D_800BE9E4;
 
 typedef struct Game142560Rotation {
     f32 angleX;
@@ -79,7 +79,6 @@ void func_151151FC(Game142560Rotation *arg0) {
 void func_1511529C(s32 arg0) {
 
 }
-extern f32 D_800A2F8C;
 
 typedef struct Game142560Actor {
     u8 pad00[0x12];
@@ -105,8 +104,6 @@ void func_151152A8(Game142560Actor *arg0) {
     }
 }
 f32 func_15047D60(f32);
-extern f32 D_800A2F90;
-extern f32 D_800A2F94;
 extern u8 D_800CC2D0[];
 
 typedef struct Game142560Motion {

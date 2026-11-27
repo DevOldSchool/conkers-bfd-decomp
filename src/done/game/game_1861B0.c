@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1861B0.c
@@ -28,8 +29,6 @@ s32 func_15159120(void *, u8);
 s32 func_15159184(void *, u8);
 s32 func_15159230(void *, void *, u8);
 s32 func_151592B8(void *, u8);
-extern void (*D_8008AFD0[])(void *);
-extern s8 *D_8008B02C[];
 extern Game58D2CRule D_800A6200[];
 
 void func_15158D2C(Game58D2CState *arg0) {
@@ -110,7 +109,6 @@ void func_15158FA4(u8 *arg0, u8 *arg1, u8 arg2) {
         }
     }
 }
-extern f32 D_800A63A0;
 
 s32 func_15159084(void *arg0, u8 arg1) {
     s32 flags;

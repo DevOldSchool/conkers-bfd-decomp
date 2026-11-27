@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_EEE70.c
@@ -141,7 +142,6 @@ void func_150C1A40(GameEEE70State *arg0, s32 arg1, s32 arg2) {
 
 void func_151429E0(u8, u8 *, u8 *, u8 *);
 void func_1518CA80();
-extern f64 D_800A0228;
 
 typedef struct GameEEE70EffectPacket {
     f32 position[3];

@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_105FC0.c
@@ -20,9 +21,6 @@
 void func_150DA484(void *arg0);
 void func_100111C8(s32 arg0, u16 arg1);
 void func_15145740(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4);
-extern f32 D_800A0B40;
-extern f32 D_800A0B44;
-extern u8 D_800BE616;
 
 void func_150D8B10(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 0) = (f32) *(f32 *)((u8 *)arg0 + 0x14);
@@ -66,8 +64,6 @@ void *func_10022EC0(void *, const void *, u32);
 void func_150D8B3C(void *, void *);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 s32 func_151EF610(void);
-extern f32 D_800A0B48;
-extern s32 D_800BE9F0;
 
 void func_150D8B88(void *arg0) {
     Game105FC0Spawn spawn;
@@ -113,8 +109,6 @@ void func_150D8B88(void *arg0) {
         }
     }
 }
-extern f32 D_800A0B4C;
-extern f32 D_800A0B50;
 
 
 void func_150D8D84(Vec3f *arg0, Vec3f *arg1, f32 arg2) {
@@ -166,7 +160,6 @@ typedef struct Game105FC0State {
 } Game105FC0State;
 
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 typedef struct Game105FC0TrailRecord {
     Vec3f position;
@@ -222,9 +215,7 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80091238[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_150D9C7C(u8 *arg0, Gfx *arg1, s16 arg2) {
     Game105FC0TrailRecord *records;

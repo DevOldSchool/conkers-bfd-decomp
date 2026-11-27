@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15ABA0.c
@@ -10,8 +11,6 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
-
-extern u8 D_800DC2C0[];
 
 void func_1512D6F0(void *arg0) {
     void *temp_v0;
@@ -35,8 +34,6 @@ typedef struct Game15ABA0Envelope {
     f32 output[4];
     s32 mode;
 } Game15ABA0Envelope;
-
-extern u8 D_800895D0[];
 
 void func_1512D748(void *view, s32 preset_index, s32 mode) {
     Game15ABA0Envelope *envelope;
@@ -89,15 +86,6 @@ void func_1512D748(void *view, s32 preset_index, s32 mode) {
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_1512D6F0: unique active declaration in the allowed source */
 f32 func_15047D60(f32);
-extern f32 D_800A36F0;
-extern f32 D_800A36F4;
-extern f32 D_800A36F8;
-extern f32 D_800A36FC;
-extern f32 D_800A3700;
-extern f32 D_800A3704;
-extern f32 D_800A3708;
-extern f32 D_800A370C;
-extern u8 D_800BE9A0;
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1512D980 CURRENT (2045) */

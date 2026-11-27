@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3FC60.c
@@ -45,10 +46,6 @@ extern u8 D_800B0E38;
 extern s32 D_800B0E40[4];
 extern s32 D_800BE510;
 extern u8 ***D_800BE520;
-extern u16 *D_800BE524;
-extern u16 D_800BE528;
-extern u8 D_800BE564;
-extern s32 D_800DBEF0;
 extern Game3FC60Record *D_800DBEF4;
 
 void func_150127B0(void) {
@@ -128,7 +125,6 @@ void func_150127B0(void) {
     }
 }
 extern s32 D_800BE510;
-extern u16 D_800BE528;
 
 void func_15012C84(u8 *arg0, s32 arg1) {
     u32 i;
@@ -140,9 +136,6 @@ void func_15012C84(u8 *arg0, s32 arg1) {
         D_800BE528++;
     }
 }
-extern u8 D_800BE530[];
-extern s16 D_800BE550[];
-extern u8 D_800BE564;
 
 void func_15012ED8(u32 *arg0) {
     s32 i;

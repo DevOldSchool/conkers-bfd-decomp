@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3F670.c
@@ -61,7 +62,6 @@ typedef struct Game3F670Matrix {
     f32 m[4][4];
 } Game3F670Matrix;
 extern Game3F670Matrix D_80089470;
-extern f32 D_80096550[];
 
 void func_150121C0(s32 arg0) {
     s32 var_s0;

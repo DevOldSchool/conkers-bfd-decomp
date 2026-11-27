@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1EC390.c
@@ -60,8 +61,6 @@ typedef struct Game1EC390Spawn {
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 extern Game1EC390Selector D_8008FBC0;
-extern f32 D_800AA8E4;
-extern s32 D_800BE9F0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BEEE0 CURRENT (1392) */
 void *func_151BEEE0(f32 arg0, Game1EC390Position *arg1, s32 arg2,
@@ -172,9 +171,6 @@ typedef struct {
 } GameBF0C8Burst;
 void func_15150F90(Game150F90Config *, u8, u8, s32);
 void func_15153634(GameBF0C8Burst *, u8, u8, s32);
-extern f32 D_800AA8E8, D_800AA8EC, D_800AA8F0, D_800AA8F4;
-extern f32 D_800AA8F8, D_800AA8FC, D_800AA900;
-extern f32 D_800AA904, D_800AA908, D_800AA90C;
 
 void func_151BF0C8(f32 *arg0) {
     Game150F90Config first;
@@ -256,10 +252,9 @@ typedef struct Game1EC390Animation {
 f32 func_15047D60(f32);
 s32 func_1517EF00(s32);
 s32 func_15181CC8(s32);
-extern f32 D_800AA918, D_800AA91C, D_800AA920;
-extern f32 D_800AA924, D_800AA928, D_800AA92C;
 extern f32 D_800BE9A4;
-extern u8 D_800BE9B4, D_800BEAC0, D_800BEAC1, D_800C35EA, D_800D2458;
+extern u8 D_800BEAC1;
+extern u8 D_800C35EA;
 
 void func_151BF81C(void *arg0) {
     f32 amount;

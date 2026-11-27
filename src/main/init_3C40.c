@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_3C40.c
@@ -22,7 +23,6 @@ typedef struct AllocatorFreeBlock {
     struct AllocatorFreeBlock *prevFree;
 } AllocatorFreeBlock;
 
-extern s32 D_8002AC30;
 extern AllocatorFreeBlock *D_800380B0;
 extern AllocatorFreeBlock *D_800380B8;
 
@@ -41,11 +41,6 @@ typedef struct {
 extern AllocatorAlignmentTable D_8002AC34;
 extern AllocatorAlignmentTable D_8002AC40;
 extern AllocatorBlock *D_800380B4;
-extern s32 D_800380C0;
-extern s32 D_800380C4;
-extern s32 D_800380C8;
-extern s32 D_800380CC;
-extern s32 D_800380D0;
 extern s32 D_8003C8E0;
 void func_850AD770(void);
 void func_8000440C(void);

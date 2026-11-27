@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1890A0.c
@@ -32,7 +33,6 @@ void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, 
 void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
 extern s32 D_80090B60[][3];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 void *func_1515BBF0(s32 *arg0, u8 *arg1, s32 arg2) {
     Gfx *gdl;
@@ -126,8 +126,6 @@ void func_1515BF7C(void *arg0) {
     func_1514EDF0(arg0, *(void **)((u8 *)arg0 + 0x18));
     func_15169824(arg0);
 }
-extern f32 D_800BE9A8;
-extern s32 D_800BE9E4;
 
 void func_1515BFA8(u8 *arg0) {
     s32 var_a1;

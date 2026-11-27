@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E2490.c
@@ -26,9 +27,6 @@ typedef struct Game1E2490EffectPacket {
     s8 field2D;
     u8 pad2E[2];
 } Game1E2490EffectPacket;
-
-extern f32 D_800AA3E0;
-extern f32 D_800AA3E4;
 
 void *func_151B4FE0(void *arg0, u8 arg1, s32 arg2) {
     void *result;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1CBE20.c
@@ -36,8 +37,6 @@ typedef struct Game1CBE20Effect {
     Game1CBE20Owner *owner;
     u8 field_28;
 } Game1CBE20Effect;
-
-extern s32 D_800BE9E4;
 
 void func_1519EA04(Game1CBE20Effect *arg0) {
     Game1CBE20Owner *owner;
@@ -79,11 +78,6 @@ typedef struct Game1CBE20ParticleConfig {
 } Game1CBE20ParticleConfig;
 
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
-extern f32 D_800A8CC0;
-extern f32 D_800A8CC4;
-extern f32 D_800A8CC8;
-extern f32 D_800A8CCC;
-extern f32 D_800A8CD0;
 
 void func_1519EA78(Vec3i *arg0, u16 arg1, f32 arg2, u8 arg3,
                    s32 arg4) {

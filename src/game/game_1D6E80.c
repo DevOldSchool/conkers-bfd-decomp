@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D6E80.c
@@ -13,7 +14,6 @@
 
 s32 func_15045800(Vec3f *, u16, f32, void *);
 void func_151ABE40(Vec3f *, void *, s32, s32, s32);
-extern f32 D_800A8F74;
 
 void func_151A99D0(void *arg0) {
     u8 *object;
@@ -38,7 +38,6 @@ void func_151A99D0(void *arg0) {
 }
 void func_10010FFC(s32, s32, s32, s32, s32, void *);
 void func_151ABE00(void *);
-extern f32 D_800A8F78;
 
 void func_151A9AA4(void *arg0) {
     u8 *object;
@@ -65,7 +64,6 @@ void func_151A9AA4(void *arg0) {
     }
     func_151ABE00(object);
 }
-extern f32 D_800A8F7C;
 
 void func_151A9BA0(void *arg0) {
     u8 *object;
@@ -92,7 +90,6 @@ void func_151A9BA0(void *arg0) {
     }
 }
 void func_151AA264(void *, void *);
-extern f32 D_800A8F80;
 
 void func_151A9CA0(void *arg0) {
     u8 *object;
@@ -118,7 +115,6 @@ void func_151A9CA0(void *arg0) {
         func_151ABE00(object);
     }
 }
-extern f32 D_800A8F84;
 
 void func_151A9DC0(void *arg0) {
     u8 *object;
@@ -145,7 +141,6 @@ void func_151A9DC0(void *arg0) {
     }
 }
 void func_151AA264(void *, void *);
-extern f32 D_800A8F88;
 
 void func_151A9EC0(void *arg0) {
     u8 *object;
@@ -173,7 +168,6 @@ void func_151A9EC0(void *arg0) {
     func_151AA264(object, (u8 *)arg0 + 0x34);
     func_151ABE00(object);
 }
-extern f32 D_800A8F8C;
 
 void func_151A9FC8(void *arg0) {
     u8 *object;
@@ -196,7 +190,6 @@ void func_151A9FC8(void *arg0) {
         }
     }
 }
-extern f32 D_800A8F90;
 
 void func_151AA09C(void *arg0) {
     u8 *object;
@@ -259,7 +252,6 @@ void func_151AA210(Game1D6E80State *arg0) {
     func_151494E0((s32 *)(s32)&message, 0xA);
     func_1519F3B8(arg0);
 }
-extern f32 D_800A8F94;
 
 void func_151AA264(void *arg0, void *arg1) {
     struct {
@@ -299,9 +291,6 @@ void func_151AA264(void *arg0, void *arg1) {
 }
 void func_1515A238(f32 *, f32 *, f32, s32, s32, f32, s32, s32, s32, s32, s32);
 f32 func_150ADA68();
-extern f32 D_800A8F98;
-extern f32 D_800A8F9C;
-extern f32 D_800A8FA0;
 
 void func_151AA30C(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
                    f32 arg4, s32 arg5, void *arg6) {
@@ -369,8 +358,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_15134DAC(void *, s32);
-extern f32 D_800A8FA4;
-extern f32 D_800A8FA8;
 
 void *func_151AA48C(u8 *arg0, void *arg1) {
     Game1D6E80SpawnDesc desc;
@@ -458,8 +445,6 @@ typedef struct {
 
 void *func_151303BC(s32, u8, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A8FAC, D_800A8FB0, D_800A8FB4, D_800A8FB8;
-extern f32 D_800A8FBC, D_800A8FC0, D_800A8FC4, D_800A8FC8;
 
 typedef struct { u8 pad00[0x74]; f32 speed; } Game1D6E80Emitter;
 void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
@@ -527,7 +512,6 @@ void func_151AA6D8(Vec3f *arg0, Vec3f *arg1,
     }
 }
 /* Call context: func_151423D8: unique active project prototype */
-extern s32 D_800BE9E4;
 
 f32 func_151AAA4C(u8 *arg0) {
     u8 *state = arg0 + 0x80;
@@ -632,12 +616,6 @@ u8 func_151D8E20(void);
 s32 func_1504697C(void *, u16, f32, void *);
 void func_1504715C(void *, void *);
 void func_151DBCBC(u8, f32, s16, s32, f32 *, u8, s32);
-extern u8 D_800A8F70[];
-extern f32 D_800A8FCC;
-extern f32 D_800A8FD0;
-extern f32 D_800A8FD4;
-extern f32 D_800A8FD8;
-extern f32 D_800A8FDC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AABC4 CURRENT (746) */
 void func_151AABC4(u8 *arg0, s32 arg1) {
@@ -857,7 +835,6 @@ s32 func_151AB180(void *arg0) {
     func_1513F6C0(arg0, 0, 0);
     return 0;
 }
-extern f32 D_800A8FEC;
 
 void func_151AB1C4(void *arg0) {
     u8 *object;
@@ -885,7 +862,6 @@ void func_151AB1C4(void *arg0) {
     func_151AA264(object, (u8 *)arg0 + 0x34);
 }
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A8FF0;
 
 typedef struct Game1D6E80SpawnPacket {
     void *field_00;
@@ -966,8 +942,6 @@ typedef struct Game1D6E80BurstMotion {
 } Game1D6E80BurstMotion;
 
 void *func_151303BC(s32, u8, s32);
-extern f32 D_800A8FF4, D_800A8FF8, D_800A8FFC, D_800A9000;
-extern f32 D_800A9004, D_800A9008, D_800A900C, D_800A9010;
 
 void func_151AB3A4(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
                   f32 arg4, f32 arg5, void *arg6) {

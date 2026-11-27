@@ -1,11 +1,11 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_32F10.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_32F10_33080.md
  */
 
-extern void (*D_80082B40[])(void *);
 extern void *D_800B0DF0;
 
 void func_15005A60(void *arg0, s16 arg1) {

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_3BD0.c
@@ -17,7 +18,6 @@ typedef struct AllocatorFreeBlock {
     struct AllocatorFreeBlock *prevFree;
 } AllocatorFreeBlock;
 
-extern u32 D_80038098;
 extern AllocatorFreeBlock *D_800380B0;
 extern AllocatorBlock *D_800380B4;
 extern AllocatorFreeBlock *D_800380B8;

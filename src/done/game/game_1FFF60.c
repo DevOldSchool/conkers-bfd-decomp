@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1FFF60.c
@@ -7,10 +8,6 @@
  */
 
 void *func_1502B5C8(u32 *, s32, s32, u16);
-extern u8 D_800E0950[];
-extern s32 D_800E0990[];
-extern u16 D_800AB140[];
-extern s16 D_800E0968[];
 
 void func_151D2AB0(s32 arg0) {
     u32 sp1C;
@@ -22,8 +19,6 @@ void func_151D2AB0(s32 arg0) {
     }
 }
 void func_100043B4(void *, s32);
-extern u8 D_800E0950[];
-extern s32 D_800E0990[];
 
 void func_151D2B4C(s32 arg0) {
     u8 *refcount;
@@ -82,9 +77,6 @@ typedef struct Game1FFF60Motion {
 } Game1FFF60Motion;
 
 void func_15143134(f32 *, f32 *, s32);
-extern s32 D_800BE9E4;
-extern s32 (*D_8008FC40[])(void *, void *);
-extern void (*D_8008FC48[])(void *, void *);
 
 void func_151D2C40(Game1FFF60Motion *arg0) {
     s32 frame;
@@ -184,11 +176,6 @@ void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     *(u8 *)((u8 *)sp24 + 0x18) = (u8)(*(u8 *)((u8 *)sp24 + 0x18) & 0xFFFD);
     return (void *)sp24;
 }
-extern s32 (*D_8008FC4C[])(void *);
-extern void (*D_8008FC50[])(void *);
-extern void (*D_8008FC54[])(void *);
-extern void (*D_8008FC58[])(void *);
-extern s32 D_800BE9E4;
 
 void func_151D2F90(u8 *arg0) {
     u8 *actor;
@@ -235,8 +222,6 @@ void func_151D2F90(u8 *arg0) {
         func_1516972C(arg0);
     }
 }
-extern void (*D_8008FC48[])(void *, void *);
-extern void (*D_8008FC5C[])(s32);
 
 void func_151D3130(u8 *arg0) {
     u8 *node;
@@ -268,7 +253,6 @@ void func_151D3220(void *arg0) {
     func_151D3130(arg0);
     func_15169824(arg0);
 }
-extern void (*D_8008FC64[])(void *, void *, u8);
 void func_151D33FC(void *, void *);
 
 void func_151D324C(void *arg0, void *arg1, u8 arg2) {

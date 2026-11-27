@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A1B40.c
@@ -25,7 +26,6 @@ typedef struct Game1A1B40Effect {
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 extern s32 D_8008CA4C;
-extern f32 D_800A7160, D_800A7164;
 extern u8 D_800CC2D0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15174690 CURRENT (815) */
@@ -82,7 +82,6 @@ void func_15174690(s32 arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, s32 arg5, s
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15174690 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A1B40/func_15174690.s")
-extern s32 D_800BE9E4;
 
 void func_15174920(void *arg0) {
     s32 temp_v1;

@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_133190.c
@@ -38,7 +39,6 @@ typedef struct Game133190Object {
 
 typedef s32 (*Game133190EventCallback)(void *, u8 *);
 extern Game133190EventCallback D_80088C10[];
-extern s32 D_800BE9E4;
 void func_15106214(s32);
 void func_15106610(void *);
 
@@ -101,7 +101,6 @@ typedef struct Game133190EndpointDescriptor {
 void *func_10022EC0(void *, const void *, u32);
 void func_100226F0(void *, s32);
 extern Vec3i D_800A5480;
-extern f32 D_800A2410, D_800A2414;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15105CE0 CURRENT (5420) */
 Game133190Object *func_15105CE0(Game133190Beam *arg0, s32 arg1, u8 arg2, s32 arg3) {
@@ -393,9 +392,7 @@ Gfx *func_15142C10(Gfx *, s32, s32, s32, s32, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_80090D70[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_151067B8(Gfx *gdl, u8 *arg1, s16 arg2) {
     Vec3f *camera;
@@ -549,7 +546,6 @@ void func_15106F24(void *arg0) {
     func_15106E78(arg0);
     func_15169824(arg0);
 }
-extern void (*D_80088C28[])(void *, s32, u8, s32);
 
 void func_15106F50(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     void (*temp_v0)(void *, s32, u8, s32);
@@ -704,7 +700,6 @@ void func_15107678(void *arg0) {
     func_1510761C(arg0);
     func_15149368(arg0);
 }
-extern u8 D_80088C38;
 
 void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
     u8 *handler;

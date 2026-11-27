@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3F560.c
@@ -21,10 +22,7 @@ typedef struct Game3F560Descriptor {
     u8 field_A;
 } Game3F560Descriptor;
 
-extern s32 D_800BE9F0;
-
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_80096540;
 
 void func_150120B0(s32 arg0) {
     u8 *temp_v0;

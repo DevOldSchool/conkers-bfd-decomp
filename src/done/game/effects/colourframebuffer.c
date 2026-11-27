@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/colourframebuffer.c
@@ -79,7 +80,6 @@ ColourFramebufferEffect *func_1515FF74(void *arg0, s32 arg1, u8 arg2, s32 arg3) 
 typedef s32 (*ColourFramebufferCallback)(void *);
 
 extern ColourFramebufferCallback D_8008B0D0[];
-extern s32 D_800BE9E4;
 
 void func_1515FFEC(void *arg0) {
     u8 *p = (u8 *)arg0;
@@ -103,7 +103,6 @@ void func_1515FFEC(void *arg0) {
         func_1516972C(arg0);
     }
 }
-extern void (*D_8008B0E4[])(void *, s32, u8);
 
 void func_15160090(void *arg0, s32 arg1, u8 arg2) {
     void (*temp_v0)(void *, s32, u8);
@@ -113,20 +112,6 @@ void func_15160090(void *arg0, s32 arg1, u8 arg2) {
         temp_v0(arg0, arg1, arg2);
     }
 }
-extern s32 D_800A6540;
-extern s32 D_800A6548;
-extern s32 D_800A657C;
-extern s32 D_800A6584;
-extern s32 D_800A65B8;
-extern s32 D_800A65C0;
-extern s32 D_800A65F4;
-extern s32 D_800A65FC;
-extern s32 D_800A6630;
-extern s32 D_800A663C;
-extern f32 D_800A6674;
-extern f32 D_800A6678;
-extern f32 D_800A667C;
-extern f32 D_800A6680;
 
 s32 func_151600D8(u8 *arg0) {
     f32 *values;

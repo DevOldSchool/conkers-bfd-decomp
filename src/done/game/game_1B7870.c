@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B7870.c
@@ -56,8 +57,6 @@ typedef struct {
 
 void *func_151580B0(void *, s32, s32, u8, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern s32 D_8008D5B0[];
-extern s32 D_8008D5B8[];
 
 void *func_1518A3C0(Vec3f *arg0, Vec3f *arg1,
                        f32 arg2, Vec3f *arg3, Vec3f *arg4,
@@ -125,8 +124,6 @@ typedef struct {
 
 s32 func_15158AFC(void *);
 extern f32 D_800BE9A4;
-extern f32 D_800BE9A8;
-extern s32 D_800BE9E4;
 
 s32 func_1518A5F4(Game1B7870Object *arg0) {
     Game1B7870Payload *payload = &arg0->payload;

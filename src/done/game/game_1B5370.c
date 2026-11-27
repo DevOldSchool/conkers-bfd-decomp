@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B5370.c
@@ -6,7 +7,6 @@
  */
 
 void func_100226F0(void *, s32);
-extern s32 D_800DF7B4;
 
 typedef struct Game1B5370Fade {
     u8 color[6];
@@ -36,7 +36,6 @@ s32 func_15187EC0(s32 arg0, f32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, u8 arg
     return -1;
 }
 void func_100226F0(void *arg0, s32 arg1);
-extern s32 D_800DF7B4;
 
 void func_15187F90(void) {
     func_100226F0(&D_800DF700, 0xB4);
@@ -52,7 +51,6 @@ void func_15187FC0(s32 arg0, void *arg1) {
         *(s32 *)((u8 *)arg1 + 8) = (s32) *(u8 *)((u8 *)temp_v0 + 8);
     }
 }
-extern f32 D_800DF70C[];
 
 void func_15188010(s32 arg0, f32 *arg1) {
     if ((arg0 < D_800DF7B4) && (arg0 >= 0)) {
@@ -72,9 +70,7 @@ void func_1518804C(s32 arg0, f32 arg1) {
 #define FADE ((Game1B5370FadeAnim *)D_800DF700)
 f32 func_15047D60(f32);
 s32 func_151EF610(void);
-extern u8 D_800A7390[];
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 typedef union Game1B5370FadeWord {
     f32 f;

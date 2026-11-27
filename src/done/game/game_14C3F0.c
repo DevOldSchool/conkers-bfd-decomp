@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_14C3F0.c
@@ -20,8 +21,6 @@ s32 func_15086CBC(s32, f32 *, f32 *, f32 *);
 s32 func_15086D48(s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern s32 D_80082FA0, D_800BE9E4;
-extern f32 D_800A3378;
 extern u8 D_800CC2D0[];
 extern s32 D_800DBFF0;
 
@@ -95,7 +94,6 @@ void func_1511EF40(u8 *arg0) {
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1511490C();
-extern s32 D_800BE9F0;
 
 void func_1511F31C(u8 *arg0) {
     u8 transform[0x48];
@@ -117,7 +115,6 @@ void func_1511F31C(u8 *arg0) {
         }
     }
 }
-extern s32 D_800BE9E4;
 
 void func_1511F3E8(void *arg0) {
     s32 temp_t2;
@@ -248,7 +245,6 @@ void func_1511F768(s32 *arg0, s32 arg1) {
     }
 }
 f32 func_15047C00(f32);
-extern u8 D_800BE9B4;
 
 void func_1511F788(void *arg0) {
     s32 state;

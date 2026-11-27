@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_11F780.c
@@ -18,7 +19,6 @@ s32 func_150F22D0(Game11F780Work *, void *, u8);
 void func_151C329C(Game11F780Work *, u8, s32);
 
 void func_15143134(f32 *, f32 *, s32);
-extern f32 D_800A1920;
 
 s32 func_150F22D0(Game11F780Work *arg0, void *arg1, u8 arg2) {
     s32 var_v0;

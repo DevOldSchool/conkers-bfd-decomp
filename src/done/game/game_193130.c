@@ -1,5 +1,6 @@
 #include "types.h"
 #include <PR/gbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_193130.c
@@ -8,7 +9,6 @@
 
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);
-extern s32 D_800BE9E4;
 
 void func_15165C80(f32 *arg0, Vtx *arg1, f32 arg2, f32 *arg3,
                    f32 arg4, f32 arg5, u8 *arg6, u8 arg7) {

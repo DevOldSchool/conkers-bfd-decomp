@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D92F0.c
@@ -119,9 +120,7 @@ typedef struct {
     u8 callback, endCallback, pad1E[2];
 } Game1D92F0Flags;
 
-extern s8 D_800A9021[];
 extern Game1D92F0ParticleStyle D_800A9068[];
-extern u8 D_800AB3F4[], D_800AB404[];
 f32 func_150ADA68(void);
 
 s32 func_151AC078(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,

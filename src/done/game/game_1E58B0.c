@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E58B0.c
@@ -8,7 +9,6 @@
 
 void *func_10022EC0(void *, const void *, u32);
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
-extern u8 D_800AA490;
 
 typedef struct Game1E58B0SpawnPacket {
     u8 kind;
@@ -117,8 +117,6 @@ s32 func_151B85AC(void *arg0) {
 void func_151B863C(void *arg0, s16 arg1) {
     func_1513FA70(arg0, arg1);
 }
-extern f32 D_800AA4C8;
-extern f32 D_800DCA24;
 
 void func_151B8668(s32 arg0, u8 arg1, s32 arg2) {
     struct {
@@ -149,7 +147,6 @@ void func_15143794(s16, s16, f32, void *);
 void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32,
                     s32, s32, s32, s32, s32, s32, s32, s32);
 f32 func_150ADA68(void);
-extern f32 D_800BE9A8;
 
 void func_151B86F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, void *arg6) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_131F30.c
@@ -113,8 +114,7 @@ s32 func_15046C80(f32 *, u16, f32, void *);
 s32 func_1000FD38();
 s32 D_1000EF40();
 f32 func_150ADA68(void);
-extern f32 D_800A23AC, D_800A23B0, D_800BE9A4;
-extern s32 D_800BE9E4;
+extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15104C44 CURRENT (2390) */
 void func_15104C44(u8 *arg0) {
@@ -332,8 +332,6 @@ void func_151C329C(void *, u8, s32);
 void func_15151D6C(Game131F30Descriptor *, Game131F30Color *, Game131F30Factor *, u32, u8, s32);
 extern Game131F30Color D_800A23A4;
 extern Game131F30Factor D_800A23A8;
-extern f32 D_800A23C0, D_800A23C4, D_800A23C8, D_800A23CC, D_800A23D0;
-extern f32 D_800A23D4, D_800A23D8, D_800A23DC, D_800A23E0, D_800A23E4, D_800A23E8;
 
 void func_1510558C(Game131F30Emitter *arg0) {
     Game131F30Part *part;

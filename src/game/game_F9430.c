@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F9430.c
@@ -59,7 +60,6 @@ void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 f32 func_150ADA68(void);
 
-extern f32 D_800A06CC;
 s32 func_150CC6B8(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
                    s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
@@ -118,7 +118,6 @@ s32 func_150CC6B8(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
     return 1;
 }
-extern s32 D_800BE9E4;
 
 s32 func_150CC8D4(void *arg0, s32 arg1) {
     f32 *factor;
@@ -151,8 +150,6 @@ typedef struct GameF9430TransformParticle {
 } GameF9430TransformParticle;
 
 void *func_15132A4C(void *, s32, s32, s32, u8, s32);
-extern f32 D_800A06DC, D_800A06E0, D_800A06E4, D_800A06E8;
-extern f32 D_800A06EC, D_800A06F0, D_800A06F4, D_800A06F8;
 
 s32 func_150CCA7C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,

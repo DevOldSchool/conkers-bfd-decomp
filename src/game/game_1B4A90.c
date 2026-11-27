@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1B4A90.c
@@ -80,7 +81,6 @@ void func_151875E0(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
 }
 
 void func_10004074(s32);
-extern s32 D_800BE9E4;
 
 void func_15187978(Game1B4A90Owner *owner) {
     s32 i;
@@ -115,8 +115,6 @@ void func_150A7DA0(void *, f32, f32, f32);
 void func_150A8050(void *, f32, f32, f32);
 void func_15187D6C(void *, f32, f32, f32);
 void func_151EFD00(f32 *, void *);
-extern u32 D_8008D538[];
-extern u8 D_800BE9C0;
 
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15187A98 CURRENT (55) */
@@ -166,7 +164,6 @@ Game1B4A90Command *func_15187A98(Game1B4A90Command *cursor, Game1B4A90Owner *arg
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 void func_151EFE00(void *);
-extern f32 D_8008D578;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15187D6C CURRENT (2074) */
 void func_15187D6C(void *arg0, f32 arg1, f32 arg2, f32 arg3) {

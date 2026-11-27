@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_C9EC0.c
@@ -61,7 +62,6 @@ s32 func_1509CA98(s32 arg0) {
     }
     return 204;
 }
-extern u8 D_80088420[];
 
 s32 func_1509CB68(void) {
     s32 count;
@@ -76,7 +76,6 @@ s32 func_1509CB68(void) {
     return count;
 }
 extern s32 D_800D2E4C;
-extern s32 D_8008743C[];
 
 s32 func_1509CBD4(s32 arg0) {
     const u16 *deps = (const u16 *)((ResourceDescriptorIdField *)D_8008743C)[arg0].packed_id;
@@ -91,7 +90,6 @@ s32 func_1509CBD4(s32 arg0) {
     }
     return 1;
 }
-extern s32 D_8008743C[];
 extern void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2);
 void func_1509CCB4();
 
@@ -102,8 +100,6 @@ void func_1509CC94(void) {
 void func_1509CCB4(s32 arg0) {
     func_1509CE64(((ResourceDescriptorIdField *)D_8008743C)[arg0].packed_id, func_1509CCB4, arg0);
 }
-extern s32 D_80087440;
-extern u8 D_800D2E70[];
 
 s32 func_1509CCF4(s32 arg0) {
     s32 var_s1;
@@ -176,7 +172,6 @@ void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509CE64 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CE64.s")
 s32 func_1502B6BC(u32 *, s32, u32 *, s32, s32, s32, s32);
-extern u8 *D_800D2FB0;
 
 typedef struct GameC9EC0Reloc {
     s32 offset;
@@ -216,7 +211,6 @@ s32 func_1509CF28(s32 arg0, s32 *arg1) {
     return 1;
 }
 void func_10004074(s32 arg0);
-extern u8 *D_800D2FB0;
 
 void func_1509D054(void) {
     if (D_800D2FB0 != 0) {

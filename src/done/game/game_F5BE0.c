@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F5BE0.c
@@ -8,11 +9,6 @@
 void func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_151EFEB8(void *, s32);
 void *func_15073118(void *, s32, s32, f32, f32, f32, f32, f32, f32, f32, s32);
-extern f32 D_800A04F0;
-extern f32 D_800A04F4;
-extern f32 D_800A04F8;
-extern f32 D_800A04FC;
-extern u8 D_800BE9C0;
 
 s32 func_150C8730(u8 *arg0, u8 *arg1) {
     s32 kind;

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_A28B0.c
@@ -84,15 +85,11 @@ typedef struct GameA28B0State {
 
 extern GameA28B0State *D_800D154C;
 
-extern f32 D_800D1898[];
 void func_15075548(void);
 void func_15075650(void);
 void func_150836CC(void *arg0, s32 arg1);
 
 extern u8  D_800D1890;
-extern u8  D_800D1891;
-extern u8  D_800D1892;
-extern u8  D_800D1893;
 void func_15075400(s32 arg0) {
     u8 count;
     u8 temp;
@@ -132,8 +129,6 @@ void func_15075498(void) {
         *(s32 *)((u8 *)D_800D154C + 0xF4) = (s32) (*(s32 *)((u8 *)D_800D154C + 0xF4) | 0x10);
     }
 }
-extern f32 D_8009A13C;
-extern u8 D_800BE616;
 
 void func_15075548(void) {
     D_800D154C->pad223[0] = 0;
@@ -395,8 +390,6 @@ void func_15075F6C(void) {
 /* Call context: func_15075548: unique active declaration in the allowed source */
 void func_15075548(void);
 
-extern f32 D_8009A140;
-
 void func_1507602C(void) {
     f32 temp_fa0;
     f32 temp_fv1;
@@ -494,7 +487,6 @@ void func_150764E4(void) {
 void func_15076500(void) {
     *(s16 *)((u8 *)D_800D154C + 0x22E) = (s16) ((D_800D1890 << 8) | D_800D1891);
 }
-extern u8 D_800CC3F5[];
 
 void func_1507652C(void) {
     if (D_800D1891 != 0) {
@@ -745,7 +737,6 @@ void func_15076FA8(void) {
         }
     }
 }
-extern f32 D_800CC30C;
 
 void func_150770E4(void) {
     if (*(f32 *)((u8 *) &D_800CC30C + (D_800D154C->field_222 * 0x32C)) < (f32)(u32)D_800D1892) {
@@ -826,7 +817,6 @@ void func_15077364(void) {
     D_800D154C->pad23F[8] = D_800D1891;
     D_800D154C->pad23F[9] = D_800D1892;
 }
-extern s32 D_800BE9E4;
 
 void func_15077404(void) {
     if (D_800D1893 != 0) {
@@ -858,8 +848,6 @@ s32 func_15086CBC(s32, f32 *, f32 *, f32 *);
 s32 func_15086098(f32, f32, f32, s8, s8, u8 *, u8 *);
 s32 func_15086364(s32, s8, s8, u8 *, u8 *);
 f32 func_150ADA68(void);
-extern u8 *D_800D2350;
-extern s32 D_800D2354;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15077508 CURRENT (8222) */
 void func_15077508(void) {
@@ -1046,7 +1034,6 @@ void func_15077BE4(void) {
 void func_15077C1C(void) {
     D_800D154C->field_23D = D_800D1890;
 }
-extern f32 D_8009A148;
 
 void func_15077C38(void) {
     f32 distance;
@@ -1193,7 +1180,6 @@ void func_15078358(void) {
         D_800D154C->field_222 = 0;
     }
 }
-extern f32 D_800CC2E8;
 
 void func_1507839C(void) {
     f32 var_fv0;
@@ -1260,7 +1246,6 @@ void func_15078544(void) {
     *(s16 *)((u8 *)D_800D2104[D_800D154C->pad10F[0x30]] + D_800D1890 * 8 + 10) = (s32)y;
     *(s16 *)((u8 *)D_800D2104[D_800D154C->pad10F[0x30]] + D_800D1890 * 8 + 12) = (s32)z;
 }
-extern u8 D_800CC5A0[];
 
 void func_1507879C(void) {
     f32 value;
@@ -1283,7 +1268,6 @@ void func_15078890(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-extern u8 D_800CC521;
 
 void func_15078900(void) {
     if (D_800D1893 != 0) {
@@ -1294,7 +1278,6 @@ void func_15078900(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-extern u8 D_800CC5A0[];
 
 void func_15078A08(void) {
     void *temp_a0;
@@ -1305,19 +1288,9 @@ void func_15078A08(void) {
     *(f32 *)((u8 *)temp_v0 + 8) = *(f32 *)((u8 *)temp_a0 + 8);
     *(f32 *)((u8 *)temp_v0 + 0xC) = *(f32 *)((u8 *)temp_a0 + 0xC);
 }
-extern f32 D_8009A198;
 extern u8 D_800BE9EC;
-extern f32 D_800CC2F8;
-extern f32 D_800CC314;
-extern u8 D_800CC359;
-extern u8 D_800CC3D2;
 extern u8 D_800CC3D4[];
-extern u8 D_800CC40C;
 extern u8 D_800CC49A;
-extern u8 D_800CC502;
-extern s32 D_800CC5B4;
-extern s32 D_800CC5B8;
-extern s32 D_800CC5BC;
 extern void *D_800CC5EC;
 extern u8 D_800CC2D4;
 
@@ -1565,7 +1538,6 @@ void func_150793D8(void) {
     *(s16 *)((u8 *)D_800D2104[D_800D154C->pad10F[0x30]] + D_800D1890 * 8 + 8) = x;
     *(s16 *)((u8 *)D_800D2104[D_800D154C->pad10F[0x30]] + D_800D1890 * 8 + 0xC) = z;
 }
-extern f32 D_800CC2E8;
 
 void func_15079570(void) {
     f32 temp_fv0;
@@ -1627,7 +1599,6 @@ void func_15079790(void) {
     D_800D154C->position_z = (f32) (*(s16 *) ((u8 *) D_800D2104[D_800D154C->pad10F[0x30]] + 4) + z);
 }
 /* Call context: func_15075548: unique active project prototype */
-extern f32 D_800CC30C;
 
 void func_15079880(void) {
     s32 var_v0;
@@ -1677,7 +1648,6 @@ void func_15079A28(void) {
     D_800D154C->pad252[0] = D_800D1890;
     D_800D154C->pad252[1] = D_800D1891;
 }
-extern s16 *D_800D2110;
 
 void func_15079A58(void) {
     D_800D2110[D_800D154C->pad10F[0x30]] = (D_800D1890 << 8) + D_800D1891;
@@ -1696,9 +1666,6 @@ s32 func_15079A98(s32 arg0) {
                   *(f32 *)(temp_v1 + 0x1C) - (f32)*(s16 *)((u8 *)temp_v0 + 4),
                   0);
 }
-extern s16 D_800CC264;
-extern f32 D_800CC388;
-extern f32 D_800CC398;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15079B30 CURRENT (1230) */
 void func_15079B30(void) {
@@ -1805,7 +1772,6 @@ void func_15079F6C(void) {
     ((struct127 *)D_800D154C)->unk22B = D_800D1892;
     ((struct127 *)D_800D154C)->unk226 = D_800D1893;
 }
-extern f32 D_8009A1E4;
 
 void func_15079FBC(void) {
     s16 speed;
@@ -1838,7 +1804,6 @@ void func_1507A100(void) {
     D_800D2104[D_800D154C->pad10F[0x30]]->values[D_800D1890][D_800D1891] =
         value;
 }
-extern f32 D_800CC30C;
 
 void func_1507A164(void) {
     s32 var_v0;
@@ -1989,7 +1954,6 @@ void func_1507A71C(void) {
         func_15075400(D_800D1893);
     }
 }
-extern s32 D_800BE9F0;
 
 void func_1507A774(void) {
     u16 value;
@@ -2018,8 +1982,6 @@ void func_1512D748(void *arg0, s32 arg1, s32 arg2);
 void func_1507A878(void) {
     func_1512D748(0, (s32) D_800D1890, (s32) D_800D1891);
 }
-extern u8 D_800BE616;
-extern u8 D_800CC335;
 
 void func_1507A8A8(void) {
     if ((D_800CC335 != 0) || (D_800BE616 != 0)) {
@@ -2057,7 +2019,6 @@ void func_1507A984(void) {
         D_800D154C->unk_65 = 0;
     }
 }
-extern f32 D_8009A20C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507AA48 CURRENT (620) */
 void func_1507AA48(void) {
@@ -2240,7 +2201,6 @@ void func_1507B178(void) {
 /* Call context: func_1506E46C: unique active project prototype */
 void func_1506BAD8(s32, s32);
 s32 func_1506E46C(u8 *, s32 *, s32);
-extern s32 D_800D1580;
 s32 func_1507A3E8(void);
 
 void func_1507B234(void) {
@@ -2477,7 +2437,6 @@ typedef struct GameA28B0ScriptEntry {
 
 extern void *D_800D1588[];
 extern GameA28B0ScriptEntry D_80086A88[];
-extern u8 D_8009A120[];
 
 s32 func_1507BB28(s32 arg0, s32 arg1) {
     void *data;
@@ -2521,7 +2480,6 @@ typedef struct GameA28B0ScriptState {
 
 typedef void (*GameA28B0ScriptCommand)(void);
 extern GameA28B0ScriptCommand D_80086730[];
-extern s16 D_800CC264;
 
 void func_1507BC14(GameA28B0ScriptState *state) {
     if ((state->timer != 0) && (state->command != 0)) {

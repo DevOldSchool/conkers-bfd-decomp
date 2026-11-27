@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F4890.c
@@ -20,8 +21,6 @@ typedef struct GameF4890LightState {
 } GameF4890LightState;
 
 void func_10010F30(s32, s32, s32, s32, s32);
-extern f32 D_800A04B0;
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C73E0 CURRENT (1150) */
 s32 func_150C73E0(GameF4890LightState *arg0, void *arg1) {

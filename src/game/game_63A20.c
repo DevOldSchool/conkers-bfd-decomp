@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_63A20.c
@@ -11,7 +12,6 @@
  */
 
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-extern f32 D_80097D80;
 extern u8 D_800C3FC0[];
 extern u8 D_800C3FC4[];
 extern u8 D_800CC2D0[];
@@ -89,9 +89,7 @@ s32 func_1515E544(s32, s32, u8, u8, void *);
 struct GameC2350Input;
 struct GameC2350Owner;
 s32 func_15094F70(s32, struct GameC2350Input *, s32, struct GameC2350Owner *, s32, s32, s32, s32, s32);
-extern u8 D_80084350[], D_80089470[], D_800903BC[];
-extern u8 D_800BE9C0;
-extern s32 D_800DCD7C;
+extern u8 D_80089470[];
 
 typedef struct Game63A20Command {
     u32 w0;

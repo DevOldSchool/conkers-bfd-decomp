@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1BF090.c
@@ -74,7 +75,7 @@ s32 func_1514672C(f32 *);
 s32 func_15046F84(f32 *, u16, f32, void *);
 void *func_1519203C(Vec3i *, Vec3i *, f32, s32, s32,
                     s32, f32, s32, f32, struct Game1BF090Packed *, s32, s32, s32);
-extern f32 D_800A80E8, D_800A80EC, D_800A80F0, D_800BE9A4;
+extern f32 D_800BE9A4;
 
 void func_15191D54(u8 *arg0) {
     f32 limit;
@@ -168,8 +169,6 @@ typedef struct Game1BF090Fragment {
 
 f32 func_150ADA68(void);
 void *func_15130374(s32, u8, s32, u8, s32);
-extern s32 (*D_8008FCD0[])(void);
-extern f32 D_800A80F4, D_800A80F8;
 
 void *func_1519203C(Vec3i *position, Vec3i *direction,
                     f32 speed, s32 lifetime, s32 mode, s32 group,
@@ -349,18 +348,6 @@ s32 func_1519257C(s32 arg0, s32 arg1) {
     }
     return var_v1;
 }
-extern Vec3i D_800A8030[];
-extern u8 D_800A8060[];
-extern f32 D_800A8064[];
-extern f32 D_800A8074[];
-extern f32 D_800A8084[];
-extern f32 D_800A8094[];
-extern s16 D_800A80A4[];
-extern s16 D_800A80AC[];
-extern f32 D_800A80B4[];
-extern f32 D_800A80C4[];
-extern f32 D_800A80D4[];
-extern u8 D_800A80E4[];
 
 s32 func_15191BE0(u8 *, Vec3i *, u8, f32, f32, s16,
                   f32, f32, s16, s16, u8, u8, f32, f32, f32,

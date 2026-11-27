@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_131A90.c
@@ -29,7 +30,6 @@ typedef struct Game131A90Surface {
 
 s32 func_150A3A70(s32, s32);
 void func_1510F800(s32);
-extern f32 D_800A2370;
 extern Game131A90Surface D_800D3300[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15104634 CURRENT (5352) */

@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_vec.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_E7380.c
@@ -81,13 +82,6 @@ void func_151511FC(GameE7380Spray *, u8, s32);
 void func_151E7EF8(void);
 void func_151E7F60(void);
 extern u8 D_80084060;
-extern f32 D_8009FE10;
-extern f32 D_8009FE14;
-extern f32 D_8009FE18;
-extern f32 D_8009FE1C;
-extern f32 D_8009FE20;
-extern f32 D_8009FE24;
-extern f32 D_8009FE28;
 
 void func_150B9ED0(void *arg0, f32 arg1, f32 arg2, u8 arg3, s32 arg4) {
     GameE7380Actor *actor;
@@ -206,7 +200,6 @@ s32 func_150BA35C(GameE7380Object *arg0) {
 
     return 1;
 }
-extern f32 D_8009FE2C;
 extern f32 D_800BE9A4;
 
 s32 func_150BA37C(void *arg0) {

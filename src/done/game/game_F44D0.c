@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_F44D0.c
@@ -7,7 +8,6 @@
  */
 
 void *func_15134DAC(void *, s32);
-extern f32 D_800A0490;
 
 void func_150C7020(u8 *arg0, s16 arg1, s32 arg2, s32 arg3) {
     struct {

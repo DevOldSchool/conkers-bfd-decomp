@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_105A40.c
@@ -39,7 +40,6 @@ f32 func_150ADA68(void);
 void func_150E7FEC(f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150E83AC(void *, s16, u8, s32);
 void func_15153634(GameDC6B0Burst *, u8, u8, s32);
-extern f32 D_800A0B18, D_800A0B1C, D_800A0B20, D_800A0B24;
 
 void func_150D85AC(void *arg0) {
     f32 position[3];

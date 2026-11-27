@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/main/init_1050.c
@@ -60,22 +61,8 @@ void set_interrupt_mask(s32);
 s32 get_interrupt_mask(void);
 void enable_interrupts(s32);
 void start_task(void *);
-extern u8 D_100010F8;
-extern u8 D_10001194;
-extern u8 D_15000000;
-extern u8 D_151FA130;
-extern u8 D_19EA88;
-extern u8 D_42450;
-extern s32 D_80000310;
-extern s32 D_8000030C;
-extern u8 D_8002AC5C;
 extern s32 D_8002AAE8[2];
-extern u8 D_80032B30;
-extern u8 D_80033330;
-extern s32 D_800354F8;
-extern s32 D_800354FC;
 extern s32 D_8003809C;
-extern s32 D_8003BE74;
 extern s32 D_80082B20;
 extern u8 D_800E9D10;
 extern u8 bss_start;

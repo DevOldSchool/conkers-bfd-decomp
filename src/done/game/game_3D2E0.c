@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3D2E0.c
@@ -35,7 +36,6 @@ void func_1500FE30(void) {
         ((Entry *)D_800BE4E0)[index].current = ((Entry *)D_800BE4E0)[index].target;
     }
 }
-extern s32 D_800917B8;
 void *func_1510C4AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1500FF9C(void) {
@@ -44,8 +44,6 @@ void func_1500FF9C(void) {
 void *func_10022EC0(void *, const void *, u32);
 void func_1500FE30(void);
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_80088870;
-extern s32 D_800902DC;
 extern s32 D_800B0E00;
 extern s32 D_800B0E04;
 

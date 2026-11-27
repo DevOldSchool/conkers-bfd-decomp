@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_124260.c
@@ -74,7 +75,6 @@ typedef struct Game124260Descriptor {
 } Game124260Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A1BB0;
 extern Game124260Copy3 D_800A5480;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F6DE4 CURRENT (1758) */
@@ -172,8 +172,6 @@ typedef struct Game124260Root {
 
 void func_15145740(void *, void *, void *, void *, f32);
 void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *, f32, s32, s32, s32, s8, s32, s32);
-extern f32 D_800D9A50[3];
-extern f32 D_800A1BB4, D_800A1BB8;
 extern u8 D_800C35EA;
 
 void func_150F706C(Game124260Root *arg0) {

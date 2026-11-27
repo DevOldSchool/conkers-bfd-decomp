@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_173D40.c
@@ -33,7 +34,6 @@ s32 func_15146890(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
 }
 s32 func_151420F8();
 s32 func_150A2AEC(s32, s32, s32 *, s32);
-extern s32 D_800BE9F0;
 extern s32 D_800CC2D0;
 
 s32 func_15146970(u32 arg0, void *arg1) {
@@ -138,8 +138,6 @@ void func_15146BD8(s32 arg0, s32 arg1, s32 arg2) {
     func_15146BF8(arg0, arg1, arg2, 1);
 }
 void func_15141F78(s32, void *, f32, s32, f32 *, s32);
-extern f32 D_800A5720;
-extern f32 D_800A5724;
 
 void func_15146BF8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     struct {
@@ -260,7 +258,6 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15130374(s32, u8, s32, u8, s32);
 void func_15143794(s16, s16, f32, void *);
 f32 func_150ADA68(void);
-extern f32 D_800A5730, D_800A5734, D_800A5738;
 
 s32 func_151470FC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
@@ -337,7 +334,6 @@ void func_15147318(void *arg0, s32 arg1, s32 arg2) {
                       position, (u8)arg1);
     }
 }
-extern s32 (*D_8008FD1C)(void);
 
 void func_15147478(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];
@@ -356,7 +352,6 @@ void func_15147478(void *arg0, s32 arg1, s32 arg2) {
         }
     }
 }
-extern s32 (*D_8008FD30)(void);
 
 void func_151475D8(void *arg0, s32 arg1, s32 arg2) {
     f32 position[3];

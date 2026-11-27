@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_AD9B0.c
@@ -8,8 +9,6 @@
 
 s32 func_15080738(s32);
 extern s8 D_800D1940;
-extern void *D_800D199C;
-extern u8 D_800D2E60[];
 extern s32 D_800D3098;
 
 void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
@@ -91,7 +90,6 @@ void func_15080718(s32 arg0, s32 *arg1, s32 *arg2) {
     *arg2 = 1 << (arg0 & 7);
     *arg1 = arg0 >> 3;
 }
-extern u8 D_800BE580[];
 
 s32 func_15080738(s32 arg0) {
     s32 sp1C;
@@ -150,13 +148,11 @@ void *func_10003C40(s32, s32, s32, s32);
 void *func_1502B6BC(u32 *, s32, s32 *, s32, ...);
 void *func_1516A7B0(s32, s32, s32, void (*)(s32, s32, s32), void *, s32);
 extern u8 D_800D1941;
-extern s32 D_800D1944;
 extern void *D_800D1948;
-extern s32 D_800D194C;
 extern void *D_800D1950;
-extern u8 D_800BEAAB, D_800D2E40, D_800D2E68;
+extern u8 D_800BEAAB;
+extern u8 D_800D2E40;
 extern GameAD9B0TextDescriptor D_800D1958;
-extern f32 D_800D1988, D_800D198C, D_800D1990;
 
 void func_15080828(s32 arg0) {
     void *text;
@@ -244,9 +240,6 @@ void func_15080828(s32 arg0) {
 
 void func_10004074(s32);
 void func_151F2D6C(s32, s32);
-extern void *D_800D199C;
-extern u8 D_800D2E60[];
-extern s32 D_800BE9F0;
 
 void func_15080BE8(void) {
     D_800D1941 = 0;

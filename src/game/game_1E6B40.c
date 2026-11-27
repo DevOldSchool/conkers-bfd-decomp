@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1E6B40.c
@@ -29,7 +30,6 @@ typedef struct Game1E6B40Packet {
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 extern void *D_8008CA4C[];
-extern f32 D_800AA580;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9690 CURRENT (6044) */
 void func_151B9690(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 arg4, s32 arg5,
@@ -144,8 +144,6 @@ typedef struct Game1E6B40Pulse {
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_15171D4C(f32, f32, f32, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_800BE9E4;
-extern f32 D_800AA584, D_800AA588, D_800AA58C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9964 CURRENT (860) */
 void func_151B9964(Game1E6B40Pulse *arg0) {
@@ -232,7 +230,6 @@ void func_151B9BF0(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 arg4,
 }
 void func_151B9690(s32, s32, s16, s16, s16, s32, f32, s32, s32,
                    s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_800BE9E4;
 
 typedef struct Game1E6B40Controller {
     u8 pad00[0x28];

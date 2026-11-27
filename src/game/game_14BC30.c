@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_14BC30.c
@@ -11,7 +12,6 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14BC30/func_1511E780.s")
-extern s32 D_800BE9E4;
 
 void func_1511EC50(void *arg0) {
     f32 temp_fa0;

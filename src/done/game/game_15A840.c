@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_15A840.c
@@ -6,7 +7,6 @@
  */
 
 void func_1508EF80(f32 *, f32 *, f32, f32 *);
-extern f32 D_800A36E0;
 extern f32 D_800BE9A4;
 
 typedef struct Game15A840State {

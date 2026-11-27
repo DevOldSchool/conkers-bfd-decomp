@@ -4,6 +4,7 @@
 #endif
 #include <PR/mbi.h>
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_104AE0.c
@@ -15,16 +16,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s32 D_800BE9E4;
-extern u16 D_800D9910;
-
 void func_150D7630(s32 arg0) {
     if (arg0 == 0) {
         D_800D9910 += D_800BE9E4 << 6;
     }
 }
 s32 func_1510D0EC(s32, s32 *, s32, s32);
-extern s32 *D_80088900[2];
 
 typedef struct { s32 *entries[2]; } PointerPair;
 Gfx *func_150D765C(Gfx *gdl) {

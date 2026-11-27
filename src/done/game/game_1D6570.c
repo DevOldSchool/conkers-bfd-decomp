@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1D6570.c
@@ -24,10 +25,6 @@ typedef struct {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151A8B20(Game1D6570Descriptor *, s16, s32, u8, s32);
-extern f32 D_800A8F58;
-extern f32 D_800A8F5C;
-extern f32 D_800A8F60;
-extern f32 D_800A8F64;
 
 void func_151A90C0(s32 arg0, s32 arg1) {
     Game1D6570Descriptor descriptor;
@@ -304,8 +301,6 @@ f32 func_150ADA68(void);
 void func_1514373C(f32, f32, f32 *, f32 *);
 s32 func_15046C80(f32 *, u16, f32, void *);
 extern Game1D6570ParticleCallback D_8008FA60[];
-extern f32 D_800A8F68;
-extern f32 D_800A8F6C;
 
 void func_151A9834(f32 *arg0, f32 arg1, f32 arg2, f32 *arg3,
                     s32 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1865D0.c
@@ -56,7 +57,6 @@ s32 func_15159230(void *arg0, void *arg1, u8 arg2) {
     }
     return var_v1;
 }
-extern u16 D_8008B040;
 
 s32 func_151592B8(void *arg0, u8 arg1) {
     s32 var_v1;
@@ -86,7 +86,6 @@ s32 func_151592B8(void *arg0, u8 arg1) {
     }
     return var_v1;
 }
-extern u8 D_800BE616;
 
 s32 func_15159370(void *arg0, s8 *arg1) {
     u8 var_v1;
@@ -182,7 +181,6 @@ u8 func_151D8E20(void);
 void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
 s32 func_15046C00(f32 *, u16, f32, u8 *);
 s32 func_1514672C(f32 *);
-extern f32 D_800A63A4;
 
 u8 func_15159594(u8 *arg0, s32 arg1) {
     u8 result;
@@ -216,7 +214,6 @@ u8 func_15159594(u8 *arg0, s32 arg1) {
     return result;
 }
 /* Call context: func_151423D8: unique active project prototype */
-extern s32 D_800BE9E4;
 
 u8 func_151596BC(u8 *arg0, s32 arg1) {
     u8 *motion = arg0 + 0xA8;
@@ -279,8 +276,6 @@ typedef struct {
 f32 func_150ADA68(void);
 void *func_151303BC(void *, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800A63A8, D_800A63AC, D_800A63B0, D_800A63B4;
-extern f32 D_800A63B8, D_800A63BC, D_800A63C0;
 
 void *func_15159890(f32 *arg0, f32 *arg1, u8 arg2, u8 arg3) {
     Game1865D0Particle particle;
@@ -371,7 +366,6 @@ f32 func_15047C00(f32);
 void func_150A8050(void *, f32, f32, f32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 s32 func_151454BC(u8, f32, void *);
-extern u8 D_800BE9EB;
 extern f32 D_800BE9A4;
 
 void func_15159C08(u8 *arg0) {
@@ -477,7 +471,6 @@ void func_15159C08(u8 *arg0) {
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
-extern s32 D_800BE9E4;
 
 s32 func_1515A11C(u8 *arg0, s32 arg1) {
     u8 *motion = arg0 + 0xA8;
@@ -511,9 +504,6 @@ typedef struct {
 } Game1865D0A238Motion;
 
 typedef struct { u32 words[9]; } Game1865D0A238Collision;
-
-extern f32 D_800A63E4, D_800A63E8, D_800A63EC, D_800A63F0;
-extern f32 D_800A63F4, D_800A63F8, D_800A63FC, D_800A6400, D_800A6404;
 
 void *func_1515A238(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3,
                     Game1865D0A238Collision *arg4, f32 arg5,
@@ -625,9 +615,6 @@ s32 func_1515A60C(u8 *arg0, s32 arg1) {
 }
 s32 func_1515A60C(u8 *, s32);
 f32 func_150ADA68(void);
-extern f32 D_800A6408;
-extern f32 D_800A640C;
-extern f32 D_800A6410;
 
 u8 func_1515A78C(u8 *arg0, s32 arg1) {
     Game1865D0A238Motion *motion = (Game1865D0A238Motion *)(arg0 + 0xA8);

@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3C3D0.c
@@ -15,24 +16,8 @@ typedef struct Game3C3D0Spark {
 
 void *func_10022EC0(void *, const void *, u32);
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
-extern s32 D_800902B8;
 extern s32 D_800B0E00;
 extern s32 D_800B0E04;
-extern f32 D_80096220;
-extern f32 D_80096224;
-extern f32 D_80096228;
-extern f32 D_8009622C;
-extern f32 D_80096230;
-extern f32 D_80096234;
-extern f32 D_80096238;
-extern f32 D_8009623C;
-extern f32 D_80096240;
-extern f32 D_80096244;
-extern u8 D_800DCD20[3];
-extern f32 D_800DCD94;
-extern f32 D_800DCD98;
-extern f32 D_800DCD9C;
-extern f32 D_800DCDA0;
 
 void func_1500EF20(void) {
     void *result;

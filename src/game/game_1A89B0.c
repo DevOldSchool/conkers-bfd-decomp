@@ -3,6 +3,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1A89B0.c
@@ -15,15 +16,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s16 D_800DD470[];
 extern void *D_800DBFF0;
 extern u8 D_8008CEB0;
-extern u8 D_80095CE1[];
 extern u8 D_800DDD1C;
 extern s32 D_8003809C;
 extern s32 D_800DD478[];
 extern s32 D_800DDA90;
-extern s32 D_800DDD58;
 
 typedef struct {
     s16 unk0;
@@ -143,7 +141,6 @@ s32 func_1517B7F8(void *arg0, void *arg1, s32 *arg2, s32 arg3) {
     *(s16 *)((u8 *)arg1 + 4) = (s16) *(s16 *)((u8 *)arg0 + 4);
     return 0;
 }
-extern s32 D_8008CEB4;
 extern Game1A89B0Position *D_800DDD18;
 
 void func_1517B89C(s32 first, s32 last) {
@@ -200,10 +197,8 @@ void func_1517CFC4(void) {
     }
 }
 extern Vtx *D_800DDD10[];
-extern u8 D_800BE9C0;
 extern u32 D_800DDD0C;
 extern Gfx D_8008CFA0[];
-extern f32 D_800A7248;
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 s32 func_1517D074(Gfx *gdl, s16 arg1, s16 arg2, s16 arg3, f32 angle, s32 radius, s32 height, u8 width, u8 texHeight, s32 texture) {
@@ -303,7 +298,6 @@ typedef struct Game1A89B0StateSlot {
 void func_1517BBAC(s32, s32, s32, s32, f32, s32, s32, s32);
 extern u8 D_800CC2D0[];
 extern u8 D_800DDB80[];
-extern s32 D_800DDD20;
 
 void func_1517DE5C(void) {
     s32 i;

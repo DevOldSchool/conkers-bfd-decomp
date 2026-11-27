@@ -5,6 +5,7 @@
 #include <PR/mbi.h>
 #include "game_render_view.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
@@ -24,20 +25,14 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern f32 D_800A8AA4;
 extern struct CharacterFlamethrowerListNode *D_800E08E0;
 extern struct CharacterFlamethrowerListNode *D_800E08E4;
 extern struct CharacterFlamethrowerListNode *D_800E08E8;
 extern struct CharacterFlamethrowerListNode *D_800E08EC;
-extern s32 D_800E08F0;
 
 struct CharacterFlamethrowerActor;
 void func_1519CDB0(struct CharacterFlamethrowerActor *arg0, f32 arg1, s32 arg2);
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern void (*D_8008F88C[])(void *);
-extern void (*D_8008F898[])(void *);
-extern void (*D_8008F8B4[])(void *);
-extern void (*D_8008F8C0[])(void);
 void func_15199980(void *arg0);
 void func_100111C8(u16 arg0);
 struct CharacterFlamethrowerPanel;
@@ -415,7 +410,6 @@ void func_15195D00(CharacterFlamethrowerDispatch *owner, s32 identity, s32 kind,
     node->flags = flags;
     node->next = 0;
 }
-extern u8 D_800BEAC0;
 s32 func_15195868(s32, s32, s32, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195DD4 CURRENT (1720) */
@@ -508,8 +502,6 @@ CharacterFlamethrowerPanel *func_15195FB0(
 ) {
     return func_15195DD4(arg0->unk1C, arg1, arg2, arg3, arg4, arg5, arg6);
 }
-
-extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15195FF0 CURRENT (2081) */
 void func_15195FF0(u8 *arg0, u8 *arg1) {
@@ -737,9 +729,6 @@ typedef struct CharacterFlamethrowerJetSpawn {
 } CharacterFlamethrowerJetSpawn;
 
 extern CharacterFlamethrowerJetTemplate D_800A87A0[];
-extern f32 (*D_8008F870[])(void *, s32);
-extern void (*D_8008F87C[])(void *);
-extern s16 (*D_8008F890[])(void);
 void func_15143134(f32 *, f32 *, s32);
 void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
@@ -974,7 +963,6 @@ Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern CharacterFlamethrowerTexel D_800915B0;
-extern s32 D_800D2C9C;
 
 Gfx *func_15197148(u8 *arg0, Gfx *arg1, s16 arg2) {
     Vtx_t *vtx;
@@ -1162,15 +1150,10 @@ Gfx *func_15197148(u8 *arg0, Gfx *arg1, s16 arg2) {
 f32 func_151979F8(s32 arg0) {
     return D_800A8AA4;
 }
-extern s32 D_800A8A40;
-extern s32 D_800A8A48;
-extern f32 D_800A8AA8;
 
 f32 func_15197A0C(s32 arg0) {
     return (f32)func_151422C0(0xA, &D_800A8A40, 1, 0x1F4, &D_800A8A48, 0x8CC) * D_800A8AA8;
 }
-
-extern f32 D_800A8AAC;
 
 f32 func_15197A68(s32 arg0) {
     return D_800A8AAC;
@@ -1434,17 +1417,6 @@ typedef struct CharacterFlamethrowerFlameMotion {
 
 void *func_1513D524(void *, u8, u8, u8, u8, u8, s32, u8, s32);
 extern CharacterFlamethrowerFlameStyle D_800A8710[];
-extern f32 D_800A8AB0;
-extern f32 D_800A8AB4;
-extern f32 D_800A8AB8;
-extern f32 D_800A8ABC;
-extern f32 D_800A8AC0;
-extern f32 D_800A8AC4;
-extern f32 D_800A8AC8;
-extern f32 D_800A8ACC;
-extern f32 D_800A8AD0;
-extern f32 D_800A8AD4;
-extern f32 D_800A8AD8;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15198110 CURRENT (8109) */
 void func_15198110(CharacterFlamethrowerActor *arg0, s32 arg1) {
@@ -1571,14 +1543,8 @@ extern CharacterFlamethrowerCollisionActor D_800CC2D0[];
 
 s32 func_1505D024(void *, s32, u16, s32);
 s32 func_1518D1C0(void *, s16, s16, u8, u8, s32, void *);
-extern u8 D_800A8A84;
 extern f32 D_800CC2E4;
-extern f32 D_800CC2E8;
-extern f32 D_800CC2EC;
 extern u16 D_800CC34A;
-extern s16 D_800CC3B4;
-extern s16 D_800CC3B6;
-extern s16 D_800CC3B8;
 
 s32 func_15198570(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerState *state;
@@ -1941,7 +1907,6 @@ typedef struct CharacterFlamethrowerEmission {
 } CharacterFlamethrowerEmission;
 
 f32 func_150ADA68(void);
-extern u8 D_80090514[];
 extern CharacterFlamethrowerEmissionPreset D_800A8770[];
 
 void func_151990AC(CharacterFlamethrowerActor *arg0, Vec3f *arg1) {
@@ -2012,7 +1977,6 @@ void func_151993B4(CharacterFlamethrowerActor *arg0) {
     state->flags6 |= 1;
     state->flags6 |= 4;
 }
-extern u8 D_800A8A9C;
 extern CharacterFlamethrowerSlot *D_800E0900[];
 
 void func_151993E4(CharacterFlamethrowerActor *arg0) {
@@ -2113,8 +2077,6 @@ typedef struct {
 
 void func_15145EA4(s32 *, s32 *, s32, s32);
 s32 func_1519C09C(s32, f32 *, u8, u8, u8, u8, u8, s32);
-extern void (*D_8008F8A4[])(void *);
-extern s16 (*D_8008F8B8[])(void);
 
 void *func_151994B8(s32 arg0, CharacterFlamethrowerSetup *arg1, u8 arg2, s32 arg3) {
     CharacterFlamethrowerActor *result;
@@ -2342,11 +2304,8 @@ s32 func_15142E24(s32, s32, s32, s32, s32, s32, s32, u8, s32, u8 *, s32);
 Gfx *func_1513F4E4(Gfx *, u8, u8 *);
 Gfx *func_15142B7C(Gfx *, s32, s32);
 Gfx *func_15142FBC(Gfx *, s32, s32, u8 *);
-extern u8 D_800BE616;
 extern u8 D_800D9C10[];
-extern u8 D_80091064[];
 extern s32 D_800A4AC8[][2];
-extern s32 D_800D2C9C;
 
 Gfx *func_1519B4B8(CharacterFlamethrowerActor *arg0, Gfx *arg1, s16 arg2) {
     CharacterFlamethrowerState *state;
@@ -2646,7 +2605,6 @@ typedef struct CharacterFlamethrowerLightDescriptor {
 
 void *func_10022EC0(void *, const void *, u32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A8AF8;
 
 s32 func_1519C09C(s32 arg0, f32 *arg1, u8 arg2, u8 arg3, u8 arg4,
                  u8 arg5, u8 arg6, s32 arg7) {
@@ -2709,9 +2667,6 @@ typedef struct CharacterFlamethrowerMotion {
     CharacterFlamethrowerVelocity motion;
 } CharacterFlamethrowerMotion;
 
-extern f32 D_800BE9A8;
-extern s32 D_800BE9E4;
-
 s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     f32 time_squared;
     Vec3f first;
@@ -2752,7 +2707,6 @@ s32 func_1519C26C(CharacterFlamethrowerMotion *arg0) {
     arg0->second_position.z += second.z * D_800BE9A4 + 0.5f * second_acceleration.z * time_squared;
     return 1;
 }
-extern s32 D_800BE9E4;
 
 s32 func_1519C4E4(u8 *arg0) {
     typedef struct Damping { u8 pad0[0x24]; f32 factor; s16 threshold, multiplier; } Damping;
@@ -2986,34 +2940,6 @@ typedef union {
 } CharacterFlamethrowerPreset;
 
 void *func_151994B8(s32, CharacterFlamethrowerSetup *, u8, s32);
-extern f32 D_800A8B04;
-extern f32 D_800A8B08;
-extern f32 D_800A8B0C;
-extern f32 D_800A8B10;
-extern f32 D_800A8B14;
-extern f32 D_800A8B18;
-extern f32 D_800A8B1C;
-extern f32 D_800A8B20;
-extern f32 D_800A8B24;
-extern f32 D_800A8B28;
-extern f32 D_800A8B2C;
-extern f32 D_800A8B30;
-extern f32 D_800A8B34;
-extern f32 D_800A8B38;
-extern f32 D_800A8B3C;
-extern f32 D_800A8B40;
-extern f32 D_800A8B44;
-extern f32 D_800A8B48;
-extern f32 D_800A8B4C;
-extern f32 D_800A8B50;
-extern f32 D_800A8B54;
-extern f32 D_800A8B58;
-extern f32 D_800A8B5C;
-extern f32 D_800A8B60;
-extern f32 D_800A8B64;
-extern f32 D_800A8B68;
-extern f32 D_800A8B6C;
-extern f32 D_800A8B70;
 
 void func_1519C9C4(void *arg0) {
     void *result;

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_123D40.c
@@ -33,7 +34,6 @@ typedef struct {
 } Game123D40Packet;
 
 void *func_15134DAC();
-extern f32 D_800A1B70;
 
 void func_150F6890(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
     Game123D40Packet packet;

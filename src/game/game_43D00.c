@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_path.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_43D00.c
@@ -14,11 +15,9 @@
 
 /* Raw 1502B7F0 consumes count-selected word varargs and returns its size word. */
 s32 func_1502B7F0(s32 *, s32, ...);
-extern u8 D_800BE590;
 extern u16 D_800BE598[];
 extern s32 D_800BE5A8[];
 extern u8 *D_800D20FC;
-extern u8 D_800D2100;
 
 void func_15016850(void) {
     s32 i;
@@ -54,8 +53,6 @@ void func_15016850(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_43D00/func_150169A0.s")
 void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
-extern s8 D_8008FD8C;
-extern u8 D_800D2101;
 extern u8 *D_800D2108;
 typedef struct Game43D00Entry {
     s32 offset;

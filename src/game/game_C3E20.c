@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_C3E20.c
@@ -12,8 +13,6 @@
  */
 
 void func_100226F0(void *arg0, s32 arg1);
-extern u8 D_800D2DC0;
-extern s32 D_800D2DB4;
 
 void func_15096970(void) {
     func_100226F0(&D_800D2DC0, 0x6C);
@@ -79,10 +78,7 @@ typedef struct GameC3E20Packet {
 void func_1512D560(void *, s32, void *);
 extern u8 *D_800DBFF0;
 extern s32 D_800DC020;
-extern s32 D_800D2E30[];
-extern u8 D_800BE9A0;
 extern u8 D_800DBFF4[];
-extern f32 D_800D2DB8;
 extern GameC3E20Packet D_800C3600;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15096A68 CURRENT (4205) */
@@ -157,7 +153,6 @@ s32 func_15096A68(s32 arg0) {
 
 s32 func_15096A68(s32);                             /* extern */
 extern u8 D_800C35EA;
-extern u8 D_800D2DC0;
 
 void func_15096D08(void) {
     s32 i;
@@ -170,13 +165,8 @@ void func_15096D08(void) {
         }
     }
 }
-extern s32 D_80082FA0;
-extern s32 D_800D3840;
 extern s8 D_800C365C;
-extern s32 D_80089520;
-extern f32 D_800D2DB0;
 extern u8 D_800CC2D0[];
-extern s32 D_800DC310[][26];
 s32 func_15084000(s32);
 void func_151254F4(void *, s32);
 void func_15124770(void *, s32);
@@ -390,7 +380,6 @@ u8 *func_1505EEF4(s32);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 extern u8 *D_800DBFF0;
-extern s32 D_80082FA0;
 extern s32 D_800DC020;
 
 s32 func_1509759C(s32 arg0, s32 arg1, s32 *arg2) {
@@ -447,7 +436,6 @@ fail:
 
 void func_1504917C(void *, void *);
 extern u8 *D_800DBFF0;
-extern s32 D_800D2E30[];
 
 void func_15097798(s32 arg0) {
     GameC3E20View *view;

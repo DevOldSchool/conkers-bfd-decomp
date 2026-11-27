@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1C0B10.c
@@ -25,15 +26,6 @@ typedef struct Game193660Packet {
 } Game193660Packet;
 
 void func_15152520(s32 *, u8, s32);
-extern f32 D_800A81C0;
-extern f32 D_800A81C4;
-extern f32 D_800A81C8;
-extern f32 D_800A81CC;
-extern f32 D_800A81D0;
-extern f32 D_800A81D4;
-extern f32 D_800A81D8;
-extern f32 D_800A81DC;
-extern f32 D_800A81E0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15193660 CURRENT (1021) */
 void func_15193660(u8 *arg0, u8 arg1, s32 arg2) {
@@ -111,7 +103,6 @@ typedef struct {
 } Game1C0B10Packet;
 
 void *func_15134DAC();
-extern f32 D_800A81E4;
 
 void func_151937F4(void *arg0, s32 arg1, s32 arg2) {
     Game1C0B10Packet packet;
@@ -139,7 +130,6 @@ void func_151937F4(void *arg0, s32 arg1, s32 arg2) {
         func_15134DAC(&packet.id, 0, arg0);
     }
 }
-extern f32 D_800A81E8;
 
 s32 func_151938E4(u8 *arg0) {
     *(f32 *)(arg0 + 0x74) = D_800A81E8;
@@ -179,14 +169,6 @@ s32 func_15157898(s32, s32, s32, f32, s32, s32, s32, u8, s32);
 f32 func_150ADA68(void);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern f32 D_800A81EC;
-extern f32 D_800A81F0;
-extern f32 D_800A81F4;
-extern f32 D_800A81F8;
-extern f32 D_800A81FC;
-extern f32 D_800A8200;
-extern f32 D_800A8204;
-extern f32 D_800A8208;
 
 typedef struct Game1938FCEmitter {
     u8 pad00;

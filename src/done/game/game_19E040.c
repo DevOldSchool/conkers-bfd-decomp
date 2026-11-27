@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_19E040.c
@@ -24,7 +25,6 @@ s32 func_1518C900(s32);
 f32 fabsf(f32);
 #pragma intrinsic(fabsf)
 void func_151718F0(f32, f32, f32, f32, s32, f32, s32, s32, u8, s32);
-extern f32 D_800A6E90[][3];
 
 void func_15170B90(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
     f32 originX;
@@ -94,7 +94,6 @@ void func_15170B90(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
 
 
 void func_15170B90(s32, s32, s32, s32, u8, s32);
-extern s32 D_800BE9F0;
 
 void func_15170EC4(s32 arg0, u8 arg1, s32 arg2) {
     switch (D_800BE9F0) {

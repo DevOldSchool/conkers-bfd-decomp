@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_1DBD40.c
@@ -11,8 +12,6 @@ void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
                    f32, s32, s32, s32, s32, s32, s32);
 void func_151AE984(f32 *, f32, f32, f32, s32, s32);
 void func_151AEAB4(f32 *, s32, u8);
-extern f32 D_800A9D84;
-extern f32 D_800A9D88;
 
 void func_151AE890(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
                    f32 arg5, u8 *arg6) {
@@ -61,10 +60,6 @@ void func_151AE984(f32 *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4,
 }
 void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32,
                    f32, f32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A9D98;
-extern f32 D_800A9D9C;
-extern f32 D_800A9DA0;
-extern f32 D_800A9DA4;
 
 void func_151AEAB4(f32 *arg0, s32 arg1, u8 arg2) {
     u32 phase;

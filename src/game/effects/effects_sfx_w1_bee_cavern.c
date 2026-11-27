@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/effects_sfx_w1_bee_cavern.c
@@ -50,8 +51,6 @@ typedef struct {
 } BeeCavernPayload;
 
 f32 func_150ADA68(void);
-extern f32 D_800A0000, D_800A0004;
-extern s32 D_800BE9E4;
 
 void func_150BDF0C(u8 *arg0) {
     BeeCavernEffectPacket *state = (BeeCavernEffectPacket *)(arg0 + 0x28);
@@ -163,8 +162,6 @@ void func_150BE210(void *arg0) {
         }
     }
 }
-extern f32 D_800A0068;
-extern s32 D_800BE9E4;
 
 void func_150BE2E8(void *arg0) {
     f32 temp_fa0;
@@ -252,12 +249,6 @@ void func_1504715C(void *, void *);
 void func_1515080C(void *, s32 *, f32 *, s32, void *, s32, u8, u8, s8, void *, f32, u8, u8, u8, s32);
 void func_15152190(void *, void *, void *, u32, f32, u8, u8, s32);
 void func_15153F18(s16 *, void *, void *, s32, s32);
-extern s32 D_800A0010[], D_800A0060[];
-extern f32 D_800A0038[], D_800A0064[];
-extern f32 D_800A006C, D_800A0070, D_800A0074, D_800A0078;
-extern f32 D_800A007C, D_800A0080, D_800A0084, D_800A0088;
-extern f32 D_800A008C, D_800A0090, D_800A0094, D_800A0098;
-extern f32 D_800A009C, D_800A00A0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE494 CURRENT (3231) */
 void func_150BE494(void *arg0, u8 arg1, s32 arg2) {

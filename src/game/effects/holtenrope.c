@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/effects/holtenrope.c
@@ -47,8 +48,6 @@ typedef s32 (*HoltenRopeUpdateCallback)(HoltenRopeEffect *);
 
 void func_100226F0(void *, s32);
 void *func_10022EC0(void *, const void *, u32);
-extern f32 D_800AA390;
-extern s32 D_800BE9E4;
 extern HoltenRopeStateCallback D_8008FAF0[];
 extern HoltenRopeUpdateCallback D_8008FAF8[];
 
@@ -108,7 +107,6 @@ void func_151B3184(HoltenRopeEffect *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B32C8.s")
-extern void (*D_8008FB68[])(void *, s32, u8);
 
 void func_151B3A34(void *arg0, s32 arg1, u8 arg2) {
     void (*temp_v0)(void *, s32, u8);
@@ -203,7 +201,6 @@ s32 func_151B3CF0(HoltenRopeEffect *arg0) {
     }
     return 1;
 }
-extern f32 D_800AA3AC;
 
 s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {
     s32 result;
@@ -232,8 +229,6 @@ s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {
 }
 /* Call context: func_15047D60: unique active project prototype */
 s32 func_151B3A7C(u8 *);
-extern f32 D_800AA3B0;
-extern f32 D_800AA3B4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3FDC CURRENT (8437) */
 s32 func_151B3FDC(u8 *arg0) {
@@ -663,7 +658,6 @@ typedef struct {
 } HoltenRopeState;
 
 void func_151D5E30(void *, void *);
-extern void (*D_8008FB70[])(void *);
 
 void func_151B4C1C(u8 *arg0) {
     void (*temp_v0)(void *);

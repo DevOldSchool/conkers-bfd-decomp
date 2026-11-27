@@ -4,6 +4,7 @@
 #define F3DEX_GBI_2
 #endif
 #include <PR/mbi.h>
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_147C70.c
@@ -68,8 +69,6 @@ void func_1511490C(void *, void *);
 void func_1511A494(void *, void *, void *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-extern s32 D_800BE9E4;
-extern u8 D_800BE9C0;
 
 void func_1511A838(Game147C70State *arg0) {
     s32 i;

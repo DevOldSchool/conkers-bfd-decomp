@@ -1,12 +1,11 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_3FBD0.c
  * Boundary evidence: docs/evidence/boundaries/game/mapping/game_small_units_3D6F0_3FC30.md
  */
-
-extern s32 D_800BE9F0;
 
 s32 func_15012720(void) {
     switch (D_800BE9F0) {

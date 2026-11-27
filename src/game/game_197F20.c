@@ -1,6 +1,7 @@
 #include "types.h"
 #include "game_functions.h"
 #include "game_render_view.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_197F20.c
@@ -58,10 +59,7 @@ u8 *func_1516C878(void *arg0, s32 arg1, s16 arg2) {
 }
 void *func_150417AC(void *, f32, f32, void *, s32, s32, s32, s32, f32, f32, s32);
 void func_150428D4(void *, s32 *, s32 *, s32 *);
-extern u8 D_800859A0[];
-extern u8 D_800BE9C0;
 extern u8 *D_800BE9C8[];
-extern s32 D_800BEBA4;
 
 typedef struct {
     u8 pad0[0x10];
@@ -205,8 +203,6 @@ typedef struct Game197F20Heading {
 
 extern struct108 *D_800DBFF0;
 extern Game197F20Heading D_800CC310[];
-extern u16 D_8009055C[];
-extern u16 D_8009057C[];
 void func_1501A764(s16, f32, f32, f32, f32 *, f32 *, f32 *);
 void func_1516D0CC(Game197F20Camera *, f32 *, f32 *, f32 *);
 f32 func_15047C00(f32);
@@ -271,8 +267,6 @@ void func_1516CC58(Game197F20Camera *arg0) {
     arg0->screenX = (s32)(func_15047C00(arg0->angle + 3.1415927f) * (arg0->width * 0.5f) * 1.15f + arg0->x - offsetX);
     arg0->screenY = func_15047D60(arg0->angle + 3.1415927f) * (arg0->height * 0.5f) * 1.04f + arg0->y - offsetY;
 }
-extern u16 D_80090562;
-extern u16 D_80090582;
 
 void func_1516D0CC(Game197F20Camera *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     f32 top;

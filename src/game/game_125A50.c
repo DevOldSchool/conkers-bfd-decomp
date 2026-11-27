@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_125A50.c
@@ -56,10 +57,6 @@ typedef struct Game125A50Position {
 /* The raw callee consumes only a0-a2; incoming a3 is not saved before its call. */
 void func_15152B38(void *, u8, s32);
 s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-extern f32 D_800A1C60;
-extern f32 D_800A1C64;
-extern f32 D_800A1C68;
-extern f32 D_800A1C6C;
 
 void func_150F85A0(s32 arg0, Game125A50Position *arg1, s32 arg2) {
     Vec3f position;

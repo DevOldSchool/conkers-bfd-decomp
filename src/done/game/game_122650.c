@@ -1,5 +1,6 @@
 #include "types.h"
 #include "game_functions.h"
+#include "globals.h"
 
 /*
  * Reviewed source unit: src/game/game_122650.c
@@ -20,10 +21,7 @@ s32 func_150F51BC(void) {
 }
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
-extern u8 D_80088B44;
-extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
-extern s32 D_800CC454;
 
 void func_150F51E8(s32 arg0) {
     s32 state = D_800CC454 & 0x1F;
