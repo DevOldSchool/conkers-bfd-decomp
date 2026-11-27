@@ -146,7 +146,13 @@ rewritten to `u8`. Among equals it prefers the variant most units use. It
 rewrites the other units, compiles each of them in the toolchain container
 and keeps the global only when every retyped unit's code (with relocations),
 data, rodata and section sizes are identical. Globals that share a retyped
-unit are retried apart, and failures try the next candidate. A prior
+unit are retried apart, and failures try the next candidate. Only a compiler
+diagnostic or a changed object counts against a candidate. If the container
+cannot read a source (Docker Desktop bind mounts can briefly fail after a
+file is replaced), the compile is retried, and a persistent failure stops the
+run without deciding anything, so the result does not depend on the host.
+Sources are restored by rewriting them in place, and each compile first waits
+until the container sees the host's exact file contents. A prior
 `./conker game-build` supplies the GLOBAL_ASM inputs that game units need.
 What remains has no information-preserving candidate (a unit uses a private
 named type) or changes code under every candidate. It needs a reader's

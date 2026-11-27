@@ -14,6 +14,14 @@
 # Without --apply only the report is written (build/unify-<time>/passed).
 # With --apply the passing globals are written and every retyped unit is
 # checked again; then run ./conker hoist-externs --apply and the byte gates.
+#
+# The result must not depend on the host. Only a compiler diagnostic counts as
+# "this type does not work": an infrastructure failure (the container cannot
+# read a source, as Docker Desktop bind mounts can briefly do after a file is
+# replaced) is retried, and if it persists the run stops without deciding
+# anything. Sources are restored by rewriting them in place, never by
+# `git checkout`, and every compile waits until the container sees exactly the
+# host's file contents.
 set -euo pipefail
 
 apply=0
@@ -36,30 +44,80 @@ cc -std=c99 -D_POSIX_C_SOURCE=200809L -O2 -Wall -o "$out/hoist_externs" tools/ru
 "$out/rules_check" --list-globals > "$out/listing.tsv"
 
 # compile.sh DEST LIST: compile each unit and write a comparable listing of its
-# code, data and section sizes (debug sections excluded)
+# code, data and section sizes (debug sections excluded). A unit whose C does
+# not compile goes to DEST/failed; one the container could not read after
+# three attempts goes to DEST/infra.
 cat > "$out/compile.sh" <<'EOF'
 #!/bin/sh
 dest="$1"
 xargs -P 12 -n 1 sh -c '
     unit="$1"; base="$0/$unit"
     mkdir -p "$(dirname "$base")"
-    if python3 scripts/compile_c.py --profile us --output "$base.o" "$unit" > "$base.log" 2>&1; then
-        {
-            mips-linux-gnu-objdump -drz "$base.o" | tail -n +4
-            mips-linux-gnu-objdump -s -j .data -j .rodata -j .sdata -j .rdata -j .sbss -j .bss "$base.o" 2>/dev/null | tail -n +4
-            mips-linux-gnu-objdump -h "$base.o" | awk "/^ *[0-9]+ /{print \$2, \$3}" | grep -v -E "mdebug|comment|gptab|reginfo|options|pdr|note"
-        } > "$base.dis"
-    else
-        echo "$unit" >> "$0/failed"
-    fi
+    attempt=1
+    while :; do
+        if python3 scripts/compile_c.py --profile us --output "$base.o" "$unit" > "$base.log" 2>&1; then
+            {
+                mips-linux-gnu-objdump -drz "$base.o" | tail -n +4
+                mips-linux-gnu-objdump -s -j .data -j .rodata -j .sdata -j .rdata -j .sbss -j .bss "$base.o" 2>/dev/null | tail -n +4
+                mips-linux-gnu-objdump -h "$base.o" | awk "/^ *[0-9]+ /{print \$2, \$3}" | grep -v -E "mdebug|comment|gptab|reginfo|options|pdr|note"
+            } > "$base.dis"
+            break
+        fi
+        if ! grep -q -E "FileNotFoundError|No such file or directory|Stale file handle|Input/output error|Permission denied" "$base.log"; then
+            echo "$unit" >> "$0/failed"         # a compiler diagnostic: this C does not compile
+            break
+        fi
+        if [ "$attempt" -ge 3 ]; then
+            echo "$unit" >> "$0/infra"          # the container could not read the unit
+            break
+        fi
+        attempt=$((attempt + 1))
+        sleep 1
+    done
 ' "$dest"
 EOF
 chmod +x "$out/compile.sh"
 
+# visible LISTFILE: wait until the container reads exactly the host's contents
+visible() {
+    local tries=0
+    [[ -s "$1" ]] || return 0
+    xargs cksum < "$1" > "$out/host.cksum"
+    while :; do
+        docker exec -i -w /workspace "$container" sh -c 'xargs cksum' < "$1" > "$out/container.cksum" 2>/dev/null || true
+        cmp -s "$out/host.cksum" "$out/container.cksum" && return 0
+        tries=$((tries + 1))
+        if [[ "$tries" -ge 40 ]]; then
+            echo "the container does not see the host's sources after 20 s; nothing decided" >&2
+            diff "$out/host.cksum" "$out/container.cksum" >&2 || true
+            restore
+            exit 1
+        fi
+        sleep 0.5
+    done
+}
+
 compile() {   # compile DEST LISTFILE
     mkdir -p "$1"
     : > "$1/failed"
+    : > "$1/infra"
+    visible "$2"
     docker exec -i -w /workspace "$container" sh "$out/compile.sh" "$1" < "$2"
+    if [[ -s "$1/infra" ]]; then
+        echo "the container could not read $(wc -l < "$1/infra") units (see $1/infra and their .log files); nothing decided" >&2
+        restore
+        exit 1
+    fi
+}
+
+# restore: put src/ back as committed, rewriting files in place (no unlink)
+restore() {
+    local file
+
+    git diff --name-only -- src | while read -r file; do
+        git cat-file --filters "HEAD:$file" > "$file"
+    done
+    git diff --quiet -- src || { echo "could not restore src/" >&2; exit 1; }
 }
 
 identical() {  # identical DEST UNIT -> 0 when the unit compiled to the baseline listing
@@ -83,7 +141,7 @@ trial() {
         | awk -F'\t' '$1=="U"' > "$3.plan"
     cut -f2 "$3.plan" | sort -u > "$3.units"
     compile "$3" "$3.units"
-    git checkout -q -- src
+    restore
 }
 
 # judge DEST: print "pass NAME" or "fail NAME" or "ambiguous NAME" per global in DEST.plan
@@ -164,7 +222,7 @@ if [[ "$apply" == 1 && -s "$out/passed" ]]; then
         identical "$out/final" "$unit" || { echo "differs: $unit" >&2; differs=1; }
     done < "$out/final.units"
     if [[ "$differs" == 1 ]]; then
-        git checkout -q -- src
+        restore
         echo "the combined retypes changed object code; nothing applied" >&2
         exit 1
     fi
