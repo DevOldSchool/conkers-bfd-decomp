@@ -378,8 +378,6 @@ s32 func_150D0534(u8 * volatile arg0) {
  */
 s32 func_150D01A0(u8 *);
 s32 func_150D0534(u8 *);
-s32 func_151D7000(u8 *);
-void func_151D70CC(void *, s32, u8);
 
 GameFD1D0EntryCallback D_800888A0[] = {
     (GameFD1D0EntryCallback)func_150D01A0,

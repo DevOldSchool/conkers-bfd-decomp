@@ -2857,16 +2857,16 @@ s32 func_1519C910(CharacterFlamethrowerActor *arg0) {
     }
     return 1;
 }
-s32 func_1519C948(s32 arg0) {
-    func_1519CDB0((CharacterFlamethrowerActor *)arg0, 0.25f, 0x1C);
+s32 func_1519C948(CharacterFlamethrowerActor *arg0) {
+    func_1519CDB0(arg0, 0.25f, 0x1C);
     return 0;
 }
-s32 func_1519C970(s32 arg0) {
-    func_1519CDB0((CharacterFlamethrowerActor *)arg0, 0.5f, 0x1D);
+s32 func_1519C970(CharacterFlamethrowerActor *arg0) {
+    func_1519CDB0(arg0, 0.5f, 0x1D);
     return 0;
 }
-s32 func_1519C998(s32 arg0) {
-    func_1519CDB0((CharacterFlamethrowerActor *)arg0, 0.2f, 0x1D);
+s32 func_1519C998(CharacterFlamethrowerActor *arg0) {
+    func_1519CDB0(arg0, 0.2f, 0x1D);
     return 0;
 }
 typedef union {
@@ -3188,7 +3188,7 @@ void (*D_8008F898[])(void *) = { (void (*)(void *))func_15198D40 };
 void (*D_8008F89C[])(CharacterFlamethrowerActor *) = { (void (*)(CharacterFlamethrowerActor *))func_15198D7C };
 CharacterFlamethrowerGroups D_8008F8A0 = { { 21, 22, 23 } };
 void (*D_8008F8A4[])(void *) = { (void (*)(void *))func_1519BEB8 };
-s32 (*D_8008F8A8[])(s32) = { func_1519C948, func_1519C970, func_1519C998 };
+s32 (*D_8008F8A8[])(CharacterFlamethrowerActor *) = { func_1519C948, func_1519C970, func_1519C998 };
 void (*D_8008F8B4[])(void *) = { (void (*)(void *))func_1519BF20 };
 s16 (*D_8008F8B8[])(void) = { (s16 (*)(void))func_1519BF8C };
 void (*D_8008F8BC[])(CharacterFlamethrowerActor *) = { func_1519BFBC };

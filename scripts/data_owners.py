@@ -15,8 +15,18 @@ choice:
   the next unit's first referenced address; and
 - every referenced address in the extent is referenced only by this unit.
 
-Reported extents still need review: the objects, their types and any
-unreferenced bytes inside the extent come from reading the unit's code.
+References are %lo operands of D_<address> and jtbl_<address>_game symbols,
+plus raw `lui $r, (0xHHHH0000 >> 16)` bases used by a later `offset($r)`
+before any label. The .data sweep ends where the last .data placement below
+the first .rodata placement ends.
+
+A fixed extent is `placed` when existing placements cover exactly its bounds,
+`misplaced` when they overlap it otherwise, and `ready` when none overlaps.
+
+Reported extents still need review. References from data pointers or from
+other overlays are not seen, so a `ready` extent can still be shared; the
+objects, their types and any unreferenced bytes inside the extent come from
+reading the unit's code.
 """
 
 from __future__ import annotations
@@ -35,10 +45,16 @@ import project_state
 ROOT = Path(__file__).resolve().parent.parent
 ASM_DIR = ROOT / "reference/game/us/asm"
 GAME_DATA_START, GAME_DATA_END = 0x80082B20, 0x800B0DC0
-# .data occupies the image below this address and .rodata above it.
-RODATA_SWEEP_START = 0x80092000
 PLACEMENT_SCRIPTS = ("config/game/us-rodata.ld", "config/game/us-sdk.ld")
-REFERENCE = re.compile(r"%lo\(D_([0-9A-F]{8})(?: \+ 0x([0-9A-F]+))?\)")
+# %lo operands of address-named symbols: D_<address> and jtbl_<address>_game.
+REFERENCE = re.compile(r"%lo\((?:D_([0-9A-F]{8})|jtbl_([0-9A-F]{8})_game)(?: \+ 0x([0-9A-F]+))?\)")
+# A raw upper half, used by a later load, store or addiu as `offset($reg)`.
+# Delay-slot instructions carry one extra leading space.
+INSTRUCTION = re.compile(r"\*/  ( ?)([a-z0-9.]+)(?:\s+(.*))?$")
+RAW_BASE = re.compile(r"(\$\w+), \((0x[0-9A-F]{4}0000) >> 16\)$")
+OFFSET_USE = re.compile(r"(-?0x[0-9A-F]+|\d+)\((\$\w+)\)$|^\$\w+, (\$\w+), (-?0x[0-9A-F]+|\d+)$")
+STORES = {"sb", "sh", "sw", "swl", "swr", "swc1", "sdc1"}
+RAW_BASE_WINDOW = 16
 
 
 @dataclass
@@ -49,15 +65,49 @@ class Extent:
     start: int | None
     end: int | None
     exclusive: bool
-    split: bool
 
     @property
     def fixed(self) -> bool:
-        return self.start is not None and self.end is not None and self.exclusive and not self.split
+        return self.start is not None and self.end is not None and self.exclusive
 
 
 def align16(value: int) -> int:
     return (value + 15) & ~15
+
+
+def raw_base_references(lines: list[str]) -> list[int]:
+    """Addresses formed from `lui $r, (0xHHHH0000 >> 16)` and a later `offset($r)`.
+
+    The base stays live until an instruction writes $r, except in the delay
+    slot of a branch-likely, which runs only when the branch is taken.
+    """
+    parsed = [INSTRUCTION.search(line) for line in lines]
+    addresses = []
+    for index, match in enumerate(parsed):
+        if match is None or match[2] != "lui":
+            continue
+        base = RAW_BASE.search(match[3] or "")
+        if base is None:
+            continue
+        register, high = base[1], int(base[2], 16)
+        for offset in range(index + 1, min(index + 1 + RAW_BASE_WINDOW, len(parsed))):
+            current = parsed[offset]
+            if current is None:
+                break
+            operation, operands = current[2], (current[3] or "").strip()
+            use = OFFSET_USE.search(operands)
+            if use and use[3] and operation != "addiu":
+                use = None
+            if use and (use[2] or use[3]) == register:
+                addresses.append(high + int(use[1] or use[4], 0))
+            previous = parsed[offset - 1]
+            likely_slot = (current[1] and previous is not None and previous[2].startswith("b")
+                           and previous[2].endswith("l"))
+            writes = operands.split(",")[0].strip() == register and operation not in STORES \
+                and not operation.startswith("b")
+            if writes and not likely_slot:
+                break
+    return addresses
 
 
 def references(asm_dir: Path = ASM_DIR) -> dict[int, set[int]]:
@@ -65,11 +115,23 @@ def references(asm_dir: Path = ASM_DIR) -> dict[int, set[int]]:
     result: dict[int, set[int]] = {}
     for path in asm_dir.glob("*.s"):
         unit = int(path.stem, 16)
-        for match in REFERENCE.finditer(path.read_text()):
-            address = int(match[1], 16) + int(match[2] or "0", 16)
+        text = path.read_text()
+        addresses = [int(match[1] or match[2], 16) + int(match[3] or "0", 16)
+                     for match in REFERENCE.finditer(text)]
+        addresses += raw_base_references(text.splitlines())
+        for address in addresses:
             if GAME_DATA_START <= address < GAME_DATA_END:
                 result.setdefault(address, set()).add(unit)
     return result
+
+
+def rodata_sweep_start(root: Path = ROOT) -> int:
+    """End of the .data sweep: the last .data placement below the first .rodata placement."""
+    mappings = [mapping for path in PLACEMENT_SCRIPTS
+                for mapping in data_boundaries.external_mappings((root / path).read_text(), path)]
+    first_rodata = min(m["start"] for m in mappings if m["input"].startswith(".rodata"))
+    return max(m["start"] + m["emitted_size"] for m in mappings
+               if m["input"] == ".data" and m["start"] < first_rodata)
 
 
 def owner_chain(refs: dict[int, set[int]], addresses: list[int]) -> dict[int, int]:
@@ -100,9 +162,13 @@ def owner_chain(refs: dict[int, set[int]], addresses: list[int]) -> dict[int, in
     return owners
 
 
-def data_extents(refs: dict[int, set[int]]) -> list[Extent]:
-    """Group the .data sweep by owning unit and decide which extents are fixed."""
-    addresses = sorted(a for a in refs if a < RODATA_SWEEP_START)
+def data_extents(refs: dict[int, set[int]], rodata_start: int) -> list[Extent]:
+    """Group the .data sweep (below rodata_start) by owning unit and decide which extents are fixed.
+
+    The chain is non-decreasing in address order, so each unit's chained
+    addresses form one contiguous group.
+    """
+    addresses = sorted(a for a in refs if a < rodata_start)
     owners = owner_chain(refs, addresses)
     ordered = sorted(owners)
     groups: list[list[int]] = []  # [unit, first, last]
@@ -112,9 +178,6 @@ def data_extents(refs: dict[int, set[int]]) -> list[Extent]:
             groups[-1][2] = address
         else:
             groups.append([unit, address, address])
-    seen: dict[int, int] = {}
-    for unit, _, _ in groups:
-        seen[unit] = seen.get(unit, 0) + 1
     extents = []
     for index, (unit, first, last) in enumerate(groups):
         previous_last = groups[index - 1][2] if index else None
@@ -123,7 +186,7 @@ def data_extents(refs: dict[int, set[int]]) -> list[Extent]:
         end = following if following is not None and align16(last + 1) == following else None
         bound = following if following is not None else last + 1
         exclusive = all(refs[a] == {unit} for a in addresses if first <= a < bound)
-        extents.append(Extent(unit, first, last, start, end, exclusive, seen[unit] > 1))
+        extents.append(Extent(unit, first, last, start, end, exclusive))
     return extents
 
 
@@ -135,35 +198,47 @@ def placed_ranges(root: Path = ROOT) -> list[tuple[int, int, str]]:
     return sorted(ranges)
 
 
+def status(extent: Extent, placed: list[tuple[int, int, str]]) -> tuple[str, list[str]]:
+    """Classify an extent; `placed` only when placements tile exactly its fixed bounds."""
+    low = extent.start if extent.start is not None else extent.first
+    high = extent.end if extent.end is not None else extent.last + 1
+    overlapping = [(start, end, output) for start, end, output in placed if start < high and end > low]
+    names = [output for _, _, output in overlapping]
+    if not extent.exclusive:
+        return "shared", names
+    if extent.start is None:
+        return "start-ambiguous", names
+    if extent.end is None:
+        return "end-ambiguous", names
+    if not overlapping:
+        return "ready", names
+    cursor = low
+    for start, end, _ in overlapping:
+        if start != cursor:
+            return "misplaced", names
+        cursor = end
+    return ("placed" if cursor == high else "misplaced"), names
+
+
 def report(root: Path = ROOT) -> list[dict]:
     units = {offset: name for offset, kind, name in project_state.mapped_subsegments("us", "game")
              if kind == "c" and name}
     placed = placed_ranges(root)
     rows = []
-    for extent in data_extents(references(root / "reference/game/us/asm")):
+    extents = data_extents(references(root / "reference/game/us/asm"), rodata_sweep_start(root))
+    for extent in extents:
         name = units.get(extent.unit)
         if name is None:
             continue
-        low = extent.start if extent.start is not None else extent.first
-        high = extent.end if extent.end is not None else extent.last + 1
-        overlapping = [output for start, end, output in placed if start < high and end > low]
-        if extent.split:
-            status = "split"
-        elif not extent.exclusive:
-            status = "shared"
-        elif extent.start is None:
-            status = "start-ambiguous"
-        elif extent.end is None:
-            status = "end-ambiguous"
-        elif overlapping:
-            status = "placed"
-        else:
-            status = "ready"
+        state, placements = status(extent, placed)
         rows.append({
             "unit": name.rsplit("/", 1)[-1], "source": f"src/{name}.c",
-            "matched": name.startswith("done/"), "status": status,
-            "start": f"0x{low:08X}", "end": f"0x{high:08X}", "size": high - low,
-            "placements": overlapping,
+            "matched": name.startswith("done/"), "status": state,
+            # Bounds are null unless the alignment rule fixes them.
+            "start": None if extent.start is None else f"0x{extent.start:08X}",
+            "end": None if extent.end is None else f"0x{extent.end:08X}",
+            "first_reference": f"0x{extent.first:08X}", "last_reference": f"0x{extent.last:08X}",
+            "placements": placements,
         })
     return rows
 
@@ -171,8 +246,8 @@ def report(root: Path = ROOT) -> list[dict]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--status", action="append",
-                        help="only rows with this status (ready, placed, start-ambiguous, "
-                             "end-ambiguous, shared, split); repeatable")
+                        help="only rows with this status (ready, placed, misplaced, "
+                             "start-ambiguous, end-ambiguous, shared); repeatable")
     parser.add_argument("--matched", action="store_true", help="only fully matched units")
     parser.add_argument("--json", action="store_true")
     arguments = parser.parse_args()
@@ -188,8 +263,10 @@ def main() -> int:
     if arguments.json:
         print(json.dumps(rows, indent=2))
         return 0
+    print("status           start      end        references             unit")
     for row in rows:
-        print(f"{row['status']:16s} {row['start']}-{row['end']} {row['size']:#7x} "
+        print(f"{row['status']:16s} {row['start'] or '?':10s} {row['end'] or '?':10s} "
+              f"{row['first_reference']}-{row['last_reference']} "
               f"{'matched' if row['matched'] else 'partial':8s} {row['source']}")
     counts: dict[str, int] = {}
     for row in rows:

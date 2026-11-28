@@ -795,10 +795,6 @@ void func_1515FC60(u8 *arg0, u8 *arg1) {
  * Evidence: docs/evidence/data-layout/game_unit_data.md
  */
 void func_1515FB70(void *, void *);
-void func_150AF2E0(void *, void *);
-void func_151A6B68(void *, s32);
-void func_150F884C(s32, s32);
-void func_150F51A0(s32, s32);
 
 void (*D_8008B090[])(void *, void *) = {
     (void (*)(void *, void *))func_1515F2B8,

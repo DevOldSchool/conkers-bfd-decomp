@@ -29,37 +29,37 @@ Bytes between the last object and the end are zero (object alignment).
 | --- | --- | --- | --- |
 | `game_35D20` | `0x80082BD0`-`0x80082BE0` | 8 | two `func_150089D0` callbacks |
 | `game_42DD0` | `0x80082F80`-`0x80082F90` | 8 | one ROM range |
+| `game_90840` (partial) | `0x80086100`-`0x80086110` | 8 | `s32[2]` `{57, 53}`: the initializer of a local array in `func_15065A5C` |
+| `game_E3C90` (partial) | `0x80088710`-`0x80088720` | 4 | `s32` 999 |
+| `game_F2820` (partial) | `0x80088760`-`0x800887D0` | 112 | callback tables and two unreferenced display lists |
 | `game_F3270` | `0x800887D0`-`0x800887E0` | 12 | zero vector |
 | `game_F52B0` | `0x80088800`-`0x80088810` | 4 | zero word |
 | `game_F5800` | `0x80088810`-`0x80088820` | 8 | pointer pair into `0x80090230` |
+| `game_F5D80` (partial) | `0x80088820`-`0x80088870` | 72 | count/pointer pair, two unreferenced display lists, callback tables |
+| `game_FD1D0` (partial) | `0x800888A0`-`0x800888C0` | 24 | entry and per-state callback tables |
 | `game_108320` | `0x80088910`-`0x80088950` | 60 | one-entry beam parameter tables |
 | `game_10B7D0` | `0x80088950`-`0x80088960` | 16 | two 8-byte lookups |
+| `game_1136E0` (partial) | `0x80088A10`-`0x80088A20` | 4 | callback table |
 | `game_115D70` | `0x80088A80`-`0x80088A90` | 8 | pair `{25, 72}` |
 | `game_118670` | `0x80088A90`-`0x80088AA0` | 4 | zero flag |
 | `game_126BD0` | `0x80088B50`-`0x80088B60` | 1 (4 word-rounded) | `u8` 23 |
 | `game_12BD10` | `0x80088BA0`-`0x80088BB0` | 1 (4) | `u8` 9 |
 | `game_12D7F0` | `0x80088BC0`-`0x80088BD0` | 5 (8) | five-byte copy source |
+| `game_1570E0` (partial) | `0x80089560`-`0x80089590` | 48 | three zero `f32[4]` |
 | `game_1861B0` | `0x8008AFD0`-`0x8008B040` | 112 | 23-entry callback table, five rule pointers |
+| `game_18A8F0` (partial) | `0x8008B090`-`0x8008B0D0` | 60 | 12-entry and 3-entry callback tables |
 | `effects/colourframebuffer` | `0x8008B0D0`-`0x8008B0F0` | 32 | three callback tables |
+| `game_1B5CC0` (partial) | `0x8008D580`-`0x8008D5A0` | 24 | three two-entry callback tables |
+| `game_1B74A0` (partial) | `0x8008D5A0`-`0x8008D5B0` | 16 | four-entry callback table |
 | `game_1B7870` | `0x8008D5B0`-`0x8008D5C0` | 16 | two index pairs |
 | `game_1B7EC0` | `0x8008D5C0`-`0x8008D5D0` | 12 | callback table |
 | `game_1B9F30` | `0x8008D5D0`-`0x8008D5E0` | 8 | callback table |
-| `game_1FFF60` | `0x8008FC40`-`0x8008FC70` | 44 | eight callback tables |
-| `game_E3C90` (partial) | `0x80088710`-`0x80088720` | 4 | `s32` 999 |
-| `game_FD1D0` (partial) | `0x800888A0`-`0x800888C0` | 24 | entry and per-state callback tables |
-| `game_1136E0` (partial) | `0x80088A10`-`0x80088A20` | 4 | callback table |
-| `game_1B5CC0` (partial) | `0x8008D580`-`0x8008D5A0` | 24 | three two-entry callback tables |
-| `game_1B74A0` (partial) | `0x8008D5A0`-`0x8008D5B0` | 16 | four-entry callback table |
+| `effects/characterflamethrower` (partial) | `0x8008F870`-`0x8008F8D0` | 88 | 15 callback tables and a three-id group |
 | `game_1CDEC0` (partial) | `0x8008F8D0`-`0x8008F8E0` | 2 (4) | `u8[2]` `{0x80, 0x80}` |
+| `game_1E26F0` | `0x8008FB80`-`0x8008FB90` | 5 (8) | two `u8` 1, each 4-byte aligned by IDO |
 | `game_1E37D0` (partial) | `0x8008FB90`-`0x8008FBA0` | 12 | two callback tables |
 | `game_1FC830` (partial) | `0x8008FC30`-`0x8008FC40` | 12 | position callback table |
-| `game_90840` (partial) | `0x80086100`-`0x80086110` | 8 | `s32[2]` `{57, 53}`, copied as a pair |
-| `game_F2820` (partial) | `0x80088760`-`0x800887D0` | 112 | callback tables and two unreferenced display lists |
-| `game_F5D80` (partial) | `0x80088820`-`0x80088870` | 72 | count/pointer pair, two unreferenced display lists, callback tables |
-| `game_1570E0` (partial) | `0x80089560`-`0x80089590` | 48 | three zero `f32[4]` |
-| `game_18A8F0` (partial) | `0x8008B090`-`0x8008B0D0` | 60 | 12-entry and 3-entry callback tables |
-| `effects/characterflamethrower` (partial) | `0x8008F870`-`0x8008F8D0` | 88 | 15 callback tables and a three-id group |
-| `game_1E26F0` | `0x8008FB80`-`0x8008FB90` | 5 (8) | two `u8` 1, each 4-byte aligned by IDO |
+| `game_1FFF60` | `0x8008FC40`-`0x8008FC70` | 44 | eight callback tables |
 
 `game_1861B0` does not meet the end rule on references alone: its last
 referenced address is `0x8008B02C`. The five-entry table there points at the

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "game_functions.h"
 
 /*
  * Reviewed source unit: src/game/game_1B74A0.c
@@ -181,8 +182,6 @@ void func_1518A360(u8 *arg0, u8 *arg1, u8 arg2) {
  * This unit's complete .data section, 0x8008D5A0-0x8008D5B0.
  * Evidence: docs/evidence/data-layout/game_unit_data.md
  */
-s32 func_151C9B64(void *, s8 *);
-
 Game18A094Callback D_8008D5A0[] = {
     (Game18A094Callback)func_1518A214,
     (Game18A094Callback)func_1518A2E8,
