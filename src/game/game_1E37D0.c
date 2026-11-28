@@ -1039,3 +1039,13 @@ void func_151B8318(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008FB90-0x8008FB9C plus end-of-object padding to 0x8008FBA0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+s32 (*D_8008FB90[])(Game1E37D0RingObject *, Vec3f *) = {
+    (s32 (*)(Game1E37D0RingObject *, Vec3f *))func_151B7678,
+    (s32 (*)(Game1E37D0RingObject *, Vec3f *))func_151B76CC,
+};
+void (*D_8008FB98[])(void *, s32, u8) = { (void (*)(void *, s32, u8))func_151B8318 };

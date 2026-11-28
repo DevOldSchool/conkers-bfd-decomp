@@ -520,3 +520,13 @@ void func_151D1448(u8 *arg0) {
         *(u8 **)(link + 8) = result;
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008FC30-0x8008FC3C plus end-of-object padding to 0x8008FC40.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+Game1FC830PositionCallback D_8008FC30[] = {
+    (Game1FC830PositionCallback)func_151D1074,
+    (Game1FC830PositionCallback)func_151D10A4,
+    (Game1FC830PositionCallback)func_151D10C4,
+};

@@ -372,6 +372,36 @@
         }
       },
       {
+        "address": "0x80086100",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_90840.c",
+            "src/done/game/game_90840.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088710",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_E3C90.c",
+            "src/done/game/game_E3C90.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088760",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_F2820.c",
+            "src/done/game/game_F2820.c"
+          ]
+        }
+      },
+      {
         "address": "0x800887D0",
         "section": ".data",
         "owner": {
@@ -402,6 +432,26 @@
         }
       },
       {
+        "address": "0x80088820",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_F5D80.c",
+            "src/done/game/game_F5D80.c"
+          ]
+        }
+      },
+      {
+        "address": "0x800888A0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_FD1D0.c",
+            "src/done/game/game_FD1D0.c"
+          ]
+        }
+      },
+      {
         "address": "0x80088910",
         "section": ".data",
         "owner": {
@@ -418,6 +468,16 @@
           "sources": [
             "src/game/game_10B7D0.c",
             "src/done/game/game_10B7D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x80088A10",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1136E0.c",
+            "src/done/game/game_1136E0.c"
           ]
         }
       },
@@ -472,6 +532,16 @@
         }
       },
       {
+        "address": "0x80089560",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1570E0.c",
+            "src/done/game/game_1570E0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8008ADD0",
         "section": ".data",
         "owner": {
@@ -492,12 +562,42 @@
         }
       },
       {
+        "address": "0x8008B090",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_18A8F0.c",
+            "src/done/game/game_18A8F0.c"
+          ]
+        }
+      },
+      {
         "address": "0x8008B0D0",
         "section": ".data",
         "owner": {
           "sources": [
             "src/game/effects/colourframebuffer.c",
             "src/done/game/effects/colourframebuffer.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D580",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1B5CC0.c",
+            "src/done/game/game_1B5CC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008D5A0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1B74A0.c",
+            "src/done/game/game_1B74A0.c"
           ]
         }
       },
@@ -528,6 +628,56 @@
           "sources": [
             "src/game/game_1B9F30.c",
             "src/done/game/game_1B9F30.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F870",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/effects/characterflamethrower.c",
+            "src/done/game/effects/characterflamethrower.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008F8D0",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1CDEC0.c",
+            "src/done/game/game_1CDEC0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008FB80",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1E26F0.c",
+            "src/done/game/game_1E26F0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008FB90",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1E37D0.c",
+            "src/done/game/game_1E37D0.c"
+          ]
+        }
+      },
+      {
+        "address": "0x8008FC30",
+        "section": ".data",
+        "owner": {
+          "sources": [
+            "src/game/game_1FC830.c",
+            "src/done/game/game_1FC830.c"
           ]
         }
       },

@@ -248,3 +248,10 @@ void func_151B5A9C(u8 *arg0, void *arg1, u8 arg2) {
         }
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008FB80-0x8008FB85 plus end-of-object padding to 0x8008FB90.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+u8 D_8008FB80 = 1;
+u8 D_8008FB84 = 1;

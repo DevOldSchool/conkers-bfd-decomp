@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 #include "game_view.h"
 
@@ -639,3 +643,36 @@ s32 func_150CB008(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x28) += *(f32 *)((u8 *)arg0 + 0x58) * *rate;
     return 1;
 }
+
+/*
+ * This unit's complete .data section, 0x80088820-0x80088868 plus end-of-object padding to 0x80088870.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+typedef struct GameF5D80List {
+    s32 count;
+    void *items;
+} GameF5D80List;
+
+extern Mtx D_80089470;
+extern u8 D_800A0500[];
+
+GameF5D80List D_80088820 = { 5, D_800A0500 };
+
+Gfx D_80088828[] = {
+    gsDPPipeSync(),
+    gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH),
+    gsSPTexture(32768, 32768, 0, 0, 1),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_80088848[] = {
+    gsSPTexture(0, 0, 0, 0, 0),
+    gsSPEndDisplayList(),
+};
+
+void (*D_80088858[])(void *, f32 *, s32, f32, f32) = {
+    (void (*)(void *, f32 *, s32, f32, f32))func_150C99B4,
+    (void (*)(void *, f32 *, s32, f32, f32))func_150C9DC4,
+};
+s32 (*D_80088860[])(void *) = { NULL };
+void (*D_80088864[])(void *, f32) = { (void (*)(void *, f32))func_150C9BDC };

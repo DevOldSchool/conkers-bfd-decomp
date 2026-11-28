@@ -290,3 +290,11 @@ void func_151E6C1C(u8 arg0, void *arg1);
 void func_1512A360(void *arg0) {
     func_151E6C1C(*(u8 *)((u8 *)arg0 + 0x23D), arg0);
 }
+
+/*
+ * This unit's complete .data section, 0x80089560-0x80089590.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+f32 D_80089560[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+f32 D_80089570[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+f32 D_80089580[] = { 0.0f, 0.0f, 0.0f, 0.0f };

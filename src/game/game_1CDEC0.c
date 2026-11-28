@@ -175,3 +175,9 @@ s32 func_151A0C0C(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A0C0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CDEC0/func_151A0C0C.s")
+
+/*
+ * This unit's complete .data section, 0x8008F8D0-0x8008F8D2 plus end-of-object padding to 0x8008F8E0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+u8 D_8008F8D0[] = { 0x80, 0x80 };

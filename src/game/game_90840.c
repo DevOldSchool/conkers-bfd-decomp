@@ -913,3 +913,12 @@ s32 func_15064B94(u8 *arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4) {
     return anim;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15065A5C.s")
+
+/*
+ * This unit's complete .data section, 0x80086100-0x80086108 plus end-of-object padding to 0x80086110.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ * func_15065A5C copies both words to its frame and reads one byte by index,
+ * the code IDO emits for a local `s32 x[2] = { 57, 53 };`. Matching that
+ * function in C moves this initializer into it and removes this definition.
+ */
+s32 D_80086100[] = { 57, 53 };

@@ -477,3 +477,24 @@ void func_151898C0(s32 arg0, s32 arg1) {
         }
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008D580-0x8008D598 plus end-of-object padding to 0x8008D5A0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+void func_15188F84(u8 *);
+s32 func_151895F4(s32, u8 *, s16);
+s32 func_151897A4(s32, u8 *, s16);
+
+void (*D_8008D580[])(Game1B5CC0Item *) = {
+    (void (*)(Game1B5CC0Item *))func_15188E48,
+    (void (*)(Game1B5CC0Item *))func_15188F84,
+};
+void (*D_8008D588[])(Game1B5CC0Item *) = {
+    (void (*)(Game1B5CC0Item *))func_151895A4,
+    (void (*)(Game1B5CC0Item *))func_151895CC,
+};
+void *(*D_8008D590[])(void *, void *, s16) = {
+    (void *(*)(void *, void *, s16))func_151895F4,
+    (void *(*)(void *, void *, s16))func_151897A4,
+};

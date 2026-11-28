@@ -789,3 +789,29 @@ void func_1515FC60(u8 *arg0, u8 *arg1) {
         func_1507CD64(arg0, 6);
     }
 }
+
+/*
+ * This unit's complete .data section, 0x8008B090-0x8008B0CC plus end-of-object padding to 0x8008B0D0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+void func_1515FB70(void *, void *);
+
+void (*D_8008B090[])(void *, void *) = {
+    (void (*)(void *, void *))func_1515F2B8,
+    (void (*)(void *, void *))func_1515F2E8,
+    func_1515FB70,
+    func_150AF2E0,
+    (void (*)(void *, void *))func_151A6B68,
+    (void (*)(void *, void *))func_1515FB94,
+    (void (*)(void *, void *))func_1515FC60,
+    (void (*)(void *, void *))func_1515FC34,
+    (void (*)(void *, void *))func_1515FBC4,
+    (void (*)(void *, void *))func_150F884C,
+    NULL,
+    (void (*)(void *, void *))func_150F51A0,
+};
+void (*D_8008B0C0[])(void) = {
+    (void (*)(void))func_1515F338,
+    (void (*)(void))func_1515F5C4,
+    (void (*)(void))func_1515F850,
+};

@@ -1,4 +1,8 @@
 #include "types.h"
+#ifndef F3DEX_GBI_2
+#define F3DEX_GBI_2
+#endif
+#include <PR/mbi.h>
 #include "game_functions.h"
 #include "game_vec.h"
 
@@ -210,3 +214,34 @@ void func_150C5D0C(void *arg0, void *arg1, u8 arg2) {
         }
     }
 }
+
+/*
+ * This unit's complete .data section, 0x80088760-0x800887D0.
+ * Evidence: docs/evidence/data-layout/game_unit_data.md
+ */
+extern Mtx D_80089470;
+
+s32 (*D_80088760[])(u8 *) = {
+    (s32 (*)(u8 *))func_150C5B88,
+    (s32 (*)(u8 *))func_150C5BD4,
+};
+
+Gfx D_80088768[] = {
+    gsDPPipeSync(),
+    gsSPMatrix(&D_80089470, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH),
+    gsSPTexture(32768, 32768, 0, 0, 1),
+    gsDPSetConvert(0, 0, 0, 0, 0, 255),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_80088790[] = {
+    gsDPPipeSync(),
+    gsSPTexture(0, 0, 0, 0, 0),
+    gsDPPipeSync(),
+    gsDPSetConvert(175, -33, 7, 222, 114, 42),
+    gsSPEndDisplayList(),
+};
+
+void (*D_800887B8[])(void *) = { func_150C5430, func_150C5510 };
+void (*D_800887C0[])(void *) = { func_150C5450, func_150C553C };
+void (*D_800887C8[])(void *, void *, u8) = { NULL, func_150C5D0C };

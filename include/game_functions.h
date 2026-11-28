@@ -11,6 +11,7 @@ struct Game13AAE0ValueList;
 struct CameraCameraTarget;
 struct CameraCameraTargetState;
 struct Game1D9F10Record;
+struct Game1D3FC0Actor;
 struct EffectsSightActor;
 struct CharacterFlamethrowerControl;
 struct CharacterFlamethrowerDispatch;
@@ -247,6 +248,14 @@ s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
 void func_150026C4(s32);
 void func_15002724(s32);
 struct Game1D9F10Record *func_151ACA60(void *, f32, s32);
+/* Callbacks stored in other units' .data tables. */
+void func_150AF2E0(void *, void *);
+void func_150F51A0(s32, s32);
+void func_150F884C(s32, s32);
+void func_151A6B68(struct Game1D3FC0Actor *, s32);
+s32 func_151C9B64(void *, s8 *);
+s32 func_151D7000(u8 *);
+void func_151D70CC(void *, s32, u8);
 /* Game RNG. The raw callee overwrites $a0 at 0x150ADA20 and takes no input.
  * Most callers pass nothing, but some matched callers pass a value, and
  * func_1507EEF4 and func_1507F4C0 (game_AC030.c) match only with it, so this
