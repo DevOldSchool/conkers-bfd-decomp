@@ -434,7 +434,7 @@ def annotate_sdk_literal_candidates(units: list[dict], configs: list[dict]) -> N
         span = spans[0]
         placement_ok = (
             (overlay == 'game' and span.get('kind') == 'external_payload'
-             and span.get('linker_mode') == 'NOLOAD'
+             and span.get('linker_mode') == 'INFO'
              and span.get('evidence_reference') == 'config/game/us-sdk.ld')
             or (overlay == 'main' and span.get('kind') == 'sdk_placement'
                 and span.get('evidence_reference') == 'config/profiles/us.yaml'))

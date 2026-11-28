@@ -81,6 +81,16 @@ def trim_rodata(data: bytes, size: int) -> bytes | None:
     return bytes(result)
 
 
+def trim_object(path: Path, name: str | None = None) -> None:
+    """Trim the object at path in place if a placement names it (default: its file name)."""
+    size = reviewed_sizes(SCRIPT.read_text()).get(name or path.name)
+    if size is None:
+        return
+    trimmed = trim_rodata(path.read_bytes(), size)
+    if trimmed is not None:
+        path.write_bytes(trimmed)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("object", nargs="?", type=Path)
@@ -92,16 +102,11 @@ def main() -> int:
         return 0
     if arguments.object is None:
         parser.error("an object or --list is required")
-    size = sizes.get(arguments.object.name)
-    if size is None:
-        return 0
     try:
-        trimmed = trim_rodata(arguments.object.read_bytes(), size)
+        trim_object(arguments.object)
     except ValueError as error:
         print(f"error: {arguments.object}: {error}", file=sys.stderr)
         return 1
-    if trimmed is not None:
-        arguments.object.write_bytes(trimmed)
     return 0
 
 

@@ -20,6 +20,7 @@ from elf_sections import sections
 import font_assets
 import font_splits
 import texture_build
+import trim_game_rodata
 import model_build
 import model_morph_build
 import event_build
@@ -589,6 +590,13 @@ def prepare_candidates(units: list[dict], *, output: Path | None = None) -> list
                 if result.returncode:
                     unit['compile_error'] = unit['key'] + '/build.log'
                     base.unlink(missing_ok=True)
+                elif unit.get('overlay') == 'game':
+                    # Match the integrated compile step's .rodata word packing.
+                    try:
+                        trim_game_rodata.trim_object(base, source.stem + '.o')
+                    except ValueError as error:
+                        unit['candidate_error'] = f'rodata trim: {error}'
+                        base.unlink(missing_ok=True)
             elif archive:
                 archive_path, member = archive
                 result = subprocess.run(['mips-linux-gnu-ar', 'p', str(archive_path), member],
