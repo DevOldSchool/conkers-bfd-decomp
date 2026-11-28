@@ -124,7 +124,7 @@ class InitializerCopyTests(unittest.TestCase):
         archive.parent.mkdir(parents=True)
         archive.write_bytes(b'test archive')
         payload = self.obj.payload(self.obj.names.index('.rodata'))
-        span = {'section': '.rodata', 'kind': 'external_payload', 'linker_mode': 'NOLOAD',
+        span = {'section': '.rodata', 'kind': 'external_payload', 'linker_mode': 'INFO',
                 'owner': {'archive': 'libultrare', 'member': 'decoder.o'},
                 'evidence_reference': 'config/game/us-sdk.ld', 'candidate_data_relocations': 0,
                 'literal_payload_matches_rom': True, 'size': len(payload),
@@ -134,7 +134,7 @@ class InitializerCopyTests(unittest.TestCase):
         config = {'base_path': 'base.o', 'metadata': {'complete': False}}
         with patch.object(report, 'ROOT', root), patch.object(report, 'OUTPUT', output), \
                 patch.object(report.subprocess, 'check_output', return_value=self.raw):
-            for field, value in (('linker_mode', 'LOAD'), ('literal_payload_matches_rom', False),
+            for field, value in (('linker_mode', 'NOLOAD'), ('literal_payload_matches_rom', False),
                                  ('candidate_data_relocations', 1), ('size', len(payload) - 1),
                                  ('sha256', '0' * 64)):
                 wrong = copy.deepcopy(unit)

@@ -1,7 +1,9 @@
 import struct
 import sys
+import tempfile
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
@@ -63,6 +65,20 @@ class TrimGameRodataTests(unittest.TestCase):
             trim_game_rodata.trim_rodata(data, 0x20)
         with self.assertRaises(ValueError):
             trim_game_rodata.trim_rodata(data, 0x6)
+
+    def test_trim_object_uses_the_named_placement(self):
+        with tempfile.TemporaryDirectory() as directory:
+            script = Path(directory, "rodata.ld")
+            script.write_text(
+                ".game_rodata_1e6260 0x800AA564 (INFO) : SUBALIGN(4) { *game_1E6260.o(.rodata) }\n"
+                'ASSERT(SIZEOF(.game_rodata_1e6260) == 0x4, "x")\n')
+            base = Path(directory, "base.o")
+            base.write_bytes(elf_with_rodata(bytes(range(1, 5)) + bytes(12)))
+            with patch.object(trim_game_rodata, "SCRIPT", script):
+                trim_game_rodata.trim_object(base)
+                self.assertEqual(rodata_header(base.read_bytes()), (0x10, 16))
+                trim_game_rodata.trim_object(base, "game_1E6260.o")
+            self.assertEqual(rodata_header(base.read_bytes()), (0x4, 4))
 
 
 if __name__ == "__main__":
